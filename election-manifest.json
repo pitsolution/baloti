@@ -1,0 +1,131 @@
+{
+    "geopolitical_units": [
+        {
+            "object_id": "geopolitical-unit-unniversity",
+            "name": "Unniversity",
+            "type": "school",
+            "contact_information": {
+                "address_line": [
+                    "Harrison, Hamilton 999999"
+                ],
+                "name": "Unniversity",
+                "email": [
+                    {
+                        "annotation": "inquiries",
+                        "value": "inquiries@harrison.hamilton.state.gov"
+                    }
+                ],
+                "phone": [
+                    {
+                        "annotation": "domestic",
+                        "value": "123-456-7890"
+                    }
+                ]
+            }
+        }
+    ],
+    "parties": [],
+    "candidates": [
+        {
+            "object_id": "benjamin-franklin",
+            "ballot_name": {
+                "text": [
+                    {
+                        "value": "Benjamin Franklin",
+                        "language": "en"
+                    }
+                ]
+            }
+        },
+        {
+            "object_id": "john-adams",
+            "ballot_name": {
+                "text": [
+                    {
+                        "value": "John Adams",
+                        "language": "en"
+                    }
+                ]
+            }
+        }
+    ],
+    "contests": [
+        {
+            "@type": "CandidateContest",
+            "object_id": "unniversity-leader",
+            "sequence_order": 0,
+            "ballot_selections": [
+                {
+                    "object_id": "john-adams-selection",
+                    "sequence_order": 0,
+                    "candidate_id": "john-adams"
+                },
+                {
+                    "object_id": "benjamin-franklin-selection",
+                    "sequence_order": 1,
+                    "candidate_id": "benjamin-franklin"
+                }
+            ],
+            "ballot_title": {
+                "text": [
+                    {
+                        "value": "Leader of teh unniversity",
+                        "language": "en"
+                    }
+                ]
+            },
+            "ballot_subtitle": {
+                "text": [
+                    {
+                        "value": "Please choose on candidate",
+                        "language": "en"
+                    }
+                ]
+            },
+            "vote_variation": "one_of_m",
+            "electoral_district_id": "geopolitical-unit-unniversity",
+            "name": "Leader of the unniversity",
+            "number_elected": 1,
+            "votes_allowed": 1
+        }
+    ],
+    "ballot_styles": [
+        {
+            "object_id": "ballot-style",
+            "geopolitical_unit_ids": [
+                "geopolitical-unit-unniversity"
+            ]
+        }
+    ],
+    "name": {
+        "text": [
+            {
+                "value": "Unniversity leader",
+                "language": "en"
+            }
+        ]
+    },
+    "contact_information": {
+        "address_line": [
+            "1234 Paul Revere Run"
+        ],
+        "name": "Unniversity Election Commission",
+        "email": [
+            {
+                "annotation": "federal",
+                "value": "commissioner@hamilton.state.gov"
+            }
+        ],
+        "phone": [
+            {
+                "annotation": "domestic",
+                "value": "123-456-7890"
+            }
+        ]
+    },
+    "start_date": "2020-03-01T08:00:00-05:00",
+    "end_date": "2020-03-01T20:00:00-05:00",
+    "election_scope_id": "unniversity-leader-scope",
+    "type": "primary"
+}
+

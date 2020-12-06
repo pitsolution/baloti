@@ -1,0 +1,6 @@
+```
+pip install --user electionguard
+git clone https://gitlab.com/electisNGO/elicteez
+cd elicteez
+python test.py
+```
