@@ -3,25 +3,7 @@
         {
             "object_id": "geopolitical-unit-unniversity",
             "name": "Unniversity",
-            "type": "school",
-            "contact_information": {
-                "address_line": [
-                    "Harrison, Hamilton 999999"
-                ],
-                "name": "Unniversity",
-                "email": [
-                    {
-                        "annotation": "inquiries",
-                        "value": "inquiries@harrison.hamilton.state.gov"
-                    }
-                ],
-                "phone": [
-                    {
-                        "annotation": "domestic",
-                        "value": "123-456-7890"
-                    }
-                ]
-            }
+            "type": "school"
         }
     ],
     "parties": [],
@@ -102,24 +84,6 @@
             {
                 "value": "Unniversity leader",
                 "language": "en"
-            }
-        ]
-    },
-    "contact_information": {
-        "address_line": [
-            "1234 Paul Revere Run"
-        ],
-        "name": "Unniversity Election Commission",
-        "email": [
-            {
-                "annotation": "federal",
-                "value": "commissioner@hamilton.state.gov"
-            }
-        ],
-        "phone": [
-            {
-                "annotation": "domestic",
-                "value": "123-456-7890"
             }
         ]
     },
