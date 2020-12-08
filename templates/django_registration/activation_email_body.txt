@@ -1,0 +1,1 @@
+{{ site_url }}{{ url('django_registration_activate', args=[activation_key]) }}

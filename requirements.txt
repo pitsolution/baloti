@@ -1,0 +1,10 @@
+django
+django-debug-toolbar
+django-extensions
+django-jinja
+django-registration
+jinja2
+
+pytest
+pytest-django
+pytest-watch

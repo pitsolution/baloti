@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section>
+    <header>
+        <h1>Contests on this Electeez site</h1>
+    </header>
+    <table>
+        <thead>
+            <tr>
+                <th>Contest title</th>
+                <th>Contest state</th>
+            </tr>
+        </thead>
+        {% for obj in object_list %}
+        <tr>
+            <td>
+                <a href="{{ obj.get_absolute_url() }}">{{ obj.name }}</a>
+            </td>
+            <td>
+                {{ obj.state }}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</section>
+
+{% endblock %}

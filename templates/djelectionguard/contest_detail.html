@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section>
+    <header>
+        <h1>Contest: {{ object }}</h2>
+    </header>
+    <ul>
+        {% for candidate in contest.candidate_set.all() %}
+        <li>{{ candidate }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url('contest_manifest', args=[object.pk]) }}"
+</section>
+{% endblock %}

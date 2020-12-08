@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Secure Elections{% endblock %} - Electeez</title>
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css">
+    <style type="text/css">
+    nav {
+        margin-bottom: 0;
+    }
+    .errorlist {
+        color: red;
+        font-weight: bolder;
+    }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="https://andybrewer.github.io/mvp/"><img alt="MVP.css" src="{{ static('logo.png') }}" height="70"></a>
+            <ul>
+                <li><a href="{{ url('contest_list') }}">Contests</a></li>
+                {% if not request.user.is_authenticated %}
+                <li><a href="{{ url('login') }}">Login</a></li>
+                <li><a href="{{ url('django_registration_register') }}">Signup</a></li>
+                {% else %}
+                <li><a href="{{ url('logout') }}">Logout</a></li>
+                <li>{{ request.user }}</li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <hr>
+        <p>
+            Made by <a href="https://www.electis.io/" target="_blank">Electis.io
+                &nearr;</a><br>
+        </p>
+    </footer>
+</body>
+</html>

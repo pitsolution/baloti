@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section>
+    <header>
+        <h1>You have been logged out</h1>
+        <p>Thank you for spending some time on our site today.</p>
+        <br>
+        <p>
+            <a href="{{ url('login') }}"><b>Login again</b></a>
+        </p>
+    </header>
+</section>
+
+{% endblock %}

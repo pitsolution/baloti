@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section>
+    <form method="post" action="{{ request.path_info }}">
+        {{ form.as_p() }}
+        {{ csrf_input }}
+        <input type="submit" value="{% block submit_label %}{% endblock %}" />
+    </form>
+</section>
+{% endblock %}
