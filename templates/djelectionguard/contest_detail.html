@@ -1,15 +1,260 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<section>
-    <header>
-        <h1>Contest: {{ object }}</h2>
-    </header>
-    <ul>
+<header>
+    <h1>Contest: {{ object }}</h2>
+    <table>
+        <tr>
+            <th>Start</th>
+            <td>{{ object.start }}</td>
+        </tr>
+        <tr>
+            <th>End</th>
+            <td>{{ object.end }}</td>
+        </tr>
+        <tr>
+            <th>Number of elected</th>
+            <td>{{ object.number_elected }}</td>
+        </tr>
+        <tr>
+            <th>Votes allowed</th>
+            <td>{{ object.votes_allowed }}</td>
+        </tr>
+        <tr>
+            <th>Number of Guardians</th>
+            <td>{{ object.number_guardians }}</td>
+        </tr>
+        <tr>
+            <th>Quorum</th>
+            <td>{{ object.quorum }}</td>
+        </tr>
+        <tr>
+            <th>Mediator</th>
+            <td>{{ object.mediator }}</td>
+        </tr>
+    </table>
+
+    <br>
+
+    {% if contest.candidate_set.all() %}
+    <h2>Candidates</h2>
+    <table>
+        <thead>
+            <th>Candidate Name</th>
+            {% if contest.mediator == request.user and not contest.actual_start %}
+            <th>Remove</th>
+            {% endif %}
+            {% if object.plaintext_tally %}
+            <th>Tally</th>
+            {% endif %}
+        </thead>
         {% for candidate in contest.candidate_set.all() %}
-        <li>{{ candidate }}</li>
+        <tr>
+            <td>
+                {{ candidate }}
+            </td>
+            {% if contest.mediator == request.user and not contest.actual_start %}
+            <td>
+                <a
+                    href="{{ url('contest_candidate_delete', args=[candidate.pk]) }}"
+                    title="Remove candidate {{ candidate }}"
+                    style="color: red"
+                >✖</a>
+            </td>
+            {% endif %}
+            {% if object.plaintext_tally %}
+            <td>{{ candidate.score }}</td>
+            {% endif %}
+        </tr>
         {% endfor %}
-    </ul>
-    <a href="{{ url('contest_manifest', args=[object.pk]) }}"
-</section>
+    </table>
+    {% else %}
+    <h2>No Candidates yet !</h2>
+    {% endif %}
+    {% if request.user == contest.mediator and not contest.actual_start %}
+        <br>
+        <a href="{{ url('contest_candidate_create', args=[object.pk]) }}"><b>Add New Candidate</b></a>
+    {% endif %}
+    <br>
+
+    <br>
+    <h2>Voters: {{ len(contest.voters_emails.split('\n')) }}</h2>
+    {% if len(contest.voters_emails.split('\n')) == 2 %}
+    <p>
+    You have added no voter! You need to add a list of voters by email before
+    you can start the election.
+    </p>
+    {% endif %}
+    {% if contest.actual_start %}
+    <a href="{{ url('contest_voters_detail', args=[object.pk]) }}">View voters</a>
+    {% else %}
+    <a href="{{ url('contest_voters_update', args=[object.pk]) }}"><i>Manage voters</i></a>
+    {% endif %}
+
+    {% if contest.guardian_set.all() %}
+        {% if not contest.actual_end %}
+            <h2>Guardians</h2>
+            <table>
+                <thead>
+                    <th>Username</th>
+                    <th>Downloaded</th>
+                    <th>Verified</th>
+                    <th>Erased</th>
+                </thead>
+                {% for guardian in contest.guardian_set.all() %}
+                <tr>
+                    <td>{{ guardian }}</td>
+                    {% if guardian.user == request.user %}
+                        {% if guardian.erased %}
+                        <td>{{ guardian.downloaded }}</td>
+                        <td>{{ guardian.verified }}</td>
+                        <td>{{ guardian.erased }}</td>
+                        {% else %}
+                        <td>
+                            {% if guardian.downloaded %}
+                                {{ guardian.downloaded }}
+                                <a
+                                    href="{{ url('guardian_download', args=[guardian.pk]) }}"
+                                    title="Download your Guardian keypair again"
+                                >↓</a>
+                            {% else %}
+                                <a
+                                    href="{{ url('guardian_download', args=[guardian.pk]) }}"
+                                    title="Download your Guardian keypair"
+                                >Download now ↓</a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if guardian.downloaded and guardian.verified %}
+                                {{ guardian.verified }}
+                                <a
+                                    href="{{ url('guardian_verify', args=[guardian.pk]) }}"
+                                    title="Verify your downloaded Guardian keypair"
+                                >↑</a>
+                            {% else %}
+                                <a
+                                    href="{{ url('guardian_verify', args=[guardian.pk]) }}"
+                                    title="Verify your downloaded Guardian keypair"
+                                >Verify now ↑</a>
+                            {% endif %}
+                        </td>
+                        <td>{{ guardian.erased or 'N/A' }}</td>
+                        {% endif %}
+                    {% else %}
+                    <td>{{ guardian.downloaded or 'N/A' }}</td>
+                    <td>{{ guardian.verified or 'N/A' }}</td>
+                    <td>{{ guardian.erased or 'N/A' }}</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <h2>Guardians</h2>
+            <table>
+                <thead>
+                    <th>Username</th>
+                    <th>Uploaded</th>
+                    <th>Erased</th>
+                </thead>
+                {% for guardian in contest.guardian_set.all() %}
+                <tr>
+                    <td>{{ guardian }}</td>
+                    {% if guardian.user == request.user %}
+                        {% if guardian.uploaded_erased %}
+                        <td>{{ guardian.uploaded }}</td>
+                        <td>{{ guardian.uploaded_erased }}</td>
+                        {% else %}
+                        <td>
+                            {% if guardian.uploaded %}
+                                {{ guardian.uploaded }}
+                                <a
+                                    href="{{ url('guardian_upload', args=[guardian.pk]) }}"
+                                    title="Upload your Guardian keypair again"
+                                >↑</a>
+                            {% else %}
+                                <a
+                                    href="{{ url('guardian_upload', args=[guardian.pk]) }}"
+                                    title="Upload your Guardian keypair again"
+                                >Upload now ↑</a>
+                            {% endif %}
+                        </td>
+                        <td>{{ guardian.uploaded_erased or 'N/A' }}</td>
+                        {% endif %}
+                    {% else %}
+                    <td>{{ guardian.uploaded or 'N/A' }}</td>
+                    <td>{{ guardian.uploaded_erased or 'N/A' }}</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+            {% if not contest.plaintext_tally %}
+                {% if contest.guardian_set.filter(uploaded=None).count() == 0 %}
+                <h2>Ready to decrypt tally</h2>
+                <a href="{{ url('contest_decrypt', args=[object.pk]) }}"><b>DECRYPT tally</b></a>
+                {% endif %}
+            {% else %}
+                <h2>Tally decrypted with success!</h2>
+                <p>Congratulations! you have been the mediator of a secure election.</p>
+            {% endif %}
+        {% endif %}
+        <br>
+        {% if contest.joint_public_key %}
+            {% if contest.candidate_set.count() <= contest.number_elected %}
+            <h2>Key Ceremony complete</h2>
+            <p>Congratulations! But you will need to add at least {{ contest.number_elected + 1 }} candidates before you can start the contest.</p>
+            {% elif not contest.actual_start %}
+            <h2>Key Ceremony complete</h2>
+            <p>Contest is ready to take ballots!</p>
+            <br>
+            <a
+                href="{{ url('contest_open', args=[contest.pk]) }}"
+            ><b>Open Contest</b></a>
+            {% elif not contest.actual_end %}
+            <p>Votes are OPEN!</p>
+            <a
+                href="{{ url('contest_close', args=[contest.pk]) }}"
+            ><b>Close Contest</b></a>
+            {% endif %}
+        {% elif contest.guardian_set.filter(verified=None).count() == 0 %}
+        <h3>Guardian Key Ceremony almost complete!</h3>
+        <p>Congratulations! All Guardians have successfully downloaded their keys!</p>
+        <p>Now we need to create the joint public key and remove the private keys from the server RAM.</p>
+        <br>
+        <a
+            href="{{ url('contest_pubkey', args=[contest.pk]) }}"
+        ><b>Create Joint Public Key</b></a>
+        {% else %}
+        <h3>Guardian Key Ceremony ongoing</h3>
+        <p>
+            To complete the Key Ceremony, all guardians must download their
+            PRIVATE keypair, then upload it in the "verify" form.
+        </p>
+        <p>
+            Needless to say, they must NOT loose the keypair and they must keep
+            it secret.
+        </p>
+        <p>
+            Then, you will be able to finish the ceremony.
+        </p>
+        {% endif %}
+    {% endif %}
+
+    {% if can_vote %}
+        <a
+            href="{{ url('contest_vote', args=[contest.pk]) }}"
+        ><b>VOTE</b></a>
+    {% elif casted %}
+        <h1>You have voted!</h1>
+        <p>Your vote was casted: {{ casted }}</p>
+    {% endif %}
+
+    {% if object.plaintext_tally %}
+        <a href="/media/contest-{{ object.pk }}.zip"><b>Download published artifacts</b></a>
+    {% endif %}
+</header>
+{% endblock %}
+
+{% block footer %}
+<a href="{{ url('contest_manifest', args=[object.pk]) }}">Download ElectionGuard Manifest</a>
+{{ super() }}
 {% endblock %}

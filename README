@@ -1,6 +1,29 @@
 ```
-pip install --user electionguard
-git clone https://gitlab.com/electisNGO/elicteez
+git clone https://gitlab.com/electisNGO/electeez
+
 cd elicteez
+pip install --user wheel
+pip install --user -r requirements.txt
+# note that the above might fail if you are missing packages
+# see microsoft/electionguard-python for details about packages you might need
+# you might need other packages, check the error log if any
+
+# run the electionguard demo script if you want
 python test.py
+
+# install and start memcached
+sudo apt install memcached
+systemctl enable memcached
+systemctl start memcached
+
+# configure db schema
+./manage.py migrate
+
+# create an admin user
+./manage.py createsuperuser
+
+# run the development server
+./manage.py runserver
+
+# open localhost:8000
 ```

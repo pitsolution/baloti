@@ -58,6 +58,12 @@ TEMPLATES = [
         ],
         'OPTIONS': {
             'environment': 'electeez.settings.jinja2',
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
         }
     },
     {
@@ -83,6 +89,7 @@ def jinja2(**options):
     env.globals.update({
         'static': static,
         'url': reverse,
+        'len': len,
         'site_url': 'http://localhost:8000',
     })
     return env
@@ -153,3 +160,6 @@ if EMAIL_HOST:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section>
+    <form method="post" action="{{ request.path_info }}">
+        {{ csrf_input }}
+        Delete {{ object }} ?
+        <input type="submit" value="Confirm" />
+    </form>
+</section>
+{% endblock %}

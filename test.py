@@ -1,5 +1,6 @@
 import json
 import uuid
+import pickle
 import os
 
 
@@ -20,6 +21,7 @@ builder = ElectionBuilder(
 
 from electionguard.guardian import Guardian
 guardians = [Guardian('guardian', 0, number_of_guardians, qorum)]
+guardians_pickled = pickle.dumps(guardians)
 
 # Create Joint Public key
 from electionguard.key_ceremony import CeremonyDetails
@@ -106,6 +108,9 @@ for ballot in store.all():
 
 from electionguard.decryption_mediator import DecryptionMediator
 decryption_mediator = DecryptionMediator(metadata, context, tally)
+
+# guardians are back
+guardians = pickle.loads(guardians_pickled)
 
 # Decrypt the tally with available guardian keys
 decryption_share = decryption_mediator.announce(guardians[0])

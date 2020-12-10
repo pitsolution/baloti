@@ -2,8 +2,11 @@ django
 django-debug-toolbar
 django-extensions
 django-jinja
+django-picklefield
 django-registration
+electionguard
 jinja2
+pymemcache
 
 pytest
 pytest-django

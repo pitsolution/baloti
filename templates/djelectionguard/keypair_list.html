@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>
+    This is the list of your Guardian Keypairs, you should have one per Contest
+    your are Guardian for, and follow this process for each Keypair:
+</p>
+<ol>
+    <li>Download the keypair file</li>
+    <li>Use the "verify" form to upload your keypair file</li>
+    <li>If "verify" says that the file does not match your keypair, try downloading again</li>
+</ol>
+<p>
+    Once every guardian has download and verified their keypair, Electis will create
+    the joint public key and delete them from the server. Do not loose your
+    keypair ! It is needed to compute the tally !
+</p>
+
+<table>
+    <thead>
+        <th>Contest</th>
+        <th>Download</th>
+        <th>Downloaded</th>
+        <th>Verify</th>
+        <th>Verified</th>
+        <th>Erased</th>
+    </thead>
+    {% for keypair in object_list %}
+    <tr>
+        <td>
+            <a href="{{ keypair.contest.get_absolute_url() }}">{{ keypair.contest }}</a>
+        </td>
+        <td>
+            {% if keypair.guardian %}
+            <a href="{{ url('keypair_download', args=[keypair.pk]) }}">Download</a>
+            {% endif %}
+        </td>
+        <td>{{ keypair.downloaded or 'To do!' }}</td>
+        <td>
+            <a href="{{ url('keypair_verify', args=[keypair.pk]) }}">Verify</a>
+        </td>
+        <td>{{ keypair.verified or 'To do!' }}</td>
+        <td>{{ keypair.erased or 'Pending' }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

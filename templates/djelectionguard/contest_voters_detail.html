@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<header>
+    <h1>Contest: {{ object }}</h2>
+    <table>
+        <thead>
+            <tr>
+                <td>Email</td>
+                <td>Registered</td>
+                <td>Activated</td>
+            </tr>
+        </thead>
+        {% for email, data in users.items() %}
+        <tr>
+            <td>{{ email }}</td>
+            <td>{{ data['registered'] }}</td>
+            <td>{{ data['activated'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</header>
+{% endblock %}

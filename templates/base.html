@@ -13,6 +13,26 @@
         color: red;
         font-weight: bolder;
     }
+    form li {
+        list-style-type: none;
+    }
+
+    article aside.success {
+        background: #bdffbd;
+        border-left: 4px solid #1fd01f;
+    }
+    article aside.info {
+        background: #fff8bd;
+        border-left: 4px solid #ffe50d;
+    }
+    article aside.warning {
+        background: #fcdabc;
+        border-left: 4px solid #ff7801;
+    }
+    article aside.error {
+        background: #ffc9c9;
+        border-left: 4px solid #f00;
+    }
     </style>
 </head>
 
@@ -21,11 +41,12 @@
         <nav>
             <a href="https://andybrewer.github.io/mvp/"><img alt="MVP.css" src="{{ static('logo.png') }}" height="70"></a>
             <ul>
-                <li><a href="{{ url('contest_list') }}">Contests</a></li>
                 {% if not request.user.is_authenticated %}
                 <li><a href="{{ url('login') }}">Login</a></li>
                 <li><a href="{{ url('django_registration_register') }}">Signup</a></li>
                 {% else %}
+                <li><a href="{{ url('contest_list') }}">Contests</a></li>
+                <li><a href="{{ url('contest_create') }}">New contest</a></li>
                 <li><a href="{{ url('logout') }}">Logout</a></li>
                 <li>{{ request.user }}</li>
                 {% endif %}
@@ -33,15 +54,26 @@
         </nav>
     </header>
     <main>
+        {% if messages %}
+        <article>
+            {% for message in messages %}
+            <aside {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                <p>{{ message }}</p>
+            </aside>
+            {% endfor %}
+        </article>
+        {% endif %}
         {% block content %}
         {% endblock %}
     </main>
     <footer>
         <hr>
+        {% block footer %}
         <p>
             Made by <a href="https://www.electis.io/" target="_blank">Electis.io
                 &nearr;</a><br>
         </p>
+        {% endblock %}
     </footer>
 </body>
 </html>

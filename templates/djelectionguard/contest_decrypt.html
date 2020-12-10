@@ -1,0 +1,9 @@
+{% extends 'form.html' %}
+
+{% block form_open %}
+{{ super() }}
+<h2>Decrypt tally for {{ object }}</h2>
+<p>Use the Guardian keys to decrypt the tally, this process will erase the guardian keys from memory</p>
+{% endblock %}
+
+{% block submit_label %}Compute tally{% endblock %}
