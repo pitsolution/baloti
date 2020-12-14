@@ -258,7 +258,7 @@ class Guardian(models.Model):
         ordering = ['created']
 
     def delete_keypair(self):
-        Client('localhost').delete(str(self.pk))
+        Client(settings.MEMCACHED_HOST).delete(str(self.pk))
         if not self.uploaded:
             self.erased = timezone.now()
         else:
@@ -266,12 +266,12 @@ class Guardian(models.Model):
         self.save()
 
     def upload_keypair(self, content):
-        Client('localhost').set(str(self.pk), content)
+        Client(settings.MEMCACHED_HOST).set(str(self.pk), content)
         self.uploaded = timezone.now()
         self.save()
 
     def get_keypair(self):
-        client = Client('localhost')
+        client = Client(settings.MEMCACHED_HOST)
         result = client.get(str(self.pk))
         if not result:
             from electionguard.guardian import Guardian

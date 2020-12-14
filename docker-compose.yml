@@ -34,6 +34,7 @@ services:
     - EMAIL_USE_TLS
     - EMAIL_PORT
     - DEFAULT_FROM_EMAIL
+    - MEMCACHED_HOST=memcached
 
   memcached:
     logging:

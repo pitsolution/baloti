@@ -111,6 +111,7 @@ DATABASES = {
     }
 }
 
+MEMCACHED_HOST = os.getenv('MEMCACHED_HOST', 'localhost')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

@@ -389,7 +389,7 @@ class ContestVoteView(ContestQuerySetMixin, FormMixin, generic.DetailView):
             selection.pk
             for selection in form.cleaned_data['selections']
         ])
-        client = Client('localhost')
+        client = Client(settings.MEMCACHED_HOST)
         client.set(
             f'{obj.pk}-{self.request.user.pk}',
             ballot.to_json(),
