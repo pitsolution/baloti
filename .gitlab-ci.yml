@@ -16,6 +16,7 @@ master:
     - mkdir -p ~/.ssh; echo "$MASTER_SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
   script:
     - export $(echo $MASTER_ENV | xargs)
+    - export $(echo $SMTP | xargs)
     - HOST=master.electeez.com
       PROTO=https
       DEFAULT_FROM_EMAIL=noreply@electeez.com
@@ -44,9 +45,8 @@ production:
   before_script:
     - mkdir -p ~/.ssh; echo "$PRODUCTION_SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
   script:
-    # not needed for now
-    # - export $(echo $PROD_EMAIL_SETTINGS | xargs)
     - export $(echo $PROD_ENV | xargs)
+    - export $(echo $SMTP | xargs)
     - HOST=electeez.com
       PROTO=https
       DEFAULT_FROM_EMAIL=noreply@electeez.com
