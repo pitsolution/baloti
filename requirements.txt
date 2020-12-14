@@ -4,6 +4,7 @@ django-extensions
 django-jinja
 django-picklefield
 django-registration
+djcli
 electionguard
 jinja2
 pymemcache
