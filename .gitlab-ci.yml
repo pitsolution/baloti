@@ -1,0 +1,69 @@
+stages: [build, test, deploy, production]
+
+build:
+  image: docker:dind
+  stage: build
+  script:
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
+
+master:
+  image: yourlabs/ansible
+  stage: deploy
+  environment:
+    name: master
+    url: https://master.electeez.com
+  only:
+    refs:
+      - master
+  before_script:
+    - mkdir -p ~/.ssh; echo "$MASTER_SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
+  script:
+    - export $(echo $MASTER_ENV | xargs)
+    - export $(echo $SMTP | xargs)
+    - HOST=master.electeez.com
+      PROTO=https
+      DEFAULT_FROM_EMAIL=noreply@electeez.com
+      ANSIBLE_FORCE_COLOR=1
+      bigsudo
+        yourlabs.compose
+        home=/home/master
+        compose_django_image=$CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+        compose_django_build=
+        compose=docker-compose.yml,docker-compose.persist.yml
+        wait_grep=uwsgi
+        master@electeez.com
+        | tee deploy.log
+    - grep unreachable=0 deploy.log &> /dev/null
+    - grep failed=0 deploy.log &> /dev/null
+
+production:
+  image: yourlabs/ansible
+  stage: production
+  environment:
+    name: production
+    url: https://electeez.com
+  when: manual
+  only:
+    refs:
+      - master
+      - production
+  before_script:
+    - mkdir -p ~/.ssh; echo "$PRODUCTION_SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
+  script:
+    - export $(echo $PROD_ENV | xargs)
+    - export $(echo $SMTP | xargs)
+    - HOST=electeez.com
+      PROTO=https
+      DEFAULT_FROM_EMAIL=noreply@electeez.com
+      ANSIBLE_FORCE_COLOR=1
+      bigsudo
+        yourlabs.compose
+        home=/home/production
+        compose_django_image=$CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+        compose_django_build=
+        compose=docker-compose.yml,docker-compose.persist.yml
+        wait_grep=uwsgi
+        production@electeez.com
+        | tee deploy.log
+    - grep unreachable=0 deploy.log &> /dev/null
+    - grep failed=0 deploy.log &> /dev/null
