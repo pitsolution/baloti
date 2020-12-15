@@ -5,8 +5,8 @@ import shutil
 
 from django import forms
 from django import http
+from django.apps import apps
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.contrib import messages
 from django.conf import settings
 from django.db import transaction
@@ -697,6 +697,7 @@ class ContestVotersDetailView(ContestQuerySetMixin, generic.DetailView):
                 'activated': False,
             } for email in emails
         }
+        User = apps.get_model(settings.AUTH_USER_MODEL)
         for user in User.objects.filter(email__in=emails):
             context['users'][user.email]['registered'] = True
             context['users'][user.email]['activated'] = user.is_active

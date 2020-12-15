@@ -21,6 +21,7 @@ LOGIN_REDIRECT_URL = '/'
 USE_X_FORWARDED_HOST = True
 
 INSTALLED_APPS = [
+    'electeez_auth',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -32,6 +33,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'django_jinja',
 ]
+
+AUTH_USER_MODEL = 'electeez_auth.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
