@@ -90,7 +90,7 @@ def jinja2(**options):
         'static': static,
         'url': reverse,
         'len': len,
-        'site_url': 'http://localhost:8000',
+        'PROTO': os.getenv('PROTO', 'http'),
     })
     return env
 
