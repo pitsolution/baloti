@@ -415,7 +415,7 @@ class ContestBallotCastView(ContestQuerySetMixin, FormMixin, generic.DetailView)
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        client = Client('localhost')
+        client = Client(settings.MEMCACHED_HOST)
 
         ballot = CiphertextBallot.from_json(
             client.get(f'{self.object.pk}-{self.request.user.pk}')
@@ -453,7 +453,7 @@ class ContestBallotCastView(ContestQuerySetMixin, FormMixin, generic.DetailView)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        client = Client('localhost')
+        client = Client(settings.MEMCACHED_HOST)
         context['ballot'] = CiphertextBallot.from_json(
             client.get(f'{self.object.pk}-{self.request.user.pk}')
         )
@@ -477,7 +477,7 @@ class ContestBallotEncryptView(ContestQuerySetMixin, FormMixin, generic.DetailVi
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
 
-        client = Client('localhost')
+        client = Client(settings.MEMCACHED_HOST)
         ballot = PlaintextBallot.from_json(
             client.get(f'{self.object.pk}-{self.request.user.pk}')
         )
@@ -492,7 +492,7 @@ class ContestBallotEncryptView(ContestQuerySetMixin, FormMixin, generic.DetailVi
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        client = Client('localhost')
+        client = Client(settings.MEMCACHED_HOST)
         context['ballot'] = PlaintextBallot.from_json(
             client.get(f'{self.object.pk}-{self.request.user.pk}')
         )
