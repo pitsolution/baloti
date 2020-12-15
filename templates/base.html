@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Secure Elections{% endblock %} - Electeez</title>
+    <title>{% block title %}{{ title|default('Secure slections with homomorphic encryption') }}{% endblock %} - Electeez</title>
     <link rel="stylesheet" href="https://unpkg.com/mvp.css">
     <style type="text/css">
     nav {
@@ -39,7 +39,8 @@
 <body>
     <header>
         <nav>
-            <a href="https://andybrewer.github.io/mvp/"><img alt="MVP.css" src="{{ static('logo.png') }}" height="70"></a>
+            <a href="{{ PROTO }}://{{ request.get_host() }}">
+                <img alt="Electeez: secure slections with homomorphic encryption" src="{{ static('logo.png') }}" height="70"></a>
             <ul>
                 {% if not request.user.is_authenticated %}
                 <li><a href="{{ url('login') }}">Login</a></li>
