@@ -1,7 +1,98 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% if contest.mediator == request.user %}
+    {% if len(contest.candidate_set.all()) <= contest.number_elected %}
+    <article>
+        <aside class="info">
+            <p>
+            You need to add a Candidate
+            <a href="{{ url('contest_candidate_create', args=[object.pk]) }}"><b>Add New Candidate</b></a>
+            </p>
+        </aside>
+    </article>
+    {% elif not contest.voters_emails %}
+    <article>
+        <aside class="info">
+            <p>
+            You need to add voters
+            <a href="{{ url('contest_voters_update', args=[object.pk]) }}"><b>Manage voters</b></a>
+            </p>
+        </aside>
+    </article>
+    {% elif not contest.joint_public_key %}
+    <article>
+        <aside class="info">
+            <p>
+            {% if contest.guardian_set.filter(verified=None).count() > 0 %}
+            You need to proceed with the key ceremony
+            <a href="#ceremony"><b>Go to key ceremony</b></a>
+            {% else %}
+            You need to create the joint public key
+            <a
+                href="{{ url('contest_pubkey', args=[contest.pk]) }}"
+            ><b>Create Joint Public Key</b></a>
+            {% endif %}
+            </p>
+        </aside>
+    </article>
+    {% elif not contest.actual_start %}
+    <article>
+        <aside class="info">
+            <p>
+            You may open the Contest for vote
+            <a
+                href="{{ url('contest_open', args=[contest.pk]) }}"
+            ><b>Open Contest</b></a>
+            </p>
+        </aside>
+    </article>
+    {% elif not contest.actual_end %}
+    <article>
+        <aside class="success">
+            <p>The voting process is currently ongoing!</p>
+        </aside>
+        <aside class="info">
+            <p>
+            You may CLOSE the Contest for vote
+            <a
+                href="{{ url('contest_close', args=[contest.pk]) }}"
+            ><b>Close Contest</b></a>
+            </p>
+        </aside>
+    </article>
+    {% elif not contest.plaintext_tally %}
+    <article>
+        <aside class="success">
+            <p>The voting process is over</p>
+        </aside>
+        <aside class="info">
+            <p>
+            {% if contest.guardian_set.filter(uploaded=None).count() > 0 %}
+                You need to proceed with the key ceremony
+                <a href="#ceremony"><b>Go to key ceremony</b></a>
+            {% else %}
+                <p>You need to decrypt the tally</p>
+                <a href="{{ url('contest_decrypt', args=[object.pk]) }}"><b>Decrypt tally</b></a>
+            {% endif %}
+            </p>
+        </aside>
+    {% endif %}
+{% endif %}
+
 <header>
+    {% if can_vote %}
+        <a
+            href="{{ url('contest_vote', args=[contest.pk]) }}"
+        ><b>VOTE</b></a>
+    {% elif casted %}
+        <h1>You have voted!</h1>
+        <p>Your vote was casted: {{ casted }}</p>
+    {% endif %}
+    {% if object.plaintext_tally %}
+        <a href="/media/contest-{{ object.pk }}.zip"><b>Download published artifacts</b></a>
+    {% endif %}
+
     <h1>Contest: {{ object }}</h2>
     <table>
         <tr>
@@ -91,6 +182,7 @@
     <a href="{{ url('contest_voters_update', args=[object.pk]) }}"><i>Manage voters</i></a>
     {% endif %}
 
+    <a id="ceremony"></a>
     {% if contest.guardian_set.all() %}
         {% if not contest.actual_end %}
             <h2>Guardians</h2>
@@ -237,19 +329,6 @@
             Then, you will be able to finish the ceremony.
         </p>
         {% endif %}
-    {% endif %}
-
-    {% if can_vote %}
-        <a
-            href="{{ url('contest_vote', args=[contest.pk]) }}"
-        ><b>VOTE</b></a>
-    {% elif casted %}
-        <h1>You have voted!</h1>
-        <p>Your vote was casted: {{ casted }}</p>
-    {% endif %}
-
-    {% if object.plaintext_tally %}
-        <a href="/media/contest-{{ object.pk }}.zip"><b>Download published artifacts</b></a>
     {% endif %}
 </header>
 {% endblock %}
