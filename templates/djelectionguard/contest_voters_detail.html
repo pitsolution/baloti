@@ -2,34 +2,34 @@
 
 {% block content %}
 <header>
-    <h1>Contest: {{ object }}</h2>
-    {% if users %}
-    <table>
-        <thead>
+    <h1>Election: {{ object }}</h2>
+        {% if users %}
+        <table>
+            <thead>
+                <tr>
+                    <td>Email</td>
+                    <td>Registered</td>
+                    <td>Activated</td>
+                </tr>
+            </thead>
+            {% for email, data in users.items() %}
             <tr>
-                <td>Email</td>
-                <td>Registered</td>
-                <td>Activated</td>
+                <td>{{ email }}</td>
+                <td>{{ data['registered'] }}</td>
+                <td>{{ data['activated'] }}</td>
             </tr>
-        </thead>
-        {% for email, data in users.items() %}
-        <tr>
-            <td>{{ email }}</td>
-            <td>{{ data['registered'] }}</td>
-            <td>{{ data['activated'] }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    {% else %}
-    <article>
-        <aside class="info">
-            <p>
-                No voter added yet
-                <a href="{{ url('contest_voters_update', args=[object.pk]) }}"><b>Add voters</b></a>
-            </p>
-        </aside>
-    </article>
-    {% endif %}
-    <a href="{{ object.get_absolute_url() }}">Back to contest</a>
+            {% endfor %}
+        </table>
+        {% else %}
+        <article>
+            <aside class="info">
+                <p>
+                    No voter added yet
+                    <a href="{{ url('contest_voters_update', args=[object.pk]) }}"><b>Add voters</b></a>
+                </p>
+            </aside>
+        </article>
+        {% endif %}
+        <a href="{{ object.get_absolute_url() }}">Back to contest</a>
 </header>
 {% endblock %}

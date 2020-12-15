@@ -4,8 +4,8 @@
 <section>
     <form method="post" action="{{ request.path_info }}">
         {{ csrf_input }}
-        Delete {{ object }} ?
-        <input type="submit" value="Confirm" />
+        Do you want delete the candidate named : {{ object }} ?
+        <input type="submit" value="Yes, delete" />
     </form>
 </section>
 {% endblock %}

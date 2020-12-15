@@ -391,7 +391,7 @@ class ContestVoteMixin:
 
 
 class ContestVoteView(ContestVoteMixin, FormMixin, generic.DetailView):
-    template_name = 'form.html'
+    template_name = 'djelectionguard/contest_new_vote.html'
 
     def get_form(self, form_class=None):
         class FormClass(forms.Form):
@@ -502,7 +502,7 @@ class ContestBallotCastView(ContestBallotMixin, FormMixin, generic.DetailView):
     template_name = 'djelectionguard/contest_ballot_cast.html'
 
     class form_class(forms.Form):
-        submit_label = 'Cast my ballot'
+        submit_label = 'My encrypted ballot'
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -629,7 +629,7 @@ class ContestCandidateDeleteView(ContestMediator, generic.DeleteView):
 
 
 class GuardianVerifyView(generic.UpdateView):
-    template_name = 'form.html'
+    template_name = 'djelectionguard/contest_form_upload_key.html'
 
     def get_queryset(self):
         return self.request.user.guardian_set.filter(uploaded_erased=None)
@@ -672,7 +672,7 @@ class GuardianVerifyView(generic.UpdateView):
 
 
 class GuardianUploadView(generic.UpdateView):
-    template_name = 'form.html'
+    template_name = 'djelectionguard/contest_form_upluoad_close.html'
 
     def get_queryset(self):
         return self.request.user.guardian_set.filter(uploaded_erased=None)
@@ -759,17 +759,16 @@ class ContestVotersDetailView(ContestMediator, generic.DetailView):
 
 
 class ContestVotersUpdateView(ContestMediator, generic.UpdateView):
-    template_name = 'form.html'
+    template_name = 'djelectionguard/contest_add_voters_email.html'
 
     class form_class(forms.ModelForm):
         submit_label = 'Update voters'
-        help_text = 'Set the list of allowed voters by email'
 
         class Meta:
             model = Contest
             fields = ['voters_emails']
             widgets = dict(
-                voters_emails=forms.Textarea(attrs=dict(cols=50, rows=30))
+                voters_emails=forms.Textarea(attrs=dict(cols=50, rows=20))
             )
 
         def clean_voters_emails(self):

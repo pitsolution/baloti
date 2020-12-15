@@ -1,1 +1,12 @@
+Welcome on Electeez !
+
+You are one step away from joining a safe election.
+Click below to verify your email.
+Then login and vote !
+
 {{ PROTO }}://{{ site.domain }}{{ url('django_registration_activate', args=[activation_key]) }}
+
+This email as been sended automatically.
+Please don't respond at this mail.
+Thank's.
+Team Electeez.

@@ -165,8 +165,8 @@ class Contest(models.Model):
             description=self.description,
         )
         builder.set_public_key(self.joint_public_key)
+        
         self.metadata, self.context = builder.build()
-
         from electionguard.ballot_store import BallotStore
         self.store = BallotStore()
 

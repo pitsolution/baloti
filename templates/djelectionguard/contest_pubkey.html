@@ -2,8 +2,10 @@
 
 {% block form_open %}
 {{ super() }}
-<h2>Finish Key Ceremony for {{ object }}</h2>
-<p>This will create the joint public key and then remove the keypairs from server memory</p>
+<div class="header-form">
+    <h2>Finish Key Ceremony for {{ object }}</h2>
+    <p>This will create the joint public key and then remove the keypairs from server memory</p>
+</div>
 {% endblock %}
 
 {% block submit_label %}Create Joint Public Key{% endblock %}

@@ -1,55 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{{ title|default('Secure slections with homomorphic encryption') }}{% endblock %} - Electeez</title>
+    <title>{% block title %}{{ title|default('Secure slections with homomorphic encryption') }}{% endblock %} - Electeez
+    </title>
     <link rel="stylesheet" href="https://unpkg.com/mvp.css">
     <style type="text/css">
-    nav {
-        margin-bottom: 0;
-    }
-    .errorlist {
-        color: red;
-        font-weight: bolder;
-    }
-    form li {
-        list-style-type: none;
-    }
+        @keyframes color-shift {
 
-    article aside.success {
-        background: #bdffbd;
-        border-left: 4px solid #1fd01f;
-    }
-    article aside.info {
-        background: #fff8bd;
-        border-left: 4px solid #ffe50d;
-    }
-    article aside.warning {
-        background: #fcdabc;
-        border-left: 4px solid #ff7801;
-    }
-    article aside.error {
-        background: #ffc9c9;
-        border-left: 4px solid #f00;
-    }
+            0%,
+            100% {
+                background-position: 0% 50;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        header {
+            max-width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        nav {
+            margin-bottom: 0;
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        nav ul li a {
+            color: black;
+            font-size: 18px;
+        }
+
+        nav ul li a:hover {
+            /*background: linear-gradient(yellow, white 90%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;*/
+            border-bottom: 1px solid black;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        footer {
+            border-top: 1px solid black;
+            margin-top: 1rem;
+        }
+
+        .background {
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: radial-gradient(circle at 80%, #a960ee, #e02b97, #90e0ff, #ffcb57, #e02b97, #90e0ff, #a960ee);
+            background-size: 600%;
+            animation: color-shift 100s infinite;
+            transform: skew(0, 3deg) translate(0, -25%);
+            height: 25vh;
+            padding: 1rem;
+        }
+
+        form {
+            border-radius: 10px;
+            border: none;
+            box-shadow: 2px 2px 4px grey;
+            background: linear-gradient(to right, yellow, white 2%);
+        }
+
+        form .header-form {
+            text-align: center;
+            border-bottom: 1px solid black;
+        }
+
+        .errorlist {
+            color: red;
+            font-weight: bolder;
+        }
+
+        form li {
+            list-style-type: none;
+        }
+
+        article aside.success {
+            background: #bdffbd;
+            border-left: 4px solid #1fd01f;
+        }
+
+        article aside.info {
+            background: #fff8bd;
+            border-left: 4px solid #ffe50d;
+        }
+
+        article aside.warning {
+            background: #fcdabc;
+            border-left: 4px solid #ff7801;
+        }
+
+        article aside.error {
+            background: #ffc9c9;
+            border-left: 4px solid #f00;
+        }
+
+        .title {
+            display: block;
+        }
+
+        .title h1 {
+            margin: 0;
+        }
+
+        header {
+            padding: 0;
+        }
+
+        header li {
+            margin: 1rem;
+        }
+
+        h1>a {
+            background: rgb(245, 227, 66);
+            font-weight: lighter;
+            color: black;
+            padding: 1rem;
+            font-family: 'Open Sans';
+            border-radius: 35px;
+        }
+
+        .button {
+            padding: 0.5rem;
+            background: rgb(245, 227, 66);
+            color: black;
+            font-weight: bold;
+        }
+
+        th {
+            background: rgb(245, 227, 66);
+            border-radius: 5px;
+            color: black;
+        }
+
+        a b,
+        a strong,
+        button {
+            background: rgb(245, 227, 66);
+            border: none;
+            border-radius: 5px;
+            color: black;
+        }
+
+
+        .logo-header img {
+            width: 100%;
+        }
+        .logo-header a{
+            align-self: center;
+        }
+        .rounded{
+            border-radius: 50%;
+        }
+
+        @media all and (min-width: 500px) {
+            footer {
+                position: relative;
+                background: white;
+            }
+
+            .logo-header {
+                display: flex;
+                max-width: 20%;
+            }
+        }
+
+        @media all and (max-width: 499px) {
+            h1 {
+                font-size: 17px;
+            }
+
+            .logo-header {
+                max-width: 20%;
+            }
+        }
     </style>
 </head>
 
 <body>
     <header>
         <nav>
-            <a href="{{ PROTO }}://{{ request.get_host() }}">
-                <img alt="Electeez: secure slections with homomorphic encryption" src="{{ static('logo.png') }}" height="70"></a>
+            <!--<div class="background"></div>-->
+            <div class="logo-header">
+                <a href="{{ PROTO }}://{{ request.get_host() }}">
+                    <img alt="Electeez: secure slections with homomorphic encryption" class="rounded" src="{{ static('logo.png') }}">
+                </a>
+                <a href="https://tezos.com">
+                    <img src="https://tezos.com/static/Tezos%20Blue%20Horizontal-8fb8b512bc9502097b92434b6293a785.png">
+                </a>
+            </div>
+            <div class="title">
+                {% if not request.user.is_authenticated %}
+                <div>
+                    <h1>Welcome to <a href="/">Electeez</a></h1>
+                </div>
+                <div>
+                    <p>Login to participate to a secure election.</p>
+                </div>
+                {% else %}
+                <div>
+                    <h1>Electeez</h1>
+                </div>
+                <div>
+                    <small>By Electis</small>
+                </div>
+                {% endif %}
+            </div>
             <ul>
                 {% if not request.user.is_authenticated %}
                 <li><a href="{{ url('login') }}">Login</a></li>
                 <li><a href="{{ url('django_registration_register') }}">Signup</a></li>
                 {% else %}
-                <li><a href="{{ url('contest_list') }}">Contests</a></li>
-                <li><a href="{{ url('contest_create') }}">New contest</a></li>
+                <li><a href="{{ url('contest_list') }}">My elections</a></li>
+                <li><a href="{{ url('contest_create') }}">Create election</a></li>
                 <li><a href="{{ url('logout') }}">Logout</a></li>
-                <li>{{ request.user }}</li>
+                <li><a href="{{ url('contest_list') }}">{{ request.user }}</a></li>
                 {% endif %}
             </ul>
         </nav>
@@ -58,7 +235,7 @@
         {% if messages %}
         <article>
             {% for message in messages %}
-            <aside {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            <aside {% if message.tags %} class="{{ message.tags }}" {% endif %}>
                 <p>{{ message }}</p>
             </aside>
             {% endfor %}
@@ -68,7 +245,6 @@
         {% endblock %}
     </main>
     <footer>
-        <hr>
         {% block footer %}
         <p>
             Made by <a href="https://www.electis.io/" target="_blank">Electis.io
@@ -77,4 +253,5 @@
         {% endblock %}
     </footer>
 </body>
+
 </html>
