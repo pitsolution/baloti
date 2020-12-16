@@ -20,6 +20,17 @@
             }
         },
         {
+            "object_id": "lol",
+            "ballot_name": {
+                "text": [
+                    {
+                        "value": "Lol",
+                        "language": "en"
+                    }
+                ]
+            }
+        },
+        {
             "object_id": "john-adams",
             "ballot_name": {
                 "text": [
@@ -43,8 +54,13 @@
                     "candidate_id": "john-adams"
                 },
                 {
-                    "object_id": "benjamin-franklin-selection",
+                    "object_id": "lol-selection",
                     "sequence_order": 1,
+                    "candidate_id": "lol"
+                },
+                {
+                    "object_id": "benjamin-franklin-selection",
+                    "sequence_order": 2,
                     "candidate_id": "benjamin-franklin"
                 }
             ],

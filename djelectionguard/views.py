@@ -79,6 +79,14 @@ class ContestCreateView(generic.CreateView):
                 'end',
             ]
 
+        def clean(self):
+            cleaned_data = super().clean()
+            if cleaned_data['number_elected'] < cleaned_data['votes_allowed']:
+                raise forms.ValidationError(
+                    'Number of elected cannot be bellow number of votes allowed'
+                )
+            return cleaned_data
+
     def form_valid(self, form):
         form.instance.mediator = self.request.user
         response = super().form_valid(form)
