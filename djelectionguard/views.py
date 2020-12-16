@@ -84,7 +84,7 @@ class ContestCreateView(generic.CreateView):
         )
 
 
-class ContestListView(ContestQuerySetMixin, generic.ListView):
+class ContestListView(ContestVoterMixin, generic.ListView):
     @classmethod
     def as_url(cls):
         return path(
@@ -94,7 +94,7 @@ class ContestListView(ContestQuerySetMixin, generic.ListView):
         )
 
 
-class ContestManifestView(ContestQuerySetMixin, generic.DetailView):
+class ContestManifestView(ContestVoterMixin, generic.DetailView):
     @classmethod
     def as_url(cls):
         return path(
