@@ -174,4 +174,11 @@ else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.getenv('MEDIA_ROOT', BASE_DIR / 'media')
+
+if 'ADMINS' in os.environ:
+    ADMINS = [
+        (email.split('@')[0], email)
+        for email in os.getenv('ADMINS').split(',')
+    ]
+

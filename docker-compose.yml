@@ -17,6 +17,7 @@ services:
     environment:
     - HOST
     - PROTO
+    - ADMINS
     - BASICAUTH_ENABLE
     - CI_ENVIRONMENT_NAME
     - CI_COMMIT_SHA
