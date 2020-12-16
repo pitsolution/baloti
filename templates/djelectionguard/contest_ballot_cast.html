@@ -9,8 +9,9 @@
 
 {% block submit %}
 {{ super() }}
-or
+<!-- or
 <input type="submit" name="spoil" value="Spoil ballot" />
+-->
 or
 <a href="{{ url('contest_vote', args=[object.pk]) }}">Change selection</a>
 {% endblock %}
