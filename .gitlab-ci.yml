@@ -4,13 +4,31 @@ build:
   image: docker:dind
   stage: build
   script:
-    - docker build -t electeez:$CI_COMMIT_SHORT_SHA .
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
 
-#test:
-#  image: electeez:$CI_COMMIT_SHORT_SHA
-#  stage: test
-#  script:
-#    - pytest -sv
+test:
+  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+  stage: test
+  variables:
+    POSTGRES_DB: electeez
+    POSTGRES_USER: electeez
+    POSTGRES_PASSWORD: test
+    DB_HOST: postgres
+    DB_USER: electeez
+    DB_PASS: test
+    DB_NAME: electeez
+    MEMCACHED_HOST: memcached
+  services:
+    - name: memcached:1.6-alpine
+    - name: postgres:latest
+      command:
+        - "postgres"
+        - "-c"
+        - "log_min_duration_statement=300"
+  script:
+    - pytest -sv
 
 master:
   image: yourlabs/ansible
@@ -33,7 +51,7 @@ master:
       bigsudo
         yourlabs.compose
         home=/home/master
-        compose_django_image=electeez:$CI_COMMIT_SHORT_SHA
+        compose_django_image=$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
         compose_django_build=
         compose=docker-compose.yml,docker-compose.persist.yml
         wait_grep=uwsgi
@@ -65,7 +83,7 @@ production:
       bigsudo
         yourlabs.compose
         home=/home/production
-        compose_django_image=electeez:$CI_COMMIT_SHORT_SHA
+        compose_django_image=$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
         compose_django_build=
         compose=docker-compose.yml,docker-compose.persist.yml
         wait_grep=uwsgi
