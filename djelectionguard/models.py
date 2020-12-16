@@ -95,10 +95,9 @@ class Contest(models.Model):
 
     @property
     def state(self):
-        now = timezone.now()
-        if now >= self.end:
+        if self.actual_end:
             return 'finished'
-        if now >= self.start:
+        elif self.actual_start:
             return 'started'
         return 'pending'
 
