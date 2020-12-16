@@ -1,12 +1,16 @@
 from django.contrib import admin
 
-from .models import Candidate, Contest
+from .models import Candidate, Contest, Guardian, Voter
 
 
 class CandidateInline(admin.TabularInline):
     model = Candidate
 
 
+class GuardianInline(admin.TabularInline):
+    model = Guardian
+
+
 class ContestAdmin(admin.ModelAdmin):
-    inlines = [CandidateInline]
+    inlines = [CandidateInline, GuardianInline]
 admin.site.register(Contest, ContestAdmin)
