@@ -23,19 +23,32 @@ from pymemcache.client.base import Client
 from .models import Contest, Candidate, Guardian
 
 
-class ContestQuerySetMixin:
+class ContestMediator:
     def get_queryset(self):
         return self.request.user.contest_set.all()
 
 
-class ContestGuardianMixin:
+class ContestVoter:
     def get_queryset(self):
-        return self.request.user.contest_set.filter(usercontest__guardian=True)
+        return Contest.objects.filter(
+            voter__user=self.request.user
+        )
 
 
-class ContestVoterMixin:
+class ContestGuardian:
     def get_queryset(self):
-        return self.request.user.contest_set.filter(usercontest__voter=True)
+        return Contest.objects.filter(
+            guardian__user=self.request.user
+        )
+
+
+class ContestAccessible:
+    def get_queryset(self):
+        return Contest.objects.filter(
+            Q(voter__user=self.request.user)
+            | Q(guardian__user=self.request.user)
+            | Q(mediator=self.request.user)
+        )
 
 
 class ContestCreateView(generic.CreateView):
@@ -84,7 +97,7 @@ class ContestCreateView(generic.CreateView):
         )
 
 
-class ContestListView(ContestVoterMixin, generic.ListView):
+class ContestListView(ContestAccessible, generic.ListView):
     @classmethod
     def as_url(cls):
         return path(
@@ -94,7 +107,7 @@ class ContestListView(ContestVoterMixin, generic.ListView):
         )
 
 
-class ContestManifestView(ContestVoterMixin, generic.DetailView):
+class ContestManifestView(ContestAccessible, generic.DetailView):
     @classmethod
     def as_url(cls):
         return path(
@@ -107,7 +120,7 @@ class ContestManifestView(ContestVoterMixin, generic.DetailView):
         return http.JsonResponse(self.get_object().get_manifest())
 
 
-class ContestOpenView(ContestQuerySetMixin, generic.UpdateView):
+class ContestOpenView(ContestMediator, generic.UpdateView):
     template_name = 'form.html'
 
     @classmethod
@@ -146,7 +159,7 @@ class ContestOpenView(ContestQuerySetMixin, generic.UpdateView):
         return super().form_valid(form)
 
 
-class ContestCloseView(ContestQuerySetMixin, generic.UpdateView):
+class ContestCloseView(ContestMediator, generic.UpdateView):
     template_name = 'form.html'
 
     @classmethod
@@ -183,7 +196,7 @@ class ContestCloseView(ContestQuerySetMixin, generic.UpdateView):
         return super().form_valid(form)
 
 
-class ContestDecryptView(ContestQuerySetMixin, generic.UpdateView):
+class ContestDecryptView(ContestMediator, generic.UpdateView):
     template_name = 'djelectionguard/contest_decrypt.html'
 
     @classmethod
@@ -279,7 +292,7 @@ class ContestDecryptView(ContestQuerySetMixin, generic.UpdateView):
         return self.object.get_absolute_url()
 
 
-class ContestPubkeyView(ContestQuerySetMixin, generic.UpdateView):
+class ContestPubkeyView(ContestMediator, generic.UpdateView):
     template_name = 'djelectionguard/contest_pubkey.html'
 
     @classmethod
@@ -336,7 +349,7 @@ class ContestPubkeyView(ContestQuerySetMixin, generic.UpdateView):
         return self.object.get_absolute_url()
 
 
-class ContestDetailView(ContestQuerySetMixin, generic.DetailView):
+class ContestDetailView(ContestMediator, generic.DetailView):
     @classmethod
     def as_url(cls):
         return path(
@@ -536,7 +549,7 @@ class ContestBallotCastView(ContestBallotMixin, FormMixin, generic.DetailView):
         )
 
 
-class ContestCandidateCreateView(ContestQuerySetMixin, FormMixin, generic.DetailView):
+class ContestCandidateCreateView(ContestMediator, FormMixin, generic.DetailView):
     template_name = 'djelectionguard/candidate_form.html'
 
     class form_class(forms.ModelForm):
@@ -571,7 +584,7 @@ class ContestCandidateCreateView(ContestQuerySetMixin, FormMixin, generic.Detail
         )
 
 
-class ContestCandidateDeleteView(ContestGuardianMixin, generic.DeleteView):
+class ContestCandidateDeleteView(ContestMediator, generic.DeleteView):
     template_name = 'delete.html'
 
     def get_queryset(self):
@@ -709,7 +722,7 @@ class GuardianListView(generic.ListView):
         )
 
 
-class ContestVotersDetailView(ContestQuerySetMixin, generic.DetailView):
+class ContestVotersDetailView(ContestMediator, generic.DetailView):
     template_name = 'djelectionguard/contest_voters_detail.html'
 
     def get_context_data(self, **kwargs):
@@ -736,7 +749,7 @@ class ContestVotersDetailView(ContestQuerySetMixin, generic.DetailView):
         )
 
 
-class ContestVotersUpdateView(ContestQuerySetMixin, generic.UpdateView):
+class ContestVotersUpdateView(ContestMediator, generic.UpdateView):
     template_name = 'form.html'
 
     class form_class(forms.ModelForm):
