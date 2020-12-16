@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import sys
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -13,7 +14,6 @@ if SECURE:
 else:
     DEBUG = True
     ALLOWED_HOSTS = ['*']
-
 
 REGISTRATION_OPEN = True
 ACCOUNT_ACTIVATION_DAYS = 7
@@ -157,7 +157,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'public'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
-if not DEBUG:
+if 'collectstatic' in sys.argv or not DEBUG:
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 EMAIL_HOST = os.getenv('EMAIL_HOST', None)
