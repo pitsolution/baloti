@@ -40,4 +40,5 @@ CMD /usr/bin/bash -euxc "until djcli dbcheck; do sleep 1; done \
   --route '^/static/.* addheader:Cache-Control: public, max-age=7776000' \
   --route '^/js|css|fonts|images|icons|favicon.png/.* addheader:Cache-Control: public, max-age=7776000' \
   --static-map /static=/app/public \
+  --static-map /media=/app/media \
   --static-gzip-all"
