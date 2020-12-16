@@ -555,13 +555,25 @@ class ContestCandidateCreateView(ContestMediator, FormMixin, generic.DetailView)
     template_name = 'djelectionguard/candidate_form.html'
 
     class form_class(forms.ModelForm):
+        def clean_name(self):
+            name = self.cleaned_data['name']
+            if self.instance.contest.candidate_set.filter(name=name):
+                raise forms.ValidationError(
+                    f'{name} already added!'
+                )
+            return name
+
         class Meta:
             model = Candidate
             fields = ['name']
 
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)
+        form.instance.contest = self.get_object()
+        return form
+
     def post(self, request, *args, **kwargs):
         form = self.get_form()
-        form.instance.contest = self.get_object()
         if form.is_valid():
             return self.form_valid(form)
         else:

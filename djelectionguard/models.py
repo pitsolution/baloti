@@ -277,6 +277,7 @@ class Candidate(models.Model):
 
     class Meta:
         ordering = ['-score', 'name']
+        unique_together = [('name', 'contest')]
 
 
 class Guardian(models.Model):
