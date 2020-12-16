@@ -4,7 +4,13 @@ build:
   image: docker:dind
   stage: build
   script:
-    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
+    - docker build -t electeez:$CI_COMMIT_SHORT_SHA .
+
+#test:
+#  image: electeez:$CI_COMMIT_SHORT_SHA
+#  stage: test
+#  script:
+#    - pytest -sv
 
 master:
   image: yourlabs/ansible
@@ -27,7 +33,7 @@ master:
       bigsudo
         yourlabs.compose
         home=/home/master
-        compose_django_image=$CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+        compose_django_image=electeez:$CI_COMMIT_SHORT_SHA
         compose_django_build=
         compose=docker-compose.yml,docker-compose.persist.yml
         wait_grep=uwsgi
@@ -59,7 +65,7 @@ production:
       bigsudo
         yourlabs.compose
         home=/home/production
-        compose_django_image=$CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+        compose_django_image=electeez:$CI_COMMIT_SHORT_SHA
         compose_django_build=
         compose=docker-compose.yml,docker-compose.persist.yml
         wait_grep=uwsgi

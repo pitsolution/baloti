@@ -21,6 +21,7 @@ LOGIN_REDIRECT_URL = '/'
 USE_X_FORWARDED_HOST = True
 
 INSTALLED_APPS = [
+    'electeez_auth',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -32,6 +33,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'django_jinja',
 ]
+
+AUTH_USER_MODEL = 'electeez_auth.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -153,7 +156,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'public'
 STATICFILES_DIRS = [BASE_DIR / 'static']
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+if not DEBUG:
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 EMAIL_HOST = os.getenv('EMAIL_HOST', None)
 EMAIL_PORT = os.getenv('EMAIL_PORT', None)

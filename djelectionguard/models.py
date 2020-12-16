@@ -1,13 +1,35 @@
 import pickle
 import uuid
 
+from django.apps import apps
 from django.conf import settings
+from django.core.exceptions import ValidationError
+from django.core.validators import EmailValidator
 from django.db import models, transaction
+from django.db.models import signals
 from django.urls import reverse
 from django.utils import timezone
 
 from pymemcache.client.base import Client
 from picklefield.fields import PickledObjectField
+
+
+def emails_validator(value):
+    validator = EmailValidator()
+    invalid = []
+    for line in value.split('\n'):
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            validator(line)
+        except ValidationError:
+            invalid.append(line)
+    if invalid:
+        raise ValidationError(
+            'Please remove lines containing invalid emails: '
+            + ', '.join(invalid)
+        )
 
 
 class Contest(models.Model):
@@ -21,7 +43,8 @@ class Contest(models.Model):
         on_delete=models.CASCADE,
     )
     voters_emails = models.TextField(
-        help_text='The list of allowed voters with one email per line'
+        validators=[emails_validator],
+        help_text='The list of allowed voters with one email per line',
     )
     name = models.CharField(max_length=255)
     type = models.CharField(default='school', max_length=100)
@@ -48,6 +71,27 @@ class Contest(models.Model):
     plaintext_tally = PickledObjectField(null=True)
     ciphertext_tally = PickledObjectField(null=True)
     coefficient_validation_sets = PickledObjectField(null=True)
+
+
+    def voters_update(self):
+        emails = []
+        for line in self.voters_emails.split('\n'):
+            line = line.strip()
+            if line:
+                emails.append(line.lower())
+
+        # delete voters who are not anymore in the email list
+        self.voter_set.filter(casted=None).exclude(user__email__in=emails).delete()
+
+        # add voters who have a user
+        User = apps.get_model(settings.AUTH_USER_MODEL)
+        users = User.objects.filter(
+            email__in=emails,
+        ).exclude(
+            voter__contest=self,
+        )
+        for user in users:
+            self.voter_set.create(user=user)
 
     @property
     def state(self):

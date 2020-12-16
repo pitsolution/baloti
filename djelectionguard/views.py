@@ -5,8 +5,8 @@ import shutil
 
 from django import forms
 from django import http
+from django.apps import apps
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.contrib import messages
 from django.conf import settings
 from django.db import transaction
@@ -119,7 +119,11 @@ class ContestOpenView(ContestQuerySetMixin, generic.UpdateView):
         )
 
     def get_queryset(self):
-        return self.request.user.contest_set.exclude(joint_public_key=None)
+        return self.request.user.contest_set.exclude(
+            joint_public_key=None,
+        ).filter(
+            actual_start=None
+        )
 
     class form_class(forms.ModelForm):
         submit_label = 'Open votes'
@@ -218,7 +222,8 @@ class ContestDecryptView(ContestQuerySetMixin, generic.UpdateView):
 
             # Decrypt the tally with available guardian keys
             for guardian in self.instance.guardian_set.all():
-                decryption_mediator.announce(guardian.get_guardian())
+                if decryption_mediator.announce(guardian.get_guardian()) is None:
+                    break
 
             self.instance.plaintext_tally = decryption_mediator.get_plaintext_tally()
             plaintext_tally_contest = self.instance.plaintext_tally.contests[str(self.instance.pk)]
@@ -352,7 +357,17 @@ class ContestDetailView(ContestQuerySetMixin, generic.DetailView):
         return context
 
 
-class ContestVoteView(ContestQuerySetMixin, FormMixin, generic.DetailView):
+class ContestVoteMixin:
+    def get_queryset(self):
+        return Contest.objects.filter(
+            actual_end=None,
+            voter__in=self.request.user.voter_set.filter(casted=None),
+        ).exclude(
+            actual_start=None,
+        )
+
+
+class ContestVoteView(ContestVoteMixin, FormMixin, generic.DetailView):
     template_name = 'form.html'
 
     def get_form(self, form_class=None):
@@ -407,7 +422,60 @@ class ContestVoteView(ContestQuerySetMixin, FormMixin, generic.DetailView):
         )
 
 
-class ContestBallotCastView(ContestQuerySetMixin, FormMixin, generic.DetailView):
+class ContestBallotMixin(ContestVoteMixin):
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        client = Client(settings.MEMCACHED_HOST)
+        if not client.get(f'{self.object.pk}-{self.request.user.pk}'):
+            return http.HttpResponseRedirect(
+                reverse('contest_vote', args=[self.object.pk])
+            )
+        return super().dispatch(request, *args, **kwargs)
+
+
+class ContestBallotEncryptView(ContestBallotMixin, FormMixin, generic.DetailView):
+    template_name = 'djelectionguard/contest_ballot.html'
+
+    class form_class(forms.Form):
+        submit_label = 'Encrypt my ballot'
+
+    def post(self, request, *args, **kwargs):
+        client = Client(settings.MEMCACHED_HOST)
+        ballot = PlaintextBallot.from_json(
+            client.get(f'{self.object.pk}-{self.request.user.pk}')
+        )
+        client.set(
+            f'{self.object.pk}-{self.request.user.pk}',
+            self.object.encrypter.encrypt(ballot).to_json()
+        )
+        return http.HttpResponseRedirect(
+            reverse('contest_ballot_cast', args=[self.object.pk])
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        client = Client(settings.MEMCACHED_HOST)
+        context['ballot'] = PlaintextBallot.from_json(
+            client.get(f'{self.object.pk}-{self.request.user.pk}')
+        )
+        selections = [
+            s.object_id.replace('-selection', '')
+            for s in context['ballot'].contests[0].ballot_selections
+        ]
+        context['selections'] = self.object.candidate_set.filter(pk__in=selections)
+        return context
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            '<pk>/ballot/',
+            login_required(cls.as_view()),
+            name='contest_ballot'
+        )
+
+
+class ContestBallotCastView(ContestBallotMixin, FormMixin, generic.DetailView):
     template_name = 'djelectionguard/contest_ballot_cast.html'
 
     class form_class(forms.Form):
@@ -465,50 +533,6 @@ class ContestBallotCastView(ContestQuerySetMixin, FormMixin, generic.DetailView)
             '<pk>/ballot/cast/',
             login_required(cls.as_view()),
             name='contest_ballot_cast'
-        )
-
-
-class ContestBallotEncryptView(ContestQuerySetMixin, FormMixin, generic.DetailView):
-    template_name = 'djelectionguard/contest_ballot.html'
-
-    class form_class(forms.Form):
-        submit_label = 'Encrypt my ballot'
-
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-
-        client = Client(settings.MEMCACHED_HOST)
-        ballot = PlaintextBallot.from_json(
-            client.get(f'{self.object.pk}-{self.request.user.pk}')
-        )
-        client.set(
-            f'{self.object.pk}-{self.request.user.pk}',
-            self.object.encrypter.encrypt(ballot).to_json()
-        )
-        return http.HttpResponseRedirect(
-            reverse('contest_ballot_cast', args=[self.object.pk])
-        )
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        client = Client(settings.MEMCACHED_HOST)
-        context['ballot'] = PlaintextBallot.from_json(
-            client.get(f'{self.object.pk}-{self.request.user.pk}')
-        )
-        selections = [
-            s.object_id.replace('-selection', '')
-            for s in context['ballot'].contests[0].ballot_selections
-        ]
-        context['selections'] = self.object.candidate_set.filter(pk__in=selections)
-        return context
-
-    @classmethod
-    def as_url(cls):
-        return path(
-            '<pk>/ballot/',
-            login_required(cls.as_view()),
-            name='contest_ballot'
         )
 
 
@@ -697,6 +721,7 @@ class ContestVotersDetailView(ContestQuerySetMixin, generic.DetailView):
                 'activated': False,
             } for email in emails
         }
+        User = apps.get_model(settings.AUTH_USER_MODEL)
         for user in User.objects.filter(email__in=emails):
             context['users'][user.email]['registered'] = True
             context['users'][user.email]['activated'] = user.is_active
@@ -725,6 +750,10 @@ class ContestVotersUpdateView(ContestQuerySetMixin, generic.UpdateView):
                 voters_emails=forms.Textarea(attrs=dict(cols=50, rows=70))
             )
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        form.instance.voters_update()
+        return response
 
     def get_success_url(self):
         messages.success(
