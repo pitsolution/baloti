@@ -182,3 +182,53 @@ if 'ADMINS' in os.environ:
         for email in os.getenv('ADMINS').split(',')
     ]
 
+LOG_DIR = os.getenv('LOG_DIR', str(BASE_DIR / 'log'))
+
+if not os.path.exists(LOG_DIR):
+    os.makedirs(LOG_DIR)
+
+LOGGING = {
+    'version': 1,
+    'formatters': {
+        'timestamp': {
+            'format': '%(asctime)s %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'level': os.getenv('LOG_LEVEL', 'DEBUG' if DEBUG else 'INFO'),
+            'formatter': 'timestamp'
+        },
+    },
+    'loggers': {}
+}
+
+LOGGERS = (
+    'django.request',
+)
+
+for logger in LOGGERS:
+    LOGGING['loggers'][logger] = {
+        'level': 'DEBUG',
+        'handlers': ['console', logger + '.debug', logger + '.info', logger + '.error'],
+        'propagate': True,
+    }
+    LOGGING['handlers'][logger + '.debug'] = {
+        'level': 'DEBUG',
+        'class': 'logging.handlers.WatchedFileHandler',
+        'filename': LOG_DIR + f'/{logger}.debug.log',
+        'formatter': 'timestamp'
+    }
+    LOGGING['handlers'][logger + '.info'] = {
+        'level': 'INFO',
+        'class': 'logging.handlers.WatchedFileHandler',
+        'filename': LOG_DIR + f'/{logger}.info.log',
+        'formatter': 'timestamp'
+    }
+    LOGGING['handlers'][logger + '.error'] = {
+        'level': 'ERROR',
+        'class': 'logging.handlers.WatchedFileHandler',
+        'filename': LOG_DIR + f'/{logger}.error.log',
+        'formatter': 'timestamp'
+    }

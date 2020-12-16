@@ -23,6 +23,7 @@ services:
     - CI_COMMIT_SHA
     - SENTRY_DSN
     - MEDIA_ROOT=/app/media
+    - LOG_DIR=/app/log
     - DB_HOST=postgres
     - DB_NAME=electeez
     - DB_USER=electeez
