@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
 from django.db import transaction
+from django.db.models import Q
 from django.urls import path, reverse
 from django.utils import timezone
 from django.views import generic
@@ -349,7 +350,7 @@ class ContestPubkeyView(ContestMediator, generic.UpdateView):
         return self.object.get_absolute_url()
 
 
-class ContestDetailView(ContestMediator, generic.DetailView):
+class ContestDetailView(ContestAccessible, generic.DetailView):
     @classmethod
     def as_url(cls):
         return path(
@@ -365,7 +366,8 @@ class ContestDetailView(ContestMediator, generic.DetailView):
         context['can_vote'] = (
             self.object.actual_start
             and not self.object.actual_end
-            and not (voter and voter.casted)
+            and voter
+            and not voter.casted
         )
         return context
 
