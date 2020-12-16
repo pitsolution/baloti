@@ -291,7 +291,7 @@
             {% endif %}
             <br>
             {% if contest.joint_public_key %}
-                {% if contest.candidate_set.count() <= contest.number_elected %}
+                {% if contest.candidate_set.count() <= contest.votes_allowed %}
                 <h2>Key Ceremony complete</h2>
                 <p>Congratulations! But you will need to add at least {{ contest.number_elected + 1 }} candidates before you can start the contest.</p>
                 {% elif not contest.actual_start %}
