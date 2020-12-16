@@ -72,21 +72,27 @@ class Contest(models.Model):
     ciphertext_tally = PickledObjectField(null=True)
     coefficient_validation_sets = PickledObjectField(null=True)
 
-
-    def voters_update(self):
+    @property
+    def voters_emails_list(self):
         emails = []
         for line in self.voters_emails.split('\n'):
             line = line.strip()
             if line:
                 emails.append(line.lower())
+        return emails
 
+    def voters_update(self):
         # delete voters who are not anymore in the email list
-        self.voter_set.filter(casted=None).exclude(user__email__in=emails).delete()
+        self.voter_set.filter(
+            casted=None
+        ).exclude(
+            user__email__in=self.voters_emails_list
+        ).delete()
 
         # add voters who have a user
         User = apps.get_model(settings.AUTH_USER_MODEL)
         users = User.objects.filter(
-            email__in=emails,
+            email__in=self.voters_emails_list,
         ).exclude(
             voter__contest=self,
         )

@@ -3,6 +3,7 @@
 {% block content %}
 <header>
     <h1>Contest: {{ object }}</h2>
+    {% if users %}
     <table>
         <thead>
             <tr>
@@ -19,5 +20,16 @@
         </tr>
         {% endfor %}
     </table>
+    {% else %}
+    <article>
+        <aside class="info">
+            <p>
+                No voter added yet
+                <a href="{{ url('contest_voters_update', args=[object.pk]) }}"><b>Add voters</b></a>
+            </p>
+        </aside>
+    </article>
+    {% endif %}
+    <a href="{{ object.get_absolute_url() }}">Back to contest</a>
 </header>
 {% endblock %}

@@ -170,8 +170,8 @@
 
     <br>
     {% if request.user == contest.mediator %}
-        <h2>Voters: {{ len(contest.voters_emails.split('\n')) }}</h2>
-        {% if len(contest.voters_emails.split('\n')) == 2 %}
+        <h2>Voters: {{ len(contest.voters_emails_list) }}</h2>
+        {% if not contest.voters_emails.strip() %}
         <p>
         You have added no voter! You need to add a list of voters by email before
         you can start the election.

@@ -716,15 +716,15 @@ class ContestVotersDetailView(ContestMediator, generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        emails = self.object.voters_emails.split('\n')
         context['users'] = {
             email: {
                 'registered': False,
                 'activated': False,
-            } for email in emails
+            } for email in self.object.voters_emails_list
         }
         User = apps.get_model(settings.AUTH_USER_MODEL)
-        for user in User.objects.filter(email__in=emails):
+        users = User.objects.filter(email__in=self.object.voters_emails_list)
+        for user in users:
             context['users'][user.email]['registered'] = True
             context['users'][user.email]['activated'] = user.is_active
         return context
@@ -749,7 +749,7 @@ class ContestVotersUpdateView(ContestMediator, generic.UpdateView):
             model = Contest
             fields = ['voters_emails']
             widgets = dict(
-                voters_emails=forms.Textarea(attrs=dict(cols=50, rows=70))
+                voters_emails=forms.Textarea(attrs=dict(cols=50, rows=30))
             )
 
     def form_valid(self, form):
