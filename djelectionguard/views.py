@@ -711,19 +711,6 @@ class GuardianDownloadView(generic.DetailView):
         return response
 
 
-class GuardianListView(generic.ListView):
-    def get_queryset(self):
-        return self.request.user.guardian_set.all()
-
-    @classmethod
-    def as_url(cls):
-        return path(
-            'guardian/',
-            login_required(cls.as_view()),
-            name='guardian_list'
-        )
-
-
 class ContestVotersDetailView(ContestMediator, generic.DetailView):
     template_name = 'djelectionguard/contest_voters_detail.html'
 
@@ -787,7 +774,6 @@ class ContestVotersUpdateView(ContestMediator, generic.UpdateView):
 
 
 urlpatterns = [
-    GuardianListView.as_url(),
     GuardianDownloadView.as_url(),
     GuardianVerifyView.as_url(),
     GuardianUploadView.as_url(),
