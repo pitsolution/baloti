@@ -177,9 +177,8 @@
         you can start the election.
         </p>
         {% endif %}
-        {% if contest.actual_start %}
         <a href="{{ url('contest_voters_detail', args=[object.pk]) }}">View voters</a>
-        {% else %}
+        {% if not contest.actual_start %}
         <a href="{{ url('contest_voters_update', args=[object.pk]) }}"><i>Manage voters</i></a>
         {% endif %}
 
