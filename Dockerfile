@@ -9,7 +9,7 @@ USER app
 COPY requirements.txt /app
 RUN pip3 install --user -Ur /app/requirements.txt
 COPY . /app/
-RUN ./manage.py collectstatic
+RUN DEBUG= ./manage.py collectstatic
 RUN find public -type f | xargs gzip -f -k -9
 
 EXPOSE 8000
