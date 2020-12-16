@@ -14,6 +14,13 @@ from pymemcache.client.base import Client
 from picklefield.fields import PickledObjectField
 
 
+def above_0(value):
+    if value <= 0:
+        raise ValidationError(
+            f'Must be above 0, you have choosen: {value}'
+        )
+
+
 def emails_validator(value):
     validator = EmailValidator()
     invalid = []
@@ -48,8 +55,14 @@ class Contest(models.Model):
     )
     name = models.CharField(max_length=255)
     type = models.CharField(default='school', max_length=100)
-    number_elected = models.IntegerField(default=1)
-    votes_allowed = models.IntegerField(default=1)
+    number_elected = models.PositiveIntegerField(
+        default=1,
+        validators=[above_0],
+    )
+    votes_allowed = models.PositiveIntegerField(
+        default=1,
+        validators=[above_0],
+    )
     number_guardians = models.IntegerField(
         default=1,
         verbose_name='number of guardians',
