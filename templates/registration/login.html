@@ -1,3 +1,7 @@
 {% extends 'form.html' %}
 
 {% block submit_label %}Login{% endblock %}
+{% block submit %}
+{{ super() }}
+<a href="{{ url('password_reset') }}">Forgot password ?</a>
+{% endblock %}
