@@ -244,7 +244,7 @@ class Contest(models.Model):
                     "vote_variation": self.variation,
                     "electoral_district_id": f"{self.pk}-unit",
                     "name": self.name,
-                    "number_elected": 1,
+                    "number_elected": self.number_elected,
                     "votes_allowed": self.votes_allowed,
                 }
             ],
