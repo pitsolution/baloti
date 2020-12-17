@@ -506,7 +506,7 @@ class ContestBallotCastView(ContestBallotMixin, FormMixin, generic.DetailView):
     template_name = 'djelectionguard/contest_ballot_cast.html'
 
     class form_class(forms.Form):
-        submit_label = 'My encrypted ballot'
+        submit_label = 'Confirm my vote'
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
