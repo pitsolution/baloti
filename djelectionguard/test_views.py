@@ -29,6 +29,7 @@ def post(user, url, **data):
 def test_story(client):
     external = User.objects.create(email='ext@example.com', is_active=True)
     voter1 = User.objects.create(email='vot1@example.com', is_active=True)
+    new = User.objects.create(email='new@example.com', is_active=True)
 
     mediator = User.objects.create(email='med@example.com', is_active=True)
     response = post(
@@ -70,9 +71,11 @@ def test_story(client):
     response = get(mediator, voters)
     assert response.status_code == 200
     assert b'id_voters_emails' in response.content
+    post(mediator, voters, voters_emails='\n\n\n\n')
     response = post(mediator, voters, voters_emails='''
 vot1@example.com
 vot2@example.com
+mistake@example.com
     ''')
     assert response.status_code == 302
 
@@ -86,7 +89,29 @@ vot2@example.com
     assert contest.voters_emails == '''
 vot1@example.com
 vot2@example.com
+mistake@example.com
     '''.strip()
+    assert list(contest.voter_set.values_list('user__email', flat=True)) == [
+        'vot1@example.com',
+    ]
+
+    # try another update again, removing one email
+    response = post(mediator, voters, voters_emails='''
+vot1@example.com
+vot2@example.com
+new@example.com
+    ''')
+    contest.refresh_from_db()
+    assert contest.voters_emails == '''
+vot1@example.com
+vot2@example.com
+new@example.com
+    '''.strip()
+    assert list(contest.voter_set.values_list('user__email', flat=True)) == [
+        'vot1@example.com', 'new@example.com',
+    ]
+
+    assert get(mediator, contest_url).status_code == 200
 
     candidate_create = f'{contest_url}candidates/create/'
 
