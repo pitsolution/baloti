@@ -49,7 +49,7 @@ class ContestAccessible:
             Q(voter__user=self.request.user)
             | Q(guardian__user=self.request.user)
             | Q(mediator=self.request.user)
-        )
+        ).distinct()
 
 
 class ContestCreateView(generic.CreateView):
