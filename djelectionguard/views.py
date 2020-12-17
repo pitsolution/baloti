@@ -772,6 +772,11 @@ class ContestVotersUpdateView(ContestMediator, generic.UpdateView):
                 voters_emails=forms.Textarea(attrs=dict(cols=50, rows=30))
             )
 
+        def clean_voters_emails(self):
+            return self.cleaned_data['voters_emails'].replace(
+                '\r\n', '\n'       # windows
+            ).replace('\r', '\n')  # mac
+
     def form_valid(self, form):
         response = super().form_valid(form)
         form.instance.voters_update()

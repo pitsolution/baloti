@@ -74,7 +74,7 @@ def test_story(client):
     post(mediator, voters, voters_emails='\n\n\n\n')
     response = post(mediator, voters, voters_emails='''
 vot1@example.com
-vot2@example.com
+vot2@example.com\r
 mistake@example.com
     ''')
     assert response.status_code == 302
@@ -95,11 +95,9 @@ mistake@example.com
         'vot1@example.com',
     ]
 
-    # try another update again, removing one email
+    # try another update again, removing one email, with macos
     response = post(mediator, voters, voters_emails='''
-vot1@example.com
-vot2@example.com
-new@example.com
+vot1@example.com\rvot2@example.com\rnew@example.com
     ''')
     contest.refresh_from_db()
     assert contest.voters_emails == '''
