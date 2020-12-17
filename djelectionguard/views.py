@@ -23,6 +23,7 @@ from pymemcache.client.base import Client
 
 from .models import Contest, Candidate, Guardian
 
+from datetime import datetime, date
 
 class ContestMediator:
     def get_queryset(self):
@@ -56,16 +57,19 @@ class ContestCreateView(generic.CreateView):
     model = Contest
 
     class form_class(forms.ModelForm):
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        
         start = forms.SplitDateTimeField(
             widget=forms.SplitDateTimeWidget(
-                time_attrs={'type': 'time'},
-                date_attrs={'type': 'date'},
+                time_attrs={'type': 'time', 'value': current_time},
+                date_attrs={'type': 'date', 'value': date.today()},
             )
         )
         end = forms.SplitDateTimeField(
             widget=forms.SplitDateTimeWidget(
-                time_attrs={'type': 'time'},
-                date_attrs={'type': 'date'},
+                time_attrs={'type': 'time', 'value': current_time},
+                date_attrs={'type': 'date', 'value': date.today()},
             )
         )
 
