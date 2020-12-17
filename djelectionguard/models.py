@@ -25,7 +25,7 @@ def emails_validator(value):
     validator = EmailValidator()
     invalid = []
     for line in value.split('\n'):
-        line = line.strip()
+        line = line.replace('\r', '').strip().lower()
         if not line:
             continue
         try:
@@ -87,12 +87,10 @@ class Contest(models.Model):
 
     @property
     def voters_emails_list(self):
-        emails = []
-        for line in self.voters_emails.split('\n'):
-            line = line.strip()
-            if line:
-                emails.append(line.lower())
-        return emails
+        return [
+            line.replace('\r', '').strip().lower()
+            for line in self.voters_emails.split('\n')
+        ]
 
     def voters_update(self):
         # delete voters who are not anymore in the email list
