@@ -5,20 +5,15 @@
 <h1>Review your ballot</h1>
 
 <h2>Selections</h2>
-<p>You have selected</p>
-<ul>
-    {% for candidate in selections %}
-    <li>{{ candidate }}</li>
-    {% endfor %}
-</ul>
-
+<p>You have selected : {% for candidate in selections %}{{ candidate }}, {% endfor %}</p>
+<p>Electeez is an ecrypted election, we are protecting the secrecy of your vote.</p>
 <h2>Plaintext ballot</h2>
-<p>For reference</p>
-<textarea cols="50" rows="15">{{ ballot.to_json() }}</textarea>
+<p>For reference, this is your vote before encryption.</p>
+<textarea cols="50" rows="10">{{ ballot.to_json() }}</textarea>
 {% endblock %}
 
 {% block submit %}
 {{ super() }}
 or
-<a href="{{ url('contest_vote', args=[object.pk]) }}">Change selection</a>
+<a href="{{ url('contest_vote', args=[object.pk]) }}">Change my selection</a>
 {% endblock %}

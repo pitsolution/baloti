@@ -4,22 +4,26 @@
 
 <section>
     <header>
-        <h1>Contests on this Electeez site</h1>
+        <h1>Your elections</h1>
     </header>
     <table>
         <thead>
             <tr>
-                <th>Contest title</th>
-                <th>Contest state</th>
+                <th>Eletion name</th>
+                <th>status</th>
+                <th></th>
             </tr>
         </thead>
         {% for obj in object_list %}
         <tr>
             <td>
-                <a href="{{ obj.get_absolute_url() }}">{{ obj.name }}</a>
+                <strong>{{ obj.name }}</strong>
             </td>
             <td>
                 {{ obj.state }}
+            </td>
+            <td>
+                <a class="button" href="{{ obj.get_absolute_url() }}">View this Election</a>
             </td>
         </tr>
         {% endfor %}

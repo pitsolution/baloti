@@ -4,6 +4,7 @@
 {{ super() }}
 <h2>Encrypted ballot</h2>
 <p>You may save it to check that it has been counted in the tally later on.</p>
+<p>This is your encrypted ballot. It will always stays secret.</p>
 <textarea cols="50" rows="15">{{ ballot.to_json() }}</textarea>
 {% endblock %}
 
@@ -13,5 +14,5 @@
 <input type="submit" name="spoil" value="Spoil ballot" />
 -->
 or
-<a href="{{ url('contest_vote', args=[object.pk]) }}">Change selection</a>
+<a href="{{ url('contest_vote', args=[object.pk]) }}">Change my selection</a>
 {% endblock %}

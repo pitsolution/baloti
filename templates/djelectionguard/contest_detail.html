@@ -40,10 +40,10 @@
     <article>
         <aside class="info">
             <p>
-            You may open the Contest for vote
+            You may open the election for vote
             <a
                 href="{{ url('contest_open', args=[contest.pk]) }}"
-            ><b>Open Contest</b></a>
+            ><b>Open election</b></a>
             </p>
         </aside>
     </article>
@@ -57,7 +57,7 @@
             You may CLOSE the Contest for vote
             <a
                 href="{{ url('contest_close', args=[contest.pk]) }}"
-            ><b>Close Contest</b></a>
+            ><b>Close election</b></a>
             </p>
         </aside>
     </article>
@@ -86,15 +86,16 @@
             href="{{ url('contest_vote', args=[contest.pk]) }}"
         ><b>VOTE</b></a>
     {% elif casted %}
-        <h1>You have voted!</h1>
+        <h1>Thank you for your vote !</h1>
         <p>Your vote was casted: {{ casted }}</p>
+        <p>The result will be published here after election is closed.</p>
     {% endif %}
     {% if object.plaintext_tally %}
         <a href="/media/contest-{{ object.pk }}.zip"><b>Download published artifacts</b></a>
     {% endif %}
 
-    <h1>Contest: {{ object }}</h2>
-    <table>
+    <h1>Election: {{ object }}</h2>
+    <!--<table>
         <tr>
             <th>Start</th>
             <td>{{ object.start }}</td>
@@ -123,7 +124,7 @@
             <th>Mediator</th>
             <td>{{ object.mediator }}</td>
         </tr>
-    </table>
+    </table>-->
 
     <br>
 
@@ -133,11 +134,9 @@
         <thead>
             <th>Candidate Name</th>
             {% if contest.mediator == request.user and not contest.actual_start %}
-            <th>Remove</th>
+            <th>Action</th>
             {% endif %}
-            {% if object.plaintext_tally %}
-            <th>Tally</th>
-            {% endif %}
+            <th>Results</th>
         </thead>
         {% for candidate in contest.candidate_set.all() %}
         <tr>
@@ -155,6 +154,8 @@
             {% endif %}
             {% if object.plaintext_tally %}
             <td>{{ candidate.score }}</td>
+            {% else %}
+            <td></td>
             {% endif %}
         </tr>
         {% endfor %}
@@ -296,16 +297,16 @@
                 <p>Congratulations! But you will need to add at least {{ contest.number_elected + 1 }} candidates before you can start the contest.</p>
                 {% elif not contest.actual_start %}
                 <h2>Key Ceremony complete</h2>
-                <p>Contest is ready to take ballots!</p>
+                <p>Election is ready to take ballots!</p>
                 <br>
                 <a
                     href="{{ url('contest_open', args=[contest.pk]) }}"
-                ><b>Open Contest</b></a>
+                ><b>Open election</b></a>
                 {% elif not contest.actual_end %}
                 <p>Votes are OPEN!</p>
                 <a
                     href="{{ url('contest_close', args=[contest.pk]) }}"
-                ><b>Close Contest</b></a>
+                ><b>Close election</b></a>
                 {% endif %}
             {% elif contest.guardian_set.filter(verified=None).count() == 0 %}
             <h3>Guardian Key Ceremony almost complete!</h3>
