@@ -55,6 +55,7 @@ master:
         compose_django_build=
         compose=docker-compose.yml,docker-compose.persist.yml
         wait_grep=uwsgi
+        services=django
         master@electeez.com
         | tee deploy.log
     - grep unreachable=0 deploy.log &> /dev/null
@@ -87,6 +88,7 @@ production:
         compose_django_build=
         compose=docker-compose.yml,docker-compose.persist.yml
         wait_grep=uwsgi
+        services=django
         production@electeez.com
         | tee deploy.log
     - grep unreachable=0 deploy.log &> /dev/null
