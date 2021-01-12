@@ -52,6 +52,7 @@ class Contest(models.Model):
     voters_emails = models.TextField(
         validators=[emails_validator],
         help_text='The list of allowed voters with one email per line',
+        blank=True,
     )
     name = models.CharField(max_length=255)
     type = models.CharField(default='school', max_length=100)
@@ -165,7 +166,7 @@ class Contest(models.Model):
             description=self.description,
         )
         builder.set_public_key(self.joint_public_key)
-        
+
         self.metadata, self.context = builder.build()
         from electionguard.ballot_store import BallotStore
         self.store = BallotStore()
@@ -306,11 +307,11 @@ class Guardian(models.Model):
         on_delete=models.CASCADE,
     )
     created = models.DateTimeField(auto_now_add=True)
-    downloaded = models.DateTimeField(null=True)
-    verified = models.DateTimeField(null=True)
-    erased = models.DateTimeField(null=True)
-    uploaded = models.DateTimeField(null=True)
-    uploaded_erased = models.DateTimeField(null=True)
+    downloaded = models.DateTimeField(null=True, blank=True)
+    verified = models.DateTimeField(null=True, blank=True)
+    erased = models.DateTimeField(null=True, blank=True)
+    uploaded = models.DateTimeField(null=True, blank=True)
+    uploaded_erased = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return str(self.user)

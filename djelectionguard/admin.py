@@ -5,6 +5,7 @@ from .models import Candidate, Contest, Guardian, Voter
 
 class CandidateInline(admin.TabularInline):
     model = Candidate
+    fields = ('name',)
 
 
 class GuardianInline(admin.TabularInline):
