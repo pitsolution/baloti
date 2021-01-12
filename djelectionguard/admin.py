@@ -14,4 +14,9 @@ class GuardianInline(admin.TabularInline):
 
 class ContestAdmin(admin.ModelAdmin):
     inlines = [CandidateInline, GuardianInline]
+
+    def save_model(self, request, obj, form, change):
+        response = super().save_model(request, obj, form, change)
+        obj.voters_update()
+        return response
 admin.site.register(Contest, ContestAdmin)
