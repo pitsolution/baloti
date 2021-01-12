@@ -25,13 +25,33 @@ def post(user, url, **data):
     return client.post(url, data)
 
 
+@pytest.fixture
+def mediator():
+    return User.objects.create(email='med@example.com', is_active=True)
+
+
 @pytest.mark.django_db
-def test_story(client):
+def test_form_validation(client, mediator):
+    response = post(
+        mediator,
+        'contest_create',
+        name='Test Contest',
+        number_elected=2,
+        votes_allowed=1,
+        start_0='2000-01-01',
+        start_1='10:00',
+        end_0='2000-01-02',
+        end_1='10:00',
+    )
+    assert response.status_code == 200, 'Should have displayed the form again'
+
+
+@pytest.mark.django_db
+def test_story(client, mediator):
     external = User.objects.create(email='ext@example.com', is_active=True)
     voter1 = User.objects.create(email='vot1@example.com', is_active=True)
     new = User.objects.create(email='new@example.com', is_active=True)
 
-    mediator = User.objects.create(email='med@example.com', is_active=True)
     response = post(
         mediator,
         'contest_create',

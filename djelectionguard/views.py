@@ -59,7 +59,7 @@ class ContestCreateView(generic.CreateView):
     class form_class(forms.ModelForm):
         now = datetime.now()
         current_time = now.strftime("%H:%M")
-        
+
         start = forms.SplitDateTimeField(
             widget=forms.SplitDateTimeWidget(
                 time_attrs={'type': 'time', 'value': current_time},
@@ -85,7 +85,7 @@ class ContestCreateView(generic.CreateView):
 
         def clean(self):
             cleaned_data = super().clean()
-            if cleaned_data['number_elected'] < cleaned_data['votes_allowed']:
+            if cleaned_data['votes_allowed'] < cleaned_data['number_elected']:
                 raise forms.ValidationError(
                     'Number of elected cannot be bellow number of votes allowed'
                 )
