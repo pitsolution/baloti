@@ -8,6 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('electeez_auth.views')),
     path('contest/', include('djelectionguard.views')),
+    path('tezos/', include('djelectionguard_tezos.views')),
     path('', generic.RedirectView.as_view(url='/contest/')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

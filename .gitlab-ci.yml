@@ -21,6 +21,8 @@ test:
     DB_NAME: electeez
     MEMCACHED_HOST: memcached
   services:
+    - name: yourlabs/tezos
+      alias: tz
     - name: memcached:1.6-alpine
     - name: postgres:latest
       command:

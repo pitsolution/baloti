@@ -1,0 +1,29 @@
+parameter string;
+storage   (pair (address %admin) (string %manifest_url));
+code
+  {
+    DUP;        # pair @parameter @storage : pair @parameter @storage
+    CAR;        # @parameter : pair @parameter @storage
+    SWAP;       # pair @parameter @storage : @parameter
+    CDR;        # @storage : @parameter
+    # == manifest ==
+    # sp.verify(sp.sender == self.data.admin) # @storage : @parameter
+    DUP;        # @storage : @storage : @parameter
+    DUG 2;      # @storage : @parameter : @storage
+    CAR;        # address : @parameter : @storage
+    SENDER;     # address : address : @parameter : @storage
+    COMPARE;    # int : @parameter : @storage
+    EQ;         # bool : @parameter : @storage
+    IF
+      {}
+      {
+        PUSH string "WrongCondition: sp.sender == self.data.admin"; # string : @parameter : @storage
+        FAILWITH;   # FAILED
+      }; # @parameter : @storage
+    SWAP;       # @storage : @parameter
+    # self.data.manifest_url = params.url # @storage : @parameter
+    CAR;        # address : @parameter
+    PAIR;       # pair address @parameter
+    NIL operation; # list operation : pair address @parameter
+    PAIR;       # pair (list operation) (pair address @parameter)
+  };

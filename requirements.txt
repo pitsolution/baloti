@@ -4,6 +4,8 @@ django-extensions
 django-jinja
 django-picklefield
 django-registration
+djblockchain[test]
+djcall
 djcli
 electionguard
 jinja2
@@ -12,3 +14,4 @@ pymemcache
 pytest
 pytest-django
 pytest-watch
+pytezos

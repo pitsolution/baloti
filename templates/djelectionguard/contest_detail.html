@@ -2,6 +2,16 @@
 
 {% block content %}
 {% if contest.mediator == request.user %}
+    {% if not contest.electioncontract and not contest.joint_public_key %}
+    <article>
+        <aside class="info">
+            <p>
+            Do you want to deploy the election on the blockchain ?
+            <a href="{{ url('electioncontract_create', args=[contest.pk]) }}"><b>Deploy on the blockchain</b></a>
+            </p>
+        </aside>
+    </article>
+    {% endif %}
     {% if len(contest.candidate_set.all()) <= contest.number_elected %}
     <article>
         <aside class="info">
@@ -95,36 +105,19 @@
     {% endif %}
 
     <h1>Election: {{ object }}</h2>
-    <!--<table>
-        <tr>
-            <th>Start</th>
-            <td>{{ object.start }}</td>
-        </tr>
-        <tr>
-            <th>End</th>
-            <td>{{ object.end }}</td>
-        </tr>
-        <tr>
-            <th>Number of elected</th>
-            <td>{{ object.number_elected }}</td>
-        </tr>
-        <tr>
-            <th>Votes allowed</th>
-            <td>{{ object.votes_allowed }}</td>
-        </tr>
-        <tr>
-            <th>Number of Guardians</th>
-            <td>{{ object.number_guardians }}</td>
-        </tr>
-        <tr>
-            <th>Quorum</th>
-            <td>{{ object.quorum }}</td>
-        </tr>
-        <tr>
-            <th>Mediator</th>
-            <td>{{ object.mediator }}</td>
-        </tr>
-    </table>-->
+
+    {% if contest.electioncontract %}
+        {% if contest.electioncontract.state == 'done' %}
+        <h1>Tezos contract deployed!</h1>
+        <a
+            href="{{ contest.electioncontract.blockchain.explorer }}{{ contest.electioncontract.txhash }}"
+        ><b>View contract</b></a>
+        {% else %}
+        <p>
+        Tezos contract deployment in progress
+        </p>
+        {% endif %}
+    {% endif %}
 
     <br>
 
