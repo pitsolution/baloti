@@ -5,8 +5,9 @@ import sys
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY', 'notsecret')
-SECURE = SECRET_KEY != 'notsecret'
+default = 'notsecretnotsecretnotsecretnotsecretnotsecretnotsecret'
+SECRET_KEY = os.getenv('SECRET_KEY', default)
+SECURE = SECRET_KEY != default
 
 if SECURE:
     DEBUG = False
@@ -14,6 +15,9 @@ if SECURE:
 else:
     DEBUG = True
     ALLOWED_HOSTS = ['*']
+
+if DEBUG:
+    os.environ['DJBLOCKCHAIN_MOCK'] = '1'
 
 REGISTRATION_OPEN = True
 ACCOUNT_ACTIVATION_DAYS = 7
@@ -28,7 +32,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djblockchain',
+    'djcall',
     'djelectionguard',
+    'djelectionguard_tezos',
     'django_registration',
     'django_extensions',
     'django_jinja',
@@ -96,6 +103,10 @@ def jinja2(**options):
         'PROTO': os.getenv('PROTO', 'http'),
     })
     return env
+
+DJBLOCKCHAIN = dict(
+    TEZOS_CONTRACTS='djelectionguard_tezos/tezos',
+)
 
 
 WSGI_APPLICATION = 'electeez.wsgi.application'

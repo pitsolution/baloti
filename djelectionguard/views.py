@@ -25,6 +25,7 @@ from .models import Contest, Candidate, Guardian
 
 from datetime import datetime, date
 
+
 class ContestMediator:
     def get_queryset(self):
         return self.request.user.contest_set.all()

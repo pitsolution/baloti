@@ -1,0 +1,58 @@
+[
+  {
+    "model": "djblockchain.blockchain",
+    "pk": 1,
+    "fields": {
+      "name": "tzlocal",
+      "endpoint": "http://tz:8732",
+      "explorer": "http://tz:8732/",
+      "provider_class": "djblockchain.tezos.Provider",
+      "confirmation_blocks": 0,
+      "description": "",
+      "is_active": true
+    }
+  },
+  {
+    "model": "djblockchain.blockchain",
+    "pk": 2,
+    "fields": {
+      "name": "fake",
+      "endpoint": "http://localhost:1337",
+      "explorer": "http://localhost:1337/",
+      "provider_class": "djblockchain.fake.Provider",
+      "confirmation_blocks": 0,
+      "description": "",
+      "is_active": true
+    }
+  },
+  {
+    "model": "djblockchain.blockchain",
+    "pk": 3,
+    "fields": {
+      "name": "Tezos Testnet (Carthage)",
+      "endpoint": "https://rpc.tzkt.io/carthagenet/",
+      "explorer": "https://carthage.tzkt.io/",
+      "provider_class": "djblockchain.tezos.Provider",
+      "confirmation_blocks": 2,
+      "description": "",
+      "is_active": true
+    }
+  },
+  {
+    "model": "electeez_auth.user",
+    "pk": "1",
+    "fields": {
+      "password": "pbkdf2_sha256$216000$g270XNpRYtxr$yvplNshFBLUMlKrU/pE647qSrhagLs7JSF8O+fEeVlI=",
+      "last_login": null,
+      "is_superuser": true,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2021-02-01T13:33:33.337Z",
+      "email": "admin@example.com",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

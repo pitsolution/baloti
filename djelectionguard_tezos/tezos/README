@@ -1,0 +1,1 @@
+~/smartpy-cli/SmartPy.sh compile election.py 'ElectionGuard(sp.address("tz1h4EsGunH2Ue1T2uNs8mfKZ8XZoQji3HcK"), "b", "c", "d", "e", "f", "g", "h", "i", "j")' .
