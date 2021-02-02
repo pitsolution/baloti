@@ -1,6 +1,6 @@
-(storage (record 6 (admin (literal (address "tz1h4EsGunH2Ue1T2uNs8mfKZ8XZoQji3HcK") -1)) (manifest_url (literal (string "") 6)))
+(storage (record 6 (admin (literal (address "tz1h4EsGunH2Ue1T2uNs8mfKZ8XZoQji3HcK") -1)) (artifacts_hash (literal (string "") 6)) (artifacts_url (literal (string "") 6)) (close (literal (string "") 6)) (manifest_hash (literal (string "") 6)) (manifest_url (literal (string "") 6)) (open (literal (string "") 6)))
 storage_type (())
-messages ((manifest True ((verify (eq (sender) (attr (data) "admin" 13) 13) 13) (set (attr (data) "manifest_url" 14) (attr (params 12) "url" 14) 14))))
+messages ((close True ((verify (eq (sender) (attr (data) "admin" 25) 25) 25) (set (attr (data) "close" 26) (attr (params 24) "close" 26) 26) (set (attr (data) "artifacts_url" 27) (attr (params 24) "artifacts_url" 27) 27) (set (attr (data) "artifacts_hash" 28) (attr (params 24) "artifacts_hash" 28) 28))) (open True ((verify (eq (sender) (attr (data) "admin" 25) 18) 18) (set (attr (data) "open" 19) (attr (params 17) "open" 19) 19) (set (attr (data) "manifest_url" 20) (attr (params 17) "manifest_url" 20) 20) (set (attr (data) "manifest_hash" 21) (attr (params 17) "manifest_hash" 21) 21))))
 flags ()
 globals ()
 views ()

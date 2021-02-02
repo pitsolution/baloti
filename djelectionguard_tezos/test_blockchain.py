@@ -36,13 +36,19 @@ class ModelStory:
             sender=account,
             election=election,
         )
-
         self.assertIsOnBlockchain(contract)
+
+        open_tx = contract.open()
+        self.assertIsOnBlockchain(open_tx)
+
+        contract.election.read_artifacts_sha1 = lambda: 'd23dffff'
+        close_tx = contract.close()
+        self.assertIsOnBlockchain(close_tx)
 
 
 class TezosTestCase(ModelStory, test.TransactionTestCase):
     bcname = 'tzlocal'
 
 
-#class FakeTestCase(ModelStory, test.TransactionTestCase):
-#    bcname = 'fake'
+class FakeTestCase(ModelStory, test.TransactionTestCase):
+    bcname = 'fake'

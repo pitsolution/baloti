@@ -8,6 +8,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 default = 'notsecretnotsecretnotsecretnotsecretnotsecretnotsecret'
 SECRET_KEY = os.getenv('SECRET_KEY', default)
 SECURE = SECRET_KEY != default
+PROTO = os.getenv('PROTO', 'http')
+HOST = os.getenv('HOST', 'localhost:8000')
+BASE_URL = '://'.join([PROTO, HOST])
 
 if SECURE:
     DEBUG = False
