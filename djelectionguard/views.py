@@ -1,4 +1,5 @@
 import io
+import hashlib
 import os
 import pickle
 import shutil
@@ -166,6 +167,12 @@ class ContestOpenView(ContestMediator, generic.UpdateView):
             return super().save(self, *args, **kwargs)
 
     def form_valid(self, form):
+        try:
+            contract = self.instance.electioncontract
+        except:
+            pass
+        else:
+            contract.open()
         messages.success(
             self.request,
             f'You have open contest {self.object}',
@@ -203,6 +210,12 @@ class ContestCloseView(ContestMediator, generic.UpdateView):
             return super().save(self, *args, **kwargs)
 
     def form_valid(self, form):
+        try:
+            contract = self.instance.electioncontract
+        except:
+            pass
+        else:
+            contract.close()
         messages.success(
             self.request,
             f'You have closed contest {self.object}',
@@ -283,12 +296,23 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
                 'zip',
                 f'contest-{self.instance.pk}',
             )
+            sha1 = hashlib.sha1()
+            with open(f'contest-{self.instance.pk}.zip', 'rb') as f:
+                while data := f.read(65536):
+                    sha1.update(data)
+            with open(f'contest-{self.instance.pk}.sha1', 'w+') as f:
+                f.write(sha1.hexdigest())
             os.chdir(cwd)
 
             for guardian in self.instance.guardian_set.all():
                 guardian.delete_keypair()
 
             return super().save(self, *args, **kwargs)
+
+    def read_artifacts_sha1(self):
+        path = f'{settings.MEDIA_ROOT}/contests/contest-{self.pk}.sha1'
+        with open(path, 'r') as f:
+            return f.read()
 
     def get_success_url(self):
         messages.success(

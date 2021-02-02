@@ -6,20 +6,23 @@ class ElectionGuard(sp.Contract):
         self.init(
             admin=admin,
             manifest_url='',
+            manifest_hash='',
+            open='',
+            close='',
+            artifacts_url='',
+            artifacts_hash='',
         )
 
     @sp.entry_point
-    def manifest(self, params):
+    def open(self, params):
         sp.verify(sp.sender == self.data.admin)
-        self.data.manifest_url = params.url
+        self.data.open = params.open
+        self.data.manifest_url = params.manifest_url
+        self.data.manifest_hash = params.manifest_hash
 
-@sp.add_test(name="StoreValue")
-def test():
-    scenario = sp.test_scenario()
-    alice = sp.test_account("alice")
-
-    scenario.h1("Election create")
-    contract = StoreValue(alice.address)
-    scenario += contract
-    scenario.h1('Election manifest')
-    scenario += contract.manifest(url='http://test').run(sender=alice)
+    @sp.entry_point
+    def close(self, params):
+        sp.verify(sp.sender == self.data.admin)
+        self.data.close = params.close
+        self.data.artifacts_url = params.artifacts_url
+        self.data.artifacts_hash = params.artifacts_hash

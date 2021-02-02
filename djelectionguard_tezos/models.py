@@ -1,4 +1,10 @@
+import json
+import hashlib
+
+from django.conf import settings
 from django.db import models
+from django.urls import reverse
+from django.utils import timezone
 from djblockchain.models import Transaction
 
 
@@ -15,16 +21,66 @@ class ElectionContract(Transaction):
         ]
         return super().deploy()
 
+    def open(self):
+        return self.call(
+            sender=self.sender,
+            function='open',
+            args=[dict(
+                manifest_url=''.join([
+                    settings.BASE_URL,
+                    reverse('contest_manifest', args=[self.election.pk]),
+                ]),
+                manifest_hash=hashlib.sha1(
+                    json.dumps(self.election.get_manifest()).encode('utf8'),
+                ).hexdigest(),
+                open=str(timezone.now()),
+            )],
+            state='deploy',
+        )
 
-def election_storage(sender):
+    def close(self):
+        return self.call(
+            sender=self.sender,
+            function='close',
+            args=[dict(
+                artifacts_url=''.join([
+                    settings.BASE_URL[:-1],
+                    settings.MEDIA_URL,
+                    f'contests/contest-{self.election.pk}.zip',
+                ]),
+                artifacts_hash=self.election.read_artifacts_sha1(),
+                close=str(timezone.now()),
+            )],
+            state='deploy',
+        )
+
+
+def election_storage(admin):
     return {
         "prim": "Pair",
         "args": [
             {
-                "string": sender
+                "prim": "Pair",
+                "args": [
+                    dict(string=admin),
+                    {
+                        "prim": "Pair",
+                        "args": [dict(string=""), dict(string="")],
+                    }
+                ]
             },
             {
-                "string": ""
+                "prim": "Pair",
+                "args": [
+                    {
+                        "prim": "Pair",
+                        "args": [dict(string=""), dict(string="")],
+                    },
+                    {
+                        "prim": "Pair",
+                        "args": [dict(string=""), dict(string="")],
+                    }
+                ]
             }
         ]
     }
