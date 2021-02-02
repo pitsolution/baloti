@@ -42,14 +42,21 @@ class ElectionContract(Transaction):
         return self.call(
             sender=self.sender,
             function='close',
+            args=[str(timezone.now())],
+            state='deploy',
+        )
+
+    def artifacts(self, hexdigest):
+        return self.call(
+            sender=self.sender,
+            function='artifacts',
             args=[dict(
                 artifacts_url=''.join([
                     settings.BASE_URL[:-1],
                     settings.MEDIA_URL,
                     f'contests/contest-{self.election.pk}.zip',
                 ]),
-                artifacts_hash=self.election.read_artifacts_sha1(),
-                close=str(timezone.now()),
+                artifacts_hash=hexdigest,
             )],
             state='deploy',
         )
