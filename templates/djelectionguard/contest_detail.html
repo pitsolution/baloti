@@ -110,7 +110,7 @@
         {% if contest.electioncontract.state == 'done' %}
         <h1>Tezos contract deployed!</h1>
         <a
-            href="{{ contest.electioncontract.blockchain.explorer }}{{ contest.electioncontract.txhash }}"
+            href="{{ contest.electioncontract.explorer_link }}"
         ><b>View contract</b></a>
         {% else %}
         <p>
