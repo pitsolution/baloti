@@ -52,9 +52,9 @@ class ElectionContract(Transaction):
             function='artifacts',
             args=[dict(
                 artifacts_url=''.join([
-                    settings.BASE_URL[:-1],
+                    settings.BASE_URL,
                     settings.MEDIA_URL,
-                    f'contests/contest-{self.election.pk}.zip',
+                    f'contest-{self.election.pk}.zip',
                 ]),
                 artifacts_hash=hexdigest,
             )],
