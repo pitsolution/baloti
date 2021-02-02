@@ -220,6 +220,9 @@ LOGGING = {
 
 LOGGERS = (
     'django.request',
+    'djcall',
+    'djblockchain',
+    'djblockchain.tezos',
 )
 
 for logger in LOGGERS:
