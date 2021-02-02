@@ -4,6 +4,7 @@ services:
     restart: always
     volumes:
       - ./data/media:/app/media
+      - ./spooler:/spooler
       - ./log:/app/log
     labels:
       - "io.yourlabs.compose.mkdir=./data/media,./log:1000:1000:0750"
