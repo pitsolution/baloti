@@ -17,7 +17,7 @@ UserAdmin.fieldsets = (
 UserAdmin.add_fieldsets = (
     (None, {
         'classes': ('wide',),
-        'fields': ('username', 'password1', 'password2'),
+        'fields': ('email', 'password1', 'password2'),
     }),
 )
 admin.site.register(User, UserAdmin)
