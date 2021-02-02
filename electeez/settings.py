@@ -215,7 +215,6 @@ LOGGING = {
         'console': {
             'class': 'logging.StreamHandler',
             'level': os.getenv('LOG_LEVEL', 'DEBUG' if DEBUG else 'INFO'),
-            'formatter': 'timestamp'
         },
     },
     'loggers': {}

@@ -23,6 +23,10 @@ class ElectionGuard(sp.Contract):
     @sp.entry_point
     def close(self, params):
         sp.verify(sp.sender == self.data.admin)
-        self.data.close = params.close
+        self.data.close = params
+
+    @sp.entry_point
+    def artifacts(self, params):
+        sp.verify(sp.sender == self.data.admin)
         self.data.artifacts_url = params.artifacts_url
         self.data.artifacts_hash = params.artifacts_hash

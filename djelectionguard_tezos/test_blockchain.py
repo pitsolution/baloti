@@ -41,9 +41,11 @@ class ModelStory:
         open_tx = contract.open()
         self.assertIsOnBlockchain(open_tx)
 
-        contract.election.read_artifacts_sha1 = lambda: 'd23dffff'
         close_tx = contract.close()
         self.assertIsOnBlockchain(close_tx)
+
+        artifacts_tx = contract.artifacts('d23dffff')
+        self.assertIsOnBlockchain(artifacts_tx)
 
 
 class TezosTestCase(ModelStory, test.TransactionTestCase):

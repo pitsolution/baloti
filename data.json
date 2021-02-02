@@ -29,9 +29,9 @@
     "model": "djblockchain.blockchain",
     "pk": 3,
     "fields": {
-      "name": "Tezos Testnet (Carthage)",
-      "endpoint": "https://rpc.tzkt.io/carthagenet/",
-      "explorer": "https://carthage.tzkt.io/",
+      "name": "Tezos Testnet (Delphinet)",
+      "endpoint": "https://rpc.tzkt.io/delphinet/",
+      "explorer": "https://better-call.dev/delphinet/{}/operations",
       "provider_class": "djblockchain.tezos.Provider",
       "confirmation_blocks": 2,
       "description": "",

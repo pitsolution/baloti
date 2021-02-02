@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
 from django.db import transaction
-from django.db.models import Q
+from django.db.models import ObjectDoesNotExist, Q
 from django.urls import path, reverse
 from django.utils import timezone
 from django.views import generic
@@ -168,8 +168,8 @@ class ContestOpenView(ContestMediator, generic.UpdateView):
 
     def form_valid(self, form):
         try:
-            contract = self.instance.electioncontract
-        except:
+            contract = self.object.electioncontract
+        except ObjectDoesNotExist:
             pass
         else:
             contract.open()
@@ -211,8 +211,8 @@ class ContestCloseView(ContestMediator, generic.UpdateView):
 
     def form_valid(self, form):
         try:
-            contract = self.instance.electioncontract
-        except:
+            contract = self.object.electioncontract
+        except ObjectDoesNotExist:
             pass
         else:
             contract.close()
@@ -300,19 +300,19 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
             with open(f'contest-{self.instance.pk}.zip', 'rb') as f:
                 while data := f.read(65536):
                     sha1.update(data)
-            with open(f'contest-{self.instance.pk}.sha1', 'w+') as f:
-                f.write(sha1.hexdigest())
             os.chdir(cwd)
+
+            try:
+                contract = self.instance.electioncontract
+            except ObjectDoesNotExist:
+                pass
+            else:
+                contract.artifacts(sha1.hexdigest())
 
             for guardian in self.instance.guardian_set.all():
                 guardian.delete_keypair()
 
             return super().save(self, *args, **kwargs)
-
-    def read_artifacts_sha1(self):
-        path = f'{settings.MEDIA_ROOT}/contests/contest-{self.pk}.sha1'
-        with open(path, 'r') as f:
-            return f.read()
 
     def get_success_url(self):
         messages.success(
