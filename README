@@ -43,6 +43,18 @@ Currently, SQLite will work out of the box, provided that it is installed.
     # load development data
     ./manage.py loaddata data.json
 
+### IPFS
+
+IPFS is required because election artifacts are published on IPFS. On Arch
+Linux, install with `pacman -S go-ipfs`.
+
+Run `ipfs init` to enable IPFS support: system will use the private key in the
+default IPFS directory `~/.ipfs` or `$IPFS_PATH` env var.
+
+If `$IPFS_PATH` is set in the environment, then it will eventually try to
+initialize ipfs there on WSGI Web Server startup, you there is lazy
+initialization there for cattle deployment.
+
 ### Running the development server
 
 Run the development server with this command:

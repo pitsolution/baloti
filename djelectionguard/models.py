@@ -1,4 +1,10 @@
+import hashlib
+import json
+import os
+from pathlib import Path
 import pickle
+import shutil
+import subprocess
 import uuid
 
 from django.apps import apps
@@ -86,12 +92,141 @@ class Contest(models.Model):
     ciphertext_tally = PickledObjectField(null=True)
     coefficient_validation_sets = PickledObjectField(null=True)
 
+    artifacts_sha1 = models.CharField(max_length=255, null=True, blank=True)
+    artifacts_ipfs = models.CharField(max_length=255, null=True, blank=True)
+
+    @property
+    def artifacts_path(self):
+        return (
+            Path(settings.MEDIA_ROOT)
+            / 'artifacts'
+            / f'contest-{self.pk}'
+        )
+
+    @property
+    def artifacts_zip_path(self):
+        return Path(str(self.artifacts_path) + '.zip')
+
+    @property
+    def artifacts_url(self):
+        if self.artifacts_ipfs_url:
+            return self.artifacts_ipfs_url
+        return self.artifacts_local_url
+
+    @property
+    def artifacts_local_url(self):
+        return ''.join([
+            settings.BASE_URL,
+            settings.MEDIA_URL,
+            'artifacts/',
+            f'contest-{self.pk}.zip',
+        ])
+
+    @property
+    def artifacts_ipfs_url(self):
+        if self.artifacts_ipfs:
+            return 'https://ipfs.io/ipfs/' + self.artifacts_ipfs
+
+    @property
+    def manifest_url(self):
+        return ''.join([
+            settings.BASE_URL,
+            reverse('contest_manifest', args=[self.pk]),
+        ])
+
+    @property
+    def manifest_sha1(self):
+        return hashlib.sha1(
+            json.dumps(self.get_manifest()).encode('utf8'),
+        ).hexdigest()
+
     @property
     def voters_emails_list(self):
         return [
             line.replace('\r', '').strip().lower()
             for line in self.voters_emails.split('\n')
         ]
+
+    def decrypt(self):
+        from electionguard.tally import CiphertextTally
+        self.ciphertext_tally = CiphertextTally(
+            f'{self.pk}-tally',
+            self.metadata,
+            self.context,
+        )
+        for ballot in self.store.all():
+            assert self.ciphertext_tally.append(ballot)
+
+        from electionguard.decryption_mediator import DecryptionMediator
+        decryption_mediator = DecryptionMediator(
+            self.metadata,
+            self.context,
+            self.ciphertext_tally,
+        )
+
+        # Decrypt the tally with available guardian keys
+        for guardian in self.guardian_set.all():
+            if decryption_mediator.announce(guardian.get_guardian()) is None:
+                break
+        self.plaintext_tally = decryption_mediator.get_plaintext_tally()
+        # And delete keys from memory
+        for guardian in self.guardian_set.all():
+            guardian.delete_keypair()
+        self.save()
+
+        plaintext_tally_contest = self.plaintext_tally.contests[str(self.pk)]
+        for candidate in self.candidate_set.all():
+            candidate.score = plaintext_tally_contest.selections[f'{candidate.pk}-selection'].tally
+            candidate.save()
+
+    def publish(self):
+        cwd = os.getcwd()
+
+        # provision directory path
+        from electionguard.election import ElectionConstants
+        from electionguard.publish import publish
+        from electionguard.tally import publish_ciphertext_tally
+        self.artifacts_path.mkdir(parents=True, exist_ok=True)
+        os.chdir(self.artifacts_path)
+        publish(
+            self.description,
+            self.context,
+            ElectionConstants(),
+            [self.device],
+            self.store.all(),
+            self.ciphertext_tally.spoiled_ballots.values(),
+            publish_ciphertext_tally(self.ciphertext_tally),
+            self.plaintext_tally,
+            self.coefficient_validation_sets,
+        )
+
+        # create the zip file of key to key.zip
+        os.chdir(self.artifacts_path / '..')
+        name = f'contest-{self.pk}'
+        shutil.make_archive(name, 'zip', name)
+
+        sha1 = hashlib.sha1()
+        with self.artifacts_zip_path.open('rb') as f:
+            while data := f.read(65536):
+                sha1.update(data)
+        self.artifacts_sha1 = sha1.hexdigest()
+
+        os.chdir(cwd)
+
+    def publish_ipfs(self):
+        try:
+            out = subprocess.check_output(
+                ['ipfs', 'add', self.artifacts_zip_path],
+                stderr=subprocess.PIPE,
+            )
+        except subprocess.CalledProcessError as e:
+            print(e)
+            print('Could not upload to IPFS, see error above')
+        else:
+            print(out.decode('utf8'))
+            address = out.split(b' ')[1].decode('utf8')
+            self.artifacts_ipfs = address
+            self.save()
 
     def voters_update(self):
         # delete voters who are not anymore in the email list

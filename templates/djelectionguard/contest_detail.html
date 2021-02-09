@@ -1,32 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<header>
+    <h1>Election: {{ object }}</h2>
+</header>
+
 {% if contest.mediator == request.user %}
-    {% if not contest.electioncontract and not contest.joint_public_key %}
-    <article>
-        <aside class="info">
-            <p>
-            Do you want to deploy the election on the blockchain ?
-            <a href="{{ url('electioncontract_create', args=[contest.pk]) }}"><b>Deploy on the blockchain</b></a>
-            </p>
-        </aside>
-    </article>
-    {% endif %}
     {% if len(contest.candidate_set.all()) <= contest.number_elected %}
     <article>
         <aside class="info">
             <p>
-            You need to add a Candidate
             <a href="{{ url('contest_candidate_create', args=[object.pk]) }}"><b>Add New Candidate</b></a>
+            You need to add a Candidate
             </p>
         </aside>
     </article>
-    {% elif not contest.voters_emails %}
+    {% endif %}
+
+    {% if not contest.voters_emails %}
     <article>
         <aside class="info">
             <p>
-            You need to add voters
             <a href="{{ url('contest_voters_update', args=[object.pk]) }}"><b>Manage voters</b></a>
+            You need to add voters
             </p>
         </aside>
     </article>
@@ -35,13 +31,13 @@
         <aside class="info">
             <p>
             {% if contest.guardian_set.filter(verified=None).count() > 0 %}
-            You need to proceed with the key ceremony
             <a href="#ceremony"><b>Go to key ceremony</b></a>
+            You need to proceed with the key ceremony
             {% else %}
-            You need to create the joint public key
             <a
                 href="{{ url('contest_pubkey', args=[contest.pk]) }}"
             ><b>Create Joint Public Key</b></a>
+            You need to create the joint public key
             {% endif %}
             </p>
         </aside>
@@ -50,10 +46,10 @@
     <article>
         <aside class="info">
             <p>
-            You may open the election for vote
             <a
                 href="{{ url('contest_open', args=[contest.pk]) }}"
             ><b>Open election</b></a>
+            You may open the election for vote
             </p>
         </aside>
     </article>
@@ -64,10 +60,10 @@
         </aside>
         <aside class="info">
             <p>
-            You may CLOSE the Contest for vote
             <a
                 href="{{ url('contest_close', args=[contest.pk]) }}"
             ><b>Close election</b></a>
+            You may CLOSE the Contest for vote
             </p>
         </aside>
     </article>
@@ -79,14 +75,25 @@
         <aside class="info">
             <p>
             {% if contest.guardian_set.filter(uploaded=None).count() > 0 %}
-                You need to proceed with the key ceremony
                 <a href="#ceremony"><b>Go to key ceremony</b></a>
+                You need to proceed with the key ceremony
             {% else %}
-                <p>You need to decrypt the tally</p>
                 <a href="{{ url('contest_decrypt', args=[object.pk]) }}"><b>Decrypt tally</b></a>
+                You need to decrypt the tally
             {% endif %}
             </p>
         </aside>
+    {% endif %}
+
+    {% if not contest.electioncontract and not contest.joint_public_key %}
+    <article>
+        <aside class="info">
+            <p>
+            <a href="{{ url('electioncontract_create', args=[contest.pk]) }}"><b>Blockchain deploy</b></a>
+            <b>OPTIONAL</b> Do you want to deploy the election on the blockchain ? <b>BETA</b>
+            </p>
+        </aside>
+    </article>
     {% endif %}
 {% endif %}
 
@@ -101,14 +108,18 @@
         <p>The result will be published here after election is closed.</p>
     {% endif %}
     {% if object.plaintext_tally %}
-        <a href="/media/contest-{{ object.pk }}.zip"><b>Download published artifacts</b></a>
+        <h2>Download published artifacts</h2>
+        <a href="{{ object.artifacts_local_url }}"><b>From Electis</b></a>
+        {% if object.artifacts_ipfs %}
+        <a href="{{ object.artifacts_ipfs_url }}" target="_blank"><b>From IPFS</b></a>
+        <p><b>Or</b> download with:</p>
+        <pre>ipfs get {{ object.artifacts_ipfs }}</pre>
+        {% endif %}
     {% endif %}
 
-    <h1>Election: {{ object }}</h2>
-
     {% if contest.electioncontract %}
+        <h1>Tezos Blockchain Smart Contract</h1>
         {% if contest.electioncontract.state == 'done' %}
-        <h1>Tezos contract deployed!</h1>
         <a
             href="{{ contest.electioncontract.explorer_link }}"
         ><b>View contract</b></a>
@@ -179,7 +190,7 @@
         <a id="ceremony"></a>
         {% if contest.guardian_set.all() %}
             {% if not contest.actual_end %}
-                <h2>Guardians</h2>
+                <h2>Guardian Key Ceremony</h2>
                 <table>
                     <thead>
                         <th>Username</th>
@@ -235,7 +246,7 @@
                     {% endfor %}
                 </table>
             {% else %}
-                <h2>Guardians</h2>
+                <h2>Guardian Key Ceremony</h2>
                 <table>
                     <thead>
                         <th>Username</th>

@@ -23,9 +23,9 @@ def test_voters_emails_validation(contest):
 
     with pytest.raises(ValidationError) as e:
         contest.full_clean()
-    assert e._excinfo[1].messages == [
-        'Please remove lines containing invalid emails: lol, foo'
-    ]
+
+    msg = 'Please remove lines containing invalid emails: lol, foo'
+    assert msg in e._excinfo[1].messages
 
     contest.voters_emails = '''
     test@example.com
