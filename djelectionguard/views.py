@@ -1,8 +1,10 @@
 import io
 import hashlib
 import os
+from pathlib import Path
 import pickle
 import shutil
+import subprocess
 
 from django import forms
 from django import http
@@ -14,6 +16,7 @@ from django.db import transaction
 from django.db.models import ObjectDoesNotExist, Q
 from django.urls import path, reverse
 from django.utils import timezone
+from django.utils.safestring import mark_safe
 from django.views import generic
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormMixin, ProcessFormView
@@ -226,6 +229,13 @@ class ContestCloseView(ContestMediator, generic.UpdateView):
 class ContestDecryptView(ContestMediator, generic.UpdateView):
     template_name = 'djelectionguard/contest_decrypt.html'
 
+    class form_class(forms.ModelForm):
+        ipfs = forms.BooleanField(label='Deploy on IPFS?', required=False)
+
+        class Meta:
+            model = Contest
+            fields = []
+
     @classmethod
     def as_url(cls):
         return path(
@@ -237,92 +247,45 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
     def get_queryset(self):
         return self.request.user.contest_set.exclude(actual_end=None)
 
-    class form_class(forms.ModelForm):
-        class Meta:
-            model = Contest
-            fields = []
+    def form_valid(self, form):
+        self.object.decrypt()
+        self.object.publish()
 
-        def save(self, *args, **kwargs):
-            # Append from box to tally
-            from electionguard.tally import CiphertextTally, publish_ciphertext_tally
-            self.instance.ciphertext_tally = CiphertextTally(
-                f'{self.instance.pk}-tally',
-                self.instance.metadata,
-                self.instance.context,
-            )
-            for ballot in self.instance.store.all():
-                assert self.instance.ciphertext_tally.append(ballot)
-
-            from electionguard.decryption_mediator import DecryptionMediator
-            decryption_mediator = DecryptionMediator(
-                self.instance.metadata,
-                self.instance.context,
-                self.instance.ciphertext_tally,
-            )
-
-            # Decrypt the tally with available guardian keys
-            for guardian in self.instance.guardian_set.all():
-                if decryption_mediator.announce(guardian.get_guardian()) is None:
-                    break
-
-            self.instance.plaintext_tally = decryption_mediator.get_plaintext_tally()
-            plaintext_tally_contest = self.instance.plaintext_tally.contests[str(self.instance.pk)]
-            for candidate in self.instance.candidate_set.all():
-                candidate.score = plaintext_tally_contest.selections[f'{candidate.pk}-selection'].tally
-                candidate.save()
-
-            path = os.path.join(settings.MEDIA_ROOT, f'contest-{self.instance.pk}')
-            if not os.path.exists(path):
-                os.makedirs(path)
-            cwd = os.getcwd()
-            os.chdir(path)
-
-            from electionguard.publish import publish
-            from electionguard.election import ElectionConstants
-            publish(
-                self.instance.description,
-                self.instance.context,
-                ElectionConstants(),
-                [self.instance.device],
-                self.instance.store.all(),
-                self.instance.ciphertext_tally.spoiled_ballots.values(),
-                publish_ciphertext_tally(self.instance.ciphertext_tally),
-                self.instance.plaintext_tally,
-                self.instance.coefficient_validation_sets,
-            )
-            os.chdir(settings.MEDIA_ROOT)
-            shutil.make_archive(
-                f'contest-{self.instance.pk}',
-                'zip',
-                f'contest-{self.instance.pk}',
-            )
-            sha1 = hashlib.sha1()
-            with open(f'contest-{self.instance.pk}.zip', 'rb') as f:
-                while data := f.read(65536):
-                    sha1.update(data)
-            os.chdir(cwd)
-
-            try:
-                contract = self.instance.electioncontract
-            except ObjectDoesNotExist:
-                pass
+        if form.cleaned_data['ipfs']:
+            if not settings.IPFS_ENABLED:
+                messages.error(
+                    self.request,
+                    'IPFS not initialized on this node'
+                )
             else:
-                contract.artifacts(sha1.hexdigest())
+                self.object.publish_ipfs()
 
-            for guardian in self.instance.guardian_set.all():
-                guardian.delete_keypair()
+        try:
+            contract = self.object.electioncontract
+        except ObjectDoesNotExist:
+            # Contract not deployed on the blockchain
+            pass
+        else:
+            contract.artifacts()
 
-            return super().save(self, *args, **kwargs)
+        return super().form_valid(form)
 
     def get_success_url(self):
         messages.success(
             self.request,
             f'You have decrypted tally for {self.object}',
         )
-        messages.info(
-            self.request,
-            f'Artifacts were published for {self.object}',
-        )
+        if self.object.artifacts_ipfs:
+            messages.success(
+                self.request,
+                f'You have published artifacts for {self.object} on IPFS '
+                + self.object.artifacts_ipfs
+            )
+        else:
+            messages.info(
+                self.request,
+                f'Artifacts were published for {self.object}',
+            )
         messages.info(
             self.request,
             f'Guardian keys were removed from our memory for {self.object}',

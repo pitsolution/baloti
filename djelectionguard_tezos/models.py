@@ -26,13 +26,8 @@ class ElectionContract(Transaction):
             sender=self.sender,
             function='open',
             args=[dict(
-                manifest_url=''.join([
-                    settings.BASE_URL,
-                    reverse('contest_manifest', args=[self.election.pk]),
-                ]),
-                manifest_hash=hashlib.sha1(
-                    json.dumps(self.election.get_manifest()).encode('utf8'),
-                ).hexdigest(),
+                manifest_url=self.election.manifest_url,
+                manifest_hash=self.election.manifest_sha1,
                 open=str(timezone.now()),
             )],
             state='deploy',
@@ -46,17 +41,13 @@ class ElectionContract(Transaction):
             state='deploy',
         )
 
-    def artifacts(self, hexdigest):
+    def artifacts(self):
         return self.call(
             sender=self.sender,
             function='artifacts',
             args=[dict(
-                artifacts_url=''.join([
-                    settings.BASE_URL,
-                    settings.MEDIA_URL,
-                    f'contest-{self.election.pk}.zip',
-                ]),
-                artifacts_hash=hexdigest,
+                artifacts_url=self.election.artifacts_url,
+                artifacts_hash=self.election.artifacts_sha1,
             )],
             state='deploy',
         )

@@ -44,7 +44,9 @@ class ModelStory:
         close_tx = contract.close()
         self.assertIsOnBlockchain(close_tx)
 
-        artifacts_tx = contract.artifacts('d23dffff')
+        contract.election.artifacts_sha1 = 'd23dffff'
+        contract.election.artifacts_ipfs = 'd2d23dffff3dffff'
+        artifacts_tx = contract.artifacts()
         self.assertIsOnBlockchain(artifacts_tx)
 
 

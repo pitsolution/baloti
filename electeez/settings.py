@@ -111,6 +111,8 @@ DJBLOCKCHAIN = dict(
     TEZOS_CONTRACTS='djelectionguard_tezos/tezos',
 )
 
+ipfs_home = Path(os.getenv('HOME')) / '.ipfs'
+IPFS_ENABLED = 'IPFS_PATH' in os.environ or ipfs_home.exists()
 
 WSGI_APPLICATION = 'electeez.wsgi.application'
 

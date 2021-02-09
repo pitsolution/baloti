@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<header>
+    <h1>Election: {{ object }}</h2>
+</header>
+
 {% if contest.mediator == request.user %}
-    {% if not contest.joint_public_key %}
+    {% if len(contest.candidate_set.all()) <= contest.number_elected %}
     <article>
-        <aside class="success">
+        <aside class="info">
             <p>
             <a href="{{ url('contest_candidate_create', args=[object.pk]) }}"><b>Add New Candidate</b></a>
-            {% if len(contest.candidate_set.all()) <= contest.number_elected %}
             You need to add a Candidate
-            {% else %}
-            You may still add another Candidate
-            {% endif %}
             </p>
         </aside>
     </article>
@@ -90,7 +90,7 @@
         <aside class="info">
             <p>
             <a href="{{ url('electioncontract_create', args=[contest.pk]) }}"><b>Blockchain deploy</b></a>
-            <b>OPTIONNAL</b> Do you want to deploy the election on the blockchain ? <b>BETA</b>
+            <b>OPTIONAL</b> Do you want to deploy the election on the blockchain ? <b>BETA</b>
             </p>
         </aside>
     </article>
@@ -108,10 +108,14 @@
         <p>The result will be published here after election is closed.</p>
     {% endif %}
     {% if object.plaintext_tally %}
-        <a href="/media/contest-{{ object.pk }}.zip"><b>Download published artifacts</b></a>
+        <h2>Download published artifacts</h2>
+        <a href="{{ object.artifacts_local_url }}"><b>From Electis</b></a>
+        {% if object.artifacts_ipfs %}
+        <a href="{{ object.artifacts_ipfs_url }}" target="_blank"><b>From IPFS</b></a>
+        <p><b>Or</b> download with:</p>
+        <pre>ipfs get {{ object.artifacts_ipfs }}</pre>
+        {% endif %}
     {% endif %}
-
-    <h1>Election: {{ object }}</h2>
 
     {% if contest.electioncontract %}
         <h1>Tezos Blockchain Smart Contract</h1>
@@ -186,7 +190,7 @@
         <a id="ceremony"></a>
         {% if contest.guardian_set.all() %}
             {% if not contest.actual_end %}
-                <h2>Guardians</h2>
+                <h2>Guardian Key Ceremony</h2>
                 <table>
                     <thead>
                         <th>Username</th>
