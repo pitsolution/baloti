@@ -4,6 +4,7 @@ django-extensions
 django-jinja
 django-picklefield
 django-registration
+django-sass-processor
 djblockchain[test]
 djcall
 djcli

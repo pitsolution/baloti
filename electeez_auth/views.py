@@ -10,6 +10,18 @@ from django.urls import include, path, reverse
 from django_registration.forms import RegistrationForm
 from django_registration.backends.activation.views import RegistrationView
 
+from ryzom.views import View as RyzomView
+
+from electeez.components import Document, TopPanel, Footer
+from .components import (
+    LogoutCard,
+    EmailLoginCard,
+    EmailRegistrationCard,
+    RegistrationForm,
+    RegistrationCompleteCard,
+    PasswordResetCard,
+    PasswordResetDoneCard,
+)
 from .models import User
 
 

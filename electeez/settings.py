@@ -33,6 +33,8 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 INSTALLED_APPS = [
+    'sass_processor',
+    'electeez',
     'electeez_auth',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -47,6 +49,8 @@ INSTALLED_APPS = [
     'django_registration',
     'django_extensions',
     'django_jinja',
+    'channels',
+    'ryzom',
 ]
 
 AUTH_USER_MODEL = 'electeez_auth.User'
@@ -59,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'ryzom.middleware.RyzomMiddleware',
 ]
 
 if DEBUG:
@@ -67,6 +72,19 @@ if DEBUG:
     INTERNAL_IPS = ['127.0.0.1']
 
 ROOT_URLCONF = 'electeez.urls'
+
+#RYZOM_APP = ''
+#DDP_URLPATTERNS = 'electeez.routing'
+#SERVER_METHODS = []
+ASGI_APPLICATION = 'electeez.asgi.application'
+#CHANNEL_LAYERS = {
+#    "default": {
+#        "BACKEND": "channels_redis.core.RedisChannelLayer",
+#        "CONFIG": {
+#            "hosts": [("localhost", 6379)]
+#        },
+#    },
+#}
 
 TEMPLATES = [
     {
@@ -98,6 +116,30 @@ TEMPLATES = [
         },
     },
 ]
+
+RYZOM_TEMPLATE_BACKEND = {
+    "BACKEND": "ryzom.backends.ryzom.Ryzom",
+    "OPTIONS": {
+        "app_dirname": "components",
+        "components_module": "ryzom.components.muicss",
+        "components_prefix": "Mui",
+        # "components_module": "ryzom.components.django",
+        # "components_prefix": "Django",
+
+        "context_processors": [
+            "django.template.context_processors.debug",
+            "django.template.context_processors.request",
+            "django.contrib.auth.context_processors.auth",
+            "django.contrib.messages.context_processors.messages",
+            "django.template.context_processors.i18n",
+        ],
+        # "autoescape": True,
+        # "auto_reload": DEBUG,
+        # "translation_engine": "django.utils.translation",
+        # "debug": False,
+    }
+}
+TEMPLATES.append(RYZOM_TEMPLATE_BACKEND)  # noqa: F405
 
 def jinja2(**options):
     from django.templatetags.static import static
@@ -181,8 +223,21 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'public'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'sass_processor.finders.CssFinder',
+]
+
+if DEBUG:
+    STATICFILES_FINDERS = [
+        'electeez.finders.StaticRootFinder',
+        *STATICFILES_FINDERS
+    ]
+
 if 'collectstatic' in sys.argv or not DEBUG:
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
 
 EMAIL_HOST = os.getenv('EMAIL_HOST', None)
 EMAIL_PORT = os.getenv('EMAIL_PORT', None)
