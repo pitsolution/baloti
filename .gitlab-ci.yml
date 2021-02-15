@@ -9,7 +9,9 @@ build:
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
 
 test:
-  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+  image: 
+    name: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+    entrypoint: ["/bin/sh", "-c"]
   stage: test
   variables:
     POSTGRES_DB: electeez
