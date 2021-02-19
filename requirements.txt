@@ -1,5 +1,6 @@
 django
-django-channels
+channels
+channels-redis
 django-debug-toolbar
 django-extensions
 django-jinja
@@ -18,4 +19,4 @@ pytest-django
 pytest-watch
 pytezos<3
 
-git+git://yourlabs.io/oss/ryzom.git@py2js#egg=ryzom
+git+http://yourlabs.io/oss/ryzom.git@py2js#egg=ryzom
