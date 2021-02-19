@@ -34,9 +34,13 @@ class TopPanel(html.Div):
             ),
             html.Span(
                 html.Span(f"Hello, {text}", cls='top-panel-sub top-panel-msg'),
-                cls='top-panel-elem'
+                cls='top-panel-elem over'
             ),
             html.Span(self.account_btn, cls='top-panel-elem top-panel-btn'),
+            html.Span(
+                html.Span(f"Hello, {text}", cls='top-panel-sub top-panel-msg'),
+                cls='top-panel-elem under'
+            ),
             cls='top-panel'
         )
 

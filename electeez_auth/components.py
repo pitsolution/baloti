@@ -56,6 +56,11 @@ class EmailLoginCard(html.Div):
             CSRFInput(view),
             self.email_field,
             self.password_field,
+            html.Div(
+                self.forgot_pass,
+                self.login,
+                style='display: flex; justify-content: space-between;'
+            ),
             method='POST',
             style='display: flex; flex-flow: column wrap; '
         )
@@ -65,11 +70,6 @@ class EmailLoginCard(html.Div):
                 OAuthConnect(view),
                 html.Span('Or enter email and password:', cls='center-text'),
                 self.form,
-                html.Div(
-                    self.forgot_pass,
-                    self.login,
-                    style='display: flex; justify-content: space-between;'
-                ),
                 cls='card'
             )
         )

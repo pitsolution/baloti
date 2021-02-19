@@ -1,9 +1,15 @@
+$danger: #D73131;
 $green: #AEEA00;
+$green2: #2f8c00;
 $yellow: #FFEA00;
+$black: #141414;
+$black2: #2e2e2e;
+$gray: #e5e5e5;
 
 :root {
   --mdc-theme-primary: #0075eb;
   --mdc-shape-small: 2px;
+  --mdc-checkbox-checked-color: #2e2e2e;
 }
 
 .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
@@ -49,10 +55,19 @@ h4 {
   color: rgba(0, 0, 0, 0.87);
 }
 
-h6 {
+h5 {
   font-style: normal;
   font-weight: bold;
   font-size: 24px;
+  line-height: 24px;
+  letter-spacing: 0.18px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+h6 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
   line-height: 24px;
   letter-spacing: 0.18px;
   color: rgba(0, 0, 0, 0.87);
@@ -134,14 +149,14 @@ a.caption {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: #141414;
-  color: #E5E5E5;
+  background-color: $black;
+  color: $gray;
   padding: 12px;
+  flex-wrap: wrap;
 }
 
 .top-panel-elem {
   display: flex;
-  width: 100%;
 }
 
 .top-panel-elem .mdc-button {
@@ -149,6 +164,12 @@ a.caption {
 }
 
 .top-panel-elem.top-panel-msg {
+  text-align: center;
+}
+
+.top-panel-elem.under {
+  display: none;
+  width: 100%;
   text-align: center;
 }
 
@@ -179,14 +200,15 @@ a.caption {
 .mdc-button--raised.black-button,
 .mdc-button--raised.black-button .mdc-button__label,
 .mdc-button--raised.black-button:not(:disabled) {
-  background: #2E2E2E;
+  background: $black2;
 }
 
 .mdc-button--outlined.black-button,
 .mdc-button--outlined.black-button .mdc-button__label,
 .mdc-button--outlined.black-button:not(:disabled) {
-  color: #2E2E2E;
+  color: $black2;
 }
+
 
 .card {
   max-width: 30em;
@@ -194,9 +216,10 @@ a.caption {
   margin: 24px auto;
   padding: 0 1em;
 
-  h6 {
+  h4, h5, h6 {
     margin-bottom: 24px;
   }
+
 }
 
 .center-text {
@@ -208,6 +231,32 @@ a.caption {
 .section {
   margin-bottom: 24px;
 }
+
+.mdc-tab-indicator
+.mdc-tab-indicator__content.mdc-tab-indicator__content--underline {
+  border-color: $black;
+}
+
+.mdc-tab:hover .mdc-tab__text-label,
+.mdc-tab .mdc-tab__text-label {
+	color: $black;
+}
+
+.mdc-tab .mdc-tab__ripple::before,
+.mdc-tab .mdc-tab__ripple::after {
+  background-color: $black;
+}
+
+.mdc-tab:hover .mdc-tab__text-label,
+.mdc-tab .mdc-tab__text-label {
+  opacity: 0.6;
+}
+
+.mdc-tab--active .mdc-tab__text-label {
+  opacity: 0.87;
+}
+
+
 
 .contest-filter {
   margin: 0 auto;
@@ -294,9 +343,21 @@ a.caption {
   }
 }
 
-.list-action-item {
+.table-container::-webkit-scrollbar {
+//  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.table-container {
+  overflow-x: auto;
+//  -ms-overflow-style: none;  /* IE and Edge */
+//  scrollbar-width: none;  /* Firefox */
+}
+
+.mdc-list-item.list-action-item {
   height: auto;
-  padding: 12px 0;
+  padding: 12px 2px;
+  cursor: auto;
 
   .list-action-column {
     width: 100%;
@@ -308,11 +369,12 @@ a.caption {
       flex-flow: row nowrap;
       align-items: center;
 
-      h6 {
+      h4, h5, h6 {
         margin-left: 72px;
         margin-top: 22px;
         margin-bottom: 10px;
         white-space: break-spaces;
+        text-align: left;
       }
 
       .mdc-button {
@@ -345,6 +407,8 @@ a.caption {
       margin-left: 72px;
       white-space: normal;
 
+      p { margin: 0 }
+
       .mdc-button {
         margin: 16px 0;
       }
@@ -365,12 +429,24 @@ a.caption {
   background-image: url('/static/images/tezos_icon.svg');
 }
 
+.ongoing-icon {
+  background-image: url('/static/images/ongoing_icon.svg');
+}
+
+.email-icon {
+  background-image: url('/static/images/email_icon.svg');
+}
+
+.simple-check-icon {
+  background-image: url('/static/images/simple_check_icon.svg');
+}
+
 .icon.green {
   background-color: $green;
 }
 
 .icon.green2 {
-  color: green;
+  color: $green2;
 }
 
 .icon.yellow {
@@ -401,19 +477,49 @@ a.caption {
 }
 
 .setting-section {
-  h6 {
+  padding: 0 24px;
+  h5, h6 {
     text-align: center;
+  }
+  h4 {
+    text-align: left;
+    margin-bottom: 0;
+    margin-left: 12px;
   }
   .mdc-button {
     margin: 12px 0;
+    margin-left: 12px;
+  }
+  .voters_count {
+    margin-left: 12px;
   }
 }
 
+.decrypt-form,
+.encrypt-form,
+.vote-form,
 .guardian-verify-form,
 .voters-update-form,
 .candidate-create-form {
   button {
     margin-left: auto;
+  }
+
+  label.mdc-text-field.mdc-text-field--textarea {
+      margin-bottom: 24px;
+  }
+}
+
+.encrypt-form {
+  label.mdc-button--outlined {
+    display: inline-flex;
+  }
+}
+
+.red-button-container {
+  .mdc-button,
+  .mdc-button--outlined {
+    color: $danger;
   }
 }
 
@@ -427,4 +533,107 @@ a.caption {
 
   button { margin: 12px; }
 
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 70em;
+  margin: 0 auto;
+  padding: 0 64px;
+
+  .card {
+    max-width: 70em;
+    min-width: 90%;
+  }
+
+  .main-container {
+    width: 100%;
+
+    .setting-section.main-setting-section {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+  }
+
+  .side-container,
+  .main-container {
+    max-width: 50em;
+    flex-grow: 1;
+    margin: 0 24px;
+
+    .setting-section {
+      .winner-caption {
+        color: $green2;
+      }
+      ol.winners {
+        padding: 0
+      }
+      h6.winner {
+        text-align: left;
+        margin: 6px 0;
+      }
+      .mdc-list.candidate-list {
+        display: flex;
+        flex-flow: row wrap;
+        .mdc-list-item.candidate-list-item {
+          min-width: 256px;
+          width: 45%;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .flex-container {
+    padding: 0 32px;
+
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .top-panel-elem.under {
+    display: flex;
+  }
+  .top-panel-elem.over {
+    display: none;
+  }
+  .flex-container {
+    .main-container {
+      .setting-section.main-setting-section {
+        border: none;
+        margin-bottom: 0
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 512px) {
+  .flex-container {
+    padding: 0;
+
+    .side-container,
+    .main-container {
+      margin: 0;
+    }
+
+    .main-container {
+      .setting-section.main-setting-section {
+        border: none;
+        margin-bottom: 0
+      }
+    }
+
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .flex-container {
+    .side-container {
+      width: 210px;
+    }
+  }
 }

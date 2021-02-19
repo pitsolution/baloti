@@ -31,6 +31,18 @@ class MDCTextButton(html.Button):
         )
 
 
+class MDCTextButtonLabel(html.Label):
+    def __init__(self, text, icon=None):
+        content = [html.Span(cls='mdc-button__ripple')]
+        if icon:
+            content.append(MDCIcon(icon))
+        content.append(html.Span(text, cls='mdc-button__label'))
+        super().__init__(
+            *content,
+            cls='mdc-button'
+        )
+
+
 class MDCButtonOutlined(html.Button):
     def __init__(self, text, p=True, icon=None):
         black = 'black-button' if p else ''
@@ -121,13 +133,15 @@ class MDCNotchOutline(html.Span):
     attrs = {'class': 'mdc-notched-outline'}
 
     def __init__(self, hint='', label_id=''):
-        content = [
-            html.Span(**{'class': 'mdc-notched-outline__leading'}),
-            html.Span(
+        content = [html.Span(cls='mdc-notched-outline__leading')]
+
+        if hint:
+            content.append(html.Span(
                 MDCLabel(hint, label_id),
-                **{'class': 'mdc-notched-outline__notch'}),
-            html.Span(**{'class': 'mdc-notched-outline__trailing'}),
-        ]
+                cls='mdc-notched-outline__notch'))
+
+        content.append(html.Span(cls='mdc-notched-outline__trailing'))
+
         super().__init__(*content, **self.attrs)
 
 
@@ -177,9 +191,25 @@ class MDCTextFieldOutlined(html.Div):
 
 class MDCTextareaFieldOutlined(html.Label):
     def __init__(self, value='', hint='', input_id='', label_id='', **kwargs):
+        name = kwargs.get('name', '')
+        if not hint:
+            hint = name
+        if name and not input_id:
+            input_id = name + '_input'
+        if input_id and not label_id:
+            label_id = input_id + '_label'
+
+        if hint:
+            label = html.Span(
+                html.Span(hint, cls='mdc-floating-label', id=label_id),
+                cls='mdc-notched-outline__notch'),
+        else:
+            label = tuple()
+
         super().__init__(
             html.Span(
                 html.Span(cls='mdc-notched-outline__leading'),
+                *label,
                 html.Span(cls='mdc-notched-outline__trailing'),
                 cls='mdc-notched-outline'
             ),
@@ -188,10 +218,10 @@ class MDCTextareaFieldOutlined(html.Label):
                     value,
                     id=input_id,
                     cls='mdc-text-field__input',
-                    **{'aria-label': 'Label'},
+                    **{'aria-labelledby': label_id},
                     **kwargs),
                 cls='mdc-text-field__resizer'),
-            cls='mdc-text-field mdc-text-field--outlined mdc-text-field--textarea mdc-text-field--no-label',
+            cls='mdc-text-field mdc-text-field--outlined mdc-text-field--textarea',
             **{'data-mdc-auto-init': 'MDCTextField'}
         )
 
@@ -284,10 +314,11 @@ class MDCSplitDateTime(html.Div):
 
 class MDCListItem(html.Li):
     def __init__(self, *content, **kwargs):
+        cls = kwargs.pop('cls', '')
         super().__init__(
             html.Span(cls='mdc-list-item__ripple'),
             html.Span(*content, cls='mdc-list-item__text'),
-            cls='mdc-list-item'
+            cls=cls + ' mdc-list-item'
         )
 
 
@@ -326,3 +357,100 @@ class MDCSnackBar(html.Div):
             '\n\tsn.open();' +
             '\n}; '
         )
+
+
+class MDCCheckboxListItem(html.Li):
+    def __init__(self, title, id, checked=False, **kwargs):
+        self.input_id = id
+        if checked:
+            kwargs['checked'] = True
+        super().__init__(
+            html.Span(cls='mdc-list-item__ripple'),
+            html.Span(
+                html.Div(
+                    html.Input(
+                        id=id,
+                        type='checkbox',
+                        cls='mdc-checkbox__native-control',
+                        **kwargs),
+                    html.Div(
+                        html.Component(
+                            html.Component(
+                                tag='path', fill='none',
+                                d="M1.73,12.91 8.1,19.28 22.79,4.59",
+                                cls='mdc-checkbox__checkmark-path'),
+                            tag='svg', viewBox='0 0 24 24',
+                            cls='mdc-checkbox__checkmark'),
+                        html.Div(cls='mdc-checkbox__mixedmark'),
+                        cls='mdc-checkbox__background'),
+                    cls='mdc-checkbox'),
+                cls='mdc-list-item__graphic'),
+            html.Label(title, cls='mdc-list-item__text', **{'for': id}),
+            cls='mdc-list-item',
+            role='checkbox',
+            **{
+                'aria-checked': 'true' if checked else 'false',
+                'data-list-item-of': id
+            }
+        )
+
+    def render_js(self):
+        def events():
+            def click_input(event):
+                event.stopPropagation()
+                elem = event.target.querySelector('input')
+                if elem:
+                    elem.click()
+
+            elem = getElementByUuid(id)
+            setattr(elem, 'onclick', click_input)
+
+        return JavaScript(events, dict(id=self._id))
+
+
+class MDCMultipleChoicesCheckbox(html.Ul):
+    def __init__(self, name, choices, n=1, **kwargs):
+        self.max = n
+        alabel = kwargs.pop('aria-label', 'Label')
+        super().__init__(
+            *(MDCCheckboxListItem(
+                title,
+                f'{name}_input_{i}',
+                name=name,
+                value=value,
+                **kwargs
+            ) for i, title, value in choices),
+            cls='mdc-list',
+            role='group',
+            **{'aria-label': alabel}
+        )
+
+    def render_js(self):
+        def change_event():
+            def update_inputs(event):
+                checked = input_list.querySelectorAll('input:checked')
+                unchecked = input_list.querySelectorAll('input:not(:checked)')
+
+                def disable(elem, pos, arr):
+                    setattr(elem, 'disabled', 'true')
+                    list_item = document.querySelector(
+                        '[data-list-item-of="' + elem.id + '"]'
+                    ).classList.add('mdc-list-item--disabled')
+
+                def enable(elem, pas, arr):
+                    setattr(elem, 'disabled', undefined)
+                    list_item = document.querySelector(
+                        '[data-list-item-of="' + elem.id + '"]'
+                    ).classList.remove('mdc-list-item--disabled')
+
+                if checked.length >= max_choices:
+                    unchecked.forEach(disable)
+                else:
+                    unchecked.forEach(enable)
+
+            input_list = getElementByUuid(id)
+            input_list.addEventListener('change', update_inputs)
+
+            document.addEventListener('readystatechange', update_inputs)
+
+        return JavaScript(change_event, dict(id=self._id, max_choices=self.max))

@@ -17,10 +17,12 @@ from .views import (
     ContestListView,
     ContestManifestView,
     ContestCandidateCreateView,
+    ContestCandidateUpdateView,
     ContestCandidateDeleteView,
     ContestVotersUpdateView,
     ContestVotersDetailView,
     ContestDetailView,
+    ContestResultView,
 )
 
 
@@ -40,8 +42,10 @@ urlpatterns = [
     ContestListView.as_url(),
     ContestManifestView.as_url(),
     ContestCandidateCreateView.as_url(),
+    ContestCandidateUpdateView.as_url(),
     ContestCandidateDeleteView.as_url(),
     ContestVotersUpdateView.as_url(),
     ContestVotersDetailView.as_url(),
     ContestDetailView.as_url(),
+    ContestResultView.as_url(),
 ]
