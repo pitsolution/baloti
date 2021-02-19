@@ -18,4 +18,4 @@ pytest-django
 pytest-watch
 pytezos<3
 
--e git+git.io:oss/ryzom.git@py2js#egg=ryzom
+git+git://yourlabs.io:oss/ryzom.git@py2js#egg=ryzom
