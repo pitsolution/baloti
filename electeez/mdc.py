@@ -1,6 +1,6 @@
 from django.middleware.csrf import get_token
-from ryzom.components import components as html
-from ryzom.py2js.decorator import JavaScript
+from ryzom import html
+from ryzom.js.renderer import JS
 
 
 class MDCLink(html.A):
@@ -241,7 +241,7 @@ class MDCFileInput(html.Div):
 
             document.querySelector(input_id).addEventListener('change', update_name)
 
-        return JavaScript(change_event, dict(
+        return JS(change_event, dict(
             input_id=f'#{self.input_id}',
             label_id=self.selected_text._id,
         ))
@@ -384,7 +384,7 @@ class MDCCheckboxListItem(html.Li):
             elem = getElementByUuid(id)
             setattr(elem, 'onclick', click_input)
 
-        return JavaScript(events, dict(id=self._id))
+        return JS(events, dict(id=self._id))
 
 
 class MDCMultipleChoicesCheckbox(html.Ul):
@@ -432,7 +432,7 @@ class MDCMultipleChoicesCheckbox(html.Ul):
 
             document.addEventListener('readystatechange', update_inputs)
 
-        return JavaScript(change_event, dict(id=self._id, max_choices=self.max))
+        return JS(change_event, dict(id=self._id, max_choices=self.max))
 
 
 class MDCLinearProgress(html.Div):

@@ -1,27 +1,25 @@
+from django import forms
 from django.urls import include, path, reverse
+from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView
+from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django_registration.forms import RegistrationForm
+from django_registration.backends.activation.views import RegistrationView
 import ryzom
-from ryzom.components import components as html
-from ryzom.py2js.decorator import JavaScript
+from ryzom import html
+from ryzom_mdc import template
+from ryzom.js.renderer import JS
 from .models import User
-from electeez.components import Document
-from electeez.mdc import (
+from electeez.components import Document, Card
+from ryzom_mdc import (
     MDCButton,
     MDCButtonOutlined,
     MDCTextButton,
-    MDCTextButtonLabel,
     MDCFormField,
     MDCTextFieldFilled,
-    MDCTextFieldOutlined,
     CSRFInput,
 )
 
 from djelectionguard.components import CircleIcon
-
-
-class RegistrationForm(RegistrationForm):
-    class Meta(RegistrationForm.Meta):
-        model = User
 
 
 class GoogleIcon(CircleIcon):
@@ -41,136 +39,117 @@ class AppleIcon(CircleIcon):
 
 class OAuthConnect(html.Div):
     def __init__(self):
-        self.google_btn = MDCButtonOutlined('continue with google', icon=GoogleIcon())
-        self.facebook_btn = MDCButton('continue with facebook', p=False, icon=FacebookIcon())
-        self.apple_btn = MDCButton('continue with apple', icon=AppleIcon())
+        self.google_btn = MDCButtonOutlined('continue with google', icon=GoogleIcon(), tag='a')
+        self.facebook_btn = MDCButton('continue with facebook', p=False, icon=FacebookIcon(), tag='a')
+        self.apple_btn = MDCButton('continue with apple', icon=AppleIcon(), tag='a')
 
         super().__init__(
             self.google_btn,
             self.facebook_btn,
             self.apple_btn,
-            cls='card',
+            cls='oauth',
             style='display: flex; flex-flow: column wrap;'
         )
 
 
-def MDCDjangoForm(form):
-    from django import forms
-    def to_html(self, **kwargs):
-        content = []
-        for boundfield in self.visible_fields():
-            errors = boundfield.form.error_class(boundfield.errors)
-            help_text = boundfield.help_text
+class RegistrationForm(RegistrationForm):
+    password2 = forms.CharField(
+        label='Repeat password',
+        required=True,
+        widget=forms.PasswordInput,
+    )
 
-            if isinstance(boundfield.field, forms.CharField):
-                component = MDCTextFieldOutlined(
-                    boundfield.name,
-                    label=boundfield.field.label,
-                    **boundfield.build_widget_attrs({}, boundfield.field.widget)
-                )
-            if errors:
-                component.set_error('<br>'.join(errors))
-            content.append(component)
-        # TODO:
-        '''
-        if self.form.non_field_errors():
-            self.content.append(NonFieldErrors(self.form))
-        if self.hidden_errors():  # Local method.
-            self.content.append(HiddenErrors(self.form))
-        if self.form.hidden_fields():
-            self.content.append(HiddenFields(self.form))
-        '''
-        return html.CList(*content).to_html()
-    form.to_html = to_html.__get__(form, type(form))
-    return form
+    class Meta(RegistrationForm.Meta):
+        model = User
 
 
-@ryzom.template('registration/login.html', Document)
-class EmailLoginCard(html.Div):
-    def __init__(self, request, form, **kwargs):
-        self.login = MDCButton('continue')
-        self.form = html.Form(
-            CSRFInput(request),
-            MDCDjangoForm(form),
-            html.Div(
-                MDCTextButton(
-                    'forgot password?',
-                    tag='a',
-                    href=reverse('password_reset'),
-                ),
-                self.login,
-                style='display: flex; justify-content: space-between;'
-            ),
-            method='POST',
-            style='display: flex; flex-flow: column wrap; '
-        )
-
+@template('django_registration/registration_form.html', Document, Card)
+class RegistrationFormViewComponent(html.Html):
+    def __init__(self, *content, view, form, **context):
         super().__init__(
+            html.H4('Looks like you need to register', cls='center-text'),
+            html.Form(
+                CSRFInput(view.request),
+                form['email'],
+                form['password1'],
+                html.H6('Your password needs to follow these criteria:'),
+                html.Ul(
+                    html.Li('Contains at least 8 characters'),
+                    html.Li('Not too similar to your other personal information'),
+                    html.Li('Not entirely numeric'),
+                    html.Li('Not a commonly used password'),
+                    cls='body-2'),
+                form['password2'],
+                MDCButton('Register'),
+                method='POST',
+                cls='form card'),
             html.Div(
-                html.H4('Welcome to Electeez', style='text-align: center;'),
-                # OAuthConnect(),
-                html.Span('Or enter email and password:', cls='center-text'),
-                self.form,
-                cls='card'
-            )
+                html.Div('Or use:', cls='center-text'),
+                OAuthConnect(),
+                cls='card'),
         )
 
 
-class LogoutCard(html.Div):
-    def __init__(self, view, ctx):
-        self.login_btn = MDCButton('Login again')
+RegistrationView.form_class = RegistrationForm
+
+
+@template('registration/login.html', Document, Card)
+class LoginFormViewComponent(html.Div):
+    def __init__(self, *content, view, form, **kwargs):
+        super().__init__(
+            html.Form(
+                html.H4('Welcome to Electeez', style='text-align: center;'),
+                OAuthConnect(),
+                html.Span('Or enter email and password:', cls='center-text'),
+                CSRFInput(view.request),
+                form,
+                html.Div(
+                    MDCTextButton(
+                        'forgot password',
+                        tag='a',
+                        href=reverse('password_reset')),
+                    MDCButton('Continue'),
+                    style='display: flex; justify-content: space-between'),
+                method='POST',
+                cls='form card'),
+            cls='')
+
+
+@template('registration/logged_out.html', Document, Card)
+class LogoutViewComponent(html.Div):
+    def __init__(self, *content, **context):
         super().__init__(
             html.H4('You have been logged out'),
             html.Div(
                 'Thank you for spending time on our site today.',
                 cls='section'),
             html.Div(
-                self.login_btn,
+                MDCButton(
+                    'Login again',
+                    tag='a',
+                    href=reverse('login')),
                 style='display:flex; justify-content: flex-end;'),
             cls='card',
             style='text-align: center'
         )
 
-    def click_events():
-        def handle_login(event):
-            route('/accounts/login/')
-
-        getElementByUuid(login_id).addEventListener('click', handle_login)
-
-    def render_js(self):
-        return JavaScript(self.click_events, {
-            'login_id': self.login_btn._id,
-        })
-
-
+@template('registration/password_reset_form.html', Document, Card)
 class PasswordResetCard(html.Div):
-    def __init__(self, view, ctx):
-        self.email_field = MDCTextFieldOutlined(
-            'Email',
-            'email_input',
-            'email_input_label',
-            name='email'
-        )
-        self.form = html.Form(
-            CSRFInput(view),
-            self.email_field,
-            html.Div(
-                MDCButton('reset password'),
-                style='margin-left: auto;'
-            ),
-            method='POST',
-            style='display: flex; flex-flow: column wrap; '
-        )
-
+    def __init__(self, *content, view, form, **context):
         super().__init__(
             html.H4('Reset your password', style='text-align: center;'),
-            self.form,
-            cls='card'
-        )
+            html.Form(
+                CSRFInput(view.request),
+                form,
+                MDCButton('Reset password'),
+                cls='form'),
+            cls='card')
 
 
+
+@template('registration/password_reset_done.html', Document, Card)
 class PasswordResetDoneCard(html.Div):
-    def __init__(self, view, ctx):
+    def __init__(self, *content, view, **context):
         super().__init__(
             html.H4('A link has been sent to your email address'),
             html.A('Go to login page', href=reverse('login')),
@@ -179,76 +158,9 @@ class PasswordResetDoneCard(html.Div):
         )
 
 
-class EmailRegistrationCard(html.Div):
-    form_class = RegistrationForm
-
-    def __init__(self, view, ctx):
-        form = ctx.get('form', None) if ctx else None
-        self.email_field = MDCTextFieldOutlined(
-            'Email',
-            'email_input',
-            'email_input_label',
-            type='email',
-            name='email',
-            required=True
-        )
-        self.password1_field = MDCTextFieldOutlined(
-            'Password',
-            'password_input',
-            'password_input_label',
-            type='password',
-            name='password1',
-            required=True,
-            minlength=8
-        )
-        self.password2_field = MDCTextFieldOutlined(
-            'Repeat password',
-            'password2_input',
-            'password2_input_label',
-            type='password',
-            name='password2',
-            required=True,
-            minlength=8
-        )
-        self.form = html.Form(
-            CSRFInput(view),
-            self.email_field,
-            self.password1_field,
-            html.Span('Your password has to match the following criteria:', style='font-weight: bold;'),
-            html.Ul(
-                html.Li('Contains at least 8 characters'),
-                html.Li('Not too similar to your other personal informations'),
-                html.Li('Not entirely numeric'),
-                html.Li('Not a commonly used password'),
-            ),
-            self.password2_field,
-            html.Div(
-                MDCButton('Sign up'),
-                style='display: flex; justify-content: flex-end;'
-            ),
-            method='POST',
-            style='display: flex; flex-flow: column wrap; '
-        )
-
-        if form:
-            for k in form.errors.keys():
-                if attr := getattr(self, k + '_field', None):
-                    for e in form.errors[k]:
-                        attr.set_error(e)
-
-        super().__init__(
-            html.Div(
-                html.H4('Looks like you need to register', style='text-align: center;'),
-                self.form,
-                html.Span('Or use:', cls='center-text'),
-                OAuthConnect(view),
-                cls='card'
-            )
-        )
-
-
+@template('django_registration/registration_complete.html', Document, Card)
 class RegistrationCompleteCard(html.Div):
-    def __init__(self, view, ctx):
+    def __init__(self, *content, view, **context):
         super().__init__(
             html.H4('Check your emails to finish !'),
             html.Div(
@@ -265,8 +177,9 @@ class RegistrationCompleteCard(html.Div):
         )
 
 
+@template('django_registration/activation_complete.html', Document, Card)
 class ActivationCompleteCard(html.Div):
-    def __init__(self, view, ctx):
+    def __init__(self, *content, view, **context):
         super().__init__(
             html.H4('Your account has been activated !'),
             html.Div(
@@ -280,8 +193,9 @@ class ActivationCompleteCard(html.Div):
         )
 
 
+@template('django_registration/activation_failed.html', Document, Card)
 class ActivationFailureCard(html.Div):
-    def __init__(self, view, ctx):
+    def __init__(self, *content, view, **context):
         super().__init__(
             html.H4('Account activation failure'),
             html.Div(
@@ -291,3 +205,17 @@ class ActivationFailureCard(html.Div):
             cls='card',
             style='text-align: center'
         )
+
+
+@template('electeez_auth/otp_send.html', Document, Card)
+class OTPSendCard(html.Div):
+    def __init__(self, *content, view, form, **context):
+        super().__init__(
+            html.H4('Receive a magik link by email'),
+            html.Form(
+                form,
+                CSRFInput(view.request),
+                MDCButton(form.submit_label),
+                method='POST',
+                cls='form'),
+            cls='card',)

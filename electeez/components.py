@@ -1,10 +1,10 @@
 from django.contrib import messages
 from django.urls import reverse
-from ryzom.components import components as html
+from ryzom import html
 from ryzom.contrib.django import Static
-from ryzom.py2js.decorator import JavaScript
-from electeez.mdc import MDCButton, MDCTextButton, MDCSnackBar
-
+from ryzom.js.renderer import JS
+from sass_processor.processor import sass_processor
+from ryzom_mdc import MDCButton, MDCTextButton, MDCSnackBar
 
 def scss(src):
     import re
@@ -23,57 +23,29 @@ class TopPanel(html.Div):
 
         if user.is_authenticated:
             text = user.email
-            self.account_btn = MDCButton('log out')
-            self.account_btn.url = reverse('logout')
+            account_btn = MDCButton('log out', tag='a', href=reverse('logout'))
         else:
             text = 'Anonymous'
             if request.path.rstrip('/') == reverse('login').rstrip('/'):
-                self.account_btn = MDCButton('sign up')
-                self.account_btn.url = reverse('signup')
+                url = reverse('django_registration_register')
+                account_btn = MDCButton('sign up', tag='a', href=url)
             else:
-                self.account_btn = MDCButton('log in')
-                self.account_btn.url = reverse('login')
-
-        self.electis_icon = html.Span(
-            html.Img(
-                src=Static('electis.png'),
-                cls='top-panel-sub top-panel-logo'
-            ),
-            cls='top-panel-elem'
-        )
-        self.electis_icon.url = '/'
+                account_btn = MDCButton('log in', tag='a', href=reverse('login'))
 
         super().__init__(
-            self.electis_icon,
+            html.A(
+                html.Img(
+                    src=Static('electis.png'),
+                    cls='top-panel-sub top-panel-logo'),
+                href='/'),
             html.Span(
                 html.Span(f"Hello, {text}", cls='top-panel-sub top-panel-msg'),
-                cls='top-panel-elem over'
-            ),
-            html.Span(self.account_btn, cls='top-panel-elem top-panel-btn'),
+                cls='top-panel-elem over'),
+            html.Span(account_btn, cls='top-panel-elem top-panel-btn'),
             html.Span(
                 html.Span(f"Hello, {text}", cls='top-panel-sub top-panel-msg'),
-                cls='top-panel-elem under'
-            ),
-            cls='top-panel'
-        )
-
-    def render_js(self):
-        def click_event():
-            def home(event):
-                route(home_url)
-
-            def handle_login(event):
-                route(login_url)
-
-            getElementByUuid(btn_id).addEventListener('click', handle_login)
-            getElementByUuid(electis_icon).addEventListener('click', home)
-
-        return JavaScript(click_event, dict(
-            btn_id=self.account_btn._id,
-            login_url=self.account_btn.url,
-            electis_icon=self.electis_icon._id,
-            home_url=self.electis_icon.url
-        ))
+                cls='top-panel-elem under'),
+            cls='top-panel')
 
 
 class Footer(html.Div):
@@ -90,20 +62,15 @@ class Footer(html.Div):
 
 class BackLink(html.Div):
     def __init__(self, text, url):
-        self.url = url
-        self.link = MDCTextButton(text, 'chevron_left')
-        super().__init__(self.link, cls='card')
-
-    def render_js(self):
-        def click_event():
-            def go_back(event):
-                route(url)
-            getElementByUuid(btn_id).addEventListener('click', go_back)
-
-        return JavaScript(click_event, dict(
-            url=self.url,
-            btn_id=self.link._id
-        ))
+        super().__init__(
+            html.Div(
+                MDCTextButton(
+                    text,
+                    'chevron_left',
+                    tag='a',
+                    href=url),
+                cls='card backlink'),
+            cls='card backlink')
 
 
 class Messages(html.CList):
@@ -115,6 +82,14 @@ class Messages(html.CList):
             ))
         else:
             super().__init__()
+
+
+class Card(html.Div):
+    def __init__(self, main_component, **kwargs):
+        if backlink := getattr(main_component, 'backlink', None):
+            self.backlink = backlink
+        super().__init__(main_component, cls='card')
+
 
 
 class Document(html.Html):
@@ -134,10 +109,14 @@ class Document(html.Html):
         if backlink := getattr(main_component, 'backlink', None):
             body.content.append(backlink)
 
+        messages_component = Messages(kwargs['request'])
+
         body.content += [
             main_component,
-            Messages(kwargs['request']),
+            messages_component,
             Footer(),
+            html.Script(main_component.render_js_tree(), type='text/javascript'),
+            html.Script(messages_component.render_js_tree(), type='text/javascript'),
             html.Script('mdc.autoInit()', type='text/javascript'),
         ]
 
@@ -153,6 +132,8 @@ class Document(html.Html):
                 html.Link(rel='stylesheet', href=nanum_pen_src),
                 html.Link(rel='stylesheet', href=style_src),
                 html.Script(type='text/javascript', src=mdc_script_src),
+                html.Script(type='text/javascript', src='/static/ryzom/js/py-builtins.js'),
+                html.Script(type='text/javascript', src='/static/ryzom/js/ryzom.js')
             ),
             body
         ]

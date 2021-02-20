@@ -110,7 +110,9 @@ h6 {
 }
 
 button,
+a.mdc-button,
 .text-btn {
+  width: fit-content;
   font-style: normal;
   font-weight: bold;
   font-size: 14px;
@@ -118,6 +120,13 @@ button,
   letter-spacing: 0.5px;
   text-transform: uppercase;
   color: rgba(0, 0, 0, 0.87);
+}
+
+.oauth {
+  a {
+    width: 100%;
+    height: 42px;
+  }
 }
 
 .caption {
@@ -191,8 +200,16 @@ a.caption {
 }
 
 .mdc-button,
+.mdc-form-field,
 .mdc-text-field {
   display: flex;
+}
+
+.mdc-form-field {
+  flex-flow: column;
+  div {
+    width: 100%;
+  }
 }
 
 .mdc-button {
@@ -222,7 +239,6 @@ a.caption {
   h4, h5, h6 {
     margin-bottom: 24px;
   }
-
 }
 
 .center-text {
@@ -484,7 +500,7 @@ a.caption {
 .bold { font-weight: bold; }
 
 .mdc-data-table__cell {
-  button {
+  button, a {
     margin: 0 auto;
   }
 }
@@ -525,6 +541,10 @@ a.caption {
   label.mdc-text-field.mdc-text-field--textarea {
       margin-bottom: 24px;
   }
+.form {
+  button {
+    margin-left: auto;
+  }
 }
 
 .encrypt-form {
@@ -548,7 +568,7 @@ a.caption {
   display: flex;
   justify-content: center;
 
-  button { margin: 12px; }
+  button, a { margin: 12px; }
 
 }
 
@@ -563,6 +583,13 @@ a.caption {
   .card {
     max-width: 70em;
     min-width: 90%;
+
+    &.backlink {
+      padding: 0;
+      margin: 32px;
+      margin-left: 0;
+      margin-right: auto;
+    }
   }
 
   .main-container {
@@ -642,6 +669,7 @@ a.caption {
   .flex-container {
     padding: 0 32px;
 
+    .card.backlink { margin-left: 0;}
   }
 }
 
@@ -673,6 +701,7 @@ a.caption {
     .side-container,
     .main-container {
       margin: 0;
+      .backlink { margin-left: 12px; }
     }
 
     .main-container {

@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     'django_jinja',
     'channels',
     'ryzom',
+    'ryzom_django',
+    'ryzom_django_mdc',
+    'django.forms'
 ]
 
 AUTH_USER_MODEL = 'electeez_auth.User'
@@ -63,7 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'ryzom.middleware.RyzomMiddleware',
+    'ryzom_django.middleware.RyzomMiddleware',
 ]
 
 if DEBUG:
@@ -85,6 +88,8 @@ ASGI_APPLICATION = 'electeez.asgi.application'
 #        },
 #    },
 #}
+
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 TEMPLATES = [
     {
@@ -118,7 +123,7 @@ TEMPLATES = [
 ]
 
 RYZOM_TEMPLATE_BACKEND = {
-    "BACKEND": "ryzom.backends.ryzom.Ryzom",
+    "BACKEND": "ryzom_django.template_backend.Ryzom",
     "OPTIONS": {
         "app_dirname": "components",
         "components_module": "ryzom.components.muicss",

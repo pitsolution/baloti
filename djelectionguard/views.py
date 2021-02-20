@@ -31,11 +31,8 @@ from .models import Contest, Candidate, Guardian
 
 from datetime import datetime, date
 
-from ryzom.views import View as RyzomView
-from ryzom.components import components as html
-from ryzom.py2js.decorator import JavaScript
+from ryzom import html
 from electeez.components import Document, BackLink
-from electeez import mdc
 from .components import (
     ContestForm,
     CandidateForm,
@@ -121,7 +118,7 @@ class ContestCreateView(RyzomView, generic.CreateView):
         )
 
 
-class ContestUpdateView(RyzomView, generic.UpdateView):
+class ContestUpdateView(generic.UpdateView):
     model = Contest
     form_class = ContestForm
 
@@ -133,35 +130,17 @@ class ContestUpdateView(RyzomView, generic.UpdateView):
         )
         return response
 
-    def render(self, request):
-        context = {}
-        contest = self.get_object()
-        if request.method == 'POST':
-            form = ContestForm(request.POST)
-            if form.is_valid():
-                return self.post(form)
-        form = ContestForm(instance=contest)
-        context['form'] = form
-        self.backlink = BackLink('back', reverse('contest_detail', args=(contest.id,)))
-        return Document(self, ContestCreateCard, context)
-
     @classmethod
     def as_url(cls):
         return path(
             '<pk>/update/',
-            login_required(cls.as_view),
+            login_required(cls.as_view()),
             name='contest_update'
         )
 
 
-class ContestListView(RyzomView, ContestAccessible, generic.ListView):
+class ContestListView(ContestAccessible, generic.ListView):
     model = Contest
-
-    def render(self, request):
-        return self.get(request)
-
-    def render_to_response(self, context):
-        return Document(self, ContestList, context)
 
     @classmethod
     def as_url(cls):
@@ -169,6 +148,38 @@ class ContestListView(RyzomView, ContestAccessible, generic.ListView):
             '',
             login_required(cls.as_view),
             name='contest_list'
+        )
+
+class ContestResultView(ContestAccessible, generic.DetailView):
+    template_name = 'contest_result'
+    @classmethod
+    def as_url(cls):
+        return path(
+            '<pk>/result',
+            login_required(cls.as_view()),
+            name='contest_result'
+        )
+
+
+class ContestDetailView(ContestAccessible, generic.DetailView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        voter = self.object.voter_set.filter(user=self.request.user).first()
+        context['casted'] = voter.casted if voter else None
+        context['can_vote'] = (
+            self.object.actual_start
+            and not self.object.actual_end
+            and voter
+            and not voter.casted
+        )
+        return context
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            '<pk>/',
+            login_required(cls.as_view()),
+            name='contest_detail'
         )
 
 
@@ -228,7 +239,8 @@ class ContestManifestView(ContestAccessible, generic.DetailView):
         return http.JsonResponse(self.get_object().get_manifest())
 
 
-class ContestOpenView(RyzomView, ContestMediator, generic.UpdateView):
+class ContestOpenView(ContestMediator, generic.UpdateView):
+    template_name = 'contest_open'
     @classmethod
     def as_url(cls):
         return path(
@@ -284,11 +296,8 @@ class ContestCloseView(RyzomView, ContestMediator, generic.UpdateView):
     def render(self, request):
         contest = self.get_object()
 
-        if request.method == 'POST':
-            return self.post(request)
-
-        self.backlink = BackLink('back', reverse('contest_detail', args=(contest.id,)))
-        return Document(self, ContestCloseCard, dict())
+class ContestCloseView(ContestMediator, generic.UpdateView):
+    template_name = 'contest_close'
 
     @classmethod
     def as_url(cls):
@@ -327,7 +336,8 @@ class ContestCloseView(RyzomView, ContestMediator, generic.UpdateView):
         return super().form_valid(form)
 
 
-class ContestDecryptView(RyzomView, ContestMediator, generic.UpdateView):
+class ContestDecryptView(ContestMediator, generic.UpdateView):
+    template_name = 'contest_decrypt'
 
     class form_class(forms.ModelForm):
         ipfs = forms.BooleanField(label='Deploy on IPFS?', required=False)
@@ -511,13 +521,6 @@ class ContestPubkeyView(RyzomView, ContestMediator, generic.UpdateView):
     def render(self, request):
         contest = self.get_object()
 
-        if request.method == 'POST':
-            return self.post(request)
-
-        self.backlink = BackLink('Back', reverse('contest_detail', args=(contest.id,)))
-        return Document(self, ContestPubKeyCard, dict())
-
-
 class ContestVoteMixin:
     def get_queryset(self):
         return Contest.objects.filter(
@@ -528,16 +531,8 @@ class ContestVoteMixin:
         )
 
 
-class ContestVoteView(RyzomView, ContestVoteMixin, FormMixin, generic.DetailView):
-    def render(self, request):
-        self.object = self.get_object()
-        self.form = self.get_form()
-        self.backlink = BackLink('Back', reverse('contest_detail', args=(self.object.id,)))
-
-        if request.method == 'POST':
-            return self.post(request)
-
-        return Document(self, ContestVoteCard, dict())
+class ContestVoteView(ContestVoteMixin, FormMixin, generic.DetailView):
+    template_name = 'contest_vote'
 
     def get_form(self, form_class=None):
         class FormClass(forms.Form):
@@ -602,7 +597,9 @@ class ContestBallotMixin(ContestVoteMixin):
         return super().dispatch(request, *args, **kwargs)
 
 
-class ContestBallotEncryptView(RyzomView, ContestBallotMixin, FormMixin, generic.DetailView):
+class ContestBallotEncryptView(ContestBallotMixin, FormMixin, generic.DetailView):
+    template_name = 'ballot_encrypt'
+
     class form_class(forms.Form):
         submit_label = 'Encrypt my ballot'
 
@@ -651,7 +648,9 @@ class ContestBallotEncryptView(RyzomView, ContestBallotMixin, FormMixin, generic
         )
 
 
-class ContestBallotCastView(RyzomView, ContestBallotMixin, FormMixin, generic.DetailView):
+class ContestBallotCastView(ContestBallotMixin, FormMixin, generic.DetailView):
+    template_name = 'ballot_cast'
+
     class form_class(forms.Form):
         submit_label = 'Confirm my vote'
 
@@ -754,8 +753,7 @@ class ContestCandidateCreateView(RyzomView, ContestMediator, FormMixin, generic.
         if form.is_valid():
             return self.form_valid(form)
         else:
-            context = {'form': form}
-            return Document(self, ContestCandidateCreateCard, context)
+            return self.get(request, *args, form=form)
 
     def form_valid(self, form):
         form.save()
@@ -763,7 +761,10 @@ class ContestCandidateCreateView(RyzomView, ContestMediator, FormMixin, generic.
             self.request,
             f'You have added candidate {form.instance}',
         )
-        return Document(self, ContestCandidateCreateCard, dict(form=form))
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('contest_candidate_create', args=[self.get_object().id])
 
     @classmethod
     def as_url(cls):
@@ -773,23 +774,15 @@ class ContestCandidateCreateView(RyzomView, ContestMediator, FormMixin, generic.
             name='contest_candidate_create'
         )
 
-
-class ContestCandidateUpdateView(RyzomView, generic.UpdateView):
+class ContestCandidateUpdateView(generic.UpdateView):
     model = Candidate
     form_class = CandidateForm
+    template_name = 'djelectionguard/candidate_update.html'
 
-    def render(self, request):
-        candidate = self.get_object()
-        contest = candidate.contest
-        form = self.get_form()
-        if request.method == 'POST':
-            form = self.form_class(request.POST, instance=candidate)
-            form.contest = contest
-            if form.is_valid():
-                return self.form_valid(form)
-
-        self.backlink = BackLink('back', reverse('contest_candidate_create', args=(contest.id,)))
-        return Document(self, ContestCandidateUpdateCard, dict(form=form))
+    def get_form(self, *args, **kwargs):
+        form = super().get_form()
+        form.contest = self.get_object().contest
+        return form
 
     def get_success_url(self):
         contest = self.get_object().contest
@@ -803,14 +796,14 @@ class ContestCandidateUpdateView(RyzomView, generic.UpdateView):
     def as_url(cls):
         return path(
             'candidate/<pk>/update/',
-            login_required(cls.as_view),
+            login_required(cls.as_view()),
             name='contest_candidate_update'
         )
 
 
-class ContestCandidateDeleteView(RyzomView, ContestMediator, generic.DeleteView):
-    def render(self, request):
-        return self.delete(request)
+class ContestCandidateDeleteView(ContestMediator, generic.DeleteView):
+    def dispatch(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
 
     def get_queryset(self):
         return Candidate.objects.filter(contest__mediator=self.request.user)
@@ -832,7 +825,7 @@ class ContestCandidateDeleteView(RyzomView, ContestMediator, generic.DeleteView)
         )
 
 
-class GuardianVerifyView(RyzomView, generic.UpdateView):
+class GuardianVerifyView(generic.UpdateView):
 
     def get_queryset(self):
         return self.request.user.guardian_set.filter(uploaded_erased=None)
@@ -890,7 +883,9 @@ class GuardianVerifyView(RyzomView, generic.UpdateView):
         )
 
 
-class GuardianUploadView(RyzomView, generic.UpdateView):
+class GuardianUploadView(generic.UpdateView):
+    template_name = 'guardian_upload'
+
     def get_queryset(self):
         return self.request.user.guardian_set.filter(uploaded_erased=None)
 
@@ -965,22 +960,19 @@ class GuardianDownloadView(generic.DetailView):
         return response
 
 
-class ContestVotersDetailView(RyzomView, ContestMediator, generic.DetailView):
-    def render(self, request):
-        contest = self.get_object()
-        self.backlink = BackLink('Back', reverse('contest_detail', args=(contest.id,)))
-        return Document(self, VotersDetailCard, dict())
-
+class ContestVotersDetailView(ContestMediator, generic.DetailView):
+    template_name = 'djelectionguard/contest_voters_detail.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['users'] = {
-            email: {
+            voter.user.email: {
                 'registered': False,
                 'activated': False,
-            } for email in self.object.voters_emails_list
+            } for voter in self.object.voter_set.all()
         }
         User = apps.get_model(settings.AUTH_USER_MODEL)
-        users = User.objects.filter(email__in=self.object.voters_emails_list)
+        contest = self.get_object()
+        users = User.objects.filter(email__in=contest.voter_set.all().values_list('user__email'))
         for user in users:
             context['users'][user.email]['registered'] = True
             context['users'][user.email]['activated'] = user.is_active
@@ -1021,8 +1013,7 @@ class VotersEmailsField(forms.CharField):
         if invalid:
             raise ValidationError(
                 'Please remove lines containing invalid emails: '
-                + ', '.join(invalid)
-            )
+                + ', '.join(invalid))
 
         return emails
 
@@ -1034,6 +1025,16 @@ class VotersEmailsForm(forms.ModelForm):
         required=False,
         widget=forms.Textarea(attrs=dict(cols=50, rows=20))
     )
+
+    class Meta:
+        model = Contest
+        fields = []
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['voters_emails'].initial = '\n'.join(
+            self.instance.voter_set.values_list('user__email', flat=True)
+        )
 
     class Meta:
         model = Contest
@@ -1082,7 +1083,7 @@ class VotersEmailsForm(forms.ModelForm):
 
 
 class ContestVotersUpdateView(ContestMediator, generic.UpdateView):
-    template_name = 'djelectionguard/contest_add_voters_email.html'
+    template_name = 'djelectionguard/voters_update.html'
     form_class = VotersEmailsForm
 
     def get_success_url(self):
@@ -1096,6 +1097,6 @@ class ContestVotersUpdateView(ContestMediator, generic.UpdateView):
     def as_url(cls):
         return path(
             '<pk>/voters/update/',
-            login_required(cls.as_view),
+            login_required(cls.as_view()),
             name='contest_voters_update'
         )
