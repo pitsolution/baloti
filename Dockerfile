@@ -1,4 +1,4 @@
-FROM archlinux
+FROM archlinux:base-20210131.0.14634
 RUN useradd --home-dir /app --uid 1000 app && mkdir -p /app && chown -R app /app
 WORKDIR /app
 RUN pacman -Syu --noconfirm mailcap which gettext python python-pillow python-psycopg2 python-pip python-psutil git curl uwsgi uwsgi-plugin-python python make gcc cython pkg-config graphviz libsodium libsecp256k1
