@@ -1,7 +1,9 @@
-FROM archlinux
+FROM archlinux:base-20210131.0.14634
 RUN useradd --home-dir /app --uid 1000 app && mkdir -p /app && chown -R app /app
 WORKDIR /app
-RUN pacman -Syu --noconfirm mailcap which gettext python python-pillow python-psycopg2 python-pip python-psutil git curl uwsgi uwsgi-plugin-python python make gcc cython pkg-config graphviz libsodium libsecp256k1
+RUN echo '[testing]' >> /etc/pacman.conf
+RUN echo Include = /etc/pacman.d/mirrorlist >> /etc/pacman.conf
+RUN pacman -Syu --noconfirm mailcap which gettext python python-pillow python-psycopg2 python-pip python-psutil git curl uwsgi uwsgi-plugin-python python make gcc cython pkg-config graphviz libsodium libsecp256k1 go-ipfs
 RUN pip3 install --upgrade pip wheel
 ENV PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1
 ENV PATH=/app/node_modules/.bin:/app/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
