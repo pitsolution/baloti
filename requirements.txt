@@ -14,4 +14,4 @@ pymemcache
 pytest
 pytest-django
 pytest-watch
-pytezos
+pytezos<3
