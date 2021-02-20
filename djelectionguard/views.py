@@ -12,6 +12,8 @@ from django.apps import apps
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
+from django.core.exceptions import ValidationError
+from django.core.validators import EmailValidator
 from django.db import transaction
 from django.db.models import ObjectDoesNotExist, Q
 from django.urls import path, reverse
@@ -750,28 +752,95 @@ class ContestVotersDetailView(ContestMediator, generic.DetailView):
         )
 
 
-class ContestVotersUpdateView(ContestMediator, generic.UpdateView):
-    template_name = 'djelectionguard/contest_add_voters_email.html'
+class VotersEmailsField(forms.CharField):
+    widget = forms.Textarea
 
-    class form_class(forms.ModelForm):
-        submit_label = 'Update voters'
+    def clean(self, value):
+        value = super().clean(value)
+        value = value.replace(
+            '\r\n', '\n'       # windows
+        ).replace('\r', '\n')  # mac
 
-        class Meta:
-            model = Contest
-            fields = ['voters_emails']
-            widgets = dict(
-                voters_emails=forms.Textarea(attrs=dict(cols=50, rows=20))
+        validator = EmailValidator()
+        invalid = []
+        emails = []
+        for line in value.split('\n'):
+            line = line.strip().lower()
+            if not line:
+                continue
+            try:
+                validator(line)
+            except ValidationError:
+                invalid.append(line)
+            else:
+                emails.append(line)
+
+        if invalid:
+            raise ValidationError(
+                'Please remove lines containing invalid emails: '
+                + ', '.join(invalid)
             )
 
-        def clean_voters_emails(self):
-            return self.cleaned_data['voters_emails'].replace(
-                '\r\n', '\n'       # windows
-            ).replace('\r', '\n')  # mac
+        return emails
 
-    def form_valid(self, form):
-        response = super().form_valid(form)
-        form.instance.voters_update()
-        return response
+
+class VotersEmailsForm(forms.ModelForm):
+    submit_label = 'Update voters'
+    voters_emails = VotersEmailsField(
+        help_text='The list of allowed voters with one email per line',
+        required=False,
+        widget=forms.Textarea(attrs=dict(cols=50, rows=20))
+    )
+
+    class Meta:
+        model = Contest
+        fields = []
+
+    def save(self):
+        voters_emails_list = self.cleaned_data['voters_emails']
+
+        # delete voters who are not anymore in the email list
+        self.instance.voter_set.filter(
+            casted=None
+        ).exclude(
+            user__email__in=voters_emails_list
+        ).delete()
+
+        current = list(
+            self.instance.voter_set.values_list(
+                'user__email', flat=True
+            )
+        )
+
+        # add new voters who have a user
+        User = apps.get_model(settings.AUTH_USER_MODEL)
+        users = User.objects.filter(
+            email__in=voters_emails_list,
+        )
+        for user in users:
+            if user.email.lower() in current:
+                continue
+            self.instance.voter_set.create(user=user)
+            current.append(user.email)
+
+        # add new voters who do not have a user
+        for email in voters_emails_list:
+            if email in current:
+                continue
+            self.instance.voter_set.create(
+                user=User.objects.create(
+                    email=email,
+                    # consider them activated by the mediator
+                    is_active=True,
+                )
+            )
+
+        return self.instance
+
+
+class ContestVotersUpdateView(ContestMediator, generic.UpdateView):
+    template_name = 'djelectionguard/contest_add_voters_email.html'
+    form_class = VotersEmailsForm
 
     def get_success_url(self):
         messages.success(

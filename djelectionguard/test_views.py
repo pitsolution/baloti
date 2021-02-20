@@ -4,11 +4,69 @@ import pytest
 from django.apps import apps
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.test import Client
 from django.urls import reverse
-from djelectionguard.models import Candidate, Contest
+from djelectionguard.models import Candidate, Contest, Voter
+from djelectionguard.views import VotersEmailsForm, VotersEmailsField
 
 User = apps.get_model(settings.AUTH_USER_MODEL)
+
+
+@pytest.mark.django_db
+def test_voters_emails_validation(contest):
+    form = VotersEmailsForm(
+        dict(
+            voters_emails='''
+                lol
+                test@example.com
+                foo
+                test2@example.com
+            '''
+        ),
+        instance=contest,
+    )
+
+    assert not form.is_valid()
+
+    msg = 'Please remove lines containing invalid emails: lol, foo'
+    assert form.errors['voters_emails'] == [msg]
+
+    form = VotersEmailsForm(
+        dict(
+            voters_emails='''
+                test@example.com
+                test2@example.com
+            '''
+        ),
+        instance=contest,
+    )
+    assert form.is_valid()
+
+
+@pytest.mark.django_db
+def test_voters_emails_save(contest):
+    existing = User.objects.create(email='existing@example.com')
+    Voter.objects.create(user=existing, contest=contest)
+
+    deleted = User.objects.create(email='deleted@example.com')
+    Voter.objects.create(user=deleted, contest=contest)
+
+    form = VotersEmailsForm(
+        dict(
+            voters_emails='''
+                new@example.com
+                existing@example.com
+            '''
+        ),
+        instance=contest,
+    )
+    assert form.is_valid()
+    form.save()
+    assert list(contest.voter_set.values_list('user__email', flat=True)) == [
+        'existing@example.com',
+        'new@example.com',
+    ]
 
 
 def get(user, url):
@@ -93,9 +151,7 @@ def test_story(client, mediator):
     assert b'id_voters_emails' in response.content
     post(mediator, voters, voters_emails='\n\n\n\n')
     response = post(mediator, voters, voters_emails='''
-vot1@example.com
-vot2@example.com\r
-mistake@example.com
+vot1@example.com\rvot2@example.com\rnew@example.com
     ''')
     assert response.status_code == 302
 
@@ -104,29 +160,18 @@ mistake@example.com
     assert post(external, voters, voters_emails='x@y').status_code == 404
     assert post(voter1, voters, voters_emails='x@y').status_code == 404
 
-    # check that mediator update wa
+    # check that mediator update was saved and lowercased
     contest.refresh_from_db()
-    assert contest.voters_emails == '''
-vot1@example.com
-vot2@example.com
-mistake@example.com
-    '''.strip()
-    assert list(contest.voter_set.values_list('user__email', flat=True)) == [
+    voters_emails = list(
+        contest.voter_set.values_list(
+            'user__email',
+            flat=True,
+        ).order_by('user__email')
+    )
+    assert voters_emails == [
+        'new@example.com',
         'vot1@example.com',
-    ]
-
-    # try another update again, removing one email, with macos
-    response = post(mediator, voters, voters_emails='''
-vot1@example.com\rvot2@example.com\rnew@example.com
-    ''')
-    contest.refresh_from_db()
-    assert contest.voters_emails == '''
-vot1@example.com
-vot2@example.com
-new@example.com
-    '''.strip()
-    assert list(contest.voter_set.values_list('user__email', flat=True)) == [
-        'vot1@example.com', 'new@example.com',
+        'vot2@example.com'
     ]
 
     assert get(mediator, contest_url).status_code == 200
@@ -304,10 +349,6 @@ new@example.com
     assert get(voter1, vote).status_code == 200, vote
     assert get(mediator, vote).status_code == 404, vote
 
-    # voter2 just registered, they should access the page too
-    voter2 = User.objects.create(email='vot2@example.com', is_active=True)
-    assert get(voter2, vote).status_code == 200, vote
-
     # let's vote!
     candidates = [
         str(i)
@@ -327,17 +368,7 @@ new@example.com
     #assert get(guardian2.user, ballot).status_code == 404, ballot
     assert get(external, ballot).status_code == 404, ballot
     assert get(voter1, ballot).status_code == 200, ballot
-    assert get(voter2, ballot).status_code == 302, ballot
     assert get(mediator, ballot).status_code == 404, ballot
-
-    # voter2 creates ballot
-    response = post(
-        voter2,
-        vote,
-        selections=(candidates[1],)
-    )
-    assert response.url == ballot
-    assert get(voter2, ballot).status_code == 200, ballot
 
     # voter1 encrypts
     response = post(voter1, ballot)
@@ -360,14 +391,12 @@ new@example.com
     #assert get(guardian2.user, close).status_code == 404
     assert get(external, close).status_code == 404
     assert get(voter1, close).status_code == 404
-    assert get(voter2, close).status_code == 404
     assert get(mediator, close).status_code == 200
 
     assert client.post(close).status_code == 302
     #assert post(guardian2.user, close).status_code == 404
     assert post(external, close).status_code == 404
     assert post(voter1, close).status_code == 404
-    assert post(voter2, close).status_code == 404
     assert post(mediator, close).status_code == 302
     contest.refresh_from_db()
     assert contest.actual_end

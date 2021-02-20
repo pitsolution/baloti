@@ -1,6 +1,10 @@
+from datetime import timedelta
+import secrets
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models import signals
+from django.utils import timezone
 
 
 class User(AbstractUser):
@@ -12,13 +16,16 @@ class User(AbstractUser):
         max_length=255,
         unique=True,
     )
+    otp_token = models.CharField(max_length=255, null=True, blank=True)
+    otp_expiry = models.DateTimeField(null=True, blank=True)
 
+    def otp_new(self):
+        self.otp_token = secrets.token_urlsafe()
+        self.otp_expiry = timezone.now() + timedelta(hours=24)
 
-def user_voter(sender, instance, created, **kwargs):
-    if not created:
-        return
-    from djelectionguard.models import Contest
-    contests = Contest.objects.filter(voters_emails__icontains=instance.email)
-    for contest in contests:
-        contest.voter_set.create(user=instance)
-signals.post_save.connect(user_voter, sender=User)
+    def save(self, *args, **kwargs):
+        if self.email:
+            # ensure emails are saved lowercased, for compat with
+            # VotersEmailsForm
+            self.email = self.email.lower()
+        return super().save(*args, **kwargs)

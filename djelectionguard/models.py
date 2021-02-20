@@ -10,7 +10,6 @@ import uuid
 from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.core.validators import EmailValidator
 from django.db import models, transaction
 from django.db.models import signals
 from django.urls import reverse
@@ -27,24 +26,6 @@ def above_0(value):
         )
 
 
-def emails_validator(value):
-    validator = EmailValidator()
-    invalid = []
-    for line in value.split('\n'):
-        line = line.replace('\r', '').strip().lower()
-        if not line:
-            continue
-        try:
-            validator(line)
-        except ValidationError:
-            invalid.append(line)
-    if invalid:
-        raise ValidationError(
-            'Please remove lines containing invalid emails: '
-            + ', '.join(invalid)
-        )
-
-
 class Contest(models.Model):
     id = models.UUIDField(
         primary_key=True,
@@ -54,11 +35,6 @@ class Contest(models.Model):
     mediator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-    )
-    voters_emails = models.TextField(
-        validators=[emails_validator],
-        help_text='The list of allowed voters with one email per line',
-        blank=True,
     )
     name = models.CharField(max_length=255)
     type = models.CharField(default='school', max_length=100)
@@ -140,13 +116,6 @@ class Contest(models.Model):
             json.dumps(self.get_manifest()).encode('utf8'),
         ).hexdigest()
 
-    @property
-    def voters_emails_list(self):
-        return [
-            line.replace('\r', '').strip().lower()
-            for line in self.voters_emails.split('\n')
-        ]
-
     def decrypt(self):
         from electionguard.tally import CiphertextTally
         self.ciphertext_tally = CiphertextTally(
@@ -227,24 +196,6 @@ class Contest(models.Model):
             address = out.split(b' ')[1].decode('utf8')
             self.artifacts_ipfs = address
             self.save()
-
-    def voters_update(self):
-        # delete voters who are not anymore in the email list
-        self.voter_set.filter(
-            casted=None
-        ).exclude(
-            user__email__in=self.voters_emails_list
-        ).delete()
-
-        # add voters who have a user
-        User = apps.get_model(settings.AUTH_USER_MODEL)
-        users = User.objects.filter(
-            email__in=self.voters_emails_list,
-        ).exclude(
-            voter__contest=self,
-        )
-        for user in users:
-            self.voter_set.create(user=user)
 
     @property
     def state(self):

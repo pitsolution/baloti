@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='contest',
             name='voters_emails',
-            field=models.TextField(blank=True, help_text='The list of allowed voters with one email per line', validators=[djelectionguard.models.emails_validator]),
+            field=models.TextField(blank=True, help_text='The list of allowed voters with one email per line'),
         ),
         migrations.AlterField(
             model_name='guardian',
