@@ -213,10 +213,13 @@ class EmailRegistrationCard(html.Div):
                 html.Li('Not a commonly used password'),
             ),
             self.password2_field,
+            html.Div(
+                MDCButton('Sign up'),
+                style='display: flex; justify-content: flex-end;'
+            ),
             method='POST',
             style='display: flex; flex-flow: column wrap; '
         )
-        self.signup = MDCButton('Sign up')
 
         if form:
             for k in form.errors.keys():
@@ -228,27 +231,11 @@ class EmailRegistrationCard(html.Div):
             html.Div(
                 html.H4('Looks like you need to register', style='text-align: center;'),
                 self.form,
-                html.Div(
-                    self.signup,
-                    style='display: flex; justify-content: flex-end;'
-                ),
                 html.Span('Or use:', cls='center-text'),
                 OAuthConnect(view),
                 cls='card'
             )
         )
-
-    def render_js(self):
-        def reset_pass():
-            def handle_reset(evemt):
-                getElementByUuid(form_id).submit()
-
-            getElementByUuid(submit_id).addEventListener('click', handle_reset)
-
-        return JavaScript(reset_pass, dict(
-            submit_id=self.signup._id,
-            form_id=self.form._id
-        ))
 
 
 class RegistrationCompleteCard(html.Div):
@@ -269,4 +256,27 @@ class RegistrationCompleteCard(html.Div):
         )
 
 
+class ActivationCompleteCard(html.Div):
+    def __init__(self, view, ctx):
+        super().__init__(
+            html.H4('Your account has been activated !'),
+            html.Div(
+                'You may now login and particiapte to an election',
+                style='margin-bottom: 24px'
+            ),
+            cls='card',
+            style='text-align: center'
+        )
 
+
+class ActivationFailureCard(html.Div):
+    def __init__(self, view, ctx):
+        super().__init__(
+            html.H4('Account activation failure'),
+            html.Div(
+                'Most likely your account has already been activated.',
+                style='margin-bottom: 24px'
+            ),
+            cls='card',
+            style='text-align: center'
+        )

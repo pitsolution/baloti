@@ -7,7 +7,9 @@ from electeez_auth.views import (
     RegistrationView,
     RegistrationCompleteView,
     PasswordResetView,
-    PasswordResetDoneView
+    PasswordResetDoneView,
+    ActivationCompleteView,
+    ActivationFailureView,
 )
 
 urlpatterns = [
@@ -17,6 +19,8 @@ urlpatterns = [
     path('register/complete/', RegistrationCompleteView.as_view, name='signup_complete'),
     path('password_reset/', PasswordResetView.as_view, name='password_reset'),
     path('password_reset/done/', PasswordResetDoneView.as_view, name='password_reset_done'),
+    path('activate/complete/', ActivationCompleteView.as_view, name='django_registration_activation_complete'),
+    path('activate/<str:activation_key>/', ActivationFailureView.as_view, name='django_registration_activate'),
     path('', include('django_registration.backends.activation.urls')),
     path('', include('django.contrib.auth.urls')),
 ]

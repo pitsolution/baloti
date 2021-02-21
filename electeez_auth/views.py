@@ -21,6 +21,8 @@ from .components import (
     RegistrationCompleteCard,
     PasswordResetCard,
     PasswordResetDoneCard,
+    ActivationCompleteCard,
+    ActivationFailureCard,
 )
 from .models import User
 
