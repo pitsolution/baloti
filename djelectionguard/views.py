@@ -554,6 +554,12 @@ class ContestBallotEncryptView(RyzomView, ContestBallotMixin, FormMixin, generic
     class form_class(forms.Form):
         submit_label = 'Encrypt my ballot'
 
+    def get(self, request, *args, **kwargs):
+        contest = self.get_object()
+        context = self.get_context_data()
+        self.backlink = BackLink('Back', reverse('contest_vote', args=(contest.id,)))
+        return Document(self, ContestBallotEncryptCard, context)
+
     def post(self, request, *args, **kwargs):
         client = Client(settings.MEMCACHED_HOST)
         ballot = PlaintextBallot.from_json(
@@ -582,14 +588,7 @@ class ContestBallotEncryptView(RyzomView, ContestBallotMixin, FormMixin, generic
         return context
 
     def render(self, request):
-        self.object = contest = self.get_object()
-        context = self.get_context_data()
-
-        if request.method == 'POST':
-            return self.post(request)
-
-        self.backlink = BackLink('Back', reverse('contest_vote', args=(contest.id,)))
-        return Document(self, ContestBallotEncryptCard, context)
+        return self.dispatch(request)
 
     @classmethod
     def as_url(cls):
@@ -603,6 +602,12 @@ class ContestBallotEncryptView(RyzomView, ContestBallotMixin, FormMixin, generic
 class ContestBallotCastView(RyzomView, ContestBallotMixin, FormMixin, generic.DetailView):
     class form_class(forms.Form):
         submit_label = 'Confirm my vote'
+
+    def get(self, request, *args, **kwargs):
+        contest = self.get_object()
+        context = self.get_context_data()
+        self.backlink = BackLink('Back', reverse('contest_vote', args=(contest.id,)))
+        return Document(self, ContestBallotEncryptCard, context)
 
     def post(self, request, *args, **kwargs):
         client = Client(settings.MEMCACHED_HOST)
@@ -650,14 +655,7 @@ class ContestBallotCastView(RyzomView, ContestBallotMixin, FormMixin, generic.De
         return context
 
     def render(self, request):
-        self.object = contest = self.get_object()
-        context = self.get_context_data()
-
-        if request.method == 'POST':
-            return self.post(request)
-
-        self.backlink = BackLink('Back', reverse('contest_vote', args=(contest.id,)))
-        return Document(self, ContestBallotCastCard, context)
+        return self.dispatch(request)
 
     @classmethod
     def as_url(cls):
