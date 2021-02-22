@@ -47,8 +47,10 @@ class MDCButtonOutlined(html.Button):
     def __init__(self, text, p=True, icon=None):
         black = 'black-button' if p else ''
         content = [html.Span(cls='mdc-button__ripple')]
-        if icon:
+        if icon and isinstance(icon, str):
             content.append(MDCIcon(icon))
+        elif icon:
+            content.append(icon)
         content.append(html.Span(text, cls='mdc-button__label'))
         super().__init__(
             *content,
@@ -57,13 +59,22 @@ class MDCButtonOutlined(html.Button):
 
 
 class MDCButton(html.Button):
-    def __init__(self, text, p=True, disabled=False):
+    def __init__(self, text, p=True, disabled=False, icon=None):
         black = 'black-button' if p else ''
         attrs = {}
         if disabled:
             attrs['disabled'] = True
+
+        if icon and isinstance(icon, str):
+            content = [MDCIcon(icon)]
+        elif icon:
+            content = [icon]
+        else:
+            content = []
+
+        content.append(html.Span(text, cls='mdc-button__label'))
         super().__init__(
-            html.Span(text, cls='mdc-button__label'),
+            *content,
             cls=f'mdc-button mdc-button--raised {black}',
             **attrs
         )

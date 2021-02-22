@@ -328,7 +328,7 @@ class ContestList(html.Div):
 
 class CircleIcon(html.Span):
     def __init__(self, icon, color='', small=False):
-        base_cls = f'icon {icon} {"small" if small else ""}'
+        base_cls = f'icon {icon} {"small " if small else ""}'
         super().__init__(
             cls=base_cls + color
         )

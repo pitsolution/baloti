@@ -151,8 +151,8 @@ a.caption {
   align-items: center;
   background-color: $black;
   color: $gray;
-  padding: 12px;
   flex-wrap: wrap;
+  padding: 12px 0;
 }
 
 .top-panel-elem {
@@ -171,6 +171,9 @@ a.caption {
   display: none;
   width: 100%;
   text-align: center;
+  padding: 12px 0;
+  background-color: gray;
+  margin-top: 24px;
 }
 
 .top-panel-elem button,
@@ -441,6 +444,18 @@ a.caption {
   background-image: url('/static/images/simple_check_icon.svg');
 }
 
+.facebook-icon {
+  background-image: url('/static/images/facebook_icon.svg');
+}
+
+.google-icon {
+  background-image: url('/static/images/google_icon.svg');
+}
+
+.apple-icon {
+  background-image: url('/static/images/apple_icon.svg');
+}
+
 .icon.green {
   background-color: $green;
 }
@@ -461,6 +476,8 @@ a.caption {
   width: 24px;
   height: 24px;
   line-height: 24px;
+  padding: 0 12px 0 0;
+  background-repeat: no-repeat;
 }
 
 .line { text-decoration: line-through; }
@@ -595,11 +612,15 @@ a.caption {
 }
 
 @media only screen and (max-width: 800px) {
-  .top-panel-elem.under {
-    display: flex;
-  }
-  .top-panel-elem.over {
-    display: none;
+  .top-panel {
+    padding-bottom: 0;
+
+    .top-panel-elem.under {
+      display: flex;
+    }
+    .top-panel-elem.over {
+      display: none;
+    }
   }
   .flex-container {
     .main-container {
