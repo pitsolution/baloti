@@ -59,8 +59,7 @@ tmig:
         compose_django_build=
         compose=docker-compose.yml,docker-compose.persist.yml
         wait_grep=uwsgi
-        services=django
-        tmig@electeez.com
+        master@electeez.com
         | tee deploy.log
     - grep unreachable=0 deploy.log &> /dev/null
     - grep failed=0 deploy.log &> /dev/null
