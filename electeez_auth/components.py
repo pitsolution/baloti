@@ -7,11 +7,14 @@ from electeez.mdc import (
     MDCButton,
     MDCButtonOutlined,
     MDCTextButton,
+    MDCTextButtonLabel,
     MDCFormField,
     MDCTextFieldFilled,
     MDCTextFieldOutlined,
     CSRFInput,
 )
+
+from djelectionguard.components import CircleIcon
 
 
 class RegistrationForm(RegistrationForm):
@@ -19,11 +22,26 @@ class RegistrationForm(RegistrationForm):
         model = User
 
 
+class GoogleIcon(CircleIcon):
+    def __init__(self):
+        super().__init__('google-icon', 'white', small=True)
+
+
+class FacebookIcon(CircleIcon):
+    def __init__(self):
+        super().__init__('facebook-icon', 'fb-blue', small=True)
+
+
+class AppleIcon(CircleIcon):
+    def __init__(self):
+        super().__init__('apple-icon', 'black', small=True)
+
+
 class OAuthConnect(html.Div):
     def __init__(self, view):
-        self.google_btn = MDCButtonOutlined('continue with google')
-        self.facebook_btn = MDCButton('continue with facebook', p=False)
-        self.apple_btn = MDCButton('continue with apple')
+        self.google_btn = MDCButtonOutlined('continue with google', icon=GoogleIcon())
+        self.facebook_btn = MDCButton('continue with facebook', p=False, icon=FacebookIcon())
+        self.apple_btn = MDCButton('continue with apple', icon=AppleIcon())
 
         super().__init__(
             self.google_btn,
@@ -50,7 +68,7 @@ class EmailLoginCard(html.Div):
             type='password',
             name='password'
         )
-        self.forgot_pass = MDCTextButton('forgot password?')
+        self.forgot_pass = MDCTextButtonLabel('forgot password?')
         self.login = MDCButton('continue')
         self.form = html.Form(
             CSRFInput(view),
@@ -130,43 +148,28 @@ class PasswordResetCard(html.Div):
         self.form = html.Form(
             CSRFInput(view),
             self.email_field,
+            html.Div(
+                MDCButton('reset password'),
+                style='margin-left: auto;'
+            ),
             method='POST',
             style='display: flex; flex-flow: column wrap; '
         )
-        self.submit = MDCButton('reset password')
 
         super().__init__(
-            html.Div(
-                html.H4('Reset your password', style='text-align: center;'),
-                html.Div(
-                    self.form,
-                ),
-                html.Div(
-                    self.submit,
-                    style='display: flex; justify-content: flex-end;'
-                ),
-                cls='card'
-            )
+            html.H4('Reset your password', style='text-align: center;'),
+            self.form,
+            cls='card'
         )
-
-    def render_js(self):
-        def reset_pass():
-            def handle_reset(evemt):
-                getElementByUuid(form_id).submit()
-
-            getElementByUuid(submit_id).addEventListener('click', handle_reset)
-
-        return JavaScript(reset_pass, dict(
-            submit_id=self.submit._id,
-            form_id=self.form._id
-        ))
 
 
 class PasswordResetDoneCard(html.Div):
     def __init__(self, view, ctx):
         super().__init__(
             html.H4('A link has been sent to your email address'),
-            html.A('Go to login page', href=reverse('login'))
+            html.A('Go to login page', href=reverse('login')),
+            cls='card',
+            style='text-align: center;'
         )
 
 
@@ -261,7 +264,9 @@ class ActivationCompleteCard(html.Div):
         super().__init__(
             html.H4('Your account has been activated !'),
             html.Div(
-                'You may now login and particiapte to an election',
+                'You may now ',
+                html.A('login', href=reverse('login')),
+                ' and particiapte to an election',
                 style='margin-bottom: 24px'
             ),
             cls='card',

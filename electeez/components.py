@@ -24,14 +24,17 @@ class TopPanel(html.Div):
                 self.account_btn = MDCButton('log in')
                 self.account_btn.url = reverse('login')
 
-        super().__init__(
-            html.Span(
-                html.Img(
-                    src=Static('electis.png'),
-                    cls='top-panel-sub top-panel-logo'
-                ),
-                cls='top-panel-elem'
+        self.electis_icon = html.Span(
+            html.Img(
+                src=Static('electis.png'),
+                cls='top-panel-sub top-panel-logo'
             ),
+            cls='top-panel-elem'
+        )
+        self.electis_icon.url = '/'
+
+        super().__init__(
+            self.electis_icon,
             html.Span(
                 html.Span(f"Hello, {text}", cls='top-panel-sub top-panel-msg'),
                 cls='top-panel-elem over'
@@ -46,14 +49,20 @@ class TopPanel(html.Div):
 
     def render_js(self):
         def click_event():
+            def home(event):
+                route(home_url)
+
             def handle_login(event):
-                route(url)
+                route(login_url)
 
             getElementByUuid(btn_id).addEventListener('click', handle_login)
+            getElementByUuid(electis_icon).addEventListener('click', home)
 
         return JavaScript(click_event, dict(
             btn_id=self.account_btn._id,
-            url=self.account_btn.url
+            login_url=self.account_btn.url,
+            electis_icon=self.electis_icon._id,
+            home_url=self.electis_icon.url
         ))
 
 
