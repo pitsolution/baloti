@@ -54,29 +54,46 @@ class OAuthConnect(html.Div):
         )
 
 
+def MDCDjangoForm(form):
+    from django import forms
+    def to_html(self, **kwargs):
+        content = []
+        for boundfield in self.visible_fields():
+            errors = boundfield.form.error_class(boundfield.errors)
+            help_text = boundfield.help_text
+
+            if isinstance(boundfield.field, forms.CharField):
+                component = MDCTextFieldOutlined(
+                    boundfield.field.label,
+                    f'id_{boundfield.name}',
+                    f'id_{boundfield.name}_label',
+                    **boundfield.build_widget_attrs({}, boundfield.field.widget)
+                )
+            if errors:
+                component.set_error('<br>'.join(errors))
+            content.append(component)
+        # TODO:
+        '''
+        if self.form.non_field_errors():
+            self.content.append(NonFieldErrors(self.form))
+        if self.hidden_errors():  # Local method.
+            self.content.append(HiddenErrors(self.form))
+        if self.form.hidden_fields():
+            self.content.append(HiddenFields(self.form))
+        '''
+        return html.CList(*content).to_html()
+    form.to_html = to_html.__get__(form, type(form))
+    return form
+
+
 @ryzom.template('registration/login.html', Document)
 class EmailLoginCard(html.Div):
-    def __init__(self, request, **kwargs):
-        self.email_field = MDCTextFieldOutlined(
-            'Email',
-            'email_input',
-            'email_input_label',
-            name='email'
-        )
-
-        self.password_field = MDCTextFieldOutlined(
-            'Password',
-            'password_input',
-            'password_input_label',
-            type='password',
-            name='password'
-        )
+    def __init__(self, request, form, **kwargs):
         self.forgot_pass = MDCTextButtonLabel('forgot password?')
         self.login = MDCButton('continue')
         self.form = html.Form(
             CSRFInput(request),
-            self.email_field,
-            self.password_field,
+            MDCDjangoForm(form),
             html.Div(
                 self.forgot_pass,
                 self.login,
@@ -85,6 +102,7 @@ class EmailLoginCard(html.Div):
             method='POST',
             style='display: flex; flex-flow: column wrap; '
         )
+
         super().__init__(
             html.Div(
                 html.H4('Welcome to Electeez', style='text-align: center;'),
