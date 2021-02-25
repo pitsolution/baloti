@@ -139,7 +139,7 @@ RYZOM_TEMPLATE_BACKEND = {
         # "debug": False,
     }
 }
-TEMPLATES.append(RYZOM_TEMPLATE_BACKEND)  # noqa: F405
+TEMPLATES.insert(0, RYZOM_TEMPLATE_BACKEND)  # noqa: F405
 
 def jinja2(**options):
     from django.templatetags.static import static

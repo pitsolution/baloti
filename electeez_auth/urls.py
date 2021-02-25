@@ -13,7 +13,7 @@ from electeez_auth.views import (
 )
 
 urlpatterns = [
-    path('login/', EmailLoginView.as_view, name='login'),
+    #path('login/', EmailLoginView.as_view, name='login'),
     path('logout/', LogoutView.as_view, name='logout'),
     path('register/', RegistrationView.as_view, name='signup'),
     path('register/complete/', RegistrationCompleteView.as_view, name='signup_complete'),

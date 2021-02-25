@@ -1,8 +1,10 @@
 from django.urls import include, path, reverse
 from django_registration.forms import RegistrationForm
+import ryzom
 from ryzom.components import components as html
 from ryzom.py2js.decorator import JavaScript
 from .models import User
+from electeez.components import Document
 from electeez.mdc import (
     MDCButton,
     MDCButtonOutlined,
@@ -38,7 +40,7 @@ class AppleIcon(CircleIcon):
 
 
 class OAuthConnect(html.Div):
-    def __init__(self, view):
+    def __init__(self):
         self.google_btn = MDCButtonOutlined('continue with google', icon=GoogleIcon())
         self.facebook_btn = MDCButton('continue with facebook', p=False, icon=FacebookIcon())
         self.apple_btn = MDCButton('continue with apple', icon=AppleIcon())
@@ -52,8 +54,9 @@ class OAuthConnect(html.Div):
         )
 
 
+@ryzom.template('registration/login.html', Document)
 class EmailLoginCard(html.Div):
-    def __init__(self, view, ctx):
+    def __init__(self, request, **kwargs):
         self.email_field = MDCTextFieldOutlined(
             'Email',
             'email_input',
@@ -71,7 +74,7 @@ class EmailLoginCard(html.Div):
         self.forgot_pass = MDCTextButtonLabel('forgot password?')
         self.login = MDCButton('continue')
         self.form = html.Form(
-            CSRFInput(view),
+            CSRFInput(request),
             self.email_field,
             self.password_field,
             html.Div(
@@ -85,7 +88,7 @@ class EmailLoginCard(html.Div):
         super().__init__(
             html.Div(
                 html.H4('Welcome to Electeez', style='text-align: center;'),
-                OAuthConnect(view),
+                OAuthConnect(),
                 html.Span('Or enter email and password:', cls='center-text'),
                 self.form,
                 cls='card'

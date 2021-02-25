@@ -280,11 +280,11 @@ class MDCFileInput(html.Div):
 
 
 class CSRFInput(html.Input):
-    def __init__(self, view):
+    def __init__(self, request):
         super().__init__(
             type='hidden',
             name='csrfmiddlewaretoken',
-            value=get_token(view.request)
+            value=get_token(request)
         )
 
 

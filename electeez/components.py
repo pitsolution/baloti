@@ -8,8 +8,8 @@ from electeez.mdc import MDCButton, MDCTextButton, MDCSnackBar
 
 
 class TopPanel(html.Div):
-    def __init__(self, view):
-        self.user = user = view.request.user
+    def __init__(self, request=None, **kwargs):
+        self.user = user = request.user
 
         if user.is_authenticated:
             text = user.email
@@ -17,7 +17,7 @@ class TopPanel(html.Div):
             self.account_btn.url = reverse('logout')
         else:
             text = 'Anonymous'
-            if view.url.rstrip('/') == reverse('login').rstrip('/'):
+            if request.path.rstrip('/') == reverse('login').rstrip('/'):
                 self.account_btn = MDCButton('sign up')
                 self.account_btn.url = reverse('signup')
             else:
@@ -108,8 +108,7 @@ class Messages(html.CList):
 
 
 class Document(html.Html):
-    def __init__(self, view, main_component, ctx=None):
-        self.view = view
+    def __init__(self, main_component, **kwargs):
         self.main_component = main_component
         mdc_icons_src = 'https://fonts.googleapis.com/icon?family=Material+Icons'
         nanum_pen_src = 'https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap'
@@ -118,16 +117,16 @@ class Document(html.Html):
         style_src = sass_processor('css/style.scss')
 
         body = html.Body(
-            TopPanel(view),
+            TopPanel(**kwargs),
             cls='mdc-typography'
         )
 
-        if backlink := getattr(view, 'backlink', None):
+        if backlink := getattr(main_component, 'backlink', None):
             body.content.append(backlink)
 
         body.content += [
-            main_component(view, ctx),
-            Messages(view.request),
+            main_component,
+            Messages(kwargs['request']),
             Footer(),
             html.Script('mdc.autoInit()', type='text/javascript'),
         ]
