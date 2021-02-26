@@ -64,9 +64,8 @@ def MDCDjangoForm(form):
 
             if isinstance(boundfield.field, forms.CharField):
                 component = MDCTextFieldOutlined(
-                    boundfield.field.label,
-                    f'id_{boundfield.name}',
-                    f'id_{boundfield.name}_label',
+                    boundfield.name,
+                    label=boundfield.field.label,
                     **boundfield.build_widget_attrs({}, boundfield.field.widget)
                 )
             if errors:
@@ -89,13 +88,16 @@ def MDCDjangoForm(form):
 @ryzom.template('registration/login.html', Document)
 class EmailLoginCard(html.Div):
     def __init__(self, request, form, **kwargs):
-        self.forgot_pass = MDCTextButtonLabel('forgot password?')
         self.login = MDCButton('continue')
         self.form = html.Form(
             CSRFInput(request),
             MDCDjangoForm(form),
             html.Div(
-                self.forgot_pass,
+                MDCTextButton(
+                    'forgot password?',
+                    tag='a',
+                    href=reverse('password_reset'),
+                ),
                 self.login,
                 style='display: flex; justify-content: space-between;'
             ),
@@ -106,29 +108,12 @@ class EmailLoginCard(html.Div):
         super().__init__(
             html.Div(
                 html.H4('Welcome to Electeez', style='text-align: center;'),
-                OAuthConnect(),
+                # OAuthConnect(),
                 html.Span('Or enter email and password:', cls='center-text'),
                 self.form,
                 cls='card'
             )
         )
-
-    def click_events():
-        def handle_forgot(event):
-            route('/accounts/password_reset/')
-
-        def handle_login(event):
-            getElementByUuid(form_id).submit()
-
-        getElementByUuid(login_id).addEventListener('click', handle_login)
-        getElementByUuid(forgot_id).addEventListener('click', handle_forgot)
-
-    def render_js(self):
-        return JavaScript(self.click_events, {
-            'forgot_id': self.forgot_pass._id,
-            'login_id': self.login._id,
-            'form_id': self.form._id
-        })
 
 
 class LogoutCard(html.Div):

@@ -20,26 +20,15 @@ class MDCIcon(html.Icon):
 
 
 class MDCTextButton(html.Button):
-    def __init__(self, text, icon=None):
+    def __init__(self, text, icon=None, **kwargs):
         content = [html.Span(cls='mdc-button__ripple')]
         if icon:
             content.append(MDCIcon(icon))
         content.append(html.Span(text, cls='mdc-button__label'))
         super().__init__(
             *content,
-            cls='mdc-button'
-        )
-
-
-class MDCTextButtonLabel(html.Label):
-    def __init__(self, text, icon=None):
-        content = [html.Span(cls='mdc-button__ripple')]
-        if icon:
-            content.append(MDCIcon(icon))
-        content.append(html.Span(text, cls='mdc-button__label'))
-        super().__init__(
-            *content,
-            cls='mdc-button'
+            cls='mdc-button',
+            **kwargs,
         )
 
 
@@ -94,25 +83,14 @@ class MDCButtonLabelOutlined(html.Label):
 
 
 class MDCTextInput(html.Input):
-    attrs = {'class': 'mdc-text-field__input'}
-
-    def __init__(self, input_id='', label_id='', **kwargs):
-        if not kwargs.get('name', None):
-            self.attrs['name'] = input_id
-        if not kwargs.get('type', None):
-            kwargs['type'] = 'text'
-        self.attrs['id'] = input_id
-        self.attrs['aria-labelledby'] = label_id
-        super().__init__(**self.attrs, **kwargs)
+    def __init__(self, name, **attrs):
+        attrs.setdefault('type', 'text')
+        attrs.setdefault('class', 'mdc-text-field__input')
+        super().__init__(**attrs)
 
 
 class MDCLabel(html.Span):
-    def __init__(self, text, label_id=''):
-        self.attrs = {
-            'id': label_id,
-            'class': 'mdc-floating-label'
-        }
-        super().__init__(text, **self.attrs)
+    attrs = {'class': 'mdc-floating-label'}
 
 
 class MDCTextRipple(html.Span):
@@ -141,51 +119,41 @@ class MDCTextFieldFilled(html.Label):
 
 
 class MDCNotchOutline(html.Span):
-    attrs = {'class': 'mdc-notched-outline'}
-
-    def __init__(self, hint='', label_id=''):
-        content = [html.Span(cls='mdc-notched-outline__leading')]
-
-        if hint:
-            content.append(html.Span(
-                MDCLabel(hint, label_id),
-                cls='mdc-notched-outline__notch'))
-
-        content.append(html.Span(cls='mdc-notched-outline__trailing'))
-
-        super().__init__(*content, **self.attrs)
-
-
-class MDCTextFieldHelperLine(html.Div):
-    def __init__(self, text, role, **kwargs):
-        super().__init__(
-            html.Div(
-                text,
-                cls='mdc-text-field-helper-text mdc-text-field-helper-text--persitent mdc-text-field-helper-text--validation-msg',
-                role=role,
+    def __init__(self, *content):
+        attrs = {'class': 'mdc-notched-outline'}
+        content = [
+            html.Span(cls='mdc-notched-outline__leading'),
+            html.Span(
+                *content,
+                cls='mdc-notched-outline__notch',
             ),
-            cls='mdc-text-field-helper-line',
-            **kwargs
-        )
-        self.attrs['aria-hidden'] = 'true'
+            html.Span(cls='mdc-notched-outline__trailing'),
+        ]
+        super().__init__(*content, **attrs)
 
 
 class MDCTextFieldOutlined(html.Div):
-    def __init__(self, hint='', input_id='', label_id='', **kwargs):
-        attrs = {'data-mdc-auto-init': 'MDCTextField'}
-        name = kwargs.get('name', '')
-        if not hint:
-            hint = name
-        if name and not input_id:
-            input_id = name + '_input'
-        if input_id and not label_id:
-            label_id = input_id + '_label'
+    def __init__(self, name, **kwargs):
+        input_id = f'id_{name}'
+        label_id = f'id_{name}_label'
+        label = kwargs.pop('label', name.capitalize())
         super().__init__(
             html.Label(
-                MDCNotchOutline(hint, label_id),
-                MDCTextInput(input_id, label_id, **kwargs),
+                MDCNotchOutline(
+                    html.Span(
+                        label,
+                        id=label_id,
+                        cls='mdc-floating-label',
+                    ),
+                ),
+                MDCTextInput(
+                    name=name,
+                    aria_labelledby=label_id,
+                    id=input_id,
+                    **kwargs,
+                ),
                 cls='mdc-text-field mdc-text-field--outlined',
-                **attrs
+                data_mdc_auto_init='MDCTextField',
             ),
             cls='form-group'
         )
