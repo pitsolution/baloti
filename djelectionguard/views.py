@@ -358,25 +358,6 @@ class ContestDecryptView(RyzomView, ContestMediator, generic.UpdateView):
 
     def form_valid(self, form):
         self.object.decrypt()
-        self.object.publish()
-
-        if form.cleaned_data['ipfs']:
-            if not settings.IPFS_ENABLED:
-                messages.error(
-                    self.request,
-                    'IPFS not initialized on this node'
-                )
-            else:
-                self.object.publish_ipfs()
-
-        try:
-            contract = self.object.electioncontract
-        except ObjectDoesNotExist:
-            # Contract not deployed on the blockchain
-            pass
-        else:
-            contract.artifacts()
-
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -400,6 +381,77 @@ class ContestDecryptView(RyzomView, ContestMediator, generic.UpdateView):
             f'Guardian keys were removed from our memory for {self.object}',
         )
         return self.object.get_absolute_url()
+
+
+class ContestDecentralized(ContestMediator):
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(decentralized=True)
+
+
+class ContestPublishView(RyzomView, ContestDecentralized, generic.UpdateView):
+    class form_class(forms.ModelForm):
+        class Meta:
+            model = Contest
+            fields = []
+
+    def render(self, request):
+        contest = self.get_object()
+
+        if request.method == 'POST':
+            return self.post(request)
+
+        self.backlink = BackLink(
+            'back',
+            reverse('contest_detail', args=(contest.id,)))
+        return Document(self, ContestPublishCard, dict())
+
+    def form_valid(self, form):
+        self.object.publish()
+
+        if not settings.IPFS_ENABLED:
+            messages.error(
+                self.request,
+                'IPFS not initialized on this node'
+            )
+        else:
+            self.object.publish_ipfs()
+
+        try:
+            contract = self.object.electioncontract
+        except ObjectDoesNotExist:
+            # Contract not deployed on the blockchain
+            pass
+        else:
+            contract.artifacts()
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        if self.object.artifacts_ipfs:
+            messages.success(
+                self.request,
+                f'You have published artifacts for {self.object} on IPFS '
+                + self.object.artifacts_ipfs
+            )
+        else:
+            messages.info(
+                self.request,
+                f'Artifacts were published for {self.object}',
+            )
+        messages.info(
+            self.request,
+            f'Guardian keys were removed from our memory for {self.object}',
+        )
+        return self.object.get_absolute_url()
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            '<pk>/publish/',
+            login_required(cls.as_view),
+            name='contest_publish'
+        )
 
 
 class ContestPubkeyView(RyzomView, ContestMediator, generic.UpdateView):
@@ -606,8 +658,10 @@ class ContestBallotCastView(RyzomView, ContestBallotMixin, FormMixin, generic.De
     def get(self, request, *args, **kwargs):
         contest = self.get_object()
         context = self.get_context_data()
-        self.backlink = BackLink('Back', reverse('contest_vote', args=(contest.id,)))
-        return Document(self, ContestBallotEncryptCard, context)
+        self.backlink = BackLink(
+            'Back',
+            reverse('contest_vote', args=(contest.id,)))
+        return Document(self, ContestBallotCastCard, context)
 
     def post(self, request, *args, **kwargs):
         client = Client(settings.MEMCACHED_HOST)

@@ -23,6 +23,7 @@ from .views import (
     ContestVotersDetailView,
     ContestDetailView,
     ContestResultView,
+    ContestPublishView,
 )
 
 
@@ -48,4 +49,5 @@ urlpatterns = [
     ContestVotersDetailView.as_url(),
     ContestDetailView.as_url(),
     ContestResultView.as_url(),
+    ContestPublishView.as_url(),
 ]

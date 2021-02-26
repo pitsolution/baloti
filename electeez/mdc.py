@@ -433,3 +433,26 @@ class MDCMultipleChoicesCheckbox(html.Ul):
             document.addEventListener('readystatechange', update_inputs)
 
         return JavaScript(change_event, dict(id=self._id, max_choices=self.max))
+
+
+class MDCLinearProgress(html.Div):
+    def __init__(self):
+        super().__init__(
+            html.Div(
+                html.Div(cls='mdc-linear-progress__buffer-bar'),
+                cls='mdc-linear-progress__buffer'),
+            html.Div(
+                html.Span(cls='mdc-linear-progress__bar-inner'),
+                cls='mdc-linear-progress__bar mdc-linear-progress__primary-bar'),
+            html.Div(
+                html.Span(cls='mdc-linear-progress__bar-inner'),
+                cls='mdc-linear-progress__bar mdc-linear-progress__secondary-bar'),
+            role='progressbar',
+            cls='mdc-linear-progress',
+            **{
+                'data-mdc-auto-init': 'MDCLinearProgress',
+                'aria-label': 'progress bar',
+                'aria-valuemin': 0,
+                'aria-valuemax': 1,
+            }
+        )

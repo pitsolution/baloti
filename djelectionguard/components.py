@@ -813,14 +813,27 @@ class Section(html.Div):
 
 
 class TezosSecuredCard(Section):
-    def __init__(self):
+    def __init__(self, contest):
+        self.contest = contest
+        if contest.decentralized:
+            self.inner_component = PublishProgressBar(
+                [
+                    'Election contrat created',
+                    'Election results available',
+                    'Election results published'
+                ],
+                contest.publish_status
+            )
+        else:
+            self.inner_component = mdc.MDCButton('decentralize')
+
         super().__init__(
             html.Ul(
                 ListAction(
                     'Secure and decentralised with Tezos',
                     html.Span(
                         'Your election data and results will be published on Tezos’ test blockchain.',
-                        mdc.MDCTextButton("here's how", 'info_outline'),
+                        self.inner_component,
                     ),
                     TezosIcon(), None, '',
                     separator=False
@@ -829,6 +842,21 @@ class TezosSecuredCard(Section):
             ),
             cls='setting-section', style='background-color: aliceblue;'
         )
+
+    def render_js(self):
+        if self.contest.decentralized:
+            return ''
+
+        def click_event():
+            def decentralize(event):
+                route(url)
+
+            getElementByUuid(btn_id).addEventListener('click', decentralize)
+
+        return JavaScript(click_event, dict(
+            url=reverse('electioncontract_create', args=(self.contest.id,)),
+            btn_id=self.inner_component._id
+        ))
 
 
 class CheckedIcon(mdc.MDCIcon):
@@ -1000,7 +1028,7 @@ class ContestCard(html.Div):
                 BackLink('my elections', reverse('contest_list')),
                 html.Div(
                     main_section,
-                    TezosSecuredCard(),
+                    TezosSecuredCard(contest),
                     GuardiansSettingsCard(view, ctx),
                     cls='main-container'
                 ),
@@ -1544,9 +1572,6 @@ class ContestDecryptCard(html.Div):
                 cls='center-text body-2'),
             html.Form(
                 mdc.CSRFInput(view),
-                mdc.MDCMultipleChoicesCheckbox(
-                    'ipfs',
-                    [(0, 'Deploy on IPFS?', 1)]),
                 self.decrypt_btn,
                 method='POST',
                 cls='decrypt-form'),
@@ -1563,6 +1588,81 @@ class ContestDecryptCard(html.Div):
         return JavaScript(click_event, dict(
             decrypt_btn=self.decrypt_btn._id,
             url=reverse('contest_decrypt', args=(self.contest.id,))
+        ))
+
+
+class ContestPublishCard(html.Div):
+    def __init__(self, view, ctx):
+        self.contest = view.get_object()
+        self.publish_btn = mdc.MDCButton('publish results')
+
+        super().__init__(
+            html.H4('Publish your election results', cls='center-text'),
+            html.Div(
+                html.P('This will decentralize your election results.'),
+                cls='center-text body-2'),
+            html.Form(
+                mdc.CSRFInput(view),
+                self.publish_btn,
+                method='POST',
+                cls='decrypt-form'),
+            cls='card',
+        )
+
+
+class PublishProgressBar(html.Div):
+    def __init__(self, _steps, step=0):
+        self.nsteps = len(_steps)
+        self.step = step
+        steps = [
+            html.Span(
+                cls=f'progress-step progress-step--disabled',
+                **{'data-step': s})
+            for s in range(0, self.nsteps)
+        ]
+        if 0 <= step < self.nsteps:
+            steps[step].attrs['class'] += ' progress-step--active'
+
+        super().__init__(
+            mdc.MDCLinearProgress(),
+            html.Div(
+                *steps,
+                cls='progress-bar__steps'
+            ),
+            html.Span(_steps[step], cls='center-text overline'),
+            cls='progress-bar',
+            style='margin-top: 24px'
+        )
+
+    def render_js(self):
+        def set_progress():
+            bar_container = document.querySelector('.progress-bar')
+            bar = bar_container.querySelector('.mdc-linear-progress')
+
+            def step(step):
+                progress = step / (total_steps - 1)
+
+                steps = bar_container.querySelectorAll('.progress-step')
+                for n in range(0, total_steps):
+                    s = steps.item(n)
+                    if s.dataset.step > step:
+                        s.classList.remove('progress-step--active')
+                        s.classList.add('progress-step--disabled')
+                    elif s.dataset.step == step:
+                        s.classList.remove('progress-step--disabled')
+                        s.classList.add('progress-step--active')
+                    else:
+                        s.classList.remove('progress-step--active')
+                        s.classList.remove('progress-step--disabled')
+
+                bar.MDCLinearProgress.foundation.setProgress(progress)
+
+            setattr(bar, 'setStep', step)
+            bar.setStep(current_step)
+
+        return JavaScript(set_progress, dict(
+            current_step=self.step,
+            total_steps=self.nsteps
         ))
 
 
@@ -1607,6 +1707,10 @@ class ContestResultCard(html.Div):
             }
         )
 
+        self.publish_btn = ''
+        if self.contest.publish_status == 1:
+            self.publish_btn = mdc.MDCButton('publish results', p=True, icon=WorldIcon())
+
         super().__init__(
             html.H4('Results', cls='center-text'),
             html.Div(
@@ -1614,3 +1718,18 @@ class ContestResultCard(html.Div):
                 cls='table-container score-table'),
             cls='card',
         )
+
+    def render_js(self):
+        if self.contest.publish_status != 1:
+            return ''
+
+        def click_event():
+            def publish(event):
+                route(publish_url)
+
+            getElementByUuid(publish_btn).addEventListener('click', publish)
+
+        return JavaScript(click_event, dict(
+            publish_btn=self.publish_btn._id,
+            publish_url=reverse('electioncontract_create', args=(self.contest.id,))
+        ))

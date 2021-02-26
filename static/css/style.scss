@@ -604,6 +604,40 @@ a.caption {
   }
 }
 
+.progress-bar {
+  .mdc-linear-progress {
+    transform: translate3d(0, 7px, 0);
+
+    &__bar-inner {
+      border-color: $green2;
+    }
+  }
+
+  &__steps {
+    display: flex;
+    justify-content: space-between;
+    transform: translate3d(0, 0, 0);
+
+    .progress-step {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: $green2;
+
+      &--active {
+        width: 15px;
+        height: 15px;
+        transform: translateY(-2px)
+      }
+
+      &--disabled {
+        background-color: #e6e6e6;
+      }
+    }
+  }
+
+}
+
 @media only screen and (max-width: 1024px) {
   .flex-container {
     padding: 0 32px;

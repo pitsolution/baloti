@@ -56,6 +56,11 @@ class Contest(models.Model):
     )
     start = models.DateTimeField()
     end = models.DateTimeField()
+    decentralized = models.BooleanField(default=False)
+    publish_status = models.IntegerField(
+        default=0
+    )
+
     actual_start = models.DateTimeField(null=True, blank=True)
     actual_end = models.DateTimeField(null=True, blank=True)
 
@@ -141,6 +146,9 @@ class Contest(models.Model):
         # And delete keys from memory
         for guardian in self.guardian_set.all():
             guardian.delete_keypair()
+
+        self.publish_status = 1
+
         self.save()
 
         plaintext_tally_contest = self.plaintext_tally.contests[str(self.pk)]
@@ -179,8 +187,10 @@ class Contest(models.Model):
             while data := f.read(65536):
                 sha1.update(data)
         self.artifacts_sha1 = sha1.hexdigest()
+        self.publish_status = 2
 
         os.chdir(cwd)
+
 
     def publish_ipfs(self):
         try:
