@@ -287,6 +287,7 @@ LOGGERS = (
     'djcall',
     'djblockchain',
     'djblockchain.tezos',
+    'daphne',
 )
 
 for logger in LOGGERS:
