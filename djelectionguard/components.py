@@ -300,7 +300,7 @@ class ContestList(html.Div):
                     html.Li(
                         'There are no elections yet',
                         cls='mdc-list-item body-1'
-                    )
+                    ),
                 ),
                 cls='mdc-list contest-list'
             ),
@@ -1501,7 +1501,7 @@ class PublishProgressBar(html.Div):
             ),
             html.Span(_steps[step], cls='center-text overline'),
             cls='progress-bar',
-            style='margin: 24px auto; width: 50%; min-width: 200px'
+            style='margin: 24px auto'
         )
 
     def render_js(self):
