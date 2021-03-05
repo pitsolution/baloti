@@ -193,7 +193,7 @@ vot1@example.com\rvot2@example.com\rnew@example.com
     assert b'id_name' in response.content
     assert contest.candidate_set.count() == 0
     response = post(mediator, candidate_create, name='cand1')
-    assert response.status_code == 200
+    assert response.status_code == 302
 
     # but not unauthorized users
     assert client.get(candidate_create).status_code == 302
