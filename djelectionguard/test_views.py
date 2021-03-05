@@ -148,7 +148,7 @@ def test_story(client, mediator):
     # mediator should see and update voters there
     response = get(mediator, voters)
     assert response.status_code == 200
-    assert b'voters_emails_input' in response.content
+    assert b'id_voters_emails' in response.content
     post(mediator, voters, voters_emails='\n\n\n\n')
     response = post(mediator, voters, voters_emails='''
 vot1@example.com\rvot2@example.com\rnew@example.com
@@ -190,7 +190,7 @@ vot1@example.com\rvot2@example.com\rnew@example.com
     # mediator should see and use candidate_create there
     response = get(mediator, candidate_create)
     assert response.status_code == 200
-    assert b'name_input' in response.content
+    assert b'id_name' in response.content
     assert contest.candidate_set.count() == 0
     response = post(mediator, candidate_create, name='cand1')
     assert response.status_code == 200

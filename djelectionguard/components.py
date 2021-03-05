@@ -1095,9 +1095,11 @@ class ContestCandidateCreateCard(html.Div):
 class ContestCandidateCreateCard(html.Div):
     def __init__(self, *content, view, form, **context):
         contest = view.get_object()
+        editable = (view.request.user == contest.mediator
+                    and not contest.actual_start)
         self.backlink = BackLink('back', reverse('contest_detail', args=[contest.id]))
         form_component = ''
-        if not contest.actual_start:
+        if editable:
             form_component = Form(
                 form,
                 CSRFInput(view.request),
@@ -1109,7 +1111,7 @@ class ContestCandidateCreateCard(html.Div):
                 contest.candidate_set.count(), ' Candidates',
                 style='text-align: center;'),
             form_component,
-            CandidateList(contest),
+            CandidateList(contest, editable),
             cls='card'
         )
 
