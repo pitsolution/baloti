@@ -142,9 +142,36 @@ class PasswordResetCard(html.Div):
                 CSRFInput(view.request),
                 form,
                 MDCButton('Reset password'),
+                method='POST',
                 cls='form'),
             cls='card')
 
+
+@template('registration/password_reset_confirm.html', Document, Card)
+class PasswordResetConfirm(html.Div):
+    def __init__(self, *content, view, form, **context):
+        super().__init__(
+            html.H4('Reset your password', style='text-align: center;'),
+            html.Form(
+                CSRFInput(view.request),
+                form,
+                MDCButton('confirm'),
+                method='POST',
+                cls='form'),
+            cls='card')
+
+
+@template('registration/password_reset_complete.html', Document, Card)
+class PasswordResetComplete(html.Div):
+    def __init__(self, *content, view, **context):
+        super().__init__(
+            html.H4('Your password have been reset', cls='center-text'),
+            html.Div(
+                'You may go ahead and ',
+                html.A('log in', href=reverse('login')),
+                ' now',
+            )
+        )
 
 
 @template('registration/password_reset_done.html', Document, Card)
