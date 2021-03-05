@@ -613,6 +613,18 @@ class ContestBallotCastView(ContestBallotMixin, FormMixin, generic.DetailView):
         )
 
 
+class ContestCandidateListView(ContestAccessible, generic.DetailView):
+    template_name = 'djelectionguard/candidate_list.html'
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            '<pk>/candidates/',
+            login_required(cls.as_view()),
+            name='contest_candidate_list'
+        )
+
+
 class ContestCandidateCreateView(ContestMediator, FormMixin, generic.DetailView):
     template_name = 'djelectionguard/candidate_form.html'
 

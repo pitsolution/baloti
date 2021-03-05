@@ -882,19 +882,26 @@ class GuardiansSettingsCard(html.Div):
 class CandidatesSettingsCard(html.Div):
     def __init__(self, view, **context):
         contest = view.get_object()
-        kwargs = dict(
-            p=False,
-            tag='a',
-            href=reverse('contest_candidate_create', args=[contest.id]))
-        if contest.actual_start:
-            btn = MDCButtonOutlined('view all', **kwargs)
-        elif contest.candidate_set.count():
-            btn = MDCButtonOutlined('view all/edit', **kwargs)
+        editable = (view.request.user == contest.mediator
+                    and not contest.actual_start)
+        kwargs = dict(p=False, tag='a')
+        if contest.candidate_set.count():
+            if editable:
+                kwargs['href'] = reverse('contest_candidate_create', args=[contest.id])
+                btn = MDCButtonOutlined('view all/edit', **kwargs)
+            else:
+                kwargs['href'] = reverse('contest_candidate_list', args=[contest.id])
+                btn = MDCButtonOutlined('view all', **kwargs)
         else:
-            btn = MDCButtonOutlined('add', icon='add', **kwargs)
+            if editable:
+                kwargs['href'] = reverse('contest_candidate_create', args=[contest.id])
+                btn = MDCButtonOutlined('add', icon='add', **kwargs)
+            else:
+                btn = None
+
         super().__init__(
             html.H5('Candidates'),
-            CandidateList(contest),
+            CandidateList(contest, editable),
             btn,
             cls='setting-section'
         )
@@ -971,9 +978,9 @@ class ContestCard(html.Div):
 
 
 class CandidateListItem(MDCListItem):
-    def __init__(self, contest, candidate):
+    def __init__(self, contest, candidate, editable=False):
         kwargs = dict()
-        if not contest.actual_start:
+        if editable:
             kwargs['tag'] = 'a'
             kwargs['href'] = reverse('contest_candidate_update', args=[candidate.id])
 
@@ -985,10 +992,10 @@ class CandidateListItem(MDCListItem):
 
 
 class CandidateList(html.Ul):
-    def __init__(self, contest):
+    def __init__(self, contest, editable=False):
         super().__init__(
             *(
-                CandidateListItem(contest, candidate)
+                CandidateListItem(contest, candidate, editable)
                 for candidate
                 in contest.candidate_set.all()
             ) if contest.candidate_set.count()
@@ -1066,6 +1073,20 @@ class VotersDetailCard(html.Div):
             html.H4(voters.count(), ' Voters', cls='center-text'),
             html.Div(self.edit_btn, cls='center-button'),
             table,
+            cls='card'
+        )
+
+
+@template('djelectionguard/candidate_list.html', Document, Card)
+class ContestCandidateCreateCard(html.Div):
+    def __init__(self, *content, view, **context):
+        contest = view.get_object()
+        self.backlink = BackLink('back', reverse('contest_detail', args=[contest.id]))
+        super().__init__(
+            html.H4(
+                contest.candidate_set.count(), ' Candidates',
+                style='text-align: center;'),
+            CandidateList(contest),
             cls='card'
         )
 
