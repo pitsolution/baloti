@@ -330,11 +330,11 @@ class MDCSnackBar(html.Div):
 
     def render_js(self):
         return (
-            '\nvar snack = function() {' +
-            '\n\tvar elem = document.querySelector(".mdc-snackbar");' +
+            '\n(function() {' +
+            f'\n\tvar elem = getElementByUuid("{self._id}");' +
             '\n\tsn = new mdc.snackbar.MDCSnackbar(elem);' +
             '\n\tsn.open();' +
-            '\n}; '
+            '\n})(); '
         )
 
 

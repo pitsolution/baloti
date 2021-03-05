@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('djelectionguard', '0006_add_decentralized'),
+        ('djelectionguard', '0007_add_decentralized'),
     ]
 
     operations = [

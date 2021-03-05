@@ -147,7 +147,7 @@ class Contest(models.Model):
         for guardian in self.guardian_set.all():
             guardian.delete_keypair()
 
-        self.publish_status = 1
+        self.publish_status = 2
 
         self.save()
 
@@ -187,7 +187,7 @@ class Contest(models.Model):
             while data := f.read(65536):
                 sha1.update(data)
         self.artifacts_sha1 = sha1.hexdigest()
-        self.publish_status = 2
+        self.publish_status = 3
 
         os.chdir(cwd)
 

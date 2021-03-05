@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('djelectionguard', '0005_artifacts_and_ipfs'),
+        ('djelectionguard', '0006_remove_contest_voters_emails'),
     ]
 
     operations = [

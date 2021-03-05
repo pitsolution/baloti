@@ -48,6 +48,7 @@ class ContestForm(forms.ModelForm):
             'votes_allowed',
             'start',
             'end',
+            'decentralized'
         ]
 
     def clean(self):
@@ -55,6 +56,25 @@ class ContestForm(forms.ModelForm):
         if cleaned_data['votes_allowed'] < cleaned_data['number_elected']:
             raise forms.ValidationError(
                 'Number of elected cannot be bellow number of votes allowed'
+            )
+        return cleaned_data
+
+
+class ContestEditForm(ContestForm):
+    class Meta(ContestForm.Meta):
+        fields = [
+            'name',
+            'number_elected',
+            'votes_allowed',
+            'start',
+            'end',
+        ]
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if 'decentralized' in cleaned_data:
+            raise forms.ValidationError(
+                'Cannot decentralize after creation'
             )
         return cleaned_data
 
@@ -79,17 +99,24 @@ class CandidateForm(forms.ModelForm):
         return cleaned_data
 
 
-@template('djelectionguard/contest_form.html', Document, Card)
-class ContestCreateCard(html.Div):
-    def __init__(self, *content, view, form, **context):
-        self.backlink = BackLink('back', reverse('contest_list'))
+class ContestFormComponent(CList):
+    def __init__(self, view, form, edit=False):
         content = []
         content.append(html.Ul(
             *[html.Li(e) for e in form.non_field_errors()],
             cls='error-list'
         ))
+
+        decentralized = ''
+        if not edit:
+            decentralized = CList(
+                html.H6('Decentralize my election:'),
+                MDCMultipleChoicesCheckbox(
+                    'decentralized',
+                    [(0, 'Decentralize with Tezos', 'true')]))
+
         super().__init__(
-            html.H4('Create an election'),
+            html.H4('Edit election' if edit else 'Create an election'),
             html.Form(
                 form['name'],
                 html.H6('Voting settings:'),
@@ -99,10 +126,22 @@ class ContestCreateCard(html.Div):
                 form['start'],
                 html.H6('Election ends:'),
                 form['end'],
+                decentralized,
                 CSRFInput(view.request),
-                MDCButton('Create election'),
+                MDCButton('update election' if edit else 'create election'),
                 method='POST',
                 cls='form'),
+        )
+
+
+@template('djelectionguard/contest_form.html', Document, Card)
+class ContestCreateCard(html.Div):
+    def __init__(self, *content, view, form, **context):
+        self.backlink = BackLink('back', reverse('contest_list'))
+
+        edit = isinstance(form, ContestEditForm)
+        super().__init__(
+            ContestFormComponent(view, form, edit),
             cls='card',
         )
 
@@ -305,6 +344,11 @@ class EmailIcon(CircleIcon):
 class SimpleCheckIcon(CircleIcon):
     def __init__(self):
         super().__init__('simple-check-icon', 'green')
+
+
+class WorldIcon(CircleIcon):
+    def __init__(self):
+        super().__init__('world-icon', 'black', small=True)
 
 
 class BasicSettingsAction(ListAction):
@@ -719,14 +763,21 @@ class Section(html.Div):
 
 
 class TezosSecuredCard(Section):
-    def __init__(self):
+    def __init__(self, contest):
         super().__init__(
             html.Ul(
                 ListAction(
                     'Secure and decentralised with Tezos',
                     html.Span(
                         'Your election data and results will be published on Tezos’ test blockchain.',
-                        mdc.MDCTextButton("here's how", 'info_outline'),
+                        PublishProgressBar([
+                            'Election contract created',
+                            'Election closed',
+                            'Election Results available',
+                            'Election contract updated'
+                        ], contest.publish_status)
+                        if contest.decentralized
+                        else MDCTextButton('Here\'s how', 'info_outline')
                     ),
                     TezosIcon(),
                     None,
@@ -905,7 +956,7 @@ class ContestCard(html.Div):
                 html.Div(cls='side-container'),
                 html.Div(
                     main_section,
-                    TezosSecuredCard(),
+                    TezosSecuredCard(contest),
                     GuardiansSettingsCard(view, **context),
                     cls='main-container'
                 ),
@@ -1054,7 +1105,7 @@ class ContestCandidateUpdateCard(html.Div):
             'delete',
             'delete',
             tag='a',
-            href=reverse('contest_candidate_delete', args=[ candidate.id]))
+            href=reverse('contest_candidate_delete', args=[candidate.id]))
 
         super().__init__(
             html.H4(
@@ -1210,6 +1261,10 @@ class ContestVoteCard(html.Div):
                         f'{number_elected} winner will be announced.'),
                 cls='center-text body-2'
             ),
+            html.Ul(
+                *[html.Li(e) for e in form.non_field_errors()],
+                cls='error-list'
+            ),
             html.Form(
                 CSRFInput(view.request),
                 MDCMultipleChoicesCheckbox(
@@ -1252,7 +1307,7 @@ class ContestBallotEncryptCard(html.Div):
                 cls='body-2'),
             html.Form(
                 Div(
-                    MDCTextareaFieldOutlined(
+                    mdc.MDCTextareaFieldOutlined(
                         ballot,
                         rows=15,
                         readonly=True),
@@ -1271,12 +1326,12 @@ class ContestBallotCastCard(html.Div):
         self.contest = view.get_object()
         self.backlink = BackLink(
             'back',
-            reverse('contest_ballot', args=[contest.id]))
+            reverse('contest_ballot', args=[self.contest.id]))
 
         self.ballot = context['ballot']
         self.download_btn = MDCButtonOutlined(
             'download ballot file', False, 'file_download', tag='a')
-        cast_btn = mdc.MDCButton('confirm my vote')
+        cast_btn = MDCButton('confirm my vote')
 
         super().__init__(
             html.H4('Encrypted ballot', cls='center-text'),
@@ -1285,7 +1340,7 @@ class ContestBallotCastCard(html.Div):
                 cls='center-text body-2'),
             html.Form(
                 Div(
-                    MDCTextareaFieldOutlined(
+                    mdc.MDCTextareaFieldOutlined(
                         self.ballot.to_json(),
                         rows=15,
                         readonly=True),
@@ -1401,9 +1456,6 @@ class ContestDecryptCard(html.Div):
                 cls='center-text body-2'),
             html.Form(
                 mdc.CSRFInput(view.request),
-                mdc.MDCMultipleChoicesCheckbox(
-                    'ipfs',
-                    [(0, 'Deploy on IPFS?', 1)]),
                 MDCButton('open and view results'),
                 method='POST',
                 cls='form'),
@@ -1411,21 +1463,19 @@ class ContestDecryptCard(html.Div):
         )
 
 
+@template('contest_publish', Document, Card)
 class ContestPublishCard(html.Div):
-    def __init__(self, view, ctx):
-        self.contest = view.get_object()
-        self.publish_btn = mdc.MDCButton('publish results')
-
+    def __init__(self, *content, view, form , **ctx):
         super().__init__(
             html.H4('Publish your election results', cls='center-text'),
             html.Div(
                 html.P('This will decentralize your election results.'),
                 cls='center-text body-2'),
             html.Form(
-                mdc.CSRFInput(view),
-                self.publish_btn,
+                CSRFInput(view.request),
+                MDCButton('publish results'),
                 method='POST',
-                cls='decrypt-form'),
+                cls='form'),
             cls='card',
         )
 
@@ -1451,13 +1501,16 @@ class PublishProgressBar(html.Div):
             ),
             html.Span(_steps[step], cls='center-text overline'),
             cls='progress-bar',
-            style='margin-top: 24px'
+            style='margin: 24px auto; width: 50%; min-width: 200px'
         )
 
     def render_js(self):
         def set_progress():
             bar_container = document.querySelector('.progress-bar')
             bar = bar_container.querySelector('.mdc-linear-progress')
+
+            mdcbar = _new(mdc.linearProgress.MDCLinearProgress, bar)
+            setattr(bar, 'MDCLinearProgress', mdcbar)
 
             def step(step):
                 progress = step / (total_steps - 1)
@@ -1480,7 +1533,7 @@ class PublishProgressBar(html.Div):
             setattr(bar, 'setStep', step)
             bar.setStep(current_step)
 
-        return JavaScript(set_progress, dict(
+        return JS(set_progress, dict(
             current_step=self.step,
             total_steps=self.nsteps
         ))
@@ -1536,29 +1589,21 @@ class ContestResultCard(html.Div):
             }
         )
 
-        self.publish_btn = ''
-        if self.contest.publish_status == 1:
-            self.publish_btn = MDCButton('publish results', p=True, icon=WorldIcon())
+        publish_btn = ''
+        if contest.publish_status == 2:
+            publish_btn = MDCButton(
+                'publish results',
+                p=True,
+                icon=WorldIcon(),
+                tag='a',
+                href=reverse('contest_publish', args=[contest.id]),
+                style='margin: 0 auto;')
 
         super().__init__(
             html.H4('Results', cls='center-text'),
             html.Div(
+                publish_btn,
                 score_table,
                 cls='table-container score-table'),
             cls='card',
         )
-
-    def render_js(self):
-        if self.contest.publish_status != 1:
-            return ''
-
-        def click_event():
-            def publish(event):
-                route(publish_url)
-
-            getElementByUuid(publish_btn).addEventListener('click', publish)
-
-        return JavaScript(click_event, dict(
-            publish_btn=self.publish_btn._id,
-            publish_url=reverse('electioncontract_create', args=(self.contest.id,))
-        ))

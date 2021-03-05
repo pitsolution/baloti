@@ -217,6 +217,12 @@ a.caption {
   margin-bottom: 24px;
 }
 
+.mdc-snackbar {
+  .mdc-snackbar__action {
+      margin: 0;
+  }
+}
+
 .mdc-button--raised.black-button,
 .mdc-button--raised.black-button .mdc-button__label,
 .mdc-button--raised.black-button:not(:disabled) {
@@ -440,6 +446,10 @@ a.caption {
   background-image: url('/static/images/check_icon.svg');
 }
 
+.world-icon {
+  background-image: url('/static/images/world_icon.svg');
+}
+
 .empty-icon {
   background-image: url('/static/images/empty_check_icon.svg');
 }
@@ -528,19 +538,6 @@ a.caption {
   }
 }
 
-.decrypt-form,
-.encrypt-form,
-.vote-form,
-.guardian-verify-form,
-.voters-update-form,
-.candidate-create-form {
-  button {
-    margin-left: auto;
-  }
-
-  label.mdc-text-field.mdc-text-field--textarea {
-      margin-bottom: 24px;
-  }
 .form {
   button {
     margin-left: auto;
@@ -630,13 +627,14 @@ a.caption {
     }
   }
 }
-
 .progress-bar {
+  width: 70%;
+  min-width: 15em;
   .mdc-linear-progress {
     transform: translate3d(0, 7px, 0);
 
     &__bar-inner {
-      border-color: $green2;
+      border-color: var(--mdc-theme-primary);
     }
   }
 
@@ -649,7 +647,7 @@ a.caption {
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background-color: $green2;
+      background-color: var(--mdc-theme-primary);
 
       &--active {
         width: 15px;
@@ -663,13 +661,20 @@ a.caption {
     }
   }
 
+  .overline {
+    margin-top: 0;
+    color: var(--mdc-theme-primary);
+   }
+
 }
+
 
 @media only screen and (max-width: 1024px) {
   .flex-container {
     padding: 0 32px;
 
     .card.backlink { margin-left: 0;}
+
   }
 }
 
@@ -701,6 +706,7 @@ a.caption {
     .side-container,
     .main-container {
       margin: 0;
+
       .backlink { margin-left: 12px; }
     }
 
@@ -721,3 +727,4 @@ a.caption {
     }
   }
 }
+

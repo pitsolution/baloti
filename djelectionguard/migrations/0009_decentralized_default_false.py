@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('djelectionguard', '0007_contest_publish_status'),
+        ('djelectionguard', '0008_contest_publish_status'),
     ]
 
     operations = [
