@@ -1,9 +1,12 @@
 django
+channels
+channels-redis
 django-debug-toolbar
 django-extensions
 django-jinja
 django-picklefield
 django-registration
+django-sass-processor
 djblockchain[test]
 djcall
 djcli
@@ -15,3 +18,5 @@ pytest
 pytest-django
 pytest-watch
 pytezos<3
+
+ryzom>=0.1.2

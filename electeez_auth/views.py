@@ -10,6 +10,7 @@ from django.urls import include, path, reverse
 from django_registration.forms import RegistrationForm
 from django_registration.backends.activation.views import RegistrationView
 
+from electeez.components import Document, TopPanel, Footer
 from .models import User
 
 
@@ -70,22 +71,3 @@ class OTPLogin(generic.View):
         else:
             messages.success(request, 'Invalid or expired magic link.')
             return http.HttpResponseRedirect('/')
-
-
-class EmailRegistrationForm(RegistrationForm):
-    class Meta(RegistrationForm.Meta):
-        model = User
-
-
-urlpatterns = [
-    path('register/',
-        RegistrationView.as_view(
-            form_class=EmailRegistrationForm,
-        ),
-        name='django_registration_register',
-    ),
-    path('otp/<token>/', OTPLogin.as_view(), name='otp_login'),
-    path('otp/', OTPSend.as_view(), name='otp_send'),
-    path('', include('django_registration.backends.activation.urls')),
-    path('', include('django.contrib.auth.urls')),
-]

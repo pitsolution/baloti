@@ -9,7 +9,7 @@ build:
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
 
 test:
-  image: 
+  image:
     name: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
     entrypoint: ["/bin/sh", "-c"]
   stage: test
@@ -33,6 +33,36 @@ test:
         - "log_min_duration_statement=300"
   script:
     - pytest -sv
+
+tmig:
+  image: yourlabs/ansible
+  stage: deploy
+  environment:
+    name: tmig
+    url: https://tmig.electeez.com
+  only:
+    refs:
+      - tmig
+  before_script:
+    - mkdir -p ~/.ssh; echo "$MASTER_SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
+  script:
+    - export $(echo $MASTER_ENV | xargs)
+    - export $(echo $SMTP | xargs)
+    - HOST=tmig.electeez.com
+      PROTO=https
+      DEFAULT_FROM_EMAIL=noreply@electeez.com
+      ANSIBLE_FORCE_COLOR=1
+      bigsudo
+        yourlabs.compose
+        home=/home/tmig
+        compose_django_image=$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+        compose_django_build=
+        compose=docker-compose.yml,docker-compose.persist.yml
+        wait_grep=uwsgi
+        master@electeez.com
+        | tee deploy.log
+    - grep unreachable=0 deploy.log &> /dev/null
+    - grep failed=0 deploy.log &> /dev/null
 
 master:
   image: yourlabs/ansible

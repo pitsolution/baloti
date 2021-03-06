@@ -31,6 +31,31 @@ from .models import Contest, Candidate, Guardian
 
 from datetime import datetime, date
 
+from ryzom import html
+from electeez.components import Document, BackLink
+from .components import (
+    ContestForm,
+    ContestEditForm,
+    CandidateForm,
+    ContestPubKeyCard,
+    ContestCandidateCreateCard,
+    ContestCandidateUpdateCard,
+    ContestCreateCard,
+    ContestCard,
+    ContestOpenCard,
+    ContestCloseCard,
+    ContestList,
+    ContestVotersUpdateCard,
+    ContestVoteCard,
+    ContestBallotEncryptCard,
+    ContestBallotCastCard,
+    ContestDecryptCard,
+    ContestResultCard,
+    VotersDetailCard,
+    GuardianVerifyCard,
+    GuardianUploadKeyCard,
+)
+
 
 class ContestMediator:
     def get_queryset(self):
@@ -62,41 +87,7 @@ class ContestAccessible:
 
 class ContestCreateView(generic.CreateView):
     model = Contest
-
-    class form_class(forms.ModelForm):
-        now = datetime.now()
-        current_time = now.strftime("%H:%M")
-
-        start = forms.SplitDateTimeField(
-            widget=forms.SplitDateTimeWidget(
-                time_attrs={'type': 'time', 'value': current_time},
-                date_attrs={'type': 'date', 'value': date.today()},
-            )
-        )
-        end = forms.SplitDateTimeField(
-            widget=forms.SplitDateTimeWidget(
-                time_attrs={'type': 'time', 'value': current_time},
-                date_attrs={'type': 'date', 'value': date.today()},
-            )
-        )
-
-        class Meta:
-            model = Contest
-            fields = [
-                'name',
-                'number_elected',
-                'votes_allowed',
-                'start',
-                'end',
-            ]
-
-        def clean(self):
-            cleaned_data = super().clean()
-            if cleaned_data['votes_allowed'] < cleaned_data['number_elected']:
-                raise forms.ValidationError(
-                    'Number of elected cannot be bellow number of votes allowed'
-                )
-            return cleaned_data
+    form_class = ContestForm
 
     def form_valid(self, form):
         form.instance.mediator = self.request.user
@@ -117,13 +108,68 @@ class ContestCreateView(generic.CreateView):
         )
 
 
+class ContestUpdateView(generic.UpdateView):
+    model = Contest
+    form_class = ContestEditForm
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(
+            self.request,
+            f'You have updated contest {form.instance}',
+        )
+        return response
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            '<pk>/update/',
+            login_required(cls.as_view()),
+            name='contest_update'
+        )
+
+
 class ContestListView(ContestAccessible, generic.ListView):
+    model = Contest
+
     @classmethod
     def as_url(cls):
         return path(
             '',
             login_required(cls.as_view()),
             name='contest_list'
+        )
+
+class ContestResultView(ContestAccessible, generic.DetailView):
+    template_name = 'contest_result'
+    @classmethod
+    def as_url(cls):
+        return path(
+            '<pk>/result',
+            login_required(cls.as_view()),
+            name='contest_result'
+        )
+
+
+class ContestDetailView(ContestAccessible, generic.DetailView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        voter = self.object.voter_set.filter(user=self.request.user).first()
+        context['casted'] = voter.casted if voter else None
+        context['can_vote'] = (
+            self.object.actual_start
+            and not self.object.actual_end
+            and voter
+            and not voter.casted
+        )
+        return context
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            '<pk>/',
+            login_required(cls.as_view()),
+            name='contest_detail'
         )
 
 
@@ -141,8 +187,7 @@ class ContestManifestView(ContestAccessible, generic.DetailView):
 
 
 class ContestOpenView(ContestMediator, generic.UpdateView):
-    template_name = 'form.html'
-
+    template_name = 'contest_open'
     @classmethod
     def as_url(cls):
         return path(
@@ -186,7 +231,7 @@ class ContestOpenView(ContestMediator, generic.UpdateView):
 
 
 class ContestCloseView(ContestMediator, generic.UpdateView):
-    template_name = 'form.html'
+    template_name = 'contest_close'
 
     @classmethod
     def as_url(cls):
@@ -203,15 +248,13 @@ class ContestCloseView(ContestMediator, generic.UpdateView):
         )
 
     class form_class(forms.ModelForm):
-        submit_label = 'Close contest'
-        help_text = 'Closing the contest will stop the voting process and start the decryption ceremony'
-
         class Meta:
             model = Contest
             fields = []
 
         def save(self, *args, **kwargs):
             self.instance.actual_end = timezone.now()
+            self.instance.publish_status = 1
             return super().save(self, *args, **kwargs)
 
     def form_valid(self, form):
@@ -229,11 +272,9 @@ class ContestCloseView(ContestMediator, generic.UpdateView):
 
 
 class ContestDecryptView(ContestMediator, generic.UpdateView):
-    template_name = 'djelectionguard/contest_decrypt.html'
+    template_name = 'contest_decrypt'
 
     class form_class(forms.ModelForm):
-        ipfs = forms.BooleanField(label='Deploy on IPFS?', required=False)
-
         class Meta:
             model = Contest
             fields = []
@@ -251,25 +292,6 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
 
     def form_valid(self, form):
         self.object.decrypt()
-        self.object.publish()
-
-        if form.cleaned_data['ipfs']:
-            if not settings.IPFS_ENABLED:
-                messages.error(
-                    self.request,
-                    'IPFS not initialized on this node'
-                )
-            else:
-                self.object.publish_ipfs()
-
-        try:
-            contract = self.object.electioncontract
-        except ObjectDoesNotExist:
-            # Contract not deployed on the blockchain
-            pass
-        else:
-            contract.artifacts()
-
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -295,9 +317,70 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
         return self.object.get_absolute_url()
 
 
+class ContestDecentralized(ContestMediator):
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(decentralized=True)
+
+
+class ContestPublishView(ContestDecentralized, generic.UpdateView):
+    template_name = 'contest_publish'
+
+    class form_class(forms.ModelForm):
+        class Meta:
+            model = Contest
+            fields = []
+
+    def form_valid(self, form):
+        self.object.publish()
+
+        if not settings.IPFS_ENABLED:
+            messages.error(
+                self.request,
+                'IPFS not initialized on this node'
+            )
+        else:
+            self.object.publish_ipfs()
+
+        try:
+            contract = self.object.electioncontract
+        except ObjectDoesNotExist:
+            # Contract not deployed on the blockchain
+            pass
+        else:
+            contract.artifacts()
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        if self.object.artifacts_ipfs:
+            messages.success(
+                self.request,
+                f'You have published artifacts for {self.object} on IPFS '
+                + self.object.artifacts_ipfs
+            )
+        else:
+            messages.info(
+                self.request,
+                f'Artifacts were published for {self.object}',
+            )
+        messages.info(
+            self.request,
+            f'Guardian keys were removed from our memory for {self.object}',
+        )
+        return self.object.get_absolute_url()
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            '<pk>/publish/',
+            login_required(cls.as_view()),
+            name='contest_publish'
+        )
+
+
 class ContestPubkeyView(ContestMediator, generic.UpdateView):
     template_name = 'djelectionguard/contest_pubkey.html'
-
     @classmethod
     def as_url(cls):
         return path(
@@ -352,28 +435,6 @@ class ContestPubkeyView(ContestMediator, generic.UpdateView):
         return self.object.get_absolute_url()
 
 
-class ContestDetailView(ContestAccessible, generic.DetailView):
-    @classmethod
-    def as_url(cls):
-        return path(
-            '<pk>/',
-            login_required(cls.as_view()),
-            name='contest_detail'
-        )
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        voter = self.object.voter_set.filter(user=self.request.user).first()
-        context['casted'] = voter.casted if voter else None
-        context['can_vote'] = (
-            self.object.actual_start
-            and not self.object.actual_end
-            and voter
-            and not voter.casted
-        )
-        return context
-
-
 class ContestVoteMixin:
     def get_queryset(self):
         return Contest.objects.filter(
@@ -385,7 +446,7 @@ class ContestVoteMixin:
 
 
 class ContestVoteView(ContestVoteMixin, FormMixin, generic.DetailView):
-    template_name = 'djelectionguard/contest_new_vote.html'
+    template_name = 'contest_vote'
 
     def get_form(self, form_class=None):
         class FormClass(forms.Form):
@@ -451,7 +512,7 @@ class ContestBallotMixin(ContestVoteMixin):
 
 
 class ContestBallotEncryptView(ContestBallotMixin, FormMixin, generic.DetailView):
-    template_name = 'djelectionguard/contest_ballot.html'
+    template_name = 'ballot_encrypt'
 
     class form_class(forms.Form):
         submit_label = 'Encrypt my ballot'
@@ -493,13 +554,12 @@ class ContestBallotEncryptView(ContestBallotMixin, FormMixin, generic.DetailView
 
 
 class ContestBallotCastView(ContestBallotMixin, FormMixin, generic.DetailView):
-    template_name = 'djelectionguard/contest_ballot_cast.html'
+    template_name = 'ballot_cast'
 
     class form_class(forms.Form):
         submit_label = 'Confirm my vote'
 
     def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
         client = Client(settings.MEMCACHED_HOST)
 
         ballot = CiphertextBallot.from_json(
@@ -553,6 +613,18 @@ class ContestBallotCastView(ContestBallotMixin, FormMixin, generic.DetailView):
         )
 
 
+class ContestCandidateListView(ContestAccessible, generic.DetailView):
+    template_name = 'djelectionguard/candidate_list.html'
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            '<pk>/candidates/',
+            login_required(cls.as_view()),
+            name='contest_candidate_list'
+        )
+
+
 class ContestCandidateCreateView(ContestMediator, FormMixin, generic.DetailView):
     template_name = 'djelectionguard/candidate_form.html'
 
@@ -569,17 +641,17 @@ class ContestCandidateCreateView(ContestMediator, FormMixin, generic.DetailView)
             model = Candidate
             fields = ['name']
 
-    def get_form(self, *args, **kwargs):
-        form = super().get_form(*args, **kwargs)
-        form.instance.contest = self.get_object()
-        return form
-
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         if form.is_valid():
             return self.form_valid(form)
         else:
-            return self.get(request, *args, **kwargs)
+            return self.form_invalid(form)
+
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)
+        form.instance.contest = self.get_object()
+        return form
 
     def form_valid(self, form):
         form.save()
@@ -587,9 +659,10 @@ class ContestCandidateCreateView(ContestMediator, FormMixin, generic.DetailView)
             self.request,
             f'You have added candidate {form.instance}',
         )
-        return http.HttpResponseRedirect(
-            form.instance.contest.get_absolute_url()
-        )
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('contest_candidate_create', args=[self.get_object().id])
 
     @classmethod
     def as_url(cls):
@@ -599,19 +672,47 @@ class ContestCandidateCreateView(ContestMediator, FormMixin, generic.DetailView)
             name='contest_candidate_create'
         )
 
+class ContestCandidateUpdateView(generic.UpdateView):
+    model = Candidate
+    form_class = CandidateForm
+    template_name = 'djelectionguard/candidate_update.html'
+
+    def get_form(self, *args, **kwargs):
+        form = super().get_form()
+        form.contest = self.get_object().contest
+        return form
+
+    def get_success_url(self):
+        contest = self.get_object().contest
+        messages.success(
+            self.request,
+            f'You have updated candidate {self.object}',
+        )
+        return reverse('contest_candidate_create', args=(contest.id,))
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            'candidate/<pk>/update/',
+            login_required(cls.as_view()),
+            name='contest_candidate_update'
+        )
+
 
 class ContestCandidateDeleteView(ContestMediator, generic.DeleteView):
-    template_name = 'delete.html'
+    def dispatch(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
 
     def get_queryset(self):
         return Candidate.objects.filter(contest__mediator=self.request.user)
 
     def get_success_url(self):
+        contest = self.get_object().contest
         messages.success(
             self.request,
             f'You have removed candidate {self.object}',
         )
-        return self.object.contest.get_absolute_url()
+        return reverse('contest_candidate_create', args=(contest.id,))
 
     @classmethod
     def as_url(cls):
@@ -623,7 +724,6 @@ class ContestCandidateDeleteView(ContestMediator, generic.DeleteView):
 
 
 class GuardianVerifyView(generic.UpdateView):
-    template_name = 'djelectionguard/contest_form_upload_key.html'
 
     def get_queryset(self):
         return self.request.user.guardian_set.filter(uploaded_erased=None)
@@ -666,7 +766,7 @@ class GuardianVerifyView(generic.UpdateView):
 
 
 class GuardianUploadView(generic.UpdateView):
-    template_name = 'djelectionguard/contest_form_upluoad_close.html'
+    template_name = 'guardian_upload'
 
     def get_queryset(self):
         return self.request.user.guardian_set.filter(uploaded_erased=None)
@@ -712,32 +812,33 @@ class GuardianDownloadView(generic.DetailView):
         )
 
     def get(self, request, *args, **kwargs):
-        if 'wsgi.file_wrapper' in request.environ:
-            del request.environ['wsgi.file_wrapper']
+        if 'wsgi.file_wrapper' in request.META:
+            del request.META['wsgi.file_wrapper']
         obj = self.get_object()
         obj.downloaded = timezone.now()
         obj.save()
         response = http.FileResponse(
             io.BytesIO(obj.get_keypair()),
+            as_attachment=True,
+            filename=f"guardian-{obj.pk}.pkl",
             content_type='application/octet-stream',
         )
-        response['Content-Disposition'] = f'attachment; filename="guardian-{obj.pk}.pkl"'
         return response
 
 
 class ContestVotersDetailView(ContestMediator, generic.DetailView):
     template_name = 'djelectionguard/contest_voters_detail.html'
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['users'] = {
-            email: {
+            voter.user.email: {
                 'registered': False,
                 'activated': False,
-            } for email in self.object.voters_emails_list
+            } for voter in self.object.voter_set.all()
         }
         User = apps.get_model(settings.AUTH_USER_MODEL)
-        users = User.objects.filter(email__in=self.object.voters_emails_list)
+        contest = self.get_object()
+        users = User.objects.filter(email__in=contest.voter_set.all().values_list('user__email'))
         for user in users:
             context['users'][user.email]['registered'] = True
             context['users'][user.email]['activated'] = user.is_active
@@ -778,8 +879,7 @@ class VotersEmailsField(forms.CharField):
         if invalid:
             raise ValidationError(
                 'Please remove lines containing invalid emails: '
-                + ', '.join(invalid)
-            )
+                + ', '.join(invalid))
 
         return emails
 
@@ -791,6 +891,16 @@ class VotersEmailsForm(forms.ModelForm):
         required=False,
         widget=forms.Textarea(attrs=dict(cols=50, rows=20))
     )
+
+    class Meta:
+        model = Contest
+        fields = []
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['voters_emails'].initial = '\n'.join(
+            self.instance.voter_set.values_list('user__email', flat=True)
+        )
 
     class Meta:
         model = Contest
@@ -839,7 +949,7 @@ class VotersEmailsForm(forms.ModelForm):
 
 
 class ContestVotersUpdateView(ContestMediator, generic.UpdateView):
-    template_name = 'djelectionguard/contest_add_voters_email.html'
+    template_name = 'djelectionguard/voters_update.html'
     form_class = VotersEmailsForm
 
     def get_success_url(self):
@@ -856,25 +966,3 @@ class ContestVotersUpdateView(ContestMediator, generic.UpdateView):
             login_required(cls.as_view()),
             name='contest_voters_update'
         )
-
-
-urlpatterns = [
-    ContestBallotCastView.as_url(),
-    ContestBallotEncryptView.as_url(),
-    ContestCandidateCreateView.as_url(),
-    ContestCandidateDeleteView.as_url(),
-    ContestCloseView.as_url(),
-    ContestCreateView.as_url(),
-    ContestDecryptView.as_url(),
-    ContestDetailView.as_url(),
-    ContestListView.as_url(),
-    ContestManifestView.as_url(),
-    ContestOpenView.as_url(),
-    ContestPubkeyView.as_url(),
-    ContestVoteView.as_url(),
-    ContestVotersDetailView.as_url(),
-    ContestVotersUpdateView.as_url(),
-    GuardianDownloadView.as_url(),
-    GuardianUploadView.as_url(),
-    GuardianVerifyView.as_url(),
-]

@@ -14,7 +14,6 @@ def test_register(client):
     assert b'id_password1' in response.content
     assert b'id_password2' in response.content
     assert b'id_email' in response.content
-    assert b'type="submit"' in response.content
 
     response = client.post('/accounts/register/', dict(
         password1='3L51a231',

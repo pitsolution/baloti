@@ -173,6 +173,10 @@ vot1@example.com\rvot2@example.com\rnew@example.com
         'vot1@example.com',
         'vot2@example.com'
     ]
+    # check that the emails are in the textarea
+    response = get(mediator, voters)
+    for voter_email in voters_emails:
+        assert voter_email.encode('utf8') in response.content
 
     assert get(mediator, contest_url).status_code == 200
 
