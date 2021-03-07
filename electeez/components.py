@@ -93,8 +93,7 @@ class Document(html.Html):
         if settings.DEBUG:
             style_src = sass_processor('css/style.scss')
         else:
-            style_src = settings.STATIC_URL + re.sub(r'\.scss$', '.css', src)
-
+            style_src = 'css/style.css'
 
         body = html.Body(
             TopPanel(**kwargs),
