@@ -232,13 +232,8 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'sass_processor.finders.CssFinder',
+    'electeez.finders.StaticRootFinder',
 ]
-
-if DEBUG:
-    STATICFILES_FINDERS = [
-        'electeez.finders.StaticRootFinder',
-        *STATICFILES_FINDERS
-    ]
 
 if 'collectstatic' in sys.argv or not DEBUG:
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
