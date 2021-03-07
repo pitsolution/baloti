@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.urls import reverse
 from ryzom import html
@@ -5,16 +6,6 @@ from ryzom.contrib.django import Static
 from ryzom.js.renderer import JS
 from sass_processor.processor import sass_processor
 from ryzom_mdc import MDCButton, MDCTextButton, MDCSnackBar
-
-def scss(src):
-    import re
-    from django.conf import settings
-    from sass_processor.processor import sass_processor
-
-    if settings.DEBUG:
-        return sass_processor(src)
-
-    return settings.STATIC_URL + re.sub(r'\.scss$', '.css', src)
 
 
 class TopPanel(html.Div):
@@ -99,7 +90,10 @@ class Document(html.Html):
         nanum_pen_src = 'https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap'
         mdc_style_src = 'https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css'
         mdc_script_src = 'https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js'
-        style_src = scss('css/style.scss')
+        if settings.DEBUG:
+            style_src = sass_processor('css/style.scss')
+        else:
+            style_src = 'css/style.css'
 
         body = html.Body(
             TopPanel(**kwargs),
