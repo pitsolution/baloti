@@ -77,6 +77,13 @@ class Contest(models.Model):
         return self.guardian_set.count()
 
     @property
+    def current_sequence(self):
+        client = Client(settings.MEMCACHED_HOST)
+        sequence = int(client.get(f'{self.pk}.sequence', 1))
+        client.set(f'{self.pk}.sequence', sequence + 1)
+        return sequence
+
+    @property
     def artifacts_path(self):
         return (
             Path(settings.MEDIA_ROOT)
@@ -139,7 +146,7 @@ class Contest(models.Model):
         )
 
         # Decrypt the tally with available guardian keys
-        for guardian in self.guardian_set.all():
+        for guardian in self.guardian_set.all().order_by('sequence'):
             if decryption_mediator.announce(guardian.get_guardian()) is None:
                 break
         self.plaintext_tally = decryption_mediator.get_plaintext_tally()
@@ -411,6 +418,7 @@ class Guardian(models.Model):
     erased = models.DateTimeField(null=True, blank=True)
     uploaded = models.DateTimeField(null=True, blank=True)
     uploaded_erased = models.DateTimeField(null=True, blank=True)
+    sequence = models.PositiveIntegerField(null=True, blank=True)
 
     def __str__(self):
         return str(self.user)
@@ -436,14 +444,17 @@ class Guardian(models.Model):
         result = client.get(str(self.pk))
         if not result:
             from electionguard.guardian import Guardian
+            sequence = self.contest.current_sequence
             guardian = Guardian(
-                'guardian',
-                0,
+                f'guardian-{self.pk}',
+                sequence,
                 self.contest.number_guardians,
                 self.contest.quorum,
             )
             result = pickle.dumps(guardian)
             client.set(str(self.pk), result)
+            self.sequence = sequence
+            self.save()
         return result
 
     def get_guardian(self):

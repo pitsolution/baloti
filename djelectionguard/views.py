@@ -409,7 +409,7 @@ class ContestPubkeyView(ContestMediator, generic.UpdateView):
                 self.instance.quorum,
             )
             mediator = KeyCeremonyMediator(details)
-            for guardian in self.instance.guardian_set.all():
+            for guardian in self.instance.guardian_set.all().order_by('sequence'):
                 mediator.announce(guardian.get_guardian())
             orchestrated = mediator.orchestrate()
             verified = mediator.verify()
