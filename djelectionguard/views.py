@@ -408,7 +408,6 @@ class ContestPubkeyView(ContestMediator, generic.UpdateView):
                 self.instance.number_guardians,
                 self.instance.quorum,
             )
-            import ipdb; ipdb.set_trace()
             mediator = KeyCeremonyMediator(details)
             for guardian in self.instance.guardian_set.all():
                 mediator.announce(guardian.get_guardian())
