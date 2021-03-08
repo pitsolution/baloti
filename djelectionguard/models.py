@@ -143,6 +143,9 @@ class Contest(models.Model):
             if decryption_mediator.announce(guardian.get_guardian()) is None:
                 break
         self.plaintext_tally = decryption_mediator.get_plaintext_tally()
+        if not self.plaintext_tally:
+            raise AttributeError('"self.plaintext_tally" is None')
+
         # And delete keys from memory
         for guardian in self.guardian_set.all():
             guardian.delete_keypair()

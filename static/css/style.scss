@@ -509,17 +509,18 @@ a.caption {
 .line { text-decoration: line-through; }
 .bold { font-weight: bold; }
 
-.mdc-data-table__cell {
-  button, a {
-    margin: 0 auto;
-  }
-}
-
-.mdc-data-table__cell.center {
-  text-align: center;
-}
-
 .setting-section {
+  .mdc-data-table {
+    &__cell {
+      button, a {
+        margin: 0 auto;
+      }
+      &.center {
+        text-align: center;
+      }
+    }
+  }
+
   padding: 0 24px;
   h5, h6 {
     text-align: center;
