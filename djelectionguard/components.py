@@ -640,7 +640,10 @@ class UnlockBallotAction(ListAction):
             )
 
         title = 'Unlocking the ballot box and revealing the results'
-        if contest.actual_end and not self.has_action:
+        if (contest.actual_end
+            and not self.has_action
+            and n_guardian == n_uploaded
+        ):
             action_url_ = reverse('contest_decrypt', args=(contest.id,))
             action_btn_ = MDCButton(
                 'reveal results',
@@ -786,6 +789,14 @@ class Section(html.Div):
 
 class TezosSecuredCard(Section):
     def __init__(self, contest):
+        if contest.decentralized and contest.publish_status == 0:
+            btn = MDCButton(
+                'choose blockchain',
+                tag='a',
+                href=reverse('electioncontract_create', args=[contest.id]))
+        else:
+            btn = MDCTextButton('Here\'s how', 'info_outline')
+
         super().__init__(
             html.Ul(
                 ListAction(
@@ -794,12 +805,13 @@ class TezosSecuredCard(Section):
                         'Your election data and results will be published on Tezos’ test blockchain.',
                         PublishProgressBar([
                             'Election contract created',
+                            'Election opened',
                             'Election closed',
                             'Election Results available',
                             'Election contract updated'
-                        ], contest.publish_status)
-                        if contest.decentralized
-                        else MDCTextButton('Here\'s how', 'info_outline')
+                        ], contest.publish_status - 1)
+                        if contest.decentralized and contest.publish_status
+                        else btn
                     ),
                     TezosIcon(),
                     None,
@@ -1642,7 +1654,7 @@ class ContestResultCard(html.Div):
         )
 
         publish_btn = ''
-        if contest.publish_status == 2:
+        if contest.publish_status == 4 and contest.decentralized:
             publish_btn = MDCButton(
                 'publish results',
                 p=True,

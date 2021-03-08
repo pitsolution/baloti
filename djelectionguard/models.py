@@ -46,10 +46,6 @@ class Contest(models.Model):
         default=1,
         validators=[above_0],
     )
-    number_guardians = models.IntegerField(
-        default=1,
-        verbose_name='number of guardians',
-    )
     quorum = models.IntegerField(
         default=1,
         verbose_name='quorum',
@@ -75,6 +71,10 @@ class Contest(models.Model):
 
     artifacts_sha1 = models.CharField(max_length=255, null=True, blank=True)
     artifacts_ipfs = models.CharField(max_length=255, null=True, blank=True)
+
+    @property
+    def number_guardians(self):
+        return self.guardian_set.count()
 
     @property
     def artifacts_path(self):
@@ -150,7 +150,7 @@ class Contest(models.Model):
         for guardian in self.guardian_set.all():
             guardian.delete_keypair()
 
-        self.publish_status = 2
+        self.publish_status = 4
 
         self.save()
 
@@ -190,7 +190,7 @@ class Contest(models.Model):
             while data := f.read(65536):
                 sha1.update(data)
         self.artifacts_sha1 = sha1.hexdigest()
-        self.publish_status = 3
+        self.publish_status = 5
 
         os.chdir(cwd)
 

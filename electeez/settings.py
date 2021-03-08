@@ -288,6 +288,7 @@ LOGGERS = (
     'djblockchain',
     'djblockchain.tezos',
     'daphne',
+    'electionguard'
 )
 
 for logger in LOGGERS:

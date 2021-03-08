@@ -217,6 +217,7 @@ class ContestOpenView(ContestMediator, generic.UpdateView):
         def save(self, *args, **kwargs):
             self.instance.prepare()
             self.instance.actual_start = timezone.now()
+            self.instance.publish_status = 2
             return super().save(self, *args, **kwargs)
 
     def form_valid(self, form):
@@ -257,7 +258,7 @@ class ContestCloseView(ContestMediator, generic.UpdateView):
 
         def save(self, *args, **kwargs):
             self.instance.actual_end = timezone.now()
-            self.instance.publish_status = 1
+            self.instance.publish_status = 3
             return super().save(self, *args, **kwargs)
 
     def form_valid(self, form):
@@ -407,6 +408,7 @@ class ContestPubkeyView(ContestMediator, generic.UpdateView):
                 self.instance.number_guardians,
                 self.instance.quorum,
             )
+            import ipdb; ipdb.set_trace()
             mediator = KeyCeremonyMediator(details)
             for guardian in self.instance.guardian_set.all():
                 mediator.announce(guardian.get_guardian())
