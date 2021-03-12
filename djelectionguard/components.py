@@ -911,12 +911,6 @@ class GuardiansSettingsCard(html.Div):
         super().__init__(
             html.H5('Guardians'),
             GuardianTable(view, **context),
-            MDCButtonOutlined(
-                'Add',
-                False,
-                'person_add_alt_1',
-                tag='a',
-                href=reverse('contest_guardian_create', args=[contest.id])),
             cls='setting-section'
         )
 

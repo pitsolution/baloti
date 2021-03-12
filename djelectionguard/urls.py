@@ -2,8 +2,8 @@ from django.urls import include, path
 from django.conf.urls import url
 
 from .views import (
-    GuardianCreateView,
-    GuardianDeleteView,
+    #GuardianCreateView,
+    #GuardianDeleteView,
     GuardianDownloadView,
     GuardianVerifyView,
     GuardianUploadView,
@@ -31,8 +31,8 @@ from .views import (
 
 
 urlpatterns = [
-    GuardianCreateView.as_url(),
-    GuardianDeleteView.as_url(),
+    #GuardianCreateView.as_url(),
+    #GuardianDeleteView.as_url(),
     GuardianDownloadView.as_url(),
     GuardianVerifyView.as_url(),
     GuardianUploadView.as_url(),
