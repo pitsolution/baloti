@@ -5,6 +5,7 @@ from django.urls import reverse
 from ryzom import html
 from ryzom.js.renderer import JS
 from ryzom_mdc import *
+from ryzom_django_mdc.components import *
 from electeez import mdc
 from electeez.components import Document, Card, BackLink
 from .models import Contest, Candidate
@@ -1227,7 +1228,9 @@ class GuardianVerifyCard(html.Div):
             html.H4('Confirm possession of an uncompromised private key', cls='center-text'),
             html.Div('You need to upload your private key to confirm that you posses a valid key that hasn’t been temepered with.', cls='center-text'),
             html.Form(
-                MDCFileInput('Choose file', 'file_input', name='pkl_file'),
+                MDCFileField(
+                    Input(id='file_input', type='file', name='pkl_file'),
+                    label='Choose file'),
                 html.Span("Your privacy key is a file with '.pkl' extension. ", cls='body-2'),
                 self.submit_btn,
                 CSRFInput(view.request),
@@ -1242,10 +1245,9 @@ class GuardianVerifyCard(html.Div):
         def change_event():
             def enable_post(event):
                 file_name = document.querySelector('#file_input')
-                if file_name != '':
-                    setattr(getElementByUuid(submit_btn), 'disabled', False)
-                else:
-                    setattr(getElementByUuid(submit_btn), 'disabled', True)
+                btn = getElementByUuid(submit_btn)
+                btn.disabled = file_name == ''
+
             file_input = document.querySelector('#file_input')
             file_input.addEventListener('change', enable_post)
 
@@ -1424,11 +1426,11 @@ class ContestBallotCastCard(html.Div):
     def render_js(self):
         def click_event():
             def download_file(event):
-                blob = _new(Blob, Array(ballot), {'type': 'application/json'})
+                blob = new.Blob([ballot], {'type': 'application/json'})
                 url = URL.createObjectURL(blob)
                 link = document.createElement('a')
-                setattr(link, 'href', url)
-                setattr(link, 'download', file_name)
+                link.href = url
+                link.download = file_name
                 link.click()
                 URL.revokeObjectURL(url)
 
@@ -1481,7 +1483,9 @@ class GuardianUploadKeyCard(html.Div):
             html.H4('Verify your private key', cls='center-text'),
             html.Div('All guardians’ must upload their valid private keys to unlock the ballot box.', cls='center-text'),
             html.Form(
-                MDCFileInput('Choose file', 'file_input', name='pkl_file'),
+                MDCFileField(
+                    Input(id='file_input', type='file', name='pkl_file'),
+                    label='Choose file'),
                 html.Span("Your privacy key is a file with '.pkl' extension. ", cls='body-2'),
                 self.submit_btn,
                 CSRFInput(view.request),
@@ -1496,10 +1500,8 @@ class GuardianUploadKeyCard(html.Div):
         def change_event():
             def enable_post(event):
                 file_name = document.querySelector('#file_input')
-                if file_name != '':
-                    setattr(getElementByUuid(submit_btn), 'disabled', False)
-                else:
-                    setattr(getElementByUuid(submit_btn), 'disabled', True)
+                btn = getElementByUuid(submit_btn)
+                btn.disabled = file_name == ''
             file_input = document.querySelector('#file_input')
             file_input.addEventListener('change', enable_post)
 
@@ -1573,14 +1575,14 @@ class PublishProgressBar(html.Div):
             bar_container = document.querySelector('.progress-bar')
             bar = bar_container.querySelector('.mdc-linear-progress')
 
-            mdcbar = _new(mdc.linearProgress.MDCLinearProgress, bar)
-            setattr(bar, 'MDCLinearProgress', mdcbar)
+            mdcbar = new.mdc.linearProgress.MDCLinearProgress(bar)
+            bar.MDCLinearProgress = mdcbar
 
             def step(step):
                 progress = step / (total_steps - 1)
 
                 steps = bar_container.querySelectorAll('.progress-step')
-                for n in range(0, total_steps):
+                for n in range(total_steps):
                     s = steps.item(n)
                     if s.dataset.step > step:
                         s.classList.remove('progress-step--active')
@@ -1594,7 +1596,7 @@ class PublishProgressBar(html.Div):
 
                 bar.MDCLinearProgress.foundation.setProgress(progress)
 
-            setattr(bar, 'setStep', step)
+            bar.setStep = step
             bar.setStep(current_step)
 
         return JS(set_progress, dict(

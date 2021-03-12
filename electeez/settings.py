@@ -50,10 +50,10 @@ INSTALLED_APPS = [
     'django_extensions',
     'django_jinja',
     'channels',
+    'django.forms',
     'ryzom',
     'ryzom_django',
     'ryzom_django_mdc',
-    'django.forms'
 ]
 
 AUTH_USER_MODEL = 'electeez_auth.User'

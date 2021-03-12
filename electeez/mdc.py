@@ -301,43 +301,6 @@ class MDCListItem(html.Li):
         )
 
 
-class MDCSnackBar(html.Div):
-    def __init__(self, msg, status='success'):
-        super().__init__(
-            html.Div(
-                html.Div(
-                    msg,
-                    cls='mdc-snackbar__label',
-                    **{'aria-atomic': 'false'}
-                ),
-                html.Div(
-                    html.Button(
-                        html.Div(cls='mdc-button__ripple'),
-                        html.Span('OK', cls='mdc-button__label'),
-                        type='button',
-                        cls='mdc-button mdc-snackbar__action'
-                    ),
-                    cls='mdc-snackbar__actions',
-                    **{'aria-atomic': 'true'}
-                ),
-                cls='mdc-snackbar__surface',
-                role='status',
-                **{'aria-relevant': 'addition'}
-            ),
-            cls='mdc-snackbar',
-            **{'data-mdc-auto-init': 'MDCSnackbar'}
-        )
-
-    def render_js(self):
-        return (
-            '\n(function() {' +
-            f'\n\tvar elem = getElementByUuid("{self._id}");' +
-            '\n\tsn = new mdc.snackbar.MDCSnackbar(elem);' +
-            '\n\tsn.open();' +
-            '\n})(); '
-        )
-
-
 class MDCCheckboxListItem(html.Li):
     def __init__(self, title, id, checked=False, **kwargs):
         self.input_id = id

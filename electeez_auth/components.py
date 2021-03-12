@@ -10,14 +10,7 @@ from ryzom_mdc import template
 from ryzom.js.renderer import JS
 from .models import User
 from electeez.components import Document, Card
-from ryzom_mdc import (
-    MDCButton,
-    MDCButtonOutlined,
-    MDCTextButton,
-    MDCFormField,
-    MDCTextFieldFilled,
-    CSRFInput,
-)
+from ryzom_django_mdc.components import *
 
 from djelectionguard.components import CircleIcon
 

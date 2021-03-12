@@ -12,6 +12,7 @@ from djelectionguard.models import Contest
 
 from ryzom.html import template
 from ryzom_mdc import *
+from ryzom_django_mdc.components import *
 from electeez.components import Document, Card, BackLink
 from .models import ElectionContract
 
