@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.urls import reverse
 from ryzom import html
 from ryzom.contrib.django import Static
-from ryzom.js.renderer import JS
+from py2js.renderer import JS
 from sass_processor.processor import sass_processor
 from ryzom_mdc import MDCButton, MDCTextButton, MDCSnackBar
 
@@ -83,7 +83,9 @@ class Card(html.Div):
 
 
 
-class Document(html.Html):
+class Document(html.Component):
+    tag='html'
+
     def __init__(self, main_component, **kwargs):
         self.main_component = main_component
         mdc_icons_src = 'https://fonts.googleapis.com/icon?family=Material+Icons'
@@ -109,8 +111,6 @@ class Document(html.Html):
             main_component,
             messages_component,
             Footer(),
-            html.Script(main_component.render_js_tree(), type='text/javascript'),
-            html.Script(messages_component.render_js_tree(), type='text/javascript'),
             html.Script('mdc.autoInit()', type='text/javascript'),
         ]
 
@@ -126,8 +126,8 @@ class Document(html.Html):
                 html.Link(rel='stylesheet', href=nanum_pen_src),
                 html.Link(rel='stylesheet', href=style_src),
                 html.Script(type='text/javascript', src=mdc_script_src),
-                html.Script(type='text/javascript', src='/static/ryzom/js/py-builtins.js'),
-                html.Script(type='text/javascript', src='/static/ryzom/js/ryzom.js')
+                html.Script(type='text/javascript', src='/static/py2js.js'),
+                html.Script(type='text/javascript', src='/contest/bundle.js'),
             ),
             body
         ]

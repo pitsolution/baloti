@@ -3,8 +3,10 @@ from django import forms
 from django.db.models import Sum
 from django.urls import reverse
 from ryzom import html
-from ryzom.js.renderer import JS
+from py2js import Mixin as Py2jsMixin
+from py2js.renderer import JS, autoexec
 from ryzom_mdc import *
+from ryzom_django_mdc.components import *
 from electeez import mdc
 from electeez.components import Document, Card, BackLink
 from .models import Contest, Candidate
@@ -408,39 +410,53 @@ class AddVoterAction(ListAction):
 
 
 class SecureElectionInner(html.Span):
-    def __init__(self, obj):
+    def __init__(self, obj, user):
         text = 'All guardians must possess a private key so that the ballot box is secure and the election can be opened for voting.'
         todo_list = html.Ol()
 
         #todo_list.addchild(html.Li('Add guardians', cls='line'))
-        guardian = obj.guardian_set.first()
-        cls = 'line' if guardian.downloaded else 'bold'
-        todo_list.addchild(html.Li('Download my private key', cls=cls))
+        guardian = obj.guardian_set.filter(user=user).first()
+        if guardian:
+            cls = 'line' if guardian.downloaded else 'bold'
+            todo_list.addchild(html.Li('Download my private key', cls=cls))
 
-        cls = ''
-        if guardian.downloaded and not guardian.verified:
-            cls = 'bold'
-        elif guardian.verified:
-            cls = 'line'
-        todo_list.addchild(html.Li('Confirm possession of an uncompromised private key', cls=cls))
+            cls = ''
+            if guardian.downloaded and not guardian.verified:
+                cls = 'bold'
+            elif guardian.verified:
+                cls = 'line'
+            todo_list.addchild(html.Li('Confirm possession of an uncompromised private key', cls=cls))
 
-        #todo_list.addchild(html.Li(
-        #    'All guardians confirm possession of uncompromised private keys',
-        #    html.Br(), '(1/4 confirmed)'))
+        if user == obj.mediator:
+            n_confirmed = obj.guardian_set.exclude(verified=None).count()
+            n_guardians = obj.guardian_set.count()
+            cls = ''
+            if guardian and guardian.verified:
+                cls = 'bold'
+            if n_guardians == n_confirmed:
+                cls = 'line'
+            todo_list.addchild(
+                html.Li(
+                    'All guardians confirm possession of uncompromised private keys',
+                    html.Br(),
+                    f'({n_confirmed}/{n_guardians} confirmed)',
+                    cls=cls))
 
-        cls = ''
-        if guardian.verified and not guardian.contest.joint_public_key:
-            cls = 'bold'
-        elif guardian.contest.joint_public_key:
-            cls = 'line'
-        todo_list.addchild(html.Li('Lock the ballot box / erase private keys from server memory', cls=cls))
+            cls = ''
+            if n_confirmed == n_guardians and not obj.joint_public_key:
+                cls = 'bold'
+            elif obj.joint_public_key:
+                cls = 'line'
+            todo_list.addchild(html.Li('Lock the ballot box / erase private keys from server memory', cls=cls))
 
-        cls = ''
-        if guardian.contest.joint_public_key:
-            cls = 'bold'
-        todo_list.addchild(html.Li('Open the election for voting', cls=cls))
+            cls = ''
+            if guardian.contest.joint_public_key:
+                cls = 'bold'
+            todo_list.addchild(html.Li('Open the election for voting', cls=cls))
 
         subtext = 'Guardians must NOT loose their PRIVATE keys and they must keep them SECRET.'
+
+        action_btn = None
         if not guardian.downloaded:
             action_btn = MDCButtonOutlined(
                 'download private key',
@@ -454,19 +470,18 @@ class SecureElectionInner(html.Span):
                 p=False,
                 tag='a',
                 href=reverse('guardian_verify', args=[guardian.id]))
-        elif not guardian.contest.joint_public_key:
-            action_btn = MDCButtonOutlined(
-                'Lock the ballot box',
-                p=False,
-                tag='a',
-                href=reverse('contest_pubkey', args=[guardian.contest.id]))
-        elif not guardian.contest.actual_start:
-            action_btn = MDCButton(
-                'Open for voting',
-                tag='a',
-                href=reverse('contest_open', args=[guardian.contest.id]))
-        else:
-            action_btn = None
+        elif user == obj.mediator:
+            if n_guardians == n_confirmed and not obj.joint_public_key:
+                action_btn = MDCButtonOutlined(
+                    'Lock the ballot box',
+                    p=False,
+                    tag='a',
+                    href=reverse('contest_pubkey', args=[guardian.contest.id]))
+            elif obj.joint_public_key and not obj.actual_start:
+                action_btn = MDCButton(
+                    'Open for voting',
+                    tag='a',
+                    href=reverse('contest_open', args=[guardian.contest.id]))
 
         super().__init__(
             text,
@@ -479,16 +494,23 @@ class SecureElectionInner(html.Span):
 
 class SecureElectionAction(ListAction):
     def __init__(self, obj, user):
-        if obj.joint_public_key:
-            icon = DoneIcon()
-            title = 'Ballot box securely locked. Election can be open for voting.'
-        else:
-            icon = TodoIcon()
+        if obj.mediator == user:
+            if obj.joint_public_key:
+                icon = DoneIcon()
+                title = 'Ballot box securely locked. Election can be open for voting.'
+            else:
+                icon = TodoIcon()
+                title = 'Secure the election'
+        elif guardian := obj.guardian_set.filter(user=user).first():
             title = 'Secure the election'
+            if guardian.verified:
+                icon = DoneIcon()
+            else:
+                icon = TodoIcon()
 
         super().__init__(
             title,
-            SecureElectionInner(obj),
+            SecureElectionInner(obj, user),
             icon,
             None,
             separator=False
@@ -556,6 +578,35 @@ class OnGoingElectionAction(ListAction):
 
 class UploadPrivateKeyAction(ListAction):
     def __init__(self, contest, user):
+
+        guardian = contest.guardian_set.filter(user=user).first()
+        title = 'Upload my private key'
+        icon = TodoIcon()
+        content = Div(
+            'All guardians need to upload their private keys so that'
+            ' the ballot box can be opened to reveal the results.')
+        if contest.actual_end and not guardian.uploaded:
+            action_url_ = reverse('guardian_upload', args=[guardian.id])
+            action_btn_ = MDCButtonOutlined(
+                'upload my private key',
+                False,
+                tag='a',
+                href=action_url_)
+            content.addchild(action_btn_)
+        elif guardian.uploaded:
+            icon = DoneIcon()
+
+        super().__init__(
+            title,
+            content,
+            icon,
+            None,
+            separator=user == contest.mediator
+        )
+
+
+class UnlockBallotAction(ListAction):
+    def __init__(self, contest, user):
         self.contest = contest
         self.user = user
         self.has_action = False
@@ -566,23 +617,16 @@ class UploadPrivateKeyAction(ListAction):
 
         if contest.actual_end:
             task_list = html.Ol()
-            if guardian:
-                cls = 'line' if guardian.uploaded else 'bold'
-                task_list.addchild(html.Li('Upload your private key', cls=cls))
-
             txt = f'All guardians upload their keys ({n_uploaded}/{n_guardian} uploaded)'
-            cls=''
-            if not guardian or guardian.uploaded:
-                cls = 'bold'
+            cls='bold'
             if n_uploaded == n_guardian:
                 cls = 'line'
 
             task_list.addchild(html.Li(txt, cls=cls))
 
-            if contest.mediator == user:
-                cls = 'bold' if cls == 'line' else ''
-                txt = 'Unlock the ballot box with encrypted ballots and reveal the results'
-                task_list.addchild(html.Li(txt, cls=cls))
+            cls = 'bold' if cls == 'line' else ''
+            txt = 'Unlock the ballot box with encrypted ballots and reveal the results'
+            task_list.addchild(html.Li(txt, cls=cls))
 
             content = html.Span(
                 html.P(
@@ -593,57 +637,40 @@ class UploadPrivateKeyAction(ListAction):
             )
         else:
             content = html.Span(
-                html.P(
-                    'Do NOT loose yout PRIVATE key and keep it SECRET.'
-                ),
                 html.P('When the election is over the guardians use their keys to open the ballot box and count the results.'),
                 cls='body-2'
             )
 
-        title = ''
-        if guardian:
-            title = 'Upload my private key'
-            icon = DoneIcon()
-            if contest.actual_end and not guardian.uploaded:
-                self.has_action = True
-                action_url_ = reverse('guardian_upload', args=[guardian.id])
-                action_btn_ = MDCButtonOutlined(
-                    'upload my private key',
-                    False,
-                    tag='a',
-                    href=action_url_)
-                content.addchild(action_btn_)
+        title = 'Unlocking the ballot box and revealing the results'
+        if (contest.actual_end
+            and not self.has_action
+            and n_guardian == n_uploaded
+        ):
+            action_url_ = reverse('contest_decrypt', args=(contest.id,))
+            action_btn_ = MDCButton(
+                'reveal results',
+                True,
+                tag='a',
+                href=action_url_,
+                disabled=n_guardian != n_uploaded)
+            content.addchild(action_btn_)
 
-        if contest.mediator == user:
-            title = 'Unlocking the ballot box and revealing the resluts'
-            if contest.actual_end and not self.has_action:
-                has_action = True
-                action_url_ = reverse('contest_decrypt', args=(contest.id,))
-                action_btn_ = MDCButton(
-                    'reveal results',
-                    True,
-                    tag='a',
-                    href=action_url_,
-                    disabled=n_guardian != n_uploaded)
-                content.addchild(action_btn_)
-
-            icon = TodoIcon()
+        icon = TodoIcon()
 
         super().__init__(
             title,
             content,
             icon,
             None,
-            separator=False
+            separator=False,
         )
-
 
 class WaitForEmailAction(ListAction):
     def __init__(self, contest, user):
         super().__init__(
             'Once the ballots are counted you will be notified by email',
             '',
-            EmailIcon(), None, None, separator=False
+            EmailIcon(), None, separator=False
         )
 
 
@@ -715,11 +742,11 @@ class ContestVotingCard(html.Div):
 
         if 'upload' in actions:
             list_content.append(UploadPrivateKeyAction(contest, user))
-            if guardian.uploaded:
+            if contest.mediator == user:
+                list_content.append(UnlockBallotAction(contest, user))
+            elif guardian.uploaded:
                 if contest.mediator != user:
                     list_content.append(WaitForEmailAction(contest, user))
-                else:
-                    list_content
 
         if not len(actions):
             list_content.append(WaitForEmailAction(contest, user))
@@ -764,6 +791,14 @@ class Section(html.Div):
 
 class TezosSecuredCard(Section):
     def __init__(self, contest):
+        if contest.decentralized and contest.publish_status == 0:
+            btn = MDCButton(
+                'choose blockchain',
+                tag='a',
+                href=reverse('electioncontract_create', args=[contest.id]))
+        else:
+            btn = MDCTextButton('Here\'s how', 'info_outline')
+
         super().__init__(
             html.Ul(
                 ListAction(
@@ -772,12 +807,13 @@ class TezosSecuredCard(Section):
                         'Your election data and results will be published on Tezos’ test blockchain.',
                         PublishProgressBar([
                             'Election contract created',
+                            'Election opened',
                             'Election closed',
                             'Election Results available',
                             'Election contract updated'
-                        ], contest.publish_status)
-                        if contest.decentralized
-                        else MDCTextButton('Here\'s how', 'info_outline')
+                        ], contest.publish_status - 1)
+                        if contest.decentralized and contest.publish_status
+                        else btn
                     ),
                     TezosIcon(),
                     None,
@@ -831,10 +867,11 @@ class GuardianTable(html.Div):
                     dl_elem = GuardianActionButton(guardian, 'download')
                     ul_elem = '--'
                 else:
-                    dl_elem = CheckedIcon()
                     if not guardian.verified:
+                        dl_elem = GuardianActionButton(guardian, 'download')
                         ul_elem = GuardianActionButton(guardian, 'verify')
                     else:
+                        dl_elem = CheckedIcon()
                         ul_elem = CheckedIcon()
                 table_content.addchild(html.Tr(
                     html.Td(guardian.user.email, cls=cls),
@@ -871,10 +908,10 @@ class GuardianTable(html.Div):
 
 class GuardiansSettingsCard(html.Div):
     def __init__(self, view, **context):
+        contest = view.get_object()
         super().__init__(
             html.H5('Guardians'),
             GuardianTable(view, **context),
-            #mdc.MDCButtonOutlined('Add', False, 'person_add_alt_1'),
             cls='setting-section'
         )
 
@@ -1172,7 +1209,7 @@ class ContestVotersUpdateCard(html.Div):
 
 
 @template('djelectionguard/guardian_form.html', Document, Card)
-class GuardianVerifyCard(html.Div):
+class GuardianVerifyCard(Py2jsMixin, html.Div):
     def __init__(self, *content, view, form, **context):
         guardian = view.get_object()
         contest = guardian.contest
@@ -1181,12 +1218,15 @@ class GuardianVerifyCard(html.Div):
             reverse('contest_detail', args=[contest.id]))
 
         self.submit_btn = MDCButton('confirm', True, disabled=True)
+        self.submit_btn_id = self.submit_btn._id
 
         super().__init__(
             html.H4('Confirm possession of an uncompromised private key', cls='center-text'),
             html.Div('You need to upload your private key to confirm that you posses a valid key that hasn’t been temepered with.', cls='center-text'),
             html.Form(
-                MDCFileInput('Choose file', 'file_input', name='pkl_file'),
+                MDCFileField(
+                    Input(id='file_input', type='file', name='pkl_file'),
+                    label='Choose file'),
                 html.Span("Your privacy key is a file with '.pkl' extension. ", cls='body-2'),
                 self.submit_btn,
                 CSRFInput(view.request),
@@ -1197,18 +1237,16 @@ class GuardianVerifyCard(html.Div):
             cls='card'
         )
 
-    def render_js(self):
-        def change_event():
-            def enable_post(event):
-                file_name = document.querySelector('#file_input')
-                if file_name != '':
-                    setattr(getElementByUuid(submit_btn), 'disabled', False)
-                else:
-                    setattr(getElementByUuid(submit_btn), 'disabled', True)
-            file_input = document.querySelector('#file_input')
-            file_input.addEventListener('change', enable_post)
+    def enable_post(event):
+        file_input = document.querySelector('#file_input')
+        file_name = file_input.value
+        btn = getElementByUuid(file_input.submit_btn_id)
+        btn.disabled = file_name == ''
 
-        return JS(change_event, dict(submit_btn=self.submit_btn._id))
+    def py2js(self):
+        file_input = document.querySelector('#file_input')
+        file_input.submit_btn_id = self.submit_btn_id
+        file_input.addEventListener('change', self.enable_post)
 
 
 @template('djelectionguard/contest_pubkey.html', Document, Card)
@@ -1344,7 +1382,7 @@ class ContestBallotEncryptCard(html.Div):
 
 
 @template('ballot_cast', Document, Card)
-class ContestBallotCastCard(html.Div):
+class ContestBallotCastCard(Py2jsMixin, html.Div):
     def __init__(self, *content, view, **context):
         self.contest = view.get_object()
         self.backlink = BackLink(
@@ -1379,25 +1417,25 @@ class ContestBallotCastCard(html.Div):
                 cls='encrypt-form'),
             cls='card',
         )
+        self.download_btn_id = self.download_btn._id
+        self.ballot_json = self.ballot.to_json().replace('"', '\\"')
+        self.file_name = self.contest.name + '_encrypted_ballot.json'
 
-    def render_js(self):
-        def click_event():
-            def download_file(event):
-                blob = _new(Blob, Array(ballot), {'type': 'application/json'})
-                url = URL.createObjectURL(blob)
-                link = document.createElement('a')
-                setattr(link, 'href', url)
-                setattr(link, 'download', file_name)
-                link.click()
-                URL.revokeObjectURL(url)
+    def download_file(event):
+        elem = event.currentTarget
+        blob = new.Blob([elem.ballot], {'type': 'application/json'})
+        url = URL.createObjectURL(blob)
+        link = document.createElement('a')
+        link.href = url
+        link.download = elem.file_name
+        link.click()
+        URL.revokeObjectURL(url)
 
-            getElementByUuid(download_btn).addEventListener('click', download_file)
-
-        return JS(click_event, dict(
-            download_btn=self.download_btn._id,
-            ballot=self.ballot.to_json().replace('"', '\\"'),
-            file_name=self.contest.name + '_encrypted_ballot.json'
-        ))
+    def py2js(self):
+        btn = getElementByUuid(self.download_btn_id)
+        btn.ballot = self.ballot_json
+        btn.file_name = self.file_name
+        btn.addEventListener('click', self.download_file)
 
 
 @template('contest_close', Document, Card)
@@ -1426,7 +1464,7 @@ class ContestCloseCard(html.Div):
 
 
 @template('guardian_upload', Document, Card)
-class GuardianUploadKeyCard(html.Div):
+class GuardianUploadKeyCard(Py2jsMixin, html.Div):
     def __init__(self, *content, view, form, **context):
         guardian = view.get_object()
         contest = guardian.contest
@@ -1435,12 +1473,15 @@ class GuardianUploadKeyCard(html.Div):
             reverse('contest_detail', args=[contest.id]))
 
         self.submit_btn = MDCButton('confirm', True, disabled=True)
+        self.submit_btn_id = self.submit_btn._id
 
         super().__init__(
             html.H4('Verify your private key', cls='center-text'),
             html.Div('All guardians’ must upload their valid private keys to unlock the ballot box.', cls='center-text'),
             html.Form(
-                MDCFileInput('Choose file', 'file_input', name='pkl_file'),
+                MDCFileField(
+                    Input(id='file_input', type='file', name='pkl_file'),
+                    label='Choose file'),
                 html.Span("Your privacy key is a file with '.pkl' extension. ", cls='body-2'),
                 self.submit_btn,
                 CSRFInput(view.request),
@@ -1451,18 +1492,16 @@ class GuardianUploadKeyCard(html.Div):
             cls='card'
         )
 
-    def render_js(self):
-        def change_event():
-            def enable_post(event):
-                file_name = document.querySelector('#file_input')
-                if file_name != '':
-                    setattr(getElementByUuid(submit_btn), 'disabled', False)
-                else:
-                    setattr(getElementByUuid(submit_btn), 'disabled', True)
-            file_input = document.querySelector('#file_input')
-            file_input.addEventListener('change', enable_post)
+    def py2js(self):
+        file_input = document.querySelector('#file_input')
+        file_input.submit_btn_id = self.submit_btn_id
+        file_input.addEventListener('change', self.enable_post)
 
-        return JS(change_event, dict(submit_btn=self.submit_btn._id))
+    def enable_post(event):
+        file_input = document.querySelector('#file_input')
+        file_name = file_input.value
+        btn = getElementByUuid(file_input.submit_btn_id)
+        btn.disabled = file_name == ''
 
 
 @template('contest_decrypt', Document, Card)
@@ -1503,7 +1542,7 @@ class ContestPublishCard(html.Div):
         )
 
 
-class PublishProgressBar(html.Div):
+class PublishProgressBar(Py2jsMixin, html.Div):
     def __init__(self, _steps, step=0):
         self.nsteps = len(_steps)
         self.step = step
@@ -1527,39 +1566,36 @@ class PublishProgressBar(html.Div):
             style='margin: 24px auto'
         )
 
-    def render_js(self):
-        def set_progress():
-            bar_container = document.querySelector('.progress-bar')
-            bar = bar_container.querySelector('.mdc-linear-progress')
+    def set_progress(current_step, total_steps):
+        bar_container = document.querySelector('.progress-bar')
+        bar = bar_container.querySelector('.mdc-linear-progress')
 
-            mdcbar = _new(mdc.linearProgress.MDCLinearProgress, bar)
-            setattr(bar, 'MDCLinearProgress', mdcbar)
+        mdcbar = new.mdc.linearProgress.MDCLinearProgress(bar)
+        bar.MDCLinearProgress = mdcbar
 
-            def step(step):
-                progress = step / (total_steps - 1)
+        def step(step):
+            progress = step / (total_steps - 1)
 
-                steps = bar_container.querySelectorAll('.progress-step')
-                for n in range(0, total_steps):
-                    s = steps.item(n)
-                    if s.dataset.step > step:
-                        s.classList.remove('progress-step--active')
-                        s.classList.add('progress-step--disabled')
-                    elif s.dataset.step == step:
-                        s.classList.remove('progress-step--disabled')
-                        s.classList.add('progress-step--active')
-                    else:
-                        s.classList.remove('progress-step--active')
-                        s.classList.remove('progress-step--disabled')
+            steps = bar_container.querySelectorAll('.progress-step')
+            for n in range(total_steps):
+                s = steps.item(n)
+                if s.dataset.step > step:
+                    s.classList.remove('progress-step--active')
+                    s.classList.add('progress-step--disabled')
+                elif s.dataset.step == step:
+                    s.classList.remove('progress-step--disabled')
+                    s.classList.add('progress-step--active')
+                else:
+                    s.classList.remove('progress-step--active')
+                    s.classList.remove('progress-step--disabled')
 
-                bar.MDCLinearProgress.foundation.setProgress(progress)
+            bar.MDCLinearProgress.foundation.setProgress(progress)
 
-            setattr(bar, 'setStep', step)
-            bar.setStep(current_step)
+        bar.setStep = step
+        bar.setStep(current_step)
 
-        return JS(set_progress, dict(
-            current_step=self.step,
-            total_steps=self.nsteps
-        ))
+    def py2js(self):
+        self.set_progress(self.step, self.nsteps)
 
 
 @template('contest_result', Document, Card)
@@ -1613,7 +1649,7 @@ class ContestResultCard(html.Div):
         )
 
         publish_btn = ''
-        if contest.publish_status == 2:
+        if contest.publish_status == 4 and contest.decentralized:
             publish_btn = MDCButton(
                 'publish results',
                 p=True,
@@ -1629,4 +1665,93 @@ class ContestResultCard(html.Div):
                 score_table,
                 cls='table-container score-table'),
             cls='card',
+        )
+
+
+class GuardianDeleteBtn(html.A):
+    def __init__(self, guardian):
+        self.guardian = guardian
+
+        super().__init__(
+            mdc.MDCIcon(
+                'delete',
+                cls='delete-icon'),
+            tag='a',
+            href=reverse('contest_guardian_delete', args=[guardian.id]))
+
+
+@template('guardian_create', Document, Card)
+class GuardianCreateCard(html.Div):
+    def __init__(self, *content, view, form, **context):
+        contest = view.get_object()
+        self.backlink = BackLink('back', reverse('contest_detail', args=[contest.id]))
+        table_head_row = html.Tr(cls='mdc-data-table__header-row')
+        for th in ('guardians', ''):
+            table_head_row.addchild(
+                html.Th(
+                    th,
+                    role='columnheader',
+                    scope='col',
+                    cls='mdc-data-table__header-cell overline',
+                )
+            )
+
+        table_content = html.Tbody(cls='mdc-data-table__content')
+        cls = 'mdc-data-table__cell'
+        for guardian in contest.guardian_set.all():
+            activated = guardian.user and guardian.user.is_active
+            table_content.addchild(html.Tr(
+                html.Td(guardian.user.email, cls=cls),
+                html.Td(
+                    GuardianDeleteBtn(guardian),
+                    cls=cls,
+                    style='text-align:right'),
+                cls='mdc-data-table__row',
+                style='opacity: 0.5;' if not activated else '',
+            ))
+
+        table = html.Table(
+            html.Thead(table_head_row),
+            table_content,
+            **{
+                'class': 'mdc-data-table__table',
+                'aria-label': 'Voters'
+            }
+        )
+
+        super().__init__(
+            html.H4('Add guardians', cls='center-text'),
+            html.Div(
+                'Guardians are responsible for locking and unlocking of the ballot box with their private keys.',
+                cls='center-text body-1'
+            ),
+            html.Div(
+                html.B('No guardians for speed and simplicity (default).'),
+                ' Electis App will technically be your guardian and can secure your ballot box.',
+                cls='red-section'),
+            html.Div(
+                html.B('With guardians for greater security (recommended).'),
+                ' You can distribute control over the closing/opening of the',
+                ' ballot box between multiple guardians. All of their keys will',
+                ' be necessary to conduct an election – from opening for voting',
+                ' to revealing the results.',
+                cls='red-section'),
+            html.Form(
+                form['email'],
+                mdc.CSRFInput(view.request),
+                mdc.MDCButtonOutlined('add guardian', p=False, icon='person_add'),
+                table,
+                html.Div(
+                    form['quorum'],
+                    html.Span(
+                        mdc.MDCButton('Save'),
+                        style='margin: 32px 12px'),
+                    style='display:flex;'
+                          'flex-flow: row nowrap;'
+                          'justify-content: space-between;'
+                          'align-items: baseline;'),
+                method='POST',
+                cls='form'
+            ),
+            cls='card'
         )

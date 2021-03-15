@@ -33,6 +33,7 @@ from datetime import datetime, date
 
 from ryzom import html
 from electeez.components import Document, BackLink
+from electeez_auth.models import User
 from .components import (
     ContestForm,
     ContestEditForm,
@@ -50,8 +51,10 @@ from .components import (
     ContestBallotEncryptCard,
     ContestBallotCastCard,
     ContestDecryptCard,
+    ContestPublishCard,
     ContestResultCard,
     VotersDetailCard,
+    GuardianCreateCard,
     GuardianVerifyCard,
     GuardianUploadKeyCard,
 )
@@ -214,6 +217,7 @@ class ContestOpenView(ContestMediator, generic.UpdateView):
         def save(self, *args, **kwargs):
             self.instance.prepare()
             self.instance.actual_start = timezone.now()
+            self.instance.publish_status = 2
             return super().save(self, *args, **kwargs)
 
     def form_valid(self, form):
@@ -254,7 +258,7 @@ class ContestCloseView(ContestMediator, generic.UpdateView):
 
         def save(self, *args, **kwargs):
             self.instance.actual_end = timezone.now()
-            self.instance.publish_status = 1
+            self.instance.publish_status = 3
             return super().save(self, *args, **kwargs)
 
     def form_valid(self, form):
@@ -405,7 +409,7 @@ class ContestPubkeyView(ContestMediator, generic.UpdateView):
                 self.instance.quorum,
             )
             mediator = KeyCeremonyMediator(details)
-            for guardian in self.instance.guardian_set.all():
+            for guardian in self.instance.guardian_set.all().order_by('sequence'):
                 mediator.announce(guardian.get_guardian())
             orchestrated = mediator.orchestrate()
             verified = mediator.verify()
@@ -723,6 +727,150 @@ class ContestCandidateDeleteView(ContestMediator, generic.DeleteView):
         )
 
 
+
+class GuardianCreateView(ContestMediator, FormMixin, generic.DetailView):
+    template_name = 'guardian_create'
+
+    class form_class(forms.Form):
+        email = forms.EmailField(required=False)
+        quorum = forms.IntegerField(
+            min_value=1,
+            required=True,
+            help_text='Minimum guardians needed to unlock the ballot box')
+
+        class Meta:
+            fields = ['email']
+
+        def clean(self):
+            if self.cleaned_data['email']:
+                email = self.cleaned_data['email']
+                user = User.objects.filter(email=email).first()
+                if not user:
+                    raise forms.ValidationError(
+                        dict(email=f'User not found')
+                    )
+                if self.instance.contest.guardian_set.filter(user=user):
+                    raise forms.ValidationError(
+                        dict(email=f'{user} already added!')
+                    )
+
+            n_guardians = self.instance.contest.guardian_set.count()
+            if self.cleaned_data['email']:
+                n_guardians += 1
+
+            quorum = self.cleaned_data['quorum']
+            if quorum > n_guardians:
+                raise forms.ValidationError(
+                    dict(quorum='Cannot be higher than the number of guardians')
+                )
+
+            return self.cleaned_data
+
+        def save(self):
+            contest = self.instance.contest
+            contest.quorum = self.cleaned_data['quorum']
+            contest.save()
+
+            if self.cleaned_data['email']:
+                email = self.cleaned_data['email']
+                user = User.objects.filter(email=email).first()
+                self.instance.user = user
+                self.instance.save()
+
+
+    def get_queryset(self):
+        return Contest.objects.filter(
+            mediator=self.request.user,
+            actual_start=None,
+            joint_public_key=None
+        )
+
+    def get_context_data(self, **kwargs):
+        self.object = self.get_object()
+        return super().get_context_data(**kwargs)
+
+    def get_form(self):
+        contest = self.get_object()
+        form = super().get_form()
+        form.initial['quorum'] = contest.quorum
+        form.instance = Guardian(contest=contest)
+        return form
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        form.save()
+        if form.cleaned_data['email']:
+            messages.success(
+                self.request,
+                f'You have invited {form.instance} as guardian',
+            )
+        if 'quorum' in form.changed_data:
+            messages.success(
+                self.request,
+                f'Quorum set to {form.instance.contest.quorum}',
+            )
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('contest_guardian_create', args=[self.get_object().id])
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            '<pk>/guardian/create/',
+            login_required(cls.as_view()),
+            name='contest_guardian_create'
+        )
+
+
+class GuardianDeleteView(ContestMediator, generic.DeleteView):
+    def dispatch(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        contest = self.get_object().contest
+
+        response = super().delete(request, *args, **kwargs)
+
+        if contest.quorum > contest.guardian_set.count():
+            contest.quorum = contest.guardian_set.count()
+            contest.save()
+            messages.success(
+                self.request,
+                f'Quorum set to {contest.quorum} to match the number of guardians'
+            )
+        messages.success(
+            self.request,
+            f'You have removed guardian {self.object}',
+        )
+        return response
+
+    def get_queryset(self):
+        return Guardian.objects.filter(
+            contest__mediator=self.request.user,
+            contest__joint_public_key=None,
+            contest__actual_start=None,
+        )
+
+    def get_success_url(self):
+        contest = self.get_object().contest
+        return reverse('contest_guardian_create', args=(contest.id,))
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            'guardian/<pk>/delete/',
+            login_required(cls.as_view()),
+            name='contest_guardian_delete'
+        )
+
+
 class GuardianVerifyView(generic.UpdateView):
 
     def get_queryset(self):
@@ -966,3 +1114,19 @@ class ContestVotersUpdateView(ContestMediator, generic.UpdateView):
             login_required(cls.as_view()),
             name='contest_voters_update'
         )
+
+
+class BundleView(generic.View):
+    def get(self, *args, **kwargs):
+        from ryzom.js import bundle
+        response = http.HttpResponse(
+            bundle(
+                'djelectionguard.components',
+            ),
+        )
+        response['Content-Type'] = 'text/javascript'
+        return response
+
+    @classmethod
+    def as_url(cls):
+        return path('bundle.js', cls.as_view())

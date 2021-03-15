@@ -7,17 +7,10 @@ from django_registration.backends.activation.views import RegistrationView
 import ryzom
 from ryzom import html
 from ryzom_mdc import template
-from ryzom.js.renderer import JS
+from py2js.renderer import JS
 from .models import User
 from electeez.components import Document, Card
-from ryzom_mdc import (
-    MDCButton,
-    MDCButtonOutlined,
-    MDCTextButton,
-    MDCFormField,
-    MDCTextFieldFilled,
-    CSRFInput,
-)
+from ryzom_django_mdc.components import *
 
 from djelectionguard.components import CircleIcon
 

@@ -10,19 +10,47 @@ from django.urls import path, reverse
 from djblockchain.models import Account, Blockchain
 from djelectionguard.models import Contest
 
+from ryzom.html import template
+from ryzom_mdc import *
+from ryzom_django_mdc.components import *
+from electeez.components import Document, Card, BackLink
 from .models import ElectionContract
 
 
 User = get_user_model()
 
 
+@template('electioncontract_create', Document, Card)
+class ElectionContractCard(Div):
+    def __init__(self, *content, view, form, **context):
+        super().__init__(
+            H4(
+                'Choose the blockchain you want to deploy'
+                ' your election results to',
+                cls='center-text'),
+            Form(
+                MDCMultipleChoicesCheckbox(
+                    'blockchain',
+                    (
+                        (i, blockchain.name, blockchain.pk)
+                        for i, blockchain
+                        in enumerate(
+                            Blockchain.objects.filter(is_active=True))
+                    ),
+                    n=1),
+                MDCButton(form.submit_label),
+                CSRFInput(view.request),
+                method='POST',
+                cls='form'),
+            cls='card')
+
+
 class ElectionContractCreate(generic.FormView):
-    template_name = 'form.html'
+    template_name = 'electioncontract_create'
 
     class form_class(forms.Form):
         blockchain = forms.ModelChoiceField(
             queryset=Blockchain.objects.filter(is_active=True),
-            widget=forms.RadioSelect,
         )
         submit_label = 'Choose blockchain'
 
@@ -33,6 +61,7 @@ class ElectionContractCreate(generic.FormView):
         if ElectionContract.objects.filter(election=self.contest).first():
             return http.HttpResponseBadRequest('Contract already created')
         return super().dispatch(request, *args, **kwargs)
+
 
     def form_valid(self, form):
         blockchain = form.cleaned_data['blockchain']
@@ -50,7 +79,7 @@ class ElectionContractCreate(generic.FormView):
             f'Blockchain contract created! Deployment in progress...',
         )
         self.contest.decentralized = True
-        self.contest.publish_status = 0
+        self.contest.publish_status = 1
         self.contest.save()
         return http.HttpResponseRedirect(
             reverse('contest_detail', args=[self.contest.pk])

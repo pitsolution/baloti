@@ -2,6 +2,8 @@ from django.urls import include, path
 from django.conf.urls import url
 
 from .views import (
+    #GuardianCreateView,
+    #GuardianDeleteView,
     GuardianDownloadView,
     GuardianVerifyView,
     GuardianUploadView,
@@ -25,10 +27,13 @@ from .views import (
     ContestDetailView,
     ContestResultView,
     ContestPublishView,
+    BundleView,
 )
 
 
 urlpatterns = [
+    #GuardianCreateView.as_url(),
+    #GuardianDeleteView.as_url(),
     GuardianDownloadView.as_url(),
     GuardianVerifyView.as_url(),
     GuardianUploadView.as_url(),
@@ -52,4 +57,5 @@ urlpatterns = [
     ContestDetailView.as_url(),
     ContestResultView.as_url(),
     ContestPublishView.as_url(),
+    BundleView.as_url(),
 ]

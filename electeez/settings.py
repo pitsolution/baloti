@@ -50,10 +50,11 @@ INSTALLED_APPS = [
     'django_extensions',
     'django_jinja',
     'channels',
+    'django.forms',
     'ryzom',
+    'py2js',
     'ryzom_django',
     'ryzom_django_mdc',
-    'django.forms'
 ]
 
 AUTH_USER_MODEL = 'electeez_auth.User'
@@ -66,7 +67,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'ryzom_django.middleware.RyzomMiddleware',
 ]
 
 if DEBUG:
@@ -288,6 +288,7 @@ LOGGERS = (
     'djblockchain',
     'djblockchain.tezos',
     'daphne',
+    'electionguard'
 )
 
 for logger in LOGGERS:

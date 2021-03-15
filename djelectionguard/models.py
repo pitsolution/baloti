@@ -46,10 +46,6 @@ class Contest(models.Model):
         default=1,
         validators=[above_0],
     )
-    number_guardians = models.IntegerField(
-        default=1,
-        verbose_name='number of guardians',
-    )
     quorum = models.IntegerField(
         default=1,
         verbose_name='quorum',
@@ -75,6 +71,17 @@ class Contest(models.Model):
 
     artifacts_sha1 = models.CharField(max_length=255, null=True, blank=True)
     artifacts_ipfs = models.CharField(max_length=255, null=True, blank=True)
+
+    @property
+    def number_guardians(self):
+        return self.guardian_set.count()
+
+    @property
+    def current_sequence(self):
+        client = Client(settings.MEMCACHED_HOST)
+        sequence = int(client.get(f'{self.pk}.sequence', 1))
+        client.set(f'{self.pk}.sequence', sequence + 1)
+        return sequence
 
     @property
     def artifacts_path(self):
@@ -139,15 +146,18 @@ class Contest(models.Model):
         )
 
         # Decrypt the tally with available guardian keys
-        for guardian in self.guardian_set.all():
+        for guardian in self.guardian_set.all().order_by('sequence'):
             if decryption_mediator.announce(guardian.get_guardian()) is None:
                 break
         self.plaintext_tally = decryption_mediator.get_plaintext_tally()
+        if not self.plaintext_tally:
+            raise AttributeError('"self.plaintext_tally" is None')
+
         # And delete keys from memory
         for guardian in self.guardian_set.all():
             guardian.delete_keypair()
 
-        self.publish_status = 2
+        self.publish_status = 4
 
         self.save()
 
@@ -187,7 +197,7 @@ class Contest(models.Model):
             while data := f.read(65536):
                 sha1.update(data)
         self.artifacts_sha1 = sha1.hexdigest()
-        self.publish_status = 3
+        self.publish_status = 5
 
         os.chdir(cwd)
 
@@ -408,6 +418,7 @@ class Guardian(models.Model):
     erased = models.DateTimeField(null=True, blank=True)
     uploaded = models.DateTimeField(null=True, blank=True)
     uploaded_erased = models.DateTimeField(null=True, blank=True)
+    sequence = models.PositiveIntegerField(null=True, blank=True)
 
     def __str__(self):
         return str(self.user)
@@ -433,14 +444,17 @@ class Guardian(models.Model):
         result = client.get(str(self.pk))
         if not result:
             from electionguard.guardian import Guardian
+            sequence = self.contest.current_sequence
             guardian = Guardian(
-                'guardian',
-                0,
+                f'guardian-{self.pk}',
+                sequence,
                 self.contest.number_guardians,
                 self.contest.quorum,
             )
             result = pickle.dumps(guardian)
             client.set(str(self.pk), result)
+            self.sequence = sequence
+            self.save()
         return result
 
     def get_guardian(self):
