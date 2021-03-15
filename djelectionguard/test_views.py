@@ -105,7 +105,7 @@ def test_form_validation(client, mediator):
 
 
 @pytest.mark.django_db
-def test_story(client, mediator):
+def test_story(client, mediator, mailoutbox):
     external = User.objects.create(email='ext@example.com', is_active=True)
     voter1 = User.objects.create(email='vot1@example.com', is_active=True)
     new = User.objects.create(email='new@example.com', is_active=True)
@@ -337,13 +337,28 @@ vot1@example.com\rvot2@example.com\rnew@example.com
     #assert post(guardian2.user, contest_open).status_code == 404
     assert post(external, contest_open).status_code == 404
     assert post(voter1, contest_open).status_code == 404
-    assert post(mediator, contest_open).status_code == 302
+    assert post(
+        mediator,
+        contest_open,
+        email_title='title',
+        email_message='Hi LINK'
+    ).status_code == 302
 
     contest.refresh_from_db()
     assert contest.actual_start
 
     # cannot open again
     assert get(mediator, contest_open).status_code == 404
+
+    # OTP links should have been sent and take directly to the vote page
+    emails = contest.voter_set.values_list('user__email', flat=True)
+    assert len(mailoutbox) == len(emails)
+    assert mailoutbox[-1].subject == 'title'
+    link = mailoutbox[-1].body[3:]
+
+    _client = Client()
+    assert _client.get(link)['Location'] == vote
+    assert _client.get(vote).status_code == 200
 
     # vote page becomes visible to voter1
     vote = f'{contest_url}vote/'

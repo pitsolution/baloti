@@ -5,6 +5,7 @@ from pathlib import Path
 import pickle
 import shutil
 import subprocess
+import textwrap
 
 from django import forms
 from django import http
@@ -13,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.core.mail import send_mail
 from django.core.validators import EmailValidator
 from django.db import transaction
 from django.db.models import ObjectDoesNotExist, Q
@@ -191,6 +193,7 @@ class ContestManifestView(ContestAccessible, generic.DetailView):
 
 class ContestOpenView(ContestMediator, generic.UpdateView):
     template_name = 'contest_open'
+
     @classmethod
     def as_url(cls):
         return path(
@@ -210,6 +213,14 @@ class ContestOpenView(ContestMediator, generic.UpdateView):
         submit_label = 'Open votes'
         help_text = 'Create the Encrypter and BallotBox and open contest for voting'
 
+        email_title = forms.CharField(
+            help_text='Title of the email that will be sent to each voter',
+        )
+        email_message = forms.CharField(
+            widget=forms.Textarea,
+            help_text='Body of the email that will be sent, LINK will be replaced by the voting link',
+        )
+
         class Meta:
             model = Contest
             fields = []
@@ -220,6 +231,23 @@ class ContestOpenView(ContestMediator, generic.UpdateView):
             self.instance.publish_status = 2
             return super().save(self, *args, **kwargs)
 
+    def get_form_kwargs(self):
+        msg = f'''
+        Hello,
+
+        Election {self.object} is open for voting, you may use the link below once:
+
+        LINK
+
+        Happy voting!
+        '''
+        kwargs = super().get_form_kwargs()
+        kwargs['initial'] = dict(
+            email_title=f'Election {self.object} is Open for voting!',
+            email_message=textwrap.dedent(msg),
+        )
+        return kwargs
+
     def form_valid(self, form):
         try:
             contract = self.object.electioncontract
@@ -227,10 +255,28 @@ class ContestOpenView(ContestMediator, generic.UpdateView):
             pass
         else:
             contract.open()
+
+        for voter in self.object.voter_set.all():
+            voter.user.otp_new()
+            voter.user.save()
+            otp_link = reverse('otp_login', args=[voter.user.otp_token])
+            send_mail(
+                form.cleaned_data['email_title'],
+                form.cleaned_data['email_message'].replace(
+                    'LINK',
+                    otp_link
+                    + '?next='
+                    + reverse('contest_vote', args=[self.object.pk])
+                ),
+                'webmaster@electeez.com',
+                [voter.user.email],
+            )
+
         messages.success(
             self.request,
             f'You have open contest {self.object}',
         )
+
         return super().form_valid(form)
 
 
