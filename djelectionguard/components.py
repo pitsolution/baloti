@@ -1209,7 +1209,7 @@ class ContestVotersUpdateCard(html.Div):
 
 
 @template('djelectionguard/guardian_form.html', Document, Card)
-class GuardianVerifyCard(html.Div):
+class GuardianVerifyCard(Py2jsMixin, html.Div):
     def __init__(self, *content, view, form, **context):
         guardian = view.get_object()
         contest = guardian.contest
@@ -1218,6 +1218,7 @@ class GuardianVerifyCard(html.Div):
             reverse('contest_detail', args=[contest.id]))
 
         self.submit_btn = MDCButton('confirm', True, disabled=True)
+        self.submit_btn_id = self.submit_btn._id
 
         super().__init__(
             html.H4('Confirm possession of an uncompromised private key', cls='center-text'),
@@ -1237,12 +1238,14 @@ class GuardianVerifyCard(html.Div):
         )
 
     def enable_post(event):
-        file_name = document.querySelector('#file_input')
-        btn = getElementByUuid(self.submit_btn)
+        file_input = document.querySelector('#file_input')
+        file_name = file_input.value
+        btn = getElementByUuid(file_input.submit_btn_id)
         btn.disabled = file_name == ''
 
     def py2js(self):
         file_input = document.querySelector('#file_input')
+        file_input.submit_btn_id = self.submit_btn_id
         file_input.addEventListener('change', self.enable_post)
 
 
@@ -1379,7 +1382,7 @@ class ContestBallotEncryptCard(html.Div):
 
 
 @template('ballot_cast', Document, Card)
-class ContestBallotCastCard(html.Div):
+class ContestBallotCastCard(Py2jsMixin, html.Div):
     def __init__(self, *content, view, **context):
         self.contest = view.get_object()
         self.backlink = BackLink(
@@ -1414,25 +1417,25 @@ class ContestBallotCastCard(html.Div):
                 cls='encrypt-form'),
             cls='card',
         )
+        self.download_btn_id = self.download_btn._id
+        self.ballot_json = self.ballot.to_json().replace('"', '\\"')
+        self.file_name = self.contest.name + '_encrypted_ballot.json'
 
-    def render_js(self):
-        def click_event():
-            def download_file(event):
-                blob = new.Blob([ballot], {'type': 'application/json'})
-                url = URL.createObjectURL(blob)
-                link = document.createElement('a')
-                link.href = url
-                link.download = file_name
-                link.click()
-                URL.revokeObjectURL(url)
+    def download_file(event):
+        elem = event.currentTarget
+        blob = new.Blob([elem.ballot], {'type': 'application/json'})
+        url = URL.createObjectURL(blob)
+        link = document.createElement('a')
+        link.href = url
+        link.download = elem.file_name
+        link.click()
+        URL.revokeObjectURL(url)
 
-            getElementByUuid(download_btn).addEventListener('click', download_file)
-
-        return JS(click_event, dict(
-            download_btn=self.download_btn._id,
-            ballot=self.ballot.to_json().replace('"', '\\"'),
-            file_name=self.contest.name + '_encrypted_ballot.json'
-        ))
+    def py2js(self):
+        btn = getElementByUuid(self.download_btn_id)
+        btn.ballot = self.ballot_json
+        btn.file_name = self.file_name
+        btn.addEventListener('click', self.download_file)
 
 
 @template('contest_close', Document, Card)
@@ -1461,7 +1464,7 @@ class ContestCloseCard(html.Div):
 
 
 @template('guardian_upload', Document, Card)
-class GuardianUploadKeyCard(html.Div):
+class GuardianUploadKeyCard(Py2jsMixin, html.Div):
     def __init__(self, *content, view, form, **context):
         guardian = view.get_object()
         contest = guardian.contest
@@ -1470,6 +1473,7 @@ class GuardianUploadKeyCard(html.Div):
             reverse('contest_detail', args=[contest.id]))
 
         self.submit_btn = MDCButton('confirm', True, disabled=True)
+        self.submit_btn_id = self.submit_btn._id
 
         super().__init__(
             html.H4('Verify your private key', cls='center-text'),
@@ -1488,16 +1492,16 @@ class GuardianUploadKeyCard(html.Div):
             cls='card'
         )
 
-    def render_js(self):
-        def change_event():
-            def enable_post(event):
-                file_name = document.querySelector('#file_input')
-                btn = getElementByUuid(submit_btn)
-                btn.disabled = file_name == ''
-            file_input = document.querySelector('#file_input')
-            file_input.addEventListener('change', enable_post)
+    def py2js(self):
+        file_input = document.querySelector('#file_input')
+        file_input.submit_btn_id = self.submit_btn_id
+        file_input.addEventListener('change', self.enable_post)
 
-        return JS(change_event, dict(submit_btn=self.submit_btn._id))
+    def enable_post(event):
+        file_input = document.querySelector('#file_input')
+        file_name = file_input.value
+        btn = getElementByUuid(file_input.submit_btn_id)
+        btn.disabled = file_name == ''
 
 
 @template('contest_decrypt', Document, Card)
