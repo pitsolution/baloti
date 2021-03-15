@@ -1288,6 +1288,7 @@ class ContestOpenCard(html.Div):
                 cls='center-text'
             ),
             html.Form(
+                context['form'],
                 CSRFInput(view.request),
                 MDCButton('open'),
                 method='POST',

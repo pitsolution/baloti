@@ -41,16 +41,17 @@ class OTPSend(generic.FormView):
 
 class OTPBackend(BaseBackend):
     def authenticate(self, request, otp_token=None):
-        user = User.objects.filter(
-            otp_token=otp_token,
-            otp_expiry__gte=timezone.now(),
-        ).first()
+        if otp_token:
+            user = User.objects.filter(
+                otp_token=otp_token,
+                otp_expiry__gte=timezone.now(),
+            ).first()
 
-        if user:  # tokens are usable OAOO
-            user.otp_token = None
-            user.otp_expiry = None
-            user.save()
-            return user
+            if user:  # tokens are usable OAOO
+                user.otp_token = None
+                user.otp_expiry = None
+                user.save()
+                return user
 
     def get_user(self, user_id):
         try:
