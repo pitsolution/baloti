@@ -264,7 +264,8 @@ class ContestOpenView(ContestMediator, generic.UpdateView):
                 form.cleaned_data['email_title'],
                 form.cleaned_data['email_message'].replace(
                     'LINK',
-                    otp_link
+                    settings.BASE_URL
+                    + otp_link
                     + '?next='
                     + reverse('contest_vote', args=[self.object.pk])
                 ),
