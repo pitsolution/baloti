@@ -127,6 +127,7 @@ class Document(html.Component):
                 html.Link(rel='stylesheet', href=style_src),
                 html.Script(type='text/javascript', src=mdc_script_src),
                 html.Script(type='text/javascript', src='/static/py2js.js'),
+                html.Script(type='text/javascript', src='/contest/bundle.js'),
             ),
             body
         ]

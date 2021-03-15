@@ -1,6 +1,7 @@
 from django.middleware.csrf import get_token
 from ryzom import html
 from py2js.renderer import JS
+from py2js import Mixin as Py2jsMixin
 
 
 class MDCLink(html.A):
@@ -299,103 +300,6 @@ class MDCListItem(html.Li):
             html.Span(*content, cls='mdc-list-item__text'),
             cls=cls + ' mdc-list-item'
         )
-
-
-class MDCCheckboxListItem(html.Li):
-    def __init__(self, title, id, checked=False, **kwargs):
-        self.input_id = id
-        if checked:
-            kwargs['checked'] = True
-        super().__init__(
-            html.Span(cls='mdc-list-item__ripple'),
-            html.Span(
-                html.Div(
-                    html.Input(
-                        id=id,
-                        type='checkbox',
-                        cls='mdc-checkbox__native-control',
-                        **kwargs),
-                    html.Div(
-                        html.Component(
-                            html.Component(
-                                tag='path', fill='none',
-                                d="M1.73,12.91 8.1,19.28 22.79,4.59",
-                                cls='mdc-checkbox__checkmark-path'),
-                            tag='svg', viewBox='0 0 24 24',
-                            cls='mdc-checkbox__checkmark'),
-                        html.Div(cls='mdc-checkbox__mixedmark'),
-                        cls='mdc-checkbox__background'),
-                    cls='mdc-checkbox'),
-                cls='mdc-list-item__graphic'),
-            html.Label(title, cls='mdc-list-item__text', **{'for': id}),
-            cls='mdc-list-item',
-            role='checkbox',
-            **{
-                'aria-checked': 'true' if checked else 'false',
-                'data-list-item-of': id
-            }
-        )
-
-    def render_js(self):
-        def events():
-            def click_input(event):
-                event.stopPropagation()
-                elem = event.target.querySelector('input')
-                if elem:
-                    elem.click()
-
-            elem = getElementByUuid(id)
-            setattr(elem, 'onclick', click_input)
-
-        return JS(events, dict(id=self._id))
-
-
-class MDCMultipleChoicesCheckbox(html.Ul):
-    def __init__(self, name, choices, n=1, **kwargs):
-        self.max = n
-        alabel = kwargs.pop('aria-label', 'Label')
-        super().__init__(
-            *(MDCCheckboxListItem(
-                title,
-                f'{name}_input_{i}',
-                name=name,
-                value=value,
-                **kwargs
-            ) for i, title, value in choices),
-            cls='mdc-list',
-            role='group',
-            **{'aria-label': alabel}
-        )
-
-    def render_js(self):
-        def change_event():
-            def update_inputs(event):
-                checked = input_list.querySelectorAll('input:checked')
-                unchecked = input_list.querySelectorAll('input:not(:checked)')
-
-                def disable(elem, pos, arr):
-                    setattr(elem, 'disabled', 'true')
-                    list_item = document.querySelector(
-                        '[data-list-item-of="' + elem.id + '"]'
-                    ).classList.add('mdc-list-item--disabled')
-
-                def enable(elem, pas, arr):
-                    setattr(elem, 'disabled', undefined)
-                    list_item = document.querySelector(
-                        '[data-list-item-of="' + elem.id + '"]'
-                    ).classList.remove('mdc-list-item--disabled')
-
-                if checked.length >= max_choices:
-                    unchecked.forEach(disable)
-                else:
-                    unchecked.forEach(enable)
-
-            input_list = getElementByUuid(id)
-            input_list.addEventListener('change', update_inputs)
-
-            document.addEventListener('readystatechange', update_inputs)
-
-        return JS(change_event, dict(id=self._id, max_choices=self.max))
 
 
 class MDCLinearProgress(html.Div):

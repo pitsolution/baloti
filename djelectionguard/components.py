@@ -3,7 +3,8 @@ from django import forms
 from django.db.models import Sum
 from django.urls import reverse
 from ryzom import html
-from py2js.renderer import JS
+from py2js import Mixin as Py2jsMixin
+from py2js.renderer import JS, autoexec
 from ryzom_mdc import *
 from ryzom_django_mdc.components import *
 from electeez import mdc
@@ -1235,17 +1236,14 @@ class GuardianVerifyCard(html.Div):
             cls='card'
         )
 
-    def render_js(self):
-        def change_event():
-            def enable_post(event):
-                file_name = document.querySelector('#file_input')
-                btn = getElementByUuid(submit_btn)
-                btn.disabled = file_name == ''
+    def enable_post(event):
+        file_name = document.querySelector('#file_input')
+        btn = getElementByUuid(self.submit_btn)
+        btn.disabled = file_name == ''
 
-            file_input = document.querySelector('#file_input')
-            file_input.addEventListener('change', enable_post)
-
-        return JS(change_event, dict(submit_btn=self.submit_btn._id))
+    def py2js(self):
+        file_input = document.querySelector('#file_input')
+        file_input.addEventListener('change', self.enable_post)
 
 
 @template('djelectionguard/contest_pubkey.html', Document, Card)
@@ -1540,7 +1538,7 @@ class ContestPublishCard(html.Div):
         )
 
 
-class PublishProgressBar(html.Div):
+class PublishProgressBar(Py2jsMixin, html.Div):
     def __init__(self, _steps, step=0):
         self.nsteps = len(_steps)
         self.step = step
@@ -1564,39 +1562,36 @@ class PublishProgressBar(html.Div):
             style='margin: 24px auto'
         )
 
-    def render_js(self):
-        def set_progress():
-            bar_container = document.querySelector('.progress-bar')
-            bar = bar_container.querySelector('.mdc-linear-progress')
+    def set_progress(current_step, total_steps):
+        bar_container = document.querySelector('.progress-bar')
+        bar = bar_container.querySelector('.mdc-linear-progress')
 
-            mdcbar = new.mdc.linearProgress.MDCLinearProgress(bar)
-            bar.MDCLinearProgress = mdcbar
+        mdcbar = new.mdc.linearProgress.MDCLinearProgress(bar)
+        bar.MDCLinearProgress = mdcbar
 
-            def step(step):
-                progress = step / (total_steps - 1)
+        def step(step):
+            progress = step / (total_steps - 1)
 
-                steps = bar_container.querySelectorAll('.progress-step')
-                for n in range(total_steps):
-                    s = steps.item(n)
-                    if s.dataset.step > step:
-                        s.classList.remove('progress-step--active')
-                        s.classList.add('progress-step--disabled')
-                    elif s.dataset.step == step:
-                        s.classList.remove('progress-step--disabled')
-                        s.classList.add('progress-step--active')
-                    else:
-                        s.classList.remove('progress-step--active')
-                        s.classList.remove('progress-step--disabled')
+            steps = bar_container.querySelectorAll('.progress-step')
+            for n in range(total_steps):
+                s = steps.item(n)
+                if s.dataset.step > step:
+                    s.classList.remove('progress-step--active')
+                    s.classList.add('progress-step--disabled')
+                elif s.dataset.step == step:
+                    s.classList.remove('progress-step--disabled')
+                    s.classList.add('progress-step--active')
+                else:
+                    s.classList.remove('progress-step--active')
+                    s.classList.remove('progress-step--disabled')
 
-                bar.MDCLinearProgress.foundation.setProgress(progress)
+            bar.MDCLinearProgress.foundation.setProgress(progress)
 
-            bar.setStep = step
-            bar.setStep(current_step)
+        bar.setStep = step
+        bar.setStep(current_step)
 
-        return JS(set_progress, dict(
-            current_step=self.step,
-            total_steps=self.nsteps
-        ))
+    def py2js(self):
+        self.set_progress(self.step, self.nsteps)
 
 
 @template('contest_result', Document, Card)
