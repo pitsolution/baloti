@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'channels',
     'django.forms',
     'ryzom',
+    'py2js',
     'ryzom_django',
     'ryzom_django_mdc',
 ]
@@ -66,7 +67,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'ryzom_django.middleware.RyzomMiddleware',
 ]
 
 if DEBUG:

@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.urls import reverse
 from ryzom import html
 from ryzom.contrib.django import Static
-from ryzom.js.renderer import JS
+from py2js.renderer import JS
 from sass_processor.processor import sass_processor
 from ryzom_mdc import MDCButton, MDCTextButton, MDCSnackBar
 
@@ -126,8 +126,7 @@ class Document(html.Component):
                 html.Link(rel='stylesheet', href=nanum_pen_src),
                 html.Link(rel='stylesheet', href=style_src),
                 html.Script(type='text/javascript', src=mdc_script_src),
-                html.Script(type='text/javascript', src='/static/ryzom/js/py-builtins.js'),
-                html.Script(type='text/javascript', src='/static/ryzom/js/ryzom.js')
+                html.Script(type='text/javascript', src='/static/py2js.js'),
             ),
             body
         ]

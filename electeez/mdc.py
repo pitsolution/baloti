@@ -1,6 +1,6 @@
 from django.middleware.csrf import get_token
 from ryzom import html
-from ryzom.js.renderer import JS
+from py2js.renderer import JS
 
 
 class MDCLink(html.A):

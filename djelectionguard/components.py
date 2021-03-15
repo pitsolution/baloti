@@ -3,7 +3,7 @@ from django import forms
 from django.db.models import Sum
 from django.urls import reverse
 from ryzom import html
-from ryzom.js.renderer import JS
+from py2js.renderer import JS
 from ryzom_mdc import *
 from ryzom_django_mdc.components import *
 from electeez import mdc
