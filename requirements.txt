@@ -23,4 +23,4 @@ pytest-django
 pytest-watch
 pytezos<3
 
-ryzom>=0.2
+ryzom>=0.2.1
