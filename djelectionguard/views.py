@@ -771,7 +771,7 @@ class ContestCandidateUpdateView(generic.UpdateView):
     @classmethod
     def as_url(cls):
         return path(
-            'candidate/<pk>/update/',
+            'candidates/<pk>/update/',
             login_required(cls.as_view()),
             name='contest_candidate_update'
         )
