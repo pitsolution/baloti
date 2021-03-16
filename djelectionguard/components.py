@@ -572,6 +572,22 @@ class CastVoteAction(ListAction):
         )
 
 
+class ChooseBlockchainAction(ListAction):
+    def __init__(self, obj, user):
+        if obj.publish_status:
+            txt = ''
+            icon = DoneIcon()
+        else:
+            txt = 'Choose the blockchain you want to deploy your election to'
+            icon = TodoIcon()
+
+        super().__init__(
+            'Choose a blockchain',
+            txt, icon, None,
+            separator=obj.publish_status > 0
+        )
+
+
 class OnGoingElectionAction(ListAction):
     def __init__(self, contest, user):
         contest = contest
@@ -803,8 +819,14 @@ class ContestSettingsCard(html.Div):
                 AddCandidateAction(contest),
                 AddVoterAction(contest),
             ]
-
-        list_content.append(SecureElectionAction(contest, user))
+            if contest.decentralized:
+                list_content.append(ChooseBlockchainAction(contest, user)),
+                if contest.publish_status:
+                    list_content.append(SecureElectionAction(contest, user))
+            else:
+                list_content.append(SecureElectionAction(contest, user))
+        else:
+            list_content.append(SecureElectionAction(contest, user))
 
         super().__init__(
             html.H4(contest.name),
