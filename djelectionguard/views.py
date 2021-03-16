@@ -117,6 +117,11 @@ class ContestUpdateView(generic.UpdateView):
     model = Contest
     form_class = ContestEditForm
 
+    def get_queryset(self):
+        return Contest.objects.filter(
+            mediator=self.request.user,
+            actual_start=None)
+
     def form_valid(self, form):
         response = super().form_valid(form)
         messages.success(
@@ -147,6 +152,14 @@ class ContestListView(ContestAccessible, generic.ListView):
 
 class ContestResultView(ContestAccessible, generic.DetailView):
     template_name = 'contest_result'
+
+    def get_queryset(self):
+        return Contest.objects.filter(
+            mediator=self.request.user,
+        ).exclude(
+            actual_end=None
+        )
+
     @classmethod
     def as_url(cls):
         return path(
@@ -371,7 +384,7 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
 class ContestDecentralized(ContestMediator):
     def get_queryset(self):
         qs = super().get_queryset()
-        return qs.filter(decentralized=True)
+        return qs.filter(decentralized=True).exclude(actual_end=None)
 
 
 class ContestPublishView(ContestDecentralized, generic.UpdateView):
@@ -441,7 +454,10 @@ class ContestPubkeyView(ContestMediator, generic.UpdateView):
         )
 
     def get_queryset(self):
-        return self.request.user.contest_set.filter(joint_public_key=None)
+        qs = self.request.user.contest_set.filter(joint_public_key=None)
+        return qs.filter(
+            Q(decentralized=True, publish_status=1)
+            |Q(decentralized=False))
 
     class form_class(forms.ModelForm):
         class Meta:
@@ -692,7 +708,13 @@ class ContestCandidateCreateView(ContestMediator, FormMixin, generic.DetailView)
             model = Candidate
             fields = ['name']
 
+    def get_queryset(self):
+        return Contest.objects.filter(
+            mediator=self.request.user,
+            actual_start=None)
+
     def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
         form = self.get_form()
         if form.is_valid():
             return self.form_valid(form)
@@ -733,6 +755,11 @@ class ContestCandidateUpdateView(generic.UpdateView):
         form.contest = self.get_object().contest
         return form
 
+    def get_queryset(self):
+        return Candidate.objects.filter(
+            contest__mediator=self.request.user,
+            contest__actual_start=None)
+
     def get_success_url(self):
         contest = self.get_object().contest
         messages.success(
@@ -744,7 +771,7 @@ class ContestCandidateUpdateView(generic.UpdateView):
     @classmethod
     def as_url(cls):
         return path(
-            'candidate/<pk>/update/',
+            'candidates/<pk>/update/',
             login_required(cls.as_view()),
             name='contest_candidate_update'
         )
@@ -755,7 +782,9 @@ class ContestCandidateDeleteView(ContestMediator, generic.DeleteView):
         return self.delete(request, *args, **kwargs)
 
     def get_queryset(self):
-        return Candidate.objects.filter(contest__mediator=self.request.user)
+        return Candidate.objects.filter(
+            contest__mediator=self.request.user,
+            contest__actual_start=None)
 
     def get_success_url(self):
         contest = self.get_object().contest
@@ -772,7 +801,6 @@ class ContestCandidateDeleteView(ContestMediator, generic.DeleteView):
             login_required(cls.as_view()),
             name='contest_candidate_delete'
         )
-
 
 
 class GuardianCreateView(ContestMediator, FormMixin, generic.DetailView):
@@ -1146,6 +1174,11 @@ class VotersEmailsForm(forms.ModelForm):
 class ContestVotersUpdateView(ContestMediator, generic.UpdateView):
     template_name = 'djelectionguard/voters_update.html'
     form_class = VotersEmailsForm
+
+    def get_queryset(self):
+        return Contest.objects.filter(
+            mediator=self.request.user,
+            actual_start=None)
 
     def get_success_url(self):
         messages.success(

@@ -350,6 +350,18 @@ vot1@example.com\rvot2@example.com\rnew@example.com
     # cannot open again
     assert get(mediator, contest_open).status_code == 404
 
+    # cannot create candidate, update voters list or contest params
+    assert get(mediator, contest_url+'update/').status_code == 404
+    assert get(mediator, candidate_create).status_code == 404
+    assert get(mediator, voters).status_code == 404
+
+    candidate = contest.candidate_set.first()
+    candidate_update = f'/contest/candidates/{candidate.id}/update/'
+    assert get(mediator, candidate_update).status_code == 404
+
+    candidate_delete = f'/contest/candidates/{candidate.id}/delete/'
+    assert get(mediator, candidate_update).status_code == 404
+
     # OTP links should have been sent and take directly to the vote page
     emails = contest.voter_set.values_list('user__email', flat=True)
     assert len(mailoutbox) == len(emails)
