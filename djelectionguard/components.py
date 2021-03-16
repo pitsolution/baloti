@@ -291,7 +291,7 @@ class ContestList(html.Div):
     def __init__(self, *content, view, **context):
         super().__init__(
             html.H4('Elections', style='text-align: center;'),
-            ContestFilters(view),
+            # ContestFilters(view),
             html.Ul(
                 ListItem(ContestListCreateBtn()),
                 *(

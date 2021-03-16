@@ -9,7 +9,7 @@ from ryzom import html
 from ryzom_mdc import template
 from py2js.renderer import JS
 from .models import User
-from electeez.components import Document, Card
+from electeez.components import Document, Card, BackLink
 from ryzom_django_mdc.components import *
 
 from djelectionguard.components import CircleIcon
@@ -76,10 +76,10 @@ class RegistrationFormViewComponent(html.Html):
                 MDCButton('Register'),
                 method='POST',
                 cls='form card'),
-            html.Div(
-                html.Div('Or use:', cls='center-text'),
-                OAuthConnect(),
-                cls='card'),
+            # html.Div(
+            #     html.Div('Or use:', cls='center-text'),
+            #     OAuthConnect(),
+            #     cls='card'),
         )
 
 
@@ -89,11 +89,15 @@ RegistrationView.form_class = RegistrationForm
 @template('registration/login.html', Document, Card)
 class LoginFormViewComponent(html.Div):
     def __init__(self, *content, view, form, **kwargs):
+        if view.request.user.is_authenticated:
+            self.backlink = BackLink('my elections', reverse('contest_list'))
+
         super().__init__(
             html.Form(
                 html.H4('Welcome to Electeez', style='text-align: center;'),
-                OAuthConnect(),
-                html.Span('Or enter email and password:', cls='center-text'),
+                # OAuthConnect(),
+                # html.Span('Or enter email and password:', cls='center-text'),
+                html.Span('Enter email and password:', cls='center-text'),
                 CSRFInput(view.request),
                 form,
                 html.Div(
