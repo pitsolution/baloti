@@ -756,9 +756,9 @@ class ContestCandidateUpdateView(generic.UpdateView):
         return form
 
     def get_queryset(self):
-        return Contest.objects.filter(
-            mediator=self.request.user,
-            actual_start=None)
+        return Candidate.objects.filter(
+            contest__mediator=self.request.user,
+            contest__actual_start=None)
 
     def get_success_url(self):
         contest = self.get_object().contest
@@ -801,7 +801,6 @@ class ContestCandidateDeleteView(ContestMediator, generic.DeleteView):
             login_required(cls.as_view()),
             name='contest_candidate_delete'
         )
-
 
 
 class GuardianCreateView(ContestMediator, FormMixin, generic.DetailView):
