@@ -409,6 +409,36 @@ class AddVoterAction(ListAction):
         )
 
 
+class DownloadBtnMixin(Py2jsMixin):
+    async def get_file(event):
+        event.preventDefault()
+        elem = event.currentTarget
+        file_response = await fetch(elem.href).then(
+            lambda res: res.blob()
+        )
+        url = URL.createObjectURL(file_response)
+        link = document.createElement('a')
+        link.download = elem.dataset.filename
+        link.href = url
+        link.click()
+        URL.revokeObjectURL(url)
+        setTimeout(
+            lambda: document.location.reload()
+        , 2000)
+
+    def py2js(self):
+        elem = getElementByUuid(self._id)
+        elem.onclick = self.get_file
+
+
+class DownloadBtnOutlined(DownloadBtnMixin, MDCButtonOutlined):
+    pass
+
+
+class DownloadBtn(DownloadBtnMixin, MDCTextButton):
+    pass
+
+
 class SecureElectionInner(html.Span):
     def __init__(self, obj, user):
         text = 'All guardians must possess a private key so that the ballot box is secure and the election can be opened for voting.'
@@ -458,10 +488,11 @@ class SecureElectionInner(html.Span):
 
         action_btn = None
         if not guardian.downloaded:
-            action_btn = MDCButtonOutlined(
+            action_btn = DownloadBtnOutlined(
                 'download private key',
                 p=False,
                 icon='file_download',
+                data_filename=f'guardian-{guardian.id}.pkl',
                 tag='a',
                 href=reverse('guardian_download', args=[guardian.id]))
         elif not guardian.verified:
@@ -834,14 +865,17 @@ class GuardianActionButton(CList):
     def __init__(self, guardian, action):
         url = reverse(f'guardian_{action}', args=[guardian.id])
         if action == 'download':
-            label = 'Download'
-            icon = 'file_download'
+            btn = DownloadBtn(
+                'Download',
+                'file_download',
+                tag='a',
+                href=url,
+                data_filename=f'guardian-{guardian.id}.pkl')
+
         elif action == 'verify':
-            label = 'Upload'
-            icon = 'file_upload'
-        super().__init__(
-            MDCTextButton(label, icon, tag='a', href=url)
-        )
+            btn = MDCTextButton('Upload', 'file_upload', tag='a', href=url)
+
+        super().__init__(btn)
 
 
 class GuardianTable(html.Div):
