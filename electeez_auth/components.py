@@ -5,7 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django_registration.forms import RegistrationForm
 from django_registration.backends.activation.views import RegistrationView
 import ryzom
-from ryzom import html
+from ryzom_django import html
 from ryzom_mdc import template
 from py2js.renderer import JS
 from .models import User

@@ -14,8 +14,14 @@ urlpatterns = [
     path('tezos/', include('djelectionguard_tezos.views')),
     path('', generic.RedirectView.as_view(url='/contest/')),
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
 
+if settings.DEBUG:
+    urlpatterns.append(
+        path('bundles/', include('ryzom_django.bundle')),
+    )
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += staticfiles_urlpatterns()
 
 
