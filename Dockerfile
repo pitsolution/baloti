@@ -13,7 +13,7 @@ RUN pip3 install -Ur /app/requirements.txt
 COPY . /app/
 RUN DEBUG= ./manage.py compilescss
 RUN DEBUG= ./manage.py ryzom_bundle
-RUN DEBUG= ./manage.py collectstatic
+RUN DEBUG= ./manage.py collectstatic --noinput
 RUN find public -type f | xargs gzip -f -k -9
 USER app
 
