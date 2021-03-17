@@ -1194,19 +1194,3 @@ class ContestVotersUpdateView(ContestMediator, generic.UpdateView):
             login_required(cls.as_view()),
             name='contest_voters_update'
         )
-
-
-class BundleView(generic.View):
-    def get(self, *args, **kwargs):
-        from ryzom.js import bundle
-        response = http.HttpResponse(
-            bundle(
-                'djelectionguard.components',
-            ),
-        )
-        response['Content-Type'] = 'text/javascript'
-        return response
-
-    @classmethod
-    def as_url(cls):
-        return path('bundle.js', cls.as_view())

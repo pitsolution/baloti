@@ -27,7 +27,6 @@ from .views import (
     ContestDetailView,
     ContestResultView,
     ContestPublishView,
-    BundleView,
 )
 
 
@@ -57,5 +56,4 @@ urlpatterns = [
     ContestDetailView.as_url(),
     ContestResultView.as_url(),
     ContestPublishView.as_url(),
-    BundleView.as_url(),
 ]

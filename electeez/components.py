@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib import messages
 from django.urls import reverse
-from ryzom import html
+from ryzom_django_mdc import html
 from ryzom.contrib.django import Static
 from py2js.renderer import JS
 from sass_processor.processor import sass_processor
@@ -83,15 +83,11 @@ class Card(html.Div):
 
 
 
-class Document(html.Component):
-    tag='html'
+class Document(html.Html):
+    title = 'Secure elections with homomorphic encryption'
 
     def __init__(self, main_component, **kwargs):
         self.main_component = main_component
-        mdc_icons_src = 'https://fonts.googleapis.com/icon?family=Material+Icons'
-        nanum_pen_src = 'https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap'
-        mdc_style_src = 'https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css'
-        mdc_script_src = 'https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js'
         if settings.DEBUG:
             style_src = sass_processor('css/style.scss')
         else:
@@ -116,18 +112,7 @@ class Document(html.Component):
 
         content = [
             html.Head(
-                html.Title('Secure elections with homomorphic encryption'),
-                html.Meta(charset='utf-8'),
-                html.Meta(
-                    name='viewport',
-                    content='width=device-width, initial-scale=1.0'),
-                html.Link(rel='stylesheet', href=mdc_icons_src),
-                html.Link(rel='stylesheet', href=mdc_style_src),
-                html.Link(rel='stylesheet', href=nanum_pen_src),
                 html.Link(rel='stylesheet', href=style_src),
-                html.Script(type='text/javascript', src=mdc_script_src),
-                html.Script(type='text/javascript', src='/static/py2js.js'),
-                html.Script(type='text/javascript', src='/contest/bundle.js'),
             ),
             body
         ]
