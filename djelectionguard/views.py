@@ -84,7 +84,7 @@ class ContestGuardian:
 class ContestAccessible:
     def get_queryset(self):
         return Contest.objects.filter(
-            Q(voter__user=self.request.user)
+            (Q(voter__user=self.request.user) & ~Q(actual_start=None))
             | Q(guardian__user=self.request.user)
             | Q(mediator=self.request.user)
         ).distinct()
@@ -154,10 +154,12 @@ class ContestResultView(ContestAccessible, generic.DetailView):
     template_name = 'contest_result'
 
     def get_queryset(self):
-        return Contest.objects.filter(
-            mediator=self.request.user,
-        ).exclude(
+        return Contest.objects.exclude(
             actual_end=None
+        ).filter(
+            Q(voter__user=self.request.user)
+            | Q(guardian__user=self.request.user)
+            | Q(mediator=self.request.user)
         )
 
     @classmethod

@@ -821,10 +821,13 @@ class ContestSettingsCard(html.Div):
             ]
             if contest.decentralized:
                 list_content.append(ChooseBlockchainAction(contest, user)),
-                if contest.publish_status:
+
+            if contest.voter_set.count() and contest.candidate_set.count():
+                if contest.decentralized:
+                    if contest.publish_status:
+                        list_content.append(SecureElectionAction(contest, user))
+                else:
                     list_content.append(SecureElectionAction(contest, user))
-            else:
-                list_content.append(SecureElectionAction(contest, user))
         else:
             list_content.append(SecureElectionAction(contest, user))
 
@@ -843,8 +846,12 @@ class Section(html.Div):
 
 
 class TezosSecuredCard(Section):
-    def __init__(self, contest):
-        if contest.decentralized and contest.publish_status == 0:
+    def __init__(self, contest, user):
+        if (
+            contest.decentralized
+            and contest.publish_status == 0
+            and contest.mediator == user
+        ):
             btn = MDCButton(
                 'choose blockchain',
                 tag='a',
@@ -1048,23 +1055,32 @@ class ContestCard(html.Div):
         else:
             main_section = ContestSettingsCard(view, **context)
 
+        action_section = html.Div(
+            main_section,
+            TezosSecuredCard(contest, view.request.user),
+            cls='main-container')
+        sub_section = html.Div(
+            CandidatesSettingsCard(view, **context),
+            cls='side-container')
+
+        if (
+            contest.mediator == view.request.user
+            or contest.guardian_set.filter(user=view.request.user).count()
+        ):
+            action_section.addchild(GuardiansSettingsCard(view, **context))
+
+        if contest.mediator == view.request.user:
+            sub_section.addchild(VotersSettingsCard(view, **context))
+
+
         super().__init__(
             html.Div(
                 html.Div(
                     BackLink('my elections', reverse('contest_list')),
                     cls='main-container'),
                 html.Div(cls='side-container'),
-                html.Div(
-                    main_section,
-                    TezosSecuredCard(contest),
-                    GuardiansSettingsCard(view, **context),
-                    cls='main-container'
-                ),
-                html.Div(
-                    CandidatesSettingsCard(view, **context),
-                    VotersSettingsCard(view, **context),
-                    cls='side-container'
-                ),
+                action_section,
+                sub_section,
                 cls='flex-container'
             )
         )
