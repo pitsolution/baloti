@@ -82,38 +82,25 @@ class Card(html.Div):
         super().__init__(main_component, cls='card')
 
 
+if settings.DEBUG:
+    style_src = sass_processor('css/style.scss')
+else:
+    style_src = '/static/css/style.css'
+
 
 class Document(html.Html):
     title = 'Secure elections with homomorphic encryption'
+    stylesheets = [style_src]
 
     def __init__(self, main_component, **kwargs):
         self.main_component = main_component
-        if settings.DEBUG:
-            style_src = sass_processor('css/style.scss')
-        else:
-            style_src = '/static/css/style.css'
-
-        body = html.Body(
-            TopPanel(**kwargs),
-            cls='mdc-typography'
-        )
-
-        if backlink := getattr(main_component, 'backlink', None):
-            body.content.append(backlink)
 
         messages_component = Messages(kwargs['request'])
 
-        body.content += [
-            main_component,
+        super().__init__(
+            TopPanel(**kwargs),
+            getattr(main_component, 'backlink', ''),
+            self.main_component,
             messages_component,
             Footer(),
-            html.Script('mdc.autoInit()', type='text/javascript'),
-        ]
-
-        content = [
-            html.Head(
-                html.Link(rel='stylesheet', href=style_src),
-            ),
-            body
-        ]
-        super().__init__(*content)
+        )
