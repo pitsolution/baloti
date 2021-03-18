@@ -7,13 +7,14 @@ from py2js import Mixin as Py2jsMixin
 from py2js.renderer import JS, autoexec
 from ryzom_mdc import *
 from ryzom_django_mdc.components import *
+from ryzom_django.forms import widget_template
 from electeez.components import Document, Card, BackLink
 from .models import Contest, Candidate
 
 from ryzom_django_mdc.components import SplitDateTimeWidget
 
 
-@template('django/forms/widgets/splitdatetime.html')
+@widget_template('django/forms/widgets/splitdatetime.html')
 class SplitDateTimeWidget(SplitDateTimeWidget):
     date_style = 'margin-top: 0; margin-bottom: 32px;'
     time_style = 'margin: 0;'
