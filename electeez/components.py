@@ -8,6 +8,27 @@ from sass_processor.processor import sass_processor
 from ryzom_mdc import MDCButton, MDCTextButton, MDCSnackBar
 
 
+class MDCLinearProgress(html.Div):
+    def __init__(self):
+        super().__init__(
+            html.Div(
+                html.Div(cls='mdc-linear-progress__buffer-bar'),
+                cls='mdc-linear-progress__buffer'),
+            html.Div(
+                html.Span(cls='mdc-linear-progress__bar-inner'),
+                cls='mdc-linear-progress__bar mdc-linear-progress__primary-bar'),
+            html.Div(
+                html.Span(cls='mdc-linear-progress__bar-inner'),
+                cls='mdc-linear-progress__bar mdc-linear-progress__secondary-bar'),
+            role='progressbar',
+            cls='mdc-linear-progress',
+            data_mdc_auto_init='MDCLinearProgress',
+            aria_label='progress bar',
+            aria_valuemin=0,
+            aria_valuemax=1,
+        )
+
+
 class TopPanel(html.Div):
     def __init__(self, request=None, **kwargs):
         self.user = user = request.user

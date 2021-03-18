@@ -324,6 +324,27 @@ vot1@example.com\rvot2@example.com\rnew@example.com
     assert get(voter1, ballot).status_code == 404, ballot
     assert get(mediator, ballot).status_code == 404, ballot
 
+    candidate = contest.candidate_set.first()
+    candidate_delete = f'/contest/candidates/{candidate.id}/delete/'
+
+    # mediator can delete candidate
+    assert get(mediator, candidate_delete).status_code == 302
+    assert not contest.actual_start
+    contest_open = f'{contest_url}open/'
+
+    # open is not permitted due to candidate number
+    res = post(
+        mediator,
+        contest_open,
+        email_title='title',
+        email_message='Hi LINK')
+    assert res.status_code == 200
+    assert (
+        'Must have more candidates than number elected'
+        in res.context_data['form'].non_field_errors()
+    )
+    contest.candidate_set.create(name=candidate.name)
+
     # only mediator should be able to open the vote
     assert not contest.actual_start
     contest_open = f'{contest_url}open/'

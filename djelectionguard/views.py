@@ -84,7 +84,7 @@ class ContestGuardian:
 class ContestAccessible:
     def get_queryset(self):
         return Contest.objects.filter(
-            Q(voter__user=self.request.user)
+            (Q(voter__user=self.request.user) & ~Q(actual_start=None))
             | Q(guardian__user=self.request.user)
             | Q(mediator=self.request.user)
         ).distinct()
@@ -154,10 +154,12 @@ class ContestResultView(ContestAccessible, generic.DetailView):
     template_name = 'contest_result'
 
     def get_queryset(self):
-        return Contest.objects.filter(
-            mediator=self.request.user,
-        ).exclude(
+        return Contest.objects.exclude(
             actual_end=None
+        ).filter(
+            Q(voter__user=self.request.user)
+            | Q(guardian__user=self.request.user)
+            | Q(mediator=self.request.user)
         )
 
     @classmethod
@@ -237,6 +239,12 @@ class ContestOpenView(ContestMediator, generic.UpdateView):
         class Meta:
             model = Contest
             fields = []
+
+        def clean(self):
+            if self.instance.candidate_set.count() <= self.instance.number_elected:
+                raise forms.ValidationError(
+                    'Must have more candidates than number elected'
+                )
 
         def save(self, *args, **kwargs):
             self.instance.prepare()
@@ -702,6 +710,7 @@ class ContestCandidateCreateView(ContestMediator, FormMixin, generic.DetailView)
                 raise forms.ValidationError(
                     f'{name} already added!'
                 )
+
             return name
 
         class Meta:

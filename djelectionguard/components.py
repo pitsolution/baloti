@@ -8,7 +8,12 @@ from py2js.renderer import JS, autoexec
 from ryzom_mdc import *
 from ryzom_django_mdc.components import *
 from ryzom_django.forms import widget_template
-from electeez.components import Document, Card, BackLink
+from electeez.components import (
+    Document,
+    Card,
+    BackLink,
+    MDCLinearProgress
+)
 from .models import Contest, Candidate
 
 from ryzom_django_mdc.components import SplitDateTimeWidget
@@ -373,14 +378,13 @@ class AddCandidateAction(ListAction):
         kwargs = dict(
             tag='a',
             href=reverse('contest_candidate_create', args=[obj.id]))
-        if num_candidates:
+        if num_candidates and num_candidates > obj.number_elected:
             btn_comp = MDCButtonOutlined('edit', False, **kwargs)
             icon = DoneIcon()
-            txt = f'{num_candidates} candidates'
         else:
             btn_comp = MDCButtonOutlined('add', False, 'add', **kwargs)
             icon = TodoIcon()
-            txt = ''
+        txt = f'{num_candidates} candidates, minimum: {obj.number_elected + 1}'
 
         super().__init__(
             'Add candidates', txt, icon, btn_comp,
@@ -525,15 +529,16 @@ class SecureElectionInner(html.Span):
 
 class SecureElectionAction(ListAction):
     def __init__(self, obj, user):
+        title = 'Secure the election'
+
         if obj.mediator == user:
             if obj.joint_public_key:
-                icon = DoneIcon()
                 title = 'Ballot box securely locked. Election can be open for voting.'
+                icon = DoneIcon()
             else:
                 icon = TodoIcon()
-                title = 'Secure the election'
+
         elif guardian := obj.guardian_set.filter(user=user).first():
-            title = 'Secure the election'
             if guardian.verified:
                 icon = DoneIcon()
             else:
@@ -821,10 +826,17 @@ class ContestSettingsCard(html.Div):
             ]
             if contest.decentralized:
                 list_content.append(ChooseBlockchainAction(contest, user)),
-                if contest.publish_status:
+
+            if (
+                contest.voter_set.count()
+                and contest.candidate_set.count()
+                and contest.candidate_set.count() > contest.number_elected
+            ):
+                if contest.decentralized:
+                    if contest.publish_status:
+                        list_content.append(SecureElectionAction(contest, user))
+                else:
                     list_content.append(SecureElectionAction(contest, user))
-            else:
-                list_content.append(SecureElectionAction(contest, user))
         else:
             list_content.append(SecureElectionAction(contest, user))
 
@@ -843,8 +855,12 @@ class Section(html.Div):
 
 
 class TezosSecuredCard(Section):
-    def __init__(self, contest):
-        if contest.decentralized and contest.publish_status == 0:
+    def __init__(self, contest, user):
+        if (
+            contest.decentralized
+            and contest.publish_status == 0
+            and contest.mediator == user
+        ):
             btn = MDCButton(
                 'choose blockchain',
                 tag='a',
@@ -1048,23 +1064,32 @@ class ContestCard(html.Div):
         else:
             main_section = ContestSettingsCard(view, **context)
 
+        action_section = html.Div(
+            main_section,
+            TezosSecuredCard(contest, view.request.user),
+            cls='main-container')
+        sub_section = html.Div(
+            CandidatesSettingsCard(view, **context),
+            cls='side-container')
+
+        if (
+            contest.mediator == view.request.user
+            or contest.guardian_set.filter(user=view.request.user).count()
+        ):
+            action_section.addchild(GuardiansSettingsCard(view, **context))
+
+        if contest.mediator == view.request.user:
+            sub_section.addchild(VotersSettingsCard(view, **context))
+
+
         super().__init__(
             html.Div(
                 html.Div(
                     BackLink('my elections', reverse('contest_list')),
                     cls='main-container'),
                 html.Div(cls='side-container'),
-                html.Div(
-                    main_section,
-                    TezosSecuredCard(contest),
-                    GuardiansSettingsCard(view, **context),
-                    cls='main-container'
-                ),
-                html.Div(
-                    CandidatesSettingsCard(view, **context),
-                    VotersSettingsCard(view, **context),
-                    cls='side-container'
-                ),
+                action_section,
+                sub_section,
                 cls='flex-container'
             )
         )
