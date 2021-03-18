@@ -240,6 +240,12 @@ class ContestOpenView(ContestMediator, generic.UpdateView):
             model = Contest
             fields = []
 
+        def clean(self):
+            if self.instance.candidate_set.count() <= self.instance.number_elected:
+                raise forms.ValidationError(
+                    'Must have more candidates than number elected'
+                )
+
         def save(self, *args, **kwargs):
             self.instance.prepare()
             self.instance.actual_start = timezone.now()
@@ -704,6 +710,7 @@ class ContestCandidateCreateView(ContestMediator, FormMixin, generic.DetailView)
                 raise forms.ValidationError(
                     f'{name} already added!'
                 )
+
             return name
 
         class Meta:

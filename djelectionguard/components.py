@@ -373,14 +373,13 @@ class AddCandidateAction(ListAction):
         kwargs = dict(
             tag='a',
             href=reverse('contest_candidate_create', args=[obj.id]))
-        if num_candidates:
+        if num_candidates and num_candidates > obj.number_elected:
             btn_comp = MDCButtonOutlined('edit', False, **kwargs)
             icon = DoneIcon()
-            txt = f'{num_candidates} candidates'
         else:
             btn_comp = MDCButtonOutlined('add', False, 'add', **kwargs)
             icon = TodoIcon()
-            txt = ''
+        txt = f'{num_candidates} candidates, minimum: {obj.number_elected + 1}'
 
         super().__init__(
             'Add candidates', txt, icon, btn_comp,
@@ -823,7 +822,11 @@ class ContestSettingsCard(html.Div):
             if contest.decentralized:
                 list_content.append(ChooseBlockchainAction(contest, user)),
 
-            if contest.voter_set.count() and contest.candidate_set.count():
+            if (
+                contest.voter_set.count()
+                and contest.candidate_set.count()
+                and contest.candidate_set.count() > contest.number_elected
+            ):
                 if contest.decentralized:
                     if contest.publish_status:
                         list_content.append(SecureElectionAction(contest, user))
