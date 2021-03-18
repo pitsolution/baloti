@@ -8,7 +8,12 @@ from py2js.renderer import JS, autoexec
 from ryzom_mdc import *
 from ryzom_django_mdc.components import *
 from ryzom_django.forms import widget_template
-from electeez.components import Document, Card, BackLink
+from electeez.components import (
+    Document,
+    Card,
+    BackLink,
+    MDCLinearProgress
+)
 from .models import Contest, Candidate
 
 from ryzom_django_mdc.components import SplitDateTimeWidget
