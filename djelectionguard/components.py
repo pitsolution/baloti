@@ -525,15 +525,16 @@ class SecureElectionInner(html.Span):
 
 class SecureElectionAction(ListAction):
     def __init__(self, obj, user):
+        title = 'Secure the election'
+
         if obj.mediator == user:
             if obj.joint_public_key:
-                icon = DoneIcon()
                 title = 'Ballot box securely locked. Election can be open for voting.'
+                icon = DoneIcon()
             else:
                 icon = TodoIcon()
-                title = 'Secure the election'
+
         elif guardian := obj.guardian_set.filter(user=user).first():
-            title = 'Secure the election'
             if guardian.verified:
                 icon = DoneIcon()
             else:
