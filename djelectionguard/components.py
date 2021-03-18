@@ -7,7 +7,6 @@ from py2js import Mixin as Py2jsMixin
 from py2js.renderer import JS, autoexec
 from ryzom_mdc import *
 from ryzom_django_mdc.components import *
-from electeez import mdc
 from electeez.components import Document, Card, BackLink
 from .models import Contest, Candidate
 
@@ -427,7 +426,7 @@ class DownloadBtnMixin(Py2jsMixin):
         , 2000)
 
     def py2js(self):
-        elem = getElementByUuid(self._id)
+        elem = getElementByUuid(self.id)
         elem.onclick = self.get_file
 
 
@@ -878,7 +877,7 @@ class TezosSecuredCard(Section):
         )
 
 
-class CheckedIcon(mdc.MDCIcon):
+class CheckedIcon(MDCIcon):
     def __init__(self):
         super().__init__('check_circle', cls='icon green2')
 
@@ -1105,7 +1104,7 @@ class VoterList(html.Ul):
             num_emails = 0
         super().__init__(
             *(
-                mdc.MDCListItem(voter)
+                MDCListItem(voter)
                 for voter
                 in emails
             ) if num_emails
@@ -1233,7 +1232,7 @@ class ContestCandidateUpdateCard(html.Div):
                 form,
                 html.Div(
                     html.Div(delete_btn, cls='red-button-container'),
-                    mdc.MDCButton('Save', True),
+                    MDCButton('Save', True),
                     style='display: flex; justify-content: space-between'),
                 method='POST',
                 cls='form'),
@@ -1274,7 +1273,7 @@ class GuardianVerifyCard(Py2jsMixin, html.Div):
             reverse('contest_detail', args=[contest.id]))
 
         self.submit_btn = MDCButton('confirm', True, disabled=True)
-        self.submit_btn_id = self.submit_btn._id
+        self.submit_btn_id = self.submit_btn.id
 
         super().__init__(
             html.H4('Confirm possession of an uncompromised private key', cls='center-text'),
@@ -1320,7 +1319,7 @@ class ContestPubKeyCard(html.Div):
                 html.P('This is what makes the governing of the election decentralised.')
             ),
             html.Form(
-                mdc.CSRFInput(view.request),
+                CSRFInput(view.request),
                 MDCButton('create'),
                 method='POST',
                 cls='form'
@@ -1419,17 +1418,7 @@ class ContestBallotEncryptCard(html.Div):
                 for candidate in selections),
                 cls='mdc-list'),
             change_btn,
-            html.H6('Plain text ballot'),
-            html.Div(
-                html.P('For reference, this is your ballot before encryption:'),
-                cls='body-2'),
             html.Form(
-                Div(
-                    mdc.MDCTextareaFieldOutlined(
-                        ballot,
-                        rows=15,
-                        readonly=True),
-                    style='margin-bottom: 24px;'),
                 CSRFInput(view.request),
                 encrypt_btn,
                 method='POST',
@@ -1458,11 +1447,15 @@ class ContestBallotCastCard(Py2jsMixin, html.Div):
                 cls='center-text body-2'),
             html.Form(
                 Div(
-                    mdc.MDCTextareaFieldOutlined(
-                        self.ballot.to_json(),
-                        rows=15,
-                        readonly=True),
-                    style='margin-bottom: 24px;'),
+                    MDCTextareaFieldOutlined(
+                        Textarea(
+                            self.ballot.to_json(),
+                            rows=15,
+                            name='encrypted',
+                        ),
+                    ),
+                    style='margin-bottom: 24px;'
+                ),
                 CSRFInput(view.request),
                 Div(
                     self.download_btn,
@@ -1471,10 +1464,11 @@ class ContestBallotCastCard(Py2jsMixin, html.Div):
                           'justify-content: space-between;'
                           'flex-wrap: wrap;'),
                 method='POST',
-                cls='encrypt-form'),
+                cls='encrypt-form'
+            ),
             cls='card',
         )
-        self.download_btn_id = self.download_btn._id
+        self.download_btn_id = self.download_btn.id
         self.ballot_json = self.ballot.to_json().replace('"', '\\"')
         self.file_name = self.contest.name + '_encrypted_ballot.json'
 
@@ -1530,7 +1524,7 @@ class GuardianUploadKeyCard(Py2jsMixin, html.Div):
             reverse('contest_detail', args=[contest.id]))
 
         self.submit_btn = MDCButton('confirm', True, disabled=True)
-        self.submit_btn_id = self.submit_btn._id
+        self.submit_btn_id = self.submit_btn.id
 
         super().__init__(
             html.H4('Verify your private key', cls='center-text'),
@@ -1574,7 +1568,7 @@ class ContestDecryptCard(html.Div):
                 html.P('This process will erase all guardian keys from server memory.'),
                 cls='center-text body-2'),
             html.Form(
-                mdc.CSRFInput(view.request),
+                CSRFInput(view.request),
                 MDCButton('open and view results'),
                 method='POST',
                 cls='form'),
@@ -1613,7 +1607,7 @@ class PublishProgressBar(Py2jsMixin, html.Div):
             steps[step].attrs['class'] += ' progress-step--active'
 
         super().__init__(
-            mdc.MDCLinearProgress(),
+            MDCLinearProgress(),
             html.Div(
                 *steps,
                 cls='progress-bar__steps'
@@ -1730,7 +1724,7 @@ class GuardianDeleteBtn(html.A):
         self.guardian = guardian
 
         super().__init__(
-            mdc.MDCIcon(
+            MDCIcon(
                 'delete',
                 cls='delete-icon'),
             tag='a',
@@ -1795,13 +1789,13 @@ class GuardianCreateCard(html.Div):
                 cls='red-section'),
             html.Form(
                 form['email'],
-                mdc.CSRFInput(view.request),
-                mdc.MDCButtonOutlined('add guardian', p=False, icon='person_add'),
+                CSRFInput(view.request),
+                MDCButtonOutlined('add guardian', p=False, icon='person_add'),
                 table,
                 html.Div(
                     form['quorum'],
                     html.Span(
-                        mdc.MDCButton('Save'),
+                        MDCButton('Save'),
                         style='margin: 32px 12px'),
                     style='display:flex;'
                           'flex-flow: row nowrap;'
