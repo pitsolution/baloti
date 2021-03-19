@@ -14,7 +14,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.core.mail import send_mail
 from django.core.validators import EmailValidator
 from django.db import transaction
 from django.db.models import ObjectDoesNotExist, Q
@@ -256,9 +255,13 @@ class ContestOpenView(ContestMediator, generic.UpdateView):
         msg = f'''
         Hello,
 
-        Election {self.object} is open for voting, you may use the link below once:
+        Election {self.object} is open for voting, you may use the link below:
 
         LINK
+
+        The link will work only once and expire in 24H, but you can get another one from:
+
+        RENEW_LINK
 
         Happy voting!
         '''
@@ -277,22 +280,12 @@ class ContestOpenView(ContestMediator, generic.UpdateView):
         else:
             contract.open()
 
-        for voter in self.object.voter_set.all():
-            voter.user.otp_new()
-            voter.user.save()
-            otp_link = reverse('otp_login', args=[voter.user.otp_token])
-            send_mail(
-                form.cleaned_data['email_title'],
-                form.cleaned_data['email_message'].replace(
-                    'LINK',
-                    settings.BASE_URL
-                    + otp_link
-                    + '?next='
-                    + reverse('contest_vote', args=[self.object.pk])
-                ),
-                'webmaster@electeez.com',
-                [voter.user.email],
-            )
+        self.object.send_mail(
+            form.cleaned_data['email_title'],
+            form.cleaned_data['email_message'],
+            reverse('contest_vote', args=[self.object.pk]),
+            'open_email_sent',
+        )
 
         messages.success(
             self.request,
@@ -347,9 +340,35 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
     template_name = 'contest_decrypt'
 
     class form_class(forms.ModelForm):
+        email_title = forms.CharField(
+            help_text='Title of the email that will be sent to each voter',
+        )
+        email_message = forms.CharField(
+            widget=forms.Textarea,
+            help_text='Body of the email that will be sent, LINK will be replaced by the result link',
+        )
         class Meta:
             model = Contest
             fields = []
+
+    def get_form_kwargs(self):
+        msg = f'''
+        Hello,
+
+        Election {self.object} has been tallied, you may use the link below to check the results:
+
+        LINK
+
+        The link will work only once and expire in 24H, but you can get another one from:
+
+        RENEW_LINK
+        '''
+        kwargs = super().get_form_kwargs()
+        kwargs['initial'] = dict(
+            email_title=f'Election {self.object} is has been tallied!',
+            email_message=textwrap.dedent(msg),
+        )
+        return kwargs
 
     @classmethod
     def as_url(cls):
@@ -364,6 +383,14 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
 
     def form_valid(self, form):
         self.object.decrypt()
+
+        self.object.send_mail(
+            form.cleaned_data['email_title'],
+            form.cleaned_data['email_message'],
+            reverse('contest_detail', args=[self.object.pk]),
+            'close_email_sent',
+        )
+
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -513,11 +540,26 @@ class ContestPubkeyView(ContestMediator, generic.UpdateView):
 class ContestVoteMixin:
     def get_queryset(self):
         return Contest.objects.filter(
-            actual_end=None,
-            voter__in=self.request.user.voter_set.filter(casted=None),
-        ).exclude(
-            actual_start=None,
+            voter__user=self.request.user,
         )
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        voter = self.object.voter_set.get(user=request.user)
+        redirect = http.HttpResponseRedirect(reverse('contest_list'))
+        if self.object.actual_end:
+            messages.error(request, f'{self.object} vote is closed')
+            return redirect
+        elif not self.object.actual_start:
+            messages.error(request, f'{self.object} vote is not yet open')
+            return redirect
+        elif voter and voter.casted:
+            messages.error(
+                request,
+                f'You have already casted your vote for {self.object}',
+            )
+            return redirect
+        return super().get(request, *args, **kwargs)
 
 
 class ContestVoteView(ContestVoteMixin, FormMixin, generic.DetailView):
@@ -1060,6 +1102,7 @@ class GuardianDownloadView(generic.DetailView):
 
 class ContestVotersDetailView(ContestMediator, generic.DetailView):
     template_name = 'djelectionguard/contest_voters_detail.html'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['users'] = {

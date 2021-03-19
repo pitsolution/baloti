@@ -1,9 +1,13 @@
+import textwrap
+
 from django import forms
 from django import http
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.backends import BaseBackend
 from django.core.exceptions import ValidationError
+from django.core.mail import send_mail
 from django.views import generic
 from django.utils import timezone
 from django.urls import include, path, reverse
@@ -32,11 +36,56 @@ class OTPSend(generic.FormView):
                 )
             return value
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['initial'] = dict(
+            email=self.request.GET.get('email', '')
+        )
+        return kwargs
+
     def form_valid(self, form):
         form.user.otp_new()
         form.user.save()
+
+        nextlink = self.request.GET.get('next', '')
+
+        LINK = ''.join([
+            settings.BASE_URL,
+            reverse('otp_login', args=[form.user.otp_token]),
+            ('?next=' + nextlink) if nextlink else ''
+        ])
+
+        RENEW_LINK = ''.join([
+            settings.BASE_URL,
+            reverse('otp_send'),
+            '?email=',
+            form.cleaned_data['email'],
+            ('&next=' + nextlink) if nextlink else ''
+        ])
+
+        send_mail(
+            'Your magic link',
+            textwrap.dedent(f'''
+                Hello,
+
+                This is the magic link you have requested:
+
+                {LINK}
+
+                It is useable once and will expire in 24h, you can request a new magic link here:
+
+                {RENEW_LINK}
+            '''),
+            'webmaster@electeez.com',
+            [form.cleaned_data['email']],
+        )
+
         messages.success(self.request, 'Link sent by email')
-        return self.get(self.request)
+        return http.HttpResponseRedirect(reverse('otp_email_success'))
+
+
+class OTPEmailSuccess(generic.TemplateView):
+    template_name = 'electeez_auth/otp_email_success.html'
 
 
 class OTPBackend(BaseBackend):

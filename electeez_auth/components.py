@@ -243,3 +243,12 @@ class OTPSendCard(html.Div):
                 method='POST',
                 cls='form'),
             cls='card',)
+
+
+@template('electeez_auth/otp_email_success.html', Document, Card)
+class OTPSendCard(html.Div):
+    def __init__(self, *content, **context):
+        super().__init__(
+            html.H4('Email sent with success'),
+            cls='card',
+        )
