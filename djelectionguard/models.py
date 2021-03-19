@@ -40,10 +40,6 @@ class Contest(models.Model):
     )
     name = models.CharField(max_length=255)
     type = models.CharField(default='school', max_length=100)
-    number_elected = models.PositiveIntegerField(
-        default=1,
-        validators=[above_0],
-    )
     votes_allowed = models.PositiveIntegerField(
         default=1,
         validators=[above_0],
@@ -73,6 +69,10 @@ class Contest(models.Model):
 
     artifacts_sha1 = models.CharField(max_length=255, null=True, blank=True)
     artifacts_ipfs = models.CharField(max_length=255, null=True, blank=True)
+
+    @property
+    def number_elected(self):
+        return self.votes_allowed
 
     @property
     def number_guardians(self):
