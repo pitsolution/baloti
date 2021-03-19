@@ -1146,7 +1146,7 @@ class VotersDetailCard(html.Div):
         self.backlink = BackLink('back', reverse('contest_detail', args=[contest.id]))
         voters = contest.voter_set.all()
         table_head_row = html.Tr(cls='mdc-data-table__header-row')
-        for th in ('email', 'activated', 'voted'):
+        for th in ('email', 'vote email sent', 'voted', 'tally email sent'):
             table_head_row.addchild(
                 html.Th(
                     th,
@@ -1163,8 +1163,15 @@ class VotersDetailCard(html.Div):
             activated = voter.user and voter.user.is_active
             table_content.addchild(html.Tr(
                 html.Td(voter.user.email, cls=cls),
-                html.Td(CheckedIcon() if activated else 'No', cls=cls + ' center'),
+                html.Td(
+                    voter.open_email_sent or '',
+                    cls=cls + ' center',
+                ),
                 html.Td(CheckedIcon() if voter.casted else 'No', cls=cls + ' center'),
+                html.Td(
+                    voter.close_email_sent or '',
+                    cls=cls + ' center',
+                ),
                 cls='mdc-data-table__row',
                 style='opacity: 0.5;' if not activated else ''
             ))
@@ -1594,6 +1601,7 @@ class ContestDecryptCard(html.Div):
                 html.P('This process will erase all guardian keys from server memory.'),
                 cls='center-text body-2'),
             html.Form(
+                context['form'],
                 CSRFInput(view.request),
                 MDCButton('open and view results'),
                 method='POST',

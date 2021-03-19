@@ -313,7 +313,7 @@ vot1@example.com\rvot2@example.com\rnew@example.com
     assert client.get(vote).status_code == 302, vote
     #assert get(guardian2.user, vote).status_code == 404, vote
     assert get(external, vote).status_code == 404, vote
-    assert get(voter1, vote).status_code == 404, vote
+    assert get(voter1, vote).status_code == 302, vote
     assert get(mediator, vote).status_code == 404, vote
 
     # ballot neither
@@ -321,7 +321,7 @@ vot1@example.com\rvot2@example.com\rnew@example.com
     assert client.get(ballot).status_code == 302, ballot
     #assert get(guardian2.user, ballot).status_code == 404, ballot
     assert get(external, ballot).status_code == 404, ballot
-    assert get(voter1, ballot).status_code == 404, ballot
+    assert get(voter1, ballot).status_code == 302, ballot
     assert get(mediator, ballot).status_code == 404, ballot
 
     candidate = contest.candidate_set.first()
@@ -431,9 +431,9 @@ vot1@example.com\rvot2@example.com\rnew@example.com
     # and casts, then cannot vote again
     response = post(voter1, cast)
     assert voter1.voter_set.get(contest=contest).casted
-    assert get(voter1, vote).status_code == 404, vote
-    assert get(voter1, ballot).status_code == 404, vote
-    assert get(voter1, cast).status_code == 404, vote
+    assert get(voter1, vote).status_code == 302, vote
+    assert get(voter1, ballot).status_code == 302, vote
+    assert get(voter1, cast).status_code == 302, vote
 
     # let's close the vote ... if we're mediator
     contest.refresh_from_db()
@@ -506,8 +506,22 @@ vot1@example.com\rvot2@example.com\rnew@example.com
     #assert post(guardian2.user, decrypt).status_code == 404
 
     # decrypt tally
-    assert post(mediator, decrypt).status_code == 302
+    assert post(
+        mediator,
+        decrypt,
+        email_title='results title',
+        email_message='Hi LINK',
+    ).status_code == 302
     score = lambda pk: contest.candidate_set.get(pk=pk).score
     assert score(candidates[0]) == 1
     assert score(candidates[1]) == 1
     assert score(candidates[2]) == 0
+
+    # OTP links should have been sent and take directly to the results page
+    emails = contest.voter_set.values_list('user__email', flat=True)
+    assert len(mailoutbox) == len(emails) * 2
+    assert mailoutbox[-1].subject == 'results title'
+    link = mailoutbox[-1].body[3:]
+    _client = Client()
+    assert _client.get(link)['Location'] == contest_url
+    assert _client.get(contest_url).status_code == 200

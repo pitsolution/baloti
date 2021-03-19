@@ -10,11 +10,13 @@ import uuid
 from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.core.mail import send_mail
 from django.db import models, transaction
 from django.db.models import signals
 from django.urls import reverse
 from django.utils import timezone
 
+from djcall.models import Caller
 from pymemcache.client.base import Client
 from picklefield.fields import PickledObjectField
 
@@ -376,6 +378,68 @@ class Contest(models.Model):
     def __str__(self):
         return self.name
 
+    def send_mail(self, title, body, link, field):
+        Caller(
+            callback='djelectionguard.models.send_contest_mail',
+            kwargs=dict(
+                contest_id=str(self.pk),
+                title=title,
+                body=body,
+                link=link,
+                field=field,
+            ),
+        ).spool('email')
+
+
+def send_contest_mail(contest_id, title, body, link, field, **kwargs):
+    voters_pks = Voter.objects.filter(
+        contest__pk=contest_id
+    ).values_list('pk', flat=True)
+
+    for pk in voters_pks:
+        Caller(
+            callback='djelectionguard.models.send_voter_mail',
+            max_attempts=25,
+            kwargs=dict(
+                voter_id=str(pk),
+                title=title,
+                body=body,
+                link=link,
+                field=field,
+            ),
+        ).spool('email')
+
+
+def send_voter_mail(voter_id, title, body, link, field):
+    voter = Voter.objects.select_related('user').get(pk=voter_id)
+    voter.user.otp_new()
+    voter.user.save()
+
+    otp_link = reverse('otp_login', args=[voter.user.otp_token])
+    send_mail(
+        title,
+        body.replace(
+            'RENEW_LINK',
+            settings.BASE_URL
+            + reverse('otp_send')
+            + '?next='
+            + link
+            + '&email='
+            + voter.user.email
+        ).replace(
+            'LINK',
+            settings.BASE_URL
+            + otp_link
+            + '?next='
+            + link
+        ),
+        'webmaster@electeez.com',
+        [voter.user.email],
+    )
+
+    setattr(voter, field, timezone.now())
+    voter.save()
+
 
 class Candidate(models.Model):
     id = models.UUIDField(
@@ -476,3 +540,5 @@ class Voter(models.Model):
         on_delete=models.CASCADE,
     )
     casted = models.DateTimeField(null=True)
+    open_email_sent = models.DateTimeField(null=True)
+    close_email_sent = models.DateTimeField(null=True)
