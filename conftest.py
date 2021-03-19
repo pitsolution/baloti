@@ -17,7 +17,6 @@ def contest():
     contest = Contest.objects.create(
         id='3743773f-d923-4b20-a5c6-b585a0c5662f',
         name='Test Contest',
-        number_elected=2,
         votes_allowed=2,
         start=datetime.fromisoformat("2020-03-01T08:00:00-05:00"),
         end=datetime.fromisoformat("2020-03-01T20:00:00-05:00"),

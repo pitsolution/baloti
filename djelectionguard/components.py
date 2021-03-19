@@ -51,27 +51,17 @@ class ContestForm(forms.ModelForm):
         model = Contest
         fields = [
             'name',
-            'number_elected',
             'votes_allowed',
             'start',
             'end',
             'decentralized'
         ]
 
-    def clean(self):
-        cleaned_data = super().clean()
-        if cleaned_data['votes_allowed'] < cleaned_data['number_elected']:
-            raise forms.ValidationError(
-                'Number of elected cannot be bellow number of votes allowed'
-            )
-        return cleaned_data
-
 
 class ContestEditForm(ContestForm):
     class Meta(ContestForm.Meta):
         fields = [
             'name',
-            'number_elected',
             'votes_allowed',
             'start',
             'end',
@@ -127,7 +117,6 @@ class ContestFormComponent(CList):
             html.Form(
                 form['name'],
                 html.H6('Voting settings:'),
-                form['number_elected'],
                 form['votes_allowed'],
                 html.H6('Election starts:'),
                 form['start'],
