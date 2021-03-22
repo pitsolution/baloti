@@ -1,3 +1,4 @@
+import copy
 from django.conf import settings
 from django.contrib import messages
 from django.urls import reverse
@@ -112,6 +113,7 @@ class Document(html.Html):
         else:
             style_src = '/static/css/style.css'
 
+        self.stylesheets = copy.deepcopy(self.stylesheets)
         self.stylesheets.append(style_src)
 
         self.main_component = main_component

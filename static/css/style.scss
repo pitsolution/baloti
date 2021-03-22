@@ -246,6 +246,7 @@ a.caption {
   h4, h5, h6 {
     margin-bottom: 24px;
   }
+  .card { max-width: 70em; }
 }
 
 .center-text {
@@ -510,18 +511,18 @@ a.caption {
 .line { text-decoration: line-through; }
 .bold { font-weight: bold; }
 
-.setting-section {
-  .mdc-data-table {
-    &__cell {
-      button, a {
-        margin: 0 auto;
-      }
-      &.center {
-        text-align: center;
-      }
+.mdc-data-table {
+  &__cell {
+    button, a {
+      margin: 0 auto;
+    }
+    &.center {
+      text-align: center;
     }
   }
+}
 
+.setting-section {
   padding: 0 24px;
   h5, h6 {
     text-align: center;

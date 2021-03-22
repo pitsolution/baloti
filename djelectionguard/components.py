@@ -383,6 +383,11 @@ class AddCandidateAction(ListAction):
 class AddVoterAction(ListAction):
     def __init__(self, obj):
         num_voters = obj.voter_set.all().count()
+        num_candidates = obj.candidate_set.all().count()
+        separator = (
+            obj.decentralized
+            or (num_voters and num_candidates > obj.votes_allowed)
+        )
 
         kwargs = dict(
             tag='a',
@@ -399,6 +404,7 @@ class AddVoterAction(ListAction):
         super().__init__(
             'Add voters',
             txt, icon, btn_comp,
+            separator=separator
         )
 
 
@@ -568,6 +574,13 @@ class CastVoteAction(ListAction):
 
 class ChooseBlockchainAction(ListAction):
     def __init__(self, obj, user):
+        num_voters = obj.voter_set.all().count()
+        num_candidates = obj.candidate_set.all().count()
+        separator = (
+            obj.publish_status > 0
+            and num_voters
+            and num_candidates > obj.votes_allowed
+        )
         if obj.publish_status:
             txt = ''
             icon = DoneIcon()
@@ -578,14 +591,12 @@ class ChooseBlockchainAction(ListAction):
         super().__init__(
             'Choose a blockchain',
             txt, icon, None,
-            separator=obj.publish_status > 0
+            separator=separator
         )
 
 
 class OnGoingElectionAction(ListAction):
     def __init__(self, contest, user):
-        contest = contest
-        user = user
         close_url = reverse('contest_close', args=[contest.id])
         close_btn = MDCButtonOutlined('close', False, tag='a', href=close_url)
         start_time = '<b>' + contest.actual_start.strftime('%a %d at %H:%M') + '</b>'
@@ -608,12 +619,18 @@ class OnGoingElectionAction(ListAction):
         if contest.mediator == user and not contest.actual_end:
             inner.addchild(close_btn)
 
+        separator = (
+            contest.actual_end
+            or contest.mediator == user
+            or contest.guardian_set.filter(user=user).count()
+        )
+
         super().__init__(
             title,
             inner,
             icon,
             None,
-            separator=True
+            separator=separator
         )
 
 
@@ -885,7 +902,7 @@ class TezosSecuredCard(Section):
 
 class CheckedIcon(MDCIcon):
     def __init__(self):
-        super().__init__('check_circle', cls='icon green2')
+        super().__init__('check_circle', cls='material-icons icon green2')
 
 
 class GuardianActionButton(CList):
@@ -1142,7 +1159,7 @@ class VotersDetailCard(html.Div):
                     role='columnheader',
                     scope='col',
                     cls='mdc-data-table__header-cell overline',
-                    style='width: 50%' if th == 'email' else 'text-align: center;'
+                    style='' if th == 'email' else 'text-align: center;'
                 )
             )
 
@@ -1150,15 +1167,22 @@ class VotersDetailCard(html.Div):
         cls = 'mdc-data-table__cell'
         for voter in voters:
             activated = voter.user and voter.user.is_active
+            open_email_sent = (
+                    voter.open_email_sent.strftime("%d/%m/%Y %H:%M")
+                    if voter.open_email_sent else '')
+            close_email_sent = (
+                    voter.close_email_sent.strftime("%d/%m/%Y %H:%M")
+                    if voter.close_email_sent else '')
+
             table_content.addchild(html.Tr(
                 html.Td(voter.user.email, cls=cls),
                 html.Td(
-                    str(voter.open_email_sent) or '',
+                    str(open_email_sent) or '',
                     cls=cls + ' center',
                 ),
                 html.Td(CheckedIcon() if voter.casted else 'No', cls=cls + ' center'),
                 html.Td(
-                    str(voter.close_email_sent) or '',
+                    str(close_email_sent) or '',
                     cls=cls + ' center',
                 ),
                 cls='mdc-data-table__row',
@@ -1186,7 +1210,9 @@ class VotersDetailCard(html.Div):
         super().__init__(
             html.H4(voters.count(), ' Voters', cls='center-text'),
             html.Div(self.edit_btn, cls='center-button'),
-            table,
+            html.Div(
+                table,
+                cls='table-container'),
             cls='card'
         )
 
