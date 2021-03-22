@@ -577,11 +577,11 @@ class ChooseBlockchainAction(ListAction):
         num_voters = obj.voter_set.all().count()
         num_candidates = obj.candidate_set.all().count()
         separator = (
-            obj.publish_status > 0
+            obj.publish_state != obj.publish_states['ELECTION_NOT_DECENTRALIZED']
             and num_voters
             and num_candidates > obj.votes_allowed
         )
-        if obj.publish_status:
+        if obj.publish_state != obj.publish_states['ELECTION_NOT_DECENTRALIZED']:
             txt = ''
             icon = DoneIcon()
         else:
@@ -839,7 +839,7 @@ class ContestSettingsCard(html.Div):
                 and contest.candidate_set.count() > contest.number_elected
             ):
                 if contest.decentralized:
-                    if contest.publish_status:
+                    if contest.publish_state != contest.publish_states['ELECTION_NOT_DECENTRALIZED']:
                         list_content.append(SecureElectionAction(contest, user))
                 else:
                     list_content.append(SecureElectionAction(contest, user))
@@ -864,7 +864,7 @@ class TezosSecuredCard(Section):
     def __init__(self, contest, user):
         if (
             contest.decentralized
-            and contest.publish_status == 0
+            and contest.publish_state == contest.publish_states['ELECTION_NOT_DECENTRALIZED']
             and contest.mediator == user
         ):
             btn = MDCButton(
@@ -876,10 +876,10 @@ class TezosSecuredCard(Section):
 
         links = []
 
-        if contest.publish_status:
+        if contest.publish_state != contest.publish_states['ELECTION_NOT_DECENTRALIZED']:
             links.append(contest.electioncontract.contract_address)
 
-        if contest.publish_status == 5:
+        if contest.publish_state == contest.publish_states['ELECTION_PUBLISHED']:
             links.append(A('Download artifacts', href=contest.artifacts_url))
 
         def step(s):
@@ -897,8 +897,8 @@ class TezosSecuredCard(Section):
                             step('Election closed'),
                             step('Election Results available'),
                             step('Election contract updated'),
-                        ], contest.publish_status - 1)
-                        if contest.decentralized and contest.publish_status
+                        ], contest.publish_state - 1)
+                        if contest.decentralized and contest.publish_state
                         else btn
                     ),
                     TezosIcon(),
@@ -1761,7 +1761,7 @@ class ContestResultCard(html.Div):
 
         publish_btn = ''
         if (
-            contest.publish_status == 4
+            contest.publish_state == contest.publish_states['ELECTION_DECRYPTED']
             and contest.decentralized
             and contest.mediator == view.request.user
         ):

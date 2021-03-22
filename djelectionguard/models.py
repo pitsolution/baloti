@@ -51,9 +51,6 @@ class Contest(models.Model):
     start = models.DateTimeField()
     end = models.DateTimeField()
     decentralized = models.BooleanField(default=False)
-    publish_status = models.IntegerField(
-        default=0
-    )
 
     actual_start = models.DateTimeField(null=True, blank=True)
     actual_end = models.DateTimeField(null=True, blank=True)
@@ -69,6 +66,15 @@ class Contest(models.Model):
 
     artifacts_sha1 = models.CharField(max_length=255, null=True, blank=True)
     artifacts_ipfs = models.CharField(max_length=255, null=True, blank=True)
+
+    publish_states = dict(
+        ELECTION_NOT_DECENTRALIZED=0,
+        ELECTION_CONTRACT_CREATED=1,
+        ELECTION_OPENED=2,
+        ELECTION_CLOSED=3,
+        ELECTION_DECRYPTED=4,
+        ELECTION_PUBLISHED=5
+    )
 
     @property
     def number_elected(self):
@@ -159,8 +165,6 @@ class Contest(models.Model):
         for guardian in self.guardian_set.all():
             guardian.delete_keypair()
 
-        self.publish_status = 4
-
         self.save()
 
         plaintext_tally_contest = self.plaintext_tally.contests[str(self.pk)]
@@ -199,7 +203,6 @@ class Contest(models.Model):
             while data := f.read(65536):
                 sha1.update(data)
         self.artifacts_sha1 = sha1.hexdigest()
-        self.publish_status = 5
 
         os.chdir(cwd)
 
@@ -226,6 +229,24 @@ class Contest(models.Model):
         elif self.actual_start:
             return 'started'
         return 'pending'
+
+
+    @property
+    def publish_state(self):
+        if not self.decentralized:
+            return self.publish_states['ELECTION_NOT_DECENTRALIZED']
+        if self.artifacts_sha1:
+            return self.publish_states['ELECTION_PUBLISHED']
+        elif self.plaintext_tally:
+            return self.publish_states['ELECTION_DECRYPTED']
+        elif self.actual_end:
+            return self.publish_states['ELECTION_CLOSED']
+        elif self.actual_start:
+            return self.publish_states['ELECTION_OPENED']
+        elif getattr(self, 'electioncontract', None):
+            return self.publish_states['ELECTION_CONTRACT_CREATED']
+        else:
+            return self.publish_states['ELECTION_NOT_DECENTRALIZED']
 
     @property
     def variation(self):

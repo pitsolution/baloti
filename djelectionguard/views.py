@@ -248,7 +248,6 @@ class ContestOpenView(ContestMediator, generic.UpdateView):
         def save(self, *args, **kwargs):
             self.instance.prepare()
             self.instance.actual_start = timezone.now()
-            self.instance.publish_status = 2
             return super().save(self, *args, **kwargs)
 
     def get_form_kwargs(self):
@@ -319,7 +318,6 @@ class ContestCloseView(ContestMediator, generic.UpdateView):
 
         def save(self, *args, **kwargs):
             self.instance.actual_end = timezone.now()
-            self.instance.publish_status = 3
             return super().save(self, *args, **kwargs)
 
     def form_valid(self, form):
@@ -491,7 +489,7 @@ class ContestPubkeyView(ContestMediator, generic.UpdateView):
     def get_queryset(self):
         qs = self.request.user.contest_set.filter(joint_public_key=None)
         return qs.filter(
-            Q(decentralized=True, publish_status=1)
+            (Q(decentralized=True) & ~Q(electioncontract=None))
             |Q(decentralized=False))
 
     class form_class(forms.ModelForm):
