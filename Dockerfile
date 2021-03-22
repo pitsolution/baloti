@@ -7,7 +7,7 @@ RUN pacman -Syu --noconfirm mailcap which gettext python python-pillow python-ps
 RUN pip3 install --upgrade pip wheel
 ENV PYTHONIOENCODING=UTF-8 PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1
 ENV PATH=/app/node_modules/.bin:/app/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-RUN mkdir -p /spooler/blockchain && chown -R app /spooler
+RUN mkdir -p /spooler/blockchain /spooler/email && chown -R app /spooler
 COPY requirements.txt /app
 RUN pip3 install -Ur /app/requirements.txt
 COPY . /app/
@@ -25,6 +25,7 @@ CMD /usr/bin/bash -euxc "until djcli dbcheck; do sleep 1; done \
   --chdir=/app \
   --plugin=python \
   --spooler=/spooler/blockchain \
+  --spooler=/spooler/email \
   --spooler-processes=8 \
   --spooler-frequency=1 \
   --spooler-chdir=/app \
