@@ -1153,12 +1153,12 @@ class VotersDetailCard(html.Div):
             table_content.addchild(html.Tr(
                 html.Td(voter.user.email, cls=cls),
                 html.Td(
-                    voter.open_email_sent or '',
+                    str(voter.open_email_sent) or '',
                     cls=cls + ' center',
                 ),
                 html.Td(CheckedIcon() if voter.casted else 'No', cls=cls + ' center'),
                 html.Td(
-                    voter.close_email_sent or '',
+                    str(voter.close_email_sent) or '',
                     cls=cls + ' center',
                 ),
                 cls='mdc-data-table__row',
