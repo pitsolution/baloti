@@ -874,6 +874,15 @@ class TezosSecuredCard(Section):
         else:
             btn = MDCTextButton('Here\'s how', 'info_outline')
 
+        links = [
+            contest.electioncontract.contract_address,
+        ]
+        if contest.publish_status == 5:
+            links.append(A('Download artifacts', href=contest.artifacts_url))
+
+        def step(s):
+            return Span(Span(s), *links, style='display: flex; flex-flow: column wrap')
+
         super().__init__(
             html.Ul(
                 ListAction(
@@ -881,11 +890,11 @@ class TezosSecuredCard(Section):
                     html.Span(
                         'Your election data and results will be published on Tezos’ test blockchain.',
                         PublishProgressBar([
-                            'Election contract created',
-                            'Election opened',
-                            'Election closed',
-                            'Election Results available',
-                            'Election contract updated'
+                            step('Election contract created'),
+                            step('Election opened'),
+                            step('Election closed'),
+                            step('Election Results available'),
+                            step('Election contract updated'),
                         ], contest.publish_status - 1)
                         if contest.decentralized and contest.publish_status
                         else btn
@@ -1749,7 +1758,11 @@ class ContestResultCard(html.Div):
         )
 
         publish_btn = ''
-        if contest.publish_status == 4 and contest.decentralized:
+        if (
+            contest.publish_status == 4
+            and contest.decentralized
+            and contest.mediator == view.request.user
+        ):
             publish_btn = MDCButton(
                 'publish results',
                 p=True,
