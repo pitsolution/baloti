@@ -159,7 +159,7 @@ class ContestResultView(ContestAccessible, generic.DetailView):
             Q(voter__user=self.request.user)
             | Q(guardian__user=self.request.user)
             | Q(mediator=self.request.user)
-        )
+        ).distinct()
 
     @classmethod
     def as_url(cls):
