@@ -874,9 +874,11 @@ class TezosSecuredCard(Section):
         else:
             btn = MDCTextButton('Here\'s how', 'info_outline')
 
-        links = [
-            contest.electioncontract.contract_address,
-        ]
+        links = []
+
+        if contest.publish_status:
+            links.append(contest.electioncontract.contract_address)
+
         if contest.publish_status == 5:
             links.append(A('Download artifacts', href=contest.artifacts_url))
 
