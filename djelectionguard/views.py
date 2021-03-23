@@ -258,10 +258,6 @@ class ContestOpenView(ContestMediator, generic.UpdateView):
 
         LINK
 
-        The link will work only once and expire in 24H, but you can get another one from:
-
-        RENEW_LINK
-
         Happy voting!
         '''
         kwargs = super().get_form_kwargs()
@@ -357,9 +353,7 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
 
         LINK
 
-        The link will work only once and expire in 24H, but you can get another one from:
-
-        RENEW_LINK
+        Thank you for voting on {self.object}
         '''
         kwargs = super().get_form_kwargs()
         kwargs['initial'] = dict(
@@ -541,11 +535,22 @@ class ContestVoteMixin:
             voter__user=self.request.user,
         )
 
-    def get(self, request, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.info(request, f'Please get a magic link to proceed to secure vote')
+            return http.HttpResponseRedirect(
+                reverse('otp_send')
+                + '?next='
+                + self.request.path_info
+            )
         self.object = self.get_object()
-        voter = self.object.voter_set.get(user=request.user)
+
+        voter = self.object.voter_set.filter(user=request.user).first()
         redirect = http.HttpResponseRedirect(reverse('contest_list'))
-        if self.object.actual_end:
+        if not voter:
+            messages.error(request, f'You are not registered to vote on {self.object}')
+            return redirect
+        elif self.object.actual_end:
             messages.error(request, f'{self.object} vote is closed')
             return redirect
         elif not self.object.actual_start:
@@ -557,7 +562,7 @@ class ContestVoteMixin:
                 f'You have already casted your vote for {self.object}',
             )
             return redirect
-        return super().get(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
 
 class ContestVoteView(ContestVoteMixin, FormMixin, generic.DetailView):
@@ -610,7 +615,7 @@ class ContestVoteView(ContestVoteMixin, FormMixin, generic.DetailView):
     def as_url(cls):
         return path(
             '<pk>/vote/',
-            login_required(cls.as_view()),
+            cls.as_view(),
             name='contest_vote'
         )
 
