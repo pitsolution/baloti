@@ -1,6 +1,7 @@
 from datetime import datetime, date
 from django import forms
 from django.db.models import Sum
+from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
 from ryzom import html
 from py2js import Mixin as Py2jsMixin
@@ -877,7 +878,10 @@ class TezosSecuredCard(Section):
         links = []
 
         if contest.publish_state != contest.PublishStates.ELECTION_NOT_DECENTRALIZED:
-            links.append(contest.electioncontract.contract_address)
+            try:
+                links.append(contest.electioncontract.contract_address)
+            except ObjectDoesNotExist:
+                pass  # no contract
 
         if contest.publish_state == contest.PublishStates.ELECTION_PUBLISHED:
             links.append(A('Download artifacts', href=contest.artifacts_url))
