@@ -4,6 +4,11 @@ import sys
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+ENVIRONMENT = 'localhost'
+HOST = os.getenv('HOST')
+if 'CI_ENVIRONMENT_NAME' in os.environ:
+    ENVIRONMENT = os.getenv('CI_ENVIRONMENT_NAME')
+
 # SECURITY WARNING: keep the secret key used in production secret!
 default = 'notsecretnotsecretnotsecretnotsecretnotsecretnotsecret'
 SECRET_KEY = os.getenv('SECRET_KEY', default)
@@ -88,6 +93,19 @@ ASGI_APPLICATION = 'electeez.asgi.application'
 #        },
 #    },
 #}
+
+SENTRY_DSN = os.getenv('SENTRY_DSN')
+if SENTRY_DSN:
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
+    sentry_sdk.init(
+        dsn=SENTRY_DSN,
+        environment=ENVIRONMENT,
+        release=os.getenv('CI_COMMIT_SHA'),
+        integrations=[DjangoIntegration()],
+        attach_stacktrace=True,
+        send_default_pii=True
+    )
 
 FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 

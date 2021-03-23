@@ -24,3 +24,5 @@ pytest-watch
 pytezos<3
 
 ryzom>=0.4.3,<0.5
+
+sentry-sdk
