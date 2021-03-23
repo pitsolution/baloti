@@ -207,7 +207,6 @@ class Contest(models.Model):
 
         os.chdir(cwd)
 
-
     def publish_ipfs(self):
         try:
             out = subprocess.check_output(
