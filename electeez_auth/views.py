@@ -55,14 +55,6 @@ class OTPSend(generic.FormView):
             ('?next=' + nextlink) if nextlink else ''
         ])
 
-        RENEW_LINK = ''.join([
-            settings.BASE_URL,
-            reverse('otp_send'),
-            '?email=',
-            form.cleaned_data['email'],
-            ('&next=' + nextlink) if nextlink else ''
-        ])
-
         send_mail(
             'Your magic link',
             textwrap.dedent(f'''
@@ -71,10 +63,6 @@ class OTPSend(generic.FormView):
                 This is the magic link you have requested:
 
                 {LINK}
-
-                It is useable once and will expire in 24h, you can request a new magic link here:
-
-                {RENEW_LINK}
             '''),
             'webmaster@electeez.com',
             [form.cleaned_data['email']],

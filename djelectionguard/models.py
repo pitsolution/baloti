@@ -441,14 +441,6 @@ def send_voter_mail(voter_id, title, body, link, field):
     send_mail(
         title,
         body.replace(
-            'RENEW_LINK',
-            settings.BASE_URL
-            + reverse('otp_send')
-            + '?next='
-            + link
-            + '&email='
-            + voter.user.email
-        ).replace(
             'LINK',
             settings.BASE_URL
             + otp_link

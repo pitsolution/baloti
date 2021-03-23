@@ -19,9 +19,9 @@ class User(AbstractUser):
     otp_token = models.CharField(max_length=255, null=True, blank=True)
     otp_expiry = models.DateTimeField(null=True, blank=True)
 
-    def otp_new(self):
+    def otp_new(self, expiry=None):
         self.otp_token = secrets.token_urlsafe()
-        self.otp_expiry = timezone.now() + timedelta(hours=24)
+        self.otp_expiry = timezone.now() + timedelta(days=20)
 
     def save(self, *args, **kwargs):
         if self.email:

@@ -235,7 +235,7 @@ class ActivationFailureCard(html.Div):
 class OTPSendCard(html.Div):
     def __init__(self, *content, view, form, **context):
         super().__init__(
-            html.H4('Receive a magik link by email'),
+            html.H4('Receive a magic link by email'),
             html.Form(
                 form,
                 CSRFInput(view.request),
@@ -243,6 +243,11 @@ class OTPSendCard(html.Div):
                 method='POST',
                 cls='form'),
             cls='card',)
+        if view.request.GET.get('next', ''):
+            self.addchild(html.Div(
+                'To proceed to your ',
+                A('secure link', href=view.request.GET['next'])
+            ))
 
 
 @template('electeez_auth/otp_email_success.html', Document, Card)
