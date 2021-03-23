@@ -1,3 +1,4 @@
+import copy
 from django.conf import settings
 from django.contrib import messages
 from django.urls import reverse
@@ -103,17 +104,18 @@ class Card(html.Div):
         super().__init__(main_component, cls='card')
 
 
-if settings.DEBUG:
-    style_src = sass_processor('css/style.scss')
-else:
-    style_src = '/static/css/style.css'
-
-
 class Document(html.Html):
     title = 'Secure elections with homomorphic encryption'
-    stylesheets = [style_src]
 
     def __init__(self, main_component, **kwargs):
+        if settings.DEBUG:
+            style_src = sass_processor('css/style.scss')
+        else:
+            style_src = '/static/css/style.css'
+
+        self.stylesheets = copy.deepcopy(self.stylesheets)
+        self.stylesheets.append(style_src)
+
         self.main_component = main_component
 
         messages_component = Messages(kwargs['request'])
