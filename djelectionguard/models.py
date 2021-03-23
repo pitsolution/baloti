@@ -7,6 +7,8 @@ import shutil
 import subprocess
 import uuid
 
+from enum import IntEnum
+
 from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -67,14 +69,13 @@ class Contest(models.Model):
     artifacts_sha1 = models.CharField(max_length=255, null=True, blank=True)
     artifacts_ipfs = models.CharField(max_length=255, null=True, blank=True)
 
-    publish_states = dict(
-        ELECTION_NOT_DECENTRALIZED=0,
-        ELECTION_CONTRACT_CREATED=1,
-        ELECTION_OPENED=2,
-        ELECTION_CLOSED=3,
-        ELECTION_DECRYPTED=4,
-        ELECTION_PUBLISHED=5
-    )
+    class PublishStates(IntEnum):
+        ELECTION_NOT_DECENTRALIZED = 0,
+        ELECTION_CONTRACT_CREATED = 1,
+        ELECTION_OPENED = 2,
+        ELECTION_CLOSED = 3,
+        ELECTION_DECRYPTED = 4,
+        ELECTION_PUBLISHED = 5
 
     @property
     def number_elected(self):
@@ -234,19 +235,19 @@ class Contest(models.Model):
     @property
     def publish_state(self):
         if not self.decentralized:
-            return self.publish_states['ELECTION_NOT_DECENTRALIZED']
+            return self.PublishStates.ELECTION_NOT_DECENTRALIZED
         if self.artifacts_sha1:
-            return self.publish_states['ELECTION_PUBLISHED']
+            return self.PublishStates.ELECTION_PUBLISHED
         elif self.plaintext_tally:
-            return self.publish_states['ELECTION_DECRYPTED']
+            return self.PublishStates.ELECTION_DECRYPTED
         elif self.actual_end:
-            return self.publish_states['ELECTION_CLOSED']
+            return self.PublishStates.ELECTION_CLOSED
         elif self.actual_start:
-            return self.publish_states['ELECTION_OPENED']
+            return self.PublishStates.ELECTION_OPENED
         elif getattr(self, 'electioncontract', None):
-            return self.publish_states['ELECTION_CONTRACT_CREATED']
+            return self.PublishStates.ELECTION_CONTRACT_CREATED
         else:
-            return self.publish_states['ELECTION_NOT_DECENTRALIZED']
+            return self.PublishStates.ELECTION_NOT_DECENTRALIZED
 
     @property
     def variation(self):
