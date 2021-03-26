@@ -890,7 +890,9 @@ class TezosSecuredCard(Section):
                 pass  # no contract
 
         if contest.publish_state == contest.PublishStates.ELECTION_PUBLISHED:
-            links.append(A('Download artifacts', href=contest.artifacts_url))
+            links.append(A('Download artifacts', href=contest.artifacts_local_url))
+            if contest.artifacts_ipfs_url:
+                links.append(A('Download from IPFS', href=contest.artifacts_ipfs_url))
 
         def step(s):
             return Span(Span(s), *links, style='display: flex; flex-flow: column wrap')
