@@ -3,6 +3,8 @@ from django.conf.urls import url
 
 from .views import OTPEmailSuccess, OTPLogin, OTPSend
 
+from .components import *
+
 
 urlpatterns = [
     path('otp/success/', OTPEmailSuccess.as_view(), name='otp_email_success'),

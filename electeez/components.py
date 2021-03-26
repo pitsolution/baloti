@@ -6,7 +6,13 @@ from ryzom_django_mdc import html
 from ryzom.contrib.django import Static
 from py2js.renderer import JS
 from sass_processor.processor import sass_processor
-from ryzom_mdc import MDCButton, MDCTextButton, MDCSnackBar
+from ryzom_mdc.html import MDCButton, MDCTextButton, MDCSnackBar
+
+
+class MDCButton(MDCButton):
+    def __init__(self, *args, **kwargs):
+        kwargs['raised'] = True
+        super().__init__(*args, **kwargs)
 
 
 class MDCLinearProgress(html.Div):
@@ -31,7 +37,7 @@ class MDCLinearProgress(html.Div):
 
 
 class TopPanel(html.Div):
-    def __init__(self, request=None, **kwargs):
+    def __init__(self, request, **kwargs):
         self.user = user = request.user
 
         if user.is_authenticated:
@@ -87,8 +93,8 @@ class BackLink(html.Div):
 
 
 class Messages(html.CList):
-    def __init__(self, request):
-        msgs = messages.get_messages(request)
+    def __init__(self, view):
+        msgs = messages.get_messages(view.request)
         if msgs:
             super().__init__(*(
                 MDCSnackBar(msg.message) for msg in msgs
@@ -98,32 +104,50 @@ class Messages(html.CList):
 
 
 class Card(html.Div):
-    def __init__(self, main_component, **kwargs):
-        if backlink := getattr(main_component, 'backlink', None):
-            self.backlink = backlink
+    def __init__(self, main_component, **context):
+        self.main_component = main_component
         super().__init__(main_component, cls='card')
+
+    def to_html(self, **context):
+        main_html = self.main_component.to_html(**context)
+
+        if backlink := getattr(self.main_component, 'backlink', None):
+            self.backlink = backlink
+
+        return super().to_html(main_html, **context)
+
+
+class Body(html.Body):
+    def __init__(self, main_component, **context):
+        self.main_component = main_component
+        super().__init__(**context)
+
+    def to_html(self, **context):
+        self.content += [TopPanel(**context)]
+
+        main_html = self.main_component.to_html(**context)
+
+        if backlink := getattr(self.main_component, 'backlink', None):
+            self.content += [backlink]
+
+        self.content += [
+            main_html,
+            Messages(context['view']),
+            Footer()
+        ]
+        return super().to_html(**context)
 
 
 class Document(html.Html):
     title = 'Secure elections with homomorphic encryption'
+    body_class = Body
 
-    def __init__(self, main_component, **kwargs):
+    def to_html(self, head, body, **context):
         if settings.DEBUG:
             style_src = sass_processor('css/style.scss')
         else:
             style_src = '/static/css/style.css'
 
-        self.stylesheets = copy.deepcopy(self.stylesheets)
-        self.stylesheets.append(style_src)
+        head.addchild(html.Stylesheet(href=style_src))
 
-        self.main_component = main_component
-
-        messages_component = Messages(kwargs['request'])
-
-        super().__init__(
-            TopPanel(**kwargs),
-            getattr(main_component, 'backlink', ''),
-            self.main_component,
-            messages_component,
-            Footer(),
-        )
+        return super().to_html(head, body, **context)

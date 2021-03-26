@@ -3,21 +3,16 @@ from django import forms
 from django.db.models import Sum
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
-from ryzom import html
-from py2js import Mixin as Py2jsMixin
-from py2js.renderer import JS, autoexec
-from ryzom_mdc import *
-from ryzom_django_mdc.components import *
+from ryzom_django_mdc.html import *
 from ryzom_django.forms import widget_template
 from electeez.components import (
     Document,
     Card,
     BackLink,
-    MDCLinearProgress
+    MDCLinearProgress,
+    MDCButton
 )
 from .models import Contest, Candidate
-
-from ryzom_django_mdc.components import SplitDateTimeWidget
 
 
 @widget_template('django/forms/widgets/splitdatetime.html')
@@ -100,28 +95,28 @@ class CandidateForm(forms.ModelForm):
 class ContestFormComponent(CList):
     def __init__(self, view, form, edit=False):
         content = []
-        content.append(html.Ul(
-            *[html.Li(e) for e in form.non_field_errors()],
+        content.append(Ul(
+            *[Li(e) for e in form.non_field_errors()],
             cls='error-list'
         ))
 
         decentralized = ''
         if not edit:
             decentralized = CList(
-                html.H6('Decentralize my election:'),
+                H6('Decentralize my election:'),
                 MDCMultipleChoicesCheckbox(
                     'decentralized',
                     [(0, 'Decentralize with Tezos', 'true')]))
 
         super().__init__(
-            html.H4('Edit election' if edit else 'Create an election'),
-            html.Form(
+            H4('Edit election' if edit else 'Create an election'),
+            Form(
                 form['name'],
-                html.H6('Voting settings:'),
+                H6('Voting settings:'),
                 form['votes_allowed'],
-                html.H6('Election starts:'),
+                H6('Election starts:'),
                 form['start'],
-                html.H6('Election ends:'),
+                H6('Election ends:'),
                 form['end'],
                 decentralized,
                 CSRFInput(view.request),
@@ -132,18 +127,19 @@ class ContestFormComponent(CList):
 
 
 @template('djelectionguard/contest_form.html', Document, Card)
-class ContestCreateCard(html.Div):
-    def __init__(self, *content, view, form, **context):
+class ContestCreateCard(Div):
+    style = dict(cls='card')
+
+    def to_html(self, *content, view, form, **context):
         self.backlink = BackLink('back', reverse('contest_list'))
 
         edit = isinstance(form, ContestEditForm)
-        super().__init__(
+        return super().to_html(
             ContestFormComponent(view, form, edit),
-            cls='card',
         )
 
 
-class ContestFiltersBtn(html.Button):
+class ContestFiltersBtn(Button):
     def __init__(self, pos, text, active=False):
         active_cls_name = 'mdc-tab--active' if active else ''
         active_indicator = 'mdc-tab-indicator--active' if active else ''
@@ -155,22 +151,22 @@ class ContestFiltersBtn(html.Button):
             'tabindex': pos
         }
         super().__init__(
-            html.Span(
-                html.Span(text, cls='mdc-tab__text-label'),
+            Span(
+                Span(text, cls='mdc-tab__text-label'),
                 cls='mdc-tab__content'
             ),
-            html.Span(
-                html.Span(cls='mdc-tab-indicator__content ' +
+            Span(
+                Span(cls='mdc-tab-indicator__content ' +
                               'mdc-tab-indicator__content--underline'
                 ),
                 cls=f'mdc-tab-indicator {active_indicator}'
             ),
-            html.Span(cls='mdc-tab__ripple'),
+            Span(cls='mdc-tab__ripple'),
             **attrs
         )
 
 
-class ContestFilters(html.Div):
+class ContestFilters(Div):
     def __init__(self, view):
         active_btn = view.request.GET.get('q', 'all')
 
@@ -179,8 +175,8 @@ class ContestFilters(html.Div):
         self.shared_contests_btn = ContestFiltersBtn(3, 'shared with me', active_btn == 'shared')
 
         super().__init__(
-            html.Div(
-                html.Div(
+            Div(
+                Div(
                     self.all_contests_btn,
                     self.my_contests_btn,
                     self.shared_contests_btn,
@@ -193,7 +189,7 @@ class ContestFilters(html.Div):
         )
 
 
-class ContestItem(html.A):
+class ContestItem(A):
     def __init__(self, contest, *args, **kwargs):
         active_cls = ''
         status = ''
@@ -205,12 +201,12 @@ class ContestItem(html.A):
             status = 'result available'
 
         super().__init__(
-            html.Span(cls='mdc-list-item__ripple'),
-            html.Span(
-                html.Span(cls=f'contest-indicator'),
-                html.Span(
-                    html.Span(status, cls='contest-status overline'),
-                    html.Span(contest.name, cls='contest-name'),
+            Span(cls='mdc-list-item__ripple'),
+            Span(
+                Span(cls=f'contest-indicator'),
+                Span(
+                    Span(status, cls='contest-status overline'),
+                    Span(contest.name, cls='contest-name'),
                     cls='list-item__text-container'
                 ),
                 cls='mdc-list-item__text'
@@ -220,7 +216,7 @@ class ContestItem(html.A):
         )
 
 
-class Separator(html.Li):
+class Separator(Li):
     def __init__(self, inset=False):
         cls = 'mdc-list-divider'
         if inset:
@@ -228,7 +224,7 @@ class Separator(html.Li):
         super().__init__(role='separator', cls=cls)
 
 
-class ListItem(html.CList):
+class ListItem(CList):
     def __init__(self, component, separator=True):
         content = [component]
         if separator:
@@ -248,32 +244,32 @@ class ListAction(ListItem):
         subitem_cls = 'mdc-list-item__primary-text list-action-row'
         if not txt:
             subitem_cls = 'list-action-row'
-        subitem = html.Span(cls=subitem_cls)
+        subitem = Span(cls=subitem_cls)
 
         if icon_comp:
             subitem.addchild(icon_comp)
-        subitem.addchild(html.H6(title))
+        subitem.addchild(H6(title))
         if btn_comp:
             subitem.addchild(btn_comp)
 
-        item = html.Span(subitem, cls='mdc-list-item__text list-action-column')
+        item = Span(subitem, cls='mdc-list-item__text list-action-column')
         if txt:
-            item.addchild(html.Span(txt, cls='mdc-list-item__secondary-text ' +
+            item.addchild(Span(txt, cls='mdc-list-item__secondary-text ' +
                                              'list-action-text body-2'))
 
-        super().__init__(html.Li(item, cls='mdc-list-item list-action-item'), **kwargs)
+        super().__init__(Li(item, cls='mdc-list-item list-action-item'), **kwargs)
 
 
-class ContestListCreateBtn(html.A):
+class ContestListCreateBtn(A):
     def __init__(self):
         super().__init__(
-            html.Span(
-                html.Span(cls='mdc-list-item__ripple'),
-                html.Span(
-                    html.Span('+', cls='new-contest-icon'),
+            Span(
+                Span(cls='mdc-list-item__ripple'),
+                Span(
+                    Span('+', cls='new-contest-icon'),
                     cls='new-contest-icon-container'
                 ),
-                html.Span('Create new election'),
+                Span('Create new election'),
                 cls='mdc-list-item__text text-btn mdc-ripple-upgraded'
             ),
             cls='mdc-list-item contest-list-item',
@@ -282,19 +278,19 @@ class ContestListCreateBtn(html.A):
 
 
 @template('djelectionguard/contest_list.html', Document, Card)
-class ContestList(html.Div):
-    def __init__(self, *content, view, **context):
-        super().__init__(
-            html.H4('Elections', style='text-align: center;'),
+class ContestList(Div):
+    def to_html(self, *content, view, **context):
+        return super().to_html(
+            H4('Elections', style='text-align: center;'),
             # ContestFilters(view),
-            html.Ul(
+            Ul(
                 ListItem(ContestListCreateBtn()),
                 *(
                     ContestListItem(contest)
                     for contest in context['contest_list']
-                ) if view.get_queryset().count()
+                ) if len(context['contest_list'])
                 else (
-                    html.Li(
+                    Li(
                         'There are no elections yet',
                         cls='mdc-list-item body-1'
                     ),
@@ -305,7 +301,7 @@ class ContestList(html.Div):
         )
 
 
-class CircleIcon(html.Span):
+class CircleIcon(Span):
     def __init__(self, icon, color='', small=False):
         base_cls = f'icon {icon} {"small " if small else ""}'
         super().__init__(
@@ -409,7 +405,7 @@ class AddVoterAction(ListAction):
         )
 
 
-class DownloadBtnMixin(Py2jsMixin):
+class DownloadBtnMixin:
     async def get_file(event):
         event.preventDefault()
         elem = event.currentTarget
@@ -439,23 +435,23 @@ class DownloadBtn(DownloadBtnMixin, MDCTextButton):
     pass
 
 
-class SecureElectionInner(html.Span):
+class SecureElectionInner(Span):
     def __init__(self, obj, user):
         text = 'All guardians must possess a private key so that the ballot box is secure and the election can be opened for voting.'
-        todo_list = html.Ol()
+        todo_list = Ol()
 
-        #todo_list.addchild(html.Li('Add guardians', cls='line'))
+        #todo_list.addchild(Li('Add guardians', cls='line'))
         guardian = obj.guardian_set.filter(user=user).first()
         if guardian:
             cls = 'line' if guardian.downloaded else 'bold'
-            todo_list.addchild(html.Li('Download my private key', cls=cls))
+            todo_list.addchild(Li('Download my private key', cls=cls))
 
             cls = ''
             if guardian.downloaded and not guardian.verified:
                 cls = 'bold'
             elif guardian.verified:
                 cls = 'line'
-            todo_list.addchild(html.Li('Confirm possession of an uncompromised private key', cls=cls))
+            todo_list.addchild(Li('Confirm possession of an uncompromised private key', cls=cls))
 
         if user == obj.mediator:
             n_confirmed = obj.guardian_set.exclude(verified=None).count()
@@ -466,9 +462,9 @@ class SecureElectionInner(html.Span):
             if n_guardians == n_confirmed:
                 cls = 'line'
             todo_list.addchild(
-                html.Li(
+                Li(
                     'All guardians confirm possession of uncompromised private keys',
-                    html.Br(),
+                    Br(),
                     f'({n_confirmed}/{n_guardians} confirmed)',
                     cls=cls))
 
@@ -477,12 +473,12 @@ class SecureElectionInner(html.Span):
                 cls = 'bold'
             elif obj.joint_public_key:
                 cls = 'line'
-            todo_list.addchild(html.Li('Lock the ballot box / erase private keys from server memory', cls=cls))
+            todo_list.addchild(Li('Lock the ballot box / erase private keys from server memory', cls=cls))
 
             cls = ''
             if guardian.contest.joint_public_key:
                 cls = 'bold'
-            todo_list.addchild(html.Li('Open the election for voting', cls=cls))
+            todo_list.addchild(Li('Open the election for voting', cls=cls))
 
         subtext = 'Guardians must NOT loose their PRIVATE keys and they must keep them SECRET.'
 
@@ -516,7 +512,7 @@ class SecureElectionInner(html.Span):
 
         super().__init__(
             text,
-            html.P(todo_list),
+            P(todo_list),
             subtext,
             action_btn,
             cls='body-2'
@@ -612,7 +608,7 @@ class OnGoingElectionAction(ListAction):
             txt = f'The voting started on {start_time} and will close automatically on {end_time}.'
             icon = OnGoingIcon()
 
-        inner = html.Span(
+        inner = Span(
             txt,
             cls='body-2 red-button-container'
         )
@@ -675,28 +671,28 @@ class UnlockBallotAction(ListAction):
         n_uploaded = contest.guardian_set.exclude(uploaded=None).count()
 
         if contest.actual_end:
-            task_list = html.Ol()
+            task_list = Ol()
             txt = f'All guardians upload their keys ({n_uploaded}/{n_guardian} uploaded)'
             cls='bold'
             if n_uploaded == n_guardian:
                 cls = 'line'
 
-            task_list.addchild(html.Li(txt, cls=cls))
+            task_list.addchild(Li(txt, cls=cls))
 
             cls = 'bold' if cls == 'line' else ''
             txt = 'Unlock the ballot box with encrypted ballots and reveal the results'
-            task_list.addchild(html.Li(txt, cls=cls))
+            task_list.addchild(Li(txt, cls=cls))
 
-            content = html.Span(
-                html.P(
+            content = Span(
+                P(
                     'All guardians need to upload their private keys so that the ballot box can be opened to reveal the results.'
                 ),
                 task_list,
                 cls='body-2'
             )
         else:
-            content = html.Span(
-                html.P('When the election is over the guardians use their keys to open the ballot box and count the results.'),
+            content = Span(
+                P('When the election is over the guardians use their keys to open the ballot box and count the results.'),
                 cls='body-2'
             )
 
@@ -735,20 +731,20 @@ class WaitForEmailAction(ListAction):
 
 class ResultAction(ListAction):
     def __init__(self, contest, user):
-        subtext = html.Div()
+        subtext = Div()
         if contest.mediator == user:
             subtext.addchild(
-                html.Div('Congratulations! You have been the mediator of a secure election.'))
+                Div('Congratulations! You have been the mediator of a secure election.'))
         if contest.number_elected > 1:
-            winners = html.Ol(cls='winners')
-            winner_item = html.Li
+            winners = Ol(cls='winners')
+            winner_item = Li
             winner_text = 'the winners are:'
         else:
-            winners = html.Div(cls='winners')
-            winner_item = html.Span
+            winners = Div(cls='winners')
+            winner_item = Span
             winner_text = 'the winner is:'
 
-        subtext.addchild(html.Span(winner_text, cls='winner-caption overline'))
+        subtext.addchild(Span(winner_text, cls='winner-caption overline'))
 
         candidates = contest.candidate_set.order_by('-score')
         candidates = candidates[:contest.number_elected]
@@ -759,7 +755,7 @@ class ResultAction(ListAction):
                 prefix = f'{i + 1}. '
             winners.addchild(
                 winner_item(
-                    html.H6(f'{prefix}{candidate.name}', cls='winner')))
+                    H6(f'{prefix}{candidate.name}', cls='winner')))
 
         subtext.addchild(winners)
 
@@ -776,7 +772,7 @@ class ResultAction(ListAction):
         )
 
 
-class ContestVotingCard(html.Div):
+class ContestVotingCard(Div):
     def __init__(self, view, **context):
         contest = view.get_object()
         user = view.request.user
@@ -811,8 +807,8 @@ class ContestVotingCard(html.Div):
             list_content.append(WaitForEmailAction(contest, user))
 
         super().__init__(
-            html.H4(contest.name),
-            html.Ul(
+            H4(contest.name),
+            Ul(
                 *list_content,
                 cls='mdc-list action-list'
             ),
@@ -820,7 +816,7 @@ class ContestVotingCard(html.Div):
         )
 
 
-class ContestSettingsCard(html.Div):
+class ContestSettingsCard(Div):
     def __init__(self, view, **context):
         contest = view.get_object()
         user = view.request.user
@@ -848,8 +844,8 @@ class ContestSettingsCard(html.Div):
             list_content.append(SecureElectionAction(contest, user))
 
         super().__init__(
-            html.H4(contest.name),
-            html.Ul(
+            H4(contest.name),
+            Ul(
                 *list_content,
                 cls='mdc-list action-list'
             ),
@@ -857,7 +853,7 @@ class ContestSettingsCard(html.Div):
         )
 
 
-class Section(html.Div):
+class Section(Div):
     pass
 
 
@@ -890,10 +886,10 @@ class TezosSecuredCard(Section):
             return Span(Span(s), *links, style='display: flex; flex-flow: column wrap')
 
         super().__init__(
-            html.Ul(
+            Ul(
                 ListAction(
                     'Secure and decentralised with Tezos',
-                    html.Span(
+                    Span(
                         'Your election data and results will be published on Tezos’ test blockchain.',
                         PublishProgressBar([
                             step('Election contract created'),
@@ -937,12 +933,12 @@ class GuardianActionButton(CList):
         super().__init__(btn)
 
 
-class GuardianTable(html.Div):
+class GuardianTable(Div):
     def __init__(self, view, **context):
-        table_head_row = html.Tr(cls='mdc-data-table__header-row')
+        table_head_row = Tr(cls='mdc-data-table__header-row')
         for th in ('email', 'key downloaded', 'key verified'):
             table_head_row.addchild(
-                html.Th(
+                Th(
                     th,
                     role='columnheader',
                     scope='col',
@@ -951,7 +947,7 @@ class GuardianTable(html.Div):
                 )
             )
 
-        table_content = html.Tbody(cls='mdc-data-table__content')
+        table_content = Tbody(cls='mdc-data-table__content')
         contest = view.get_object()
         cls = 'mdc-data-table__cell'
         for guardian in contest.guardian_set.all():
@@ -966,30 +962,30 @@ class GuardianTable(html.Div):
                     else:
                         dl_elem = CheckedIcon()
                         ul_elem = CheckedIcon()
-                table_content.addchild(html.Tr(
-                    html.Td(guardian.user.email, cls=cls),
-                    html.Td(
+                table_content.addchild(Tr(
+                    Td(guardian.user.email, cls=cls),
+                    Td(
                         dl_elem,
                         cls=cls + ' center'),
-                    html.Td(
+                    Td(
                         ul_elem,
                         cls=cls + ' center'),
                     cls='mdc-data-table__row'
                 ))
             else:
-                table_content.addchild(html.Tr(
-                    html.Td(guardian.user.email, cls=cls),
-                    html.Td(
+                table_content.addchild(Tr(
+                    Td(guardian.user.email, cls=cls),
+                    Td(
                         CheckedIcon() if guardian.downloaded else 'No',
                         cls=cls + ' center'),
-                    html.Td(
+                    Td(
                         CheckedIcon() if guardian.verified else 'No',
                         cls=cls + ' center'),
                     cls='mdc-data-table__row'
                 ))
 
-        table = html.Table(
-            html.Thead(table_head_row),
+        table = Table(
+            Thead(table_head_row),
             table_content,
             **{
                 'class': 'mdc-data-table__table',
@@ -999,17 +995,17 @@ class GuardianTable(html.Div):
         super().__init__(table, cls='table-container guardian-table')
 
 
-class GuardiansSettingsCard(html.Div):
+class GuardiansSettingsCard(Div):
     def __init__(self, view, **context):
         contest = view.get_object()
         super().__init__(
-            html.H5('Guardians'),
+            H5('Guardians'),
             GuardianTable(view, **context),
             cls='setting-section'
         )
 
 
-class CandidatesSettingsCard(html.Div):
+class CandidatesSettingsCard(Div):
     def __init__(self, view, **context):
         contest = view.get_object()
         editable = (view.request.user == contest.mediator
@@ -1030,14 +1026,14 @@ class CandidatesSettingsCard(html.Div):
                 btn = None
 
         super().__init__(
-            html.H5('Candidates'),
+            H5('Candidates'),
             CandidateList(contest, editable),
             btn,
             cls='setting-section'
         )
 
 
-class VotersSettingsCard(html.Div):
+class VotersSettingsCard(Div):
     def __init__(self, view, **context):
         contest = view.get_object()
         num_emails = contest.voter_set.all().count()
@@ -1055,18 +1051,18 @@ class VotersSettingsCard(html.Div):
             btn = MDCButtonOutlined('add', icon='add', **kwargs)
 
         super().__init__(
-            html.H5('Voters'),
-            html.Span(num_emails, ' voters added', cls='voters_count'),
+            H5('Voters'),
+            Span(num_emails, ' voters added', cls='voters_count'),
             btn,
             cls='setting-section'
         )
 
 
-class ContestFinishedCard(html.Div):
+class ContestFinishedCard(Div):
     def __init__(self, view, **context):
         super().__init__(
-            html.H4(view.get_object().name),
-            html.Ul(
+            H4(view.get_object().name),
+            Ul(
                 ResultAction(view.get_object(), view.request.user),
                 cls='mdc-list action-list'
             ),
@@ -1075,8 +1071,8 @@ class ContestFinishedCard(html.Div):
 
 
 @template('djelectionguard/contest_detail.html', Document)
-class ContestCard(html.Div):
-    def __init__(self, *content, view, **context):
+class ContestCard(Div):
+    def to_html(self, *content, view, **context):
         contest = view.get_object()
         if contest.plaintext_tally:
             main_section = ContestFinishedCard(view, **context)
@@ -1085,11 +1081,11 @@ class ContestCard(html.Div):
         else:
             main_section = ContestSettingsCard(view, **context)
 
-        action_section = html.Div(
+        action_section = Div(
             main_section,
             TezosSecuredCard(contest, view.request.user),
             cls='main-container')
-        sub_section = html.Div(
+        sub_section = Div(
             CandidatesSettingsCard(view, **context),
             cls='side-container')
 
@@ -1103,12 +1099,12 @@ class ContestCard(html.Div):
             sub_section.addchild(VotersSettingsCard(view, **context))
 
 
-        super().__init__(
-            html.Div(
-                html.Div(
+        return super().to_html(
+            Div(
+                Div(
                     BackLink('my elections', reverse('contest_list')),
                     cls='main-container'),
-                html.Div(cls='side-container'),
+                Div(cls='side-container'),
                 action_section,
                 sub_section,
                 cls='flex-container'
@@ -1130,7 +1126,7 @@ class CandidateListItem(MDCListItem):
         )
 
 
-class CandidateList(html.Ul):
+class CandidateList(Ul):
     def __init__(self, contest, editable=False):
         super().__init__(
             *(
@@ -1143,7 +1139,7 @@ class CandidateList(html.Ul):
         )
 
 
-class VoterList(html.Ul):
+class VoterList(Ul):
     def __init__(self, contest):
         emails = contest.voters_emails.split('\n')
         num_emails = len(emails)
@@ -1161,15 +1157,17 @@ class VoterList(html.Ul):
 
 
 @template('djelectionguard/contest_voters_detail.html', Document, Card)
-class VotersDetailCard(html.Div):
-    def __init__(self, *content, view, **context):
+class VotersDetailCard(Div):
+    style = dict(cls='card')
+
+    def to_html(self, *content, view, **context):
         contest = view.get_object()
         self.backlink = BackLink('back', reverse('contest_detail', args=[contest.id]))
         voters = contest.voter_set.all()
-        table_head_row = html.Tr(cls='mdc-data-table__header-row')
+        table_head_row = Tr(cls='mdc-data-table__header-row')
         for th in ('email', 'vote email sent', 'voted', 'tally email sent'):
             table_head_row.addchild(
-                html.Th(
+                Th(
                     th,
                     role='columnheader',
                     scope='col',
@@ -1178,7 +1176,7 @@ class VotersDetailCard(html.Div):
                 )
             )
 
-        table_content = html.Tbody(cls='mdc-data-table__content')
+        table_content = Tbody(cls='mdc-data-table__content')
         cls = 'mdc-data-table__cell'
         for voter in voters:
             activated = voter.user and voter.user.is_active
@@ -1189,14 +1187,14 @@ class VotersDetailCard(html.Div):
                     voter.close_email_sent.strftime("%d/%m/%Y %H:%M")
                     if voter.close_email_sent else '')
 
-            table_content.addchild(html.Tr(
-                html.Td(voter.user.email, cls=cls),
-                html.Td(
+            table_content.addchild(Tr(
+                Td(voter.user.email, cls=cls),
+                Td(
                     str(open_email_sent) or '',
                     cls=cls + ' center',
                 ),
-                html.Td(CheckedIcon() if voter.casted else 'No', cls=cls + ' center'),
-                html.Td(
+                Td(CheckedIcon() if voter.casted else 'No', cls=cls + ' center'),
+                Td(
                     str(close_email_sent) or '',
                     cls=cls + ' center',
                 ),
@@ -1204,8 +1202,8 @@ class VotersDetailCard(html.Div):
                 style='opacity: 0.5;' if not activated else ''
             ))
 
-        table = html.Table(
-            html.Thead(table_head_row),
+        table = Table(
+            Thead(table_head_row),
             table_content,
             **{
                 'class': 'mdc-data-table__table',
@@ -1222,33 +1220,33 @@ class VotersDetailCard(html.Div):
         if contest.actual_start:
             self.edit_btn = ''
 
-        super().__init__(
-            html.H4(voters.count(), ' Voters', cls='center-text'),
-            html.Div(self.edit_btn, cls='center-button'),
-            html.Div(
+        return super().to_html(
+            H4(voters.count(), ' Voters', cls='center-text'),
+            Div(self.edit_btn, cls='center-button'),
+            Div(
                 table,
                 cls='table-container'),
-            cls='card'
         )
 
 
 @template('djelectionguard/candidate_list.html', Document, Card)
-class ContestCandidateCreateCard(html.Div):
-    def __init__(self, *content, view, **context):
+class ContestCandidateCreateCard(Div):
+    style = dict(cls='card')
+
+    def to_html(self, *content, view, **context):
         contest = view.get_object()
         self.backlink = BackLink('back', reverse('contest_detail', args=[contest.id]))
-        super().__init__(
-            html.H4(
+        return super().to_html(
+            H4(
                 contest.candidate_set.count(), ' Candidates',
                 style='text-align: center;'),
-            CandidateList(contest),
-            cls='card'
+            CandidateList(contest)
         )
 
 
 @template('djelectionguard/candidate_form.html', Document, Card)
-class ContestCandidateCreateCard(html.Div):
-    def __init__(self, *content, view, form, **context):
+class ContestCandidateCreateCard(Div):
+    def to_html(self, *content, view, form, **context):
         contest = view.get_object()
         editable = (view.request.user == contest.mediator
                     and not contest.actual_start)
@@ -1261,8 +1259,8 @@ class ContestCandidateCreateCard(html.Div):
                 MDCButton('Add candidate', icon='person_add_alt_1'),
                 method='POST',
                 cls='form')
-        super().__init__(
-            html.H4(
+        return super().to_html(
+            H4(
                 contest.candidate_set.count(), ' Candidates',
                 style='text-align: center;'),
             form_component,
@@ -1272,8 +1270,8 @@ class ContestCandidateCreateCard(html.Div):
 
 
 @template('djelectionguard/candidate_update.html', Document, Card)
-class ContestCandidateUpdateCard(html.Div):
-    def __init__(self, *content, view, form, **context):
+class ContestCandidateUpdateCard(Div):
+    def to_html(self, *content, view, form, **context):
         candidate = view.get_object()
         contest = candidate.contest
         self.backlink = BackLink(
@@ -1285,16 +1283,16 @@ class ContestCandidateUpdateCard(html.Div):
             tag='a',
             href=reverse('contest_candidate_delete', args=[candidate.id]))
 
-        super().__init__(
-            html.H4(
+        return super().to_html(
+            H4(
                 'Edit candidate',
                 style='text-align: center;'
             ),
-            html.Form(
+            Form(
                 CSRFInput(view.request),
                 form,
-                html.Div(
-                    html.Div(delete_btn, cls='red-button-container'),
+                Div(
+                    Div(delete_btn, cls='red-button-container'),
                     MDCButton('Save', True),
                     style='display: flex; justify-content: space-between'),
                 method='POST',
@@ -1304,18 +1302,18 @@ class ContestCandidateUpdateCard(html.Div):
 
 
 @template('djelectionguard/voters_update.html', Document, Card)
-class ContestVotersUpdateCard(html.Div):
-    def __init__(self, *content, view, form, **context):
+class ContestVotersUpdateCard(Div):
+    def to_html(self, *content, view, form, **context):
         contest = view.get_object()
         self.backlink = BackLink(
             'back',
             reverse('contest_detail', args=[contest.id]))
         voters = contest.voter_set.all()
 
-        super().__init__(
-            html.H4(voters.count(), ' Voters', style='text-align: center;'),
-            html.Div('The list of allowed voters with one email per line (sparated by Enter/Return ⏎)', cls='body-2', style='margin-bottom: 24px;text-align: center;'),
-            html.Form(
+        return super().to_html(
+            H4(voters.count(), ' Voters', style='text-align: center;'),
+            Div('The list of allowed voters with one email per line (sparated by Enter/Return ⏎)', cls='body-2', style='margin-bottom: 24px;text-align: center;'),
+            Form(
                 CSRFInput(view.request),
                 form,
                 MDCButton('Save'),
@@ -1327,8 +1325,8 @@ class ContestVotersUpdateCard(html.Div):
 
 
 @template('djelectionguard/guardian_form.html', Document, Card)
-class GuardianVerifyCard(Py2jsMixin, html.Div):
-    def __init__(self, *content, view, form, **context):
+class GuardianVerifyCard(Div):
+    def to_html(self, *content, view, form, **context):
         guardian = view.get_object()
         contest = guardian.contest
         self.backlink = BackLink(
@@ -1338,14 +1336,14 @@ class GuardianVerifyCard(Py2jsMixin, html.Div):
         self.submit_btn = MDCButton('confirm', True, disabled=True)
         self.submit_btn_id = self.submit_btn.id
 
-        super().__init__(
-            html.H4('Confirm possession of an uncompromised private key', cls='center-text'),
-            html.Div('You need to upload your private key to confirm that you posses a valid key that hasn’t been temepered with.', cls='center-text'),
-            html.Form(
+        return super().to_html(
+            H4('Confirm possession of an uncompromised private key', cls='center-text'),
+            Div('You need to upload your private key to confirm that you posses a valid key that hasn’t been temepered with.', cls='center-text'),
+            Form(
                 MDCFileField(
                     Input(id='file_input', type='file', name='pkl_file'),
                     label='Choose file'),
-                html.Span("Your privacy key is a file with '.pkl' extension. ", cls='body-2'),
+                Span("Your privacy key is a file with '.pkl' extension. ", cls='body-2'),
                 self.submit_btn,
                 CSRFInput(view.request),
                 enctype='multipart/form-data',
@@ -1368,20 +1366,20 @@ class GuardianVerifyCard(Py2jsMixin, html.Div):
 
 
 @template('djelectionguard/contest_pubkey.html', Document, Card)
-class ContestPubKeyCard(html.Div):
-    def __init__(self, *content, view, form, **context):
+class ContestPubKeyCard(Div):
+    def to_html(self, *content, view, form, **context):
         contest = view.get_object()
         self.backlink = BackLink(
             'back',
             reverse('contest_detail', args=[contest.id]))
-        super().__init__(
-            html.H4('Lock the ballot box', cls='center-text'),
-            html.Div(
-                html.P('This will remove all guardians’ private keys from the server memory.'),
-                html.P('When the voting is over the ballot box can only be opened when all guardians upload their private keys.'),
-                html.P('This is what makes the governing of the election decentralised.')
+        return super().to_html(
+            H4('Lock the ballot box', cls='center-text'),
+            Div(
+                P('This will remove all guardians’ private keys from the server memory.'),
+                P('When the voting is over the ballot box can only be opened when all guardians upload their private keys.'),
+                P('This is what makes the governing of the election decentralised.')
             ),
-            html.Form(
+            Form(
                 CSRFInput(view.request),
                 MDCButton('create'),
                 method='POST',
@@ -1392,20 +1390,20 @@ class ContestPubKeyCard(html.Div):
 
 
 @template('contest_open', Document, Card)
-class ContestOpenCard(html.Div):
-    def __init__(self, *content, view, **context):
+class ContestOpenCard(Div):
+    def to_html(self, *content, view, **context):
         contest = view.get_object()
         self.backlink = BackLink(
             'back',
             reverse('contest_detail', args=[contest.id]))
 
-        super().__init__(
-            html.H4('Open the election for voting', cls='center-text'),
-            html.Div(
-                html.P('Once you open the election for voting you can’t make changes to it.'),
+        return super().to_html(
+            H4('Open the election for voting', cls='center-text'),
+            Div(
+                P('Once you open the election for voting you can’t make changes to it.'),
                 cls='center-text'
             ),
-            html.Form(
+            Form(
                 context['form'],
                 CSRFInput(view.request),
                 MDCButton('open'),
@@ -1417,8 +1415,8 @@ class ContestOpenCard(html.Div):
 
 
 @template('contest_vote', Document, Card)
-class ContestVoteCard(html.Div):
-    def __init__(self, *content, view, form, **context):
+class ContestVoteCard(Div):
+    def to_html(self, *content, view, form, **context):
         contest = view.get_object()
         self.backlink = BackLink(
             'back',
@@ -1433,19 +1431,19 @@ class ContestVoteCard(html.Div):
              for i, candidate
              in enumerate(candidates))
 
-        super().__init__(
-            html.H4('Make your choice', cls='center-text'),
-            html.Div(
-                html.P(f'You may choose up to {max_selections} ' +
+        return super().to_html(
+            H4('Make your choice', cls='center-text'),
+            Div(
+                P(f'You may choose up to {max_selections} ' +
                         'candidates. In the end of the election ' +
                         f'{number_elected} winner will be announced.'),
                 cls='center-text body-2'
             ),
-            html.Ul(
-                *[html.Li(e) for e in form.non_field_errors()],
+            Ul(
+                *[Li(e) for e in form.non_field_errors()],
                 cls='error-list'
             ),
-            html.Form(
+            Form(
                 CSRFInput(view.request),
                 MDCMultipleChoicesCheckbox(
                     'selections',
@@ -1460,8 +1458,8 @@ class ContestVoteCard(html.Div):
 
 
 @template('ballot_encrypt', Document, Card)
-class ContestBallotEncryptCard(html.Div):
-    def __init__(self, *content, view, form, **context):
+class ContestBallotEncryptCard(Div):
+    def to_html(self, *content, view, form, **context):
         contest = view.get_object()
         url = reverse('contest_vote', args=[contest.id])
         self.backlink = BackLink('back', url)
@@ -1470,18 +1468,18 @@ class ContestBallotEncryptCard(html.Div):
         change_btn = MDCButtonOutlined('change', False, tag='a', href=url)
         encrypt_btn = MDCButton('encrypt ballot')
 
-        super().__init__(
-            html.H4('Review your ballot', cls='center-text'),
-            html.Div(
-                html.P('This is an ecrypted election. Once your ballot is encrypted, it will always stay that way – no one can see who voted for whom. However, you will be able to check that your vote has been properly counted.  Learn how'),
+        return super().to_html(
+            H4('Review your ballot', cls='center-text'),
+            Div(
+                P('This is an ecrypted election. Once your ballot is encrypted, it will always stay that way – no one can see who voted for whom. However, you will be able to check that your vote has been properly counted.  Learn how'),
                 cls='center-text'),
-            html.H6('Your selection'),
-            html.Ul(*(
+            H6('Your selection'),
+            Ul(*(
                 MDCListItem(candidate.name)
                 for candidate in selections),
                 cls='mdc-list'),
             change_btn,
-            html.Form(
+            Form(
                 CSRFInput(view.request),
                 encrypt_btn,
                 method='POST',
@@ -1491,8 +1489,8 @@ class ContestBallotEncryptCard(html.Div):
 
 
 @template('ballot_cast', Document, Card)
-class ContestBallotCastCard(Py2jsMixin, html.Div):
-    def __init__(self, *content, view, **context):
+class ContestBallotCastCard(Div):
+    def to_html(self, *content, view, **context):
         self.contest = view.get_object()
         self.backlink = BackLink(
             'back',
@@ -1503,12 +1501,12 @@ class ContestBallotCastCard(Py2jsMixin, html.Div):
             'download ballot file', False, 'file_download', tag='a')
         cast_btn = MDCButton('confirm my vote')
 
-        super().__init__(
-            html.H4('Encrypted ballot', cls='center-text'),
-            html.Div(
-                html.P('This is an ecrypted election. Once your ballot is encrypted, it will always stay that way – no one can see who voted for whom. However, you will be able to check that your vote has been properly counted. Learn more'),
+        return super().to_html(
+            H4('Encrypted ballot', cls='center-text'),
+            Div(
+                P('This is an ecrypted election. Once your ballot is encrypted, it will always stay that way – no one can see who voted for whom. However, you will be able to check that your vote has been properly counted. Learn more'),
                 cls='center-text body-2'),
-            html.Form(
+            Form(
                 Div(
                     MDCTextareaFieldOutlined(
                         Textarea(
@@ -1553,21 +1551,21 @@ class ContestBallotCastCard(Py2jsMixin, html.Div):
 
 
 @template('contest_close', Document, Card)
-class ContestCloseCard(html.Div):
-    def __init__(self, *content, view, **context):
+class ContestCloseCard(Div):
+    def to_html(self, *content, view, **context):
         contest = view.get_object()
         self.backlink = BackLink(
             'back',
             reverse('contest_detail', args=[contest.id]))
 
-        super().__init__(
-            html.H4('Manual closing of the election', cls='center-text'),
-            html.Div(
-                html.P('This will stop the voting process and it can\'t be undone.'),
+        return super().to_html(
+            H4('Manual closing of the election', cls='center-text'),
+            Div(
+                P('This will stop the voting process and it can\'t be undone.'),
                 cls='center-text body-2'),
-            html.Form(
+            Form(
                 CSRFInput(view.request),
-                html.Div(
+                Div(
                     MDCButtonOutlined('close the election now', False),
                     style='margin: 0 auto;',
                     cls='red-button-container'),
@@ -1578,8 +1576,8 @@ class ContestCloseCard(html.Div):
 
 
 @template('guardian_upload', Document, Card)
-class GuardianUploadKeyCard(Py2jsMixin, html.Div):
-    def __init__(self, *content, view, form, **context):
+class GuardianUploadKeyCard(Div):
+    def to_html(self, *content, view, form, **context):
         guardian = view.get_object()
         contest = guardian.contest
         self.backlink = BackLink(
@@ -1589,14 +1587,14 @@ class GuardianUploadKeyCard(Py2jsMixin, html.Div):
         self.submit_btn = MDCButton('confirm', True, disabled=True)
         self.submit_btn_id = self.submit_btn.id
 
-        super().__init__(
-            html.H4('Verify your private key', cls='center-text'),
-            html.Div('All guardians’ must upload their valid private keys to unlock the ballot box.', cls='center-text'),
-            html.Form(
+        return super().to_html(
+            H4('Verify your private key', cls='center-text'),
+            Div('All guardians’ must upload their valid private keys to unlock the ballot box.', cls='center-text'),
+            Form(
                 MDCFileField(
                     Input(id='file_input', type='file', name='pkl_file'),
                     label='Choose file'),
-                html.Span("Your privacy key is a file with '.pkl' extension. ", cls='body-2'),
+                Span("Your privacy key is a file with '.pkl' extension. ", cls='body-2'),
                 self.submit_btn,
                 CSRFInput(view.request),
                 enctype='multipart/form-data',
@@ -1619,18 +1617,18 @@ class GuardianUploadKeyCard(Py2jsMixin, html.Div):
 
 
 @template('contest_decrypt', Document, Card)
-class ContestDecryptCard(html.Div):
-    def __init__(self, *content, view, **context):
+class ContestDecryptCard(Div):
+    def to_html(self, *content, view, **context):
         contest = view.get_object()
         self.backlink = BackLink(
             'back',
             reverse('contest_detail', args=[contest.id]))
-        super().__init__(
-            html.H4('Open ballot box', cls='center-text'),
-            html.Div(
-                html.P('This process will erase all guardian keys from server memory.'),
+        return super().to_html(
+            H4('Open ballot box', cls='center-text'),
+            Div(
+                P('This process will erase all guardian keys from server memory.'),
                 cls='center-text body-2'),
-            html.Form(
+            Form(
                 context['form'],
                 CSRFInput(view.request),
                 MDCButton('open and view results'),
@@ -1641,14 +1639,14 @@ class ContestDecryptCard(html.Div):
 
 
 @template('contest_publish', Document, Card)
-class ContestPublishCard(html.Div):
-    def __init__(self, *content, view, form , **ctx):
-        super().__init__(
-            html.H4('Publish your election results', cls='center-text'),
-            html.Div(
-                html.P('This will decentralize your election results.'),
+class ContestPublishCard(Div):
+    def to_html(self, *content, view, form , **ctx):
+        return super().to_html(
+            H4('Publish your election results', cls='center-text'),
+            Div(
+                P('This will decentralize your election results.'),
                 cls='center-text body-2'),
-            html.Form(
+            Form(
                 CSRFInput(view.request),
                 MDCButton('publish results'),
                 method='POST',
@@ -1657,12 +1655,12 @@ class ContestPublishCard(html.Div):
         )
 
 
-class PublishProgressBar(Py2jsMixin, html.Div):
+class PublishProgressBar(Div):
     def __init__(self, _steps, step=0):
         self.nsteps = len(_steps)
         self.step = step
         steps = [
-            html.Span(
+            Span(
                 cls=f'progress-step progress-step--disabled',
                 **{'data-step': s})
             for s in range(0, self.nsteps)
@@ -1672,11 +1670,11 @@ class PublishProgressBar(Py2jsMixin, html.Div):
 
         super().__init__(
             MDCLinearProgress(),
-            html.Div(
+            Div(
                 *steps,
                 cls='progress-bar__steps'
             ),
-            html.Span(_steps[step], cls='center-text overline'),
+            Span(_steps[step], cls='center-text overline'),
             cls='progress-bar',
             style='margin: 24px auto'
         )
@@ -1714,8 +1712,8 @@ class PublishProgressBar(Py2jsMixin, html.Div):
 
 
 @template('contest_result', Document, Card)
-class ContestResultCard(html.Div):
-    def __init__(self, *content, view, **context):
+class ContestResultCard(Div):
+    def to_html(self, *content, view, **context):
         contest = view.get_object()
         self.backlink = BackLink(
             'back',
@@ -1734,7 +1732,7 @@ class ContestResultCard(html.Div):
         kwargs['style'] = 'text-align: right;'
         table_head_row.addchild(Th('votes', **kwargs))
 
-        table_content = html.Tbody(cls='mdc-data-table__content')
+        table_content = Tbody(cls='mdc-data-table__content')
         cls = 'mdc-data-table__cell'
 
         for i, candidate in enumerate(contest.candidate_set.order_by('-score')):
@@ -1777,9 +1775,9 @@ class ContestResultCard(html.Div):
                 href=reverse('contest_publish', args=[contest.id]),
                 style='margin: 0 auto;')
 
-        super().__init__(
-            html.H4('Results', cls='center-text'),
-            html.Div(
+        return super().to_html(
+            H4('Results', cls='center-text'),
+            Div(
                 publish_btn,
                 score_table,
                 cls='table-container score-table'),
@@ -1787,7 +1785,7 @@ class ContestResultCard(html.Div):
         )
 
 
-class GuardianDeleteBtn(html.A):
+class GuardianDeleteBtn(A):
     def __init__(self, guardian):
         self.guardian = guardian
 
@@ -1800,14 +1798,14 @@ class GuardianDeleteBtn(html.A):
 
 
 @template('guardian_create', Document, Card)
-class GuardianCreateCard(html.Div):
-    def __init__(self, *content, view, form, **context):
+class GuardianCreateCard(Div):
+    def to_html(self, *content, view, form, **context):
         contest = view.get_object()
         self.backlink = BackLink('back', reverse('contest_detail', args=[contest.id]))
-        table_head_row = html.Tr(cls='mdc-data-table__header-row')
+        table_head_row = Tr(cls='mdc-data-table__header-row')
         for th in ('guardians', ''):
             table_head_row.addchild(
-                html.Th(
+                Th(
                     th,
                     role='columnheader',
                     scope='col',
@@ -1815,13 +1813,13 @@ class GuardianCreateCard(html.Div):
                 )
             )
 
-        table_content = html.Tbody(cls='mdc-data-table__content')
+        table_content = Tbody(cls='mdc-data-table__content')
         cls = 'mdc-data-table__cell'
         for guardian in contest.guardian_set.all():
             activated = guardian.user and guardian.user.is_active
-            table_content.addchild(html.Tr(
-                html.Td(guardian.user.email, cls=cls),
-                html.Td(
+            table_content.addchild(Tr(
+                Td(guardian.user.email, cls=cls),
+                Td(
                     GuardianDeleteBtn(guardian),
                     cls=cls,
                     style='text-align:right'),
@@ -1829,8 +1827,8 @@ class GuardianCreateCard(html.Div):
                 style='opacity: 0.5;' if not activated else '',
             ))
 
-        table = html.Table(
-            html.Thead(table_head_row),
+        table = Table(
+            Thead(table_head_row),
             table_content,
             **{
                 'class': 'mdc-data-table__table',
@@ -1838,31 +1836,31 @@ class GuardianCreateCard(html.Div):
             }
         )
 
-        super().__init__(
-            html.H4('Add guardians', cls='center-text'),
-            html.Div(
+        return super().to_html(
+            H4('Add guardians', cls='center-text'),
+            Div(
                 'Guardians are responsible for locking and unlocking of the ballot box with their private keys.',
                 cls='center-text body-1'
             ),
-            html.Div(
-                html.B('No guardians for speed and simplicity (default).'),
+            Div(
+                B('No guardians for speed and simplicity (default).'),
                 ' Electis App will technically be your guardian and can secure your ballot box.',
                 cls='red-section'),
-            html.Div(
-                html.B('With guardians for greater security (recommended).'),
+            Div(
+                B('With guardians for greater security (recommended).'),
                 ' You can distribute control over the closing/opening of the',
                 ' ballot box between multiple guardians. All of their keys will',
                 ' be necessary to conduct an election – from opening for voting',
                 ' to revealing the results.',
                 cls='red-section'),
-            html.Form(
+            Form(
                 form['email'],
                 CSRFInput(view.request),
                 MDCButtonOutlined('add guardian', p=False, icon='person_add'),
                 table,
-                html.Div(
+                Div(
                     form['quorum'],
-                    html.Span(
+                    Span(
                         MDCButton('Save'),
                         style='margin: 32px 12px'),
                     style='display:flex;'
