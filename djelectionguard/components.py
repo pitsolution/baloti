@@ -1,5 +1,6 @@
 from datetime import datetime, date
 from django import forms
+from django.conf import settings
 from django.db.models import Sum
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
@@ -1156,14 +1157,20 @@ class VoterList(Ul):
         )
 
 
-@template('djelectionguard/contest_voters_detail.html', Document, Card)
+class ClipboardCopy(MDCTextButton):
+    def onclick(target):
+        target.previousElementSibling.select()
+        document.execCommand('copy')
+
+
+@template('djelectionguard/contest_voters_detail.html', Document)
 class VotersDetailCard(Div):
     style = dict(cls='card')
 
     def to_html(self, *content, view, **context):
         contest = view.get_object()
         self.backlink = BackLink('back', reverse('contest_detail', args=[contest.id]))
-        voters = contest.voter_set.all()
+        voters = contest.voter_set.select_related('user')
         table_head_row = Tr(cls='mdc-data-table__header-row')
         for th in ('email', 'vote email sent', 'voted', 'tally email sent'):
             table_head_row.addchild(
@@ -1175,27 +1182,63 @@ class VotersDetailCard(Div):
                     style='' if th == 'email' else 'text-align: center;'
                 )
             )
+        table_head_row.addchild(Th('OTP'))
 
         table_content = Tbody(cls='mdc-data-table__content')
         cls = 'mdc-data-table__cell'
         for voter in voters:
+            otp_link = None
+            if not voter.casted:
+                if voter.user.otp_token:
+                    url = settings.BASE_URL + reverse(
+                        'otp_login',
+                        args=[voter.user.otp_token]
+                    ) + '?next=' + reverse(
+                        'contest_vote',
+                        args=[view.object.pk],
+                    )
+                    otp_link = CList(
+                        Input(
+                            value=url,
+                            style='opacity: 0; position: absolute',
+                        ),
+                        ClipboardCopy('Copy link', icon='content_copy'),
+                    )
+                else:
+                    otp_link = MDCTextButton(
+                        'Request OTP',
+                        href=reverse('otp_send')
+                        + '?email='
+                        + voter.user.email
+                        + '&redirect='
+                        + view.request.path_info,
+                        tag='a',
+                        icon='shield',
+                    )
             activated = voter.user and voter.user.is_active
+
             open_email_sent = (
-                    voter.open_email_sent.strftime("%d/%m/%Y %H:%M")
-                    if voter.open_email_sent else '')
+                voter.open_email_sent.strftime("%d/%m/%Y %H:%M")
+                if voter.open_email_sent else ''
+            )
             close_email_sent = (
-                    voter.close_email_sent.strftime("%d/%m/%Y %H:%M")
-                    if voter.close_email_sent else '')
+                voter.close_email_sent.strftime("%d/%m/%Y %H:%M")
+                if voter.close_email_sent else ''
+            )
 
             table_content.addchild(Tr(
                 Td(voter.user.email, cls=cls),
                 Td(
-                    str(open_email_sent) or '',
+                    open_email_sent,
                     cls=cls + ' center',
                 ),
                 Td(CheckedIcon() if voter.casted else 'No', cls=cls + ' center'),
                 Td(
-                    str(close_email_sent) or '',
+                    close_email_sent,
+                    cls=cls + ' center',
+                ),
+                Td(
+                    otp_link,
                     cls=cls + ' center',
                 ),
                 cls='mdc-data-table__row',

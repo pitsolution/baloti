@@ -552,6 +552,6 @@ class Voter(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
-    casted = models.DateTimeField(null=True)
-    open_email_sent = models.DateTimeField(null=True)
-    close_email_sent = models.DateTimeField(null=True)
+    casted = models.DateTimeField(null=True, blank=True)
+    open_email_sent = models.DateTimeField(null=True, blank=True)
+    close_email_sent = models.DateTimeField(null=True, blank=True)
