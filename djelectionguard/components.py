@@ -590,7 +590,13 @@ class ChooseBlockchainAction(ListAction):
 
         super().__init__(
             'Choose a blockchain',
-            txt, icon, None,
+            txt, icon,
+            MDCButtonOutlined(
+                'choose blockchain',
+                tag='a',
+                p=False,
+                href=reverse('electioncontract_create', args=[obj.id])
+            ),
             separator=separator
         )
 
