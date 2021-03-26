@@ -4,10 +4,8 @@ import sys
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-ENVIRONMENT = 'localhost'
 HOST = os.getenv('HOST')
-if 'CI_ENVIRONMENT_NAME' in os.environ:
-    ENVIRONMENT = os.getenv('CI_ENVIRONMENT_NAME')
+ENVIRONMENT = os.getenv('CI_ENVIRONMENT_NAME', 'localhost')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 default = 'notsecretnotsecretnotsecretnotsecretnotsecretnotsecret'

@@ -6,6 +6,7 @@ django-extensions
 django-jinja
 django-picklefield
 django-registration
+django-timezone-field
 
 libsass
 django-compressor

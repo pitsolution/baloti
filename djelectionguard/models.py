@@ -21,6 +21,7 @@ from django.utils import timezone
 from djcall.models import Caller
 from pymemcache.client.base import Client
 from picklefield.fields import PickledObjectField
+from timezone_field import TimeZoneField
 
 
 def above_0(value):
@@ -52,6 +53,10 @@ class Contest(models.Model):
     )
     start = models.DateTimeField()
     end = models.DateTimeField()
+    timezone = TimeZoneField(
+        choices_display='WITH_GMT_OFFSET',
+        default='Europe/Paris',
+    )
     decentralized = models.BooleanField(default=False)
 
     actual_start = models.DateTimeField(null=True, blank=True)
@@ -552,6 +557,6 @@ class Voter(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
-    casted = models.DateTimeField(null=True)
-    open_email_sent = models.DateTimeField(null=True)
-    close_email_sent = models.DateTimeField(null=True)
+    casted = models.DateTimeField(null=True, blank=True)
+    open_email_sent = models.DateTimeField(null=True, blank=True)
+    close_email_sent = models.DateTimeField(null=True, blank=True)
