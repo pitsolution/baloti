@@ -12,8 +12,8 @@ from djelectionguard.models import Contest
 
 from ryzom.html import template
 from ryzom_mdc import *
-from ryzom_django_mdc.components import *
-from electeez.components import Document, Card, BackLink
+from ryzom_django_mdc.html import *
+from electeez.components import Document, Card, BackLink, MDCButton
 from .models import ElectionContract
 
 
@@ -22,8 +22,8 @@ User = get_user_model()
 
 @template('electioncontract_create', Document, Card)
 class ElectionContractCard(Div):
-    def __init__(self, *content, view, form, **context):
-        super().__init__(
+    def to_html(self, *content, view, form, **context):
+        return super().to_html(
             H4(
                 'Choose the blockchain you want to deploy'
                 ' your election results to',
