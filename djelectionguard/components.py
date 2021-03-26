@@ -606,7 +606,7 @@ class OnGoingElectionAction(ListAction):
         else:
             end_time = '<b>' + contest.end.strftime('%a %d at %H:%M') + '</b>'
             title = 'The voting process is currently ongoing'
-            txt = f'The voting started on {start_time} and will close automatically on {end_time}.'
+            txt = f'The voting started on {start_time} and will be closed at {end_time}.'
             icon = OnGoingIcon()
 
         inner = Span(
