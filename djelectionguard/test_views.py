@@ -104,6 +104,7 @@ def test_story(client, mediator, mailoutbox):
         start_1='10:00',
         end_0='2000-01-02',
         end_1='10:00',
+        timezone='Europe/Paris',
     )
     assert response.status_code == 302
     contest = Contest.objects.get(mediator=mediator)

@@ -51,7 +51,8 @@ class ContestForm(forms.ModelForm):
             'votes_allowed',
             'start',
             'end',
-            'decentralized'
+            'decentralized',
+            'timezone',
         ]
 
 
@@ -119,6 +120,7 @@ class ContestFormComponent(CList):
                 form['start'],
                 H6('Election ends:'),
                 form['end'],
+                form['timezone'],
                 decentralized,
                 CSRFInput(view.request),
                 MDCButton('update election' if edit else 'create election'),
@@ -608,6 +610,7 @@ class OnGoingElectionAction(ListAction):
             title = 'The voting process is currently ongoing'
             txt = f'The voting started on {start_time} and will be closed at {end_time}.'
             icon = OnGoingIcon()
+        txt += ' Timezone: ' + str(contest.timezone)
 
         inner = Span(
             txt,
