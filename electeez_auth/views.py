@@ -73,8 +73,11 @@ class OTPEmailSuccess(generic.TemplateView):
     template_name = 'electeez_auth/otp_email_success.html'
 
 
-class OTPLogin(generic.View):
-    def get(self, request, *args, **kwargs):
+class OTPLogin(generic.FormView):
+    template_name = 'electeez_auth/otp_login.html'
+    form_class = forms.Form
+
+    def post(self, request, *args, **kwargs):
         token = Token.objects.filter(token=kwargs['token']).first()
         if not token:
             messages.success(request, 'Invalid magic link.')

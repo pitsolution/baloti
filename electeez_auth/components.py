@@ -229,6 +229,22 @@ class ActivationFailureCard(Div):
         )
 
 
+@template('electeez_auth/otp_login.html', Document, Card)
+class OTPLoginForm(Div):
+    def to_html(self, *content, **context):
+        return super().to_html(
+            H4('Proceed to automatic authentification'),
+            Form(
+                CSRFInput(context['view'].request),
+                MDCButton('Click here to continue'),
+                style='display: flex; justify-content: center',
+                method='post',
+            ),
+            cl='card',
+            **context,
+        )
+
+
 @template('electeez_auth/otp_send.html', Document, Card)
 class OTPSendCard(Div):
     def to_html(self, *content, view, form, **context):
