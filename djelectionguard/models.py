@@ -438,19 +438,11 @@ def send_contest_mail(contest_id, title, body, link, field, **kwargs):
 
 def send_voter_mail(voter_id, title, body, link, field):
     voter = Voter.objects.select_related('user').get(pk=voter_id)
-    voter.user.otp_new()
+    otp_link = voter.user.otp_new(redirect=link).url
     voter.user.save()
-
-    otp_link = reverse('otp_login', args=[voter.user.otp_token])
     send_mail(
         title,
-        body.replace(
-            'LINK',
-            settings.BASE_URL
-            + otp_link
-            + '?next='
-            + link
-        ),
+        body.replace('LINK', otp_link),
         'webmaster@electeez.com',
         [voter.user.email],
     )

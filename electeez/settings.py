@@ -30,11 +30,6 @@ ACCOUNT_ACTIVATION_DAYS = 7
 LOGIN_REDIRECT_URL = '/'
 USE_X_FORWARDED_HOST = True
 
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'electeez_auth.views.OTPBackend',
-]
-
 INSTALLED_APPS = [
     'sass_processor',
     'electeez',
