@@ -4,6 +4,7 @@ from django.conf import settings
 from django.db.models import Sum
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
+from django.utils import timezone
 from ryzom_django_mdc.html import *
 from ryzom_django.forms import widget_template
 from electeez.components import (
@@ -1179,7 +1180,7 @@ class VotersDetailCard(Div):
     style = dict(cls='card')
 
     def to_html(self, *content, view, **context):
-        contest = view.get_object()
+        contest = view.object
         self.backlink = BackLink('back', reverse('contest_detail', args=[contest.id]))
         voters = contest.voter_set.select_related('user')
         table_head_row = Tr(cls='mdc-data-table__header-row')
@@ -1200,32 +1201,39 @@ class VotersDetailCard(Div):
         for voter in voters:
             otp_link = None
             if not voter.casted:
-                if voter.user.otp_token:
-                    url = settings.BASE_URL + reverse(
-                        'otp_login',
-                        args=[voter.user.otp_token]
-                    ) + '?next=' + reverse(
-                        'contest_vote',
-                        args=[view.object.pk],
-                    )
-                    otp_link = CList(
-                        Input(
-                            value=url,
-                            style='opacity: 0; position: absolute',
-                        ),
-                        ClipboardCopy('Copy link', icon='content_copy'),
-                    )
-                else:
-                    otp_link = MDCTextButton(
-                        'Request OTP',
-                        href=reverse('otp_send')
-                        + '?email='
-                        + voter.user.email
-                        + '&redirect='
-                        + view.request.path_info,
-                        tag='a',
-                        icon='shield',
-                    )
+                redirect = reverse('contest_vote', args=[contest.pk])
+            else:
+                redirect = reverse('contest_detail', args=[contest.pk])
+
+            token = voter.user.token_set.filter(
+                redirect=redirect,
+                used=None,
+                expiry__gt=timezone.now(),
+            ).first()
+
+            if token:
+                otp_link = CList(
+                    Input(
+                        value=token.url,
+                        style='opacity: 0; position: absolute',
+                    ),
+                    ClipboardCopy('Copy link', icon='content_copy'),
+                )
+            else:
+                otp_link = MDCTextButton(
+                    'Request OTP',
+                    href=''.join([
+                        reverse('otp_send'),
+                        '?email=',
+                        voter.user.email,
+                        '&redirect=',
+                        redirect,
+                        '&next=',
+                        view.request.path_info,
+                    ]),
+                    tag='a',
+                    icon='shield',
+                )
             activated = voter.user and voter.user.is_active
 
             open_email_sent = (

@@ -15,7 +15,7 @@ from django_registration.forms import RegistrationForm
 from django_registration.backends.activation.views import RegistrationView
 
 from electeez.components import Document, TopPanel, Footer
-from .models import User
+from .models import Token, User
 
 
 class OTPSend(generic.FormView):
@@ -44,16 +44,9 @@ class OTPSend(generic.FormView):
         return kwargs
 
     def form_valid(self, form):
-        form.user.otp_new()
-        form.user.save()
-
-        nextlink = self.request.GET.get('next', '')
-
-        LINK = ''.join([
-            settings.BASE_URL,
-            reverse('otp_login', args=[form.user.otp_token]),
-            ('?next=' + nextlink) if nextlink else ''
-        ])
+        LINK = form.user.otp_new(
+            redirect=self.request.GET.get('redirect', None)
+        ).url
 
         send_mail(
             'Your magic link',
@@ -69,43 +62,40 @@ class OTPSend(generic.FormView):
         )
 
         messages.success(self.request, 'Link sent by email')
-        return http.HttpResponseRedirect(reverse('otp_email_success'))
+        redirect = self.request.GET.get(
+            'next',
+            reverse('otp_email_success'),
+        )
+        return http.HttpResponseRedirect(redirect)
 
 
 class OTPEmailSuccess(generic.TemplateView):
     template_name = 'electeez_auth/otp_email_success.html'
 
 
-class OTPBackend(BaseBackend):
-    def authenticate(self, request, otp_token=None):
-        if otp_token:
-            user = User.objects.filter(
-                otp_token=otp_token,
-                otp_expiry__gte=timezone.now(),
-            ).first()
-
-            if user:  # tokens are usable OAOO
-                user.otp_token = None
-                user.otp_expiry = None
-                user.save()
-                return user
-
-    def get_user(self, user_id):
-        try:
-            return User.objects.get(pk=user_id)
-        except User.DoesNotExist:
-            return None
-
-
 class OTPLogin(generic.View):
     def get(self, request, *args, **kwargs):
-        user = authenticate(request, otp_token=kwargs['token'])
-        if user:
-            login(request, user)
-            messages.success(request, 'You have been authenticated.')
-            return http.HttpResponseRedirect(
-                request.GET.get('next', reverse('contest_list'))
+        token = Token.objects.filter(token=kwargs['token']).first()
+        if not token:
+            messages.success(request, 'Invalid magic link.')
+            return http.HttpResponseRedirect(reverse('otp_send'))
+
+        if token.used or token.expired:
+            redirect = reverse('otp_send') + '?redirect=' + token.redirect
+            if token.used:
+                messages.success(request, 'Magic link already used.')
+                return http.HttpResponseRedirect(redirect)
+            else:
+                messages.success(request, 'Expired magic link.')
+                return http.HttpResponseRedirect(redirect)
+
+        token.used = timezone.now()
+        token.save()
+        login(request, token.user)
+        messages.success(request, 'You have been authenticated.')
+        return http.HttpResponseRedirect(
+            request.GET.get(
+                'next',
+                token.redirect or reverse('contest_list'),
             )
-        else:
-            messages.success(request, 'Invalid or expired magic link.')
-            return http.HttpResponseRedirect('/')
+        )
