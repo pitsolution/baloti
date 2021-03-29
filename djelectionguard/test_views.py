@@ -375,7 +375,7 @@ vot1@example.com\rvot2@example.com\rnew@example.com
     link = mailoutbox[-1].body[3:]
 
     _client = Client()
-    assert _client.get(link)['Location'] == vote
+    assert _client.post(link)['Location'] == vote
     assert _client.get(vote).status_code == 200
 
     # vote page becomes visible to voter1
@@ -508,5 +508,5 @@ vot1@example.com\rvot2@example.com\rnew@example.com
     assert mailoutbox[-1].subject == 'results title'
     link = mailoutbox[-1].body[3:]
     _client = Client()
-    assert _client.get(link)['Location'] == contest_url
+    assert _client.post(link)['Location'] == contest_url
     assert _client.get(contest_url).status_code == 200
