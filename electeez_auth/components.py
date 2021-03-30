@@ -249,7 +249,7 @@ class OTPLoginForm(Div):
 class OTPSendCard(Div):
     def to_html(self, *content, view, form, **context):
         content = super().to_html(
-            H4('Receive a magik link by email'),
+            H4('Receive a magic link by email'),
             Form(
                 form,
                 CSRFInput(view.request),
