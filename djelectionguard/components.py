@@ -64,6 +64,7 @@ class ContestEditForm(ContestForm):
             'votes_allowed',
             'start',
             'end',
+            'timezone',
         ]
 
     def clean(self):
