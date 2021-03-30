@@ -208,7 +208,8 @@ a.caption {
 
 .mdc-form-field {
   flex-flow: column;
-  div {
+  & div,
+  & mdc-select-outlined {
     width: 100%;
   }
 }
