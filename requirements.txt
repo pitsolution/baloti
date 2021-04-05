@@ -12,7 +12,7 @@ libsass
 django-compressor
 django-sass-processor
 
-djblockchain[test]
+djtezos[test]>=0.3.3,<0.4
 djcall
 djcli
 electionguard
@@ -22,7 +22,7 @@ pymemcache
 pytest
 pytest-django
 pytest-watch
-pytezos<3
+pytezos
 
 ryzom>=0.6.0,<0.7
 

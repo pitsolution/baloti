@@ -4,11 +4,11 @@ from django import test
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 
-from djblockchain.models import Account, Blockchain
+from djtezos.models import Account, Blockchain
 from djelectionguard.models import Contest
 from djelectionguard_tezos.models import ElectionContract
 
-os.environ['DJBLOCKCHAIN_MOCK'] = '1'
+#os.environ['DJBLOCKCHAIN_MOCK'] = '1'
 User = get_user_model()
 
 
@@ -21,7 +21,7 @@ class ModelStory:
         assert transaction.gas
         assert transaction.contract_address
 
-    def test_sft_story(self):
+    def test_story(self):
         user = User.objects.get(email='admin@example.com')
         blockchain = Blockchain.objects.get(name=self.bcname)
         account = user.account_set.create(blockchain=blockchain)

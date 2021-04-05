@@ -1,11 +1,12 @@
 import json
 import hashlib
+import os
 
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
-from djblockchain.models import Transaction
+from djtezos.models import Transaction
 
 
 class ElectionContract(Transaction):
@@ -16,20 +17,24 @@ class ElectionContract(Transaction):
 
     def deploy(self):
         self.contract_name = 'election_compiled'
-        self.args = [
-            election_storage(self.sender.address),
-        ]
+        contract_path = os.path.join(
+            os.path.dirname(__file__),
+            'tezos/election_compiled.json',
+        )
+        with open(contract_path, 'r') as f:
+            self.contract_code = f.read()
+        self.args = election_storage(self.sender.address)
         return super().deploy()
 
     def open(self):
         return self.call(
             sender=self.sender,
             function='open',
-            args=[dict(
-                manifest_url=self.election.manifest_url,
-                manifest_hash=self.election.manifest_sha1,
-                open=str(timezone.now()),
-            )],
+            args=[
+                str(timezone.now()),
+                self.election.manifest_sha1,
+                self.election.manifest_url,
+            ],
             state='deploy',
         )
 
@@ -45,10 +50,10 @@ class ElectionContract(Transaction):
         return self.call(
             sender=self.sender,
             function='artifacts',
-            args=[dict(
-                artifacts_url=self.election.artifacts_url,
-                artifacts_hash=self.election.artifacts_sha1,
-            )],
+            args=[
+                self.election.artifacts_sha1,
+                self.election.artifacts_url,
+            ],
             state='deploy',
         )
 

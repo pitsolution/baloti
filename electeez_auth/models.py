@@ -39,6 +39,7 @@ def default_token():
 def default_expiry():
     return timezone.now() + timedelta(days=30)
 
+
 class Token(models.Model):
     user = models.ForeignKey(
         'User',
