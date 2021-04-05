@@ -1,38 +1,38 @@
 [
   {
-    "model": "djblockchain.blockchain",
+    "model": "djtezos.blockchain",
     "pk": 1,
     "fields": {
       "name": "tzlocal",
       "endpoint": "http://tz:8732",
       "explorer": "http://tz:8732/",
-      "provider_class": "djblockchain.tezos.Provider",
+      "provider_class": "djtezos.tezos.Provider",
       "confirmation_blocks": 0,
       "description": "",
       "is_active": true
     }
   },
   {
-    "model": "djblockchain.blockchain",
+    "model": "djtezos.blockchain",
     "pk": 2,
     "fields": {
       "name": "fake",
       "endpoint": "http://localhost:1337",
       "explorer": "http://localhost:1337/",
-      "provider_class": "djblockchain.fake.Provider",
+      "provider_class": "djtezos.fake.Provider",
       "confirmation_blocks": 0,
       "description": "",
       "is_active": true
     }
   },
   {
-    "model": "djblockchain.blockchain",
+    "model": "djtezos.blockchain",
     "pk": 3,
     "fields": {
       "name": "Tezos Testnet (Delphinet)",
       "endpoint": "https://rpc.tzkt.io/delphinet/",
       "explorer": "https://better-call.dev/delphinet/{}/operations",
-      "provider_class": "djblockchain.tezos.Provider",
+      "provider_class": "djtezos.tezos.Provider",
       "confirmation_blocks": 2,
       "description": "",
       "is_active": true

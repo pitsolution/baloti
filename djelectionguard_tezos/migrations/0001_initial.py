@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('djblockchain', '0017_jsonfield'),
+        ('djtezos', '0001_initial'),
         ('djelectionguard', '0004_auto'),
     ]
 
@@ -17,9 +17,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ElectionContract',
             fields=[
-                ('transaction_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='djblockchain.transaction')),
+                ('transaction_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='djtezos.transaction')),
                 ('election', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='djelectionguard.contest')),
             ],
-            bases=('djblockchain.transaction',),
+            bases=('djtezos.transaction',),
         ),
     ]

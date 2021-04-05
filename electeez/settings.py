@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'djblockchain',
+    'djtezos',
     'djcall',
     'djelectionguard',
     'djelectionguard_tezos',
@@ -279,25 +279,26 @@ if not os.path.exists(LOG_DIR):
 
 LOGGING = {
     'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
     'formatters': {
         'timestamp': {
             'format': '%(asctime)s %(message)s'
         },
     },
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'level': os.getenv('LOG_LEVEL', 'DEBUG' if DEBUG else 'INFO'),
-        },
-    },
-    'loggers': {}
+    'loggers': {},
 }
 
 LOGGERS = (
     'django.request',
     'djcall',
-    'djblockchain',
-    'djblockchain.tezos',
+    'djtezos',
+    'djtezos.tezos',
     'daphne',
     'electionguard'
 )
