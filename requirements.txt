@@ -24,6 +24,6 @@ pytest-django
 pytest-watch
 pytezos<3
 
-ryzom>=0.5.5,<0.6
+ryzom>=0.6.0,<0.7
 
 sentry-sdk

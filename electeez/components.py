@@ -6,13 +6,59 @@ from ryzom_django_mdc import html
 from ryzom.contrib.django import Static
 from py2js.renderer import JS
 from sass_processor.processor import sass_processor
-from ryzom_mdc.html import MDCButton, MDCTextButton, MDCSnackBar
+from ryzom_django_mdc.html import *
 
 
-class MDCButton(MDCButton):
-    def __init__(self, *args, **kwargs):
-        kwargs['raised'] = True
-        super().__init__(*args, **kwargs)
+class MDCTextButton(Button):
+    def __init__(self, text, icon=None, **kwargs):
+        content = [Span(cls='mdc-button__ripple')]
+        if icon:
+            content.append(MDCIcon(icon))
+        content.append(Span(text, cls='mdc-button__label'))
+        super().__init__(
+            *content,
+            cls='mdc-button',
+            **kwargs,
+        )
+
+
+class MDCButtonOutlined(Button):
+    def __init__(self, text, p=True, icon=None, **kwargs):
+        black = 'black-button' if p else ''
+        content = [Span(cls='mdc-button__ripple')]
+        if icon and isinstance(icon, str):
+            content.append(MDCIcon(icon))
+        elif icon:
+            content.append(icon)
+        content.append(Span(text, cls='mdc-button__label'))
+        super().__init__(
+            *content,
+            cls=f'mdc-button mdc-button--outlined {black}',
+            **kwargs
+        )
+
+
+class MDCButton(Button):
+    def __init__(self, text=None, p=True, icon=None, **kwargs):
+        black = 'black-button' if p else ''
+        kwargs.setdefault('raised', True)
+
+        if icon and isinstance(icon, str):
+            content = [MDCIcon(icon)]
+        elif icon:
+            content = [icon]
+        else:
+            content = []
+
+        if text:
+            content.append(Span(text, cls='mdc-button__label'))
+
+        raised = 'mdc-button--raised' if kwargs.pop('raised', None) else ''
+        super().__init__(
+            *content,
+            cls=f'mdc-button {raised} {black}',
+            **kwargs
+        )
 
 
 class MDCLinearProgress(html.Div):
