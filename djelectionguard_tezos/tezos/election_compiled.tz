@@ -1,4 +1,4 @@
-parameter (or (pair %artifacts (string %artifacts_hash) (string %artifacts_url)) (or (string %close) (pair %open (string %manifest_hash) (pair (string %manifest_url) (string %open)))));
+parameter (or (pair %artifacts (string %hash) (string %url)) (or (string %close) (pair %open (string %date) (pair (string %manifest_hash) (string %manifest_url)))));
 storage   (pair (pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url))) (pair (pair (string %close) (string %manifest_hash)) (pair (string %manifest_url) (string %open))));
 code
   {
@@ -25,7 +25,7 @@ code
             FAILWITH;   # FAILED
           }; # @parameter%artifacts : @storage
         SWAP;       # @storage : @parameter%artifacts
-        # self.data.artifacts_url = params.artifacts_url # @storage : @parameter%artifacts
+        # self.data.artifacts_url = params.url # @storage : @parameter%artifacts
         DUP;        # @storage : @storage : @parameter%artifacts
         CDR;        # pair (pair (string %close) (string %manifest_hash)) (pair (string %manifest_url) (string %open)) : @storage : @parameter%artifacts
         SWAP;       # @storage : pair (pair (string %close) (string %manifest_hash)) (pair (string %manifest_url) (string %open)) : @parameter%artifacts
@@ -44,7 +44,7 @@ code
         SWAP;       # address : pair string string : pair (pair (string %close) (string %manifest_hash)) (pair (string %manifest_url) (string %open)) : @parameter%artifacts
         PAIR;       # pair address (pair string string) : pair (pair (string %close) (string %manifest_hash)) (pair (string %manifest_url) (string %open)) : @parameter%artifacts
         PAIR;       # pair (pair address (pair string string)) (pair (pair (string %close) (string %manifest_hash)) (pair (string %manifest_url) (string %open))) : @parameter%artifacts
-        # self.data.artifacts_hash = params.artifacts_hash # pair (pair address (pair string string)) (pair (pair (string %close) (string %manifest_hash)) (pair (string %manifest_url) (string %open))) : @parameter%artifacts
+        # self.data.artifacts_hash = params.hash # pair (pair address (pair string string)) (pair (pair (string %close) (string %manifest_hash)) (pair (string %manifest_url) (string %open))) : @parameter%artifacts
         DUP;        # pair (pair address (pair string string)) (pair (pair (string %close) (string %manifest_hash)) (pair (string %manifest_url) (string %open))) : pair (pair address (pair string string)) (pair (pair (string %close) (string %manifest_hash)) (pair (string %manifest_url) (string %open))) : @parameter%artifacts
         CDR;        # pair (pair (string %close) (string %manifest_hash)) (pair (string %manifest_url) (string %open)) : pair (pair address (pair string string)) (pair (pair (string %close) (string %manifest_hash)) (pair (string %manifest_url) (string %open))) : @parameter%artifacts
         SWAP;       # pair (pair address (pair string string)) (pair (pair (string %close) (string %manifest_hash)) (pair (string %manifest_url) (string %open))) : pair (pair (string %close) (string %manifest_hash)) (pair (string %manifest_url) (string %open)) : @parameter%artifacts
@@ -115,7 +115,7 @@ code
                 FAILWITH;   # FAILED
               }; # @parameter%open : @storage
             SWAP;       # @storage : @parameter%open
-            # self.data.open = params.open # @storage : @parameter%open
+            # self.data.open = params.date # @storage : @parameter%open
             DUP;        # @storage : @storage : @parameter%open
             CAR;        # pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url)) : @storage : @parameter%open
             SWAP;       # @storage : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url)) : @parameter%open
@@ -128,8 +128,7 @@ code
             DIG 3;      # @parameter%open : string : pair (string %close) (string %manifest_hash) : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url))
             DUP;        # @parameter%open : @parameter%open : string : pair (string %close) (string %manifest_hash) : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url))
             DUG 4;      # @parameter%open : string : pair (string %close) (string %manifest_hash) : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url)) : @parameter%open
-            CDR;        # pair (string %manifest_url) (string %open) : string : pair (string %close) (string %manifest_hash) : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url)) : @parameter%open
-            CDR;        # string : string : pair (string %close) (string %manifest_hash) : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url)) : @parameter%open
+            CAR;        # string : string : pair (string %close) (string %manifest_hash) : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url)) : @parameter%open
             SWAP;       # string : string : pair (string %close) (string %manifest_hash) : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url)) : @parameter%open
             PAIR;       # pair string string : pair (string %close) (string %manifest_hash) : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url)) : @parameter%open
             SWAP;       # pair (string %close) (string %manifest_hash) : pair string string : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url)) : @parameter%open
@@ -149,8 +148,8 @@ code
             DIG 3;      # @parameter%open : string : pair (string %close) (string %manifest_hash) : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url))
             DUP;        # @parameter%open : @parameter%open : string : pair (string %close) (string %manifest_hash) : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url))
             DUG 4;      # @parameter%open : string : pair (string %close) (string %manifest_hash) : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url)) : @parameter%open
-            CDR;        # pair (string %manifest_url) (string %open) : string : pair (string %close) (string %manifest_hash) : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url)) : @parameter%open
-            CAR;        # string : string : pair (string %close) (string %manifest_hash) : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url)) : @parameter%open
+            CDR;        # pair (string %manifest_hash) (string %manifest_url) : string : pair (string %close) (string %manifest_hash) : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url)) : @parameter%open
+            CDR;        # string : string : pair (string %close) (string %manifest_hash) : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url)) : @parameter%open
             PAIR;       # pair string string : pair (string %close) (string %manifest_hash) : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url)) : @parameter%open
             SWAP;       # pair (string %close) (string %manifest_hash) : pair string string : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url)) : @parameter%open
             PAIR;       # pair (pair (string %close) (string %manifest_hash)) (pair string string) : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url)) : @parameter%open
@@ -167,6 +166,7 @@ code
             CAR;        # pair (string %close) (string %manifest_hash) : pair string string : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url)) : @parameter%open
             CAR;        # string : pair string string : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url)) : @parameter%open
             DIG 3;      # @parameter%open : string : pair string string : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url))
+            CDR;        # pair (string %manifest_hash) (string %manifest_url) : string : pair string string : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url))
             CAR;        # string : string : pair string string : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url))
             SWAP;       # string : string : pair string string : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url))
             PAIR;       # pair string string : pair string string : pair (address %admin) (pair (string %artifacts_hash) (string %artifacts_url))

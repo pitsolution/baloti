@@ -7,7 +7,7 @@ from django.views import generic
 from django.views.generic.edit import FormMixin
 from django.urls import path, reverse
 
-from djblockchain.models import Account, Blockchain
+from djtezos.models import Account, Blockchain
 from djelectionguard.models import Contest
 
 from ryzom.html import template
@@ -61,7 +61,6 @@ class ElectionContractCreate(generic.FormView):
         if ElectionContract.objects.filter(election=self.contest).first():
             return http.HttpResponseBadRequest('Contract already created')
         return super().dispatch(request, *args, **kwargs)
-
 
     def form_valid(self, form):
         blockchain = form.cleaned_data['blockchain']

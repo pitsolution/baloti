@@ -5,7 +5,7 @@ from django.db.models import Sum
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
 from django.utils import timezone
-from ryzom_django_mdc.html import *
+from electeez.components import *
 from ryzom_django.forms import widget_template
 from electeez.components import (
     Document,
