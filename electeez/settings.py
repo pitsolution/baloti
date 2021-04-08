@@ -295,10 +295,10 @@ LOGGING = {
 }
 
 LOGGERS = (
+    'root',
     'django.request',
     'djcall',
     'djtezos',
-    'djtezos.tezos',
     'daphne',
     'electionguard'
 )
