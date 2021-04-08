@@ -295,8 +295,7 @@ LOGGING = {
 }
 
 LOGGERS = (
-    'root',
-    'django.request',
+    'django.http',
     'djcall',
     'djtezos',
     'daphne',
@@ -307,7 +306,6 @@ for logger in LOGGERS:
     LOGGING['loggers'][logger] = {
         'level': 'DEBUG',
         'handlers': ['console', logger + '.debug', logger + '.info', logger + '.error'],
-        'propagate': True,
     }
     LOGGING['handlers'][logger + '.debug'] = {
         'level': 'DEBUG',
