@@ -22,7 +22,9 @@ pymemcache
 pytest
 pytest-django
 pytest-watch
-pytezos
+
+# pytezos
+https://github.com/baking-bad/pytezos/archive/bc95dafd273d04db9ce25a685d9b5c0e3ae5800e.zip
 
 ryzom>=0.6.0,<0.7
 
