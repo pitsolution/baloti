@@ -15,16 +15,17 @@ class ElectionContract(Transaction):
         on_delete=models.CASCADE,
     )
 
-    def deploy(self):
-        self.contract_name = 'election_compiled'
-        contract_path = os.path.join(
-            os.path.dirname(__file__),
-            'tezos/election_compiled.json',
-        )
-        with open(contract_path, 'r') as f:
-            self.contract_code = f.read()
-        self.args = election_storage(self.sender.address)
-        return super().deploy()
+    def save(self, *args, **kwargs):
+        if not self.contract_micheline and not self.function:
+            contract_path = os.path.join(
+                os.path.dirname(__file__),
+                'tezos/election_compiled.json',
+            )
+            with open(contract_path, 'r') as f:
+                self.contract_micheline = json.loads(f.read())
+            self.contract_name = 'election_compiled'
+            self.args = election_storage(self.sender.address)
+        return super().save(*args, **kwargs)
 
     def open(self):
         return self.call(
