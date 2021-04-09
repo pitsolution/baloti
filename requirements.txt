@@ -12,7 +12,7 @@ libsass
 django-compressor
 django-sass-processor
 
-djtezos[test]>=0.3.3,<0.4
+djtezos[test]>=0.4,<0.5
 djcall
 djcli
 electionguard
