@@ -22,7 +22,6 @@ def test_create_contract(client):
         mediator=user,
         start=timezone.now(),
         end=timezone.now(),
-        decentralized=True,
     )
     response = client.post(
         f'/tezos/{election.pk}/create/',

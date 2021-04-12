@@ -29,6 +29,7 @@ class ElectionContractCard(Div):
                 ' your election results to',
                 cls='center-text'),
             Form(
+                MDCErrorList(form.errors) if form.errors else None,
                 MDCMultipleChoicesCheckbox(
                     'blockchain',
                     (
