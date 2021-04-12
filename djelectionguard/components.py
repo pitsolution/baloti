@@ -983,7 +983,7 @@ class CandidatesSettingsCard(Div):
 
         super().__init__(
             H5('Candidates'),
-            CandidateList(contest, editable),
+            CandidateListComp(contest, editable),
             btn,
             cls='setting-section'
         )
@@ -1116,7 +1116,7 @@ class CandidateAccordion(MDCAccordion):
         )
 
 
-class CandidateList(MDCList):
+class CandidateListComp(MDCList):
     tag = 'candidate-list'
     def __init__(self, contest, editable=False):
         qs = contest.candidate_set.all()[:]
