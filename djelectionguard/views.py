@@ -747,7 +747,8 @@ class CandidateForm(forms.ModelForm):
     )
     picture = forms.ImageField(
         widget=forms.FileInput,
-        help_text='Picture of the candidate'
+        help_text='Picture of the candidate',
+        required=False
     )
 
     def clean_name(self):
