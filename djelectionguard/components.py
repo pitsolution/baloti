@@ -1068,30 +1068,75 @@ class ContestCard(Div):
         )
 
 
-class CandidateListItem(MDCListItem):
+
+class CandidateAccordionItem(MDCAccordionSection):
+    tag = 'candidate-list-item'
+
     def __init__(self, contest, candidate, editable=False):
         kwargs = dict()
         if editable:
             kwargs['tag'] = 'a'
             kwargs['href'] = reverse('contest_candidate_update', args=[candidate.id])
+            kwargs['style'] = 'margin-left: auto; margin-top: 12px;'
 
         super().__init__(
-            candidate.name,
-            addcls='candidate-list-item',
-            **kwargs
+            Div(
+                Div(
+                    Image(
+                        loading='eager',
+                        src=candidate.picture.url,
+                        style='max-height: 300px;'
+                            'max-width: 100%;'
+                            'display: block;'
+                            'margin: 0 auto;'
+                    ) if candidate.picture else None,
+                ),
+                Div(
+                    H4(candidate.name),
+                    Div(candidate.description.replace('\n', '<br>')),
+                    MDCButtonOutlined( 'Edit', False, 'edit', **kwargs),
+                ),
+                style='margin-bottom: 32px; padding: 12px'
+            ),
+            label=candidate.name,
+            icon='add'
         )
 
 
-class CandidateList(Ul):
+class CandidateAccordion(MDCAccordion):
+    tag = 'candidate-accordion'
     def __init__(self, contest, editable=False):
         super().__init__(
             *(
-                CandidateListItem(contest, candidate, editable)
+                CandidateAccordionItem(contest, candidate, editable)
                 for candidate
                 in contest.candidate_set.all()
             ) if contest.candidate_set.count()
-            else 'No candidate yet.',
-            cls='mdc-list candidate-list'
+            else ['No candidate yet.']
+        )
+
+
+class CandidateList(MDCList):
+    tag = 'candidate-list'
+    def __init__(self, contest, editable=False):
+        qs = contest.candidate_set.all()[:]
+        def candidates(qs):
+            for candidate in qs:
+                attrs = dict()
+                if editable:
+                    attrs['tag'] = 'a'
+                    attrs['href'] = reverse(
+                        'contest_candidate_update',
+                        args=[candidate.id]
+                    )
+                yield (candidate, attrs)
+
+        super().__init__(
+            *(
+                MDCListItem(candidate, **attrs)
+                for candidate, attrs in candidates(qs)
+            ) if qs.count()
+            else ['No candidate yet.']
         )
 
 
@@ -1116,6 +1161,21 @@ class ClipboardCopy(MDCTextButton):
     def onclick(target):
         target.previousElementSibling.select()
         document.execCommand('copy')
+
+
+@template('djelectionguard/candidate_list.html', Document, Card)
+class CandidateList(Div):
+    def to_html(self, *content, view, **context):
+        contest = view.get_object()
+        self.backlink = BackLink('back', reverse('contest_detail', args=[contest.id]))
+
+        return super().to_html(
+            H4('Candidates', cls='center-text'),
+            CandidateAccordion(
+                contest,
+                view.request.user == contest.mediator and not contest.actual_start
+            )
+        )
 
 
 @template('djelectionguard/contest_voters_detail.html', Document)
@@ -1234,21 +1294,6 @@ class VotersDetailCard(Div):
         )
 
 
-@template('djelectionguard/candidate_list.html', Document, Card)
-class ContestCandidateCreateCard(Div):
-    style = dict(cls='card')
-
-    def to_html(self, *content, view, **context):
-        contest = view.get_object()
-        self.backlink = BackLink('back', reverse('contest_detail', args=[contest.id]))
-        return super().to_html(
-            H4(
-                contest.candidate_set.count(), ' Candidates',
-                style='text-align: center;'),
-            CandidateList(contest)
-        )
-
-
 @template('djelectionguard/candidate_form.html', Document, Card)
 class ContestCandidateCreateCard(Div):
     def to_html(self, *content, view, form, **context):
@@ -1266,10 +1311,13 @@ class ContestCandidateCreateCard(Div):
                 cls='form')
         return super().to_html(
             H4(
-                contest.candidate_set.count(), ' Candidates',
-                style='text-align: center;'),
+                contest.candidate_set.count(),
+                ' Candidates',
+                cls='center-text'
+            ),
+            CandidateAccordion(contest, editable),
+            H5('Add a candidate', cls='center-text'),
             form_component,
-            CandidateList(contest, editable),
             cls='card'
         )
 

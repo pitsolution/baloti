@@ -459,6 +459,16 @@ class Candidate(models.Model):
         on_delete=models.CASCADE,
     )
     name = models.CharField(max_length=255)
+    description = models.CharField(
+        max_length=1024,
+        blank=True,
+        null=True
+    )
+    picture = models.ImageField(
+        upload_to='candidates',
+        blank=True,
+        null=True
+    )
     score = models.IntegerField(null=True)
 
     def __str__(self):
