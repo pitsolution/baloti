@@ -37,8 +37,6 @@ from electeez.components import Document, BackLink
 from electeez_auth.models import User
 from .components import (
     ContestForm,
-    ContestEditForm,
-    CandidateForm,
     ContestPubKeyCard,
     ContestCandidateCreateCard,
     ContestCandidateUpdateCard,
@@ -743,22 +741,38 @@ class ContestCandidateListView(ContestAccessible, generic.DetailView):
         )
 
 
+class CandidateForm(forms.ModelForm):
+    description = forms.CharField(
+        widget=forms.Textarea,
+    )
+    picture = forms.ImageField(
+        widget=forms.FileInput,
+        help_text='Picture of the candidate'
+    )
+
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        if self.instance.contest.candidate_set.filter(
+            name=name
+        ).exclude(pk=self.instance.pk):
+            raise forms.ValidationError(
+                f'{name} already added!'
+            )
+
+        return name
+
+    class Meta:
+        model = Candidate
+        fields = [
+            'name',
+            'description',
+            'picture'
+        ]
+
+
 class ContestCandidateCreateView(ContestMediator, FormMixin, generic.DetailView):
     template_name = 'djelectionguard/candidate_form.html'
-
-    class form_class(forms.ModelForm):
-        def clean_name(self):
-            name = self.cleaned_data['name']
-            if self.instance.contest.candidate_set.filter(name=name):
-                raise forms.ValidationError(
-                    f'{name} already added!'
-                )
-
-            return name
-
-        class Meta:
-            model = Candidate
-            fields = ['name']
+    form_class = CandidateForm
 
     def get_queryset(self):
         return Contest.objects.filter(
