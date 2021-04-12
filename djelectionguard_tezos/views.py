@@ -77,8 +77,6 @@ class ElectionContractCreate(generic.FormView):
             self.request,
             f'Blockchain contract created! Deployment in progress...',
         )
-        self.contest.decentralized = True
-        self.contest.save()
         return http.HttpResponseRedirect(
             reverse('contest_detail', args=[self.contest.pk])
         )

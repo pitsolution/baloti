@@ -52,48 +52,8 @@ class ContestForm(forms.ModelForm):
             'votes_allowed',
             'start',
             'end',
-            'decentralized',
             'timezone',
         ]
-
-
-class ContestEditForm(ContestForm):
-    class Meta(ContestForm.Meta):
-        fields = [
-            'name',
-            'votes_allowed',
-            'start',
-            'end',
-            'timezone',
-        ]
-
-    def clean(self):
-        cleaned_data = super().clean()
-        if 'decentralized' in cleaned_data:
-            raise forms.ValidationError(
-                'Cannot decentralize after creation'
-            )
-        return cleaned_data
-
-
-class CandidateForm(forms.ModelForm):
-    class Meta:
-        model = Candidate
-        fields = ['name']
-
-    def clean(self):
-        cleaned_data = super().clean()
-
-        exists = Candidate.objects.filter(
-            contest=self.contest,
-            name=cleaned_data['name']
-        ).exclude(id=self.instance.id).count()
-
-        if exists:
-            raise forms.ValidationError(
-                dict(name='Candidate name must be unique for a contest')
-            )
-        return cleaned_data
 
 
 class ContestFormComponent(CList):
@@ -103,14 +63,6 @@ class ContestFormComponent(CList):
             *[Li(e) for e in form.non_field_errors()],
             cls='error-list'
         ))
-
-        decentralized = ''
-        if not edit:
-            decentralized = CList(
-                H6('Decentralize my election:'),
-                MDCMultipleChoicesCheckbox(
-                    'decentralized',
-                    [(0, 'Decentralize with Tezos', 'true')]))
 
         super().__init__(
             H4('Edit election' if edit else 'Create an election'),
@@ -123,7 +75,6 @@ class ContestFormComponent(CList):
                 H6('Election ends:'),
                 form['end'],
                 form['timezone'],
-                decentralized,
                 CSRFInput(view.request),
                 MDCButton('update election' if edit else 'create election'),
                 method='POST',
@@ -138,7 +89,7 @@ class ContestCreateCard(Div):
     def to_html(self, *content, view, form, **context):
         self.backlink = BackLink('back', reverse('contest_list'))
 
-        edit = isinstance(form, ContestEditForm)
+        edit = view.object is not None
         return super().to_html(
             ContestFormComponent(view, form, edit),
         )
@@ -386,10 +337,6 @@ class AddVoterAction(ListAction):
     def __init__(self, obj):
         num_voters = obj.voter_set.all().count()
         num_candidates = obj.candidate_set.all().count()
-        separator = (
-            obj.decentralized
-            or (num_voters and num_candidates > obj.votes_allowed)
-        )
 
         kwargs = dict(
             tag='a',
@@ -406,7 +353,7 @@ class AddVoterAction(ListAction):
         super().__init__(
             'Add voters',
             txt, icon, btn_comp,
-            separator=separator
+            separator=True
         )
 
 
@@ -838,19 +785,15 @@ class ContestSettingsCard(Div):
                 BasicSettingsAction(contest),
                 AddCandidateAction(contest),
                 AddVoterAction(contest),
+                ChooseBlockchainAction(contest, user),
             ]
-            if contest.decentralized:
-                list_content.append(ChooseBlockchainAction(contest, user)),
 
             if (
                 contest.voter_set.count()
                 and contest.candidate_set.count()
                 and contest.candidate_set.count() > contest.number_elected
             ):
-                if contest.decentralized:
-                    if contest.publish_state != contest.PublishStates.ELECTION_NOT_DECENTRALIZED:
-                        list_content.append(SecureElectionAction(contest, user))
-                else:
+                if contest.publish_state != contest.PublishStates.ELECTION_NOT_DECENTRALIZED:
                     list_content.append(SecureElectionAction(contest, user))
         else:
             list_content.append(SecureElectionAction(contest, user))
@@ -872,8 +815,7 @@ class Section(Div):
 class TezosSecuredCard(Section):
     def __init__(self, contest, user):
         if (
-            contest.decentralized
-            and contest.publish_state == contest.PublishStates.ELECTION_NOT_DECENTRALIZED
+            contest.publish_state == contest.PublishStates.ELECTION_NOT_DECENTRALIZED
             and contest.mediator == user
         ):
             btn = MDCButton(
@@ -912,7 +854,7 @@ class TezosSecuredCard(Section):
                             step('Election Results available'),
                             step('Election contract updated'),
                         ], contest.publish_state - 1)
-                        if contest.decentralized and contest.publish_state
+                        if contest.publish_state
                         else btn
                     ),
                     TezosIcon(),
@@ -1827,7 +1769,6 @@ class ContestResultCard(Div):
         publish_btn = ''
         if (
             contest.publish_state == contest.PublishStates.ELECTION_DECRYPTED
-            and contest.decentralized
             and contest.mediator == view.request.user
         ):
             publish_btn = MDCButton(

@@ -114,7 +114,7 @@ class ContestCreateView(generic.CreateView):
 
 class ContestUpdateView(generic.UpdateView):
     model = Contest
-    form_class = ContestEditForm
+    form_class = ContestForm
 
     def get_queryset(self):
         return Contest.objects.filter(
@@ -411,7 +411,7 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
 class ContestDecentralized(ContestMediator):
     def get_queryset(self):
         qs = super().get_queryset()
-        return qs.filter(decentralized=True).exclude(actual_end=None)
+        return qs.exclude(actual_end=None)
 
 
 class ContestPublishView(ContestDecentralized, generic.UpdateView):
@@ -482,9 +482,7 @@ class ContestPubkeyView(ContestMediator, generic.UpdateView):
 
     def get_queryset(self):
         qs = self.request.user.contest_set.filter(joint_public_key=None)
-        return qs.filter(
-            (Q(decentralized=True) & ~Q(electioncontract=None))
-            |Q(decentralized=False))
+        return qs.exclude(electioncontract=None)
 
     class form_class(forms.ModelForm):
         class Meta:

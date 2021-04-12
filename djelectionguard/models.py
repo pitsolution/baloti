@@ -57,7 +57,6 @@ class Contest(models.Model):
         choices_display='WITH_GMT_OFFSET',
         default='Europe/Paris',
     )
-    decentralized = models.BooleanField(default=False)
 
     actual_start = models.DateTimeField(null=True, blank=True)
     actual_end = models.DateTimeField(null=True, blank=True)
@@ -238,8 +237,6 @@ class Contest(models.Model):
 
     @property
     def publish_state(self):
-        if not self.decentralized:
-            return self.PublishStates.ELECTION_NOT_DECENTRALIZED
         if self.artifacts_sha1:
             return self.PublishStates.ELECTION_PUBLISHED
         elif self.plaintext_tally:
