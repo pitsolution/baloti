@@ -545,7 +545,7 @@ class ChooseBlockchainAction(ListAction):
                 tag='a',
                 p=False,
                 href=reverse('electioncontract_create', args=[obj.id])
-            ),
+            ) if not obj.electioncontract else None,
             separator=separator
         )
 
@@ -829,7 +829,13 @@ class TezosSecuredCard(Section):
 
         if contest.publish_state != contest.PublishStates.ELECTION_NOT_DECENTRALIZED:
             try:
-                links.append(contest.electioncontract.contract_address)
+                contract = contest.electioncontract
+                links.append(
+                    A(
+                        contract.contract_address,
+                        href=contract.explorer_link
+                    )
+                )
             except ObjectDoesNotExist:
                 pass  # no contract
 
