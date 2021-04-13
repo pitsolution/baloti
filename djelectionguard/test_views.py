@@ -291,6 +291,7 @@ vot1@example.com\rvot2@example.com\rnew@example.com
         confirmation_blocks=0,
         is_active=True,
         endpoint='http://localhost:1337',
+        explorer='http://localhost:1337/',
     )
     res = post(mediator, contract, blockchain=blockchain.id)
     assert res.status_code == 302
@@ -340,7 +341,7 @@ vot1@example.com\rvot2@example.com\rnew@example.com
         'Must have more candidates than number elected'
         in res.context_data['form'].non_field_errors()
     )
-    contest.candidate_set.create(name=candidate.name)
+    contest.candidate_set.create(name=candidate.name, description='desc')
 
     # only mediator should be able to open the vote
     assert not contest.actual_start
