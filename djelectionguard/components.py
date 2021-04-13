@@ -537,6 +537,11 @@ class ChooseBlockchainAction(ListAction):
             txt = 'Choose the blockchain you want to deploy your election to'
             icon = TodoIcon()
 
+        try:
+            has_contract = obj.electioncontract is not None
+        except Contest.electioncontract.RelatedObjectDoesNotExist:
+            has_contract = False
+
         super().__init__(
             'Choose a blockchain',
             txt, icon,
@@ -545,7 +550,7 @@ class ChooseBlockchainAction(ListAction):
                 tag='a',
                 p=False,
                 href=reverse('electioncontract_create', args=[obj.id])
-            ) if not obj.electioncontract else None,
+            ) if not has_contract else None,
             separator=separator
         )
 
@@ -826,6 +831,7 @@ class TezosSecuredCard(Section):
             btn = MDCTextButton('Here\'s how', 'info_outline')
 
         links = []
+        links_attr = dict(style='text-overflow: ellipsis; overflow: hidden; width: 100%;')
 
         if contest.publish_state != contest.PublishStates.ELECTION_NOT_DECENTRALIZED:
             try:
@@ -833,19 +839,32 @@ class TezosSecuredCard(Section):
                 links.append(
                     A(
                         contract.contract_address,
-                        href=contract.explorer_link
+                        href=contract.explorer_link,
+                        **links_attr
                     )
                 )
             except ObjectDoesNotExist:
                 pass  # no contract
 
         if contest.publish_state == contest.PublishStates.ELECTION_PUBLISHED:
-            links.append(A('Download artifacts', href=contest.artifacts_local_url))
+            links.append(
+                A(
+                    'Download artifacts',
+                    href=contest.artifacts_local_url,
+                    **links_attr
+                )
+            )
             if contest.artifacts_ipfs_url:
-                links.append(A('Download from IPFS', href=contest.artifacts_ipfs_url))
+                links.append(
+                    Pre(f'ipfs get {contest.artifacts_ipfs_url}')
+                )
 
         def step(s):
-            return Span(Span(s), *links, style='display: flex; flex-flow: column wrap')
+            return Span(
+                Span(s, style='width: 100%'),
+                *links,
+                style='display: flex; flex-flow: column wrap'
+            )
 
         super().__init__(
             Ul(
