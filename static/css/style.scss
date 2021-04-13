@@ -703,6 +703,22 @@ a.caption {
   }
 }
 
+.vote-form {
+  li:nth-child(odd) {
+    background-color: aliceblue;
+    &.mdc-list-item--disabled {
+      background-color: ghostwhite;
+    }
+  }
+  li {
+    height: initial;
+    .mdc-list-item__text {
+      height: initial;
+      width: 100%;
+    }
+  }
+}
+
 @media only screen and (max-width: 512px) {
   .flex-container {
     padding: 0;

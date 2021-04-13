@@ -1093,11 +1093,8 @@ class ContestCard(Div):
         )
 
 
-
-class CandidateAccordionItem(MDCAccordionSection):
-    tag = 'candidate-list-item'
-
-    def __init__(self, contest, candidate, editable=False):
+class CandidateDetail(Div):
+    def __init__(self, candidate, editable=False):
         kwargs = dict()
         if editable:
             kwargs['tag'] = 'a'
@@ -1106,23 +1103,35 @@ class CandidateAccordionItem(MDCAccordionSection):
 
         super().__init__(
             Div(
-                Div(
-                    Image(
-                        loading='eager',
-                        src=candidate.picture.url,
-                        style='max-height: 300px;'
-                            'max-width: 100%;'
-                            'display: block;'
-                            'margin: 0 auto;'
-                    ) if candidate.picture else None,
-                ),
-                Div(
-                    H4(candidate.name),
-                    Div(candidate.description.replace('\n', '<br>')),
-                    MDCButtonOutlined( 'Edit', False, 'edit', **kwargs),
-                ),
-                style='margin-bottom: 32px; padding: 12px'
+                Image(
+                    loading='eager',
+                    src=candidate.picture.url,
+                    style='width: 100%;'
+                          'display: block;'
+                ) if candidate.picture else None,
+                style='width: 150px; padding: 12px;'
             ),
+            Div(
+                H4(candidate.name, style='margin-top: 6px;'),
+                Div(*candidate.description.split('\n')),
+                MDCButtonOutlined( 'Edit', False, 'edit', **kwargs)
+                if editable else None,
+                style='flex: 1 1 70%'
+            ),
+            style='margin-bottom: 32px; padding: 12px;'
+                  'display: flex; flex-flow: row wrap;'
+                  'justify-content: center;'
+                  'white-space: break-spaces;',
+            cls='candidate-detail'
+        )
+
+
+class CandidateAccordionItem(MDCAccordionSection):
+    tag = 'candidate-list-item'
+
+    def __init__(self, candidate, editable=False):
+        super().__init__(
+            CandidateDetail(candidate, editable),
             label=candidate.name,
             icon='add'
         )
@@ -1133,7 +1142,7 @@ class CandidateAccordion(MDCAccordion):
     def __init__(self, contest, editable=False):
         super().__init__(
             *(
-                CandidateAccordionItem(contest, candidate, editable)
+                CandidateAccordionItem(candidate, editable)
                 for candidate
                 in contest.candidate_set.all()
             ) if contest.candidate_set.count()
@@ -1505,7 +1514,7 @@ class ContestVoteCard(Div):
 
         candidates = contest.candidate_set.all()
         choices = (
-            (i, candidate.name, candidate.id)
+            (i, CandidateDetail(candidate), candidate.id)
              for i, candidate
              in enumerate(candidates))
 
@@ -1529,7 +1538,7 @@ class ContestVoteCard(Div):
                     n=max_selections),
                 MDCButton('create ballot'),
                 method='POST',
-                cls='form',
+                cls='form vote-form',
             ),
             cls='card'
         )
