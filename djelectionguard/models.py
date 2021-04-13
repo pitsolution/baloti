@@ -448,6 +448,9 @@ def send_voter_mail(voter_id, title, body, link, field):
     voter.save()
 
 
+def upload_picture(instance, filename):
+    return f'{uuid.uuid4()}.{filename.split(".")[-1]}'
+
 class Candidate(models.Model):
     id = models.UUIDField(
         primary_key=True,
@@ -465,7 +468,7 @@ class Candidate(models.Model):
         null=True
     )
     picture = models.ImageField(
-        upload_to='candidates',
+        upload_to=upload_picture,
         blank=True,
         null=True
     )
