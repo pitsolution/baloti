@@ -37,8 +37,6 @@ from electeez.components import Document, BackLink
 from electeez_auth.models import User
 from .components import (
     ContestForm,
-    ContestEditForm,
-    CandidateForm,
     ContestPubKeyCard,
     ContestCandidateCreateCard,
     ContestCandidateUpdateCard,
@@ -114,7 +112,7 @@ class ContestCreateView(generic.CreateView):
 
 class ContestUpdateView(generic.UpdateView):
     model = Contest
-    form_class = ContestEditForm
+    form_class = ContestForm
 
     def get_queryset(self):
         return Contest.objects.filter(
@@ -411,7 +409,7 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
 class ContestDecentralized(ContestMediator):
     def get_queryset(self):
         qs = super().get_queryset()
-        return qs.filter(decentralized=True).exclude(actual_end=None)
+        return qs.exclude(actual_end=None)
 
 
 class ContestPublishView(ContestDecentralized, generic.UpdateView):
@@ -482,9 +480,7 @@ class ContestPubkeyView(ContestMediator, generic.UpdateView):
 
     def get_queryset(self):
         qs = self.request.user.contest_set.filter(joint_public_key=None)
-        return qs.filter(
-            (Q(decentralized=True) & ~Q(electioncontract=None))
-            |Q(decentralized=False))
+        return qs.exclude(electioncontract=None)
 
     class form_class(forms.ModelForm):
         class Meta:
@@ -745,22 +741,39 @@ class ContestCandidateListView(ContestAccessible, generic.DetailView):
         )
 
 
+class CandidateForm(forms.ModelForm):
+    description = forms.CharField(
+        widget=forms.Textarea,
+    )
+    picture = forms.ImageField(
+        widget=forms.FileInput,
+        help_text='Picture of the candidate',
+        required=False
+    )
+
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        if self.instance.contest.candidate_set.filter(
+            name=name
+        ).exclude(pk=self.instance.pk):
+            raise forms.ValidationError(
+                f'{name} already added!'
+            )
+
+        return name
+
+    class Meta:
+        model = Candidate
+        fields = [
+            'name',
+            'description',
+            'picture'
+        ]
+
+
 class ContestCandidateCreateView(ContestMediator, FormMixin, generic.DetailView):
     template_name = 'djelectionguard/candidate_form.html'
-
-    class form_class(forms.ModelForm):
-        def clean_name(self):
-            name = self.cleaned_data['name']
-            if self.instance.contest.candidate_set.filter(name=name):
-                raise forms.ValidationError(
-                    f'{name} already added!'
-                )
-
-            return name
-
-        class Meta:
-            model = Candidate
-            fields = ['name']
+    form_class = CandidateForm
 
     def get_queryset(self):
         return Contest.objects.filter(

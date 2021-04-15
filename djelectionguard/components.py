@@ -28,6 +28,10 @@ class ContestForm(forms.ModelForm):
         now = datetime.now()
         return now.replace(second=0, microsecond=0)
 
+    about = forms.CharField(
+        widget=forms.Textarea,
+    )
+
     start = forms.SplitDateTimeField(
         label='',
         initial=now,
@@ -49,51 +53,12 @@ class ContestForm(forms.ModelForm):
         model = Contest
         fields = [
             'name',
-            'votes_allowed',
-            'start',
-            'end',
-            'decentralized',
-            'timezone',
-        ]
-
-
-class ContestEditForm(ContestForm):
-    class Meta(ContestForm.Meta):
-        fields = [
-            'name',
+            'about',
             'votes_allowed',
             'start',
             'end',
             'timezone',
         ]
-
-    def clean(self):
-        cleaned_data = super().clean()
-        if 'decentralized' in cleaned_data:
-            raise forms.ValidationError(
-                'Cannot decentralize after creation'
-            )
-        return cleaned_data
-
-
-class CandidateForm(forms.ModelForm):
-    class Meta:
-        model = Candidate
-        fields = ['name']
-
-    def clean(self):
-        cleaned_data = super().clean()
-
-        exists = Candidate.objects.filter(
-            contest=self.contest,
-            name=cleaned_data['name']
-        ).exclude(id=self.instance.id).count()
-
-        if exists:
-            raise forms.ValidationError(
-                dict(name='Candidate name must be unique for a contest')
-            )
-        return cleaned_data
 
 
 class ContestFormComponent(CList):
@@ -104,18 +69,11 @@ class ContestFormComponent(CList):
             cls='error-list'
         ))
 
-        decentralized = ''
-        if not edit:
-            decentralized = CList(
-                H6('Decentralize my election:'),
-                MDCMultipleChoicesCheckbox(
-                    'decentralized',
-                    [(0, 'Decentralize with Tezos', 'true')]))
-
         super().__init__(
             H4('Edit election' if edit else 'Create an election'),
             Form(
                 form['name'],
+                form['about'],
                 H6('Voting settings:'),
                 form['votes_allowed'],
                 H6('Election starts:'),
@@ -123,7 +81,6 @@ class ContestFormComponent(CList):
                 H6('Election ends:'),
                 form['end'],
                 form['timezone'],
-                decentralized,
                 CSRFInput(view.request),
                 MDCButton('update election' if edit else 'create election'),
                 method='POST',
@@ -138,7 +95,7 @@ class ContestCreateCard(Div):
     def to_html(self, *content, view, form, **context):
         self.backlink = BackLink('back', reverse('contest_list'))
 
-        edit = isinstance(form, ContestEditForm)
+        edit = view.object is not None
         return super().to_html(
             ContestFormComponent(view, form, edit),
         )
@@ -386,10 +343,6 @@ class AddVoterAction(ListAction):
     def __init__(self, obj):
         num_voters = obj.voter_set.all().count()
         num_candidates = obj.candidate_set.all().count()
-        separator = (
-            obj.decentralized
-            or (num_voters and num_candidates > obj.votes_allowed)
-        )
 
         kwargs = dict(
             tag='a',
@@ -406,7 +359,7 @@ class AddVoterAction(ListAction):
         super().__init__(
             'Add voters',
             txt, icon, btn_comp,
-            separator=separator
+            separator=True
         )
 
 
@@ -590,6 +543,11 @@ class ChooseBlockchainAction(ListAction):
             txt = 'Choose the blockchain you want to deploy your election to'
             icon = TodoIcon()
 
+        try:
+            has_contract = obj.electioncontract is not None
+        except Contest.electioncontract.RelatedObjectDoesNotExist:
+            has_contract = False
+
         super().__init__(
             'Choose a blockchain',
             txt, icon,
@@ -598,7 +556,7 @@ class ChooseBlockchainAction(ListAction):
                 tag='a',
                 p=False,
                 href=reverse('electioncontract_create', args=[obj.id])
-            ),
+            ) if not has_contract else None,
             separator=separator
         )
 
@@ -820,6 +778,11 @@ class ContestVotingCard(Div):
 
         super().__init__(
             H4(contest.name),
+            Div(
+                *contest.about.split('\n'),
+                style='padding: 12px;',
+                cls='subtitle-2'
+            ),
             Ul(
                 *list_content,
                 cls='mdc-list action-list'
@@ -838,25 +801,26 @@ class ContestSettingsCard(Div):
                 BasicSettingsAction(contest),
                 AddCandidateAction(contest),
                 AddVoterAction(contest),
+                ChooseBlockchainAction(contest, user),
             ]
-            if contest.decentralized:
-                list_content.append(ChooseBlockchainAction(contest, user)),
 
             if (
                 contest.voter_set.count()
                 and contest.candidate_set.count()
                 and contest.candidate_set.count() > contest.number_elected
             ):
-                if contest.decentralized:
-                    if contest.publish_state != contest.PublishStates.ELECTION_NOT_DECENTRALIZED:
-                        list_content.append(SecureElectionAction(contest, user))
-                else:
+                if contest.publish_state != contest.PublishStates.ELECTION_NOT_DECENTRALIZED:
                     list_content.append(SecureElectionAction(contest, user))
         else:
             list_content.append(SecureElectionAction(contest, user))
 
         super().__init__(
             H4(contest.name),
+            Div(
+                *contest.about.split('\n'),
+                style='padding: 12px;',
+                cls='subtitle-2'
+            ),
             Ul(
                 *list_content,
                 cls='mdc-list action-list'
@@ -872,8 +836,7 @@ class Section(Div):
 class TezosSecuredCard(Section):
     def __init__(self, contest, user):
         if (
-            contest.decentralized
-            and contest.publish_state == contest.PublishStates.ELECTION_NOT_DECENTRALIZED
+            contest.publish_state == contest.PublishStates.ELECTION_NOT_DECENTRALIZED
             and contest.mediator == user
         ):
             btn = MDCButton(
@@ -883,21 +846,24 @@ class TezosSecuredCard(Section):
         else:
             btn = MDCTextButton('Here\'s how', 'info_outline')
 
-        links = []
-
+        link = None
         if contest.publish_state != contest.PublishStates.ELECTION_NOT_DECENTRALIZED:
             try:
-                links.append(contest.electioncontract.contract_address)
+                contract = contest.electioncontract
+                link = A(
+                    contract.contract_address,
+                    href=contract.explorer_link,
+                    style='text-overflow: ellipsis; overflow: hidden; width: 100%;'
+                )
             except ObjectDoesNotExist:
                 pass  # no contract
 
-        if contest.publish_state == contest.PublishStates.ELECTION_PUBLISHED:
-            links.append(A('Download artifacts', href=contest.artifacts_local_url))
-            if contest.artifacts_ipfs_url:
-                links.append(A('Download from IPFS', href=contest.artifacts_ipfs_url))
-
         def step(s):
-            return Span(Span(s), *links, style='display: flex; flex-flow: column wrap')
+            return Span(
+                Span(s, style='width: 100%'),
+                link,
+                style='display: flex; flex-flow: column wrap'
+            )
 
         super().__init__(
             Ul(
@@ -912,7 +878,7 @@ class TezosSecuredCard(Section):
                             step('Election Results available'),
                             step('Election contract updated'),
                         ], contest.publish_state - 1)
-                        if contest.decentralized and contest.publish_state
+                        if contest.publish_state
                         else btn
                     ),
                     TezosIcon(),
@@ -1041,7 +1007,7 @@ class CandidatesSettingsCard(Div):
 
         super().__init__(
             H5('Candidates'),
-            CandidateList(contest, editable),
+            CandidateListComp(contest, editable),
             btn,
             cls='setting-section'
         )
@@ -1126,30 +1092,84 @@ class ContestCard(Div):
         )
 
 
-class CandidateListItem(MDCListItem):
-    def __init__(self, contest, candidate, editable=False):
+class CandidateDetail(Div):
+    def __init__(self, candidate, editable=False):
         kwargs = dict()
         if editable:
             kwargs['tag'] = 'a'
             kwargs['href'] = reverse('contest_candidate_update', args=[candidate.id])
+            kwargs['style'] = 'margin-left: auto; margin-top: 12px;'
 
         super().__init__(
-            candidate.name,
-            addcls='candidate-list-item',
-            **kwargs
+            Div(
+                Image(
+                    loading='eager',
+                    src=candidate.picture.url,
+                    style='width: 100%;'
+                          'display: block;'
+                ) if candidate.picture else None,
+                style='width: 150px; padding: 12px;'
+            ),
+            Div(
+                H4(candidate.name, style='margin-top: 6px;'),
+                Div(*candidate.description.split('\n')),
+                MDCButtonOutlined( 'Edit', False, 'edit', **kwargs)
+                if editable else None,
+                style='flex: 1 1 70%'
+            ),
+            style='margin-bottom: 32px; padding: 12px;'
+                  'display: flex; flex-flow: row wrap;'
+                  'justify-content: center;'
+                  'white-space: break-spaces;',
+            cls='candidate-detail'
         )
 
 
-class CandidateList(Ul):
+class CandidateAccordionItem(MDCAccordionSection):
+    tag = 'candidate-list-item'
+
+    def __init__(self, candidate, editable=False):
+        super().__init__(
+            CandidateDetail(candidate, editable),
+            label=candidate.name,
+            icon='add'
+        )
+
+
+class CandidateAccordion(MDCAccordion):
+    tag = 'candidate-accordion'
     def __init__(self, contest, editable=False):
         super().__init__(
             *(
-                CandidateListItem(contest, candidate, editable)
+                CandidateAccordionItem(candidate, editable)
                 for candidate
                 in contest.candidate_set.all()
             ) if contest.candidate_set.count()
-            else 'No candidate yet.',
-            cls='mdc-list candidate-list'
+            else ['No candidate yet.']
+        )
+
+
+class CandidateListComp(MDCList):
+    tag = 'candidate-list'
+    def __init__(self, contest, editable=False):
+        qs = contest.candidate_set.all()[:]
+        def candidates(qs):
+            for candidate in qs:
+                attrs = dict()
+                if editable:
+                    attrs['tag'] = 'a'
+                    attrs['href'] = reverse(
+                        'contest_candidate_update',
+                        args=[candidate.id]
+                    )
+                yield (candidate, attrs)
+
+        super().__init__(
+            *(
+                MDCListItem(candidate, **attrs)
+                for candidate, attrs in candidates(qs)
+            ) if qs.count()
+            else ['No candidate yet.']
         )
 
 
@@ -1174,6 +1194,21 @@ class ClipboardCopy(MDCTextButton):
     def onclick(target):
         target.previousElementSibling.select()
         document.execCommand('copy')
+
+
+@template('djelectionguard/candidate_list.html', Document, Card)
+class CandidateList(Div):
+    def to_html(self, *content, view, **context):
+        contest = view.get_object()
+        self.backlink = BackLink('back', reverse('contest_detail', args=[contest.id]))
+
+        return super().to_html(
+            H4('Candidates', cls='center-text'),
+            CandidateAccordion(
+                contest,
+                view.request.user == contest.mediator and not contest.actual_start
+            )
+        )
 
 
 @template('djelectionguard/contest_voters_detail.html', Document)
@@ -1292,21 +1327,6 @@ class VotersDetailCard(Div):
         )
 
 
-@template('djelectionguard/candidate_list.html', Document, Card)
-class ContestCandidateCreateCard(Div):
-    style = dict(cls='card')
-
-    def to_html(self, *content, view, **context):
-        contest = view.get_object()
-        self.backlink = BackLink('back', reverse('contest_detail', args=[contest.id]))
-        return super().to_html(
-            H4(
-                contest.candidate_set.count(), ' Candidates',
-                style='text-align: center;'),
-            CandidateList(contest)
-        )
-
-
 @template('djelectionguard/candidate_form.html', Document, Card)
 class ContestCandidateCreateCard(Div):
     def to_html(self, *content, view, form, **context):
@@ -1324,10 +1344,13 @@ class ContestCandidateCreateCard(Div):
                 cls='form')
         return super().to_html(
             H4(
-                contest.candidate_set.count(), ' Candidates',
-                style='text-align: center;'),
+                contest.candidate_set.count(),
+                ' Candidates',
+                cls='center-text'
+            ),
+            CandidateAccordion(contest, editable),
+            H5('Add a candidate', cls='center-text'),
             form_component,
-            CandidateList(contest, editable),
             cls='card'
         )
 
@@ -1490,12 +1513,21 @@ class ContestVoteCard(Div):
 
         candidates = contest.candidate_set.all()
         choices = (
-            (i, candidate.name, candidate.id)
+            (i, CandidateDetail(candidate), candidate.id)
              for i, candidate
              in enumerate(candidates))
 
         return super().to_html(
-            H4('Make your choice', cls='center-text'),
+            Div(
+                H3(contest.name, cls='center-text'),
+                Div(
+                    contest.about,
+                    cls='subtitle-2',
+                    style='margin-bottom: 24px;'
+                ),
+            ),
+            Hr(cls='mdc-list-divider'),
+            H5('Make your choice', cls='center-text'),
             Div(
                 P(f'You may choose up to {max_selections} ' +
                         'candidates. In the end of the election ' +
@@ -1514,7 +1546,7 @@ class ContestVoteCard(Div):
                     n=max_selections),
                 MDCButton('create ballot'),
                 method='POST',
-                cls='form',
+                cls='form vote-form',
             ),
             cls='card'
         )
@@ -1827,7 +1859,6 @@ class ContestResultCard(Div):
         publish_btn = ''
         if (
             contest.publish_state == contest.PublishStates.ELECTION_DECRYPTED
-            and contest.decentralized
             and contest.mediator == view.request.user
         ):
             publish_btn = MDCButton(
@@ -1843,7 +1874,29 @@ class ContestResultCard(Div):
             Div(
                 publish_btn,
                 score_table,
-                cls='table-container score-table'),
+                A(
+                    'Download artifacts',
+                    tag='a',
+                    href=contest.artifacts_local_url,
+                ),
+                Div(
+                    Br(),
+                    Span(
+                        'Or download artifacts on IPFS:',
+                        cls='body-2',
+                    ),
+                    Pre(
+                        f'> ipfs get {contest.artifacts_ipfs}',
+                        style='background-color: lightgray;'
+                              'width: fit-content;'
+                              'margin: 12px auto;'
+                              'padding: 4px;'
+                              'max-width: 90%;'
+                              'white-space: break-spaces;'
+                    ),
+                ) if contest.artifacts_ipfs else None,
+                cls='table-container score-table center-text'
+            ),
             cls='card',
         )
 

@@ -703,6 +703,34 @@ a.caption {
   }
 }
 
+.vote-form {
+  li:nth-child(odd) {
+    background-color: aliceblue;
+    &.mdc-list-item--disabled {
+      background-color: ghostwhite;
+    }
+  }
+}
+.contract-form,
+.vote-form {
+  li {
+    height: initial;
+    .mdc-list-item__text {
+      height: initial;
+      width: 100%;
+    }
+  }
+}
+.contract-form {
+  li {
+    padding: 12px 16px;
+    h6 {
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+  }
+}
+
 @media only screen and (max-width: 512px) {
   .flex-container {
     padding: 0;

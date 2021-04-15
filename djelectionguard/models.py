@@ -42,6 +42,7 @@ class Contest(models.Model):
         on_delete=models.CASCADE,
     )
     name = models.CharField(max_length=255)
+    about = models.CharField(max_length=2048)
     type = models.CharField(default='school', max_length=100)
     votes_allowed = models.PositiveIntegerField(
         default=1,
@@ -57,7 +58,6 @@ class Contest(models.Model):
         choices_display='WITH_GMT_OFFSET',
         default='Europe/Paris',
     )
-    decentralized = models.BooleanField(default=False)
 
     actual_start = models.DateTimeField(null=True, blank=True)
     actual_end = models.DateTimeField(null=True, blank=True)
@@ -238,8 +238,6 @@ class Contest(models.Model):
 
     @property
     def publish_state(self):
-        if not self.decentralized:
-            return self.PublishStates.ELECTION_NOT_DECENTRALIZED
         if self.artifacts_sha1:
             return self.PublishStates.ELECTION_PUBLISHED
         elif self.plaintext_tally:
@@ -451,6 +449,9 @@ def send_voter_mail(voter_id, title, body, link, field):
     voter.save()
 
 
+def upload_picture(instance, filename):
+    return f'{uuid.uuid4()}.{filename.split(".")[-1]}'
+
 class Candidate(models.Model):
     id = models.UUIDField(
         primary_key=True,
@@ -462,6 +463,16 @@ class Candidate(models.Model):
         on_delete=models.CASCADE,
     )
     name = models.CharField(max_length=255)
+    description = models.CharField(
+        max_length=1024,
+        blank=True,
+        null=True
+    )
+    picture = models.ImageField(
+        upload_to=upload_picture,
+        blank=True,
+        null=True
+    )
     score = models.IntegerField(null=True)
 
     def __str__(self):

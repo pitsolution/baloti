@@ -98,6 +98,7 @@ def test_story(client, mediator, mailoutbox):
         mediator,
         'contest_create',
         name='Test Contest',
+        about='about contest',
         number_elected=2,
         votes_allowed=2,
         start_0='2000-01-01',
@@ -177,7 +178,7 @@ vot1@example.com\rvot2@example.com\rnew@example.com
     assert response.status_code == 200
     assert b'id_name' in response.content
     assert contest.candidate_set.count() == 0
-    response = post(mediator, candidate_create, name='cand1')
+    response = post(mediator, candidate_create, name='cand1', description='desc')
     assert response.status_code == 302
 
     # but not unauthorized users
@@ -187,11 +188,11 @@ vot1@example.com\rvot2@example.com\rnew@example.com
 
     # mediator update should have worked
     assert contest.candidate_set.count() == 1
-    post(mediator, candidate_create, name='cand2')
+    post(mediator, candidate_create, name='cand2', description='desc')
 
     # we'll need another 2 candidates because we have number_elected=2
     assert contest.candidate_set.count() == 2
-    post(mediator, candidate_create, name='cand3')
+    post(mediator, candidate_create, name='cand3', description='desc')
     assert contest.candidate_set.count() == 3
 
     # only the guardian should be able to download its key
@@ -278,10 +279,23 @@ vot1@example.com\rvot2@example.com\rnew@example.com
 
     # only the mediator should access the public key generation url
     pubkey = f'{contest_url}pubkey/'
+    contract = f'/tezos/{contest.id}/create/'
     assert client.get(pubkey).status_code == 302
     #assert get(guardian2.user, pubkey).status_code == 404
     assert get(external, pubkey).status_code == 404
     assert get(voter1, pubkey).status_code == 404
+    assert get(mediator, pubkey).status_code == 404
+    from djtezos.models import Blockchain
+    blockchain = Blockchain.objects.create(
+        name='fake',
+        provider_class='djtezos.fake.Provider',
+        confirmation_blocks=0,
+        is_active=True,
+        endpoint='http://localhost:1337',
+        explorer='http://localhost:1337/',
+    )
+    res = post(mediator, contract, blockchain=blockchain.id)
+    assert res.status_code == 302
     assert get(mediator, pubkey).status_code == 200
 
     assert client.post(pubkey).status_code == 302
@@ -328,7 +342,7 @@ vot1@example.com\rvot2@example.com\rnew@example.com
         'Must have more candidates than number elected'
         in res.context_data['form'].non_field_errors()
     )
-    contest.candidate_set.create(name=candidate.name)
+    contest.candidate_set.create(name=candidate.name, description='desc')
 
     # only mediator should be able to open the vote
     assert not contest.actual_start
