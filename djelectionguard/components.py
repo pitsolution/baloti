@@ -846,39 +846,22 @@ class TezosSecuredCard(Section):
         else:
             btn = MDCTextButton('Here\'s how', 'info_outline')
 
-        links = []
-        links_attr = dict(style='text-overflow: ellipsis; overflow: hidden; width: 100%;')
-
+        link = None
         if contest.publish_state != contest.PublishStates.ELECTION_NOT_DECENTRALIZED:
             try:
                 contract = contest.electioncontract
-                links.append(
-                    A(
-                        contract.contract_address,
-                        href=contract.explorer_link,
-                        **links_attr
-                    )
+                link = A(
+                    contract.contract_address,
+                    href=contract.explorer_link,
+                    style='text-overflow: ellipsis; overflow: hidden; width: 100%;'
                 )
             except ObjectDoesNotExist:
                 pass  # no contract
 
-        if contest.publish_state == contest.PublishStates.ELECTION_PUBLISHED:
-            links.append(
-                A(
-                    'Download artifacts',
-                    href=contest.artifacts_local_url,
-                    **links_attr
-                )
-            )
-            if contest.artifacts_ipfs_url:
-                links.append(
-                    Pre(f'ipfs get {contest.artifacts_ipfs_url}')
-                )
-
         def step(s):
             return Span(
                 Span(s, style='width: 100%'),
-                *links,
+                link,
                 style='display: flex; flex-flow: column wrap'
             )
 
@@ -1891,7 +1874,29 @@ class ContestResultCard(Div):
             Div(
                 publish_btn,
                 score_table,
-                cls='table-container score-table'),
+                A(
+                    'Download artifacts',
+                    tag='a',
+                    href=contest.artifacts_local_url,
+                ),
+                Div(
+                    Br(),
+                    Span(
+                        'Or download artifacts on IPFS:',
+                        cls='body-2',
+                    ),
+                    Pre(
+                        f'> ipfs get {contest.artifacts_ipfs}',
+                        style='background-color: lightgray;'
+                              'width: fit-content;'
+                              'margin: 12px auto;'
+                              'padding: 4px;'
+                              'max-width: 90%;'
+                              'white-space: break-spaces;'
+                    ),
+                ) if contest.artifacts_ipfs else None,
+                cls='table-container score-table center-text'
+            ),
             cls='card',
         )
 
