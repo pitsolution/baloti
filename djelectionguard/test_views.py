@@ -98,6 +98,7 @@ def test_story(client, mediator, mailoutbox):
         mediator,
         'contest_create',
         name='Test Contest',
+        about='about contest',
         number_elected=2,
         votes_allowed=2,
         start_0='2000-01-01',
