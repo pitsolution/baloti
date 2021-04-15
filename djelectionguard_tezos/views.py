@@ -1,3 +1,4 @@
+import requests
 from django import forms
 from django import http
 from django.contrib.auth.decorators import login_required
@@ -20,9 +21,42 @@ from .models import ElectionContract
 User = get_user_model()
 
 
+class BlockchainItem(Div):
+    def __init__(self, account):
+        blockchain = account.blockchain
+        try:
+            balance = account.get_balance()
+        except requests.exceptions.ConnectionError:
+            balance = None
+
+        super().__init__(
+            H6('Smart contract on ', blockchain.name),
+            Div(
+                Span('Wallet address: ', cls='overline'),
+                account.address
+            ),
+            Div(
+                Span(
+                    Span('Balance needed:', cls='overline'),
+                    ' 2Tez'
+                ),
+                Span(
+                    Span('Current balance:', cls='overline'),
+                    f' {balance}Tez'
+                )
+                if balance is not None else None,
+                style='display: flex; justify-content: space-between;'
+            )
+        )
+
+
 @template('electioncontract_create', Document, Card)
 class ElectionContractCard(Div):
     def to_html(self, *content, view, form, **context):
+        self.backlink = BackLink(
+            'back',
+            reverse('contest_detail', args=[view.contest.id])
+        )
         return super().to_html(
             H4(
                 'Choose the blockchain you want to deploy'
@@ -33,16 +67,23 @@ class ElectionContractCard(Div):
                 MDCMultipleChoicesCheckbox(
                     'blockchain',
                     (
-                        (i, blockchain.name, blockchain.pk)
-                        for i, blockchain
-                        in enumerate(
-                            Blockchain.objects.filter(is_active=True))
+                        (i, BlockchainItem(account), account.blockchain.pk)
+                        for i, account
+                        in enumerate(context['accounts'])
                     ),
                     n=1),
-                MDCButton(form.submit_label),
+                Div(
+                    MDCButtonOutlined(
+                        'refresh balances',
+                        tag='a',
+                        onclick='window.location.reload()'
+                    ),
+                    MDCButton(form.submit_label),
+                    style='display: flex; justify-content: space-between'
+                ),
                 CSRFInput(view.request),
                 method='POST',
-                cls='form'),
+                cls='form contract-form'),
             cls='card')
 
 
@@ -53,7 +94,7 @@ class ElectionContractCreate(generic.FormView):
         blockchain = forms.ModelChoiceField(
             queryset=Blockchain.objects.filter(is_active=True),
         )
-        submit_label = 'Choose blockchain'
+        submit_label = 'Confirm Smart Contract'
 
     def dispatch(self, request, *args, **kwargs):
         self.contest = request.user.contest_set.filter(pk=kwargs['pk']).first()
@@ -62,6 +103,19 @@ class ElectionContractCreate(generic.FormView):
         if ElectionContract.objects.filter(election=self.contest).first():
             return http.HttpResponseBadRequest('Contract already created')
         return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        qs = Blockchain.objects.filter(is_active=True)
+        context['accounts'] = []
+        for blockchain in qs:
+            account, created = Account.objects.get_or_create(
+                blockchain=blockchain,
+                owner=User.objects.get_or_create(email='bank@elictis.io')[0],
+            )
+            context['accounts'].append(account)
+
+        return context
 
     def form_valid(self, form):
         blockchain = form.cleaned_data['blockchain']

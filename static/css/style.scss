@@ -710,11 +710,23 @@ a.caption {
       background-color: ghostwhite;
     }
   }
+}
+.contract-form,
+.vote-form {
   li {
     height: initial;
     .mdc-list-item__text {
       height: initial;
       width: 100%;
+    }
+  }
+}
+.contract-form {
+  li {
+    padding: 12px 16px;
+    h6 {
+      margin-top: 12px;
+      margin-bottom: 12px;
     }
   }
 }
