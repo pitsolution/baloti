@@ -28,6 +28,10 @@ class ContestForm(forms.ModelForm):
         now = datetime.now()
         return now.replace(second=0, microsecond=0)
 
+    about = forms.CharField(
+        widget=forms.Textarea,
+    )
+
     start = forms.SplitDateTimeField(
         label='',
         initial=now,
@@ -49,6 +53,7 @@ class ContestForm(forms.ModelForm):
         model = Contest
         fields = [
             'name',
+            'about',
             'votes_allowed',
             'start',
             'end',
@@ -68,6 +73,7 @@ class ContestFormComponent(CList):
             H4('Edit election' if edit else 'Create an election'),
             Form(
                 form['name'],
+                form['about'],
                 H6('Voting settings:'),
                 form['votes_allowed'],
                 H6('Election starts:'),
@@ -772,6 +778,11 @@ class ContestVotingCard(Div):
 
         super().__init__(
             H4(contest.name),
+            Div(
+                *contest.about.split('\n'),
+                style='padding: 12px;',
+                cls='subtitle-2'
+            ),
             Ul(
                 *list_content,
                 cls='mdc-list action-list'
@@ -805,6 +816,11 @@ class ContestSettingsCard(Div):
 
         super().__init__(
             H4(contest.name),
+            Div(
+                *contest.about.split('\n'),
+                style='padding: 12px;',
+                cls='subtitle-2'
+            ),
             Ul(
                 *list_content,
                 cls='mdc-list action-list'
@@ -1519,7 +1535,16 @@ class ContestVoteCard(Div):
              in enumerate(candidates))
 
         return super().to_html(
-            H4('Make your choice', cls='center-text'),
+            Div(
+                H3(contest.name, cls='center-text'),
+                Div(
+                    contest.about,
+                    cls='subtitle-2',
+                    style='margin-bottom: 24px;'
+                ),
+            ),
+            Hr(cls='mdc-list-divider'),
+            H5('Make your choice', cls='center-text'),
             Div(
                 P(f'You may choose up to {max_selections} ' +
                         'candidates. In the end of the election ' +
