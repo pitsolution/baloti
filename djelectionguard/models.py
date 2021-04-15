@@ -42,6 +42,7 @@ class Contest(models.Model):
         on_delete=models.CASCADE,
     )
     name = models.CharField(max_length=255)
+    about = models.CharField(max_length=2048)
     type = models.CharField(default='school', max_length=100)
     votes_allowed = models.PositiveIntegerField(
         default=1,
