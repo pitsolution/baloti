@@ -744,6 +744,7 @@ class ContestCandidateListView(ContestAccessible, generic.DetailView):
 class CandidateForm(forms.ModelForm):
     description = forms.CharField(
         widget=forms.Textarea,
+        required=False,
     )
     picture = forms.ImageField(
         widget=forms.FileInput,
