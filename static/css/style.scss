@@ -671,36 +671,8 @@ a.caption {
    }
 
 }
-
-
-@media only screen and (max-width: 1024px) {
-  .flex-container {
-    padding: 0 32px;
-
-    .card.backlink { margin-left: 0;}
-
-  }
-}
-
-@media only screen and (max-width: 800px) {
-  .top-panel {
-    padding-bottom: 0;
-
-    .top-panel-elem.under {
-      display: flex;
-    }
-    .top-panel-elem.over {
-      display: none;
-    }
-  }
-  .flex-container {
-    .main-container {
-      .setting-section.main-setting-section {
-        border: none;
-        margin-bottom: 0
-      }
-    }
-  }
+.mdc-list-item {
+  min-height: 42px;
 }
 
 candidate-accordion {
@@ -744,6 +716,37 @@ candidate-accordion {
     h6 {
       margin-top: 12px;
       margin-bottom: 12px;
+    }
+  }
+}
+
+
+@media only screen and (max-width: 1024px) {
+  .flex-container {
+    padding: 0 32px;
+
+    .card.backlink { margin-left: 0;}
+
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .top-panel {
+    padding-bottom: 0;
+
+    .top-panel-elem.under {
+      display: flex;
+    }
+    .top-panel-elem.over {
+      display: none;
+    }
+  }
+  .flex-container {
+    .main-container {
+      .setting-section.main-setting-section {
+        border: none;
+        margin-bottom: 0
+      }
     }
   }
 }

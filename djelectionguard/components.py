@@ -1107,8 +1107,11 @@ class CandidateDetail(Div):
             kwargs['href'] = reverse('contest_candidate_update', args=[candidate.id])
             kwargs['style'] = 'margin-left: auto; margin-top: 12px;'
 
+        extra_style = 'align-items: baseline;'
         content = []
+
         if candidate.picture:
+            extra_style = ''
             content.append(
                 Div(
                     Image(
@@ -1126,7 +1129,7 @@ class CandidateDetail(Div):
                 candidate.name,
                 style='margin-top: 6px; margin-bottom: 6px;'
             ),
-            style='flex: 1 1 70%'
+            style='flex: 1 1 70%; padding: 12px;'
         )
 
         if candidate.description:
@@ -1139,16 +1142,22 @@ class CandidateDetail(Div):
 
         content.append(subcontent)
 
-        if editable:
+        if editable and not candidate.description:
             content.append(
+                MDCButtonOutlined('Edit', False, 'edit', **kwargs)
+            )
+        elif editable:
+            subcontent.addchild(
                 MDCButtonOutlined('Edit', False, 'edit', **kwargs)
             )
 
         super().__init__(
             *content,
-            style='margin-bottom: 32px; padding: 12px;'
-                  'display: flex; flex-flow: row wrap;'
-                  'justify-content: center;',
+            style='padding: 12px;'
+                  'display: flex;'
+                  'flex-flow: row wrap;'
+                  'justify-content: center;'
+                  + extra_style,
             cls='candidate-detail'
         )
 
