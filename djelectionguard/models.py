@@ -23,11 +23,13 @@ from pymemcache.client.base import Client
 from picklefield.fields import PickledObjectField
 from timezone_field import TimeZoneField
 
+from django.utils.translation import gettext_lazy as _
+from django.conf import settings
 
 def above_0(value):
     if value <= 0:
         raise ValidationError(
-            f'Must be above 0, you have choosen: {value}'
+            _('Must be above 0, you have choosen:') + f'{value}'
         )
 
 

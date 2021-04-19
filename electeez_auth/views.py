@@ -16,14 +16,15 @@ from django_registration.backends.activation.views import RegistrationView
 
 from electeez.components import Document, TopPanel, Footer
 from .models import Token, User
-
+from django.utils.translation import gettext_lazy as _
+from django.conf import settings
 
 class OTPSend(generic.FormView):
     template_name = 'electeez_auth/otp_send.html'
 
     class form_class(forms.Form):
         email = forms.EmailField()
-        submit_label = 'Send magic link'
+        submit_label = _('Send magic link')
 
         def clean_email(self):
             value = self.cleaned_data['email']
@@ -32,7 +33,7 @@ class OTPSend(generic.FormView):
             ).first()
             if not self.user:
                 raise ValidationError(
-                    f'Could not find registration with email: {value}'
+                    _('Could not find registration with email:') + f'{value}'
                 )
             return value
 
@@ -49,19 +50,19 @@ class OTPSend(generic.FormView):
         ).url
 
         send_mail(
-            'Your magic link',
-            textwrap.dedent(f'''
+            _('Your magic link'),
+            textwrap.dedent(_('''
                 Hello,
 
                 This is the magic link you have requested:
-
-                {LINK}
-            '''),
+                ''') + 
+                f'{LINK}'
+            ),
             'webmaster@electeez.com',
             [form.cleaned_data['email']],
         )
 
-        messages.success(self.request, 'Link sent by email')
+        messages.success(self.request, _('Link sent by email'))
         redirect = self.request.GET.get(
             'next',
             reverse('otp_email_success'),
@@ -80,22 +81,22 @@ class OTPLogin(generic.FormView):
     def post(self, request, *args, **kwargs):
         token = Token.objects.filter(token=kwargs['token']).first()
         if not token:
-            messages.success(request, 'Invalid magic link.')
+            messages.success(request, _('Invalid magic link.'))
             return http.HttpResponseRedirect(reverse('otp_send'))
 
         if token.used or token.expired:
             redirect = reverse('otp_send') + '?redirect=' + token.redirect
             if token.used:
-                messages.success(request, 'Magic link already used.')
+                messages.success(request, _('Magic link already used.'))
                 return http.HttpResponseRedirect(redirect)
             else:
-                messages.success(request, 'Expired magic link.')
+                messages.success(request, _('Expired magic link.'))
                 return http.HttpResponseRedirect(redirect)
 
         token.used = timezone.now()
         token.save()
         login(request, token.user)
-        messages.success(request, 'You have been authenticated.')
+        messages.success(request, _('You have been authenticated.'))
         return http.HttpResponseRedirect(
             request.GET.get(
                 'next',

@@ -7,13 +7,12 @@ from django.urls import include, path
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
-    url(r'^favicon\.ico$', generic.RedirectView.as_view(url='/static/images/favicon.ico')),
+    path('favicon.ico', generic.RedirectView.as_view(url='/static/images/favicon.ico')),
     path('admin/', admin.site.urls),
     path('accounts/', include('electeez_auth.urls')),
     path('contest/', include('djelectionguard.urls')),
     path('tezos/', include('djelectionguard_tezos.views')),
     path('', generic.RedirectView.as_view(url='/contest/')),
-
 ]
 
 if settings.DEBUG:
