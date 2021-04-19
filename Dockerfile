@@ -14,6 +14,7 @@ COPY . /app/
 RUN DEBUG= ./manage.py compilescss
 RUN DEBUG= ./manage.py ryzom_bundle
 RUN DEBUG= ./manage.py collectstatic --noinput
+RUN DEBUG= ./manage.py compilemessages
 RUN find public -type f | xargs gzip -f -k -9
 USER app
 

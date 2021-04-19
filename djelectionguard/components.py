@@ -7,6 +7,9 @@ from django.urls import reverse
 from django.utils import timezone
 from electeez.components import *
 from ryzom_django.forms import widget_template
+from django.utils.translation import gettext_lazy as _
+from django.conf import settings
+
 from electeez.components import (
     Document,
     Card,
@@ -30,6 +33,7 @@ class ContestForm(forms.ModelForm):
 
     about = forms.CharField(
         widget=forms.Textarea,
+        required=False
     )
 
     start = forms.SplitDateTimeField(
@@ -70,19 +74,18 @@ class ContestFormComponent(CList):
         ))
 
         super().__init__(
-            H4('Edit election' if edit else 'Create an election'),
+            H4(_('Edit election') if edit else _('Create an election')),
             Form(
                 form['name'],
-                form['about'],
                 H6('Voting settings:'),
                 form['votes_allowed'],
-                H6('Election starts:'),
+                H6(_('Election starts:')),
                 form['start'],
-                H6('Election ends:'),
+                H6(_('Election ends:')),
                 form['end'],
                 form['timezone'],
                 CSRFInput(view.request),
-                MDCButton('update election' if edit else 'create election'),
+                MDCButton(_('update election') if edit else _('create election')),
                 method='POST',
                 cls='form'),
         )
@@ -93,7 +96,7 @@ class ContestCreateCard(Div):
     style = dict(cls='card')
 
     def to_html(self, *content, view, form, **context):
-        self.backlink = BackLink('back', reverse('contest_list'))
+        self.backlink = BackLink(_('back'), reverse('contest_list'))
 
         edit = view.object is not None
         return super().to_html(
@@ -132,9 +135,9 @@ class ContestFilters(Div):
     def __init__(self, view):
         active_btn = view.request.GET.get('q', 'all')
 
-        self.all_contests_btn = ContestFiltersBtn(1, 'all', active_btn == 'all')
-        self.my_contests_btn = ContestFiltersBtn(2, 'created by me', active_btn == 'created')
-        self.shared_contests_btn = ContestFiltersBtn(3, 'shared with me', active_btn == 'shared')
+        self.all_contests_btn = ContestFiltersBtn(1, _('all'), active_btn == 'all')
+        self.my_contests_btn = ContestFiltersBtn(2, _('created by me'), active_btn == 'created')
+        self.shared_contests_btn = ContestFiltersBtn(3, _('shared with me'), active_btn == 'shared')
 
         super().__init__(
             Div(
@@ -156,11 +159,11 @@ class ContestItem(A):
         active_cls = ''
         status = ''
         if contest.actual_start:
-            status = 'voting ongoing'
+            status = _('voting ongoing')
             active_cls = 'active'
         if contest.plaintext_tally:
             active_cls = ''
-            status = 'result available'
+            status = _('result available')
 
         super().__init__(
             Span(cls='mdc-list-item__ripple'),
@@ -231,7 +234,7 @@ class ContestListCreateBtn(A):
                     Span('+', cls='new-contest-icon'),
                     cls='new-contest-icon-container'
                 ),
-                Span('Create new election'),
+                Span(_('Create new election')),
                 cls='mdc-list-item__text text-btn mdc-ripple-upgraded'
             ),
             cls='mdc-list-item contest-list-item',
@@ -243,7 +246,7 @@ class ContestListCreateBtn(A):
 class ContestList(Div):
     def to_html(self, *content, view, **context):
         return super().to_html(
-            H4('Elections', style='text-align: center;'),
+            H4(_('Elections'), style='text-align: center;'),
             # ContestFilters(view),
             Ul(
                 ListItem(ContestListCreateBtn()),
@@ -253,7 +256,7 @@ class ContestList(Div):
                 ) if len(context['contest_list'])
                 else (
                     Li(
-                        'There are no elections yet',
+                        _('There are no elections yet'),
                         cls='mdc-list-item body-1'
                     ),
                 ),
@@ -309,13 +312,13 @@ class WorldIcon(CircleIcon):
 class BasicSettingsAction(ListAction):
     def __init__(self, obj):
         btn_comp = MDCButtonOutlined(
-            'edit',
+            _('edit'),
             False,
             tag='a',
             href=reverse('contest_update', args=[obj.id]))
         super().__init__(
-            'Basic settings',
-            'Name, votes allowed, time and date, etc.',
+            _('Basic settings'),
+            _('Name, votes allowed, time and date, etc.'),
             DoneIcon(), btn_comp
         )
 
@@ -327,15 +330,18 @@ class AddCandidateAction(ListAction):
             tag='a',
             href=reverse('contest_candidate_create', args=[obj.id]))
         if num_candidates and num_candidates > obj.number_elected:
-            btn_comp = MDCButtonOutlined('edit', False, **kwargs)
+            btn_comp = MDCButtonOutlined(_('edit'), False, **kwargs)
             icon = DoneIcon()
         else:
-            btn_comp = MDCButtonOutlined('add', False, 'add', **kwargs)
+            btn_comp = MDCButtonOutlined(_('add'), False, 'add', **kwargs)
             icon = TodoIcon()
-        txt = f'{num_candidates} candidates, minimum: {obj.number_elected + 1}'
+
+        number = obj.number_elected + 1
+        txt = _('%(candidates)d candidates, minimum: %(elected)d') % {'candidates': num_candidates, 'elected': number}
+
 
         super().__init__(
-            'Add candidates', txt, icon, btn_comp,
+            _('Add candidates'), txt, icon, btn_comp,
         )
 
 
@@ -348,16 +354,16 @@ class AddVoterAction(ListAction):
             tag='a',
             href=reverse('contest_voters_update', args=[obj.id]))
         if num_voters:
-            btn_comp = MDCButtonOutlined('edit', False, **kwargs)
+            btn_comp = MDCButtonOutlined(_('edit'), False, **kwargs)
             icon = DoneIcon()
             txt = f'{num_voters} voters'
         else:
-            btn_comp = MDCButtonOutlined('add', False, 'add', **kwargs)
+            btn_comp = MDCButtonOutlined(_('add'), False, 'add', **kwargs)
             icon = TodoIcon()
             txt = ''
 
         super().__init__(
-            'Add voters',
+            _('Add voters'),
             txt, icon, btn_comp,
             separator=True
         )
@@ -395,21 +401,21 @@ class DownloadBtn(DownloadBtnMixin, MDCTextButton):
 
 class SecureElectionInner(Span):
     def __init__(self, obj, user):
-        text = 'All guardians must possess a private key so that the ballot box is secure and the election can be opened for voting.'
+        text = _('All guardians must possess a private key so that the ballot box is secure and the election can be opened for voting.')
         todo_list = Ol()
 
         #todo_list.addchild(Li('Add guardians', cls='line'))
         guardian = obj.guardian_set.filter(user=user).first()
         if guardian:
             cls = 'line' if guardian.downloaded else 'bold'
-            todo_list.addchild(Li('Download my private key', cls=cls))
+            todo_list.addchild(Li(_('Download my private key'), cls=cls))
 
             cls = ''
             if guardian.downloaded and not guardian.verified:
                 cls = 'bold'
             elif guardian.verified:
                 cls = 'line'
-            todo_list.addchild(Li('Confirm possession of an uncompromised private key', cls=cls))
+            todo_list.addchild(Li(_('Confirm possession of an uncompromised private key'), cls=cls))
 
         if user == obj.mediator:
             n_confirmed = obj.guardian_set.exclude(verified=None).count()
@@ -421,9 +427,9 @@ class SecureElectionInner(Span):
                 cls = 'line'
             todo_list.addchild(
                 Li(
-                    'All guardians confirm possession of uncompromised private keys',
+                    _('All guardians confirm possession of uncompromised private keys'),
                     Br(),
-                    f'({n_confirmed}/{n_guardians} confirmed)',
+                    _('%(confirmed)d/%(gardiens)d confirmed') % {'confirmed': n_confirmed, 'gardiens': n_guardians},
                     cls=cls))
 
             cls = ''
@@ -431,19 +437,19 @@ class SecureElectionInner(Span):
                 cls = 'bold'
             elif obj.joint_public_key:
                 cls = 'line'
-            todo_list.addchild(Li('Lock the ballot box / erase private keys from server memory', cls=cls))
+            todo_list.addchild(Li(_('Lock the ballot box / erase private keys from server memory'), cls=cls))
 
             cls = ''
             if guardian.contest.joint_public_key:
                 cls = 'bold'
-            todo_list.addchild(Li('Open the election for voting', cls=cls))
+            todo_list.addchild(Li(_('Open the election for voting'), cls=cls))
 
-        subtext = 'Guardians must NOT loose their PRIVATE keys and they must keep them SECRET.'
+        subtext = _('Guardians must NOT loose their PRIVATE keys and they must keep them SECRET.')
 
         action_btn = None
         if not guardian.downloaded:
             action_btn = DownloadBtnOutlined(
-                'download private key',
+                _('download private key'),
                 p=False,
                 icon='file_download',
                 data_filename=f'guardian-{guardian.id}.pkl',
@@ -451,20 +457,20 @@ class SecureElectionInner(Span):
                 href=reverse('guardian_download', args=[guardian.id]))
         elif not guardian.verified:
             action_btn = MDCButtonOutlined(
-                'confirm key integrity',
+                _('confirm key integrity'),
                 p=False,
                 tag='a',
                 href=reverse('guardian_verify', args=[guardian.id]))
         elif user == obj.mediator:
             if n_guardians == n_confirmed and not obj.joint_public_key:
                 action_btn = MDCButtonOutlined(
-                    'Lock the ballot box',
+                    _('Lock the ballot box'),
                     p=False,
                     tag='a',
                     href=reverse('contest_pubkey', args=[guardian.contest.id]))
             elif obj.joint_public_key and not obj.actual_start:
                 action_btn = MDCButton(
-                    'Open for voting',
+                    _('Open for voting'),
                     tag='a',
                     href=reverse('contest_open', args=[guardian.contest.id]))
 
@@ -479,11 +485,11 @@ class SecureElectionInner(Span):
 
 class SecureElectionAction(ListAction):
     def __init__(self, obj, user):
-        title = 'Secure the election'
+        title = _('Secure the election')
 
         if obj.mediator == user:
             if obj.joint_public_key:
-                title = 'Ballot box securely locked. Election can be open for voting.'
+                title = _('Ballot box securely locked. Election can be open for voting.')
                 icon = DoneIcon()
             else:
                 icon = TodoIcon()
@@ -509,8 +515,8 @@ class CastVoteAction(ListAction):
         if voter.casted:
             s = voter.casted
             txt = (
-                f'You casted your vote on <b>{s.strftime("%a %d %b at %H:%M")}</b>.' +
-                ' The results will be published after the election is closed.'
+                _('You casted your vote on') + f'<b>{s.strftime("%a %d %b at %H:%M")}</b>.' +
+                _(' The results will be published after the election is closed.')
             )
             icon = DoneIcon()
             btn_comp = None
@@ -518,10 +524,10 @@ class CastVoteAction(ListAction):
             txt = ''
             icon = TodoIcon()
             url = reverse('contest_vote', args=(obj.id,))
-            btn_comp = MDCButtonOutlined('vote', False, tag='a', href=url)
+            btn_comp = MDCButtonOutlined(_('vote'), False, tag='a', href=url)
 
         super().__init__(
-            'Cast my vote',
+            _('Cast my vote'),
             txt, icon, btn_comp,
             separator=True
         )
@@ -540,7 +546,7 @@ class ChooseBlockchainAction(ListAction):
             txt = ''
             icon = DoneIcon()
         else:
-            txt = 'Choose the blockchain you want to deploy your election to'
+            txt = _('Choose the blockchain you want to deploy your election to')
             icon = TodoIcon()
 
         try:
@@ -549,10 +555,10 @@ class ChooseBlockchainAction(ListAction):
             has_contract = False
 
         super().__init__(
-            'Choose a blockchain',
+            _('Choose a blockchain'),
             txt, icon,
             MDCButtonOutlined(
-                'choose blockchain',
+                _('choose blockchain'),
                 tag='a',
                 p=False,
                 href=reverse('electioncontract_create', args=[obj.id])
@@ -564,17 +570,17 @@ class ChooseBlockchainAction(ListAction):
 class OnGoingElectionAction(ListAction):
     def __init__(self, contest, user):
         close_url = reverse('contest_close', args=[contest.id])
-        close_btn = MDCButtonOutlined('close', False, tag='a', href=close_url)
+        close_btn = MDCButtonOutlined(_('close'), False, tag='a', href=close_url)
         start_time = '<b>' + contest.actual_start.strftime('%a %d at %H:%M') + '</b>'
         if contest.actual_end:
             end_time = '<b>' + contest.actual_end.strftime('%a %d at %H:%M') + '</b>'
             title = 'Voting closed'
-            txt = f'The voting started on {start_time} and was open till {end_time}.'
+            txt = _('The voting started on %(start)s and was open till %(end)s.') % {'start': start_time, 'end': end_time}
             icon = SimpleCheckIcon()
         else:
             end_time = '<b>' + contest.end.strftime('%a %d at %H:%M') + '</b>'
-            title = 'The voting process is currently ongoing'
-            txt = f'The voting started on {start_time} and will be closed at {end_time}.'
+            title = _('The voting process is currently ongoing')
+            txt = _('The voting started on %(time_start)s and will be closed at %(time_end)s.') % {'time_start': start_time, 'time_end': end_time}
             icon = OnGoingIcon()
         txt += ' Timezone: ' + str(contest.timezone)
 
@@ -605,15 +611,15 @@ class UploadPrivateKeyAction(ListAction):
     def __init__(self, contest, user):
 
         guardian = contest.guardian_set.filter(user=user).first()
-        title = 'Upload my private key'
+        title = _('Upload my private key')
         icon = TodoIcon()
         content = Div(
-            'All guardians need to upload their private keys so that'
-            ' the ballot box can be opened to reveal the results.')
+            _('All guardians need to upload their private keys so that'
+            ' the ballot box can be opened to reveal the results.'))
         if contest.actual_end and not guardian.uploaded:
             action_url_ = reverse('guardian_upload', args=[guardian.id])
             action_btn_ = MDCButtonOutlined(
-                'upload my private key',
+                _('upload my private key'),
                 False,
                 tag='a',
                 href=action_url_)
@@ -642,7 +648,7 @@ class UnlockBallotAction(ListAction):
 
         if contest.actual_end:
             task_list = Ol()
-            txt = f'All guardians upload their keys ({n_uploaded}/{n_guardian} uploaded)'
+            txt = _('All guardians upload their keys %(uploaded)d/%(guardian)d uploaded') % {'uploaded': n_uploaded, 'guardian': n_guardian}
             cls='bold'
             if n_uploaded == n_guardian:
                 cls = 'line'
@@ -650,30 +656,30 @@ class UnlockBallotAction(ListAction):
             task_list.addchild(Li(txt, cls=cls))
 
             cls = 'bold' if cls == 'line' else ''
-            txt = 'Unlock the ballot box with encrypted ballots and reveal the results'
+            txt = _('Unlock the ballot box with encrypted ballots and reveal the results')
             task_list.addchild(Li(txt, cls=cls))
 
             content = Span(
                 P(
-                    'All guardians need to upload their private keys so that the ballot box can be opened to reveal the results.'
+                    _('All guardians need to upload their private keys so that the ballot box can be opened to reveal the results.')
                 ),
                 task_list,
                 cls='body-2'
             )
         else:
             content = Span(
-                P('When the election is over the guardians use their keys to open the ballot box and count the results.'),
+                P(_('When the election is over the guardians use their keys to open the ballot box and count the results.')),
                 cls='body-2'
             )
 
-        title = 'Unlocking the ballot box and revealing the results'
+        title = _('Unlocking the ballot box and revealing the results')
         if (contest.actual_end
             and not self.has_action
             and n_guardian == n_uploaded
         ):
             action_url_ = reverse('contest_decrypt', args=(contest.id,))
             action_btn_ = MDCButton(
-                'reveal results',
+                _('reveal results'),
                 True,
                 tag='a',
                 href=action_url_,
@@ -693,7 +699,7 @@ class UnlockBallotAction(ListAction):
 class WaitForEmailAction(ListAction):
     def __init__(self, contest, user):
         super().__init__(
-            'Once the ballots are counted you will be notified by email',
+            _('Once the ballots are counted you will be notified by email'),
             '',
             EmailIcon(), None, separator=False
         )
@@ -704,15 +710,15 @@ class ResultAction(ListAction):
         subtext = Div()
         if contest.mediator == user:
             subtext.addchild(
-                Div('Congratulations! You have been the mediator of a secure election.'))
+                Div(_('Congratulations! You have been the mediator of a secure election.')))
         if contest.number_elected > 1:
             winners = Ol(cls='winners')
             winner_item = Li
-            winner_text = 'the winners are:'
+            winner_text = _('the winners are:')
         else:
             winners = Div(cls='winners')
             winner_item = Span
-            winner_text = 'the winner is:'
+            winner_text = _('the winner is:')
 
         subtext.addchild(Span(winner_text, cls='winner-caption overline'))
 
@@ -730,11 +736,11 @@ class ResultAction(ListAction):
         subtext.addchild(winners)
 
         url=reverse('contest_result', args=[contest.id])
-        result_btn = MDCButton('view result table', tag='a', href=url)
+        result_btn = MDCButton(_('view result table'), tag='a', href=url)
         subtext.addchild(result_btn)
 
         super().__init__(
-            'Results available',
+            _('Results available'),
             subtext,
             DoneIcon(),
             None,
@@ -840,11 +846,11 @@ class TezosSecuredCard(Section):
             and contest.mediator == user
         ):
             btn = MDCButton(
-                'choose blockchain',
+                _('choose blockchain'),
                 tag='a',
                 href=reverse('electioncontract_create', args=[contest.id]))
         else:
-            btn = MDCTextButton('Here\'s how', 'info_outline')
+            btn = MDCTextButton(_('Here\'s how'), 'info_outline')
 
         link = None
         if contest.publish_state != contest.PublishStates.ELECTION_NOT_DECENTRALIZED:
@@ -868,15 +874,15 @@ class TezosSecuredCard(Section):
         super().__init__(
             Ul(
                 ListAction(
-                    'Secure and decentralised with Tezos',
+                    _('Secure and decentralised with Tezos'),
                     Span(
-                        'Your election data and results will be published on Tezos’ test blockchain.',
+                        _('Your election data and results will be published on Tezos’ test blockchain.'),
                         PublishProgressBar([
-                            step('Election contract created'),
-                            step('Election opened'),
-                            step('Election closed'),
-                            step('Election Results available'),
-                            step('Election contract updated'),
+                            step(_('Election contract created')),
+                            step(_('Election opened')),
+                            step(_('Election closed')),
+                            step(_('Election Results available')),
+                            step(_('Election contract updated')),
                         ], contest.publish_state - 1)
                         if contest.publish_state
                         else btn
@@ -901,14 +907,14 @@ class GuardianActionButton(CList):
         url = reverse(f'guardian_{action}', args=[guardian.id])
         if action == 'download':
             btn = DownloadBtn(
-                'Download',
+                _('Download'),
                 'file_download',
                 tag='a',
                 href=url,
                 data_filename=f'guardian-{guardian.id}.pkl')
 
         elif action == 'verify':
-            btn = MDCTextButton('Upload', 'file_upload', tag='a', href=url)
+            btn = MDCTextButton(_('Upload'), 'file_upload', tag='a', href=url)
 
         super().__init__(btn)
 
@@ -916,7 +922,7 @@ class GuardianActionButton(CList):
 class GuardianTable(Div):
     def __init__(self, view, **context):
         table_head_row = Tr(cls='mdc-data-table__header-row')
-        for th in ('email', 'key downloaded', 'key verified'):
+        for th in (_('email'), _('key downloaded'), _('key verified')):
             table_head_row.addchild(
                 Th(
                     th,
@@ -979,7 +985,7 @@ class GuardiansSettingsCard(Div):
     def __init__(self, view, **context):
         contest = view.get_object()
         super().__init__(
-            H5('Guardians'),
+            H5(_('Guardians')),
             GuardianTable(view, **context),
             cls='setting-section'
         )
@@ -994,14 +1000,14 @@ class CandidatesSettingsCard(Div):
         if contest.candidate_set.count():
             if editable:
                 kwargs['href'] = reverse('contest_candidate_create', args=[contest.id])
-                btn = MDCButtonOutlined('view all/edit', **kwargs)
+                btn = MDCButtonOutlined(_('view all/edit'), **kwargs)
             else:
                 kwargs['href'] = reverse('contest_candidate_list', args=[contest.id])
-                btn = MDCButtonOutlined('view all', **kwargs)
+                btn = MDCButtonOutlined(_('view all'), **kwargs)
         else:
             if editable:
                 kwargs['href'] = reverse('contest_candidate_create', args=[contest.id])
-                btn = MDCButtonOutlined('add', icon='add', **kwargs)
+                btn = MDCButtonOutlined(_('add'), icon='add', **kwargs)
             else:
                 btn = None
 
@@ -1023,16 +1029,16 @@ class VotersSettingsCard(Div):
             tag='a',
             href=reverse('contest_voters_detail', args=[contest.id]))
         if contest.actual_start:
-            btn = MDCButtonOutlined('view all', **kwargs)
+            btn = MDCButtonOutlined(_('view all'), **kwargs)
         elif num_emails:
-            btn = MDCButtonOutlined('view all/edit', **kwargs)
+            btn = MDCButtonOutlined(_('view all/edit'), **kwargs)
         else:
             kwargs['href'] = reverse('contest_voters_update', args=[contest.id])
-            btn = MDCButtonOutlined('add', icon='add', **kwargs)
+            btn = MDCButtonOutlined(_('add'), icon='add', **kwargs)
 
         super().__init__(
-            H5('Voters'),
-            Span(num_emails, ' voters added', cls='voters_count'),
+            H5(_('Voters')),
+            Span(num_emails, _(' voters added'), cls='voters_count'),
             btn,
             cls='setting-section'
         )
@@ -1082,7 +1088,7 @@ class ContestCard(Div):
         return super().to_html(
             Div(
                 Div(
-                    BackLink('my elections', reverse('contest_list')),
+                    BackLink(_('my elections'), reverse('contest_list')),
                     cls='main-container'),
                 Div(cls='side-container'),
                 action_section,
@@ -1100,27 +1106,48 @@ class CandidateDetail(Div):
             kwargs['href'] = reverse('contest_candidate_update', args=[candidate.id])
             kwargs['style'] = 'margin-left: auto; margin-top: 12px;'
 
+        content = []
+        if candidate.picture:
+            content.append(
+                Div(
+                    Image(
+                        loading='eager',
+                        src=candidate.picture.url,
+                        style='width: 100%;'
+                              'display: block;'
+                    ),
+                    style='width: 150px; padding: 12px;'
+                )
+            )
+
+        subcontent = Div(
+            H4(
+                candidate.name,
+                style='margin-top: 6px; margin-bottom: 6px;'
+            ),
+            style='flex: 1 1 70%'
+        )
+
+        if candidate.description:
+            subcontent.addchild(
+                Div(
+                    *candidate.description.split('\n'),
+                    style='margin-top: 24px;'
+                )
+            )
+
+        content.append(subcontent)
+
+        if editable:
+            content.append(
+                MDCButtonOutlined('Edit', False, 'edit', **kwargs)
+            )
+
         super().__init__(
-            Div(
-                Image(
-                    loading='eager',
-                    src=candidate.picture.url,
-                    style='width: 100%;'
-                          'display: block;'
-                ) if candidate.picture else None,
-                style='width: 150px; padding: 12px;'
-            ),
-            Div(
-                H4(candidate.name, style='margin-top: 6px;'),
-                Div(*candidate.description.split('\n')),
-                MDCButtonOutlined( 'Edit', False, 'edit', **kwargs)
-                if editable else None,
-                style='flex: 1 1 70%'
-            ),
+            *content,
             style='margin-bottom: 32px; padding: 12px;'
                   'display: flex; flex-flow: row wrap;'
-                  'justify-content: center;'
-                  'white-space: break-spaces;',
+                  'justify-content: center;',
             cls='candidate-detail'
         )
 
@@ -1185,7 +1212,7 @@ class VoterList(Ul):
                 for voter
                 in emails
             ) if num_emails
-            else 'No voter yet.',
+            else _('No voter yet.'),
             cls='mdc-list voters-list'
         )
 
@@ -1217,7 +1244,7 @@ class VotersDetailCard(Div):
 
     def to_html(self, *content, view, **context):
         contest = view.object
-        self.backlink = BackLink('back', reverse('contest_detail', args=[contest.id]))
+        self.backlink = BackLink(_('back'), reverse('contest_detail', args=[contest.id]))
         voters = contest.voter_set.select_related('user')
         table_head_row = Tr(cls='mdc-data-table__header-row')
         for th in ('email', 'vote email sent', 'voted', 'tally email sent'):
@@ -1253,7 +1280,7 @@ class VotersDetailCard(Div):
                         value=token.url,
                         style='opacity: 0; position: absolute',
                     ),
-                    ClipboardCopy('Copy link', icon='content_copy'),
+                    ClipboardCopy(_('Copy link'), icon='content_copy'),
                 )
             else:
                 otp_link = MDCTextButton(
@@ -1309,9 +1336,9 @@ class VotersDetailCard(Div):
             }
         )
         self.edit_btn = MDCButtonOutlined(
-            'edit voters',
+            _('edit voters'),
             False,
-            'edit',
+            _('edit'),
             tag='a',
             href=reverse('contest_voters_update', args=[contest.id]))
 
@@ -1319,7 +1346,7 @@ class VotersDetailCard(Div):
             self.edit_btn = ''
 
         return super().to_html(
-            H4(voters.count(), ' Voters', cls='center-text'),
+            H4(voters.count(), _(' Voters'), cls='center-text'),
             Div(self.edit_btn, cls='center-button'),
             Div(
                 table,
@@ -1333,13 +1360,13 @@ class ContestCandidateCreateCard(Div):
         contest = view.get_object()
         editable = (view.request.user == contest.mediator
                     and not contest.actual_start)
-        self.backlink = BackLink('back', reverse('contest_detail', args=[contest.id]))
+        self.backlink = BackLink(_('back'), reverse('contest_detail', args=[contest.id]))
         form_component = ''
         if editable:
             form_component = Form(
                 form,
                 CSRFInput(view.request),
-                MDCButton('Add candidate', icon='person_add_alt_1'),
+                MDCButton(_('Add candidate'), icon='person_add_alt_1'),
                 method='POST',
                 cls='form')
         return super().to_html(
@@ -1361,7 +1388,7 @@ class ContestCandidateUpdateCard(Div):
         candidate = view.get_object()
         contest = candidate.contest
         self.backlink = BackLink(
-            'back',
+            _('back'),
             reverse('contest_candidate_create', args=[contest.id]))
         delete_btn = MDCTextButton(
             'delete',
@@ -1371,7 +1398,7 @@ class ContestCandidateUpdateCard(Div):
 
         return super().to_html(
             H4(
-                'Edit candidate',
+                _('Edit candidate'),
                 style='text-align: center;'
             ),
             Form(
@@ -1392,17 +1419,17 @@ class ContestVotersUpdateCard(Div):
     def to_html(self, *content, view, form, **context):
         contest = view.get_object()
         self.backlink = BackLink(
-            'back',
+            _('back'),
             reverse('contest_detail', args=[contest.id]))
         voters = contest.voter_set.all()
 
         return super().to_html(
-            H4(voters.count(), ' Voters', style='text-align: center;'),
-            Div('The list of allowed voters with one email per line (sparated by Enter/Return ⏎)', cls='body-2', style='margin-bottom: 24px;text-align: center;'),
+            H4(voters.count(), _(' Voters'), style='text-align: center;'),
+            Div(_('The list of allowed voters with one email per line (sparated by Enter/Return ⏎)'), cls='body-2', style='margin-bottom: 24px;text-align: center;'),
             Form(
                 CSRFInput(view.request),
                 form,
-                MDCButton('Save'),
+                MDCButton(_('Save')),
                 method='POST',
                 cls='form'
             ),
@@ -1416,20 +1443,20 @@ class GuardianVerifyCard(Div):
         guardian = view.get_object()
         contest = guardian.contest
         self.backlink = BackLink(
-            'back',
+            _('back'),
             reverse('contest_detail', args=[contest.id]))
 
-        self.submit_btn = MDCButton('confirm', True, disabled=True)
+        self.submit_btn = MDCButton(_('confirm'), True, disabled=True)
         self.submit_btn_id = self.submit_btn.id
 
         return super().to_html(
-            H4('Confirm possession of an uncompromised private key', cls='center-text'),
-            Div('You need to upload your private key to confirm that you posses a valid key that hasn’t been temepered with.', cls='center-text'),
+            H4(_('Confirm possession of an uncompromised private key'), cls='center-text'),
+            Div(_('You need to upload your private key to confirm that you posses a valid key that hasn’t been temepered with.'), cls='center-text'),
             Form(
                 MDCFileField(
                     Input(id='file_input', type='file', name='pkl_file'),
-                    label='Choose file'),
-                Span("Your privacy key is a file with '.pkl' extension. ", cls='body-2'),
+                    label=_('Choose file')),
+                Span(_("Your privacy key is a file with '.pkl' extension. "), cls='body-2'),
                 self.submit_btn,
                 CSRFInput(view.request),
                 enctype='multipart/form-data',
@@ -1456,18 +1483,18 @@ class ContestPubKeyCard(Div):
     def to_html(self, *content, view, form, **context):
         contest = view.get_object()
         self.backlink = BackLink(
-            'back',
+            _('back'),
             reverse('contest_detail', args=[contest.id]))
         return super().to_html(
-            H4('Lock the ballot box', cls='center-text'),
+            H4(_('Lock the ballot box'), cls='center-text'),
             Div(
-                P('This will remove all guardians’ private keys from the server memory.'),
-                P('When the voting is over the ballot box can only be opened when all guardians upload their private keys.'),
-                P('This is what makes the governing of the election decentralised.')
+                P(_('This will remove all guardians’ private keys from the server memory.')),
+                P(_('When the voting is over the ballot box can only be opened when all guardians upload their private keys.')),
+                P(_('This is what makes the governing of the election decentralised.'))
             ),
             Form(
                 CSRFInput(view.request),
-                MDCButton('create'),
+                MDCButton(_('create')),
                 method='POST',
                 cls='form'
             ),
@@ -1480,19 +1507,19 @@ class ContestOpenCard(Div):
     def to_html(self, *content, view, **context):
         contest = view.get_object()
         self.backlink = BackLink(
-            'back',
+            _('back'),
             reverse('contest_detail', args=[contest.id]))
 
         return super().to_html(
-            H4('Open the election for voting', cls='center-text'),
+            H4(_('Open the election for voting'), cls='center-text'),
             Div(
-                P('Once you open the election for voting you can’t make changes to it.'),
+                P(_('Once you open the election for voting you can’t make changes to it.')),
                 cls='center-text'
             ),
             Form(
                 context['form'],
                 CSRFInput(view.request),
-                MDCButton('open'),
+                MDCButton(_('open')),
                 method='POST',
                 cls='form'
             ),
@@ -1505,7 +1532,7 @@ class ContestVoteCard(Div):
     def to_html(self, *content, view, form, **context):
         contest = view.get_object()
         self.backlink = BackLink(
-            'back',
+            _('back'),
             reverse('contest_detail', args=[contest.id]))
 
         max_selections = contest.votes_allowed
@@ -1527,11 +1554,11 @@ class ContestVoteCard(Div):
                 ),
             ),
             Hr(cls='mdc-list-divider'),
-            H5('Make your choice', cls='center-text'),
+            H5(_('Make your choice'), cls='center-text'),
             Div(
-                P(f'You may choose up to {max_selections} ' +
-                        'candidates. In the end of the election ' +
-                        f'{number_elected} winner will be announced.'),
+                P(_('You may choose up to %(max)d candidates. '
+                    'In the end of the election '
+                    '%(elected)d winner will be announced') % {'max': max_selections, 'elected': number_elected}),
                 cls='center-text body-2'
             ),
             Ul(
@@ -1541,10 +1568,10 @@ class ContestVoteCard(Div):
             Form(
                 CSRFInput(view.request),
                 MDCMultipleChoicesCheckbox(
-                    'selections',
+                    _('selections'),
                     choices,
                     n=max_selections),
-                MDCButton('create ballot'),
+                MDCButton(_('create ballot')),
                 method='POST',
                 cls='form vote-form',
             ),
@@ -1557,18 +1584,18 @@ class ContestBallotEncryptCard(Div):
     def to_html(self, *content, view, form, **context):
         contest = view.get_object()
         url = reverse('contest_vote', args=[contest.id])
-        self.backlink = BackLink('back', url)
+        self.backlink = BackLink(_('back'), url)
         selections = context.get('selections', [])
         ballot = context.get('ballot', '')
-        change_btn = MDCButtonOutlined('change', False, tag='a', href=url)
-        encrypt_btn = MDCButton('encrypt ballot')
+        change_btn = MDCButtonOutlined(_('change'), False, tag='a', href=url)
+        encrypt_btn = MDCButton(_('encrypt ballot'))
 
         return super().to_html(
-            H4('Review your ballot', cls='center-text'),
+            H4(_('Review your ballot'), cls='center-text'),
             Div(
-                P('This is an ecrypted election. Once your ballot is encrypted, it will always stay that way – no one can see who voted for whom. However, you will be able to check that your vote has been properly counted.  Learn how'),
+                P(_('This is an ecrypted election. Once your ballot is encrypted, it will always stay that way – no one can see who voted for whom. However, you will be able to check that your vote has been properly counted.  Learn how')),
                 cls='center-text'),
-            H6('Your selection'),
+            H6(_('Your selection')),
             Ul(*(
                 MDCListItem(candidate.name)
                 for candidate in selections),
@@ -1588,18 +1615,18 @@ class ContestBallotCastCard(Div):
     def to_html(self, *content, view, **context):
         self.contest = view.get_object()
         self.backlink = BackLink(
-            'back',
+            _('back'),
             reverse('contest_ballot', args=[self.contest.id]))
 
         self.ballot = context['ballot']
         self.download_btn = MDCButtonOutlined(
-            'download ballot file', False, 'file_download', tag='a')
-        cast_btn = MDCButton('confirm my vote')
+            _('download ballot file'), False, 'file_download', tag='a')
+        cast_btn = MDCButton(_('confirm my vote'))
 
         return super().to_html(
-            H4('Encrypted ballot', cls='center-text'),
+            H4(_('Encrypted ballot'), cls='center-text'),
             Div(
-                P('This is an ecrypted election. Once your ballot is encrypted, it will always stay that way – no one can see who voted for whom. However, you will be able to check that your vote has been properly counted. Learn more'),
+                P(_('This is an ecrypted election. Once your ballot is encrypted, it will always stay that way – no one can see who voted for whom. However, you will be able to check that your vote has been properly counted. Learn more')),
                 cls='center-text body-2'),
             Form(
                 Div(
@@ -1650,18 +1677,18 @@ class ContestCloseCard(Div):
     def to_html(self, *content, view, **context):
         contest = view.get_object()
         self.backlink = BackLink(
-            'back',
+            _('back'),
             reverse('contest_detail', args=[contest.id]))
 
         return super().to_html(
-            H4('Manual closing of the election', cls='center-text'),
+            H4(_('Manual closing of the election'), cls='center-text'),
             Div(
-                P('This will stop the voting process and it can\'t be undone.'),
+                P(_('This will stop the voting process and it can\'t be undone.')),
                 cls='center-text body-2'),
             Form(
                 CSRFInput(view.request),
                 Div(
-                    MDCButtonOutlined('close the election now', False),
+                    MDCButtonOutlined(_('close the election now'), False),
                     style='margin: 0 auto;',
                     cls='red-button-container'),
                 method='POST',
@@ -1676,20 +1703,20 @@ class GuardianUploadKeyCard(Div):
         guardian = view.get_object()
         contest = guardian.contest
         self.backlink = BackLink(
-            'back',
+            _('back'),
             reverse('contest_detail', args=[contest.id]))
 
-        self.submit_btn = MDCButton('confirm', True, disabled=True)
+        self.submit_btn = MDCButton(_('confirm'), True, disabled=True)
         self.submit_btn_id = self.submit_btn.id
 
         return super().to_html(
-            H4('Verify your private key', cls='center-text'),
-            Div('All guardians’ must upload their valid private keys to unlock the ballot box.', cls='center-text'),
+            H4(_('Verify your private key'), cls='center-text'),
+            Div(_('All guardians’ must upload their valid private keys to unlock the ballot box.'), cls='center-text'),
             Form(
                 MDCFileField(
                     Input(id='file_input', type='file', name='pkl_file'),
-                    label='Choose file'),
-                Span("Your privacy key is a file with '.pkl' extension. ", cls='body-2'),
+                    label=_('Choose file')),
+                Span(_("Your privacy key is a file with '.pkl' extension. "), cls='body-2'),
                 self.submit_btn,
                 CSRFInput(view.request),
                 enctype='multipart/form-data',
@@ -1716,17 +1743,17 @@ class ContestDecryptCard(Div):
     def to_html(self, *content, view, **context):
         contest = view.get_object()
         self.backlink = BackLink(
-            'back',
+            _('back'),
             reverse('contest_detail', args=[contest.id]))
         return super().to_html(
-            H4('Open ballot box', cls='center-text'),
+            H4(_('Open ballot box'), cls='center-text'),
             Div(
-                P('This process will erase all guardian keys from server memory.'),
+                P(_('This process will erase all guardian keys from server memory.')),
                 cls='center-text body-2'),
             Form(
                 context['form'],
                 CSRFInput(view.request),
-                MDCButton('open and view results'),
+                MDCButton(_('open and view results')),
                 method='POST',
                 cls='form'),
             cls='card',
@@ -1737,13 +1764,13 @@ class ContestDecryptCard(Div):
 class ContestPublishCard(Div):
     def to_html(self, *content, view, form , **ctx):
         return super().to_html(
-            H4('Publish your election results', cls='center-text'),
+            H4(_('Publish your election results'), cls='center-text'),
             Div(
-                P('This will decentralize your election results.'),
+                P(_('This will decentralize your election results.')),
                 cls='center-text body-2'),
             Form(
                 CSRFInput(view.request),
-                MDCButton('publish results'),
+                MDCButton(_('publish results')),
                 method='POST',
                 cls='form'),
             cls='card',
@@ -1811,7 +1838,7 @@ class ContestResultCard(Div):
     def to_html(self, *content, view, **context):
         contest = view.get_object()
         self.backlink = BackLink(
-            'back',
+            _('back'),
             reverse('contest_detail', args=[contest.id]))
 
         votes = contest.candidate_set.aggregate(total=Sum('score'))
@@ -1862,7 +1889,7 @@ class ContestResultCard(Div):
             and contest.mediator == view.request.user
         ):
             publish_btn = MDCButton(
-                'publish results',
+                _('publish results'),
                 p=True,
                 icon=WorldIcon(),
                 tag='a',
@@ -1870,7 +1897,7 @@ class ContestResultCard(Div):
                 style='margin: 0 auto;')
 
         return super().to_html(
-            H4('Results', cls='center-text'),
+            H4(_('Results'), cls='center-text'),
             Div(
                 publish_btn,
                 score_table,
@@ -1917,7 +1944,7 @@ class GuardianDeleteBtn(A):
 class GuardianCreateCard(Div):
     def to_html(self, *content, view, form, **context):
         contest = view.get_object()
-        self.backlink = BackLink('back', reverse('contest_detail', args=[contest.id]))
+        self.backlink = BackLink(_('back'), reverse('contest_detail', args=[contest.id]))
         table_head_row = Tr(cls='mdc-data-table__header-row')
         for th in ('guardians', ''):
             table_head_row.addchild(
@@ -1948,36 +1975,32 @@ class GuardianCreateCard(Div):
             table_content,
             **{
                 'class': 'mdc-data-table__table',
-                'aria-label': 'Voters'
+                'aria-label': _('Voters')
             }
         )
 
         return super().to_html(
-            H4('Add guardians', cls='center-text'),
+            H4(_('Add guardians'), cls='center-text'),
             Div(
-                'Guardians are responsible for locking and unlocking of the ballot box with their private keys.',
+                _('Guardians are responsible for locking and unlocking of the ballot box with their private keys.'),
                 cls='center-text body-1'
             ),
             Div(
-                B('No guardians for speed and simplicity (default).'),
-                ' Electis App will technically be your guardian and can secure your ballot box.',
+                B(_('No guardians for speed and simplicity (default).')),
+                _(' Electis App will technically be your guardian and can secure your ballot box.'),
                 cls='red-section'),
             Div(
-                B('With guardians for greater security (recommended).'),
-                ' You can distribute control over the closing/opening of the',
-                ' ballot box between multiple guardians. All of their keys will',
-                ' be necessary to conduct an election – from opening for voting',
-                ' to revealing the results.',
+                B(_('GUARDIAN_HELP_TEXT')),
                 cls='red-section'),
             Form(
                 form['email'],
                 CSRFInput(view.request),
-                MDCButtonOutlined('add guardian', p=False, icon='person_add'),
+                MDCButtonOutlined(_('add guardian'), p=False, icon='person_add'),
                 table,
                 Div(
                     form['quorum'],
                     Span(
-                        MDCButton('Save'),
+                        MDCButton(_('Save')),
                         style='margin: 32px 12px'),
                     style='display:flex;'
                           'flex-flow: row nowrap;'

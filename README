@@ -94,3 +94,16 @@ contract. SmartPy outputs Michelson, we need Micheline which is the JSON
 version, you can use this online converter:
 
 https://smart-contracts-micheline-michelson-translator-for-tezos.scalac.io/
+
+
+## Trannslation
+
+For create a new translation 
+- $ cd /path/to/app
+- $ mkdir -p locale/letterslower_LETTERSUP -> Ex for french translation : mkdir -p locale/fr_FR
+- $ django-admin makemessages
+- Edit the file :
+    - edit file : locale/fr_FR/django.po
+        - msgid "" -> message to translate
+        - msgstr "" -> message translated
+- $ python manage.py compilemessages -> for compile to .mo file
