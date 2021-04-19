@@ -703,11 +703,28 @@ a.caption {
   }
 }
 
+candidate-accordion {
+  candidate-list-item {
+    mdc-accordion-toggle.mdc-list-item {
+      min-height: 40px;
+      align-items: center;
+    }
+  }
+  .mdc-list-divider {
+    height: 0
+  }
+}
+
 .vote-form {
-  li:nth-child(odd) {
-    background-color: aliceblue;
+  li {
+    align-items: center;
+
     &.mdc-list-item--disabled {
-      background-color: ghostwhite;
+      opacity: 0.4;
+    }
+
+    &:nth-child(odd) {
+      background-color: aliceblue;
     }
   }
 }
