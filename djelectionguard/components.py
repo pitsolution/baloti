@@ -30,6 +30,7 @@ class ContestForm(forms.ModelForm):
 
     about = forms.CharField(
         widget=forms.Textarea,
+        required=False
     )
 
     start = forms.SplitDateTimeField(
@@ -1100,27 +1101,48 @@ class CandidateDetail(Div):
             kwargs['href'] = reverse('contest_candidate_update', args=[candidate.id])
             kwargs['style'] = 'margin-left: auto; margin-top: 12px;'
 
+        content = []
+        if candidate.picture:
+            content.append(
+                Div(
+                    Image(
+                        loading='eager',
+                        src=candidate.picture.url,
+                        style='width: 100%;'
+                              'display: block;'
+                    ),
+                    style='width: 150px; padding: 12px;'
+                )
+            )
+
+        subcontent = Div(
+            H4(
+                candidate.name,
+                style='margin-top: 6px; margin-bottom: 6px;'
+            ),
+            style='flex: 1 1 70%'
+        )
+
+        if candidate.description:
+            subcontent.addchild(
+                Div(
+                    *candidate.description.split('\n'),
+                    style='margin-top: 24px;'
+                )
+            )
+
+        content.append(subcontent)
+
+        if editable:
+            content.append(
+                MDCButtonOutlined('Edit', False, 'edit', **kwargs)
+            )
+
         super().__init__(
-            Div(
-                Image(
-                    loading='eager',
-                    src=candidate.picture.url,
-                    style='width: 100%;'
-                          'display: block;'
-                ) if candidate.picture else None,
-                style='width: 150px; padding: 12px;'
-            ),
-            Div(
-                H4(candidate.name, style='margin-top: 6px;'),
-                Div(*candidate.description.split('\n')),
-                MDCButtonOutlined( 'Edit', False, 'edit', **kwargs)
-                if editable else None,
-                style='flex: 1 1 70%'
-            ),
+            *content,
             style='margin-bottom: 32px; padding: 12px;'
                   'display: flex; flex-flow: row wrap;'
-                  'justify-content: center;'
-                  'white-space: break-spaces;',
+                  'justify-content: center;',
             cls='candidate-detail'
         )
 
