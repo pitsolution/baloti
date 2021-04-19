@@ -24,8 +24,8 @@ def test_create_contract(client):
         end=timezone.now(),
     )
     response = client.post(
-        f'/tezos/{election.pk}/create/',
+        f'/en/tezos/{election.pk}/create/',
         data=dict(blockchain=str(blockchain.pk)),
     )
     assert response.status_code == 302
-    assert response['Location'] == f'/contest/{election.pk}/'
+    assert response['Location'] == f'/en/contest/{election.pk}/'

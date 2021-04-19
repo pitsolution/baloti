@@ -71,6 +71,34 @@ class ContestForm(forms.ModelForm):
             'timezone',
         ]
 
+    def clean(self):
+        cleaned_data = super().clean()
+        if 'decentralized' in cleaned_data:
+            raise forms.ValidationError(
+                _('Cannot decentralize after creation')
+            )
+        return cleaned_data
+
+
+class CandidateForm(forms.ModelForm):
+    class Meta:
+        model = Candidate
+        fields = ['name']
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        exists = Candidate.objects.filter(
+            contest=self.contest,
+            name=cleaned_data['name']
+        ).exclude(id=self.instance.id).count()
+
+        if exists:
+            raise forms.ValidationError(
+                dict(name=_('Candidate name must be unique for a contest'))
+            )
+        return cleaned_data
+
 
 class ContestFormComponent(CList):
     def __init__(self, view, form, edit=False):
@@ -79,6 +107,14 @@ class ContestFormComponent(CList):
             *[Li(e) for e in form.non_field_errors()],
             cls='error-list'
         ))
+
+        decentralized = ''
+        if not edit:
+            decentralized = CList(
+                H6(_('Decentralize my election:')),
+                MDCMultipleChoicesCheckbox(
+                    'decentralized',
+                    [(0, _('Decentralize with Tezos'), 'true')]))
 
         super().__init__(
             H4(_('Edit election') if edit else _('Create an election')),
@@ -342,10 +378,10 @@ class AddCandidateAction(ListAction):
         else:
             btn_comp = MDCButtonOutlined(_('add'), False, 'add', **kwargs)
             icon = TodoIcon()
-
+        
         number = obj.number_elected + 1
         txt = _('%(candidates)d candidates, minimum: %(elected)d') % {'candidates': num_candidates, 'elected': number}
-
+        
 
         super().__init__(
             _('Add candidates'), txt, icon, btn_comp,
@@ -860,6 +896,11 @@ class TezosSecuredCard(Section):
                 )
             except ObjectDoesNotExist:
                 pass  # no contract
+
+        if contest.publish_state == contest.PublishStates.ELECTION_PUBLISHED:
+            links.append(A(_('Download artifacts'), href=contest.artifacts_local_url))
+            if contest.artifacts_ipfs_url:
+                links.append(A(_('Download from IPFS'), href=contest.artifacts_ipfs_url))
 
         def step(s):
             return Span(
@@ -1578,16 +1619,7 @@ class ContestVoteCard(Div):
              in enumerate(candidates))
 
         return super().to_html(
-            Div(
-                H3(contest.name, cls='center-text'),
-                Div(
-                    contest.about,
-                    cls='subtitle-2',
-                    style='margin-bottom: 24px;'
-                ),
-            ),
-            Hr(cls='mdc-list-divider'),
-            H5(_('Make your choice'), cls='center-text'),
+            H4(_('Make your choice'), cls='center-text'),
             Div(
                 P(_('You may choose up to %(max)d candidates. '
                     'In the end of the election '
