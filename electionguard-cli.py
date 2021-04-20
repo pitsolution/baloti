@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 """
 ElectionGuard CLI for basic stress tests.
+
+0. Start by creating an election-manifest.json in the current working
+   directory.
+1. Run the electionguard-cli.py build command with the number of stores and
+   guardians that you want.
+2. Then, either run the benchmark command and let it run for a while, either
+   run the cast and tally commands manually.
 """
 
 import cli2
@@ -50,6 +57,7 @@ def build(
         quorum: int=1,
         number_of_guardians: int=1,
         number_of_devices: int=1,
+        number_of_stores: int=1,
         manifest='election-manifest.json',
     ):
     """
@@ -61,17 +69,18 @@ def build(
     - metadata.pkl: builder metadata
     - context.pkl: builder context
     - devices.pkl: encryption devices
-    - store.pkl: a ballot store
+    - store-*.pkl: one store pkl for number_of_stores
     """
     data = dict(
         quorum=quorum,
         number_of_guardians=number_of_guardians,
+        number_of_stores=number_of_stores,
         manifest=manifest,
     )
     description(path=manifest)
-    with open('build.json', 'w+') as f:
-        f.write(json.dumps(data))
-    print('build.json written')
+    with open('build.pkl', 'wb+') as f:
+        f.write(pickle.dumps(data))
+    print('build.pkl written')
 
     from electionguard.guardian import Guardian
     guardians = [
@@ -121,9 +130,10 @@ def build(
     print('devices.pkl written')
 
     from electionguard.ballot_store import BallotStore
-    with open('store.pkl', 'wb+') as f:
-        f.write(pickle.dumps(BallotStore()))
-    print('store.pkl written')
+    for i in range(number_of_stores):
+        with open(f'store-{i}.pkl', 'wb+') as f:
+            f.write(pickle.dumps(BallotStore()))
+        print(f'store-{i}.pkl written')
 
 
 @cli.cmd
@@ -198,9 +208,9 @@ def encrypt(style: int=0, selections: int=1, device: int=0):
 
 
 @cli.cmd
-def cast(style: int=0, selections: int=1, device: int=0):
+def cast(style: int=0, selections: int=1, store: int=None, device: int=0):
     """
-    Cast a ballot, writes to store.pkl
+    Cast a ballot, writes to store pkl file
     """
     from electionguard.ballot_box import BallotBox
     encrypted_ballot = encrypt(
@@ -208,16 +218,20 @@ def cast(style: int=0, selections: int=1, device: int=0):
         selections=selections,
         device=device,
     )
-    store = load('store')
+    if store is None:
+        build = load('build')
+        store = random.randint(0, build['number_of_stores'] - 1)
+
+    ballot_store = load(f'store-{store}')
     ballot_box = BallotBox(
         load('metadata'),
         load('context'),
-        store,
+        ballot_store,
     )
     ballot_box.cast(encrypted_ballot)
-    with open('store.pkl', 'wb') as f:
-        f.write(pickle.dumps(store))
-    print(f'casted ballot #{len(store.all())} to store.pkl')
+    with open(f'store-{store}.pkl', 'wb') as f:
+        f.write(pickle.dumps(ballot_store))
+    print(f'casted ballot #{len(ballot_store.all())} of store-{store}.pkl')
 
 
 @cli.cmd
@@ -226,9 +240,11 @@ def tally():
     from electionguard.tally import CiphertextTally
     metadata = load('metadata')
     context = load('context')
+    build = load('build')
     tally = CiphertextTally('tally', metadata, context)
-    for ballot in load('store').all():
-        assert tally.append(ballot)
+    for i in range(build['number_of_stores']):
+        for ballot in load(f'store-{i}').all():
+            assert tally.append(ballot)
 
     from electionguard.decryption_mediator import DecryptionMediator
     decryption_mediator = DecryptionMediator(metadata, context, tally)
