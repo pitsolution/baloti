@@ -269,9 +269,13 @@ def benchmark():
 
     It will chain and time these commands until something fails (ie. OOM kill)
     """
+    i = 50
     while True:
         subprocess.check_call(f'{sys.argv[0]} cast', shell=True)
-        subprocess.check_call(f'{sys.argv[0]} tally', shell=True)
+        if not i:
+            subprocess.check_call(f'{sys.argv[0]} tally', shell=True)
+            i = 50
+        i -= 1
 
 
 @cli.cmd(color='green')
