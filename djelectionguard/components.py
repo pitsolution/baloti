@@ -1379,7 +1379,7 @@ class ContestCandidateForm(Div):
 
     def update_counter(event):
         field = event.currentTarget
-        current_count = len(field.value)
+        current_count = field.value.length
         parent = field.parentElement.parentElement.parentElement
         counter = parent.querySelector('.mdc-text-field-character-counter')
         counter.innerHTML = current_count + '/255'
