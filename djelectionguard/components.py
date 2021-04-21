@@ -1129,7 +1129,7 @@ class CandidateDetail(Div):
                 candidate.name,
                 style='margin-top: 6px; margin-bottom: 6px;'
             ),
-            style='flex: 1 1 70%; padding: 12px;'
+            style='flex: 1 1 65%; padding: 12px;'
         )
 
         if candidate.description:
@@ -1364,6 +1364,32 @@ class VotersDetailCard(Div):
         )
 
 
+class ContestCandidateForm(Div):
+    def __init__(self, form):
+        self.form = form
+        self.count = 0
+        if form.instance and form.instance.description:
+            self.count = len(form.instance.description)
+        super().__init__(form)
+
+    def init_counter(form_id, count):
+        form = getElementByUuid(form_id)
+        counter = form.querySelector('.mdc-text-field-character-counter')
+        counter.innerHTML = count + '/255'
+
+    def update_counter(event):
+        field = event.currentTarget
+        current_count = len(field.value)
+        parent = field.parentElement.parentElement.parentElement
+        counter = parent.querySelector('.mdc-text-field-character-counter')
+        counter.innerHTML = current_count + '/255'
+
+    def py2js(self):
+        self.init_counter(self.id, self.count)
+        field = document.getElementById('id_description')
+        field.addEventListener('keyup', self.update_counter)
+
+
 @template('djelectionguard/candidate_form.html', Document, Card)
 class ContestCandidateCreateCard(Div):
     def to_html(self, *content, view, form, **context):
@@ -1374,7 +1400,7 @@ class ContestCandidateCreateCard(Div):
         form_component = ''
         if editable:
             form_component = Form(
-                form,
+                ContestCandidateForm(form),
                 CSRFInput(view.request),
                 MDCButton(_('Add candidate'), icon='person_add_alt_1'),
                 method='POST',
@@ -1390,6 +1416,7 @@ class ContestCandidateCreateCard(Div):
             form_component,
             cls='card'
         )
+
 
 
 @template('djelectionguard/candidate_update.html', Document, Card)
@@ -1413,7 +1440,7 @@ class ContestCandidateUpdateCard(Div):
             ),
             Form(
                 CSRFInput(view.request),
-                form,
+                ContestCandidateForm(form),
                 Div(
                     Div(delete_btn, cls='red-button-container'),
                     MDCButton('Save', True),

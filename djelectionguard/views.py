@@ -738,8 +738,17 @@ class ContestCandidateListView(ContestAccessible, generic.DetailView):
 
 class CandidateForm(forms.ModelForm):
     description = forms.CharField(
-        widget=forms.Textarea,
+        widget=forms.Textarea(
+            attrs=dict(
+                rows=3,
+                maxlength=255
+            )
+        ),
         required=False,
+        help_text=html.Div(
+            html.Div('0/255', cls='mdc-text-field-character-counter'),
+            cls='mdc-text-field-helper-line'
+        )
     )
     picture = forms.ImageField(
         widget=forms.FileInput,
