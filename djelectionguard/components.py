@@ -63,6 +63,14 @@ class ContestForm(forms.ModelForm):
             'end',
             'timezone',
         ]
+        labels = {
+            'name': _('FORM_TITLE_ELECTION_CREATE'),
+            'about': _('FORM_ABOUT_ELECTION_CREATE'),
+            'votes_allowed': _('FORM_VOTES_ALLOWED_ELECTION_CREATE'),
+            'start': _('FORM_START_ELECTION_CREATE'),
+            'end': _('FORM_END_ELECTION_CREATE'),
+            'timezone': _('FORM_TIMEZONE_ELECTION_CREATE')
+        }
 
 
 class ContestFormComponent(CList):
