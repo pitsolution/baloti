@@ -470,7 +470,7 @@ class Candidate(models.Model):
     )
     name = models.CharField(max_length=255)
     description = models.CharField(
-        max_length=1024,
+        max_length=255,
         blank=True,
         null=True
     )
