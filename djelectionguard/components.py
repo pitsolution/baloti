@@ -1605,7 +1605,7 @@ class ContestVoteCard(Div):
             Form(
                 CSRFInput(view.request),
                 MDCMultipleChoicesCheckbox(
-                    _('selections'),
+                    'selections',
                     choices,
                     n=max_selections),
                 MDCButton(_('create ballot')),
