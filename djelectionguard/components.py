@@ -77,6 +77,7 @@ class ContestFormComponent(CList):
             H4(_('Edit election') if edit else _('Create an election')),
             Form(
                 form['name'],
+                form['about'],
                 H6('Voting settings:'),
                 form['votes_allowed'],
                 H6(_('Election starts:')),
