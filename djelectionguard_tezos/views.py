@@ -16,6 +16,8 @@ from ryzom_mdc import *
 from ryzom_django_mdc.html import *
 from electeez.components import Document, Card, BackLink, MDCButton
 from .models import ElectionContract
+from django.utils.translation import gettext_lazy as _
+from django.conf import settings
 
 
 User = get_user_model()
@@ -59,8 +61,8 @@ class ElectionContractCard(Div):
         )
         return super().to_html(
             H4(
-                'Choose the blockchain you want to deploy'
-                ' your election results to',
+                _('Choose the blockchain you want to deploy'
+                ' your election results to'),
                 cls='center-text'),
             Form(
                 MDCErrorList(form.errors) if form.errors else None,
@@ -94,14 +96,14 @@ class ElectionContractCreate(generic.FormView):
         blockchain = forms.ModelChoiceField(
             queryset=Blockchain.objects.filter(is_active=True),
         )
-        submit_label = 'Confirm Smart Contract'
+        submit_label = _('Confirm Smart Contract')
 
     def dispatch(self, request, *args, **kwargs):
         self.contest = request.user.contest_set.filter(pk=kwargs['pk']).first()
         if not self.contest:
-            return http.HttpResponseBadRequest('Election not found')
+            return http.HttpResponseBadRequest(_('Election not found'))
         if ElectionContract.objects.filter(election=self.contest).first():
-            return http.HttpResponseBadRequest('Contract already created')
+            return http.HttpResponseBadRequest(_('Contract already created'))
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -130,7 +132,7 @@ class ElectionContractCreate(generic.FormView):
         )
         messages.success(
             self.request,
-            f'Blockchain contract created! Deployment in progress...',
+            _(f'Blockchain contract created! Deployment in progress...'),
         )
         return http.HttpResponseRedirect(
             reverse('contest_detail', args=[self.contest.pk])

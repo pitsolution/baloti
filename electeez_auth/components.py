@@ -10,6 +10,8 @@ from ryzom_django_mdc.html import *
 from electeez.components import Document, Card, BackLink, MDCButton
 
 from djelectionguard.components import CircleIcon
+from django.utils.translation import gettext_lazy as _
+from django.conf import settings
 
 
 class GoogleIcon(CircleIcon):
@@ -29,9 +31,9 @@ class AppleIcon(CircleIcon):
 
 class OAuthConnect(Div):
     def __init__(self):
-        self.google_btn = MDCButtonOutlined('continue with google', icon=GoogleIcon(), tag='a')
-        self.facebook_btn = MDCButton('continue with facebook', p=False, icon=FacebookIcon(), tag='a')
-        self.apple_btn = MDCButton('continue with apple', icon=AppleIcon(), tag='a')
+        self.google_btn = MDCButtonOutlined(_('continue with google'), icon=GoogleIcon(), tag='a')
+        self.facebook_btn = MDCButton(_('continue with facebook'), p=False, icon=FacebookIcon(), tag='a')
+        self.apple_btn = MDCButton(_('continue with apple'), icon=AppleIcon(), tag='a')
 
         super().__init__(
             self.google_btn,
@@ -44,7 +46,7 @@ class OAuthConnect(Div):
 
 class RegistrationForm(RegistrationForm):
     password2 = forms.CharField(
-        label='Repeat password',
+        label=_('Repeat password'),
         required=True,
         widget=forms.PasswordInput,
     )
@@ -58,20 +60,20 @@ class RegistrationFormViewComponent(Html):
     def to_html(self, *content, view, form, **context):
         return super().to_html(
             *content,
-            H4('Looks like you need to register', cls='center-text'),
+            H4(_('Looks like you need to register'), cls='center-text'),
             Form(
                 CSRFInput(view.request),
                 form['email'],
                 form['password1'],
-                H6('Your password needs to follow these criteria:'),
+                H6(_('Your password needs to follow these criteria:')),
                 Ul(
-                    Li('Contains at least 8 characters'),
-                    Li('Not too similar to your other personal information'),
-                    Li('Not entirely numeric'),
-                    Li('Not a commonly used password'),
+                    Li(_('Contains at least 8 characters')),
+                    Li(_('Not too similar to your other personal information')),
+                    Li(_('Not entirely numeric')),
+                    Li(_('Not a commonly used password')),
                     cls='body-2'),
                 form['password2'],
-                MDCButton('Register'),
+                MDCButton(_('Register')),
                 method='POST',
                 cls='form card'),
             # Div(
@@ -88,22 +90,22 @@ RegistrationView.form_class = RegistrationForm
 class LoginFormViewComponent(Div):
     def to_html(self, *content, view, form, **kwargs):
         if view.request.user.is_authenticated:
-            self.backlink = BackLink('my elections', reverse('contest_list'))
+            self.backlink = BackLink(_('my elections'), reverse('contest_list'))
 
         return super().to_html(
             Form(
-                H4('Welcome to Electeez', style='text-align: center;'),
+                H4(_('Welcome to Electeez'), style='text-align: center;'),
                 # OAuthConnect(),
                 # Span('Or enter email and password:', cls='center-text'),
-                Span('Enter email and password:', cls='center-text'),
+                Span(_('Enter email and password:'), cls='center-text'),
                 CSRFInput(view.request),
                 form,
                 Div(
                     MDCTextButton(
-                        'forgot password',
+                        _('forgot password'),
                         tag='a',
                         href=reverse('password_reset')),
-                    MDCButton('Continue'),
+                    MDCButton(_('Continue')),
                     style='display: flex; justify-content: space-between'),
                 method='POST',
                 cls='form card'),
@@ -114,13 +116,13 @@ class LoginFormViewComponent(Div):
 class LogoutViewComponent(Div):
     def __init__(self, *content, **context):
         super().__init__(
-            H4('You have been logged out'),
+            H4(_('You have been logged out')),
             Div(
-                'Thank you for spending time on our site today.',
+                _('Thank you for spending time on our site today.'),
                 cls='section'),
             Div(
                 MDCButton(
-                    'Login again',
+                    _('Login again'),
                     tag='a',
                     href=reverse('login')),
                 style='display:flex; justify-content: flex-end;'),
@@ -132,11 +134,11 @@ class LogoutViewComponent(Div):
 class PasswordResetCard(Div):
     def to_html(self, *content, view, form, **context):
         return super().to_html(
-            H4('Reset your password', style='text-align: center;'),
+            H4(_('Reset your password'), style='text-align: center;'),
             Form(
                 CSRFInput(view.request),
                 form,
-                MDCButton('Reset password'),
+                MDCButton(_('Reset password')),
                 method='POST',
                 cls='form'),
             cls='card')
@@ -146,11 +148,11 @@ class PasswordResetCard(Div):
 class PasswordResetConfirm(Div):
     def to_html(self, *content, view, form, **context):
         return super().to_html(
-            H4('Reset your password', style='text-align: center;'),
+            H4(_('Reset your password'), style='text-align: center;'),
             Form(
                 CSRFInput(view.request),
                 form,
-                MDCButton('confirm'),
+                MDCButton(_('confirm')),
                 method='POST',
                 cls='form'),
             cls='card')
@@ -160,11 +162,11 @@ class PasswordResetConfirm(Div):
 class PasswordResetComplete(Div):
     def __init__(self, **context):
         super().__init__(
-            H4('Your password have been reset', cls='center-text'),
+            H4(_('Your password have been reset'), cls='center-text'),
             Div(
-                'You may go ahead and ',
-                A('log in', href=reverse('login')),
-                ' now',
+                _('You may go ahead and '),
+                A(_('login '), href=reverse('login')),
+                _(' now'),
             )
         )
 
@@ -173,8 +175,8 @@ class PasswordResetComplete(Div):
 class PasswordResetDoneCard(Div):
     def __init__(self, **context):
         super().__init__(
-            H4('A link has been sent to your email address'),
-            A('Go to login page', href=reverse('login')),
+            H4(_('A link has been sent to your email address')),
+            A(_('Go to login page'), href=reverse('login')),
             cls='card',
             style='text-align: center;'
         )
@@ -184,14 +186,14 @@ class PasswordResetDoneCard(Div):
 class RegistrationCompleteCard(Div):
     def __init__(self, **context):
         super().__init__(
-            H4('Check your emails to finish !'),
+            H4(_('Check your emails to finish !')),
             Div(
-                'An activation link has been sent to your email address, ' +
-                'please open it to finish the signup process.',
+                _('An activation link has been sent to your email address, '
+                'please open it to finish the signup process.'),
                 style='margin-bottom: 24px'
             ),
             Div(
-                'Then, come back and login to participate to your election.',
+                _('Then, come back and login to participate to your election.'),
                 style='margin-bottom: 24px;'
             ),
             cls='card',
@@ -203,11 +205,11 @@ class RegistrationCompleteCard(Div):
 class ActivationCompleteCard(Div):
     def __init__(self, **context):
         super().__init__(
-            H4('Your account has been activated !'),
+            H4(_('Your account has been activated !')),
             Div(
-                'You may now ',
-                A('login', href=reverse('login')),
-                ' and particiapte to an election',
+                _('You may now '),
+                A(_('login '), href=reverse('login')),
+                _(' and particiapte to an election'),
                 style='margin-bottom: 24px'
             ),
             cls='card',
@@ -219,9 +221,9 @@ class ActivationCompleteCard(Div):
 class ActivationFailureCard(Div):
     def __init__(self, **context):
         super().__init__(
-            H4('Account activation failure'),
+            H4(_('Account activation failure')),
             Div(
-                'Most likely your account has already been activated.',
+                _('Most likely your account has already been activated.'),
                 style='margin-bottom: 24px'
             ),
             cls='card',
@@ -233,10 +235,10 @@ class ActivationFailureCard(Div):
 class OTPLoginForm(Div):
     def to_html(self, *content, **context):
         return super().to_html(
-            H4('Proceed to automatic authentification'),
+            H4(_('Proceed to automatic authentification')),
             Form(
                 CSRFInput(context['view'].request),
-                MDCButton('Click here to continue'),
+                MDCButton(_('Click here to continue')),
                 style='display: flex; justify-content: center',
                 method='post',
             ),
@@ -249,7 +251,7 @@ class OTPLoginForm(Div):
 class OTPSendCard(Div):
     def to_html(self, *content, view, form, **context):
         content = super().to_html(
-            H4('Receive a magic link by email'),
+            H4(_('Receive a magic link by email')),
             Form(
                 form,
                 CSRFInput(view.request),
@@ -260,8 +262,8 @@ class OTPSendCard(Div):
 
         if view.request.GET.get('next', ''):
             content += Div(
-                'To proceed to your ',
-                A('secure link', href=view.request.GET['next'])
+                _('To proceed to your '),
+                A(_('secure link'), href=view.request.GET['next'])
             ).to_html(**context)
 
         return content
@@ -271,6 +273,6 @@ class OTPSendCard(Div):
 class OTPSendCard(Div):
     def __init__(self, **context):
         super().__init__(
-            H4('Email sent with success'),
+            H4(_('Email sent with success')),
             cls='card',
         )

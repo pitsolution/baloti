@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 import sys
+from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -55,6 +56,10 @@ INSTALLED_APPS = [
     'ryzom_django_mdc',
 ]
 
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
+
 AUTH_USER_MODEL = 'electeez_auth.User'
 
 MIDDLEWARE = [
@@ -65,7 +70,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware'
 ]
+
+LANGUAGES = (
+    ('fr', _('French')),
+    ('en', _('English'))
+)
 
 if DEBUG:
     INSTALLED_APPS += ['debug_toolbar']
@@ -113,6 +124,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.i18n',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -230,7 +242,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/

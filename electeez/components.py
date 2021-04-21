@@ -7,6 +7,8 @@ from ryzom.contrib.django import Static
 from py2js.renderer import JS
 from sass_processor.processor import sass_processor
 from ryzom_django_mdc.html import *
+from django.utils.translation import gettext_lazy as _
+from django.conf import settings
 
 
 class MDCTextButton(Button):
@@ -85,17 +87,17 @@ class MDCLinearProgress(html.Div):
 class TopPanel(html.Div):
     def __init__(self, request, **kwargs):
         self.user = user = request.user
-
+        
         if user.is_authenticated:
             text = user.email
-            account_btn = MDCButton('log out', tag='a', href=reverse('logout'))
+            account_btn = MDCButton(_('log out'), tag='a', href=reverse('logout'))
         else:
             text = 'Anonymous'
             if request.path.rstrip('/') == reverse('login').rstrip('/'):
                 url = reverse('django_registration_register')
-                account_btn = MDCButton('sign up', tag='a', href=url)
+                account_btn = MDCButton(_('sign up'), tag='a', href=url)
             else:
-                account_btn = MDCButton('log in', tag='a', href=reverse('login'))
+                account_btn = MDCButton(_('log in'), tag='a', href=reverse('login'))
 
         super().__init__(
             html.A(
@@ -104,21 +106,20 @@ class TopPanel(html.Div):
                     cls='top-panel-sub top-panel-logo'),
                 href='/'),
             html.Span(
-                html.Span(f"Hello, {text}", cls='top-panel-sub top-panel-msg'),
+                html.Span(_('Hello') + f", {text}", cls='top-panel-sub top-panel-msg'),
                 cls='top-panel-elem over'),
             html.Span(account_btn, cls='top-panel-elem top-panel-btn'),
             html.Span(
-                html.Span(f"Hello, {text}", cls='top-panel-sub top-panel-msg'),
+                html.Span(_('Hello') + f", {text}", cls='top-panel-sub top-panel-msg'),
                 cls='top-panel-elem under'),
             cls='top-panel')
-
 
 class Footer(html.Div):
     def __init__(self):
         super().__init__(
             html.Div(style='height:96px'),
             html.Div(
-                html.Span('Made by ', cls='caption'),
+                html.Span(_('Made by '), cls='caption'),
                 html.A('Electis.io', href='https://electis.io', cls='caption'),
                 cls='footer'
             )
@@ -186,7 +187,7 @@ class Body(html.Body):
 
 
 class Document(html.Html):
-    title = 'Secure elections with homomorphic encryption'
+    title = _('Secure elections with homomorphic encryption')
     body_class = Body
 
     def to_html(self, head, body, **context):
