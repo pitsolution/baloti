@@ -752,7 +752,8 @@ class CandidateForm(forms.ModelForm):
     )
     picture = forms.ImageField(
         widget=forms.FileInput,
-        help_text='Picture of the candidate',
+        label = _('CANDIDATE_PICTURE'),
+        help_text=_('Picture of the candidate'),
         required=False
     )
 
@@ -774,6 +775,12 @@ class CandidateForm(forms.ModelForm):
             'description',
             'picture'
         ]
+
+        labels = {
+            'name': _('CANDIDATE_NAME'),
+            'description': _('CANDIDATE_DESCRIPTION'),
+            'picture': _('CANDIDATE_PICTURE')
+        }
 
 
 class ContestCandidateCreateView(ContestMediator, FormMixin, generic.DetailView):
