@@ -561,7 +561,7 @@ class ChooseBlockchainAction(ListAction):
             _('Choose a blockchain'),
             txt, icon,
             MDCButtonOutlined(
-                _('choose blockchain'),
+                _('choose'),
                 tag='a',
                 p=False,
                 href=reverse('electioncontract_create', args=[obj.id])
@@ -844,17 +844,6 @@ class Section(Div):
 
 class TezosSecuredCard(Section):
     def __init__(self, contest, user):
-        if (
-            contest.publish_state == contest.PublishStates.ELECTION_NOT_DECENTRALIZED
-            and contest.mediator == user
-        ):
-            btn = MDCButton(
-                _('choose blockchain'),
-                tag='a',
-                href=reverse('electioncontract_create', args=[contest.id]))
-        else:
-            btn = MDCTextButton(_('Here\'s how'), 'info_outline')
-
         link = None
         if contest.publish_state != contest.PublishStates.ELECTION_NOT_DECENTRALIZED:
             try:
@@ -877,19 +866,19 @@ class TezosSecuredCard(Section):
         super().__init__(
             Ul(
                 ListAction(
-                    _('Secure and decentralised with Tezos'),
+                    _('Secured and decentralised with Tezos'),
                     Span(
-                        _('Your election data and results will be published on Tezos’ ') + str(contract.blockchain) + _(' blockchain.'),
+                        _('Your election data and results will be published on Tezos’ ')
+                            + str(contract.blockchain)
+                            + _(' blockchain.'),
                         PublishProgressBar([
                             step(_('Election contract created')),
                             step(_('Election opened')),
                             step(_('Election closed')),
                             step(_('Election Results available')),
                             step(_('Election contract updated')),
-                        ], contest.publish_state - 1)
-                        if contest.publish_state
-                        else btn
-                    ),
+                        ], contest.publish_state - 1),
+                    ) if contest.publish_state else None,
                     TezosIcon(),
                     None,
                     separator=False
