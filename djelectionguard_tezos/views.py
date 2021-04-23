@@ -44,7 +44,7 @@ class BlockchainItem(Div):
                 ),
                 Span(
                     Span('Current balance:', cls='overline'),
-                    f' {balance}Tez'
+                    f' {balance/1000000 if balance else 0}Tez'
                 )
                 if balance is not None else None,
                 style='display: flex; justify-content: space-between;'
