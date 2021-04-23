@@ -36,6 +36,11 @@ class ContestForm(forms.ModelForm):
         required=False
     )
 
+    votes_allowed = forms.IntegerField(
+        initial=1,
+        help_text=_('The maximum number of choice a voter can make for this election')
+    )
+
     start = forms.SplitDateTimeField(
         label='',
         initial=now,
@@ -549,7 +554,7 @@ class ChooseBlockchainAction(ListAction):
             txt = ''
             icon = DoneIcon()
         else:
-            txt = _('Choose the blockchain you want to deploy your election to')
+            txt = _('Choose the blockchain you want to deploy your election smart contract to')
             icon = TodoIcon()
 
         try:
@@ -558,10 +563,11 @@ class ChooseBlockchainAction(ListAction):
             has_contract = False
 
         super().__init__(
-            _('Choose a blockchain'),
+            _('Add the election smart contract'),
             txt, icon,
             MDCButtonOutlined(
-                _('choose'),
+                _('add'),
+                icon='add',
                 tag='a',
                 p=False,
                 href=reverse('electioncontract_create', args=[obj.id])
