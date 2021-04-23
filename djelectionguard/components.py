@@ -879,7 +879,7 @@ class TezosSecuredCard(Section):
                 ListAction(
                     _('Secure and decentralised with Tezos'),
                     Span(
-                        _('Your election data and results will be published on Tezos’ test blockchain.'),
+                        _('Your election data and results will be published on Tezos’ ') + str(contract.blockchain) + _(' blockchain.'),
                         PublishProgressBar([
                             step(_('Election contract created')),
                             step(_('Election opened')),
