@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.utils import timezone
 from electeez.components import *
 from ryzom_django.forms import widget_template
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext as _
 from django.conf import settings
 
 from electeez.components import (
@@ -40,16 +40,18 @@ class ContestForm(forms.ModelForm):
         label='',
         initial=now,
         widget=forms.SplitDateTimeWidget(
-            time_attrs={'type': 'time'},
+            date_format='%Y-%m-%d',
             date_attrs={'type': 'date'},
-        )
+            time_attrs={'type': 'time'},
+        ),
     )
     end = forms.SplitDateTimeField(
         label='',
         initial=now,
         widget=forms.SplitDateTimeWidget(
-            time_attrs={'type': 'time'},
+            date_format='%Y-%m-%d',
             date_attrs={'type': 'date'},
+            time_attrs={'type': 'time'},
         )
     )
 
@@ -516,7 +518,7 @@ class CastVoteAction(ListAction):
         if voter.casted:
             s = voter.casted
             txt = (
-                _('You casted your vote on') + f'<b>{s.strftime("%a %d %b at %H:%M")}</b>.' +
+                _('You casted your vote on') + f' <b>{s.strftime("%a %d %b at %H:%M")}</b>.' +
                 _(' The results will be published after the election is closed.')
             )
             icon = DoneIcon()
