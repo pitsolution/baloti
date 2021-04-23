@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-21 12:21+0200\n"
+"POT-Creation-Date: 2021-04-21 15:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,11 +19,11 @@ msgstr ""
 
 #: djelectionguard/components.py:67
 msgid "FORM_TITLE_ELECTION_CREATE"
-msgstr "Election name"
+msgstr "Name of election"
 
 #: djelectionguard/components.py:68
 msgid "FORM_ABOUT_ELECTION_CREATE"
-msgstr ""
+msgstr "Description of election"
 
 #: djelectionguard/components.py:69
 msgid "FORM_VOTES_ALLOWED_ELECTION_CREATE"
@@ -39,7 +39,7 @@ msgstr "End at"
 
 #: djelectionguard/components.py:72
 msgid "FORM_TIMEZONE_ELECTION_CREATE"
-msgstr ""
+msgstr "Timezone of election"
 
 #: djelectionguard/components.py:79
 msgid "Cannot decentralize after creation"
@@ -89,6 +89,7 @@ msgstr ""
 #: djelectionguard/components.py:1658 djelectionguard/components.py:1720
 #: djelectionguard/components.py:1746 djelectionguard/components.py:1786
 #: djelectionguard/components.py:1881 djelectionguard/components.py:1987
+#: djelectionguard_tezos/views.py:59
 msgid "back"
 msgstr ""
 
@@ -408,6 +409,10 @@ msgstr ""
 msgid "my elections"
 msgstr ""
 
+#: djelectionguard/components.py:1224 djelectionguard/components.py:1248
+msgid "No candidate yet."
+msgstr ""
+
 #: djelectionguard/components.py:1264
 msgid "No voter yet."
 msgstr ""
@@ -426,6 +431,14 @@ msgstr ""
 
 #: djelectionguard/components.py:1418
 msgid "Add candidate"
+msgstr ""
+
+#: djelectionguard/components.py:1424
+msgid " Candidates"
+msgstr ""
+
+#: djelectionguard/components.py:1428
+msgid "Add a candidate"
 msgstr ""
 
 #: djelectionguard/components.py:1450
@@ -779,88 +792,108 @@ msgstr ""
 msgid "You casted your ballot for"
 msgstr ""
 
-#: djelectionguard/views.py:796
+#: djelectionguard/views.py:746 djelectionguard/views.py:773
+msgid "CANDIDATE_PICTURE"
+msgstr "Picture of candidat"
+
+#: djelectionguard/views.py:747
+msgid "Picture of the candidate"
+msgstr ""
+
+#: djelectionguard/views.py:771
+msgid "CANDIDATE_NAME"
+msgstr "Name of candidate"
+
+#: djelectionguard/views.py:772
+msgid "CANDIDATE_DESCRIPTION"
+msgstr "Description of candidat"
+
+#: djelectionguard/views.py:803
 msgid "You have added candidate"
 msgstr ""
 
-#: djelectionguard/views.py:830
+#: djelectionguard/views.py:837
 msgid "You have updated candidate"
 msgstr ""
 
-#: djelectionguard/views.py:856
+#: djelectionguard/views.py:863
 msgid "You have removed candidate"
 msgstr ""
 
-#: djelectionguard/views.py:877
+#: djelectionguard/views.py:884
 msgid "Minimum guardians needed to unlock the ballot box"
 msgstr ""
 
-#: djelectionguard/views.py:888
+#: djelectionguard/views.py:895
 msgid "User not found"
 msgstr ""
 
-#: djelectionguard/views.py:892
+#: djelectionguard/views.py:899
 msgid "already added!"
 msgstr ""
 
-#: djelectionguard/views.py:902
+#: djelectionguard/views.py:909
 msgid "Cannot be higher than the number of guardians"
 msgstr ""
 
-#: djelectionguard/views.py:949
+#: djelectionguard/views.py:956
 msgid "You have invited"
 msgstr ""
 
-#: djelectionguard/views.py:949
+#: djelectionguard/views.py:956
 msgid " as guardian"
 msgstr ""
 
-#: djelectionguard/views.py:954 djelectionguard/views.py:984
+#: djelectionguard/views.py:961 djelectionguard/views.py:991
 msgid "Quorum set to"
 msgstr ""
 
-#: djelectionguard/views.py:984
+#: djelectionguard/views.py:991
 msgid " to match the number of guardians"
 msgstr ""
 
-#: djelectionguard/views.py:988
+#: djelectionguard/views.py:995
 msgid "You have removed guardian"
 msgstr ""
 
-#: djelectionguard/views.py:1019
+#: djelectionguard/views.py:1026
 msgid "Verify integrity"
 msgstr ""
 
-#: djelectionguard/views.py:1030
+#: djelectionguard/views.py:1037
 msgid "File corrupted, please try downloading again"
 msgstr ""
 
-#: djelectionguard/views.py:1041
+#: djelectionguard/views.py:1048
 msgid "You have verified your guardian key for"
 msgstr ""
 
-#: djelectionguard/views.py:1075
+#: djelectionguard/views.py:1082
 msgid "You have uploaded your guardian key for"
 msgstr ""
 
-#: djelectionguard/views.py:1168
+#: djelectionguard/views.py:1175
 msgid "Please remove lines containing invalid emails: "
 msgstr ""
 
-#: djelectionguard/views.py:1175
+#: djelectionguard/views.py:1182
 msgid "Update voters"
 msgstr ""
 
-#: djelectionguard/views.py:1177
+#: djelectionguard/views.py:1184
 msgid "The list of allowed voters with one email per line"
 msgstr ""
 
-#: djelectionguard/views.py:1250
+#: djelectionguard/views.py:1257
 msgid "You have updated voters for contest"
 msgstr ""
 
 #: djelectionguard_tezos/views.py:64
 msgid "Choose the blockchain you want to deploy your election results to"
+msgstr ""
+
+#: djelectionguard_tezos/views.py:79
+msgid "refresh balances"
 msgstr ""
 
 #: djelectionguard_tezos/views.py:99
@@ -1071,6 +1104,10 @@ msgstr ""
 
 #: electeez_auth/components.py:276
 msgid "Email sent with success"
+msgstr ""
+
+#: electeez_auth/models.py:19
+msgid "email address"
 msgstr ""
 
 #: electeez_auth/views.py:27

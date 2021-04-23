@@ -56,7 +56,7 @@ class BlockchainItem(Div):
 class ElectionContractCard(Div):
     def to_html(self, *content, view, form, **context):
         self.backlink = BackLink(
-            'back',
+            _('back'),
             reverse('contest_detail', args=[view.contest.id])
         )
         return super().to_html(
@@ -76,7 +76,7 @@ class ElectionContractCard(Div):
                     n=1),
                 Div(
                     MDCButtonOutlined(
-                        'refresh balances',
+                        _('refresh balances'),
                         tag='a',
                         onclick='window.location.reload()'
                     ),

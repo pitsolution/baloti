@@ -37,7 +37,7 @@ class ContestForm(forms.ModelForm):
     )
 
     start = forms.SplitDateTimeField(
-        label='',
+        label = '',
         initial=now,
         widget=forms.SplitDateTimeWidget(
             time_attrs={'type': 'time'},
@@ -72,6 +72,65 @@ class ContestForm(forms.ModelForm):
             'timezone': _('FORM_TIMEZONE_ELECTION_CREATE')
         }
 
+<<<<<<< HEAD
+=======
+    def clean(self):
+        cleaned_data = super().clean()
+        if 'decentralized' in cleaned_data:
+            raise forms.ValidationError(
+                _('Cannot decentralize after creation')
+            )
+        return cleaned_data
+
+
+class CandidateForm(forms.ModelForm):
+    class Meta:
+        model = Candidate
+        fields = ['name']
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        exists = Candidate.objects.filter(
+            contest=self.contest,
+            name=cleaned_data['name']
+        ).exclude(id=self.instance.id).count()
+
+        if exists:
+            raise forms.ValidationError(
+                dict(name=_('Candidate name must be unique for a contest'))
+            )
+        return cleaned_data
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if 'decentralized' in cleaned_data:
+            raise forms.ValidationError(
+                _('Cannot decentralize after creation')
+            )
+        return cleaned_data
+
+
+class CandidateForm(forms.ModelForm):
+    class Meta:
+        model = Candidate
+        fields = ['name']
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        exists = Candidate.objects.filter(
+            contest=self.contest,
+            name=cleaned_data['name']
+        ).exclude(id=self.instance.id).count()
+
+        if exists:
+            raise forms.ValidationError(
+                dict(name=_('Candidate name must be unique for a contest'))
+            )
+        return cleaned_data
+
+>>>>>>> pick correction
 
 class ContestFormComponent(CList):
     def __init__(self, view, form, edit=False):
@@ -883,8 +942,7 @@ class TezosSecuredCard(Section):
             Ul(
                 ListAction(
                     _('Secure and decentralised with Tezos'),
-                    Span(
-                        _('Your election data and results will be published on Tezos’ test blockchain.'),
+                    Span(_('Your election data and results will be published on Tezos’ test blockchain.'),
                         PublishProgressBar([
                             step(_('Election contract created')),
                             step(_('Election opened')),
@@ -930,7 +988,7 @@ class GuardianActionButton(CList):
 class GuardianTable(Div):
     def __init__(self, view, **context):
         table_head_row = Tr(cls='mdc-data-table__header-row')
-        for th in (_('email'), _('key downloaded'), _('key verified')):
+        for th in ('email', 'key downloaded', 'key verified'):
             table_head_row.addchild(
                 Th(
                     th,
@@ -1020,7 +1078,7 @@ class CandidatesSettingsCard(Div):
                 btn = None
 
         super().__init__(
-            H5('Candidates'),
+            H5(_('Candidates')),
             CandidateListComp(contest, editable),
             btn,
             cls='setting-section'
@@ -1189,7 +1247,7 @@ class CandidateAccordion(MDCAccordion):
                 for candidate
                 in contest.candidate_set.all()
             ) if contest.candidate_set.count()
-            else ['No candidate yet.']
+            else [_('No candidate yet.')]
         )
 
 
@@ -1213,7 +1271,7 @@ class CandidateListComp(MDCList):
                 MDCListItem(candidate, **attrs)
                 for candidate, attrs in candidates(qs)
             ) if qs.count()
-            else ['No candidate yet.']
+            else [_('No candidate yet.')]
         )
 
 
@@ -1247,7 +1305,7 @@ class CandidateList(Div):
         self.backlink = BackLink('back', reverse('contest_detail', args=[contest.id]))
 
         return super().to_html(
-            H4('Candidates', cls='center-text'),
+            H4(_('Candidates'), cls='center-text'),
             CandidateAccordion(
                 contest,
                 view.request.user == contest.mediator and not contest.actual_start
@@ -1415,11 +1473,11 @@ class ContestCandidateCreateCard(Div):
         return super().to_html(
             H4(
                 contest.candidate_set.count(),
-                ' Candidates',
+                _(' Candidates'),
                 cls='center-text'
             ),
             CandidateAccordion(contest, editable),
-            H5('Add a candidate', cls='center-text'),
+            H5(_('Add a candidate'), cls='center-text'),
             form_component,
             cls='card'
         )
