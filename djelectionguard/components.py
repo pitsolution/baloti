@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.utils import timezone
 from electeez.components import *
 from ryzom_django.forms import widget_template
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext as _
 from django.conf import settings
 
 from electeez.components import (
@@ -36,20 +36,27 @@ class ContestForm(forms.ModelForm):
         required=False
     )
 
+    votes_allowed = forms.IntegerField(
+        initial=1,
+        help_text=_('The maximum number of choice a voter can make for this election')
+    )
+
     start = forms.SplitDateTimeField(
         label='',
         initial=now,
         widget=forms.SplitDateTimeWidget(
-            time_attrs={'type': 'time'},
+            date_format='%Y-%m-%d',
             date_attrs={'type': 'date'},
-        )
+            time_attrs={'type': 'time'},
+        ),
     )
     end = forms.SplitDateTimeField(
         label='',
         initial=now,
         widget=forms.SplitDateTimeWidget(
-            time_attrs={'type': 'time'},
+            date_format='%Y-%m-%d',
             date_attrs={'type': 'date'},
+            time_attrs={'type': 'time'},
         )
     )
 
@@ -516,7 +523,7 @@ class CastVoteAction(ListAction):
         if voter.casted:
             s = voter.casted
             txt = (
-                _('You casted your vote on') + f'<b>{s.strftime("%a %d %b at %H:%M")}</b>.' +
+                _('You casted your vote on') + f' <b>{s.strftime("%a %d %b at %H:%M")}</b>.' +
                 _(' The results will be published after the election is closed.')
             )
             icon = DoneIcon()
@@ -547,7 +554,7 @@ class ChooseBlockchainAction(ListAction):
             txt = ''
             icon = DoneIcon()
         else:
-            txt = _('Choose the blockchain you want to deploy your election to')
+            txt = _('Choose the blockchain you want to deploy your election smart contract to')
             icon = TodoIcon()
 
         try:
@@ -556,10 +563,11 @@ class ChooseBlockchainAction(ListAction):
             has_contract = False
 
         super().__init__(
-            _('Choose a blockchain'),
+            _('Add the election smart contract'),
             txt, icon,
             MDCButtonOutlined(
-                _('choose blockchain'),
+                _('add'),
+                icon='add',
                 tag='a',
                 p=False,
                 href=reverse('electioncontract_create', args=[obj.id])
@@ -842,17 +850,6 @@ class Section(Div):
 
 class TezosSecuredCard(Section):
     def __init__(self, contest, user):
-        if (
-            contest.publish_state == contest.PublishStates.ELECTION_NOT_DECENTRALIZED
-            and contest.mediator == user
-        ):
-            btn = MDCButton(
-                _('choose blockchain'),
-                tag='a',
-                href=reverse('electioncontract_create', args=[contest.id]))
-        else:
-            btn = MDCTextButton(_('Here\'s how'), 'info_outline')
-
         link = None
         if contest.publish_state != contest.PublishStates.ELECTION_NOT_DECENTRALIZED:
             try:
@@ -875,19 +872,19 @@ class TezosSecuredCard(Section):
         super().__init__(
             Ul(
                 ListAction(
-                    _('Secure and decentralised with Tezos'),
+                    _('Secured and decentralised with Tezos'),
                     Span(
-                        _('Your election data and results will be published on Tezos’ test blockchain.'),
+                        _('Your election data and results will be published on Tezos’ ')
+                            + str(contract.blockchain)
+                            + _(' blockchain.'),
                         PublishProgressBar([
                             step(_('Election contract created')),
                             step(_('Election opened')),
                             step(_('Election closed')),
                             step(_('Election Results available')),
                             step(_('Election contract updated')),
-                        ], contest.publish_state - 1)
-                        if contest.publish_state
-                        else btn
-                    ),
+                        ], contest.publish_state - 1),
+                    ) if contest.publish_state else None,
                     TezosIcon(),
                     None,
                     separator=False
