@@ -64,6 +64,9 @@ class ElectionContractCard(Div):
                 _('Choose the blockchain you want to deploy'
                 ' your election results to'),
                 cls='center-text'),
+            H5(
+                _('This choice cannot be changed, please choose carefully'),
+                cls='red center-text'),
             Form(
                 MDCErrorList(form.errors) if form.errors else None,
                 MDCMultipleChoicesCheckbox(
