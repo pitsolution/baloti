@@ -533,8 +533,9 @@ class CastVoteAction(ListAction):
         if voter.casted:
             s = voter.casted
             txt = (
-                _('You casted your vote on') + f' <b>{s.strftime("%a %d %b at %H:%M")}</b>.' +
-                _(' The results will be published after the election is closed.')
+                _('You casted your vote on %(time)s'
+                  ' The results will be published after the election is closed.')
+                % {'time': f'<b>{s.strftime("%a %d %b at %H:%M")}</b>.'}
             )
             icon = DoneIcon()
             btn_comp = None
