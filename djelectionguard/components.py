@@ -1365,7 +1365,7 @@ class VotersDetailCard(Div):
             tag='a',
             href=reverse('contest_voters_update', args=[contest.id]))
 
-        if contest.actual_start:
+        if contest.actual_end:
             self.edit_btn = ''
 
         return super().to_html(

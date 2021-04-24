@@ -1258,7 +1258,7 @@ class ContestVotersUpdateView(ContestMediator, generic.UpdateView):
     def get_queryset(self):
         return Contest.objects.filter(
             mediator=self.request.user,
-            actual_start=None)
+            actual_end=None)
 
     def get_success_url(self):
         messages.success(
