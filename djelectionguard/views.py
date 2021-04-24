@@ -752,7 +752,8 @@ class CandidateForm(forms.ModelForm):
     )
     picture = forms.ImageField(
         widget=forms.FileInput,
-        help_text='Picture of the candidate',
+        label = _('CANDIDATE_PICTURE'),
+        help_text=_('Picture of the candidate'),
         required=False
     )
 
@@ -774,6 +775,12 @@ class CandidateForm(forms.ModelForm):
             'description',
             'picture'
         ]
+
+        labels = {
+            'name': _('CANDIDATE_NAME'),
+            'description': _('CANDIDATE_DESCRIPTION'),
+            'picture': _('CANDIDATE_PICTURE')
+        }
 
 
 class ContestCandidateCreateView(ContestMediator, FormMixin, generic.DetailView):
@@ -1251,7 +1258,7 @@ class ContestVotersUpdateView(ContestMediator, generic.UpdateView):
     def get_queryset(self):
         return Contest.objects.filter(
             mediator=self.request.user,
-            actual_start=None)
+            actual_end=None)
 
     def get_success_url(self):
         messages.success(

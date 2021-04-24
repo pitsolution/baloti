@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.utils import timezone
 from electeez.components import *
 from ryzom_django.forms import widget_template
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
 from electeez.components import (
@@ -32,11 +32,13 @@ class ContestForm(forms.ModelForm):
         return now.replace(second=0, microsecond=0)
 
     about = forms.CharField(
+        label=_('FORM_ABOUT_ELECTION_CREATE'),
         widget=forms.Textarea,
         required=False
     )
 
     votes_allowed = forms.IntegerField(
+        label=_('FORM_VOTES_ALLOWED_ELECTION_CREATE'),
         initial=1,
         help_text=_('The maximum number of choice a voter can make for this election')
     )
@@ -70,6 +72,14 @@ class ContestForm(forms.ModelForm):
             'end',
             'timezone',
         ]
+        labels = {
+            'name': _('FORM_TITLE_ELECTION_CREATE'),
+            'about': _('FORM_ABOUT_ELECTION_CREATE'),
+            'votes_allowed': _('FORM_VOTES_ALLOWED_ELECTION_CREATE'),
+            'start': _('FORM_START_ELECTION_CREATE'),
+            'end': _('FORM_END_ELECTION_CREATE'),
+            'timezone': _('FORM_TIMEZONE_ELECTION_CREATE')
+        }
 
 
 class ContestFormComponent(CList):
@@ -85,7 +95,7 @@ class ContestFormComponent(CList):
             Form(
                 form['name'],
                 form['about'],
-                H6('Voting settings:'),
+                H6(_('Voting settings:')),
                 form['votes_allowed'],
                 H6(_('Election starts:')),
                 form['start'],
@@ -523,8 +533,9 @@ class CastVoteAction(ListAction):
         if voter.casted:
             s = voter.casted
             txt = (
-                _('You casted your vote on') + f' <b>{s.strftime("%a %d %b at %H:%M")}</b>.' +
-                _(' The results will be published after the election is closed.')
+                _('You casted your vote on %(time)s'
+                  ' The results will be published after the election is closed.')
+                % {'time': f'<b>{s.strftime("%a %d %b at %H:%M")}</b>.'}
             )
             icon = DoneIcon()
             btn_comp = None
@@ -862,6 +873,11 @@ class TezosSecuredCard(Section):
             except ObjectDoesNotExist:
                 pass  # no contract
 
+        if contest.publish_state == contest.PublishStates.ELECTION_PUBLISHED:
+            links.append(A(_('Download artifacts'), href=contest.artifacts_local_url))
+            if contest.artifacts_ipfs_url:
+                links.append(A(_('Download from IPFS'), href=contest.artifacts_ipfs_url))
+
         def step(s):
             return Span(
                 Span(s, style='width: 100%'),
@@ -872,11 +888,11 @@ class TezosSecuredCard(Section):
         super().__init__(
             Ul(
                 ListAction(
-                    _('Secured and decentralised with Tezos'),
+                    _('Secure and decentralised with Tezos'),
                     Span(
-                        _('Your election data and results will be published on Tezos’ ')
+                        str(_('Your election data and results will be published on Tezos’ '))
                             + str(contract.blockchain)
-                            + _(' blockchain.'),
+                            + str(_(' blockchain.')),
                         PublishProgressBar([
                             step(_('Election contract created')),
                             step(_('Election opened')),
@@ -1010,7 +1026,7 @@ class CandidatesSettingsCard(Div):
                 btn = None
 
         super().__init__(
-            H5('Candidates'),
+            H5(_('Candidates')),
             CandidateListComp(contest, editable),
             btn,
             cls='setting-section'
@@ -1179,7 +1195,7 @@ class CandidateAccordion(MDCAccordion):
                 for candidate
                 in contest.candidate_set.all()
             ) if contest.candidate_set.count()
-            else ['No candidate yet.']
+            else [_('No candidate yet.')]
         )
 
 
@@ -1203,7 +1219,7 @@ class CandidateListComp(MDCList):
                 MDCListItem(candidate, **attrs)
                 for candidate, attrs in candidates(qs)
             ) if qs.count()
-            else ['No candidate yet.']
+            else [_('No candidate yet.')]
         )
 
 
@@ -1237,7 +1253,7 @@ class CandidateList(Div):
         self.backlink = BackLink('back', reverse('contest_detail', args=[contest.id]))
 
         return super().to_html(
-            H4('Candidates', cls='center-text'),
+            H4(_('Candidates'), cls='center-text'),
             CandidateAccordion(
                 contest,
                 view.request.user == contest.mediator and not contest.actual_start
@@ -1349,7 +1365,7 @@ class VotersDetailCard(Div):
             tag='a',
             href=reverse('contest_voters_update', args=[contest.id]))
 
-        if contest.actual_start:
+        if contest.actual_end:
             self.edit_btn = ''
 
         return super().to_html(
@@ -1405,11 +1421,11 @@ class ContestCandidateCreateCard(Div):
         return super().to_html(
             H4(
                 contest.candidate_set.count(),
-                ' Candidates',
+                _(' Candidates'),
                 cls='center-text'
             ),
             CandidateAccordion(contest, editable),
-            H5('Add a candidate', cls='center-text'),
+            H5(_('Add a candidate'), cls='center-text'),
             form_component,
             cls='card'
         )
@@ -1579,16 +1595,7 @@ class ContestVoteCard(Div):
              in enumerate(candidates))
 
         return super().to_html(
-            Div(
-                H3(contest.name, cls='center-text'),
-                Div(
-                    contest.about,
-                    cls='subtitle-2',
-                    style='margin-bottom: 24px;'
-                ),
-            ),
-            Hr(cls='mdc-list-divider'),
-            H5(_('Make your choice'), cls='center-text'),
+            H4(_('Make your choice'), cls='center-text'),
             Div(
                 P(_('You may choose up to %(max)d candidates. '
                     'In the end of the election '

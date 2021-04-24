@@ -7,6 +7,8 @@ from django.db import models
 from django.db.models import signals
 from django.utils import timezone
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
+from django.conf import settings
 
 
 class User(AbstractUser):
@@ -14,7 +16,7 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
     username = None
     email = models.EmailField(
-        verbose_name='email address',
+        verbose_name=_('email address'),
         max_length=255,
         unique=True,
     )
