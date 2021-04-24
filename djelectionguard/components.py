@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.utils import timezone
 from electeez.components import *
 from ryzom_django.forms import widget_template
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
 from electeez.components import (
@@ -32,17 +32,19 @@ class ContestForm(forms.ModelForm):
         return now.replace(second=0, microsecond=0)
 
     about = forms.CharField(
+        label=_('FORM_ABOUT_ELECTION_CREATE'),
         widget=forms.Textarea,
         required=False
     )
 
     votes_allowed = forms.IntegerField(
+        label=_('FORM_VOTES_ALLOWED_ELECTION_CREATE'),
         initial=1,
         help_text=_('The maximum number of choice a voter can make for this election')
     )
 
     start = forms.SplitDateTimeField(
-        label = '',
+        label='',
         initial=now,
         widget=forms.SplitDateTimeWidget(
             date_format='%Y-%m-%d',
@@ -79,62 +81,6 @@ class ContestForm(forms.ModelForm):
             'timezone': _('FORM_TIMEZONE_ELECTION_CREATE')
         }
 
-    def clean(self):
-        cleaned_data = super().clean()
-        if 'decentralized' in cleaned_data:
-            raise forms.ValidationError(
-                _('Cannot decentralize after creation')
-            )
-        return cleaned_data
-
-
-class CandidateForm(forms.ModelForm):
-    class Meta:
-        model = Candidate
-        fields = ['name']
-
-    def clean(self):
-        cleaned_data = super().clean()
-
-        exists = Candidate.objects.filter(
-            contest=self.contest,
-            name=cleaned_data['name']
-        ).exclude(id=self.instance.id).count()
-
-        if exists:
-            raise forms.ValidationError(
-                dict(name=_('Candidate name must be unique for a contest'))
-            )
-        return cleaned_data
-
-    def clean(self):
-        cleaned_data = super().clean()
-        if 'decentralized' in cleaned_data:
-            raise forms.ValidationError(
-                _('Cannot decentralize after creation')
-            )
-        return cleaned_data
-
-
-class CandidateForm(forms.ModelForm):
-    class Meta:
-        model = Candidate
-        fields = ['name']
-
-    def clean(self):
-        cleaned_data = super().clean()
-
-        exists = Candidate.objects.filter(
-            contest=self.contest,
-            name=cleaned_data['name']
-        ).exclude(id=self.instance.id).count()
-
-        if exists:
-            raise forms.ValidationError(
-                dict(name=_('Candidate name must be unique for a contest'))
-            )
-        return cleaned_data
-
 
 class ContestFormComponent(CList):
     def __init__(self, view, form, edit=False):
@@ -144,19 +90,12 @@ class ContestFormComponent(CList):
             cls='error-list'
         ))
 
-        decentralized = ''
-        if not edit:
-            decentralized = CList(
-                H6(_('Decentralize my election:')),
-                MDCMultipleChoicesCheckbox(
-                    'decentralized',
-                    [(0, _('Decentralize with Tezos'), 'true')]))
-
         super().__init__(
             H4(_('Edit election') if edit else _('Create an election')),
             Form(
                 form['name'],
-                H6('Voting settings:'),
+                form['about'],
+                H6(_('Voting settings:')),
                 form['votes_allowed'],
                 H6(_('Election starts:')),
                 form['start'],
@@ -948,11 +887,11 @@ class TezosSecuredCard(Section):
         super().__init__(
             Ul(
                 ListAction(
-                    _('Secured and decentralised with Tezos'),
+                    _('Secure and decentralised with Tezos'),
                     Span(
-                        _('Your election data and results will be published on Tezos’ ')
+                        str(_('Your election data and results will be published on Tezos’ '))
                             + str(contract.blockchain)
-                            + _(' blockchain.'),
+                            + str(_(' blockchain.')),
                         PublishProgressBar([
                             step(_('Election contract created')),
                             step(_('Election opened')),
@@ -996,7 +935,7 @@ class GuardianActionButton(CList):
 class GuardianTable(Div):
     def __init__(self, view, **context):
         table_head_row = Tr(cls='mdc-data-table__header-row')
-        for th in ('email', 'key downloaded', 'key verified'):
+        for th in (_('email'), _('key downloaded'), _('key verified')):
             table_head_row.addchild(
                 Th(
                     th,
