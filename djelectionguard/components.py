@@ -72,8 +72,6 @@ class ContestForm(forms.ModelForm):
             'timezone': _('FORM_TIMEZONE_ELECTION_CREATE')
         }
 
-<<<<<<< HEAD
-=======
     def clean(self):
         cleaned_data = super().clean()
         if 'decentralized' in cleaned_data:
@@ -130,7 +128,6 @@ class CandidateForm(forms.ModelForm):
             )
         return cleaned_data
 
->>>>>>> pick correction
 
 class ContestFormComponent(CList):
     def __init__(self, view, form, edit=False):
