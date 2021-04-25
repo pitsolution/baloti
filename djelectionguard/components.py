@@ -32,24 +32,33 @@ class ContestForm(forms.ModelForm):
         return now.replace(second=0, microsecond=0)
 
     about = forms.CharField(
+        label=_('FORM_ABOUT_ELECTION_CREATE'),
         widget=forms.Textarea,
         required=False
+    )
+
+    votes_allowed = forms.IntegerField(
+        label=_('FORM_VOTES_ALLOWED_ELECTION_CREATE'),
+        initial=1,
+        help_text=_('The maximum number of choice a voter can make for this election')
     )
 
     start = forms.SplitDateTimeField(
         label = '',
         initial=now,
         widget=forms.SplitDateTimeWidget(
-            time_attrs={'type': 'time'},
+            date_format='%Y-%m-%d',
             date_attrs={'type': 'date'},
-        )
+            time_attrs={'type': 'time'},
+        ),
     )
     end = forms.SplitDateTimeField(
         label='',
         initial=now,
         widget=forms.SplitDateTimeWidget(
-            time_attrs={'type': 'time'},
+            date_format='%Y-%m-%d',
             date_attrs={'type': 'date'},
+            time_attrs={'type': 'time'},
         )
     )
 
@@ -72,62 +81,6 @@ class ContestForm(forms.ModelForm):
             'timezone': _('FORM_TIMEZONE_ELECTION_CREATE')
         }
 
-    def clean(self):
-        cleaned_data = super().clean()
-        if 'decentralized' in cleaned_data:
-            raise forms.ValidationError(
-                _('Cannot decentralize after creation')
-            )
-        return cleaned_data
-
-
-class CandidateForm(forms.ModelForm):
-    class Meta:
-        model = Candidate
-        fields = ['name']
-
-    def clean(self):
-        cleaned_data = super().clean()
-
-        exists = Candidate.objects.filter(
-            contest=self.contest,
-            name=cleaned_data['name']
-        ).exclude(id=self.instance.id).count()
-
-        if exists:
-            raise forms.ValidationError(
-                dict(name=_('Candidate name must be unique for a contest'))
-            )
-        return cleaned_data
-
-    def clean(self):
-        cleaned_data = super().clean()
-        if 'decentralized' in cleaned_data:
-            raise forms.ValidationError(
-                _('Cannot decentralize after creation')
-            )
-        return cleaned_data
-
-
-class CandidateForm(forms.ModelForm):
-    class Meta:
-        model = Candidate
-        fields = ['name']
-
-    def clean(self):
-        cleaned_data = super().clean()
-
-        exists = Candidate.objects.filter(
-            contest=self.contest,
-            name=cleaned_data['name']
-        ).exclude(id=self.instance.id).count()
-
-        if exists:
-            raise forms.ValidationError(
-                dict(name=_('Candidate name must be unique for a contest'))
-            )
-        return cleaned_data
-
 
 class ContestFormComponent(CList):
     def __init__(self, view, form, edit=False):
@@ -141,7 +94,8 @@ class ContestFormComponent(CList):
             H4(_('Edit election') if edit else _('Create an election')),
             Form(
                 form['name'],
-                H6('Voting settings:'),
+                form['about'],
+                H6(_('Voting settings:')),
                 form['votes_allowed'],
                 H6(_('Election starts:')),
                 form['start'],
@@ -579,8 +533,9 @@ class CastVoteAction(ListAction):
         if voter.casted:
             s = voter.casted
             txt = (
-                _('You casted your vote on') + f'<b>{s.strftime("%a %d %b at %H:%M")}</b>.' +
-                _(' The results will be published after the election is closed.')
+                _('You casted your vote on %(time)s'
+                  ' The results will be published after the election is closed.')
+                % {'time': f'<b>{s.strftime("%a %d %b at %H:%M")}</b>.'}
             )
             icon = DoneIcon()
             btn_comp = None
@@ -610,7 +565,7 @@ class ChooseBlockchainAction(ListAction):
             txt = ''
             icon = DoneIcon()
         else:
-            txt = _('Choose the blockchain you want to deploy your election to')
+            txt = _('Choose the blockchain you want to deploy your election smart contract to')
             icon = TodoIcon()
 
         try:
@@ -619,10 +574,11 @@ class ChooseBlockchainAction(ListAction):
             has_contract = False
 
         super().__init__(
-            _('Choose a blockchain'),
+            _('Add the election smart contract'),
             txt, icon,
             MDCButtonOutlined(
-                _('choose blockchain'),
+                _('add'),
+                icon='add',
                 tag='a',
                 p=False,
                 href=reverse('electioncontract_create', args=[obj.id])
@@ -905,17 +861,6 @@ class Section(Div):
 
 class TezosSecuredCard(Section):
     def __init__(self, contest, user):
-        if (
-            contest.publish_state == contest.PublishStates.ELECTION_NOT_DECENTRALIZED
-            and contest.mediator == user
-        ):
-            btn = MDCButton(
-                _('choose blockchain'),
-                tag='a',
-                href=reverse('electioncontract_create', args=[contest.id]))
-        else:
-            btn = MDCTextButton(_('Here\'s how'), 'info_outline')
-
         link = None
         if contest.publish_state != contest.PublishStates.ELECTION_NOT_DECENTRALIZED:
             try:
@@ -928,6 +873,11 @@ class TezosSecuredCard(Section):
             except ObjectDoesNotExist:
                 pass  # no contract
 
+        if contest.publish_state == contest.PublishStates.ELECTION_PUBLISHED:
+            links.append(A(_('Download artifacts'), href=contest.artifacts_local_url))
+            if contest.artifacts_ipfs_url:
+                links.append(A(_('Download from IPFS'), href=contest.artifacts_ipfs_url))
+
         def step(s):
             return Span(
                 Span(s, style='width: 100%'),
@@ -939,17 +889,18 @@ class TezosSecuredCard(Section):
             Ul(
                 ListAction(
                     _('Secure and decentralised with Tezos'),
-                    Span(_('Your election data and results will be published on Tezos’ test blockchain.'),
+                    Span(
+                        str(_('Your election data and results will be published on Tezos’ '))
+                            + str(contract.blockchain)
+                            + str(_(' blockchain.')),
                         PublishProgressBar([
                             step(_('Election contract created')),
                             step(_('Election opened')),
                             step(_('Election closed')),
                             step(_('Election Results available')),
                             step(_('Election contract updated')),
-                        ], contest.publish_state - 1)
-                        if contest.publish_state
-                        else btn
-                    ),
+                        ], contest.publish_state - 1),
+                    ) if contest.publish_state else None,
                     TezosIcon(),
                     None,
                     separator=False
@@ -985,7 +936,7 @@ class GuardianActionButton(CList):
 class GuardianTable(Div):
     def __init__(self, view, **context):
         table_head_row = Tr(cls='mdc-data-table__header-row')
-        for th in ('email', 'key downloaded', 'key verified'):
+        for th in (_('email'), _('key downloaded'), _('key verified')):
             table_head_row.addchild(
                 Th(
                     th,
@@ -1414,7 +1365,7 @@ class VotersDetailCard(Div):
             tag='a',
             href=reverse('contest_voters_update', args=[contest.id]))
 
-        if contest.actual_start:
+        if contest.actual_end:
             self.edit_btn = ''
 
         return super().to_html(
@@ -1644,16 +1595,7 @@ class ContestVoteCard(Div):
              in enumerate(candidates))
 
         return super().to_html(
-            Div(
-                H3(contest.name, cls='center-text'),
-                Div(
-                    contest.about,
-                    cls='subtitle-2',
-                    style='margin-bottom: 24px;'
-                ),
-            ),
-            Hr(cls='mdc-list-divider'),
-            H5(_('Make your choice'), cls='center-text'),
+            H4(_('Make your choice'), cls='center-text'),
             Div(
                 P(_('You may choose up to %(max)d candidates. '
                     'In the end of the election '

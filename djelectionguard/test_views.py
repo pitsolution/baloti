@@ -197,7 +197,7 @@ vot1@example.com\rvot2@example.com\rnew@example.com
 
     # only the guardian should be able to download its key
     guardian = contest.guardian_set.get(user=mediator)
-    guardian_url = f'/contest/guardian/{guardian.pk}/'
+    guardian_url = f'/en/contest/guardian/{guardian.pk}/'
     download_url = f'{guardian_url}download/'
     response = get(mediator, download_url)
     assert response.status_code == 200
@@ -279,7 +279,7 @@ vot1@example.com\rvot2@example.com\rnew@example.com
 
     # only the mediator should access the public key generation url
     pubkey = f'{contest_url}pubkey/'
-    contract = f'/tezos/{contest.id}/create/'
+    contract = f'/en/tezos/{contest.id}/create/'
     assert client.get(pubkey).status_code == 302
     #assert get(guardian2.user, pubkey).status_code == 404
     assert get(external, pubkey).status_code == 404
@@ -324,7 +324,7 @@ vot1@example.com\rvot2@example.com\rnew@example.com
     assert get(mediator, ballot).status_code == 404, ballot
 
     candidate = contest.candidate_set.first()
-    candidate_delete = f'/contest/candidates/{candidate.id}/delete/'
+    candidate_delete = f'/en/contest/candidates/{candidate.id}/delete/'
 
     # mediator can delete candidate
     assert get(mediator, candidate_delete).status_code == 302
@@ -370,16 +370,18 @@ vot1@example.com\rvot2@example.com\rnew@example.com
     # cannot open again
     assert get(mediator, contest_open).status_code == 404
 
-    # cannot create candidate, update voters list or contest params
+    # cannot create candidate or update contest params
     assert get(mediator, contest_url+'update/').status_code == 404
     assert get(mediator, candidate_create).status_code == 404
-    assert get(mediator, voters).status_code == 404
+
+    # can update voters list
+    assert get(mediator, voters).status_code == 200
 
     candidate = contest.candidate_set.first()
-    candidate_update = f'/contest/candidates/{candidate.id}/update/'
+    candidate_update = f'/en/contest/candidates/{candidate.id}/update/'
     assert get(mediator, candidate_update).status_code == 404
 
-    candidate_delete = f'/contest/candidates/{candidate.id}/delete/'
+    candidate_delete = f'/en/contest/candidates/{candidate.id}/delete/'
     assert get(mediator, candidate_update).status_code == 404
 
     # OTP links should have been sent and take directly to the vote page
