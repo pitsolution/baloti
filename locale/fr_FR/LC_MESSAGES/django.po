@@ -49,10 +49,6 @@ msgstr "Impossible de décentraliser après la création"
 msgid "Candidate name must be unique for a contest"
 msgstr "Le nom du candidat doit être unique pour un concours"
 
-#: djelectionguard/components.py:115
-msgid "Cannot decentralize after creation"
-msgstr "Impossible de décentraliser après la création"
-
 msgid "Decentralize my election:"
 msgstr "Décentralisé mon élection:"
 
@@ -209,7 +205,7 @@ msgstr "Verrouiller l'urne"
 
 #: djelectionguard/components.py:517
 msgid "Open for voting"
-msgstr "Ouvrir les votes"
+msgstr "Ouvrir aux votes"
 
 #: djelectionguard/components.py:532
 #, fuzzy
@@ -219,10 +215,6 @@ msgstr "Sécuriser l'élection"
 #: djelectionguard/components.py:536
 msgid "Ballot box securely locked. Election can be open for voting."
 msgstr "L'urne est verrouilée et sécurisée. L'élection peut être ouverte aux votes."
-
-#: djelectionguard/components.py:562
-msgid "You casted your vote on"
-msgstr "Vous avez voté pour"
 
 #: djelectionguard/components.py:563
 msgid " The results will be published after the election is closed."
@@ -428,9 +420,6 @@ msgstr "Il n'y a pas encore de votant"
 msgid "Copy link"
 msgstr "Copier le lien"
 
-#: djelectionguard/components.py:1388
-msgid "edit voters"
-msgstr "Modifier les votants"
 
 #: djelectionguard/components.py:1398 djelectionguard/components.py:1476
 msgid " Voters"
@@ -591,13 +580,6 @@ msgstr "fermer l'élection maintenant"
 #: djelectionguard/components.py:1753
 msgid "Verify your private key"
 msgstr "Verifier votre clé privée"
-
-#: djelectionguard/components.py:1754
-msgid ""
-"All guardians’ must upload their valid private keys to unlock the ballot box."
-msgstr ""
-"Tous les gardiens doivent envoyer une clé privée valide pour dévérouiller "
-"l'urne."
 
 #: djelectionguard/components.py:1789
 msgid "Open ballot box"
@@ -767,16 +749,8 @@ msgstr "Les paires de clés de gardiens ont étés supprimés de notre méméoir
 msgid "Please get a magic link to proceed to secure vote"
 msgstr "Vous devez avoir un lien magique pour procéder au vote sécurisé"
 
-#: djelectionguard/views.py:542
-msgid "You casted your vote on"
-msgstr "Vous avez voté pour"
-
 msgid "You are not registered to vote on"
 msgstr "Vous devez être inscris pour voter pour "
-
-#: djelectionguard/views.py:545
-msgid " voters added"
-msgstr " votant ajoutés"
 
 msgid " vote is closed"
 msgstr " vote est fermé"
@@ -796,44 +770,21 @@ msgstr "Vous avez déjà voté pour"
 msgid "Create ballot"
 msgstr "Créer scrutin"
 
-msgid "create ballot"
-msgstr "créer bulletin"
-
 #: djelectionguard/views.py:574
 msgid "; you have:"
 msgstr "; vous avez:"
 
-#: djelectionguard/views.py:629
-msgid "Encrypted ballot"
-msgstr "Scrutin crypté"
-
 msgid "Encrypt my ballot"
 msgstr "Crypter mon bulletin"
-
-#: djelectionguard/views.py:671
-msgig "confirm my vote"
-msgstr "confirmer mon vote"
 
 msgid "Confirm my vote"
 msgstr "Confirmer mon vote"
 
-#: djelectionguard/views.py:698
-msgig "You casted your vote on"
-msgstr "Vous avez voté pour"
-
 msgid "You spoiled your ballot for "
 msgstr "Vous avez voté pour "
 
-#: djelectionguard/views.py:698
-"Lock the ballot box"
-msgstr "Verrouiller l'urne"
-
 msgid "you can make another ballot"
 msgstr "Vous pouvez faire un autre vote"
-
-#: djelectionguard/views.py:706
-msgid "You casted your vote on"
-msgstr "Vous avez voté pour"
 
 msgid "You casted your ballot for"
 msgstr "Vous avez voté pour"
@@ -876,10 +827,6 @@ msgstr "Tous les gardiens doivent envoyer une clé privée valide pour dévérou
 msgid "Minimum guardians needed to unlock the ballot box"
 msgstr "Nombre de gardiens minimum requis pour dévérouiller l'urne"
 
-#: djelectionguard/views.py:895
-msgid "Election not found"
-msgstr "Élection non trouvé"
-
 msgid "User not found"
 msgstr "Utilisateur non trouvé"
 
@@ -895,10 +842,6 @@ msgstr "Ne peut pas être plus haut que le nombres de gardiens"
 msgid "You have invited"
 msgstr "Vous avez invité"
 
-#: djelectionguard/views.py:956
-msgid "add guardian"
-msgstr "Ajouter gardien"
-
 msgid " as guardian"
 msgstr " comme gardien"
 
@@ -913,10 +856,6 @@ msgstr " pour correspondre aux nombres de gardiens"
 #: djelectionguard/views.py:995
 msgid "You have removed guardian"
 msgstr "Vous avez retiré un gardien"
-
-#: djelectionguard/views.py:1026
-msgid "confirm key integrity"
-msgstr "Confirmer l'intégrité de la clé"
 
 msgid "Verify integrity"
 msgstr "Vérifier l'intégrité"
@@ -937,9 +876,6 @@ msgstr "Vous avez téléchargé votre clé de gardien pour "
 msgid "Please remove lines containing invalid emails: "
 msgstr "Veuillez retirer les lignes qui contiennent des erreurs: "
 
-#: djelectionguard/views.py:1182
-msgid "edit voters"
-msgstr "Modifier les votants"
 
 msgid "Update voters"
 msgstr "Metre à jours les votants"
