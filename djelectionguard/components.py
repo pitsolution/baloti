@@ -860,7 +860,7 @@ class TezosSecuredCard(Section):
         super().__init__(
             Ul(
                 ListAction(
-                    _('Secure and decentralised with Tezos'),
+                    _('Secured and decentralised with Tezos'),
                     Span(
                         str(_('Your election data and results will be published on Tezos’ '))
                             + str(contract.blockchain)
