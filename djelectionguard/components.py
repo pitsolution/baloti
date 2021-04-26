@@ -1333,7 +1333,7 @@ class VotersDetailCard(Div):
         self.edit_btn = MDCButtonOutlined(
             _('edit voters'),
             False,
-            _('edit'),
+            'edit',
             tag='a',
             href=reverse('contest_voters_update', args=[contest.id]))
 
