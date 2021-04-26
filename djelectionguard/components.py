@@ -731,29 +731,6 @@ class ResultAction(ListAction):
         if contest.mediator == user:
             subtext.addchild(
                 Div(_('Congratulations! You have been the mediator of a secure election.')))
-        if contest.number_elected > 1:
-            winners = Ol(cls='winners')
-            winner_item = Li
-            winner_text = _('the winners are:')
-        else:
-            winners = Div(cls='winners')
-            winner_item = Span
-            winner_text = _('the winner is:')
-
-        subtext.addchild(Span(winner_text, cls='winner-caption overline'))
-
-        candidates = contest.candidate_set.order_by('-score')
-        candidates = candidates[:contest.number_elected]
-
-        prefix = ''
-        for i, candidate in enumerate(candidates):
-            if contest.number_elected > 1:
-                prefix = f'{i + 1}. '
-            winners.addchild(
-                winner_item(
-                    H6(f'{prefix}{candidate.name}', cls='winner')))
-
-        subtext.addchild(winners)
 
         url=reverse('contest_result', args=[contest.id])
         result_btn = MDCButton(_('view result table'), tag='a', href=url)
@@ -872,11 +849,6 @@ class TezosSecuredCard(Section):
                 )
             except ObjectDoesNotExist:
                 pass  # no contract
-
-        if contest.publish_state == contest.PublishStates.ELECTION_PUBLISHED:
-            links.append(A(_('Download artifacts'), href=contest.artifacts_local_url))
-            if contest.artifacts_ipfs_url:
-                links.append(A(_('Download from IPFS'), href=contest.artifacts_ipfs_url))
 
         def step(s):
             return Span(
