@@ -3,6 +3,7 @@ import hashlib
 import os
 from pathlib import Path
 import pickle
+import re
 import shutil
 import subprocess
 import textwrap
@@ -18,6 +19,7 @@ from django.core.validators import EmailValidator
 from django.db import transaction
 from django.db.models import ObjectDoesNotExist, Q
 from django.urls import path, reverse
+
 from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.views import generic
@@ -60,6 +62,12 @@ from .components import (
 
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
+
+
+def reverse_no_i18n(viewname, *args, **kwargs):
+    result = reverse(viewname, *args, **kwargs)
+    m = re.match(r'(/[^/]*)(/.*$)', result)
+    return m.groups()[1]
 
 
 class ContestMediator:
@@ -277,7 +285,7 @@ class ContestOpenView(ContestMediator, generic.UpdateView):
         self.object.send_mail(
             form.cleaned_data['email_title'],
             form.cleaned_data['email_message'],
-            reverse('contest_vote', args=[self.object.pk]),
+            reverse_no_i18n('contest_vote', args=[self.object.pk]),
             'open_email_sent',
         )
 
@@ -374,7 +382,7 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
         self.object.send_mail(
             form.cleaned_data['email_title'],
             form.cleaned_data['email_message'],
-            reverse('contest_detail', args=[self.object.pk]),
+            reverse_no_i18n('contest_detail', args=[self.object.pk]),
             'close_email_sent',
         )
 

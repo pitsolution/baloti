@@ -1644,7 +1644,7 @@ class ContestBallotCastCard(Div):
                     MDCTextareaFieldOutlined(
                         Textarea(
                             self.ballot.to_json(),
-                            rows=15,
+                            rows=5,
                             name='encrypted',
                         ),
                     ),
@@ -1652,7 +1652,7 @@ class ContestBallotCastCard(Div):
                 ),
                 CSRFInput(view.request),
                 Div(
-                    self.download_btn,
+                    #self.download_btn,
                     Div(cast_btn, style='margin-left: auto;'),
                     style='display: flex;'
                           'justify-content: space-between;'
