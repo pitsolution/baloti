@@ -539,7 +539,7 @@ msgid ""
 "to check that your vote has been properly counted.  Learn how"
 msgstr ""
 "C'est une élection cryptée. Une fois votre scrutin crypté, c'est pour "
-"toujours personne ne peut voir qui a voté pour qui. Cependant, vous pourrez "
+"toujours. Cependant, vous pourrez "
 "vérifier que votre vote a été correctement compté. Cliquez sur 'crypter le "
 "vote' juste en dessous."
 

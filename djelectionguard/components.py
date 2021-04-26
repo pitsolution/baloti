@@ -1333,7 +1333,7 @@ class VotersDetailCard(Div):
         self.edit_btn = MDCButtonOutlined(
             _('edit voters'),
             False,
-            _('edit'),
+            'edit',
             tag='a',
             href=reverse('contest_voters_update', args=[contest.id]))
 
@@ -1608,7 +1608,7 @@ class ContestBallotEncryptCard(Div):
                 cls='center-text'),
             H6(_('Your selection')),
             Ul(*(
-                MDCListItem(candidate.name)
+                CandidateDetail(candidate)
                 for candidate in selections),
                 cls='mdc-list'),
             change_btn,
