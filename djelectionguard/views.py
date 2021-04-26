@@ -3,6 +3,7 @@ import hashlib
 import os
 from pathlib import Path
 import pickle
+import re
 import shutil
 import subprocess
 import textwrap
@@ -60,7 +61,6 @@ from .components import (
 )
 
 from django.utils.translation import gettext_lazy as _
-from django.utils.translation import get_language, activate
 from django.conf import settings
 
 
@@ -281,8 +281,6 @@ class ContestOpenView(ContestMediator, generic.UpdateView):
             pass
         else:
             contract.open()
-
-        activate(get_language())
 
         self.object.send_mail(
             form.cleaned_data['email_title'],
