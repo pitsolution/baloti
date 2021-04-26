@@ -374,7 +374,7 @@ class AddVoterAction(ListAction):
         if num_voters:
             btn_comp = MDCButtonOutlined(_('edit'), False, **kwargs)
             icon = DoneIcon()
-            txt = f'{num_voters} voters'
+            txt = _('%(num_voters)d voters') % {'num_voters': num_voters}
         else:
             btn_comp = MDCButtonOutlined(_('add'), False, 'add', **kwargs)
             icon = TodoIcon()
@@ -1569,9 +1569,7 @@ class ContestVoteCard(Div):
         return super().to_html(
             H4(_('Make your choice'), cls='center-text'),
             Div(
-                P(_('You may choose up to %(max)d candidates. '
-                    'In the end of the election '
-                    '%(elected)d winner will be announced') % {'max': max_selections, 'elected': number_elected}),
+                P(_('In the end of the election the results will be announced by email')),
                 cls='center-text body-2'
             ),
             Ul(

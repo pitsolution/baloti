@@ -229,10 +229,12 @@ class ContestOpenView(ContestMediator, generic.UpdateView):
         help_text = _('Create the Encrypter and BallotBox and open contest for voting')
 
         email_title = forms.CharField(
+            label=_('Email title'),
             help_text=_('Title of the email that will be sent to each voter'),
         )
         email_message = forms.CharField(
             widget=forms.Textarea,
+            label=_('Email message'),
             help_text=_('Body of the email that will be sent, LINK will be replaced by the voting link'),
         )
 
