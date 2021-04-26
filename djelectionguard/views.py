@@ -7,6 +7,7 @@ import re
 import shutil
 import subprocess
 import textwrap
+import jsons
 
 from django import forms
 from django import http
@@ -631,6 +632,17 @@ class ContestBallotEncryptView(ContestBallotMixin, FormMixin, generic.DetailView
 
     class form_class(forms.Form):
         submit_label = _('Encrypt my ballot')
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        try:
+            context = self.get_context_data()
+        except jsons.exceptions.DeserializationError:
+            return http.HttpResponseRedirect(
+                reverse('contest_vote', args=[self.object.pk])
+            )
+
+        return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         client = Client(settings.MEMCACHED_HOST)
