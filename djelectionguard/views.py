@@ -547,15 +547,15 @@ class ContestVoteMixin:
             messages.error(request, _('You are not registered to vote on') + f'{self.object}')
             return redirect
         elif self.object.actual_end:
-            messages.error(request, f'{self.object}' + _(' vote is closed'))
+            messages.error(request, _('%(obj)s vote is closed') % {'obj': self.object})
             return redirect
         elif not self.object.actual_start:
-            messages.error(request, f'{self.object}' + _(' vote is not yet open'))
+            messages.error(request, _('%(obj)s vote is not yet open') % {'obj': self.object})
             return redirect
         elif voter and voter.casted:
             messages.error(
                 request,
-                _('You have already casted your vote for') + f'{self.object}',
+                _('You have already casted your vote for %(obj)s') % {'obj': self.object},
             )
             return redirect
         return super().dispatch(request, *args, **kwargs)
@@ -633,18 +633,27 @@ class ContestBallotEncryptView(ContestBallotMixin, FormMixin, generic.DetailView
     class form_class(forms.Form):
         submit_label = _('Encrypt my ballot')
 
-    def dispatch(self, request, *args, **kwargs):
-        self.object = self.get_object()
+    def valid_context(self):
         try:
             context = self.get_context_data()
         except jsons.exceptions.DeserializationError:
+            return False
+        return True
+
+    def get(self, request, *args, **kwargs):
+        if not self.valid_context():
             return http.HttpResponseRedirect(
                 reverse('contest_vote', args=[self.object.pk])
             )
 
-        return super().dispatch(request, *args, **kwargs)
+        return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
+        if not self.valid_context():
+            return http.HttpResponseRedirect(
+                reverse('contest_vote', args=[self.object.pk])
+            )
+
         client = Client(settings.MEMCACHED_HOST)
         ballot = PlaintextBallot.from_json(
             client.get(f'{self.object.pk}-{self.request.user.pk}')
