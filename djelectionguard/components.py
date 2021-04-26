@@ -1608,7 +1608,7 @@ class ContestBallotEncryptCard(Div):
                 cls='center-text'),
             H6(_('Your selection')),
             Ul(*(
-                MDCListItem(candidate.name)
+                CandidateDetail(candidate)
                 for candidate in selections),
                 cls='mdc-list'),
             change_btn,
