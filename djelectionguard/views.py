@@ -64,12 +64,6 @@ from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
 
-def reverse_no_i18n(viewname, *args, **kwargs):
-    result = reverse(viewname, *args, **kwargs)
-    m = re.match(r'(/[^/]*)(/.*$)', result)
-    return m.groups()[1]
-
-
 class ContestMediator:
     def get_queryset(self):
         return self.request.user.contest_set.all()
@@ -285,7 +279,7 @@ class ContestOpenView(ContestMediator, generic.UpdateView):
         self.object.send_mail(
             form.cleaned_data['email_title'],
             form.cleaned_data['email_message'],
-            reverse_no_i18n('contest_vote', args=[self.object.pk]),
+            reverse('contest_vote', args=[self.object.pk]),
             'open_email_sent',
         )
 
@@ -382,7 +376,7 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
         self.object.send_mail(
             form.cleaned_data['email_title'],
             form.cleaned_data['email_message'],
-            reverse_no_i18n('contest_detail', args=[self.object.pk]),
+            reverse('contest_detail', args=[self.object.pk]),
             'close_email_sent',
         )
 
