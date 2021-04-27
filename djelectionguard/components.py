@@ -1330,19 +1330,30 @@ class VotersDetailCard(Div):
                 'aria-label': 'Voters'
             }
         )
-        self.edit_btn = MDCButtonOutlined(
+        edit_btn = MDCButtonOutlined(
             _('edit voters'),
             False,
             'edit',
             tag='a',
             href=reverse('contest_voters_update', args=[contest.id]))
 
+        email_btn = MDCButtonOutlined(
+            _('invite new voters'),
+            False,
+            'email',
+            tag='a',
+            href=reverse('email_voters', args=[contest.id]))
+
         if contest.actual_end:
-            self.edit_btn = ''
+            edit_btn = ''
+            email_btn = ''
+
+        if not voters.filter(open_email_sent=None).count():
+            email_btn = ''
 
         return super().to_html(
             H4(voters.count(), _(' Voters'), cls='center-text'),
-            Div(self.edit_btn, cls='center-button'),
+            Div(edit_btn, email_btn, cls='center-button'),
             Div(
                 table,
                 cls='table-container'),
@@ -1523,6 +1534,25 @@ class ContestPubKeyCard(Div):
             cls='card'
         )
 
+@template('email_voters', Document, Card)
+class ContestOpenCard(Div):
+    def to_html(self, *content, view, **context):
+        contest = view.get_object()
+        self.backlink = BackLink(
+            _('back'),
+            reverse('contest_voters_detail', args=[contest.id]))
+
+        return super().to_html(
+            H4(_('Send an invite to the newly added voters'), cls='center-text'),
+            Form(
+                context['form'],
+                CSRFInput(view.request),
+                MDCButton(context['form'].submit_label),
+                method='POST',
+                cls='form'
+            ),
+            cls='card'
+        )
 
 @template('contest_open', Document, Card)
 class ContestOpenCard(Div):
