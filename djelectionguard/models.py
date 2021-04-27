@@ -442,6 +442,10 @@ def send_contest_mail(contest_id, title, body, link, field, **kwargs):
 
 def send_voter_mail(voter_id, title, body, link, field):
     voter = Voter.objects.select_related('user').get(pk=voter_id)
+
+    if f := getattr(voter, field):
+        return
+
     otp_link = voter.user.otp_new(redirect=link).url
     voter.user.save()
     send_mail(

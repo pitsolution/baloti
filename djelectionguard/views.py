@@ -209,7 +209,68 @@ class ContestManifestView(ContestAccessible, generic.DetailView):
         return http.JsonResponse(self.get_object().get_manifest())
 
 
-class ContestOpenView(ContestMediator, generic.UpdateView):
+class EmailForm(forms.ModelForm):
+    email_title = forms.CharField(
+        label=_('Email title'),
+        help_text=_('Title of the email that will be sent to each voter'),
+    )
+    email_message = forms.CharField(
+        widget=forms.Textarea,
+        label=_('Email message'),
+        help_text=_('Body of the email that will be sent, LINK will be replaced by the voting link'),
+    )
+
+    class Meta:
+        model = Contest
+        fields = []
+
+
+class EmailBaseView(generic.UpdateView):
+    def get_form_kwargs(self):
+        msg = _('Hello, '
+        'Election %(objet)s is open for voting, you may use the link belox: '
+        'LINK '
+        'Happy voting! ') % {'objet': self.object}
+
+        kwargs = super().get_form_kwargs()
+        kwargs['initial'] = dict(
+            email_title= _('Election %(objet)s is open for voting') % {'objet': self.object},
+            email_message=textwrap.dedent(msg),
+        )
+        return kwargs
+
+    def form_valid(self, form):
+        self.object.send_mail(
+            form.cleaned_data['email_title'],
+            form.cleaned_data['email_message'],
+            reverse('contest_vote', args=[self.object.pk]),
+            'open_email_sent',
+        )
+        return super().form_valid(form)
+
+
+class EmailVotersView(ContestMediator, EmailBaseView):
+    template_name = 'email_voters'
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            '<pk>/email/',
+            login_required(cls.as_view()),
+            name='email_voters'
+        )
+
+    def get_queryset(self):
+        return self.request.user.contest_set.exclude(
+            joint_public_key=None,
+            actual_start=None
+        )
+
+    class form_class(EmailForm):
+        submit_label = _('Send invite')
+
+
+class ContestOpenView(ContestMediator, EmailBaseView):
     template_name = 'contest_open'
 
     @classmethod
@@ -227,23 +288,9 @@ class ContestOpenView(ContestMediator, generic.UpdateView):
             actual_start=None
         )
 
-    class form_class(forms.ModelForm):
+    class form_class(EmailForm):
         submit_label = _('Open votes')
         help_text = _('Create the Encrypter and BallotBox and open contest for voting')
-
-        email_title = forms.CharField(
-            label=_('Email title'),
-            help_text=_('Title of the email that will be sent to each voter'),
-        )
-        email_message = forms.CharField(
-            widget=forms.Textarea,
-            label=_('Email message'),
-            help_text=_('Body of the email that will be sent, LINK will be replaced by the voting link'),
-        )
-
-        class Meta:
-            model = Contest
-            fields = []
 
         def clean(self):
             if self.instance.candidate_set.count() <= self.instance.number_elected:
@@ -256,19 +303,6 @@ class ContestOpenView(ContestMediator, generic.UpdateView):
             self.instance.actual_start = timezone.now()
             return super().save(self, *args, **kwargs)
 
-    def get_form_kwargs(self):
-        msg = _('Hello, '
-        'Election %(objet)s is open for voting, you may use the link belox: '
-        'LINK '
-        'Happy voting! ') % {'objet': self.object}
-
-        kwargs = super().get_form_kwargs()
-        kwargs['initial'] = dict(
-            email_title= _('Election %(objet)s is open for voting') % {'objet': self.object},
-            email_message=textwrap.dedent(msg),
-        )
-        return kwargs
-
     def form_valid(self, form):
         try:
             contract = self.object.electioncontract
@@ -276,13 +310,6 @@ class ContestOpenView(ContestMediator, generic.UpdateView):
             pass
         else:
             contract.open()
-
-        self.object.send_mail(
-            form.cleaned_data['email_title'],
-            form.cleaned_data['email_message'],
-            reverse('contest_vote', args=[self.object.pk]),
-            'open_email_sent',
-        )
 
         messages.success(
             self.request,
