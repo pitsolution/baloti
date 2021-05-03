@@ -20,7 +20,7 @@ if SECURE:
     if not HOST.startswith('www'):
         HOST = 'www.' + HOST
     DEBUG = False
-    ALLOWED_HOSTS = [os.getenv('HOST')]
+    ALLOWED_HOSTS = [HOST]
 else:
     DEBUG = True
     ALLOWED_HOSTS = ['*']
