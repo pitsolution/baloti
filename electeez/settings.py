@@ -17,6 +17,8 @@ HOST = os.getenv('HOST', 'localhost:8000')
 BASE_URL = '://'.join([PROTO, HOST])
 
 if SECURE:
+    if not HOST.startswith('www'):
+        HOST = 'www.' + HOST
     DEBUG = False
     ALLOWED_HOSTS = [os.getenv('HOST')]
 else:
