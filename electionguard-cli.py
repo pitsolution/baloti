@@ -10,8 +10,11 @@ ElectionGuard CLI for basic stress tests.
    run the cast and tally commands manually.
 """
 
+import asyncio
 import cli2
+import datetime
 import json
+import multiprocessing
 import os
 import pickle
 import random
@@ -57,7 +60,7 @@ def build(
         quorum: int=1,
         number_of_guardians: int=1,
         number_of_devices: int=1,
-        number_of_stores: int=1,
+        number_of_stores: int=None,
         manifest='election-manifest.json',
     ):
     """
@@ -69,8 +72,11 @@ def build(
     - metadata.pkl: builder metadata
     - context.pkl: builder context
     - devices.pkl: encryption devices
-    - store-*.pkl: one store pkl for number_of_stores
+    - store-*.pkl: one store pkl for number_of_stores, defaults to the number
+                   of cores
     """
+    if not number_of_stores:
+        number_of_stores = multiprocessing.cpu_count()
     data = dict(
         quorum=quorum,
         number_of_guardians=number_of_guardians,
@@ -242,16 +248,26 @@ def tally():
     context = load('context')
     build = load('build')
     tally = CiphertextTally('tally', metadata, context)
+
+    print(f'Adding ballots to the tally...')
+    start = datetime.datetime.now()
+    total = 0
     for i in range(build['number_of_stores']):
         for ballot in load(f'store-{i}').all():
             assert tally.append(ballot)
+            total += 1
+    delta = datetime.datetime.now() - start
+    print(f'Adding {total} ballots to the tally took {delta.total_seconds()} seconds')
 
+    start = datetime.datetime.now()
+    print(f'Computing tally for {total} ballots')
     from electionguard.decryption_mediator import DecryptionMediator
     decryption_mediator = DecryptionMediator(metadata, context, tally)
     guardians = load('guardians')
     for guardian in guardians:
         decryption_share = decryption_mediator.announce(guardian)
     plaintext_tally = decryption_mediator.get_plaintext_tally()
+    print(f'Tallying {total} ballots took {delta.total_seconds()} seconds')
 
     for contest_key, contest in plaintext_tally.contests.items():
         print(f'Results for contest: {contest_key}')
@@ -260,7 +276,7 @@ def tally():
 
 
 @cli.cmd
-def benchmark():
+async def benchmark(votes: int=50):
     """
     Find out the max number of ballots your machine supports.
 
@@ -269,13 +285,29 @@ def benchmark():
 
     It will chain and time these commands until something fails (ie. OOM kill)
     """
-    i = 50
+    data = load('build')
+    i = votes
+    total = 0
     while True:
-        subprocess.check_call(f'{sys.argv[0]} cast', shell=True)
-        if not i:
+        start = datetime.datetime.now()
+        print(f'Casting {data["number_of_stores"]} in parallel')
+        procs = [
+            (await asyncio.create_subprocess_shell(
+                f'{sys.argv[0]} cast store={store}',
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE,
+            )).communicate()
+            for store in range(data['number_of_stores'])
+        ]
+        results = await asyncio.gather(*procs)
+        delta = datetime.datetime.now() - start
+        print(f'Casting {data["number_of_stores"]} in parallel took {delta.total_seconds()} seconds')
+
+        i -= data['number_of_stores']
+        total += data['number_of_stores']
+        if i <= 0:
             subprocess.check_call(f'{sys.argv[0]} tally', shell=True)
-            i = 50
-        i -= 1
+            i = votes
 
 
 @cli.cmd(color='green')
