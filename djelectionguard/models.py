@@ -65,7 +65,7 @@ class Contest(models.Model):
         default='Europe/Paris',
     )
 
-    actual_start = models.DateTimeField(null=True, blank=True)
+    actual_start = models.DateTimeField(null=True, blank=True, db_index=True)
     actual_end = models.DateTimeField(null=True, blank=True)
 
     joint_public_key = PickledObjectField(null=True, blank=True)
