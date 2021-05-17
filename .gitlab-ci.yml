@@ -21,6 +21,7 @@ test:
     DB_USER: electeez
     DB_PASS: test
     DB_NAME: electeez
+    DB_ENGINE: django.db.backends.postgresql
     MEMCACHED_HOST: memcached
   services:
     - name: yourlabs/tezos
