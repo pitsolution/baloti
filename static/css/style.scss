@@ -707,6 +707,7 @@ candidate-accordion {
   li {
     height: initial;
     .mdc-list-item__text {
+      white-space: normal;
       height: initial;
       width: 100%;
     }
