@@ -1668,29 +1668,56 @@ class ContestVoteCard(Div):
 @template('vote_track', Document, Card)
 class ContestVoteCard(Div):
     def to_html(self, *content, view, **context):
-        voter = view.get_object()
+        contest = view.get_object()
         self.backlink = BackLink(
             _('back'),
-            reverse('contest_detail', args=[voter.contest.id]))
+            reverse('contest_detail', args=[contest.id]))
 
         return super().to_html(
             H4(
                 _('Tracking informations'),
                 style='text-align:center;'
             ),
-            I('Tracking hash:', cls='overline'),
-            Pre(
-                voter.tracking_hash,
-                style='text-align:center;'
-                      'word-break: break-word;'
-                      'white-space: break-spaces;'
+            Table(
+                Tr(
+                    Td(
+                        _('Election ID'), ': ',
+                        cls='overline',
+                        style='text-align: right;'
+                              'padding: 12px;'
+                              'white-space: nowrap;'
+                    ),
+                    Td(
+                        Pre(
+                            contest.id,
+                            style='word-break: break-word;'
+                                  'white-space: break-spaces;'
+                        ),
+                    )
+                ),
+                Tr(
+                    Td(
+                        _('Ballot ID'), ': ',
+                        cls='overline',
+                        style='text-align: right;'
+                              'padding: 12px;'
+                              'white-space: nowrap;'
+                    ),
+                    Td(
+                        Pre(
+                            context['ballot_id'],
+                            style='word-break: break-word;'
+                                  'white-space: break-spaces;'
+                        ),
+                    )
+                ),
+                style='margin: 0 auto;'
             ),
-            I('Previous tracking hash:', cls='overline'),
-            Pre(
-                voter.previous_tracking_hash,
-                style='text-align:center;'
-                      'word-break: break-word;'
-                      'white-space: break-spaces;'
+            H5(
+                _('Ballot found!')
+                if context['ballot']
+                else _('Ballot not found.'),
+                style='text-align: center'
             ),
         )
 

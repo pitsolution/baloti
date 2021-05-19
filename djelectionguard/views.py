@@ -665,31 +665,25 @@ class ContestVoteView(ContestVoteMixin, FormMixin, generic.DetailView):
         )
 
 
-class ContestTrackView(ContestAccessible, generic.DetailView):
+class ContestTrackView(generic.DetailView):
     template_name = 'vote_track'
-    model = Voter
+    model = Contest
 
-    def get_queryset(self):
-        return Voter.objects.filter(user=self.request.user)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        ballot_id = self.kwargs.get('bid')
+        context['ballot_id'] = ballot_id
 
-    def get_object(self, queryset=None):
-        if queryset is None:
-            queryset = self.get_queryset()
+        exists, ballot = self.object.store.exists(ballot_id)
+        context['ballot'] = ballot
 
-        tracking_hash = self.kwargs.get('hash')
-
-        queryset = queryset.filter(tracking_hash=tracking_hash)
-
-        try:
-            return queryset.get()
-        except queryset.model.DoesNotExist:
-            raise http.Http404(_("No tracking hash found matching the query"))
+        return context
 
     @classmethod
     def as_url(cls):
         return path(
-            'track/<hash>/',
-            login_required(cls.as_view()),
+            '<pk>/track/<bid>/',
+            cls.as_view(),
             name='ballot_track'
         )
 
