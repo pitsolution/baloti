@@ -271,7 +271,7 @@ class Contest(models.Model):
             PlaintextBallotSelection,
         )
         ballot = PlaintextBallot(
-            object_id=uuid.uuid4(),
+            object_id=str(uuid.uuid4()),
             ballot_style=f"{self.pk}-style",
             contests=[
                 PlaintextBallotContest(
