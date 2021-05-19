@@ -31,7 +31,7 @@ from electionguard.ballot import CiphertextBallot, PlaintextBallot
 
 from pymemcache.client.base import Client
 
-from .models import Contest, Candidate, Guardian
+from .models import Contest, Candidate, Guardian, Voter
 
 from datetime import datetime, date
 
@@ -662,6 +662,35 @@ class ContestVoteView(ContestVoteMixin, FormMixin, generic.DetailView):
             '<pk>/vote/',
             cls.as_view(),
             name='contest_vote'
+        )
+
+
+class ContestTrackView(ContestAccessible, generic.DetailView):
+    template_name = 'vote_track'
+    model = Voter
+
+    def get_queryset(self):
+        return Voter.objects.filter(user=self.request.user)
+
+    def get_object(self, queryset=None):
+        if queryset is None:
+            queryset = self.get_queryset()
+
+        tracking_hash = self.kwargs.get('hash')
+
+        queryset = queryset.filter(tracking_hash=tracking_hash)
+
+        try:
+            return queryset.get()
+        except queryset.model.DoesNotExist:
+            raise http.Http404(_("No tracking hash found matching the query"))
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            'track/<hash>/',
+            login_required(cls.as_view()),
+            name='ballot_track'
         )
 
 

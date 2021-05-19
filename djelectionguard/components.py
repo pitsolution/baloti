@@ -1665,6 +1665,34 @@ class ContestVoteCard(Div):
             cls='card'
         )
 
+@template('vote_track', Document, Card)
+class ContestVoteCard(Div):
+    def to_html(self, *content, view, **context):
+        voter = view.get_object()
+        self.backlink = BackLink(
+            _('back'),
+            reverse('contest_detail', args=[voter.contest.id]))
+
+        return super().to_html(
+            H4(
+                _('Tracking informations'),
+                style='text-align:center;'
+            ),
+            I('Tracking hash:', cls='overline'),
+            Pre(
+                voter.tracking_hash,
+                style='text-align:center;'
+                      'word-break: break-word;'
+                      'white-space: break-spaces;'
+            ),
+            I('Previous tracking hash:', cls='overline'),
+            Pre(
+                voter.previous_tracking_hash,
+                style='text-align:center;'
+                      'word-break: break-word;'
+                      'white-space: break-spaces;'
+            ),
+        )
 
 @template('ballot_encrypt', Document, Card)
 class ContestBallotEncryptCard(Div):
