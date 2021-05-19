@@ -736,7 +736,11 @@ class ContestBallotCastView(ContestBallotMixin, FormMixin, generic.DetailView):
                 self.object.ballot_box.cast(ballot)
                 self.object.voter_set.update_or_create(
                     user=self.request.user,
-                    defaults=dict(casted=timezone.now()),
+                    defaults=dict(
+                        casted=timezone.now(),
+                        previous_tracking_hash=str(ballot.previous_tracking_hash),
+                        tracking_hash=str(ballot.tracking_hash)
+                    ),
                 )
             self.object.save()
 
