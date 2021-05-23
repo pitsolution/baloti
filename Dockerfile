@@ -1,4 +1,4 @@
-FROM archlinux:base-20210131.0.14634
+FROM archlinux
 RUN useradd --home-dir /app --uid 1000 app && mkdir -p /app && chown -R app /app
 WORKDIR /app
 RUN echo '[testing]' >> /etc/pacman.conf
