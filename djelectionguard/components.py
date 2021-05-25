@@ -1669,9 +1669,7 @@ class ContestVoteCard(Div):
 class ContestVoteCard(Div):
     def to_html(self, *content, view, **context):
         contest = view.get_object()
-        self.backlink = BackLink(
-            _('back'),
-            reverse('contest_detail', args=[contest.id]))
+        self.backlink = BackLink(_(''), '#')
 
         return super().to_html(
             H4(
@@ -1689,7 +1687,7 @@ class ContestVoteCard(Div):
                     ),
                     Td(
                         Pre(
-                            contest.id,
+                            context['contest_id'],
                             style='word-break: break-word;'
                                   'white-space: break-spaces;'
                         ),

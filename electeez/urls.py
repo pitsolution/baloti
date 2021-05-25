@@ -16,6 +16,7 @@ urlpatterns += i18n_patterns(
     path('accounts/', include('electeez_auth.urls')),
     path('contest/', include('djelectionguard.urls')),
     path('tezos/', include('djelectionguard_tezos.views')),
+    path('track/', include('djelectionguard_tracker.views')),
     path('', generic.RedirectView.as_view(url='/contest/')),
 )
 

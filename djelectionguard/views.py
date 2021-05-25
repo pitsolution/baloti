@@ -635,8 +635,6 @@ class ContestVoteView(ContestVoteMixin, FormMixin, generic.DetailView):
                     user=self.request.user,
                     defaults=dict(
                         casted=timezone.now(),
-                        previous_tracking_hash=str(encrypted_ballot.previous_tracking_hash),
-                        tracking_hash=str(encrypted_ballot.tracking_hash)
                     ),
                 )
             self.object.save()
@@ -662,29 +660,6 @@ class ContestVoteView(ContestVoteMixin, FormMixin, generic.DetailView):
             '<pk>/vote/',
             cls.as_view(),
             name='contest_vote'
-        )
-
-
-class ContestTrackView(generic.DetailView):
-    template_name = 'vote_track'
-    model = Contest
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        ballot_id = self.kwargs.get('bid')
-        context['ballot_id'] = ballot_id
-
-        exists, ballot = self.object.store.exists(ballot_id)
-        context['ballot'] = ballot
-
-        return context
-
-    @classmethod
-    def as_url(cls):
-        return path(
-            '<pk>/track/<bid>/',
-            cls.as_view(),
-            name='ballot_track'
         )
 
 
