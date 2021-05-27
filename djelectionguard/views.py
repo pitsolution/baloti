@@ -652,7 +652,12 @@ class ContestVoteView(ContestVoteMixin, FormMixin, generic.DetailView):
                 self.request,
                 _('You casted your ballot for %(obj)s') % {'obj': self.object}
             )
-            return http.HttpResponseRedirect(self.object.get_absolute_url())
+            return http.HttpResponseRedirect(
+                reverse('tracker_detail', kwargs={
+                    'pk_or_hash': self.object.id,
+                    'ballot_id': encrypted_ballot.object_id
+                })
+            )
 
     @classmethod
     def as_url(cls):

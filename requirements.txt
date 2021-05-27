@@ -26,6 +26,6 @@ pytest-watch
 # pytezos
 https://github.com/baking-bad/pytezos/archive/bc95dafd273d04db9ce25a685d9b5c0e3ae5800e.zip
 
-ryzom>=0.6.2,<0.7
+ryzom>=0.6.6,<0.7
 
 sentry-sdk
