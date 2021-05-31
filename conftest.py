@@ -158,4 +158,5 @@ def manifest():
         "end_date": "2020-03-01T20:00:00-05:00",
         "election_scope_id": "3743773f-d923-4b20-a5c6-b585a0c5662f-style",
         "type": "primary",
+        "spec_version": "v1.2.1"
     }
