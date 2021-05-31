@@ -15,7 +15,7 @@ django-sass-processor
 djtezos[test]>=0.4.1,<0.5
 djcall
 djcli
-electionguard<1.2.1
+electionguard==1.1.15
 jinja2
 pymemcache
 
