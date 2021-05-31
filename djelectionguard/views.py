@@ -90,7 +90,7 @@ class ContestAccessible:
             (Q(voter__user=self.request.user) & ~Q(actual_start=None))
             | Q(guardian__user=self.request.user)
             | Q(mediator=self.request.user)
-        ).distinct()
+        ).distinct('id')
 
 
 class ContestCreateView(generic.CreateView):
@@ -163,7 +163,7 @@ class ContestResultView(ContestAccessible, generic.DetailView):
             Q(voter__user=self.request.user)
             | Q(guardian__user=self.request.user)
             | Q(mediator=self.request.user)
-        ).distinct()
+        ).distinct('id')
 
     @classmethod
     def as_url(cls):
