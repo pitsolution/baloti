@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'djcall',
     'djelectionguard',
     'djelectionguard_tezos',
+    'djelectionguard_tracker',
     'django_registration',
     'django_extensions',
     'django_jinja',

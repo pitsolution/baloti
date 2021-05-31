@@ -1085,8 +1085,7 @@ class ContestCard(Div):
 
 
 class CandidateDetail(Div):
-    def __init__(self, candidate, editable=False):
-        kwargs = dict()
+    def __init__(self, candidate, editable=False, **kwargs):
         if editable:
             kwargs['tag'] = 'a'
             kwargs['href'] = reverse('contest_candidate_update', args=[candidate.id])
@@ -1143,7 +1142,8 @@ class CandidateDetail(Div):
                   'flex-flow: row wrap;'
                   'justify-content: center;'
                   + extra_style,
-            cls='candidate-detail'
+            cls='candidate-detail',
+            **kwargs
         )
 
 
@@ -1579,6 +1579,51 @@ class ContestOpenCard(Div):
         )
 
 
+class DialogConfirmForm(Form):
+    def __init__(self, *content, selections=[], **attrs):
+        def hidden_selections():
+            for s in selections:
+                candidate = CandidateDetail(s)
+                candidate.style.display = 'none'
+                candidate.attrs['data-candidate-id'] = s.id
+                yield candidate
+
+        super().__init__(
+            *content,
+            MDCDialog(
+                _('Confirm your selection'),
+                Div(*hidden_selections()),
+            ),
+            **attrs
+        )
+
+    def ondialogclosed(event):
+        candidates = event.currentTarget.querySelectorAll('[data-candidate-id]')
+        for candidate in candidates:
+            candidate.style.display = 'none'
+
+    def ondialogclosing(event):
+        if event.detail.action == 'accept':
+            form.submit()
+
+    def handle_submit(event):
+        event.preventDefault()
+        this.dialog = this.querySelector('mdc-dialog')
+        selections = new.FormData(this).getAll('selections')
+        for selection in selections:
+            candidate = this.dialog.querySelector(
+                '[data-candidate-id="' + selection + '"]'
+            )
+            candidate.style.display = 'flex'
+        this.dialog.onclosing = self.ondialogclosing
+        this.dialog.onclosed = self.ondialogclosed
+        this.dialog.open()
+
+    def py2js(self):
+        form = getElementByUuid(self.id)
+        form.addEventListener('submit', self.handle_submit.bind(form))
+
+
 @template('contest_vote', Document, Card)
 class ContestVoteCard(Div):
     def to_html(self, *content, view, form, **context):
@@ -1606,19 +1651,73 @@ class ContestVoteCard(Div):
                 *[Li(e) for e in form.non_field_errors()],
                 cls='error-list'
             ),
-            Form(
+            DialogConfirmForm(
                 CSRFInput(view.request),
                 MDCMultipleChoicesCheckbox(
                     'selections',
                     choices,
                     n=max_selections),
                 MDCButton(_('create ballot')),
+                selections=candidates,
                 method='POST',
                 cls='form vote-form',
             ),
             cls='card'
         )
 
+@template('vote_track', Document, Card)
+class ContestVoteCard(Div):
+    def to_html(self, *content, view, **context):
+        contest = view.get_object()
+        self.backlink = BackLink(_(''), '#')
+
+        return super().to_html(
+            H4(
+                _('Tracking informations'),
+                style='text-align:center;'
+            ),
+            Table(
+                Tr(
+                    Td(
+                        _('Election ID'), ': ',
+                        cls='overline',
+                        style='text-align: right;'
+                              'padding: 12px;'
+                              'white-space: nowrap;'
+                    ),
+                    Td(
+                        Pre(
+                            context['contest_id'],
+                            style='word-break: break-word;'
+                                  'white-space: break-spaces;'
+                        ),
+                    )
+                ),
+                Tr(
+                    Td(
+                        _('Ballot ID'), ': ',
+                        cls='overline',
+                        style='text-align: right;'
+                              'padding: 12px;'
+                              'white-space: nowrap;'
+                    ),
+                    Td(
+                        Pre(
+                            context['ballot_id'],
+                            style='word-break: break-word;'
+                                  'white-space: break-spaces;'
+                        ),
+                    )
+                ),
+                style='margin: 0 auto;'
+            ),
+            H5(
+                _('Ballot found!')
+                if context['ballot']
+                else _('Ballot not found.'),
+                style='text-align: center'
+            ),
+        )
 
 @template('ballot_encrypt', Document, Card)
 class ContestBallotEncryptCard(Div):

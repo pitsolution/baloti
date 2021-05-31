@@ -31,7 +31,7 @@ from electionguard.ballot import CiphertextBallot, PlaintextBallot
 
 from pymemcache.client.base import Client
 
-from .models import Contest, Candidate, Guardian
+from .models import Contest, Candidate, Guardian, Voter
 
 from datetime import datetime, date
 
@@ -620,134 +620,29 @@ class ContestVoteView(ContestVoteMixin, FormMixin, generic.DetailView):
             return self.get(request, *args, **kwargs)
 
     def form_valid(self, form):
-        obj = self.get_object()
-        ballot = obj.get_ballot(*[
+        ballot = self.object.get_ballot(*[
             selection.pk
             for selection in form.cleaned_data['selections']
         ])
-        client = Client(settings.MEMCACHED_HOST)
-        client.set(
-            f'{obj.pk}-{self.request.user.pk}',
-            ballot.to_json(),
-        )
-        return http.HttpResponseRedirect(
-            reverse('contest_ballot', args=[obj.pk])
-        )
-
-    @classmethod
-    def as_url(cls):
-        return path(
-            '<pk>/vote/',
-            cls.as_view(),
-            name='contest_vote'
-        )
-
-
-class ContestBallotMixin(ContestVoteMixin):
-    def dispatch(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        client = Client(settings.MEMCACHED_HOST)
-        if not client.get(f'{self.object.pk}-{self.request.user.pk}'):
-            return http.HttpResponseRedirect(
-                reverse('contest_vote', args=[self.object.pk])
-            )
-        return super().dispatch(request, *args, **kwargs)
-
-
-class ContestBallotEncryptView(ContestBallotMixin, FormMixin, generic.DetailView):
-    template_name = 'ballot_encrypt'
-
-    class form_class(forms.Form):
-        submit_label = _('Encrypt my ballot')
-
-    def valid_context(self):
-        try:
-            context = self.get_context_data()
-        except jsons.exceptions.DeserializationError:
-            return False
-        return True
-
-    def get(self, request, *args, **kwargs):
-        if not self.valid_context():
-            return http.HttpResponseRedirect(
-                reverse('contest_vote', args=[self.object.pk])
-            )
-
-        return super().get(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        if not self.valid_context():
-            return http.HttpResponseRedirect(
-                reverse('contest_vote', args=[self.object.pk])
-            )
-
-        client = Client(settings.MEMCACHED_HOST)
-        ballot = PlaintextBallot.from_json(
-            client.get(f'{self.object.pk}-{self.request.user.pk}')
-        )
-        client.set(
-            f'{self.object.pk}-{self.request.user.pk}',
-            self.object.encrypter.encrypt(ballot).to_json()
-        )
-        return http.HttpResponseRedirect(
-            reverse('contest_ballot_cast', args=[self.object.pk])
-        )
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        client = Client(settings.MEMCACHED_HOST)
-        context['ballot'] = PlaintextBallot.from_json(
-            client.get(f'{self.object.pk}-{self.request.user.pk}')
-        )
-        selections = [
-            s.object_id.replace('-selection', '')
-            for s in context['ballot'].contests[0].ballot_selections
-        ]
-        context['selections'] = self.object.candidate_set.filter(pk__in=selections)
-        return context
-
-    @classmethod
-    def as_url(cls):
-        return path(
-            '<pk>/ballot/',
-            login_required(cls.as_view()),
-            name='contest_ballot'
-        )
-
-
-class ContestBallotCastView(ContestBallotMixin, FormMixin, generic.DetailView):
-    template_name = 'ballot_cast'
-
-    class form_class(forms.Form):
-        submit_label = _('Confirm my vote')
-
-    def post(self, request, *args, **kwargs):
-        client = Client(settings.MEMCACHED_HOST)
-
-        ballot = CiphertextBallot.from_json(
-            client.get(f'{self.object.pk}-{self.request.user.pk}')
-        )
+        encrypted_ballot = self.object.encrypter.encrypt(ballot)
 
         with transaction.atomic():
-            if 'spoil' in request.POST:
-                self.object.ballot_box.spoil(ballot)
+            if 'spoil' in self.request.POST:
+                self.object.ballot_box.spoil(encrypted_ballot)
             else:
-                self.object.ballot_box.cast(ballot)
+                self.object.ballot_box.cast(encrypted_ballot)
                 self.object.voter_set.update_or_create(
                     user=self.request.user,
-                    defaults=dict(casted=timezone.now()),
+                    defaults=dict(
+                        casted=timezone.now(),
+                    ),
                 )
             self.object.save()
 
-        client.delete(
-            f'{self.object.pk}-{self.request.user.pk}',
-        )
-
-        if 'spoil' in request.POST:
+        if 'spoil' in self.request.POST:
             messages.info(
                 self.request,
-                _('You spoiled your ballot for ') + f'{self.object}, ' + _('you can make another ballot'),
+                _('You spoiled your ballot for %(obj)s you can make another ballot') % {'obj': self.object},
             )
             return http.HttpResponseRedirect(
                 reverse('contest_vote', args=[self.object.pk])
@@ -755,24 +650,21 @@ class ContestBallotCastView(ContestBallotMixin, FormMixin, generic.DetailView):
         else:
             messages.success(
                 self.request,
-                _('You casted your ballot for') + f'{self.object}',
+                _('You casted your ballot for %(obj)s') % {'obj': self.object}
             )
-            return http.HttpResponseRedirect(self.object.get_absolute_url())
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        client = Client(settings.MEMCACHED_HOST)
-        context['ballot'] = CiphertextBallot.from_json(
-            client.get(f'{self.object.pk}-{self.request.user.pk}')
-        )
-        return context
+            return http.HttpResponseRedirect(
+                reverse('tracker_detail', kwargs={
+                    'pk_or_hash': self.object.id,
+                    'ballot_id': encrypted_ballot.object_id
+                })
+            )
 
     @classmethod
     def as_url(cls):
         return path(
-            '<pk>/ballot/cast/',
-            login_required(cls.as_view()),
-            name='contest_ballot_cast'
+            '<pk>/vote/',
+            cls.as_view(),
+            name='contest_vote'
         )
 
 

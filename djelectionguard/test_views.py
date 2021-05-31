@@ -1,5 +1,6 @@
 import io
 import pytest
+import re
 
 from django.apps import apps
 from django.conf import settings
@@ -315,14 +316,6 @@ vot1@example.com\rvot2@example.com\rnew@example.com
     assert get(voter1, vote).status_code == 302, vote
     assert get(mediator, vote).status_code == 404, vote
 
-    # ballot neither
-    ballot = f'{contest_url}ballot/'
-    assert client.get(ballot).status_code == 302, ballot
-    #assert get(guardian2.user, ballot).status_code == 404, ballot
-    assert get(external, ballot).status_code == 404, ballot
-    assert get(voter1, ballot).status_code == 302, ballot
-    assert get(mediator, ballot).status_code == 404, ballot
-
     candidate = contest.candidate_set.first()
     candidate_delete = f'/en/contest/candidates/{candidate.id}/delete/'
 
@@ -412,29 +405,17 @@ vot1@example.com\rvot2@example.com\rnew@example.com
         vote,
         selections=(candidates[0], candidates[1])
     )
-    ballot = f'{contest_url}ballot/'
-    assert response.url == ballot
-    assert not voter1.voter_set.get(contest=contest).casted
+    m = re.match(r'/en/track/(?P<contest>.*)\/(?P<ballot>.*)/', response.url)
+    assert m
+    m = m.groupdict()
+    assert 'contest' in m.keys()
+    assert 'ballot' in m.keys()
 
-    # ballot view should be visible to voter1 only
-    assert client.get(ballot).status_code == 302, ballot
-    #assert get(guardian2.user, ballot).status_code == 404, ballot
-    assert get(external, ballot).status_code == 404, ballot
-    assert get(voter1, ballot).status_code == 200, ballot
-    assert get(mediator, ballot).status_code == 404, ballot
+    response = get(external, response.url)
+    assert response.status_code == 200
+    assert b'Ballot found' in response.content
 
-    # voter1 encrypts
-    response = post(voter1, ballot)
-    cast = f'{contest_url}ballot/cast/'
-    assert response.url == cast
-    assert not voter1.voter_set.get(contest=contest).casted
-
-    # and casts, then cannot vote again
-    response = post(voter1, cast)
     assert voter1.voter_set.get(contest=contest).casted
-    assert get(voter1, vote).status_code == 302, vote
-    assert get(voter1, ballot).status_code == 302, vote
-    assert get(voter1, cast).status_code == 302, vote
 
     # let's close the vote ... if we're mediator
     contest.refresh_from_db()
