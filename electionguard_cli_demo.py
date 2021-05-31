@@ -32,7 +32,7 @@ if __name__ == '__main__':
     from electionguard.key_ceremony import CeremonyDetails
     from electionguard.key_ceremony_mediator import KeyCeremonyMediator
     details = CeremonyDetails(number_of_guardians, qorum)
-    mediator = KeyCeremonyMediator(details)
+    mediator = KeyCeremonyMediator('mediator', details)
     for guardian in guardians:
         mediator.announce(guardian)
     orchestrated = mediator.orchestrate()

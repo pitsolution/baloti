@@ -160,16 +160,30 @@ class Contest(models.Model):
 
         from electionguard.decryption_mediator import DecryptionMediator
         decryption_mediator = DecryptionMediator(
-            self.metadata,
+            'decryption-mediator',
             self.context,
-            self.ciphertext_tally,
         )
 
+        from electionguard.ballot import BallotBoxState
+        from electionguard.ballot_box import get_ballots
+        submitted_ballots = get_ballots(self.store, BallotBoxState.SPOILED)
+        submitted_ballots_list = list(submitted_ballots.values())
+
         # Decrypt the tally with available guardian keys
-        for guardian in self.guardian_set.all().order_by('sequence'):
-            if decryption_mediator.announce(guardian.get_guardian()) is None:
-                break
-        self.plaintext_tally = decryption_mediator.get_plaintext_tally()
+        for g in self.guardian_set.all().order_by('sequence'):
+            guardian = g.get_guardian()
+            guardian_key = guardian.share_election_public_key()
+            tally_share = guardian.compute_tally_share(
+                self.ciphertext_tally, self.context
+            )
+            ballot_shares = guardian.compute_ballot_shares(
+                submitted_ballots_list, self.context
+            )
+            decryption_mediator.announce(
+                guardian_key, tally_share, ballot_shares
+            )
+
+        self.plaintext_tally = decryption_mediator.get_plaintext_tally(self.ciphertext_tally)
         if not self.plaintext_tally:
             raise AttributeError('"self.plaintext_tally" is None')
 
@@ -272,14 +286,14 @@ class Contest(models.Model):
         )
         ballot = PlaintextBallot(
             object_id=str(uuid.uuid4()),
-            ballot_style=f"{self.pk}-style",
+            style_id=f"{self.pk}-style",
             contests=[
                 PlaintextBallotContest(
                     object_id=str(self.pk),
                     ballot_selections=[
                         PlaintextBallotSelection(
                             object_id=f"{selection}-selection",
-                            vote='True',
+                            vote=1,
                             is_placeholder_selection=False,
                             extended_data=None,
                         ) for selection in selections
@@ -291,8 +305,8 @@ class Contest(models.Model):
 
     @property
     def description(self):
-        from electionguard.election import ElectionDescription
-        return ElectionDescription.from_json_object(
+        from electionguard.manifest import Manifest
+        return Manifest.from_json_object(
             self.get_manifest()
         )
 
@@ -301,16 +315,22 @@ class Contest(models.Model):
         builder = ElectionBuilder(
             number_of_guardians=self.number_guardians,
             quorum=self.quorum,
-            description=self.description,
+            manifest=self.description,
         )
-        builder.set_public_key(self.joint_public_key)
+        builder.set_public_key(self.joint_public_key.joint_public_key)
+        builder.set_commitment_hash(self.joint_public_key.commitment_hash)
 
         self.metadata, self.context = builder.build()
-        from electionguard.ballot_store import BallotStore
-        self.store = BallotStore()
+        from electionguard.data_store import DataStore
+        self.store = DataStore()
 
-        from electionguard.encrypt import EncryptionDevice, EncryptionMediator
-        self.device = EncryptionDevice(str(self.pk))
+        from electionguard.encrypt import EncryptionDevice, EncryptionMediator, generate_device_uuid
+        self.device = EncryptionDevice(
+            generate_device_uuid(),
+            12345,
+            67890,
+            str(self.pk),  # location: str
+        )
 
     @property
     def encrypter(self):
@@ -402,7 +422,8 @@ class Contest(models.Model):
             "start_date": "2020-03-01T08:00:00-05:00",
             "end_date": "2020-03-01T20:00:00-05:00",
             "election_scope_id": f"{self.pk}-style",
-            "type": "primary"
+            "type": "primary",
+            "spec_version": "v1.2.1"
         }
 
     def __str__(self):

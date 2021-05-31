@@ -164,7 +164,7 @@ class TrackerDetailView(generic.DetailView):
             ballot=None,
         ))
 
-        exists, ballot = self.object.store.exists(str(context['ballot_id']))
+        ballot = self.object.store.get(str(context['ballot_id']))
         context['ballot'] = ballot
 
         return context

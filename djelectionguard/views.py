@@ -521,17 +521,48 @@ class ContestPubkeyView(ContestMediator, generic.UpdateView):
                 self.instance.number_guardians,
                 self.instance.quorum,
             )
-            mediator = KeyCeremonyMediator(details)
-            for guardian in self.instance.guardian_set.all().order_by('sequence'):
-                mediator.announce(guardian.get_guardian())
-            orchestrated = mediator.orchestrate()
-            verified = mediator.verify()
+            mediator = KeyCeremonyMediator('mediator', details)
+            guardians = self.instance.guardian_set.all().order_by('sequence')
+
+            # round 1
+            for g in guardians:
+                mediator.announce(g.get_guardian().share_public_keys())
+
+            for g in guardians:
+                guardian = g.get_guardian()
+                other_guardian_keys = mediator.share_announced(guardian.id)
+                for guardian_public_keys in other_guardian_keys:
+                    guardian.save_guardian_public_keys(guardian_public_keys)
+
+            if len(guardians) > 1:
+                # round 2
+                for g in guardians:
+                    guardian = g.get_guardian()
+                    guardian.generate_election_partial_key_backups(lambda msg, key: key)
+                    mediator.receive_backups(guardian.share_election_partial_key_backups())
+
+                for g in guardians:
+                    guardian = g.get_guardian()
+                    backups = mediator.share_backups(guardian.id)
+                    for backup in backups:
+                        guardian.save_election_partial_key_backup(backup)
+
+                # round 3
+                for g in guardians:
+                    guardian = g.get_guardian()
+                    for og in guardians:
+                        other_guardian = og.get_guardian()
+                        verifications = []
+                        if guardian.id is not other_guardian.id:
+                            verifications.append(
+                                guardian.verify_election_partial_key_backup(
+                                    other_guardian.id, lambda msg, key: key
+                                )
+                            )
+                        mediator.receive_backup_verifications(verifications)
+
             self.instance.joint_public_key = mediator.publish_joint_key()
-            self.instance.coefficient_validation_sets = []
-            for guardian in self.instance.guardian_set.all():
-                self.instance.coefficient_validation_sets.append(
-                    guardian.get_guardian().share_coefficient_validation_set()
-                )
+
             return super().save(self, *args, **kwargs)
 
     def form_valid(self, form):
