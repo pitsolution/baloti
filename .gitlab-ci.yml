@@ -92,6 +92,7 @@ master:
         wait_grep=uwsgi
         services=django
         master@electeez.com
+        -vvv
         | tee deploy.log
     - grep unreachable=0 deploy.log &> /dev/null
     - grep failed=0 deploy.log &> /dev/null
