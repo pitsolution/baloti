@@ -200,8 +200,8 @@ WSGI_APPLICATION = 'electeez.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': os.getenv('DB_NAME', BASE_DIR / 'db.sqlite3'),
+        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.postgresql'),
+        'NAME': os.getenv('DB_NAME', 'electeez'),
         'PASSWORD': os.getenv('DB_PASS', None),
         'HOST': os.getenv('DB_HOST', None),
         'USER': os.getenv('DB_USER', None),
