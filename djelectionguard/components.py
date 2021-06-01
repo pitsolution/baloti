@@ -1135,12 +1135,16 @@ class CandidateDetail(Div):
                 MDCButtonOutlined('Edit', False, 'edit', **kwargs)
             )
 
+        if 'style' not in kwargs:
+            kwargs['style'] = ''
+
         super().__init__(
             *content,
             style='padding: 12px;'
                   'display: flex;'
                   'flex-flow: row wrap;'
                   'justify-content: center;'
+                  + kwargs.pop('style')
                   + extra_style,
             cls='candidate-detail',
             **kwargs
