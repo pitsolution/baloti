@@ -107,3 +107,8 @@ For create a new translation
         - msgid "" -> message to translate
         - msgstr "" -> message translated
 - $ python manage.py compilemessages -> for compile to .mo file
+
+
+## White paper 
+to learn more about the architecture / ideas of the electis voting app: 
+https://docs.google.com/document/d/1L8BxuAEboCc5og2WS1xe3mkVNltake347whImNrRsbM/edit?usp=sharing 
