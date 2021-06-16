@@ -5,21 +5,14 @@ import uuid
 import zipfile
 
 from django import http, forms
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.urls import path, reverse
 from django.utils.translation import gettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.views import generic
 from djelectionguard.components import *
-
-
-def validate_ipfs_hash(h):
-    out = subprocess.check_output(
-        ['ipfs', 'cid', 'format', h]
-    )
-    # convert to str and remove \n
-    out = bytes.decode(out)[0:-1]
-    return out == h
+from djelectionguard.models import Contest, Voter
 
 
 class TrackerFormView(generic.FormView):
@@ -28,38 +21,14 @@ class TrackerFormView(generic.FormView):
     class form_class(forms.Form):
         submit_label = _('track')
 
-        contest_id = forms.CharField(label=_('Election ID or IPFS Hash'))
-        ballot_id = forms.CharField(label=_('Ballot ID'))
-
-        def clean(self):
-            pk_or_hash = self.cleaned_data['contest_id']
-            ballot_id = self.cleaned_data['ballot_id']
-
-            # clean pk_or_hash
-            try:
-                uuid.UUID(pk_or_hash)
-            except ValueError:
-                if not validate_ipfs_hash(pk_or_hash):
-                    raise ValidationError(
-                        f'"{pk_or_hash}" is not a valid UUID nor IPFS hash'
-                    )
-
-            try:
-                uuid.UUID(ballot_id)
-            except ValueError:
-                    raise ValidationError(
-                        f'"{ballot_id}" is not a valid UUID'
-                    )
-
-            return self.cleaned_data
+        email = forms.EmailField(label=_('Email'))
 
     def form_valid(self, form):
-        return http.HttpResponseRedirect(
-            reverse('tracker_detail', kwargs={
-                'pk_or_hash': form.cleaned_data['contest_id'],
-                'ballot_id': form.cleaned_data['ballot_id']
-            })
-        )
+        # send otp mail
+        super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('tracker_success')
 
     @classmethod
     def as_url(cls):
@@ -87,18 +56,29 @@ class TrackerFormCard(Div):
 @template('tracker_detail', Document, Card)
 class TrackerDetailCard(Div):
     def to_html(self, *content, view, **context):
-        self.backlink = BackLink(_('Back'), reverse('tracker_form'))
+        self.backlink = BackLink(_('Back'), reverse('contest_list'))
+
+        contest = view.object.contest
 
         rows = (
-            # (_('Election IPFS hash'), context['contest_hash']),
-            (_('Election ID'), context['contest_id']),
-            (_('Ballot ID'), context['ballot_id'])
+            (_('Election name'), contest.name),
+            (_('Election ID'), contest.id),
+            (_('Ballot ID'), view.object.ballot_id),
         )
 
         return super().to_html(
             H4(
                 _('Tracking informations'),
                 style='text-align:center;'
+            ),
+            Div(
+                _('TRACKING_MSG'),
+                style=dict(
+                    text_align='center',
+                    margin_top='32px',
+                    margin_bottom='32px',
+                    opacity='0.6'
+                )
             ),
             Table(
                 *(Tr(
@@ -119,66 +99,109 @@ class TrackerDetailCard(Div):
                 ) for label, value in rows),
                 style='margin: 0 auto;'
             ),
-            H5(
-                _('Ballot found!')
-                if context['ballot']
-                else _('Ballot not found.'),
-                style='text-align: center'
-            ),
         )
 
 
 class TrackerDetailView(generic.DetailView):
     template_name = 'tracker_detail'
-    model = Contest
+    model = Voter
 
-    def get_object(self, queryset=None):
-        pk_or_hash = self.kwargs.get('pk_or_hash')
-        try:
-            try:
-                return Contest.objects.get(pk=pk_or_hash)
-            except ValidationError as e:
-                if 'UUID' in e.message:
-                    # Try to find by ipfs hash
-                    out = subprocess.check_output(
-                        ['ipfs', 'cid', 'format', pk_or_hash]
-                    )
-                    # convert to str and remove \n
-                    out = bytes.decode(out)[0:-1]
-                    if out == pk_or_hash:
-                        return Contest.objects.get(artifacts_ipfs=pk_or_hash)
-                    else:
-                        raise ValidationError(
-                            f'"{pk_or_hash}" is not a valid UUID nor IPFS hash'
-                        )
-                raise e
-        except self.model.DoesNotExist:
-            raise http.Http404('Contest not found')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update(dict(
-            contest_id=self.object.id,
-            contest_hash=self.object.artifacts_ipfs,
-            ballot_id=self.kwargs.get('ballot_id'),
-            ballot=None,
-        ))
-
-        ballot = self.object.store.get(str(context['ballot_id']))
-        context['ballot'] = ballot
-
-        return context
+    def get_queryset(self, qs=None):
+        return Voter.objects.filter(
+            user=self.request.user
+        ).select_related('contest')
 
     @classmethod
     def as_url(cls):
         return path(
-            '<pk_or_hash>/<uuid:ballot_id>/',
+            '<pk>/',
             cls.as_view(),
             name='tracker_detail'
         )
 
 
+@template('tracker_success', Document, Card)
+class TrackerSuccessCard(Div):
+    def to_html(self, *, view, **context):
+        return super().to_html(
+            H4(_('An email have been sent to your address'))
+        )
+
+
+class TrackerSuccessView(generic.View):
+    template_name = 'tracker_success'
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            'success/',
+            cls.as_view(),
+            name='tracker_success'
+        )
+
+
+@template('tracker_list', Document, Card)
+class TrackerListCard(Div):
+    def to_html(self, *, view, **context):
+        voters = context['object_list']
+
+        table = MDCDataTableResponsive(
+            thead=MDCDataTableThead(
+                tr=MDCDataTableHeaderTr(
+                    MDCDataTableTh(_('Your elections')),
+                    MDCDataTableTh(_('Voted')),
+                )
+            ),
+            style='min-width: 100%',
+            view=view
+        )
+
+        for voter in voters:
+            table.tbody.addchild(
+                MDCDataTableTr(
+                    MDCDataTableTd(
+                        _('Contest %(name)s') % {'name': voter.contest.name}
+                    ),
+                    MDCDataTableTd(
+                        CheckedIcon() if voter.casted else '--'
+                    ),
+                    onclick=f'document.location=\'{reverse("tracker_detail", args=[voter.id])}\'',
+                    style={
+                        'cursor': 'pointer'
+                    }
+                )
+            )
+
+        return super().to_html(
+
+            table,
+            view=view,
+            **context
+        )
+
+
+class TrackerListView(generic.ListView):
+    template_name = 'tracker_list'
+    model = Voter
+    title = 'tracker_contest_list'
+
+    def get_queryset(self, qs=None):
+        return Voter.objects.filter(
+            user=self.request.user
+        ).select_related('contest')
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            'list/',
+            login_required(cls.as_view()),
+            name='tracker_list'
+        )
+
+
 urlpatterns = [
     TrackerFormView.as_url(),
+    TrackerSuccessView.as_url(),
+    TrackerListView.as_url(),
     TrackerDetailView.as_url(),
 ]

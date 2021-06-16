@@ -210,6 +210,11 @@ class ContestManifestView(ContestAccessible, generic.DetailView):
 
 
 class EmailForm(forms.ModelForm):
+    send_email = forms.MultipleChoiceField(
+        choices=(('true', 'true'), ('false', 'false')),
+        required=False
+    )
+
     email_title = forms.CharField(
         label=_('Email title'),
         help_text=_('Title of the email that will be sent to each voter'),
@@ -222,7 +227,7 @@ class EmailForm(forms.ModelForm):
 
     class Meta:
         model = Contest
-        fields = []
+        fields = ['send_email', 'email_title', 'email_message']
 
 
 class EmailBaseView(generic.UpdateView):
@@ -240,12 +245,13 @@ class EmailBaseView(generic.UpdateView):
         return kwargs
 
     def form_valid(self, form):
-        self.object.send_mail(
-            form.cleaned_data['email_title'],
-            form.cleaned_data['email_message'],
-            reverse('contest_vote', args=[self.object.pk]),
-            'open_email_sent',
-        )
+        if 'send_email' not in form.cleaned_data:
+            self.object.send_mail(
+                form.cleaned_data['email_title'],
+                form.cleaned_data['email_message'],
+                reverse('contest_vote', args=[self.object.pk]),
+                'open_email_sent',
+            )
         return super().form_valid(form)
 
 
@@ -363,16 +369,23 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
     template_name = 'contest_decrypt'
 
     class form_class(forms.ModelForm):
+        send_email = forms.MultipleChoiceField(
+            choices=(('true', 'true'), ('false', 'false')),
+            required=False
+        )
+
         email_title = forms.CharField(
             help_text=_('Title of the email that will be sent to each voter'),
+            label=_('Email title')
         )
         email_message = forms.CharField(
             widget=forms.Textarea,
+            label=_('Email message'),
             help_text=_('Body of the email that will be sent, LINK will be replaced by the result link'),
         )
         class Meta:
             model = Contest
-            fields = []
+            fields = ['send_email', 'email_title', 'email_message']
 
     def get_form_kwargs(self):
         msg = _('Hello, '
@@ -401,12 +414,13 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
     def form_valid(self, form):
         self.object.decrypt()
 
-        self.object.send_mail(
-            form.cleaned_data['email_title'],
-            form.cleaned_data['email_message'],
-            reverse('contest_detail', args=[self.object.pk]),
-            'close_email_sent',
-        )
+        if 'send_email' not in form.cleaned_data:
+            self.object.send_mail(
+                form.cleaned_data['email_title'],
+                form.cleaned_data['email_message'],
+                reverse('contest_detail', args=[self.object.pk]),
+                'close_email_sent',
+            )
 
         return super().form_valid(form)
 
@@ -472,17 +486,16 @@ class ContestPublishView(ContestDecentralized, generic.UpdateView):
         if self.object.artifacts_ipfs:
             messages.success(
                 self.request,
-                _('You have published artifacts for') + f'{self.object}' + _(' on IPFS ')
-                + self.object.artifacts_ipfs
+                _('You have published artifacts for %(obj)s on IPFS') % {'obj': self.object}
             )
         else:
             messages.info(
                 self.request,
-                _('Artifacts were published for') + f'{self.object}',
+                _('Artifacts were published for %(obj)s') % {'obj': self.object}
             )
         messages.info(
             self.request,
-            _('Guardian keys were removed from our memory for') + f'{self.object}',
+            _('Guardian keys were removed from our memory for %(obj)s') % {'obj': self.object}
         )
         return self.object.get_absolute_url()
 
@@ -666,6 +679,7 @@ class ContestVoteView(ContestVoteMixin, FormMixin, generic.DetailView):
                     user=self.request.user,
                     defaults=dict(
                         casted=timezone.now(),
+                        ballot_id=encrypted_ballot.object_id
                     ),
                 )
             self.object.save()
@@ -683,11 +697,9 @@ class ContestVoteView(ContestVoteMixin, FormMixin, generic.DetailView):
                 self.request,
                 _('You casted your ballot for %(obj)s') % {'obj': self.object}
             )
+            uid = self.object.voter_set.get(user=self.request.user).id
             return http.HttpResponseRedirect(
-                reverse('tracker_detail', kwargs={
-                    'pk_or_hash': self.object.id,
-                    'ballot_id': encrypted_ballot.object_id
-                })
+                    reverse('tracker_detail', args=[uid])
             )
 
     @classmethod
