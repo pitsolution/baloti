@@ -592,5 +592,6 @@ class Voter(models.Model):
         on_delete=models.CASCADE,
     )
     casted = models.DateTimeField(null=True, blank=True)
+    ballot_id = models.UUIDField(null=True, blank=True)
     open_email_sent = models.DateTimeField(null=True, blank=True)
     close_email_sent = models.DateTimeField(null=True, blank=True)

@@ -55,7 +55,7 @@ class OTPSend(generic.FormView):
                 Hello,
 
                 This is the magic link you have requested:
-                ''') + 
+                ''') +
                 f'{LINK}'
             ),
             'webmaster@electeez.com',

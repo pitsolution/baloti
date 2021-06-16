@@ -173,22 +173,28 @@ class ContestFilters(Div):
 
 
 class ContestItem(A):
-    def __init__(self, contest, *args, **kwargs):
+    def __init__(self, contest, user, *args, **kwargs):
         active_cls = ''
         status = ''
+        voter = contest.voter_set.filter(user=user).first()
+        voted = voter and voter.casted
         if contest.actual_start:
             status = _('voting ongoing')
             active_cls = 'active'
+        if contest.actual_end:
+            status = _('voting closed')
         if contest.plaintext_tally:
             active_cls = ''
             status = _('result available')
+
+        status_2 = _(', voted') if voted else ''
 
         super().__init__(
             Span(cls='mdc-list-item__ripple'),
             Span(
                 Span(cls=f'contest-indicator'),
                 Span(
-                    Span(status, cls='contest-status overline'),
+                    Span(status, status_2, cls='contest-status overline'),
                     Span(contest.name, cls='contest-name'),
                     cls='list-item__text-container'
                 ),
@@ -216,8 +222,8 @@ class ListItem(CList):
 
 
 class ContestListItem(ListItem):
-    def __init__(self, obj, **kwargs):
-        super().__init__(ContestItem(obj))
+    def __init__(self, obj, user, **kwargs):
+        super().__init__(ContestItem(obj, user))
 
 
 class ListAction(ListItem):
@@ -267,9 +273,10 @@ class ContestList(Div):
             H4(_('Elections'), style='text-align: center;'),
             # ContestFilters(view),
             Ul(
-                ListItem(ContestListCreateBtn()),
+                ListItem(ContestListCreateBtn())
+                if view.request.user.is_superuser else None,
                 *(
-                    ContestListItem(contest)
+                    ContestListItem(contest, view.request.user)
                     for contest in context['contest_list']
                 ) if len(context['contest_list'])
                 else (
@@ -532,10 +539,12 @@ class CastVoteAction(ListAction):
         voter = obj.voter_set.filter(user=user).first()
         if voter.casted:
             s = voter.casted
-            txt = (
+            txt = Span(
                 _('You casted your vote on %(time)s'
                   ' The results will be published after the election is closed.')
-                % {'time': f'<b>{s.strftime("%a %d %b at %H:%M")}</b>.'}
+                % {'time': f'<b>{s.strftime("%a %d %b at %H:%M")}</b>.'},
+                Br(),
+                A(_('Track my vote'), href=reverse('tracker_detail', args=[voter.id])) if voter.casted else None,
             )
             icon = DoneIcon()
             btn_comp = None
@@ -546,7 +555,7 @@ class CastVoteAction(ListAction):
             btn_comp = MDCButtonOutlined(_('vote'), False, tag='a', href=url)
 
         super().__init__(
-            _('Cast my vote'),
+            _('Cast my vote') if not voter.casted else _('Voted'),
             txt, icon, btn_comp,
             separator=True
         )
@@ -588,24 +597,40 @@ class ChooseBlockchainAction(ListAction):
 
 
 class OnGoingElectionAction(ListAction):
-    def __init__(self, contest, user):
+    def __init__(self, contest, user, view):
         close_url = reverse('contest_close', args=[contest.id])
         close_btn = MDCButtonOutlined(_('close'), False, tag='a', href=close_url)
         start_time = '<b>' + contest.actual_start.strftime('%a %d at %H:%M') + '</b>'
+        sub_txt = None
         if contest.actual_end:
             end_time = '<b>' + contest.actual_end.strftime('%a %d at %H:%M') + '</b>'
-            title = 'Voting closed'
-            txt = _('The voting started on %(start)s and was open till %(end)s.') % {'start': start_time, 'end': end_time}
+            title = _('Voting closed')
+            txt = _('The voting started on %(start)s and was open till %(end)s. '
+                    'Timezone: %(timezone)s.') % {
+                    'start': start_time,
+                    'end': end_time,
+                    'timezone': str(contest.timezone)
+                }
             icon = SimpleCheckIcon()
         else:
+            vote_link = reverse('otp_send') + f'?redirect=' + reverse('contest_vote', args=[contest.id])
+            vote_link = view.request.build_absolute_uri(vote_link)
             end_time = '<b>' + contest.end.strftime('%a %d at %H:%M') + '</b>'
             title = _('The voting process is currently ongoing')
-            txt = _('The voting started on %(time_start)s and will be closed at %(time_end)s.') % {'time_start': start_time, 'time_end': end_time}
+            txt = _('The voting started on %(time_start)s and will be closed at %(time_end)s. '
+                    'Timezone: %(timezone)s') % {
+                    'time_start': start_time,
+                    'time_end': end_time,
+                    'timezone': str(contest.timezone),
+            }
+            if contest.mediator == user:
+                sub_txt = _('Vote link: %(link)s') % {'link': f'<a href={vote_link}>{vote_link}</a>'}
+
             icon = OnGoingIcon()
-        txt += ' Timezone: ' + str(contest.timezone)
 
         inner = Span(
             txt,
+            *('<br><br>', sub_txt) if sub_txt else (None, None),
             cls='body-2 red-button-container'
         )
 
@@ -766,7 +791,7 @@ class ContestVotingCard(Div):
         if 'vote' in actions:
             list_content.append(CastVoteAction(contest, user))
 
-        list_content.append(OnGoingElectionAction(contest, user))
+        list_content.append(OnGoingElectionAction(contest, user, view))
 
         if 'upload' in actions:
             list_content.append(UploadPrivateKeyAction(contest, user))
@@ -1147,7 +1172,6 @@ class CandidateDetail(Div):
                   + kwargs.pop('style')
                   + extra_style,
             cls='candidate-detail',
-            **kwargs
         )
 
 
@@ -1158,7 +1182,6 @@ class CandidateAccordionItem(MDCAccordionSection):
         super().__init__(
             CandidateDetail(candidate, editable),
             label=candidate.name,
-            icon='add'
         )
 
 
@@ -1539,7 +1562,7 @@ class ContestPubKeyCard(Div):
         )
 
 @template('email_voters', Document, Card)
-class ContestOpenCard(Div):
+class ContestEmailVoters(Div):
     def to_html(self, *content, view, **context):
         contest = view.get_object()
         self.backlink = BackLink(
@@ -1573,7 +1596,13 @@ class ContestOpenCard(Div):
                 cls='center-text'
             ),
             Form(
-                context['form'],
+                context['form']['email_title'],
+                context['form']['email_message'],
+                MDCMultipleChoicesCheckbox(
+                    'send_email',
+                    ((0, B(_('Do not alert voters by email')), 'true'),),
+                    n=1
+                ),
                 CSRFInput(view.request),
                 MDCButton(_('open')),
                 method='POST',
@@ -1592,11 +1621,24 @@ class DialogConfirmForm(Form):
                 candidate.attrs['data-candidate-id'] = s.id
                 yield candidate
 
+        actions = MDCDialogActions(
+            MDCDialogCloseButtonOutlined(_('cancel')),
+            MDCDialogAcceptButton(
+                _('confirm'),
+                addcls='mdc-button--raised black-button',
+            ),
+            style={
+                'display': 'flex',
+                'justify-content': 'space-around'
+            }
+        )
+
         super().__init__(
             *content,
             MDCDialog(
                 _('Confirm your selection'),
                 Div(*hidden_selections()),
+                actions=actions,
             ),
             **attrs
         )
@@ -1646,9 +1688,9 @@ class ContestVoteCard(Div):
              in enumerate(candidates))
 
         return super().to_html(
-            H4(_('Make your choice'), cls='center-text'),
+            H4(contest.name, cls='center-text'),
             Div(
-                P(_('In the end of the election the results will be announced by email')),
+                contest.about,
                 cls='center-text body-2'
             ),
             Ul(
@@ -1895,7 +1937,13 @@ class ContestDecryptCard(Div):
                 P(_('This process will erase all guardian keys from server memory.')),
                 cls='center-text body-2'),
             Form(
-                context['form'],
+                context['form']['email_title'],
+                context['form']['email_message'],
+                MDCMultipleChoicesCheckbox(
+                    'send_email',
+                    ((0, B(_('Do not alert voters by email')), 'true'),),
+                    n=1
+                ),
                 CSRFInput(view.request),
                 MDCButton(_('open and view results')),
                 method='POST',
@@ -2005,7 +2053,7 @@ class ContestResultCard(Div):
             num = f'{i + 1}. '
             if votes['total']:
                 score_percent = 100 * candidate.score / votes['total']
-                score_percent = f'{score_percent} %'
+                score_percent = f'{round(score_percent, 2)} %'
             else:
                 score_percent = '--'
 
