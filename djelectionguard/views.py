@@ -245,7 +245,7 @@ class EmailBaseView(generic.UpdateView):
         return kwargs
 
     def form_valid(self, form):
-        if 'send_email' not in form.cleaned_data:
+        if 'send_email' not in form.cleaned_data or not form.cleaned_data['send_email']:
             self.object.send_mail(
                 form.cleaned_data['email_title'],
                 form.cleaned_data['email_message'],
@@ -414,7 +414,7 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
     def form_valid(self, form):
         self.object.decrypt()
 
-        if 'send_email' not in form.cleaned_data:
+        if 'send_email' not in form.cleaned_data or not form.cleaned_data['send_email']:
             self.object.send_mail(
                 form.cleaned_data['email_title'],
                 form.cleaned_data['email_message'],

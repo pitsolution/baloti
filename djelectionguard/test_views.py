@@ -405,15 +405,14 @@ vot1@example.com\rvot2@example.com\rnew@example.com
         vote,
         selections=(candidates[0], candidates[1])
     )
-    m = re.match(r'/en/track/(?P<contest>.*)\/(?P<ballot>.*)/', response.url)
+    m = re.match(r'/en/track/(?P<voter>.*)\/', response.url)
     assert m
     m = m.groupdict()
-    assert 'contest' in m.keys()
-    assert 'ballot' in m.keys()
+    assert 'voter' in m.keys()
 
-    response = get(external, response.url)
+    assert get(external, response.url).status_code == 404
+    response = get(voter1, response.url)
     assert response.status_code == 200
-    assert b'Ballot found' in response.content
 
     assert voter1.voter_set.get(contest=contest).casted
 
