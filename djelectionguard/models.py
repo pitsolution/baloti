@@ -154,10 +154,7 @@ class Contest(models.Model):
         self.ciphertext_tally = tally_ballots(self.store, self.metadata, self.context)
 
         from electionguard.decryption_mediator import DecryptionMediator
-        decryption_mediator = DecryptionMediator(
-            'decryption-mediator',
-            self.context,
-        )
+        decryption_mediator = self.decrypter
 
         from electionguard.ballot import BallotBoxState
         from electionguard.ballot_box import get_ballots
@@ -213,7 +210,7 @@ class Contest(models.Model):
             ElectionConstants(),
             [self.device],
             self.store.all(),
-            self.plaintext_spoiled_ballots.values(),
+            [],
             self.ciphertext_tally.publish(),
             self.plaintext_tally,
             self.coefficient_validation_sets,
@@ -339,6 +336,14 @@ class Contest(models.Model):
             self.metadata,
             self.context,
             self.device,
+        )
+
+    @property
+    def decrypter(self):
+        from electionguard.decryption_mediator import DecryptionMediator
+        return DecryptionMediator(
+            'decryption-mediator',
+            self.context,
         )
 
     @property
