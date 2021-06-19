@@ -1,3 +1,4 @@
+from django import http
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
@@ -11,13 +12,21 @@ urlpatterns = [
     url(r'^favicon\.ico$', generic.RedirectView.as_view(url='/static/images/favicon.ico')),
 ]
 
+
+class HomeView(generic.View):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return http.HttpResponseRedirect('/contest/')
+        return http.HttpResponseRedirect('/static/landing/index.html')
+
+
 urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
     path('accounts/', include('electeez_auth.urls')),
     path('contest/', include('djelectionguard.urls')),
     path('tezos/', include('djelectionguard_tezos.views')),
     path('track/', include('djelectionguard_tracker.views')),
-    path('', generic.RedirectView.as_view(url='/contest/')),
+    path('', HomeView.as_view()),
 )
 
 if settings.DEBUG:
