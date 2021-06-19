@@ -78,6 +78,10 @@ master-deploy:
   environment:
     name: master
     url: https://master.ci.electis.app
+  before_script:
+    - mkdir -p ~/.ssh; echo "$CI_SSH_KEY" > ~/.ssh/id_ed25519; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
+    - export $(echo $MASTER_ENV | xargs)
+    - export $(echo $SMTP | xargs)
   variables:
     DEPLOY: >
       compose=docker-compose.yml,docker-compose.traefik.yml,docker-compose.persist.yml
@@ -91,6 +95,8 @@ production-deploy:
   <<: *deploy
   before_script:
     - mkdir -p ~/.ssh; echo "$PRODUCTION_SSH_KEY" > ~/.ssh/id_ed25519; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
+    - export $(echo $PRODUCTION_ENV | xargs)
+    - export $(echo $SMTP | xargs)
   stage: production
   when: manual
   environment:
