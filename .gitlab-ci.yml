@@ -49,7 +49,6 @@ test:
       compose_django_build=
       compose_django_image=$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
       wait_grep=spawned.uWSGI.worker.1
-      home=/home/$CI_ENVIRONMENT_NAME
       $DEPLOY
       deploy@$HOST
       -vv
@@ -65,7 +64,7 @@ review-deploy:
     url: http://${CI_ENVIRONMENT_SLUG}.ci.electis.app
   variables:
     DEPLOY: >
-      compose=docker-compose.yml
+      compose=docker-compose.yml,docker-compose.traefik.yml
       lifetime=86400
       project=$CI_ENVIRONMENT_SLUG
   except:
@@ -81,7 +80,7 @@ master-deploy:
     url: https://master.ci.electis.app
   variables:
     DEPLOY: >
-      compose=docker-compose.yml,docker-compose.persist.yml
+      compose=docker-compose.yml,docker-compose.traefik.yml,docker-compose.persist.yml
       home=/home/$CI_ENVIRONMENT_NAME
   only:
     refs:
@@ -98,7 +97,7 @@ production-deploy:
     url: https://electeez.app
   variables:
     DEPLOY: >
-      compose=docker-compose.yml,docker-compose.persist.yml
+      compose=docker-compose.yml,docker-compose.traefik.yml,docker-compose.persist.yml
       home=/home/$CI_ENVIRONMENT_NAME
   only:
     refs:

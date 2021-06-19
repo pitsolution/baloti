@@ -1,5 +1,5 @@
 FROM archlinux:base-20210131.0.14634
-RUN useradd --home-dir /app --uid 1000 app && mkdir -p /app && chown -R app /app
+RUN useradd --home-dir /app --uid 1000 app && mkdir -p /app/log && chown -R app /app
 WORKDIR /app
 RUN echo '[testing]' >> /etc/pacman.conf
 RUN echo Include = /etc/pacman.d/mirrorlist >> /etc/pacman.conf
@@ -15,6 +15,7 @@ RUN DEBUG= ./manage.py compilescss
 RUN DEBUG= ./manage.py ryzom_bundle
 RUN DEBUG= ./manage.py collectstatic --noinput
 RUN DEBUG= ./manage.py compilemessages
+RUN chown -R app. /app/log
 RUN find public -type f | xargs gzip -f -k -9
 USER app
 
