@@ -4,7 +4,7 @@ import pytest
 def test_home(client):
     response = client.get('/en/')
     assert response.status_code == 302
-    assert response['Location'] == '/contest/'
+    assert response['Location'] == '/static/landing/index.html'
 
 
 @pytest.mark.django_db
