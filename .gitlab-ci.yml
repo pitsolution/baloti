@@ -57,6 +57,7 @@ test:
     - grep failed=0 deploy.log &> /dev/null
 
 review-deploy:
+  <<: *deploy
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
   stage: test
   environment:
@@ -70,10 +71,9 @@ review-deploy:
   except:
   - tags
   - master
-  <<: *deploy
 
 master-deploy:
-  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+  <<: *deploy
   stage: deploy
   environment:
     name: master
@@ -89,7 +89,6 @@ master-deploy:
   only:
     refs:
       - master
-  <<: *deploy
 
 production-deploy:
   <<: *deploy
