@@ -35,67 +35,73 @@ test:
   script:
     - pytest -sv
 
-master:
+.deploy: &deploy
   image: yourlabs/ansible
+  before_script:
+    - mkdir -p ~/.ssh; echo "$CI_SSH_KEY" > ~/.ssh/id_ed25519; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
+  script:
+    - set -x
+    - export HOST=$(echo $CI_ENVIRONMENT_URL | sed s@^.*://@@)
+    - export PROTO=$(echo $CI_ENVIRONMENT_URL | sed s@:.*@@)
+    - export CI_PROJECT_SLUG=$(echo $CI_PROJECT_NAME | sed s@[/.]@-@g)
+    - export ANSIBLE_HOST_KEY_CHECKING=False
+    - bigsudo yourlabs.compose
+      compose_django_build=
+      compose_django_image=$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+      wait_grep=spawned.uWSGI.worker.1
+      home=/home/$CI_ENVIRONMENT_NAME
+      $DEPLOY
+      deploy@$HOST
+      -vv
+      | tee deploy.log
+    - grep unreachable=0 deploy.log &> /dev/null
+    - grep failed=0 deploy.log &> /dev/null
+
+review-deploy:
+  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+  stage: test
+  environment:
+    name: test/$CI_COMMIT_REF_NAME
+    url: http://${CI_ENVIRONMENT_SLUG}.ci.electis.app
+  variables:
+    DEPLOY: >
+      compose=docker-compose.yml,docker-compose.persist.yml
+      lifetime=86400
+      project=$CI_ENVIRONMENT_SLUG
+  except:
+  - tags
+  - master
+  <<: *deploy
+
+master-deploy:
+  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
   stage: deploy
   environment:
     name: master
     url: https://master.ci.electis.app
+  variables:
+    DEPLOY: >
+      compose=docker-compose.yml,docker-compose.persist.yml
+      home=/home/$CI_ENVIRONMENT_NAME
   only:
     refs:
       - master
-  before_script:
-    - mkdir -p ~/.ssh; echo "$CI_SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
-  script:
-    - export $(echo $MASTER_ENV | xargs)
-    - export $(echo $SMTP | xargs)
-    - HOST=ci.electis.app
-      PROTO=https
-      DEFAULT_FROM_EMAIL=noreply@electeez.com
-      ANSIBLE_FORCE_COLOR=1
-      bigsudo
-        yourlabs.compose
-        home=/home/master
-        compose_django_image=$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
-        compose_django_build=
-        compose=docker-compose.yml,docker-compose.persist.yml
-        wait_grep=uwsgi
-        services=django
-        deploy@ci.electis.app
-        -vvv
-        | tee deploy.log
-    - grep unreachable=0 deploy.log &> /dev/null
-    - grep failed=0 deploy.log &> /dev/null
+  <<: *deploy
 
-production:
-  image: yourlabs/ansible
+production-deploy:
+  before_script:
+    - mkdir -p ~/.ssh; echo "$CI_SSH_KEY" > ~/.ssh/id_ed25519; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
+  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
   stage: production
   environment:
     name: production
     url: https://electeez.app
-  when: manual
+  variables:
+    DEPLOY: >
+      compose=docker-compose.yml,docker-compose.persist.yml
+      home=/home/$CI_ENVIRONMENT_NAME
   only:
     refs:
       - master
       - production
-  before_script:
-    - mkdir -p ~/.ssh; echo "$PRODUCTION_SSH_KEY" > ~/.ssh/id_ed25519; echo "$SSH_FINGERPRINTS" > ~/.ssh/known_hosts; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
-  script:
-    - export $(echo $PROD_ENV | xargs)
-    - export $(echo $SMTP | xargs)
-    - HOST=electeez.app
-      PROTO=https
-      DEFAULT_FROM_EMAIL=noreply@electeez.com
-      ANSIBLE_FORCE_COLOR=1
-      bigsudo
-        yourlabs.compose
-        home=/home/production
-        compose_django_image=$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
-        compose_django_build=
-        compose=docker-compose.yml,docker-compose.persist.yml
-        wait_grep=uwsgi
-        services=django
-        production@electeez.com
-        | tee deploy.log
-    - grep unreachable=0 deploy.log &> /dev/null
-    - grep failed=0 deploy.log &> /dev/null
+  <<: *deploy
