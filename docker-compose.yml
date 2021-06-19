@@ -38,6 +38,7 @@ services:
     - DEFAULT_FROM_EMAIL
     - MEMCACHED_HOST=memcached
     - SECRET_KEY
+    - DEBUG=
 
   memcached:
     logging:
