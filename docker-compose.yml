@@ -12,7 +12,6 @@ services:
       context: .
     volumes:
     - /app/media
-    - /app/log
     - /tmp
     environment:
     - HOST
