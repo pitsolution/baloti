@@ -15,7 +15,7 @@ if IPFS_PATH and not os.path.exists(IPFS_PATH):
     out = subprocess.check_output(
         ['ipfs', 'init'],
         stderr=subprocess.PIPE,
-        env=IPFS,
+        env=dict(IPFS_PATH=IPFS_PATH),
     )
     print(out.decode('utf8'))
 
