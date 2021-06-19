@@ -94,7 +94,7 @@ production-deploy:
   <<: *deploy
   before_script:
     - mkdir -p ~/.ssh; echo "$PRODUCTION_SSH_KEY" > ~/.ssh/id_ed25519; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
-    - export $(echo $PRODUCTION_ENV | xargs)
+    - export $(echo $PROD_ENV | xargs)
     - export $(echo $SMTP | xargs)
   stage: production
   when: manual
