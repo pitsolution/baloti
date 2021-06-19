@@ -49,7 +49,6 @@ test:
       compose_django_build=
       compose_django_image=$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
       wait_grep=spawned.uWSGI.worker.1
-      home=/home/$CI_ENVIRONMENT_NAME
       $DEPLOY
       deploy@$HOST
       -vv
