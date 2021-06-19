@@ -62,10 +62,10 @@ review-deploy:
   stage: test
   environment:
     name: test/$CI_COMMIT_REF_NAME
-    url: http://www.${CI_ENVIRONMENT_SLUG}.ci.electis.app
+    url: http://${CI_ENVIRONMENT_SLUG}.ci.electis.app
   variables:
     DEPLOY: >
-      compose=docker-compose.yml,docker-compose.persist.yml
+      compose=docker-compose.yml
       lifetime=86400
       project=$CI_ENVIRONMENT_SLUG
   except:
