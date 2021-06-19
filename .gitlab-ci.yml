@@ -89,7 +89,7 @@ master-deploy:
 
 production-deploy:
   before_script:
-    - mkdir -p ~/.ssh; echo "$CI_SSH_KEY" > ~/.ssh/id_ed25519; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
+    - mkdir -p ~/.ssh; echo "$PRODUCTION_SSH_KEY" > ~/.ssh/id_ed25519; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
   stage: production
   when: manual
