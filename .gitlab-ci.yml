@@ -58,7 +58,6 @@ test:
 
 review-deploy:
   <<: *deploy
-  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
   stage: test
   environment:
     name: test/$CI_COMMIT_REF_NAME
