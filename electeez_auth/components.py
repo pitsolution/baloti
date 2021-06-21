@@ -94,7 +94,7 @@ class LoginFormViewComponent(Div):
 
         return super().to_html(
             Form(
-                H4(_('Welcome to Electeez'), style='text-align: center;'),
+                H4(_('Welcome to Electis.app'), style='text-align: center;'),
                 # OAuthConnect(),
                 # Span('Or enter email and password:', cls='center-text'),
                 Span(_('Enter email and password:'), cls='center-text'),
