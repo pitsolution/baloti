@@ -74,6 +74,7 @@ class Contest(models.Model):
     device = PickledObjectField(null=True)
     store = PickledObjectField(null=True)
     plaintext_tally = PickledObjectField(null=True)
+    plaintext_spoiled_ballots = PickledObjectField(null=True)
     ciphertext_tally = PickledObjectField(null=True)
     coefficient_validation_sets = PickledObjectField(null=True)
 
@@ -149,14 +150,8 @@ class Contest(models.Model):
         ).hexdigest()
 
     def decrypt(self):
-        from electionguard.tally import CiphertextTally
-        self.ciphertext_tally = CiphertextTally(
-            f'{self.pk}-tally',
-            self.metadata,
-            self.context,
-        )
-        for ballot in self.store.all():
-            assert self.ciphertext_tally.append(ballot)
+        from electionguard.tally import tally_ballots
+        self.ciphertext_tally = tally_ballots(self.store, self.metadata, self.context)
 
         from electionguard.decryption_mediator import DecryptionMediator
         decryption_mediator = DecryptionMediator(
@@ -183,9 +178,15 @@ class Contest(models.Model):
                 guardian_key, tally_share, ballot_shares
             )
 
-        self.plaintext_tally = decryption_mediator.get_plaintext_tally(self.ciphertext_tally)
+        self.plaintext_tally = decryption_mediator.get_plaintext_tally(
+            self.ciphertext_tally
+        )
         if not self.plaintext_tally:
             raise AttributeError('"self.plaintext_tally" is None')
+
+        self.plaintext_spoiled_ballots = decryption_mediator.get_plaintext_ballots(
+            submitted_ballots_list
+        )
 
         # And delete keys from memory
         for guardian in self.guardian_set.all():
@@ -204,7 +205,6 @@ class Contest(models.Model):
         # provision directory path
         from electionguard.election import ElectionConstants
         from electionguard.publish import publish
-        from electionguard.tally import publish_ciphertext_tally
         self.artifacts_path.mkdir(parents=True, exist_ok=True)
         os.chdir(self.artifacts_path)
         publish(
@@ -213,8 +213,8 @@ class Contest(models.Model):
             ElectionConstants(),
             [self.device],
             self.store.all(),
-            self.ciphertext_tally.spoiled_ballots.values(),
-            publish_ciphertext_tally(self.ciphertext_tally),
+            self.plaintext_spoiled_ballots.values(),
+            self.ciphertext_tally.publish(),
             self.plaintext_tally,
             self.coefficient_validation_sets,
         )
