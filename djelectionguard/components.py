@@ -844,7 +844,7 @@ class TezosSecuredCard(Section):
                 contract = contest.electioncontract
                 link = A(
                     contract.contract_address,
-                    href=contract.explorer_link,
+                    href=getattr(contract, 'explorer_link', ''),
                     style='text-overflow: ellipsis; overflow: hidden; width: 100%;'
                 )
             except ObjectDoesNotExist:
