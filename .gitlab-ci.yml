@@ -62,10 +62,6 @@ review-deploy:
   environment:
     name: test/$CI_COMMIT_REF_NAME
     url: http://${CI_ENVIRONMENT_SLUG}.ci.electis.app
-  before_script:
-    - mkdir -p ~/.ssh; echo "$CI_SSH_KEY" > ~/.ssh/id_ed25519; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
-    - export $(echo $CI_ENV | xargs)
-    - export $(echo $SMTP | xargs)
   variables:
     DEPLOY: >
       compose=docker-compose.yml,docker-compose.traefik.yml
@@ -74,6 +70,24 @@ review-deploy:
   except:
   - tags
   - master
+
+neuilly-deploy:
+  <<: *deploy
+  stage: deploy
+  environment:
+    name: neuilly
+    url: https://neuilly.ci.electis.app
+  before_script:
+    - mkdir -p ~/.ssh; echo "$CI_SSH_KEY" > ~/.ssh/id_ed25519; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
+    - export $(echo $NEUILLY_ENV | xargs)
+    - export $(echo $SMTP | xargs)
+  variables:
+    DEPLOY: >
+      compose=docker-compose.yml,docker-compose.traefik.yml,docker-compose.persist.yml
+      home=/home/$CI_ENVIRONMENT_NAME
+  only:
+    refs:
+      - neuilly
 
 master-deploy:
   <<: *deploy
