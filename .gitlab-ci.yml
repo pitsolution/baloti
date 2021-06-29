@@ -61,7 +61,7 @@ review-deploy:
   stage: test
   environment:
     name: test/$CI_COMMIT_REF_NAME
-    url: http://${CI_ENVIRONMENT_SLUG}.ci.electis.app
+    url: https://${CI_ENVIRONMENT_SLUG}.ci.electis.app
   variables:
     DEPLOY: >
       compose=docker-compose.yml,docker-compose.traefik.yml
