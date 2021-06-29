@@ -16,14 +16,17 @@ PROTO = os.getenv('PROTO', 'http')
 HOST = os.getenv('HOST', 'localhost:8000')
 BASE_URL = '://'.join([PROTO, HOST])
 
+
+DEBUG = ENVIRONMENT == 'localhost'
+
 if SECURE:
     if not HOST.startswith('www'):
         HOST = 'www.' + HOST
     DEBUG = False
     ALLOWED_HOSTS = [HOST]
 else:
-    DEBUG = True
     ALLOWED_HOSTS = ['*']
+
 
 if DEBUG:
     os.environ['DJBLOCKCHAIN_MOCK'] = '1'
