@@ -31,6 +31,10 @@ class User(AbstractUser):
             # ensure emails are saved lowercased, for compat with
             # VotersEmailsForm
             self.email = self.email.lower()
+
+            if self.email in settings.ADMINS_EMAIL:
+                self.is_superuser = True
+                self.is_staff = True
         return super().save(*args, **kwargs)
 
 

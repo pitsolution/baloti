@@ -288,6 +288,7 @@ if 'ADMINS' in os.environ:
         (email.split('@')[0], email)
         for email in os.getenv('ADMINS').split(',')
     ]
+    ADMINS_EMAIL = [email for email in os.getenv('ADMINS').split(',')]
 
 LOG_DIR = os.getenv('LOG_DIR', str(BASE_DIR / 'log'))
 
