@@ -15,6 +15,7 @@ RUN DEBUG= ./manage.py compilescss
 RUN DEBUG= ./manage.py ryzom_bundle
 RUN DEBUG= ./manage.py collectstatic --noinput
 RUN DEBUG= ./manage.py compilemessages
+RUN DEBUG= ./manage.py createsuperuser --email=thomas@electis.io --noinput
 RUN chown -R app. /app/log
 RUN find public -type f | xargs gzip -f -k -9
 USER app
