@@ -70,6 +70,7 @@ review-deploy:
   except:
   - tags
   - master
+  - neuilly
 
 neuilly-deploy:
   <<: *deploy
