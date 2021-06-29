@@ -39,7 +39,6 @@ test:
   image: yourlabs/ansible
   before_script:
     - mkdir -p ~/.ssh; echo "$CI_SSH_KEY" > ~/.ssh/id_ed25519; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
-    - export $(echo $SMTP | xargs)
   script:
     - set -x
     - export HOST=$(echo $CI_ENVIRONMENT_URL | sed s@^.*://@@)
@@ -63,6 +62,10 @@ review-deploy:
   environment:
     name: test/$CI_COMMIT_REF_NAME
     url: http://${CI_ENVIRONMENT_SLUG}.ci.electis.app
+  before_script:
+    - mkdir -p ~/.ssh; echo "$CI_SSH_KEY" > ~/.ssh/id_ed25519; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
+    - export $(echo $CI_ENV | xargs)
+    - export $(echo $SMTP | xargs)
   variables:
     DEPLOY: >
       compose=docker-compose.yml,docker-compose.traefik.yml
