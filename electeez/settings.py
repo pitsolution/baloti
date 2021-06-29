@@ -283,6 +283,8 @@ else:
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.getenv('MEDIA_ROOT', BASE_DIR / 'media')
 
+ADMINS_EMAIL = []
+
 if 'ADMINS' in os.environ:
     ADMINS = [
         (email.split('@')[0], email)

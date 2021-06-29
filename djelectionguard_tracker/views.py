@@ -56,9 +56,9 @@ class TrackerFormCard(Div):
 @template('tracker_detail', Document, Card)
 class TrackerDetailCard(Div):
     def to_html(self, *content, view, **context):
-        self.backlink = BackLink(_('Back'), reverse('contest_list'))
-
         contest = view.object.contest
+
+        self.backlink = BackLink(_('Back'), reverse('contest_detail', args=[contest.id]))
 
         rows = (
             (_('Election name'), contest.name),

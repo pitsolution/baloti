@@ -87,7 +87,7 @@ class MDCLinearProgress(html.Div):
 class TopPanel(html.Div):
     def __init__(self, request, **kwargs):
         self.user = user = request.user
-        
+
         if user.is_authenticated:
             text = user.email
             account_btn = MDCButton(_('log out'), tag='a', href=reverse('logout'))
@@ -102,8 +102,9 @@ class TopPanel(html.Div):
         super().__init__(
             html.A(
                 html.Img(
-                    src=Static('electis.png'),
-                    cls='top-panel-sub top-panel-logo'),
+                    src=Static('neuilly_vote.png'),
+                    cls='top-panel-sub top-panel-logo',
+                    style='width: 80px'),
                 href='/'),
             html.Span(
                 html.Span(_('Hello') + f", {text}", cls='top-panel-sub top-panel-msg'),
@@ -119,6 +120,14 @@ class Footer(html.Div):
         super().__init__(
             html.Div(style='height:96px'),
             html.Div(
+                html.Div(
+                    html.Img(
+                        src=Static('logo_neuilly.png'),
+                        style='width: 250px'
+                    ),
+                    style='width: 100%;'
+                ),
+                Br(),
                 html.Span(_('Made by '), cls='caption'),
                 html.A('Electis.io', href='https://electis.io', cls='caption'),
                 cls='footer'
