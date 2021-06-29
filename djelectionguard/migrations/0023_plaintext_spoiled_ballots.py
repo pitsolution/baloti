@@ -8,7 +8,7 @@ import timezone_field.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('djelectionguard', '0022_index_actual_start'),
+        ('djelectionguard', '0023_add_ballot_id_to_voters'),
     ]
 
     operations = [
