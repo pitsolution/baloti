@@ -197,7 +197,7 @@ msgstr "Verouiller l'urne / effacer les clés privées de la mémoire du serveur
 
 #: djelectionguard/components.py:470 djelectionguard/components.py:1593
 msgid "Open the election for voting"
-msgstr "Ouvrir les élections au vote"
+msgstr "Ouverture de l'élection"
 
 #: djelectionguard/components.py:472
 msgid ""
@@ -532,7 +532,7 @@ msgstr "C'est ce qui rend la gouvernance de l'élection décentralisée."
 
 #: djelectionguard/components.py:1557
 msgid "create"
-msgstr "créer"
+msgstr "Vérouiller l'urne"
 
 #: djelectionguard/components.py:1573
 msgid "Send an invite to the newly added voters"
@@ -541,7 +541,7 @@ msgstr ""
 #: djelectionguard/components.py:1595
 msgid "Once you open the election for voting you can’t make changes to it."
 msgstr ""
-"Une fois que l'élection sera ouverte aux votes, vous ne pourrez plus y "
+"Une fois que l'élection sera ouverte, vous ne pourrez plus y "
 "apporter de modifications."
 
 #: djelectionguard/components.py:1603
@@ -757,13 +757,13 @@ msgid ""
 "Hello, Election %(objet)s is open for voting, you may use the link belox: "
 "LINK Happy voting! "
 msgstr ""
-"Bonjour, l'élection %(objet)s est ouverte au vote, vous pouvez utiliser ce "
+"Bonjour, l'élection %(objet)s est ouverte, vous pouvez utiliser ce "
 "lien pour voter: LINK bon votes !"
 
 #: djelectionguard/views.py:242
 #, python-format
 msgid "Election %(objet)s is open for voting"
-msgstr "L'élection %(objet)s est ouverte au vote"
+msgstr "L'élection %(objet)s est ouverte"
 
 #: djelectionguard/views.py:276
 msgid "Send invite"
@@ -771,7 +771,7 @@ msgstr "Envoyer l'invitation"
 
 #: djelectionguard/views.py:298
 msgid "Open votes"
-msgstr "Ouvrir au vote"
+msgstr "Ouvrir"
 
 #: djelectionguard/views.py:299
 msgid "Create the Encrypter and BallotBox and open contest for voting"
@@ -1245,7 +1245,7 @@ msgstr "Votre compte est déjà activé."
 
 #: electeez_auth/components.py:238
 msgid "Proceed to automatic authentification"
-msgstr "Vous allez être redirigé"
+msgstr "Connexion réussie"
 
 #: electeez_auth/components.py:241
 msgid "Click here to continue"
@@ -1294,7 +1294,7 @@ msgstr ""
 "\n"
 "                Bonjour,\n"
 "\n"
-"                Voici le lien magique que vous avez demandé:\n"
+"                Voici le lien de connexion à Neuilly vote:\n"
 "                "
 
 #: electeez_auth/views.py:65
