@@ -15,7 +15,6 @@ RUN DEBUG= ./manage.py compilescss
 RUN DEBUG= ./manage.py ryzom_bundle
 RUN DEBUG= ./manage.py collectstatic --noinput
 RUN DEBUG= ./manage.py compilemessages
-RUN DEBUG= ./manage.py createsuperuser --email=thomas@electis.io --noinput
 RUN chown -R app. /app/log
 RUN find public -type f | xargs gzip -f -k -9
 USER app
@@ -23,6 +22,7 @@ USER app
 EXPOSE 8000
 CMD /usr/bin/bash -euxc "until djcli dbcheck; do sleep 1; done \
   && ./manage.py migrate --noinput \
+  && ./manage.py createsuperuser --email=thomas@electis.io --noinput \
   && uwsgi \
   --http-socket=0.0.0.0:8000 \
   --chdir=/app \
