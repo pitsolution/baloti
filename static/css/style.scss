@@ -1,7 +1,7 @@
 $danger: #D73131;
 $green: #AEEA00;
 $green2: #2f8c00;
-$yellow: #FFEA00;
+$yellow: #adb1d4;
 $black: #141414;
 $black2: #2e2e2e;
 $gray: #e5e5e5;
@@ -182,7 +182,7 @@ a.caption {
   width: 100%;
   text-align: center;
   padding: 12px 0;
-  background-color: gray;
+  background-color: lightgray;
   margin-top: 24px;
 }
 
@@ -312,7 +312,7 @@ a.caption {
         width: 34px;
         height: 34px;
         border-radius: 50%;
-        background-color: yellow;
+        background-color: $yellow;
         font-family: 'Nanum Pen Script';
         font-size: 32px;
         line-height: 34px;
@@ -320,7 +320,7 @@ a.caption {
         vertical-align: middle;
         letter-spacing: 1.25px;
         text-transform: uppercase;
-        color: #000000;
+        color: #fff;
       }
     }
   }
@@ -354,7 +354,7 @@ a.caption {
     font-weight: bold;
 
     .contest-indicator {
-      background-color: yellow;
+      background-color: $yellow;
     }
   }
 
@@ -417,7 +417,7 @@ a.caption {
         line-height: 40px;
         text-align: center;
         vertical-align: middle;
-        color: #000000;
+        color: #fff;
         background-repeat: no-repeat;
         background-position: center;
         display: block;
