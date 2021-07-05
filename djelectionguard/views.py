@@ -13,6 +13,7 @@ from django import forms
 from django import http
 from django.apps import apps
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -111,7 +112,7 @@ class ContestCreateView(generic.CreateView):
     def as_url(cls):
         return path(
             'create/',
-            login_required(cls.as_view()),
+            staff_member_required(cls.as_view()),
             name='contest_create'
         )
 
