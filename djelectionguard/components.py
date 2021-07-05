@@ -2103,6 +2103,12 @@ class ContestResultCard(Div):
         return super().to_html(
             H4(_('Results'), cls='center-text'),
             Div(
+                H5(contest.name),
+                Div(
+                    *contest.about.split('\n'),
+                    style='padding: 12px;',
+                    cls='subtitle-2'
+                ),
                 publish_btn,
                 score_table,
                 A(
