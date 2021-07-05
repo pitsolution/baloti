@@ -86,7 +86,7 @@ def post(user, url, **data):
 
 @pytest.fixture
 def mediator():
-    return User.objects.create(email='med@example.com', is_active=True)
+    return User.objects.create(email='med@example.com', is_active=True, is_staff=True)
 
 
 @pytest.mark.django_db
