@@ -25,6 +25,6 @@ pytest-watch
 
 pytezos
 
-ryzom>=0.6.6,<0.7
+ryzom>=0.6.7,<0.7
 
 sentry-sdk
