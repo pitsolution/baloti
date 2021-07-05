@@ -65,7 +65,7 @@ class ElectionContractCard(Div):
                 ' your election results to'),
                 cls='center-text'),
             Div(
-                'As a way to bring trust, this election results and parameters will be shared and stored via a Tezos smart contract and an IPFS Link. To keep it simple you have two choices, one is to chose the free / testnet contract (fine for non official elections) or the main net one (you ll need to pay a small fee / just send the needed Tez fees to the Wallet address) version that can be used for official election as the equivalent of a legal proof of the election parameters and its results.',
+                _('As a way to bring trust, this election results and parameters will be shared and stored via a Tezos smart contract and an IPFS Link. To keep it simple you have two choices, one is to chose the free / testnet contract (fine for non official elections) or the main net one (you ll need to pay a small fee / just send the needed Tez fees to the Wallet address) version that can be used for official election as the equivalent of a legal proof of the election parameters and its results.'),
                 cls='center-text body-2'),
             Form(
                 MDCErrorList(form.errors) if form.errors else None,

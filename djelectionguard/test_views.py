@@ -86,7 +86,7 @@ def post(user, url, **data):
 
 @pytest.fixture
 def mediator():
-    return User.objects.create(email='med@example.com', is_active=True)
+    return User.objects.create(email='med@example.com', is_active=True, is_staff=True)
 
 
 @pytest.mark.django_db
@@ -506,3 +506,9 @@ vot1@example.com\rvot2@example.com\rnew@example.com
     _client = Client()
     assert _client.post(link)['Location'] == contest_url
     assert _client.get(contest_url).status_code == 200
+
+    # test publish works
+    response = post(mediator, f'{contest_url}publish/')
+    assert response.status_code == 302
+    contest.refresh_from_db()
+    assert contest.artifacts_sha1, 'contest publish fail'
