@@ -274,7 +274,7 @@ class ContestList(Div):
             # ContestFilters(view),
             Ul(
                 ListItem(ContestListCreateBtn())
-                if view.request.user.is_superuser else None,
+                if view.request.user.is_staff else None,
                 *(
                     ContestListItem(contest, view.request.user)
                     for contest in context['contest_list']
