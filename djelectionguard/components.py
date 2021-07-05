@@ -778,8 +778,7 @@ class ContestVotingCard(Div):
 
         actions = []
         if contest.voter_set.filter(user=user).count():
-            if not contest.actual_end:
-                actions.append('vote')
+            actions.append('vote')
 
         if contest.mediator == user:
             actions.append('close')
@@ -1057,10 +1056,23 @@ class VotersSettingsCard(Div):
 
 class ContestFinishedCard(Div):
     def __init__(self, view, **context):
+        contest = view.get_object()
+
+        is_voter = False
+        if contest.voter_set.filter(user=view.request.user).count():
+            is_voter = True
+
         super().__init__(
-            H4(view.get_object().name),
+            H4(contest.name),
+            Div(
+                *contest.about.split('\n'),
+                style='padding: 12px;',
+                cls='subtitle-2'
+            ),
             Ul(
-                ResultAction(view.get_object(), view.request.user),
+                CastVoteAction(contest, view.request.user)
+                if is_voter else None,
+                ResultAction(contest, view.request.user),
                 cls='mdc-list action-list'
             ),
             cls='setting-section main-setting-section'
