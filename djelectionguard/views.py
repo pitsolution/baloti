@@ -729,12 +729,12 @@ class CandidateForm(forms.ModelForm):
         widget=forms.Textarea(
             attrs=dict(
                 rows=3,
-                maxlength=255
+                maxlength=300
             )
         ),
         required=False,
         help_text=html.Div(
-            html.Div('0/255', cls='mdc-text-field-character-counter'),
+            html.Div('0/300', cls='mdc-text-field-character-counter'),
             cls='mdc-text-field-helper-line'
         )
     )
