@@ -499,6 +499,11 @@ class Candidate(models.Model):
         on_delete=models.CASCADE,
     )
     name = models.CharField(max_length=255)
+    subtext = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True
+    )
     description = models.CharField(
         max_length=255,
         blank=True,
