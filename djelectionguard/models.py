@@ -505,7 +505,7 @@ class Candidate(models.Model):
         null=True
     )
     description = models.CharField(
-        max_length=255,
+        max_length=300,
         blank=True,
         null=True
     )
