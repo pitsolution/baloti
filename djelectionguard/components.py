@@ -1150,6 +1150,13 @@ class CandidateDetail(Div):
                 candidate.name,
                 style='margin-top: 6px; margin-bottom: 6px;'
             ),
+            I(
+                candidate.subtext,
+                style=dict(
+                    font_size='small',
+                    font_weight='initial'
+                )
+            ),
             style='flex: 1 1 65%; padding: 12px;'
         )
 
@@ -1261,7 +1268,7 @@ class ClipboardCopy(MDCTextButton):
 class CandidateList(Div):
     def to_html(self, *content, view, **context):
         contest = view.get_object()
-        self.backlink = BackLink('back', reverse('contest_detail', args=[contest.id]))
+        self.backlink = BackLink(_('back'), reverse('contest_detail', args=[contest.id]))
 
         return super().to_html(
             H4(_('Candidates'), cls='center-text'),

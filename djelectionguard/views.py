@@ -738,6 +738,10 @@ class CandidateForm(forms.ModelForm):
             cls='mdc-text-field-helper-line'
         )
     )
+    subtext = forms.CharField(
+        required=False,
+        label=_('Sous-texte'),
+    )
     picture = forms.ImageField(
         widget=forms.FileInput,
         label = _('CANDIDATE_PICTURE'),
@@ -760,6 +764,7 @@ class CandidateForm(forms.ModelForm):
         model = Candidate
         fields = [
             'name',
+            'subtext',
             'description',
             'picture'
         ]
