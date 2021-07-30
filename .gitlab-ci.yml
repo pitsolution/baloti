@@ -57,17 +57,35 @@ test:
     - grep unreachable=0 deploy.log &> /dev/null
     - grep failed=0 deploy.log &> /dev/null
 
-review-deploy:
+review-deploy-electis:
   <<: *deploy
   stage: test
   environment:
-    name: test/$CI_COMMIT_REF_NAME
-    url: http://${CI_ENVIRONMENT_SLUG}.ci.electis.app
+    name: test/${CI_COMMIT_REF_NAME}-electis
+    url: http://${CI_ENVIRONMENT_SLUG}-electis.ci.electis.app
   variables:
+    DJANGO_SETTINGS_MODULE: electeez.neuilly_settings
     DEPLOY: >
       compose=docker-compose.yml,docker-compose.traefik.yml
       lifetime=86400
-      project=$CI_ENVIRONMENT_SLUG
+      project=${CI_ENVIRONMENT_SLUG}-electis
+  except:
+  - tags
+  - master
+  - neuilly
+
+review-deploy-neuilly:
+  <<: *deploy
+  stage: test
+  environment:
+    name: test/${CI_COMMIT_REF_NAME}-neuilly
+    url: http://${CI_ENVIRONMENT_SLUG}-neuilly.ci.electis.app
+  variables:
+    DJANGO_SETTINGS_MODULE: electeez.electis_settings
+    DEPLOY: >
+      compose=docker-compose.yml,docker-compose.traefik.yml
+      lifetime=86400
+      project=${CI_ENVIRONMENT_SLUG}-neuilly
   except:
   - tags
   - master
@@ -86,7 +104,7 @@ neuilly-deploy:
   variables:
     DEPLOY: >
       compose=docker-compose.yml,docker-compose.traefik.yml,docker-compose.persist.yml
-      home=/home/$CI_ENVIRONMENT_NAME
+      home=/home/neuilly
   only:
     refs:
       - neuilly
@@ -104,7 +122,7 @@ master-deploy:
   variables:
     DEPLOY: >
       compose=docker-compose.yml,docker-compose.traefik.yml,docker-compose.persist.yml
-      home=/home/$CI_ENVIRONMENT_NAME
+      home=/home/master
   only:
     refs:
       - master
