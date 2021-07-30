@@ -62,9 +62,9 @@ review-deploy-electis:
   stage: test
   environment:
     name: test/${CI_COMMIT_REF_NAME}-electis
-    url: http://${CI_ENVIRONMENT_SLUG}-electis.ci.electis.app
+    url: http://${CI_ENVIRONMENT_SLUG}.ci.electis.app
   variables:
-    DJANGO_SETTINGS_MODULE: electeez.neuilly_settings
+    DJANGO_SETTINGS_MODULE: electeez/electis_settings.py
     DEPLOY: >
       compose=docker-compose.yml,docker-compose.traefik.yml
       lifetime=86400
@@ -79,9 +79,9 @@ review-deploy-neuilly:
   stage: test
   environment:
     name: test/${CI_COMMIT_REF_NAME}-neuilly
-    url: http://${CI_ENVIRONMENT_SLUG}-neuilly.ci.electis.app
+    url: http://${CI_ENVIRONMENT_SLUG}.ci.electis.app
   variables:
-    DJANGO_SETTINGS_MODULE: electeez.electis_settings
+    DJANGO_SETTINGS_MODULE: electeez/neuilly_settings.py
     DEPLOY: >
       compose=docker-compose.yml,docker-compose.traefik.yml
       lifetime=86400
