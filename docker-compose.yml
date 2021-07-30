@@ -39,6 +39,7 @@ services:
     - MEMCACHED_HOST=memcached
     - SECRET_KEY
     - DEBUG=
+    - DJANGO_SETTINGS_MODULE
 
   memcached:
     logging:
