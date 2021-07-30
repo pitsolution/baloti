@@ -39,10 +39,10 @@ def gettext(key, n=0, **ph):
     -->   'fishes are something'
 
     '''
-    current_language = get_language()
-    current_site = Site.objects.get_current()
-
     try:
+        current_language = get_language()
+        current_site = Site.objects.get_current()
+
         text = Text.objects.get(
             language__site=current_site,
             language__iso=current_language,
