@@ -7,7 +7,6 @@ from django.urls import reverse
 from django.utils import timezone
 from electeez.components import *
 from ryzom_django.forms import widget_template
-from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
 from electeez.components import (
@@ -17,6 +16,8 @@ from electeez.components import (
     MDCLinearProgress,
     MDCButton
 )
+from djlang.utils import gettext as _
+from electeez_sites.models import Site
 from .models import Contest, Candidate
 
 
@@ -269,12 +270,17 @@ class ContestListCreateBtn(A):
 @template('djelectionguard/contest_list.html', Document, Card)
 class ContestList(Div):
     def to_html(self, *content, view, **context):
+        site = Site.objects.get_current()
+        can_create = (site.all_users_can_create
+            or view.request.user.is_staff
+            or view.request.user.is_superuser
+        )
         return super().to_html(
             H4(_('Elections'), style='text-align: center;'),
             # ContestFilters(view),
             Ul(
                 ListItem(ContestListCreateBtn())
-                if view.request.user.is_staff else None,
+                if can_create else None,
                 *(
                     ContestListItem(contest, view.request.user)
                     for contest in context['contest_list']

@@ -7,7 +7,7 @@ from ryzom.contrib.django import Static
 from py2js.renderer import JS
 from sass_processor.processor import sass_processor
 from ryzom_django_mdc.html import *
-from django.utils.translation import gettext_lazy as _
+from djlang.utils import gettext as _
 from django.conf import settings
 
 
@@ -102,9 +102,9 @@ class TopPanel(html.Div):
         super().__init__(
             html.A(
                 html.Img(
-                    src=Static('neuilly_vote.png'),
+                    src=Static('branding.png'),
                     cls='top-panel-sub top-panel-logo',
-                    style='width: 80px'),
+                    style='height: 50px'),
                 href='/'),
             html.Span(
                 html.Span(_('Hello') + f", {text}", cls='top-panel-sub top-panel-msg'),
@@ -122,13 +122,13 @@ class Footer(html.Div):
             html.Div(
                 html.Div(
                     html.Img(
-                        src=Static('logo_neuilly.png'),
-                        style='width: 250px'
+                        src=Static('logo.png'),
+                        style='height: 80px'
                     ),
                     style='width: 100%;'
                 ),
                 Br(),
-                html.Span(_('Made by '), cls='caption'),
+                html.Span(_('Made by'), ' ', cls='caption'),
                 html.A('Electis.io', href='https://electis.io', cls='caption'),
                 cls='footer'
             )

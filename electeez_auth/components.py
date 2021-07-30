@@ -13,36 +13,7 @@ from djelectionguard.components import CircleIcon
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
-
-class GoogleIcon(CircleIcon):
-    def __init__(self):
-        super().__init__('google-icon', 'white', small=True)
-
-
-class FacebookIcon(CircleIcon):
-    def __init__(self):
-        super().__init__('facebook-icon', 'fb-blue', small=True)
-
-
-class AppleIcon(CircleIcon):
-    def __init__(self):
-        super().__init__('apple-icon', 'black', small=True)
-
-
-class OAuthConnect(Div):
-    def __init__(self):
-        self.google_btn = MDCButtonOutlined(_('continue with google'), icon=GoogleIcon(), tag='a')
-        self.facebook_btn = MDCButton(_('continue with facebook'), p=False, icon=FacebookIcon(), tag='a')
-        self.apple_btn = MDCButton(_('continue with apple'), icon=AppleIcon(), tag='a')
-
-        super().__init__(
-            self.google_btn,
-            self.facebook_btn,
-            self.apple_btn,
-            cls='oauth',
-            style='display: flex; flex-flow: column wrap;'
-        )
-
+from djlang.utils import gettext as _
 
 class RegistrationForm(RegistrationForm):
     password2 = forms.CharField(
@@ -76,10 +47,6 @@ class RegistrationFormViewComponent(Html):
                 MDCButton(_('Register')),
                 method='POST',
                 cls='form card'),
-            # Div(
-            #     Div('Or use:', cls='center-text'),
-            #     OAuthConnect(),
-            #     cls='card'),
         )
 
 

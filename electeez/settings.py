@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'electeez',
     'electeez_auth',
     'django.contrib.admin',
+    'django.contrib.sites',
+    'electeez_sites',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -48,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'djtezos',
     'djcall',
+    'djlang',
     'djelectionguard',
     'djelectionguard_tezos',
     'djelectionguard_tracker',
@@ -62,10 +65,6 @@ INSTALLED_APPS = [
     'ryzom_django_mdc',
 ]
 
-LOCALE_PATHS = (
-    os.path.join(BASE_DIR, 'locale'),
-)
-
 AUTH_USER_MODEL = 'electeez_auth.User'
 
 MIDDLEWARE = [
@@ -79,9 +78,8 @@ MIDDLEWARE = [
     'django.middleware.locale.LocaleMiddleware'
 ]
 
-LANGUAGES = (
-    ('fr', _('French')),
-    ('en', _('English'))
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
 )
 
 if DEBUG:
@@ -239,8 +237,6 @@ else:
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en'
-
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -248,24 +244,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
-
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'public'
-STATICFILES_DIRS = [BASE_DIR / 'static']
-
-STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'sass_processor.finders.CssFinder',
-    'electeez.finders.StaticRootFinder',
-]
-
-if 'collectstatic' in sys.argv or not DEBUG:
-    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
-
 
 EMAIL_HOST = os.getenv('EMAIL_HOST', None)
 EMAIL_PORT = os.getenv('EMAIL_PORT', None)
@@ -345,3 +323,19 @@ for logger in LOGGERS:
         'filename': LOG_DIR + f'/{logger}.error.log',
         'formatter': 'timestamp'
     }
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'sass_processor.finders.CssFinder',
+    'electeez.finders.StaticRootFinder',
+]
+
+if 'collectstatic' in sys.argv or not DEBUG:
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+

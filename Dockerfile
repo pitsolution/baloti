@@ -22,6 +22,8 @@ USER app
 EXPOSE 8000
 CMD /usr/bin/bash -euxc "until djcli dbcheck; do sleep 1; done \
   && ./manage.py migrate --noinput \
+  && ./manage.py loaddata electeez_sites/site_data.json \
+  && ./manage.py djlang_load \
   && uwsgi \
   --http-socket=0.0.0.0:8000 \
   --chdir=/app \

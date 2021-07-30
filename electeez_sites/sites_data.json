@@ -1,0 +1,40 @@
+[
+{
+  "model": "sites.site",
+  "pk": 1,
+  "fields": {
+    "domain": "electis.app",
+    "name": "electis.app"
+  }
+},
+{
+  "model": "electeez_sites.site",
+  "pk": 1,
+  "fields": {
+    "site_ptr_id": 1,
+    "domain": "electis.app",
+    "name": "electis.app",
+    "all_users_can_create": true,
+    "all_results_are_visible": true
+  }
+},
+{
+  "model": "sites.site",
+  "pk": 2,
+  "fields": {
+    "domain": "neuilly-vote.fr",
+    "name": "neuilly-vote.fr"
+  }
+},
+{
+  "model": "electeez_sites.site",
+  "pk": 2,
+  "fields": {
+    "site_ptr_id": 2,
+    "domain": "neuilly-vote.fr",
+    "name": "neuilly vote",
+    "all_users_can_create": true,
+    "all_results_are_visible": true
+  }
+}
+]

@@ -13,7 +13,6 @@ from django import forms
 from django import http
 from django.apps import apps
 from django.contrib.auth.decorators import login_required
-from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -37,6 +36,11 @@ from .models import Contest, Candidate, Guardian, Voter
 from datetime import datetime, date
 
 from ryzom import html
+from electeez_sites.utils import (
+    create_access_required,
+    result_access_required
+)
+
 from electeez.components import Document, BackLink
 from electeez_auth.models import User
 from .components import (
@@ -112,7 +116,7 @@ class ContestCreateView(generic.CreateView):
     def as_url(cls):
         return path(
             'create/',
-            staff_member_required(cls.as_view()),
+            create_access_required(cls.as_view()),
             name='contest_create'
         )
 

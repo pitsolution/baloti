@@ -5,8 +5,10 @@ from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls import url
 from django.conf.urls.static import static
 from django.views import generic
-from django.urls import include, path
+from django.urls import include, path, reverse
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.templatetags.static import static as static_url
+
 
 urlpatterns = [
     url(r'^favicon\.ico$', generic.RedirectView.as_view(url='/static/images/favicon.ico')),
@@ -17,7 +19,11 @@ class HomeView(generic.View):
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return http.HttpResponseRedirect('/contest/')
-        return http.HttpResponseRedirect('/static/landing/index.html')
+
+        if settings.SITE_ID == 1:
+            return http.HttpResponseRedirect(static_url('landing/index.html'))
+        else:
+            return http.HttpResponseRedirect(reverse('login'))
 
 
 urlpatterns += i18n_patterns(
@@ -34,7 +40,9 @@ if settings.DEBUG:
         path('bundles/', include('ryzom_django.bundle')),
     )
 
+
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += staticfiles_urlpatterns('/static/')
 urlpatterns += staticfiles_urlpatterns()
 
 
