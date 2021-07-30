@@ -5,7 +5,11 @@ from .models import Site
 
 
 def create_access_required(*args, **kwargs):
-    site = Site.objects.get_current()
+    try:
+        site = Site.objects.get_current()
+    except Exception:
+        return staff_member_required(*args, **kwargs)
+
     if site.all_users_can_create:
         return login_required(*args, **kwargs)
     return staff_member_required(*args, **kwargs)
