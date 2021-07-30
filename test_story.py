@@ -1,4 +1,15 @@
 import pytest
+from django.core.management import call_command
+from electeez_sites.models import Site
+
+
+@pytest.fixture(autouse=True)
+def django_fixtures_setup(django_db_setup, django_db_blocker):
+    fixture = 'electeez_sites/sites_data.json'
+    with django_db_blocker.unblock():
+        call_command('loaddata', fixture)
+    Site.objects.clear_cache()
+    Site.objects.get_current()
 
 
 def test_home(client):
