@@ -11,19 +11,19 @@ RUN mkdir -p /spooler/blockchain /spooler/email && chown -R app /spooler
 COPY requirements.txt /app
 RUN pip3 install -Ur /app/requirements.txt
 COPY . /app/
-RUN DEBUG= ./manage.py compilescss
-RUN DEBUG= ./manage.py ryzom_bundle
-RUN DEBUG= ./manage.py collectstatic --noinput
-RUN DEBUG= ./manage.py compilemessages
 RUN chown -R app. /app/log
-RUN find public -type f | xargs gzip -f -k -9
 USER app
 
 EXPOSE 8000
 CMD /usr/bin/bash -euxc "until djcli dbcheck; do sleep 1; done \
+  && ./manage.py compilescss \
+  && ./manage.py ryzom_bundle \
+  && ./manage.py collectstatic --noinput \
+  && ./manage.py compilemessages \
   && ./manage.py migrate --noinput \
   && ./manage.py loaddata electeez_sites/sites_data.json \
   && ./manage.py djlang_load \
+  && find public -type f | xargs gzip -f -k -9 \
   && uwsgi \
   --http-socket=0.0.0.0:8000 \
   --chdir=/app \
