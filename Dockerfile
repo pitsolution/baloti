@@ -20,7 +20,7 @@ RUN find public -type f | xargs gzip -f -k -9
 USER app
 
 EXPOSE 8000
-CMD /usr/bin/bash -euxc "until djcli dbcheck --debug; do sleep 1; done \
+CMD /usr/bin/bash -euxc "until djcli dbcheck; do sleep 1; done \
   && ./manage.py migrate --noinput \
   && ./manage.py loaddata electeez_sites/site_data.json \
   && ./manage.py djlang_load \

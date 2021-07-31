@@ -6,6 +6,7 @@ from .models import Site
 
 def create_access_required(*args, **kwargs):
     try:
+        Site.objects.clear_cache()
         site = Site.objects.get_current()
     except Exception:
         return staff_member_required(*args, **kwargs)
