@@ -18,6 +18,7 @@ BASE_URL = '://'.join([PROTO, HOST])
 
 
 DEBUG = ENVIRONMENT == 'localhost'
+DEBUG = os.getenv('DEBUG', DEBUG)
 
 if SECURE:
     if not HOST.startswith('www'):
@@ -337,5 +338,3 @@ STATICFILES_FINDERS = [
 
 if 'collectstatic' in sys.argv or not DEBUG:
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
-
-
