@@ -62,7 +62,7 @@ review-deploy-electis:
   stage: test
   environment:
     name: test/${CI_COMMIT_REF_NAME}-electis
-    url: http://${CI_ENVIRONMENT_SLUG}.ci.electis.app
+    url: https://${CI_ENVIRONMENT_SLUG}.ci.electis.app
   variables:
     DJANGO_SETTINGS_MODULE: electeez.electis_settings
     DEPLOY: >
@@ -79,7 +79,7 @@ review-deploy-neuilly:
   stage: test
   environment:
     name: test/${CI_COMMIT_REF_NAME}-neuilly
-    url: http://${CI_ENVIRONMENT_SLUG}.ci.electis.app
+    url: https://${CI_ENVIRONMENT_SLUG}.ci.electis.app
   variables:
     DJANGO_SETTINGS_MODULE: electeez.neuilly_settings
     DEPLOY: >
