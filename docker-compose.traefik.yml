@@ -7,7 +7,7 @@ services:
       - "traefik.http.middlewares.${CI_ENVIRONMENT_SLUG}-redirect.redirectregex.replacement=https://www.${HOST}/$${1}"
       - "traefik.http.routers.${CI_ENVIRONMENT_SLUG}-ssl.middlewares=${CI_ENVIRONMENT_SLUG}-redirect"
       - "traefik.http.routers.${CI_ENVIRONMENT_SLUG}-ssl.entryPoints=websecure"
-      - "traefik.http.routers.${CI_ENVIRONMENT_SLUG}-ssl.rule=host(`${HOST}`)"
+      - "traefik.http.routers.${CI_ENVIRONMENT_SLUG}-ssl.rule=host(`${HOST}`, `www.${HOST}`)"
       - "traefik.http.routers.${CI_ENVIRONMENT_SLUG}-ssl.tls=true"
       - "traefik.http.routers.${CI_ENVIRONMENT_SLUG}-ssl.tls.certResolver=leresolver"
       - "traefik.http.routers.${CI_ENVIRONMENT_SLUG}-ssl.service=${CI_ENVIRONMENT_SLUG}-ssl"
