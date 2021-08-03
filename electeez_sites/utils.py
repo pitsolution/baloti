@@ -21,7 +21,7 @@ def create_access_required(function):
         Site.objects.clear_cache()
         site = Site.objects.get_current()
     except Exception:
-        return staff_member_required(*args, **kwargs)
+        return staff_member_required(function)
 
     actual_decorator = site_passes_test(
         lambda s: s.all_users_can_create
