@@ -40,6 +40,7 @@ test:
   image: yourlabs/ansible
   before_script:
     - mkdir -p ~/.ssh; echo "$CI_SSH_KEY" > ~/.ssh/id_ed25519; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
+    - export $(echo $SMTP | xargs)
   script:
     - set -x
     - export HOST=$(echo $CI_ENVIRONMENT_URL | sed s@^.*://@@)
