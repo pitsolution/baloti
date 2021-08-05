@@ -14,10 +14,10 @@ from django.urls import include, path, reverse
 from django_registration.forms import RegistrationForm
 from django_registration.backends.activation.views import RegistrationView
 
-from electeez.components import Document, TopPanel, Footer
+from electeez_common.components import Document, TopPanel, Footer
 from .models import Token, User
-from django.utils.translation import gettext_lazy as _
 from django.conf import settings
+from djlang.utils import gettext as _
 
 class OTPSend(generic.FormView):
     template_name = 'electeez_auth/otp_send.html'
@@ -33,7 +33,7 @@ class OTPSend(generic.FormView):
             ).first()
             if not self.user:
                 raise ValidationError(
-                    _('Could not find registration with email:') + f'{value}'
+                    _('Could not find registration with email: %(email)s', email=value)
                 )
             return value
 
@@ -51,13 +51,12 @@ class OTPSend(generic.FormView):
 
         send_mail(
             _('Your magic link'),
-            textwrap.dedent(_('''
+            textwrap.dedent(str(_('''
                 Hello,
 
-                This is the magic link you have requested:
-                ''') +
-                f'{LINK}'
-            ),
+                This is the magic link you have requested: %(link)s
+                ''', link=LINK)
+            )),
             'webmaster@electeez.com',
             [form.cleaned_data['email']],
         )

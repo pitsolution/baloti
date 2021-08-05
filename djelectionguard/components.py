@@ -3,19 +3,15 @@ from django import forms
 from django.conf import settings
 from django.db.models import Sum
 from django.core.exceptions import ObjectDoesNotExist
+from django.template.defaultfilters import date as _date
 from django.urls import reverse
 from django.utils import timezone
-from electeez.components import *
+from django.utils.translation import get_language
+
+from electeez_common.components import *
 from ryzom_django.forms import widget_template
 from django.conf import settings
 
-from electeez.components import (
-    Document,
-    Card,
-    BackLink,
-    MDCLinearProgress,
-    MDCButton
-)
 from djlang.utils import gettext as _
 from electeez_sites.models import Site
 from .models import Contest, Candidate
@@ -49,8 +45,8 @@ class ContestForm(forms.ModelForm):
         initial=now,
         widget=forms.SplitDateTimeWidget(
             date_format='%Y-%m-%d',
-            date_attrs={'type': 'date'},
-            time_attrs={'type': 'time'},
+            date_attrs={'type': 'date', 'label': 'date'},
+            time_attrs={'type': 'time', 'label': 'heure'},
         ),
     )
     end = forms.SplitDateTimeField(
@@ -368,8 +364,11 @@ class AddCandidateAction(ListAction):
             icon = TodoIcon()
 
         number = obj.number_elected + 1
-        txt = _('%(candidates)d candidates, minimum: %(elected)d') % {'candidates': num_candidates, 'elected': number}
-
+        txt = _('%(candidates)d candidates, minimum: %(elected)d',
+            n=num_candidates,
+            candidates=num_candidates,
+            elected=number
+        )
 
         super().__init__(
             _('Add candidates'), txt, icon, btn_comp,
@@ -387,7 +386,7 @@ class AddVoterAction(ListAction):
         if num_voters:
             btn_comp = MDCButtonOutlined(_('edit'), False, **kwargs)
             icon = DoneIcon()
-            txt = _('%(num_voters)d voters') % {'num_voters': num_voters}
+            txt = _('%(num_voters)d voters', n=num_voters, num_voters=num_voters)
         else:
             btn_comp = MDCButtonOutlined(_('add'), False, 'add', **kwargs)
             icon = TodoIcon()
@@ -460,7 +459,11 @@ class SecureElectionInner(Span):
                 Li(
                     _('All guardians confirm possession of uncompromised private keys'),
                     Br(),
-                    _('%(confirmed)d/%(gardiens)d confirmed') % {'confirmed': n_confirmed, 'gardiens': n_guardians},
+                    _('%(confirmed)d/%(gardiens)d confirmed',
+                        n=n_confirmed,
+                        confirmed=n_confirmed,
+                        gardiens=n_guardians
+                    ),
                     cls=cls))
 
             cls = ''
@@ -546,9 +549,10 @@ class CastVoteAction(ListAction):
         if voter.casted:
             s = voter.casted
             txt = Span(
-                _('You casted your vote on %(time)s'
-                  ' The results will be published after the election is closed.')
-                % {'time': f'<b>{s.strftime("%a %d %b at %H:%M")}</b>.'},
+                _('You casted your vote on <b>%(time)s</b>'
+                  ' The results will be published after the election is closed.',
+                    time=_date(s, "d F, G\hi")
+                ),
                 Br(),
                 A(_('Track my vote'), href=reverse('tracker_detail', args=[voter.id])) if voter.casted else None,
             )
@@ -606,31 +610,33 @@ class OnGoingElectionAction(ListAction):
     def __init__(self, contest, user, view):
         close_url = reverse('contest_close', args=[contest.id])
         close_btn = MDCButtonOutlined(_('close'), False, tag='a', href=close_url)
-        start_time = '<b>' + contest.actual_start.strftime('%a %d at %H:%M') + '</b>'
+        start_time = '<b>' + _date(contest.actual_start, 'd F, G\hi') + '</b>'
         sub_txt = None
         if contest.actual_end:
-            end_time = '<b>' + contest.actual_end.strftime('%a %d at %H:%M') + '</b>'
+            end_time = '<b>' + _date(contest.actual_end, 'd F, G\hi') + '</b>'
             title = _('Voting closed')
             txt = _('The voting started on %(start)s and was open till %(end)s. '
-                    'Timezone: %(timezone)s.') % {
-                    'start': start_time,
-                    'end': end_time,
-                    'timezone': str(contest.timezone)
-                }
+                    'Timezone: %(timezone)s.',
+                        start=start_time,
+                        end=end_time,
+                        timezone=str(contest.timezone)
+                    )
             icon = SimpleCheckIcon()
         else:
             vote_link = reverse('otp_send') + f'?redirect=' + reverse('contest_vote', args=[contest.id])
             vote_link = view.request.build_absolute_uri(vote_link)
-            end_time = '<b>' + contest.end.strftime('%a %d at %H:%M') + '</b>'
+            end_time = '<b>' + _date(contest.end, 'd F, G\hi') + '</b>'
             title = _('The voting process is currently ongoing')
             txt = _('The voting started on %(time_start)s and will be closed at %(time_end)s. '
-                    'Timezone: %(timezone)s') % {
-                    'time_start': start_time,
-                    'time_end': end_time,
-                    'timezone': str(contest.timezone),
-            }
+                    'Timezone: %(timezone)s',
+                        time_start=start_time,
+                        time_end=end_time,
+                        timezone=str(contest.timezone)
+                    )
             if contest.mediator == user:
-                sub_txt = _('Vote link: %(link)s') % {'link': f'<a href={vote_link}>{vote_link}</a>'}
+                sub_txt = _('Vote link: %(link)s',
+                    link=f'<a href={vote_link}>{vote_link}</a>'
+                )
 
             icon = OnGoingIcon()
 
@@ -699,7 +705,11 @@ class UnlockBallotAction(ListAction):
 
         if contest.actual_end:
             task_list = Ol()
-            txt = _('All guardians upload their keys %(uploaded)d/%(guardian)d uploaded') % {'uploaded': n_uploaded, 'guardian': n_guardian}
+            txt = _('All guardians upload their keys %(uploaded)s/%(guardian)s uploaded',
+                n=n_uploaded,
+                uploaded=n_uploaded,
+                guardian=n_guardian
+            )
             cls='bold'
             if n_uploaded == n_guardian:
                 cls = 'line'
@@ -892,9 +902,9 @@ class TezosSecuredCard(Section):
                 ListAction(
                     _('Secured and decentralised with Tezos'),
                     Span(
-                        str(_('Your election data and results will be published on Tezos’ '))
-                            + str(contract.blockchain)
-                            + str(_(' blockchain.')),
+                        str(_('Your election data and results will be published on Tezos’'))
+                            + ' ' + str(contract.blockchain)
+                            + ' ' + str(_('blockchain.')),
                         PublishProgressBar([
                             step(_('Election contract created')),
                             step(_('Election opened')),
@@ -1054,7 +1064,7 @@ class VotersSettingsCard(Div):
 
         super().__init__(
             H5(_('Voters')),
-            Span(num_emails, _(' voters added'), cls='voters_count'),
+            Span(_('%(voters)s voters added', n=num_emails, voters=num_emails), cls='voters_count'),
             btn,
             cls='setting-section'
         )
@@ -1404,7 +1414,10 @@ class VotersDetailCard(Div):
             email_btn = ''
 
         return super().to_html(
-            H4(voters.count(), _(' Voters'), cls='center-text'),
+            H4(
+                _('%(count)s Voters', n=voters.count(), count=voter.count()),
+                cls='center-text'
+            ),
             Div(edit_btn, email_btn, cls='center-button'),
             Div(
                 table,
@@ -1453,10 +1466,10 @@ class ContestCandidateCreateCard(Div):
                 MDCButton(_('Add candidate'), icon='person_add_alt_1'),
                 method='POST',
                 cls='form')
+        count = contest.candidate_set.count()
         return super().to_html(
             H4(
-                contest.candidate_set.count(),
-                _(' Candidates'),
+                _('%(count)s Candidates', n=count, count=count),
                 cls='center-text'
             ),
             CandidateAccordion(contest, editable),
@@ -1507,9 +1520,10 @@ class ContestVotersUpdateCard(Div):
             _('back'),
             reverse('contest_detail', args=[contest.id]))
         voters = contest.voter_set.all()
+        count = voters.count()
 
         return super().to_html(
-            H4(voters.count(), _(' Voters'), style='text-align: center;'),
+            H4(_('%(count)s Voters', n=count, count=count), style='text-align: center;'),
             Div(_('The list of allowed voters with one email per line (sparated by Enter/Return ⏎)'), cls='body-2', style='margin-bottom: 24px;text-align: center;'),
             Form(
                 CSRFInput(view.request),
@@ -1541,7 +1555,7 @@ class GuardianVerifyCard(Div):
                 MDCFileField(
                     Input(id='file_input', type='file', name='pkl_file'),
                     label=_('Choose file')),
-                Span(_("Your privacy key is a file with '.pkl' extension. "), cls='body-2'),
+                Span(_("Your privacy key is a file with '.pkl' extension."), cls='body-2'),
                 self.submit_btn,
                 CSRFInput(view.request),
                 enctype='multipart/form-data',
@@ -1927,7 +1941,7 @@ class GuardianUploadKeyCard(Div):
                 MDCFileField(
                     Input(id='file_input', type='file', name='pkl_file'),
                     label=_('Choose file')),
-                Span(_("Your privacy key is a file with '.pkl' extension. "), cls='body-2'),
+                Span(_("Your privacy key is a file with '.pkl' extension."), cls='body-2'),
                 self.submit_btn,
                 CSRFInput(view.request),
                 enctype='multipart/form-data',

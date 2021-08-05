@@ -7,10 +7,9 @@ from django_registration.backends.activation.views import RegistrationView
 import ryzom
 from .models import User
 from ryzom_django_mdc.html import *
-from electeez.components import Document, Card, BackLink, MDCButton
+from electeez_common.components import Document, Card, BackLink, MDCButton
 
 from djelectionguard.components import CircleIcon
-from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
 from djlang.utils import gettext as _
@@ -83,7 +82,7 @@ class LoginFormViewComponent(Div):
 class LogoutViewComponent(Div):
     def __init__(self, *content, **context):
         super().__init__(
-            H4(_('You have been logged out')),
+            H4(_('You have been logged out'), style='text-align: center'),
             Div(
                 _('Thank you for spending time on our site today.'),
                 cls='section'),
@@ -133,7 +132,7 @@ class PasswordResetComplete(Div):
             Div(
                 _('You may go ahead and '),
                 A(_('login '), href=reverse('login')),
-                _(' now'),
+                ' ', _('now'),
             )
         )
 
@@ -142,7 +141,7 @@ class PasswordResetComplete(Div):
 class PasswordResetDoneCard(Div):
     def __init__(self, **context):
         super().__init__(
-            H4(_('A link has been sent to your email address')),
+            H4(_('A link has been sent to your email address'), style='text-align:center'),
             A(_('Go to login page'), href=reverse('login')),
             cls='card',
             style='text-align: center;'
@@ -153,7 +152,7 @@ class PasswordResetDoneCard(Div):
 class RegistrationCompleteCard(Div):
     def __init__(self, **context):
         super().__init__(
-            H4(_('Check your emails to finish !')),
+            H4(_('Check your emails to finish !'), style='text-align: center'),
             Div(
                 _('An activation link has been sent to your email address, '
                 'please open it to finish the signup process.'),
@@ -172,11 +171,11 @@ class RegistrationCompleteCard(Div):
 class ActivationCompleteCard(Div):
     def __init__(self, **context):
         super().__init__(
-            H4(_('Your account has been activated !')),
+            H4(_('Your account has been activated !'), style='text-align: center'),
             Div(
                 _('You may now '),
                 A(_('login '), href=reverse('login')),
-                _(' and particiapte to an election'),
+                ' ', _('and particiapte to an election'),
                 style='margin-bottom: 24px'
             ),
             cls='card',
@@ -188,7 +187,7 @@ class ActivationCompleteCard(Div):
 class ActivationFailureCard(Div):
     def __init__(self, **context):
         super().__init__(
-            H4(_('Account activation failure')),
+            H4(_('Account activation failure'), style='text-align: center'),
             Div(
                 _('Most likely your account has already been activated.'),
                 style='margin-bottom: 24px'
@@ -202,7 +201,7 @@ class ActivationFailureCard(Div):
 class OTPLoginForm(Div):
     def to_html(self, *content, **context):
         return super().to_html(
-            H4(_('Proceed to automatic authentification')),
+            H4(_('Proceed to automatic authentification'), style='text-align: center'),
             Form(
                 CSRFInput(context['view'].request),
                 MDCButton(_('Click here to continue')),
@@ -218,7 +217,7 @@ class OTPLoginForm(Div):
 class OTPSendCard(Div):
     def to_html(self, *content, view, form, **context):
         content = super().to_html(
-            H4(_('Receive a magic link by email')),
+            H4(_('Receive a magic link by email'), style='text-align: center'),
             Form(
                 form,
                 CSRFInput(view.request),
@@ -240,6 +239,6 @@ class OTPSendCard(Div):
 class OTPSendCard(Div):
     def __init__(self, **context):
         super().__init__(
-            H4(_('Email sent with success')),
+            H4(_('Email sent with success'), style='text-align:center'),
             cls='card',
         )

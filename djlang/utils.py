@@ -2,6 +2,7 @@ import sys
 
 from django.conf import settings
 from django.utils.translation import get_language
+from django.utils.functional import lazy
 
 from django.contrib.sites.models import Site
 
@@ -41,6 +42,7 @@ def gettext(key, n=0, **ph):
     '''
     try:
         current_language = get_language()
+
         current_site = Site.objects.get_current()
 
         text = Text.objects.get(
@@ -50,11 +52,16 @@ def gettext(key, n=0, **ph):
         )
 
     except Text.DoesNotExist:
+        text = None
         for l in Language.objects.all():
-            created, text = l.text_set.get_or_create(key=key)
-        return key
-    except Exception:
+            text_obj, created = l.text_set.get_or_create(key=key)
+            if l.iso == current_language:
+                text = text_obj
+        return text.process(n, **ph)
+    except Exception as e:
+        print(f'djlang - Exception {e} raise trying to get value for key: {key}')
         return key
 
     return text.process(n, **ph)
 
+gettext = lazy(gettext, str)

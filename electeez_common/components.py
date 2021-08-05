@@ -2,13 +2,16 @@ import copy
 from django.conf import settings
 from django.contrib import messages
 from django.urls import reverse
-from ryzom_django_mdc import html
-from ryzom.contrib.django import Static
-from py2js.renderer import JS
+
 from sass_processor.processor import sass_processor
+
+from py2js.renderer import JS
+from ryzom.contrib.django import Static
+
+from ryzom_django_mdc import html
 from ryzom_django_mdc.html import *
+
 from djlang.utils import gettext as _
-from django.conf import settings
 
 
 class MDCTextButton(Button):

@@ -41,7 +41,7 @@ from electeez_sites.utils import (
     result_access_required
 )
 
-from electeez.components import Document, BackLink
+from electeez_common.components import Document, BackLink
 from electeez_auth.models import User
 from .components import (
     ContestForm,
@@ -66,8 +66,7 @@ from .components import (
     GuardianUploadKeyCard,
 )
 
-from django.utils.translation import gettext_lazy as _
-from django.conf import settings
+from djlang.utils import gettext as _
 
 
 class ContestMediator:
@@ -108,7 +107,7 @@ class ContestCreateView(generic.CreateView):
         form.instance.guardian_set.create(user=self.request.user)
         messages.success(
             self.request,
-            _('You have created contest') + f'{form.instance}',
+            _('You have created contest %(obj)s', obj=form.instance)
         )
         return response
 
@@ -134,7 +133,7 @@ class ContestUpdateView(generic.UpdateView):
         response = super().form_valid(form)
         messages.success(
             self.request,
-            _('You have updated contest') + f'{form.instance}',
+            _('You have updated contest %(obj)s', obj=form.instance)
         )
         return response
 
@@ -238,14 +237,15 @@ class EmailForm(forms.ModelForm):
 class EmailBaseView(generic.UpdateView):
     def get_form_kwargs(self):
         msg = _('Hello, '
-        'Election %(objet)s is open for voting, you may use the link belox: '
+        'Election %(obj)s is open for voting, you may use the link belox: '
         'LINK '
-        'Happy voting! ') % {'objet': self.object}
+        'Happy voting!', obj=self.object
+        )
 
         kwargs = super().get_form_kwargs()
         kwargs['initial'] = dict(
-            email_title= _('Election %(objet)s is open for voting') % {'objet': self.object},
-            email_message=textwrap.dedent(msg),
+            email_title=_('Election %(obj)s is open for voting', obj=self.object),
+            email_message=msg,
         )
         return kwargs
 
@@ -324,7 +324,7 @@ class ContestOpenView(ContestMediator, EmailBaseView):
 
         messages.success(
             self.request,
-            _('You have open contest') +  f'{self.object}',
+            _('You have open contest %(obj)s', obj=self.object)
         )
 
         return super().form_valid(form)
@@ -365,7 +365,7 @@ class ContestCloseView(ContestMediator, generic.UpdateView):
             contract.close()
         messages.success(
             self.request,
-            _('You have closed contest') + f'{self.object}',
+            _('You have closed contest %(obj)s', obj=self.object)
         )
         return super().form_valid(form)
 
@@ -394,14 +394,15 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
 
     def get_form_kwargs(self):
         msg = _('Hello, '
-        'Election %(objet)s has been tallied, you may use this link below to check the results: '
+        'Election %(obj)s has been tallied, you may use this link below to check the results: '
         'LINK '
-        'Thank you for voting on %(obj)s') % {'objet': self.object, 'obj': self.object}
+        'Thank you for voting on %(obj)s', obj=self.object
+        )
 
         kwargs = super().get_form_kwargs()
         kwargs['initial'] = dict(
-            email_title= _('Election %(obj)s is has been tallied') % {'obj': self.object},
-            email_message=textwrap.dedent(msg),
+            email_title= _('Election %(obj)s is has been tallied', obj=self.object),
+            email_message=textwrap.dedent(str(msg)),
         )
         return kwargs
 
@@ -418,6 +419,7 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
 
     def form_valid(self, form):
         self.object.decrypt()
+        self.object.publish()
 
         if 'send_email' not in form.cleaned_data or not form.cleaned_data['send_email']:
             self.object.send_mail(
@@ -432,22 +434,15 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
     def get_success_url(self):
         messages.success(
             self.request,
-            _('You have decrypted tally for') + f'{self.object}',
+            _('You have decrypted tally for %(obj)s', obj=self.object)
         )
-        if self.object.artifacts_ipfs:
-            messages.success(
-                self.request,
-                _('You have published artifacts for') + f'{self.object}' + _(' on IPFS ')
-                + self.object.artifacts_ipfs
-            )
-        else:
-            messages.info(
-                self.request,
-                _('Artifacts were published for') + f'{self.object}',
-            )
         messages.info(
             self.request,
-            _('Guardian keys were removed from our memory for') + f'{self.object}',
+            _('Artifacts were published for %(obj)s', obj=self.object)
+        )
+        messages.info(
+            self.request,
+            _('Guardian keys were removed from our memory for %(obj)s', obj=self.object)
         )
         return self.object.get_absolute_url()
 
@@ -467,8 +462,6 @@ class ContestPublishView(ContestDecentralized, generic.UpdateView):
             fields = []
 
     def form_valid(self, form):
-        self.object.publish()
-
         if not settings.IPFS_ENABLED:
             messages.error(
                 self.request,
@@ -476,14 +469,14 @@ class ContestPublishView(ContestDecentralized, generic.UpdateView):
             )
         else:
             self.object.publish_ipfs()
-
-        try:
-            contract = self.object.electioncontract
-        except ObjectDoesNotExist:
-            # Contract not deployed on the blockchain
-            pass
-        else:
-            contract.artifacts()
+            if self.object.artifacts_ipfs:
+                try:
+                    contract = self.object.electioncontract
+                except ObjectDoesNotExist:
+                    # Contract not deployed on the blockchain
+                    pass
+                else:
+                    contract.artifacts()
 
         return super().form_valid(form)
 
@@ -491,17 +484,8 @@ class ContestPublishView(ContestDecentralized, generic.UpdateView):
         if self.object.artifacts_ipfs:
             messages.success(
                 self.request,
-                _('You have published artifacts for %(obj)s on IPFS') % {'obj': self.object}
+                _('You have published artifacts for %(obj)s on IPFS', obj=self.object)
             )
-        else:
-            messages.info(
-                self.request,
-                _('Artifacts were published for %(obj)s') % {'obj': self.object}
-            )
-        messages.info(
-            self.request,
-            _('Guardian keys were removed from our memory for %(obj)s') % {'obj': self.object}
-        )
         return self.object.get_absolute_url()
 
     @classmethod
@@ -620,18 +604,21 @@ class ContestVoteMixin:
         voter = self.object.voter_set.filter(user=request.user).first()
         redirect = http.HttpResponseRedirect(reverse('contest_list'))
         if not voter:
-            messages.error(request, _('You are not registered to vote on') + f'{self.object}')
+            messages.error(
+                request,
+                _('You are not registered to vote on %(obj)s', obj=self.object)
+            )
             return redirect
         elif self.object.actual_end:
-            messages.error(request, _('%(obj)s vote is closed') % {'obj': self.object})
+            messages.error(request, _('%(obj)s vote is closed', obj=self.object))
             return redirect
         elif not self.object.actual_start:
-            messages.error(request, _('%(obj)s vote is not yet open') % {'obj': self.object})
+            messages.error(request, _('%(obj)s vote is not yet open', obj=self.object))
             return redirect
         elif voter and voter.casted:
             messages.error(
                 request,
-                _('You have already casted your vote for %(obj)s') % {'obj': self.object},
+                _('You have already casted your vote for %(obj)s', obj=self.object)
             )
             return redirect
         return super().dispatch(request, *args, **kwargs)
@@ -692,7 +679,9 @@ class ContestVoteView(ContestVoteMixin, FormMixin, generic.DetailView):
         if 'spoil' in self.request.POST:
             messages.info(
                 self.request,
-                _('You spoiled your ballot for %(obj)s you can make another ballot') % {'obj': self.object},
+                _('You spoiled your ballot for %(obj)s you can make another ballot',
+                    obj=self.object
+                )
             )
             return http.HttpResponseRedirect(
                 reverse('contest_vote', args=[self.object.pk])
@@ -700,7 +689,7 @@ class ContestVoteView(ContestVoteMixin, FormMixin, generic.DetailView):
         else:
             messages.success(
                 self.request,
-                _('You casted your ballot for %(obj)s') % {'obj': self.object}
+                _('You casted your ballot for %(obj)s', obj=self.object)
             )
             uid = self.object.voter_set.get(user=self.request.user).id
             return http.HttpResponseRedirect(
@@ -959,12 +948,12 @@ class GuardianCreateView(ContestMediator, FormMixin, generic.DetailView):
         if form.cleaned_data['email']:
             messages.success(
                 self.request,
-                _('You have invited') + f'{form.instance}' + _(' as guardian'),
+                _('You have invited %(obj)s as guardian', obj=form.instance),
             )
         if 'quorum' in form.changed_data:
             messages.success(
                 self.request,
-                _('Quorum set to') + f'{form.instance.contest.quorum}',
+                _('Quorum set to %(quorum)s', quorum=form.instance.contest.quorum)
             )
         return super().form_valid(form)
 
@@ -994,11 +983,13 @@ class GuardianDeleteView(ContestMediator, generic.DeleteView):
             contest.save()
             messages.success(
                 self.request,
-                _('Quorum set to') + f'{contest.quorum}' + _(' to match the number of guardians')
+                _('Quorum set to %(quorum)s to match the number of guardians',
+                    quorum=contest.quorum
+                )
             )
         messages.success(
             self.request,
-            _('You have removed guardian') + f'{self.object}',
+            _('You have removed guardian %(guardian)s', guardian=self.object)
         )
         return response
 
@@ -1051,7 +1042,9 @@ class GuardianVerifyView(generic.UpdateView):
     def get_success_url(self):
         messages.success(
             self.request,
-            _('You have verified your guardian key for') + f'{self.object.contest}',
+            _('You have verified your guardian key for %(obj)s',
+                obj=self.object.contest
+            )
         )
         return self.object.contest.get_absolute_url()
 
@@ -1085,7 +1078,9 @@ class GuardianUploadView(generic.UpdateView):
     def get_success_url(self):
         messages.success(
             self.request,
-            _('You have uploaded your guardian key for') + f'{self.object.contest}',
+            _('You have uploaded your guardian key for %(obj)s',
+                obj=self.object.contest
+            )
         )
         return self.object.contest.get_absolute_url()
 
@@ -1187,6 +1182,7 @@ class VotersEmailsField(forms.CharField):
 class VotersEmailsForm(forms.ModelForm):
     submit_label = _('Update voters')
     voters_emails = VotersEmailsField(
+        label=_('Voters emails'),
         help_text=_('The list of allowed voters with one email per line'),
         required=False,
         widget=forms.Textarea(attrs=dict(cols=50, rows=20))
@@ -1260,7 +1256,7 @@ class ContestVotersUpdateView(ContestMediator, generic.UpdateView):
     def get_success_url(self):
         messages.success(
             self.request,
-            _('You have updated voters for contest') + f'{self.object}',
+            _('You have updated voters for contest %(obj)s', obj=self.object)
         )
         return self.object.get_absolute_url()
 

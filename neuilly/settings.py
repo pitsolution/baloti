@@ -2,22 +2,23 @@ from django.utils.translation import gettext_lazy as _
 
 from electeez_common.settings import *
 
-SITE_ID = 1
-SITE_NAME = 'electis'
+SITE_ID = 2
+SITE_NAME = 'neuilly'
 
-INSTALLED_APPS += ['electeez']
-
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'fr'
 
 LANGUAGES = (
     ('fr', _('French')),
-    ('en', _('English'))
+    ('en', _('English')),
 )
+
+INSTALLED_APPS += ['neuilly']
+
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'public'
 STATICFILES_DIRS = [
-    BASE_DIR / 'electeez' / 'static',
+    BASE_DIR / 'neuilly' / 'static',
     BASE_DIR / 'static',
 ]
 
@@ -28,7 +29,7 @@ if DEBUG:
 DATABASES = {
     'default': {
         'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.postgresql'),
-        'NAME': os.getenv('DB_NAME', 'electeez'),
+        'NAME': os.getenv('DB_NAME', 'neuilly'),
         'PASSWORD': os.getenv('DB_PASS', None),
         'HOST': os.getenv('DB_HOST', None),
         'USER': os.getenv('DB_USER', None),

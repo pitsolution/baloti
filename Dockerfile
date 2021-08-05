@@ -21,8 +21,8 @@ CMD /usr/bin/bash -euxc "until djcli dbcheck; do sleep 1; done \
   && ./manage.py compilescss \
   && ./manage.py collectstatic --noinput \
   && ./manage.py migrate --noinput \
-  && ./manage.py loaddata electeez_sites/sites_data.json \
-  && ./manage.py djlang_load \
+  && ./manage.py loaddata ${DJANGO_APP}/site_data.json \
+  && ./manage.py loaddata ${DJANGO_APP}/lang_data.json \
   && find public -type f | xargs gzip -f -k -9 \
   && uwsgi \
   --http-socket=0.0.0.0:8000 \

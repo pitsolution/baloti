@@ -255,7 +255,7 @@ class Contest(models.Model):
 
     @property
     def publish_state(self):
-        if self.artifacts_sha1:
+        if self.artifacts_ipfs:
             return self.PublishStates.ELECTION_PUBLISHED
         elif self.plaintext_tally:
             return self.PublishStates.ELECTION_DECRYPTED

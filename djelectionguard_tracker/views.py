@@ -8,11 +8,13 @@ from django import http, forms
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.urls import path, reverse
-from django.utils.translation import gettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.views import generic
+
 from djelectionguard.components import *
 from djelectionguard.models import Contest, Voter
+
+from djlang.utils import gettext as _
 
 
 class TrackerFormView(generic.FormView):
@@ -160,7 +162,7 @@ class TrackerListCard(Div):
             table.tbody.addchild(
                 MDCDataTableTr(
                     MDCDataTableTd(
-                        _('Contest %(name)s') % {'name': voter.contest.name}
+                        _('Contest %(name)s', name=voter.contest.name)
                     ),
                     MDCDataTableTd(
                         CheckedIcon() if voter.casted else '--'

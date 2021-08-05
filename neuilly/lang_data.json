@@ -1,0 +1,5742 @@
+[
+{
+  "model": "djlang.language",
+  "pk": 29,
+  "fields": {
+    "iso": "fr",
+    "name": "Français",
+    "active": true,
+    "site": 2
+  }
+},
+{
+  "model": "djlang.language",
+  "pk": 30,
+  "fields": {
+    "iso": "en",
+    "name": "English",
+    "active": true,
+    "site": 2
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3202,
+  "fields": {
+    "language": 29,
+    "key": "French",
+    "val": "Français",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3203,
+  "fields": {
+    "language": 30,
+    "key": "French",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3204,
+  "fields": {
+    "language": 29,
+    "key": "English",
+    "val": "Anglais",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3205,
+  "fields": {
+    "language": 30,
+    "key": "English",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3206,
+  "fields": {
+    "language": 29,
+    "key": "log out",
+    "val": "Déconnexion",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3207,
+  "fields": {
+    "language": 30,
+    "key": "log out",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3208,
+  "fields": {
+    "language": 29,
+    "key": "sign up",
+    "val": "Inscription",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3209,
+  "fields": {
+    "language": 30,
+    "key": "sign up",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3210,
+  "fields": {
+    "language": 29,
+    "key": "log in",
+    "val": "Connexion",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3211,
+  "fields": {
+    "language": 30,
+    "key": "log in",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3212,
+  "fields": {
+    "language": 29,
+    "key": "Hello",
+    "val": "Bonjour",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3213,
+  "fields": {
+    "language": 30,
+    "key": "Hello",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3214,
+  "fields": {
+    "language": 29,
+    "key": "Made by",
+    "val": "Fait par",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3215,
+  "fields": {
+    "language": 30,
+    "key": "Made by",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3216,
+  "fields": {
+    "language": 29,
+    "key": "Secure elections with homomorphic encryption",
+    "val": "Élection sécurisée avec un cryptage homomorphe",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3217,
+  "fields": {
+    "language": 30,
+    "key": "Secure elections with homomorphic encryption",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3218,
+  "fields": {
+    "language": 29,
+    "key": "email address",
+    "val": "Adresse email",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3219,
+  "fields": {
+    "language": 30,
+    "key": "email address",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3220,
+  "fields": {
+    "language": 29,
+    "key": "Send magic link",
+    "val": "Envoyer un lien de connexion",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3221,
+  "fields": {
+    "language": 30,
+    "key": "Send magic link",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3222,
+  "fields": {
+    "language": 29,
+    "key": "Could not find registration with email: %(email)s",
+    "val": "Email introuvable: %(email)s",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3223,
+  "fields": {
+    "language": 30,
+    "key": "Could not find registration with email: %(email)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3224,
+  "fields": {
+    "language": 29,
+    "key": "Your magic link",
+    "val": "Votre lien de connexion",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3225,
+  "fields": {
+    "language": 30,
+    "key": "Your magic link",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3226,
+  "fields": {
+    "language": 29,
+    "key": "Link sent by email",
+    "val": "Lien envoyé par email",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3227,
+  "fields": {
+    "language": 30,
+    "key": "Link sent by email",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3228,
+  "fields": {
+    "language": 29,
+    "key": "Invalid magic link.",
+    "val": "Lien de connexion invalide",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3229,
+  "fields": {
+    "language": 30,
+    "key": "Invalid magic link.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3230,
+  "fields": {
+    "language": 29,
+    "key": "Magic link already used.",
+    "val": "Lien de connexion déjà utilisé.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3231,
+  "fields": {
+    "language": 30,
+    "key": "Magic link already used.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3232,
+  "fields": {
+    "language": 29,
+    "key": "Expired magic link.",
+    "val": "Lien connexion expiré.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3233,
+  "fields": {
+    "language": 30,
+    "key": "Expired magic link.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3234,
+  "fields": {
+    "language": 29,
+    "key": "You have been authenticated.",
+    "val": "Vous êtes maintenant connecté.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3235,
+  "fields": {
+    "language": 30,
+    "key": "You have been authenticated.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3236,
+  "fields": {
+    "language": 29,
+    "key": "Repeat password",
+    "val": "Répétez votre mot de passe",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3237,
+  "fields": {
+    "language": 30,
+    "key": "Repeat password",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3238,
+  "fields": {
+    "language": 29,
+    "key": "Looks like you need to register",
+    "val": "Vous devez être inscris",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3239,
+  "fields": {
+    "language": 30,
+    "key": "Looks like you need to register",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3240,
+  "fields": {
+    "language": 29,
+    "key": "Your password needs to follow these criteria:",
+    "val": "Votre mot de passe doit respecter ces critères:",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3241,
+  "fields": {
+    "language": 30,
+    "key": "Your password needs to follow these criteria:",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3242,
+  "fields": {
+    "language": 29,
+    "key": "Contains at least 8 characters",
+    "val": "Contenir au moins 8 caractère",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3243,
+  "fields": {
+    "language": 30,
+    "key": "Contains at least 8 characters",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3244,
+  "fields": {
+    "language": 29,
+    "key": "Not too similar to your other personal information",
+    "val": "Ne doit pas être similaire à une de vos informations personnelle",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3245,
+  "fields": {
+    "language": 30,
+    "key": "Not too similar to your other personal information",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3246,
+  "fields": {
+    "language": 29,
+    "key": "Not entirely numeric",
+    "val": "Ne doit pas contenir uniquement des chiffres",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3247,
+  "fields": {
+    "language": 30,
+    "key": "Not entirely numeric",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3248,
+  "fields": {
+    "language": 29,
+    "key": "Not a commonly used password",
+    "val": "Ne doit pas être un mot de passe déjà utilisé",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3249,
+  "fields": {
+    "language": 30,
+    "key": "Not a commonly used password",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3250,
+  "fields": {
+    "language": 29,
+    "key": "Register",
+    "val": "Inscription",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3251,
+  "fields": {
+    "language": 30,
+    "key": "Register",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3252,
+  "fields": {
+    "language": 29,
+    "key": "my elections",
+    "val": "mes élections",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3253,
+  "fields": {
+    "language": 30,
+    "key": "my elections",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3254,
+  "fields": {
+    "language": 29,
+    "key": "Welcome to Electis.app",
+    "val": "Bienvenue sur Neuilly vote",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3255,
+  "fields": {
+    "language": 30,
+    "key": "Welcome to Electis.app",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3256,
+  "fields": {
+    "language": 29,
+    "key": "Enter email and password:",
+    "val": "Entrez votre email et votre mot de passe:",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3257,
+  "fields": {
+    "language": 30,
+    "key": "Enter email and password:",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3258,
+  "fields": {
+    "language": 29,
+    "key": "forgot password",
+    "val": "Mot de passe oublié",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3259,
+  "fields": {
+    "language": 30,
+    "key": "forgot password",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3260,
+  "fields": {
+    "language": 29,
+    "key": "Continue",
+    "val": "Continuer",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3261,
+  "fields": {
+    "language": 30,
+    "key": "Continue",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3262,
+  "fields": {
+    "language": 29,
+    "key": "You have been logged out",
+    "val": "Vous avez été déconnecté",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3263,
+  "fields": {
+    "language": 30,
+    "key": "You have been logged out",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3264,
+  "fields": {
+    "language": 29,
+    "key": "Thank you for spending time on our site today.",
+    "val": "Merci d'avoir passé du temps sur notre site.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3265,
+  "fields": {
+    "language": 30,
+    "key": "Thank you for spending time on our site today.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3266,
+  "fields": {
+    "language": 29,
+    "key": "Login again",
+    "val": "Se reconnecter",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3267,
+  "fields": {
+    "language": 30,
+    "key": "Login again",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3268,
+  "fields": {
+    "language": 29,
+    "key": "Reset your password",
+    "val": "Redéfinir un mot de passe",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3269,
+  "fields": {
+    "language": 30,
+    "key": "Reset your password",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3270,
+  "fields": {
+    "language": 29,
+    "key": "Reset password",
+    "val": "Redéfinir un mot de passe",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3271,
+  "fields": {
+    "language": 30,
+    "key": "Reset password",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3272,
+  "fields": {
+    "language": 29,
+    "key": "confirm",
+    "val": "confirmer",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3273,
+  "fields": {
+    "language": 30,
+    "key": "confirm",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3274,
+  "fields": {
+    "language": 29,
+    "key": "Your password have been reset",
+    "val": "Votre mot de passe à bien été reinitialisé",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3275,
+  "fields": {
+    "language": 30,
+    "key": "Your password have been reset",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3276,
+  "fields": {
+    "language": 29,
+    "key": "You may go ahead and",
+    "val": "Vous pouvez continuer et",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3277,
+  "fields": {
+    "language": 30,
+    "key": "You may go ahead and",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3278,
+  "fields": {
+    "language": 29,
+    "key": "login",
+    "val": "connexion",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3279,
+  "fields": {
+    "language": 30,
+    "key": "login",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3280,
+  "fields": {
+    "language": 29,
+    "key": "now",
+    "val": "maintenant",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3281,
+  "fields": {
+    "language": 30,
+    "key": "now",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3282,
+  "fields": {
+    "language": 29,
+    "key": "A link has been sent to your email address",
+    "val": "Un lien à été envoyé à votre adresse email",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3283,
+  "fields": {
+    "language": 30,
+    "key": "A link has been sent to your email address",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3284,
+  "fields": {
+    "language": 29,
+    "key": "Go to login page",
+    "val": "Aller à la page de connexion",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3285,
+  "fields": {
+    "language": 30,
+    "key": "Go to login page",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3286,
+  "fields": {
+    "language": 29,
+    "key": "Check your emails to finish !",
+    "val": "Vérifiez vos emails pour terminer !",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3287,
+  "fields": {
+    "language": 30,
+    "key": "Check your emails to finish !",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3288,
+  "fields": {
+    "language": 29,
+    "key": "Then, come back and login to participate to your election.",
+    "val": "Ensuite, revenez et connectez vous afin de participer à votrre élection.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3289,
+  "fields": {
+    "language": 30,
+    "key": "Then, come back and login to participate to your election.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3290,
+  "fields": {
+    "language": 29,
+    "key": "Your account has been activated !",
+    "val": "Votre compte à bien été activé !",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3291,
+  "fields": {
+    "language": 30,
+    "key": "Your account has been activated !",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3292,
+  "fields": {
+    "language": 29,
+    "key": "You may now",
+    "val": "Vous pouvez maintenant",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3293,
+  "fields": {
+    "language": 30,
+    "key": "You may now",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3294,
+  "fields": {
+    "language": 29,
+    "key": "and particiapte to an election",
+    "val": "Créer une élection",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3295,
+  "fields": {
+    "language": 30,
+    "key": "and particiapte to an election",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3296,
+  "fields": {
+    "language": 29,
+    "key": "Account activation failure",
+    "val": "Votre compte n'a pas pu être activé",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3297,
+  "fields": {
+    "language": 30,
+    "key": "Account activation failure",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3298,
+  "fields": {
+    "language": 29,
+    "key": "Most likely your account has already been activated.",
+    "val": "Votre compte est déjà activé.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3299,
+  "fields": {
+    "language": 30,
+    "key": "Most likely your account has already been activated.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3300,
+  "fields": {
+    "language": 29,
+    "key": "Proceed to automatic authentification",
+    "val": "Connexion réussie",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3301,
+  "fields": {
+    "language": 30,
+    "key": "Proceed to automatic authentification",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3302,
+  "fields": {
+    "language": 29,
+    "key": "Click here to continue",
+    "val": "Cliquez ici pour continuer",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3303,
+  "fields": {
+    "language": 30,
+    "key": "Click here to continue",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3304,
+  "fields": {
+    "language": 29,
+    "key": "Receive a magic link by email",
+    "val": "Recevoir un lien de connexion par email",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3305,
+  "fields": {
+    "language": 30,
+    "key": "Receive a magic link by email",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3306,
+  "fields": {
+    "language": 29,
+    "key": "To proceed to your",
+    "val": "Pour procéder à votre",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3307,
+  "fields": {
+    "language": 30,
+    "key": "To proceed to your",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3308,
+  "fields": {
+    "language": 29,
+    "key": "secure link",
+    "val": "Sécuriser l'élection",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3309,
+  "fields": {
+    "language": 30,
+    "key": "secure link",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3310,
+  "fields": {
+    "language": 29,
+    "key": "Email sent with success",
+    "val": "Email envoyé avec succès",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3311,
+  "fields": {
+    "language": 30,
+    "key": "Email sent with success",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3312,
+  "fields": {
+    "language": 29,
+    "key": "Must be above 0, you have choosen:",
+    "val": "Doit être superieur à 0, vous avez choisis:",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3313,
+  "fields": {
+    "language": 30,
+    "key": "Must be above 0, you have choosen:",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3314,
+  "fields": {
+    "language": 29,
+    "key": "FORM_ABOUT_ELECTION_CREATE",
+    "val": "Description de l'élection",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3315,
+  "fields": {
+    "language": 30,
+    "key": "FORM_ABOUT_ELECTION_CREATE",
+    "val": "Description of election",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3316,
+  "fields": {
+    "language": 29,
+    "key": "FORM_VOTES_ALLOWED_ELECTION_CREATE",
+    "val": "Nombres de votes autorisés",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3317,
+  "fields": {
+    "language": 30,
+    "key": "FORM_VOTES_ALLOWED_ELECTION_CREATE",
+    "val": "Votes allowed",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3318,
+  "fields": {
+    "language": 29,
+    "key": "The maximum number of choice a voter can make for this election",
+    "val": "Le nombre de choix maximum qu'un votant peut faire lors de cette election",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3319,
+  "fields": {
+    "language": 30,
+    "key": "The maximum number of choice a voter can make for this election",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3320,
+  "fields": {
+    "language": 29,
+    "key": "FORM_TITLE_ELECTION_CREATE",
+    "val": "Nom de l'élection",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3321,
+  "fields": {
+    "language": 30,
+    "key": "FORM_TITLE_ELECTION_CREATE",
+    "val": "Name of election",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3322,
+  "fields": {
+    "language": 29,
+    "key": "FORM_START_ELECTION_CREATE",
+    "val": "Début de l'élection",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3323,
+  "fields": {
+    "language": 30,
+    "key": "FORM_START_ELECTION_CREATE",
+    "val": "Start at",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3324,
+  "fields": {
+    "language": 29,
+    "key": "FORM_END_ELECTION_CREATE",
+    "val": "Fin de l'élection",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3325,
+  "fields": {
+    "language": 30,
+    "key": "FORM_END_ELECTION_CREATE",
+    "val": "End at",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3326,
+  "fields": {
+    "language": 29,
+    "key": "FORM_TIMEZONE_ELECTION_CREATE",
+    "val": "Fuseau horaire de l'élection",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3327,
+  "fields": {
+    "language": 30,
+    "key": "FORM_TIMEZONE_ELECTION_CREATE",
+    "val": "Timezone of election",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3328,
+  "fields": {
+    "language": 29,
+    "key": "Edit election",
+    "val": "Éditer l'élection",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3329,
+  "fields": {
+    "language": 30,
+    "key": "Edit election",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3330,
+  "fields": {
+    "language": 29,
+    "key": "Create an election",
+    "val": "Créer une élection",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3331,
+  "fields": {
+    "language": 30,
+    "key": "Create an election",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3332,
+  "fields": {
+    "language": 29,
+    "key": "Voting settings:",
+    "val": "Paramètres de vote",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3333,
+  "fields": {
+    "language": 30,
+    "key": "Voting settings:",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3334,
+  "fields": {
+    "language": 29,
+    "key": "Election starts:",
+    "val": "Début d'élection:",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3335,
+  "fields": {
+    "language": 30,
+    "key": "Election starts:",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3336,
+  "fields": {
+    "language": 29,
+    "key": "Election ends:",
+    "val": "Fin de l'élection",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3337,
+  "fields": {
+    "language": 30,
+    "key": "Election ends:",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3338,
+  "fields": {
+    "language": 29,
+    "key": "update election",
+    "val": "mettre à jour l'élection",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3339,
+  "fields": {
+    "language": 30,
+    "key": "update election",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3340,
+  "fields": {
+    "language": 29,
+    "key": "create election",
+    "val": "Créer l'élection",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3341,
+  "fields": {
+    "language": 30,
+    "key": "create election",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3342,
+  "fields": {
+    "language": 29,
+    "key": "back",
+    "val": "retour",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3343,
+  "fields": {
+    "language": 30,
+    "key": "back",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3344,
+  "fields": {
+    "language": 29,
+    "key": "all",
+    "val": "Tout",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3345,
+  "fields": {
+    "language": 30,
+    "key": "all",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3346,
+  "fields": {
+    "language": 29,
+    "key": "created by me",
+    "val": "Mes élections créés",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3347,
+  "fields": {
+    "language": 30,
+    "key": "created by me",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3348,
+  "fields": {
+    "language": 29,
+    "key": "shared with me",
+    "val": "Partagées avec moi",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3349,
+  "fields": {
+    "language": 30,
+    "key": "shared with me",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3350,
+  "fields": {
+    "language": 29,
+    "key": "voting ongoing",
+    "val": "élection ouverte",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3351,
+  "fields": {
+    "language": 30,
+    "key": "voting ongoing",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3352,
+  "fields": {
+    "language": 29,
+    "key": "voting closed",
+    "val": "élection cloturée",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3353,
+  "fields": {
+    "language": 30,
+    "key": "voting closed",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3354,
+  "fields": {
+    "language": 29,
+    "key": "result available",
+    "val": "Résultats disponibles",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3355,
+  "fields": {
+    "language": 30,
+    "key": "result available",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3356,
+  "fields": {
+    "language": 29,
+    "key": ", voted",
+    "val": ", a voté",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3357,
+  "fields": {
+    "language": 30,
+    "key": ", voted",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3358,
+  "fields": {
+    "language": 29,
+    "key": "Create new election",
+    "val": "Créer une nouvelle élection",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3359,
+  "fields": {
+    "language": 30,
+    "key": "Create new election",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3360,
+  "fields": {
+    "language": 29,
+    "key": "Elections",
+    "val": "Élections",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3361,
+  "fields": {
+    "language": 30,
+    "key": "Elections",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3362,
+  "fields": {
+    "language": 29,
+    "key": "There are no elections yet",
+    "val": "Il n'y a pas encore d'élection",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3363,
+  "fields": {
+    "language": 30,
+    "key": "There are no elections yet",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3364,
+  "fields": {
+    "language": 29,
+    "key": "edit",
+    "val": "éditer",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3365,
+  "fields": {
+    "language": 30,
+    "key": "edit",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3366,
+  "fields": {
+    "language": 29,
+    "key": "Basic settings",
+    "val": "Paramètres",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3367,
+  "fields": {
+    "language": 30,
+    "key": "Basic settings",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3368,
+  "fields": {
+    "language": 29,
+    "key": "Name, votes allowed, time and date, etc.",
+    "val": "Nom, votes autorisés, horaires et date, etc...",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3369,
+  "fields": {
+    "language": 30,
+    "key": "Name, votes allowed, time and date, etc.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3370,
+  "fields": {
+    "language": 29,
+    "key": "add",
+    "val": "Ajouter",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3371,
+  "fields": {
+    "language": 30,
+    "key": "add",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3372,
+  "fields": {
+    "language": 29,
+    "key": "Add candidates",
+    "val": "Ajouter un candidat",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3373,
+  "fields": {
+    "language": 30,
+    "key": "Add candidates",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3374,
+  "fields": {
+    "language": 29,
+    "key": "%(num_voters)d voters",
+    "val": "%(num_voters)s inscrit",
+    "nval": "%(num_voters)s inscrits"
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3375,
+  "fields": {
+    "language": 30,
+    "key": "%(num_voters)d voters",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3376,
+  "fields": {
+    "language": 29,
+    "key": "Add voters",
+    "val": "Ajouter des inscrits",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3377,
+  "fields": {
+    "language": 30,
+    "key": "Add voters",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3378,
+  "fields": {
+    "language": 29,
+    "key": "All guardians must possess a private key so that the ballot box is secure and the election can be opened for voting.",
+    "val": "Tous les gardiens doivent posséder une clé privée afin que l'urne soit sécurisée et l'élection peut ensuite être ouverte aux votes",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3379,
+  "fields": {
+    "language": 30,
+    "key": "All guardians must possess a private key so that the ballot box is secure and the election can be opened for voting.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3380,
+  "fields": {
+    "language": 29,
+    "key": "Download my private key",
+    "val": "Télécharger ma clé privée",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3381,
+  "fields": {
+    "language": 30,
+    "key": "Download my private key",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3382,
+  "fields": {
+    "language": 29,
+    "key": "Confirm possession of an uncompromised private key",
+    "val": "Confirmer la possession d'une clé privée non compromise",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3383,
+  "fields": {
+    "language": 30,
+    "key": "Confirm possession of an uncompromised private key",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3384,
+  "fields": {
+    "language": 29,
+    "key": "All guardians confirm possession of uncompromised private keys",
+    "val": "Tous les gardiens confirment qu'ils sont en possession d'une clé privée non compromise",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3385,
+  "fields": {
+    "language": 30,
+    "key": "All guardians confirm possession of uncompromised private keys",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3386,
+  "fields": {
+    "language": 29,
+    "key": "Lock the ballot box / erase private keys from server memory",
+    "val": "Verouiller l'urne / effacer les clés privées de la mémoire du serveur",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3387,
+  "fields": {
+    "language": 30,
+    "key": "Lock the ballot box / erase private keys from server memory",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3388,
+  "fields": {
+    "language": 29,
+    "key": "Open the election for voting",
+    "val": "Ouverture de l'élection",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3389,
+  "fields": {
+    "language": 30,
+    "key": "Open the election for voting",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3390,
+  "fields": {
+    "language": 29,
+    "key": "Guardians must NOT loose their PRIVATE keys and they must keep them SECRET.",
+    "val": "Les gardiens doivent garder leur clé privée et la garder secrète.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3391,
+  "fields": {
+    "language": 30,
+    "key": "Guardians must NOT loose their PRIVATE keys and they must keep them SECRET.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3392,
+  "fields": {
+    "language": 29,
+    "key": "download private key",
+    "val": "Télécharger la clé privée",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3393,
+  "fields": {
+    "language": 30,
+    "key": "download private key",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3394,
+  "fields": {
+    "language": 29,
+    "key": "confirm key integrity",
+    "val": "Confirmer l'intégrité de la clé",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3395,
+  "fields": {
+    "language": 30,
+    "key": "confirm key integrity",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3396,
+  "fields": {
+    "language": 29,
+    "key": "Lock the ballot box",
+    "val": "Verrouiller l'urne",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3397,
+  "fields": {
+    "language": 30,
+    "key": "Lock the ballot box",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3398,
+  "fields": {
+    "language": 29,
+    "key": "Open for voting",
+    "val": "Ouvrir au vote",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3399,
+  "fields": {
+    "language": 30,
+    "key": "Open for voting",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3400,
+  "fields": {
+    "language": 29,
+    "key": "Secure the election",
+    "val": "Sécuriser l'élection",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3401,
+  "fields": {
+    "language": 30,
+    "key": "Secure the election",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3402,
+  "fields": {
+    "language": 29,
+    "key": "Ballot box securely locked. Election can be open for voting.",
+    "val": "L'urne est verrouilée et sécurisée. L'élection peut être ouverte aux votes.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3403,
+  "fields": {
+    "language": 30,
+    "key": "Ballot box securely locked. Election can be open for voting.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3404,
+  "fields": {
+    "language": 29,
+    "key": "Track my vote",
+    "val": "Vérifier mon vote",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3405,
+  "fields": {
+    "language": 30,
+    "key": "Track my vote",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3406,
+  "fields": {
+    "language": 29,
+    "key": "vote",
+    "val": "Voter",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3407,
+  "fields": {
+    "language": 30,
+    "key": "vote",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3408,
+  "fields": {
+    "language": 29,
+    "key": "Cast my vote",
+    "val": "Envoyer mon vote",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3409,
+  "fields": {
+    "language": 30,
+    "key": "Cast my vote",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3410,
+  "fields": {
+    "language": 29,
+    "key": "Voted",
+    "val": "A Voté",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3411,
+  "fields": {
+    "language": 30,
+    "key": "Voted",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3412,
+  "fields": {
+    "language": 29,
+    "key": "Choose the blockchain you want to deploy your election smart contract to",
+    "val": "Choisissez la blockchain sur laquelle vous voulez déployer le contrat de cette élection",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3413,
+  "fields": {
+    "language": 30,
+    "key": "Choose the blockchain you want to deploy your election smart contract to",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3414,
+  "fields": {
+    "language": 29,
+    "key": "Add the election smart contract",
+    "val": "Créer le contrat de l'élection",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3415,
+  "fields": {
+    "language": 30,
+    "key": "Add the election smart contract",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3416,
+  "fields": {
+    "language": 29,
+    "key": "close",
+    "val": "Fermer",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3417,
+  "fields": {
+    "language": 30,
+    "key": "close",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3418,
+  "fields": {
+    "language": 29,
+    "key": "Voting closed",
+    "val": "Élection cloturée",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3419,
+  "fields": {
+    "language": 30,
+    "key": "Voting closed",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3420,
+  "fields": {
+    "language": 29,
+    "key": "The voting process is currently ongoing",
+    "val": "Les votes sont actuellement en cours",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3421,
+  "fields": {
+    "language": 30,
+    "key": "The voting process is currently ongoing",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3422,
+  "fields": {
+    "language": 29,
+    "key": "Upload my private key",
+    "val": "Envoyer ma clé privée",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3423,
+  "fields": {
+    "language": 30,
+    "key": "Upload my private key",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3424,
+  "fields": {
+    "language": 29,
+    "key": "upload my private key",
+    "val": "Envoyer ma clé privée",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3425,
+  "fields": {
+    "language": 30,
+    "key": "upload my private key",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3426,
+  "fields": {
+    "language": 29,
+    "key": "Unlock the ballot box with encrypted ballots and reveal the results",
+    "val": "Déverouiller l'urne cryptée et révéler les résultats",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3427,
+  "fields": {
+    "language": 30,
+    "key": "Unlock the ballot box with encrypted ballots and reveal the results",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3428,
+  "fields": {
+    "language": 29,
+    "key": "All guardians need to upload their private keys so that the ballot box can be opened to reveal the results.",
+    "val": "Tous les gardiens doivent télécharger leurs clés privées pour que l'urne puisse être ouverte et révéler les résultats",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3429,
+  "fields": {
+    "language": 30,
+    "key": "All guardians need to upload their private keys so that the ballot box can be opened to reveal the results.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3430,
+  "fields": {
+    "language": 29,
+    "key": "When the election is over the guardians use their keys to open the ballot box and count the results.",
+    "val": "Lorsque l'élection est terminée, les gardiens utilisent leurs clés pour ouvrir l'urne et compter les résultats",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3431,
+  "fields": {
+    "language": 30,
+    "key": "When the election is over the guardians use their keys to open the ballot box and count the results.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3432,
+  "fields": {
+    "language": 29,
+    "key": "Unlocking the ballot box and revealing the results",
+    "val": "Déverouiller l'urne et révéler les résultats",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3433,
+  "fields": {
+    "language": 30,
+    "key": "Unlocking the ballot box and revealing the results",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3434,
+  "fields": {
+    "language": 29,
+    "key": "reveal results",
+    "val": "révéler les résultats",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3435,
+  "fields": {
+    "language": 30,
+    "key": "reveal results",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3436,
+  "fields": {
+    "language": 29,
+    "key": "Once the ballots are counted you will be notified by email",
+    "val": "Une fois les bulletins comptés, vous serez notifié par email",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3437,
+  "fields": {
+    "language": 30,
+    "key": "Once the ballots are counted you will be notified by email",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3438,
+  "fields": {
+    "language": 29,
+    "key": "Congratulations! You have been the mediator of a secure election.",
+    "val": "Félicitations! Vous avez été le médiateur d'une élection sécurisée.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3439,
+  "fields": {
+    "language": 30,
+    "key": "Congratulations! You have been the mediator of a secure election.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3440,
+  "fields": {
+    "language": 29,
+    "key": "view result table",
+    "val": "voir le tableau des résultats",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3441,
+  "fields": {
+    "language": 30,
+    "key": "view result table",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3442,
+  "fields": {
+    "language": 29,
+    "key": "Results available",
+    "val": "Résultats disponibles",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3443,
+  "fields": {
+    "language": 30,
+    "key": "Results available",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3444,
+  "fields": {
+    "language": 29,
+    "key": "Secured and decentralised with Tezos",
+    "val": "Sécurisé et décentralisé avec Tezos",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3445,
+  "fields": {
+    "language": 30,
+    "key": "Secured and decentralised with Tezos",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3446,
+  "fields": {
+    "language": 29,
+    "key": "Your election data and results will be published on Tezos’",
+    "val": "Les données de votre élection et leurs résultats seront publiés sur la blockchain",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3447,
+  "fields": {
+    "language": 30,
+    "key": "Your election data and results will be published on Tezos’",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3448,
+  "fields": {
+    "language": 29,
+    "key": "blockchain.",
+    "val": "de Tezos.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3449,
+  "fields": {
+    "language": 30,
+    "key": "blockchain.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3450,
+  "fields": {
+    "language": 29,
+    "key": "Election contract created",
+    "val": "Contrat d'élection créé",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3451,
+  "fields": {
+    "language": 30,
+    "key": "Election contract created",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3452,
+  "fields": {
+    "language": 29,
+    "key": "Election opened",
+    "val": "Élection ouverte",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3453,
+  "fields": {
+    "language": 30,
+    "key": "Election opened",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3454,
+  "fields": {
+    "language": 29,
+    "key": "Election closed",
+    "val": "Élection cloturée",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3455,
+  "fields": {
+    "language": 30,
+    "key": "Election closed",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3456,
+  "fields": {
+    "language": 29,
+    "key": "Election Results available",
+    "val": "Les résultats de l'élection sont disponibles",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3457,
+  "fields": {
+    "language": 30,
+    "key": "Election Results available",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3458,
+  "fields": {
+    "language": 29,
+    "key": "Election contract updated",
+    "val": "Contrat d'élection mis à jour",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3459,
+  "fields": {
+    "language": 30,
+    "key": "Election contract updated",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3460,
+  "fields": {
+    "language": 29,
+    "key": "Download",
+    "val": "Télécharger",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3461,
+  "fields": {
+    "language": 30,
+    "key": "Download",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3462,
+  "fields": {
+    "language": 29,
+    "key": "Upload",
+    "val": "Télécharger",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3463,
+  "fields": {
+    "language": 30,
+    "key": "Upload",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3464,
+  "fields": {
+    "language": 29,
+    "key": "email",
+    "val": "email",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3465,
+  "fields": {
+    "language": 30,
+    "key": "email",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3466,
+  "fields": {
+    "language": 29,
+    "key": "key downloaded",
+    "val": "Télécharger",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3467,
+  "fields": {
+    "language": 30,
+    "key": "key downloaded",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3468,
+  "fields": {
+    "language": 29,
+    "key": "key verified",
+    "val": "Clé vérifiée",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3469,
+  "fields": {
+    "language": 30,
+    "key": "key verified",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3470,
+  "fields": {
+    "language": 29,
+    "key": "Guardians",
+    "val": "Gardiens",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3471,
+  "fields": {
+    "language": 30,
+    "key": "Guardians",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3472,
+  "fields": {
+    "language": 29,
+    "key": "view all/edit",
+    "val": "Voir tout/éditer",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3473,
+  "fields": {
+    "language": 30,
+    "key": "view all/edit",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3474,
+  "fields": {
+    "language": 29,
+    "key": "view all",
+    "val": "Voir tout",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3475,
+  "fields": {
+    "language": 30,
+    "key": "view all",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3476,
+  "fields": {
+    "language": 29,
+    "key": "Candidates",
+    "val": "Candidats",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3477,
+  "fields": {
+    "language": 30,
+    "key": "Candidates",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3478,
+  "fields": {
+    "language": 29,
+    "key": "Voters",
+    "val": "Inscrits",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3479,
+  "fields": {
+    "language": 30,
+    "key": "Voters",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3480,
+  "fields": {
+    "language": 29,
+    "key": "%(voters)s voters added",
+    "val": "%(voters)s inscrit ajouté",
+    "nval": "%(voters)s inscrits ajoutés"
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3481,
+  "fields": {
+    "language": 30,
+    "key": "%(voters)s voters added",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3482,
+  "fields": {
+    "language": 29,
+    "key": "No candidate yet.",
+    "val": "Pas encore de candidats.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3483,
+  "fields": {
+    "language": 30,
+    "key": "No candidate yet.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3484,
+  "fields": {
+    "language": 29,
+    "key": "No voter yet.",
+    "val": "Il n'y a pas encore d'inscrit",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3485,
+  "fields": {
+    "language": 30,
+    "key": "No voter yet.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3486,
+  "fields": {
+    "language": 29,
+    "key": "Copy link",
+    "val": "Copier le lien",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3487,
+  "fields": {
+    "language": 30,
+    "key": "Copy link",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3488,
+  "fields": {
+    "language": 29,
+    "key": "edit voters",
+    "val": "Modifier les inscrits",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3489,
+  "fields": {
+    "language": 30,
+    "key": "edit voters",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3490,
+  "fields": {
+    "language": 29,
+    "key": "invite new voters",
+    "val": "Inviter les nouveaux inscrits",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3491,
+  "fields": {
+    "language": 30,
+    "key": "invite new voters",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3492,
+  "fields": {
+    "language": 29,
+    "key": "%(count)s Voters",
+    "val": "%(count)s inscrit",
+    "nval": "%(count)s inscrits"
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3493,
+  "fields": {
+    "language": 30,
+    "key": "%(count)s Voters",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3494,
+  "fields": {
+    "language": 29,
+    "key": "Add candidate",
+    "val": "Ajouter un candidat",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3495,
+  "fields": {
+    "language": 30,
+    "key": "Add candidate",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3496,
+  "fields": {
+    "language": 29,
+    "key": "%(count)s Candidates",
+    "val": "%(count)s candidat",
+    "nval": "%(count)s candidats"
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3497,
+  "fields": {
+    "language": 30,
+    "key": "%(count)s Candidates",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3498,
+  "fields": {
+    "language": 29,
+    "key": "Add a candidate",
+    "val": "Ajouter un candidat",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3499,
+  "fields": {
+    "language": 30,
+    "key": "Add a candidate",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3500,
+  "fields": {
+    "language": 29,
+    "key": "Edit candidate",
+    "val": "Ajouter candidat",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3501,
+  "fields": {
+    "language": 30,
+    "key": "Edit candidate",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3502,
+  "fields": {
+    "language": 29,
+    "key": "The list of allowed voters with one email per line (sparated by Enter/Return ⏎)",
+    "val": "La liste des inscrits autorisés avec un email par ligne ( séparés par Entrée/Retour ⏎)",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3503,
+  "fields": {
+    "language": 30,
+    "key": "The list of allowed voters with one email per line (sparated by Enter/Return ⏎)",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3504,
+  "fields": {
+    "language": 29,
+    "key": "Save",
+    "val": "Sauvegarder",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3505,
+  "fields": {
+    "language": 30,
+    "key": "Save",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3506,
+  "fields": {
+    "language": 29,
+    "key": "You need to upload your private key to confirm that you posses a valid key that hasn’t been temepered with.",
+    "val": "Vous devez télécharger votre clé privée pour confirmer que vous êtes bien possesseur d'une clé valide qui n'a pas été compromise",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3507,
+  "fields": {
+    "language": 30,
+    "key": "You need to upload your private key to confirm that you posses a valid key that hasn’t been temepered with.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3508,
+  "fields": {
+    "language": 29,
+    "key": "Choose file",
+    "val": "Choisissez un fichier",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3509,
+  "fields": {
+    "language": 30,
+    "key": "Choose file",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3511,
+  "fields": {
+    "language": 30,
+    "key": "Your privacy key is a file with",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3512,
+  "fields": {
+    "language": 29,
+    "key": "This will remove all guardians’ private keys from the server memory.",
+    "val": "Cela supprimera toutes les clés privées des gardiens de la mémoire du serveur",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3513,
+  "fields": {
+    "language": 30,
+    "key": "This will remove all guardians’ private keys from the server memory.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3514,
+  "fields": {
+    "language": 29,
+    "key": "When the voting is over the ballot box can only be opened when all guardians upload their private keys.",
+    "val": "A la fermeture du vote, l’urne sera ouverte une fois que tous les gardiens auront partagé leurs clés",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3515,
+  "fields": {
+    "language": 30,
+    "key": "When the voting is over the ballot box can only be opened when all guardians upload their private keys.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3516,
+  "fields": {
+    "language": 29,
+    "key": "This is what makes the governing of the election decentralised.",
+    "val": "C'est ce qui rend la gouvernance de l'élection décentralisée.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3517,
+  "fields": {
+    "language": 30,
+    "key": "This is what makes the governing of the election decentralised.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3518,
+  "fields": {
+    "language": 29,
+    "key": "create",
+    "val": "Verrouiller l'urne",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3519,
+  "fields": {
+    "language": 30,
+    "key": "create",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3520,
+  "fields": {
+    "language": 29,
+    "key": "Send an invite to the newly added voters",
+    "val": "Envoyer une invitation aux derniers inscrits ajoutés",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3521,
+  "fields": {
+    "language": 30,
+    "key": "Send an invite to the newly added voters",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3522,
+  "fields": {
+    "language": 29,
+    "key": "Once you open the election for voting you can’t make changes to it.",
+    "val": "Une fois que l'élection sera ouverte, vous ne pourrez plus y apporter de modifications.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3523,
+  "fields": {
+    "language": 30,
+    "key": "Once you open the election for voting you can’t make changes to it.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3524,
+  "fields": {
+    "language": 29,
+    "key": "Do not alert voters by email",
+    "val": "Ne pas prévenir les inscrits par email",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3525,
+  "fields": {
+    "language": 30,
+    "key": "Do not alert voters by email",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3526,
+  "fields": {
+    "language": 29,
+    "key": "open",
+    "val": "ouvrir",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3527,
+  "fields": {
+    "language": 30,
+    "key": "open",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3528,
+  "fields": {
+    "language": 29,
+    "key": "cancel",
+    "val": "annuler",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3529,
+  "fields": {
+    "language": 30,
+    "key": "cancel",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3530,
+  "fields": {
+    "language": 29,
+    "key": "Confirm your selection",
+    "val": "Confirmer votre vote",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3531,
+  "fields": {
+    "language": 30,
+    "key": "Confirm your selection",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3532,
+  "fields": {
+    "language": 29,
+    "key": "create ballot",
+    "val": "valider mon vote",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3533,
+  "fields": {
+    "language": 30,
+    "key": "create ballot",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3535,
+  "fields": {
+    "language": 30,
+    "key": "",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3536,
+  "fields": {
+    "language": 29,
+    "key": "Tracking informations",
+    "val": "Votre vote a été validé",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3537,
+  "fields": {
+    "language": 30,
+    "key": "Tracking informations",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3538,
+  "fields": {
+    "language": 29,
+    "key": "Election ID",
+    "val": "Identifiant de l'élection",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3539,
+  "fields": {
+    "language": 30,
+    "key": "Election ID",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3540,
+  "fields": {
+    "language": 29,
+    "key": "Ballot ID",
+    "val": "Identifiant du bulletin",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3541,
+  "fields": {
+    "language": 30,
+    "key": "Ballot ID",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3542,
+  "fields": {
+    "language": 29,
+    "key": "Ballot found!",
+    "val": "Bulletin trouvé!",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3543,
+  "fields": {
+    "language": 30,
+    "key": "Ballot found!",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3544,
+  "fields": {
+    "language": 29,
+    "key": "Ballot not found.",
+    "val": "Bulletin introuvable.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3545,
+  "fields": {
+    "language": 30,
+    "key": "Ballot not found.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3546,
+  "fields": {
+    "language": 29,
+    "key": "change",
+    "val": "changer",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3547,
+  "fields": {
+    "language": 30,
+    "key": "change",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3548,
+  "fields": {
+    "language": 29,
+    "key": "encrypt ballot",
+    "val": "crypter le scrutin",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3549,
+  "fields": {
+    "language": 30,
+    "key": "encrypt ballot",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3550,
+  "fields": {
+    "language": 29,
+    "key": "Review your ballot",
+    "val": "Vérifier votre scrutin",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3551,
+  "fields": {
+    "language": 30,
+    "key": "Review your ballot",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3552,
+  "fields": {
+    "language": 29,
+    "key": "This is an ecrypted election. Once your ballot is encrypted, it will always stay that way – no one can see who voted for whom. However, you will be able to check that your vote has been properly counted.  Learn how",
+    "val": "C'est une élection cryptée. Une fois votre scrutin crypté, c'est pour toujours. Cependant, vous pourrez vérifier que votre vote a été correctement compté. Cliquez sur 'crypter le vote' juste en dessous.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3553,
+  "fields": {
+    "language": 30,
+    "key": "This is an ecrypted election. Once your ballot is encrypted, it will always stay that way – no one can see who voted for whom. However, you will be able to check that your vote has been properly counted.  Learn how",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3554,
+  "fields": {
+    "language": 29,
+    "key": "Your selection",
+    "val": "Votre choix",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3555,
+  "fields": {
+    "language": 30,
+    "key": "Your selection",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3556,
+  "fields": {
+    "language": 29,
+    "key": "download ballot file",
+    "val": "Télécharger le fichier de vote",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3557,
+  "fields": {
+    "language": 30,
+    "key": "download ballot file",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3558,
+  "fields": {
+    "language": 29,
+    "key": "confirm my vote",
+    "val": "confirmer mon vote",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3559,
+  "fields": {
+    "language": 30,
+    "key": "confirm my vote",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3560,
+  "fields": {
+    "language": 29,
+    "key": "Encrypted ballot",
+    "val": "Scrutin crypté",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3561,
+  "fields": {
+    "language": 30,
+    "key": "Encrypted ballot",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3562,
+  "fields": {
+    "language": 29,
+    "key": "This is an ecrypted election. Once your ballot is encrypted, it will always stay that way – no one can see who voted for whom. However, you will be able to check that your vote has been properly counted. Learn more",
+    "val": "Votre scrutin est secret, voici à quoi il ressemblera une fois encrypté. Personne ne pourra savoir pour qui vous aurez voté. Veuillez cliquer ci-dessous sur le boutton de confirmation pour que votre vote soit comptabilisé.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3563,
+  "fields": {
+    "language": 30,
+    "key": "This is an ecrypted election. Once your ballot is encrypted, it will always stay that way – no one can see who voted for whom. However, you will be able to check that your vote has been properly counted. Learn more",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3564,
+  "fields": {
+    "language": 29,
+    "key": "Manual closing of the election",
+    "val": "Fermer manuellement l'élection",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3565,
+  "fields": {
+    "language": 30,
+    "key": "Manual closing of the election",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3566,
+  "fields": {
+    "language": 29,
+    "key": "This will stop the voting process and it can't be undone",
+    "val": "Cela clôturera le processus de vote et ne pourra être annulé",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3567,
+  "fields": {
+    "language": 30,
+    "key": "This will stop the voting process and it can\\",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3568,
+  "fields": {
+    "language": 29,
+    "key": "close the election now",
+    "val": "fermer l'élection maintenant",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3569,
+  "fields": {
+    "language": 30,
+    "key": "close the election now",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3570,
+  "fields": {
+    "language": 29,
+    "key": "Verify your private key",
+    "val": "Verifier votre clé privée",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3571,
+  "fields": {
+    "language": 30,
+    "key": "Verify your private key",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3572,
+  "fields": {
+    "language": 29,
+    "key": "All guardians’ must upload their valid private keys to unlock the ballot box.",
+    "val": "Tous les gardiens doivent envoyer une clé privée valide pour déverrouiller l'urne.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3573,
+  "fields": {
+    "language": 30,
+    "key": "All guardians’ must upload their valid private keys to unlock the ballot box.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3574,
+  "fields": {
+    "language": 29,
+    "key": "Open ballot box",
+    "val": "Ouvrir l'urne",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3575,
+  "fields": {
+    "language": 30,
+    "key": "Open ballot box",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3576,
+  "fields": {
+    "language": 29,
+    "key": "This process will erase all guardian keys from server memory.",
+    "val": "Ce processus efface tous les clé des gardiens gardés en mémoire par le serveur.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3577,
+  "fields": {
+    "language": 30,
+    "key": "This process will erase all guardian keys from server memory.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3578,
+  "fields": {
+    "language": 29,
+    "key": "open and view results",
+    "val": "ouvrir et voir les résultats",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3579,
+  "fields": {
+    "language": 30,
+    "key": "open and view results",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3580,
+  "fields": {
+    "language": 29,
+    "key": "Publish your election results",
+    "val": "Décentraliser les résultats",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3581,
+  "fields": {
+    "language": 30,
+    "key": "Publish your election results",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3582,
+  "fields": {
+    "language": 29,
+    "key": "This will decentralize your election results.",
+    "val": "Cela décentralisera votre résultat d'élection.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3583,
+  "fields": {
+    "language": 30,
+    "key": "This will decentralize your election results.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3584,
+  "fields": {
+    "language": 29,
+    "key": "publish results",
+    "val": "Décentraliser les résultats",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3585,
+  "fields": {
+    "language": 30,
+    "key": "publish results",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3586,
+  "fields": {
+    "language": 29,
+    "key": "Results",
+    "val": "Résultats",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3587,
+  "fields": {
+    "language": 30,
+    "key": "Results",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3588,
+  "fields": {
+    "language": 29,
+    "key": "Add guardians",
+    "val": "Ajouter gardiens",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3589,
+  "fields": {
+    "language": 30,
+    "key": "Add guardians",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3590,
+  "fields": {
+    "language": 29,
+    "key": "Guardians are responsible for locking and unlocking of the ballot box with their private keys.",
+    "val": "Les tuteurs sont responsables du verrouillage et du déverrouillage de l'urne avec leurs clés privées.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3591,
+  "fields": {
+    "language": 30,
+    "key": "Guardians are responsible for locking and unlocking of the ballot box with their private keys.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3592,
+  "fields": {
+    "language": 29,
+    "key": "No guardians for speed and simplicity (default).",
+    "val": "Pas de gardiens pour la rapidité et la simplicité (defaut).",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3593,
+  "fields": {
+    "language": 30,
+    "key": "No guardians for speed and simplicity (default).",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3594,
+  "fields": {
+    "language": 29,
+    "key": "Electis App will technically be your guardian and can secure your ballot box.",
+    "val": "L'application Electis sera techniquement votre gardien et pourra sécuriser l'urne.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3595,
+  "fields": {
+    "language": 30,
+    "key": "Electis App will technically be your guardian and can secure your ballot box.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3596,
+  "fields": {
+    "language": 29,
+    "key": "GUARDIAN_HELP_TEXT",
+    "val": "With guardians for greater security (recommended) You can distribute control over the closing/opening of the ballot box between multiple guardians. All of their keys will be necessary to conduct an election – from opening for voting to revealing the results.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3597,
+  "fields": {
+    "language": 30,
+    "key": "GUARDIAN_HELP_TEXT",
+    "val": "With guardians for greater security (recommended). You can distribute control over the closing/opening of the ballot box between multiple guardians. All of their keys will be necessary to conduct an election – from opening for voting to revealing the results.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3598,
+  "fields": {
+    "language": 29,
+    "key": "add guardian",
+    "val": "Ajouter gardien",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3599,
+  "fields": {
+    "language": 30,
+    "key": "add guardian",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3600,
+  "fields": {
+    "language": 29,
+    "key": "You have created contest %(obj)s",
+    "val": "Vous avez créé l'élection %(obj)s",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3601,
+  "fields": {
+    "language": 30,
+    "key": "You have created contest %(obj)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3602,
+  "fields": {
+    "language": 29,
+    "key": "You have updated contest %(obj)s",
+    "val": "Vous avez mis à jour l'élection %(obj)s",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3603,
+  "fields": {
+    "language": 30,
+    "key": "You have updated contest %(obj)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3604,
+  "fields": {
+    "language": 29,
+    "key": "Email title",
+    "val": "Titre de l'email",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3605,
+  "fields": {
+    "language": 30,
+    "key": "Email title",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3606,
+  "fields": {
+    "language": 29,
+    "key": "Title of the email that will be sent to each voter",
+    "val": "Titre de l'email qui sera envoyé aux inscrits",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3607,
+  "fields": {
+    "language": 30,
+    "key": "Title of the email that will be sent to each voter",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3608,
+  "fields": {
+    "language": 29,
+    "key": "Email message",
+    "val": "Message de l'email",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3609,
+  "fields": {
+    "language": 30,
+    "key": "Email message",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3610,
+  "fields": {
+    "language": 29,
+    "key": "Body of the email that will be sent, LINK will be replaced by the voting link",
+    "val": "Corps de l'email qui sera envoyé, LINK sera remplacé par le lien de vote",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3611,
+  "fields": {
+    "language": 30,
+    "key": "Body of the email that will be sent, LINK will be replaced by the voting link",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3612,
+  "fields": {
+    "language": 29,
+    "key": "Election %(obj)s is open for voting",
+    "val": "L'élection %(obj)s est ouverte au vote",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3613,
+  "fields": {
+    "language": 30,
+    "key": "Election %(obj)s is open for voting",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3614,
+  "fields": {
+    "language": 29,
+    "key": "Send invite",
+    "val": "Envoyer l'invitation",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3615,
+  "fields": {
+    "language": 30,
+    "key": "Send invite",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3616,
+  "fields": {
+    "language": 29,
+    "key": "Open votes",
+    "val": "Ouvrir",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3617,
+  "fields": {
+    "language": 30,
+    "key": "Open votes",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3618,
+  "fields": {
+    "language": 29,
+    "key": "Create the Encrypter and BallotBox and open contest for voting",
+    "val": "Créer l'encryption et l'urne et ouvrir le concours aux votes",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3619,
+  "fields": {
+    "language": 30,
+    "key": "Create the Encrypter and BallotBox and open contest for voting",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3620,
+  "fields": {
+    "language": 29,
+    "key": "Must have more candidates than number elected",
+    "val": "Il doit y avoir plus de candidats que d'élus",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3621,
+  "fields": {
+    "language": 30,
+    "key": "Must have more candidates than number elected",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3622,
+  "fields": {
+    "language": 29,
+    "key": "You have open contest %(obj)s",
+    "val": "Vous avez ouvert l'élection %(obj)s",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3623,
+  "fields": {
+    "language": 30,
+    "key": "You have open contest %(obj)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3624,
+  "fields": {
+    "language": 29,
+    "key": "You have closed contest %(obj)s",
+    "val": "Vous avez clôturé l'élection %(obj)s",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3625,
+  "fields": {
+    "language": 30,
+    "key": "You have closed contest %(obj)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3626,
+  "fields": {
+    "language": 29,
+    "key": "Body of the email that will be sent, LINK will be replaced by the result link",
+    "val": "Corps de l'email qui sera envoyé, LINK sera remplacé par le lien de vote",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3627,
+  "fields": {
+    "language": 30,
+    "key": "Body of the email that will be sent, LINK will be replaced by the result link",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3628,
+  "fields": {
+    "language": 29,
+    "key": "Election %(obj)s is has been tallied",
+    "val": "L'élection %(obj)s a été décomptée",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3629,
+  "fields": {
+    "language": 30,
+    "key": "Election %(obj)s is has been tallied",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3630,
+  "fields": {
+    "language": 29,
+    "key": "You have decrypted tally for %(obj)s",
+    "val": "Vous avez déchiffré le décompte de %(obj)s",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3631,
+  "fields": {
+    "language": 30,
+    "key": "You have decrypted tally for %(obj)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3632,
+  "fields": {
+    "language": 29,
+    "key": "You have published artifacts for %(obj)s on IPFS",
+    "val": "Vous avez publié les données de %(obj)s sur IPFS",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3633,
+  "fields": {
+    "language": 30,
+    "key": "You have published artifacts for %(obj)s on IPFS",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3634,
+  "fields": {
+    "language": 29,
+    "key": "Artifacts were published for %(obj)s",
+    "val": "Les données de %(obj)s ont été publiées",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3635,
+  "fields": {
+    "language": 30,
+    "key": "Artifacts were published for %(obj)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3636,
+  "fields": {
+    "language": 29,
+    "key": "Guardian keys were removed from our memory for %(obj)s",
+    "val": "Les clés des gardiens de %(obj)s ont été supprimées de la mémoire",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3637,
+  "fields": {
+    "language": 30,
+    "key": "Guardian keys were removed from our memory for %(obj)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3638,
+  "fields": {
+    "language": 29,
+    "key": "IPFS not initialized on this node",
+    "val": "IPFS non initialisé sur ce noeud",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3639,
+  "fields": {
+    "language": 30,
+    "key": "IPFS not initialized on this node",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3640,
+  "fields": {
+    "language": 29,
+    "key": "You have completed the ceremony for",
+    "val": "Vous avez complété la cérémonie pour",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3641,
+  "fields": {
+    "language": 30,
+    "key": "You have completed the ceremony for",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3642,
+  "fields": {
+    "language": 29,
+    "key": "Guardian keypairs have been deleted from our memory",
+    "val": "Les paires de clés de gardiens ont étés supprimés de notre mémoire",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3643,
+  "fields": {
+    "language": 30,
+    "key": "Guardian keypairs have been deleted from our memory",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3644,
+  "fields": {
+    "language": 29,
+    "key": "Please get a magic link to proceed to secure vote",
+    "val": "Vous devez avoir un lien magique pour procéder au vote sécurisé",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3645,
+  "fields": {
+    "language": 30,
+    "key": "Please get a magic link to proceed to secure vote",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3646,
+  "fields": {
+    "language": 29,
+    "key": "You are not registered to vote on %(obj)s",
+    "val": "Vous n'êtes pas enregistré comme inscrit de %(obj)s",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3647,
+  "fields": {
+    "language": 30,
+    "key": "You are not registered to vote on %(obj)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3648,
+  "fields": {
+    "language": 29,
+    "key": "%(obj)s vote is closed",
+    "val": "L'élection %(obj)s est fermée aiu vote",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3649,
+  "fields": {
+    "language": 30,
+    "key": "%(obj)s vote is closed",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3650,
+  "fields": {
+    "language": 29,
+    "key": "%(obj)s vote is not yet open",
+    "val": "L'élection %(obj)s n'est pas encore ouverte au vote",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3651,
+  "fields": {
+    "language": 30,
+    "key": "%(obj)s vote is not yet open",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3652,
+  "fields": {
+    "language": 29,
+    "key": "You have already casted your vote for %(obj)s",
+    "val": "Vous avez déjà confirmé votre vote pour l'élection %(obj)s",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3653,
+  "fields": {
+    "language": 30,
+    "key": "You have already casted your vote for %(obj)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3654,
+  "fields": {
+    "language": 29,
+    "key": "Create ballot",
+    "val": "Valider mon vote",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3655,
+  "fields": {
+    "language": 30,
+    "key": "Create ballot",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3656,
+  "fields": {
+    "language": 29,
+    "key": "; you have:",
+    "val": "; vous avez:",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3657,
+  "fields": {
+    "language": 30,
+    "key": "; you have:",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3658,
+  "fields": {
+    "language": 29,
+    "key": "You casted your ballot for %(obj)s",
+    "val": "Vous avez confirmé votre vote pour l'élection %(obj)s",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3659,
+  "fields": {
+    "language": 30,
+    "key": "You casted your ballot for %(obj)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3660,
+  "fields": {
+    "language": 29,
+    "key": "Sous-texte",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3661,
+  "fields": {
+    "language": 30,
+    "key": "Sous-texte",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3662,
+  "fields": {
+    "language": 29,
+    "key": "CANDIDATE_PICTURE",
+    "val": "Photo du candidat",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3663,
+  "fields": {
+    "language": 30,
+    "key": "CANDIDATE_PICTURE",
+    "val": "Picture of candidat",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3664,
+  "fields": {
+    "language": 29,
+    "key": "Picture of the candidate",
+    "val": "Photo du candidat",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3665,
+  "fields": {
+    "language": 30,
+    "key": "Picture of the candidate",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3666,
+  "fields": {
+    "language": 29,
+    "key": "CANDIDATE_NAME",
+    "val": "Nom du candidat",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3667,
+  "fields": {
+    "language": 30,
+    "key": "CANDIDATE_NAME",
+    "val": "Name of candidate",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3668,
+  "fields": {
+    "language": 29,
+    "key": "CANDIDATE_DESCRIPTION",
+    "val": "Description du candidat",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3669,
+  "fields": {
+    "language": 30,
+    "key": "CANDIDATE_DESCRIPTION",
+    "val": "Description of candidat",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3670,
+  "fields": {
+    "language": 29,
+    "key": "You have added candidate",
+    "val": "Ajouter candidat",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3671,
+  "fields": {
+    "language": 30,
+    "key": "You have added candidate",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3672,
+  "fields": {
+    "language": 29,
+    "key": "You have updated candidate",
+    "val": "Ajouter candidat",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3673,
+  "fields": {
+    "language": 30,
+    "key": "You have updated candidate",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3674,
+  "fields": {
+    "language": 29,
+    "key": "You have removed candidate",
+    "val": "Vous avez retiré un candidat",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3675,
+  "fields": {
+    "language": 30,
+    "key": "You have removed candidate",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3676,
+  "fields": {
+    "language": 29,
+    "key": "Minimum guardians needed to unlock the ballot box",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3677,
+  "fields": {
+    "language": 30,
+    "key": "Minimum guardians needed to unlock the ballot box",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3678,
+  "fields": {
+    "language": 29,
+    "key": "User not found",
+    "val": "Utilisateur non trouvé",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3679,
+  "fields": {
+    "language": 30,
+    "key": "User not found",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3680,
+  "fields": {
+    "language": 29,
+    "key": "already added!",
+    "val": "déjà ajouté!",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3681,
+  "fields": {
+    "language": 30,
+    "key": "already added!",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3682,
+  "fields": {
+    "language": 29,
+    "key": "Cannot be higher than the number of guardians",
+    "val": "Ne peut pas être plus haut que le nombres de gardiens",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3683,
+  "fields": {
+    "language": 30,
+    "key": "Cannot be higher than the number of guardians",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3684,
+  "fields": {
+    "language": 29,
+    "key": "You have invited %(obj)s as guardian",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3685,
+  "fields": {
+    "language": 30,
+    "key": "You have invited %(obj)s as guardian",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3686,
+  "fields": {
+    "language": 29,
+    "key": "Quorum set to %(quorum)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3687,
+  "fields": {
+    "language": 30,
+    "key": "Quorum set to %(quorum)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3688,
+  "fields": {
+    "language": 29,
+    "key": "You have removed guardian %(guardian)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3689,
+  "fields": {
+    "language": 30,
+    "key": "You have removed guardian %(guardian)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3690,
+  "fields": {
+    "language": 29,
+    "key": "Verify integrity",
+    "val": "Confirmer l'intégrité de la clé",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3691,
+  "fields": {
+    "language": 30,
+    "key": "Verify integrity",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3692,
+  "fields": {
+    "language": 29,
+    "key": "File corrupted, please try downloading again",
+    "val": "Fichier corrompu, essayer à nouveau",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3693,
+  "fields": {
+    "language": 30,
+    "key": "File corrupted, please try downloading again",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3694,
+  "fields": {
+    "language": 29,
+    "key": "Please remove lines containing invalid emails:",
+    "val": "Veuillez retirer les lignes qui contiennent des erreurs:",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3695,
+  "fields": {
+    "language": 30,
+    "key": "Please remove lines containing invalid emails:",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3696,
+  "fields": {
+    "language": 29,
+    "key": "Update voters",
+    "val": "Modifier les inscrits",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3697,
+  "fields": {
+    "language": 30,
+    "key": "Update voters",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3698,
+  "fields": {
+    "language": 29,
+    "key": "The list of allowed voters with one email per line",
+    "val": "Liste des inscrits autorisés avec un email par ligne",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3699,
+  "fields": {
+    "language": 30,
+    "key": "The list of allowed voters with one email per line",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3700,
+  "fields": {
+    "language": 29,
+    "key": "You have updated voters for contest %(obj)s",
+    "val": "Vous avez mis à jour les inscrits de l'élection %(obj)s",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3701,
+  "fields": {
+    "language": 30,
+    "key": "You have updated voters for contest %(obj)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3702,
+  "fields": {
+    "language": 29,
+    "key": "Smart contract on %(obj)s",
+    "val": "Contrat intelligent sur %(obj)s",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3703,
+  "fields": {
+    "language": 30,
+    "key": "Smart contract on %(obj)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3704,
+  "fields": {
+    "language": 29,
+    "key": "Wallet address:",
+    "val": "Adresse du portefeuille:",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3705,
+  "fields": {
+    "language": 30,
+    "key": "Wallet address:",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3706,
+  "fields": {
+    "language": 29,
+    "key": "Balance needed:",
+    "val": "Solde nécessaire:",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3707,
+  "fields": {
+    "language": 30,
+    "key": "Balance needed:",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3708,
+  "fields": {
+    "language": 29,
+    "key": "Current balance:",
+    "val": "Solde actuel:",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3709,
+  "fields": {
+    "language": 30,
+    "key": "Current balance:",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3710,
+  "fields": {
+    "language": 29,
+    "key": "As a way to bring trust, this election results and parameters will be shared and stored via a Tezos smart contract and an IPFS Link. To keep it simple you have two choices, one is to chose the free / testnet contract (fine for non official elections) or the main net one (you ll need to pay a small fee / just send the needed Tez fees to the Wallet address) version that can be used for official election as the equivalent of a legal proof of the election parameters and its results.",
+    "val": "Pour apporter de la transparence, les résultats de cette élection et les preuves techniques nécessaires à sa vérification sont enregistés sur un smart contract sur la blockchain de Tezos et sur IPFS. Pour faire simple, vous avez deux choix: soit choisir un contrat gratuit, sur le testnet (suffisant pour une élection non officielle), soit un contrat payant sur le mainnet (vous devrez payer une légère commission, envoyez simplement quelques Tez à l'adresse du portefeuille électronique) qui peut être utilisé comme preuve légale du résultat de l'élection et de ses paramètres",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3711,
+  "fields": {
+    "language": 30,
+    "key": "As a way to bring trust, this election results and parameters will be shared and stored via a Tezos smart contract and an IPFS Link. To keep it simple you have two choices, one is to chose the free / testnet contract (fine for non official elections) or the main net one (you ll need to pay a small fee / just send the needed Tez fees to the Wallet address) version that can be used for official election as the equivalent of a legal proof of the election parameters and its results.",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3712,
+  "fields": {
+    "language": 29,
+    "key": "This choice cannot be changed, please choose carefully",
+    "val": "Ce choix est irréversible, merci de faire votre choix avec précaution",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3713,
+  "fields": {
+    "language": 30,
+    "key": "This choice cannot be changed, please choose carefully",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3714,
+  "fields": {
+    "language": 29,
+    "key": "refresh balances",
+    "val": "Rafraîchir la balance",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3715,
+  "fields": {
+    "language": 30,
+    "key": "refresh balances",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3716,
+  "fields": {
+    "language": 29,
+    "key": "Confirm Smart Contract",
+    "val": "Confirmer le contrat",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3717,
+  "fields": {
+    "language": 30,
+    "key": "Confirm Smart Contract",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3718,
+  "fields": {
+    "language": 29,
+    "key": "Election not found",
+    "val": "Élection non trouvé",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3719,
+  "fields": {
+    "language": 30,
+    "key": "Election not found",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3720,
+  "fields": {
+    "language": 29,
+    "key": "Contract already created",
+    "val": "Contrat déjà créé",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3721,
+  "fields": {
+    "language": 30,
+    "key": "Contract already created",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3722,
+  "fields": {
+    "language": 29,
+    "key": "track",
+    "val": "Suivre",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3723,
+  "fields": {
+    "language": 30,
+    "key": "track",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3724,
+  "fields": {
+    "language": 29,
+    "key": "Email",
+    "val": "email",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3725,
+  "fields": {
+    "language": 30,
+    "key": "Email",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3726,
+  "fields": {
+    "language": 29,
+    "key": "Track a ballot",
+    "val": "Suivre un bulletin",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3727,
+  "fields": {
+    "language": 30,
+    "key": "Track a ballot",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3728,
+  "fields": {
+    "language": 29,
+    "key": "Back",
+    "val": "Retour",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3729,
+  "fields": {
+    "language": 30,
+    "key": "Back",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3730,
+  "fields": {
+    "language": 29,
+    "key": "Election name",
+    "val": "Nom de l'élection",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3731,
+  "fields": {
+    "language": 30,
+    "key": "Election name",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3732,
+  "fields": {
+    "language": 29,
+    "key": "TRACKING_MSG",
+    "val": "Merci pour votre participation. Votre vote est secret, seul vous en avez connaissance, les informations techniques ci-dessous garantissent que votre vote a bien été pris en compte, vous pouvez à présent fermer cette page.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3733,
+  "fields": {
+    "language": 30,
+    "key": "TRACKING_MSG",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3734,
+  "fields": {
+    "language": 29,
+    "key": "An email have been sent to your address",
+    "val": "Un lien à été envoyé à votre adresse email",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3735,
+  "fields": {
+    "language": 30,
+    "key": "An email have been sent to your address",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3736,
+  "fields": {
+    "language": 29,
+    "key": "Your elections",
+    "val": "Vos élections",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3737,
+  "fields": {
+    "language": 30,
+    "key": "Your elections",
+    "val": "",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3738,
+  "fields": {
+    "language": 29,
+    "key": "Contest %(name)s",
+    "val": "Élection %(name)s",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3739,
+  "fields": {
+    "language": 30,
+    "key": "Contest %(name)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3740,
+  "fields": {
+    "language": 29,
+    "key": "%(candidates)d candidates, minimum: %(elected)d",
+    "val": "%(candidates)s candidat, minimum: %(elected)s",
+    "nval": "%(candidates)s candidats, minimum: %(elected)s"
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3741,
+  "fields": {
+    "language": 30,
+    "key": "%(candidates)d candidates, minimum: %(elected)d",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3742,
+  "fields": {
+    "language": 29,
+    "key": "Choose the blockchain you want to deploy your election results to",
+    "val": "Choisissez la blockchain sur laquelle vous souhaitez déployer votre contrat",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3743,
+  "fields": {
+    "language": 30,
+    "key": "Choose the blockchain you want to deploy your election results to",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3744,
+  "fields": {
+    "language": 29,
+    "key": "Blockchain contract created! Deployment in progress...",
+    "val": "Le contrat a été créé! Déploiement en cours...",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3745,
+  "fields": {
+    "language": 30,
+    "key": "Blockchain contract created! Deployment in progress...",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3746,
+  "fields": {
+    "language": 29,
+    "key": "%(confirmed)d/%(gardiens)d confirmed",
+    "val": "%(confirmed)s/%(gardiens)s confirmé",
+    "nval": "%(confirmed)s/%(gardiens)s confirmés"
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3747,
+  "fields": {
+    "language": 30,
+    "key": "%(confirmed)d/%(gardiens)d confirmed",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3749,
+  "fields": {
+    "language": 30,
+    "key": "Your privacy key is a file with '.pkl' extension. ",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3750,
+  "fields": {
+    "language": 29,
+    "key": "Your privacy key is a file with '.pkl' extension.",
+    "val": "Votre clé privée est un fichier avec l'extension '.pkl'.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3752,
+  "fields": {
+    "language": 29,
+    "key": "You have verified your guardian key for %(obj)s",
+    "val": "Vous avez vérifié votre clé privée pour l'élection %(obj)s",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3753,
+  "fields": {
+    "language": 30,
+    "key": "You have verified your guardian key for %(obj)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3754,
+  "fields": {
+    "language": 29,
+    "key": "Hello, Election %(obj)s is open for voting, you may use the link belox: LINK Happy voting!",
+    "val": "Bonjour, l'élection %(obj)s est ouverte au vote, vous pouvez utiliser le lien suivant: LINK. Bon vote!",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3755,
+  "fields": {
+    "language": 30,
+    "key": "Hello, Election %(obj)s is open for voting, you may use the link belox: LINK Happy voting!",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3756,
+  "fields": {
+    "language": 29,
+    "key": "Vote link: %(link)s",
+    "val": "Lien de vote: %(link)s",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3757,
+  "fields": {
+    "language": 30,
+    "key": "Vote link: %(link)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3758,
+  "fields": {
+    "language": 29,
+    "key": "The voting started on %(time_start)s and will be closed at %(time_end)s. Timezone: %(timezone)s",
+    "val": "Le vote a été ouvert le %(time_start)s and sera cloturé le %(time_end)s. Fuseau horaire: %(timezone)s",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3759,
+  "fields": {
+    "language": 30,
+    "key": "The voting started on %(time_start)s and will be closed at %(time_end)s. Timezone: %(timezone)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3760,
+  "fields": {
+    "language": 30,
+    "key": "\n                Hello,\n\n                This is the magic link you have requested: %(link)s\n                ",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3761,
+  "fields": {
+    "language": 29,
+    "key": "Hello,                This is the magic link you have requested: %(link)s",
+    "val": "Bonjour, voici le lien de connexion que vous avez demandé:  %(link)s",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3762,
+  "fields": {
+    "language": 30,
+    "key": "Hello,\n\n                This is the magic link you have requested: %(link)s\n                ",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3763,
+  "fields": {
+    "language": 29,
+    "key": "Hello,                This is the magic link you have requested: %(link)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3764,
+  "fields": {
+    "language": 30,
+    "key": "You casted your vote on <b>%(time)s</b> The results will be published after the election is closed.",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3765,
+  "fields": {
+    "language": 29,
+    "key": "You casted your vote on <b>%(time)s</b> The results will be published after the election is closed.",
+    "val": "Vous avez voté le <b>%(time)s</b> Les résultats seront publiés après avoir clôturé l'élection.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3766,
+  "fields": {
+    "language": 30,
+    "key": "This will stop the voting process and it can't be undone.",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3767,
+  "fields": {
+    "language": 29,
+    "key": "This will stop the voting process and it can't be undone.",
+    "val": "Cela clôturera le processus de vote et ne pourra être annulé.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3768,
+  "fields": {
+    "language": 30,
+    "key": "The voting started on %(start)s and was open till %(end)s. Timezone: %(timezone)s.",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3769,
+  "fields": {
+    "language": 29,
+    "key": "The voting started on %(start)s and was open till %(end)s. Timezone: %(timezone)s.",
+    "val": "Le vote a été ouvert le %(start)s et a été clôturé le %(end)s. Fuseau horaire: %(timezone)s.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3770,
+  "fields": {
+    "language": 30,
+    "key": "All guardians upload their keys %(uploaded)s/%(guardian)s uploaded",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3771,
+  "fields": {
+    "language": 29,
+    "key": "All guardians upload their keys %(uploaded)s/%(guardian)s uploaded",
+    "val": "Tous les gardiens téléchargent leur clé %(uploaded)s/%(guardian)s téléchargée",
+    "nval": "Tous les gardiens téléchargent leur clé %(uploaded)s/%(guardian)s téléchargées"
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3773,
+  "fields": {
+    "language": 30,
+    "key": "You have uploaded your guardian key for %(obj)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3774,
+  "fields": {
+    "language": 29,
+    "key": "You have uploaded your guardian key for %(obj)s",
+    "val": "Vous avez téléchargé votre clé privée pour l'élection %(obj)s",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3775,
+  "fields": {
+    "language": 30,
+    "key": "Hello, Election %(obj)s has been tallied, you may use this link below to check the results: LINK Thank you for voting on %(obj)s",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3776,
+  "fields": {
+    "language": 29,
+    "key": "Hello, Election %(obj)s has been tallied, you may use this link below to check the results: LINK Thank you for voting on %(obj)s",
+    "val": "Bonjour, l'élection %(obj)s a été décomptée, vous pouvez utiliser le lien suivant pour découvrir les résultats: LINK Merci d'avoir participé à l'élection %(obj)s.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3777,
+  "fields": {
+    "language": 30,
+    "key": "Voters emails",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3778,
+  "fields": {
+    "language": 29,
+    "key": "Voters emails",
+    "val": "Emails à inscrire",
+    "nval": null
+  }
+}
+]

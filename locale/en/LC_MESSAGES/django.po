@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: djelectionguard/components.py:1737
+#: djelectionguard/components.py:1746
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-06 09:24+0000\n"
+"POT-Creation-Date: 2021-08-04 08:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,655 +18,655 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: djelectionguard/components.py:35 djelectionguard/components.py:77
+#: djelectionguard/components.py:36 djelectionguard/components.py:78
 msgid "FORM_ABOUT_ELECTION_CREATE"
 msgstr "Description of election"
 
-#: djelectionguard/components.py:41 djelectionguard/components.py:78
+#: djelectionguard/components.py:42 djelectionguard/components.py:79
 msgid "FORM_VOTES_ALLOWED_ELECTION_CREATE"
 msgstr "Votes allowed"
 
-#: djelectionguard/components.py:43
+#: djelectionguard/components.py:44
 msgid "The maximum number of choice a voter can make for this election"
 msgstr ""
 
-#: djelectionguard/components.py:76
+#: djelectionguard/components.py:77
 msgid "FORM_TITLE_ELECTION_CREATE"
 msgstr "Name of election"
 
-#: djelectionguard/components.py:79
+#: djelectionguard/components.py:80
 msgid "FORM_START_ELECTION_CREATE"
 msgstr "Start at"
 
-#: djelectionguard/components.py:80
+#: djelectionguard/components.py:81
 msgid "FORM_END_ELECTION_CREATE"
 msgstr "End at"
 
-#: djelectionguard/components.py:81
+#: djelectionguard/components.py:82
 msgid "FORM_TIMEZONE_ELECTION_CREATE"
 msgstr "Timezone of election"
 
-#: djelectionguard/components.py:94
+#: djelectionguard/components.py:95
 msgid "Edit election"
 msgstr ""
 
-#: djelectionguard/components.py:94
+#: djelectionguard/components.py:95
 msgid "Create an election"
 msgstr ""
 
-#: djelectionguard/components.py:98
+#: djelectionguard/components.py:99
 msgid "Voting settings:"
 msgstr ""
 
-#: djelectionguard/components.py:100
+#: djelectionguard/components.py:101
 msgid "Election starts:"
 msgstr ""
 
-#: djelectionguard/components.py:102
+#: djelectionguard/components.py:103
 msgid "Election ends:"
 msgstr ""
 
-#: djelectionguard/components.py:106
+#: djelectionguard/components.py:107
 msgid "update election"
 msgstr ""
 
-#: djelectionguard/components.py:106
+#: djelectionguard/components.py:107
 msgid "create election"
 msgstr ""
 
-#: djelectionguard/components.py:117 djelectionguard/components.py:1271
-#: djelectionguard/components.py:1288 djelectionguard/components.py:1441
-#: djelectionguard/components.py:1470 djelectionguard/components.py:1501
-#: djelectionguard/components.py:1525 djelectionguard/components.py:1565
-#: djelectionguard/components.py:1588 djelectionguard/components.py:1608
-#: djelectionguard/components.py:1697 djelectionguard/components.py:1792
-#: djelectionguard/components.py:1823 djelectionguard/components.py:1885
-#: djelectionguard/components.py:1911 djelectionguard/components.py:1951
-#: djelectionguard/components.py:2052 djelectionguard/components.py:2164
+#: djelectionguard/components.py:118 djelectionguard/components.py:1280
+#: djelectionguard/components.py:1297 djelectionguard/components.py:1450
+#: djelectionguard/components.py:1479 djelectionguard/components.py:1510
+#: djelectionguard/components.py:1534 djelectionguard/components.py:1574
+#: djelectionguard/components.py:1597 djelectionguard/components.py:1617
+#: djelectionguard/components.py:1706 djelectionguard/components.py:1801
+#: djelectionguard/components.py:1832 djelectionguard/components.py:1894
+#: djelectionguard/components.py:1920 djelectionguard/components.py:1960
+#: djelectionguard/components.py:2061 djelectionguard/components.py:2173
 #: djelectionguard_tezos/views.py:59
 msgid "back"
 msgstr ""
 
-#: djelectionguard/components.py:156
+#: djelectionguard/components.py:157
 msgid "all"
 msgstr ""
 
-#: djelectionguard/components.py:157
+#: djelectionguard/components.py:158
 msgid "created by me"
 msgstr ""
 
-#: djelectionguard/components.py:158
+#: djelectionguard/components.py:159
 msgid "shared with me"
 msgstr ""
 
-#: djelectionguard/components.py:182
+#: djelectionguard/components.py:183
 msgid "voting ongoing"
 msgstr ""
 
-#: djelectionguard/components.py:185
+#: djelectionguard/components.py:186
 msgid "voting closed"
 msgstr ""
 
-#: djelectionguard/components.py:188
+#: djelectionguard/components.py:189
 msgid "result available"
 msgstr ""
 
-#: djelectionguard/components.py:190
+#: djelectionguard/components.py:191
 msgid ", voted"
 msgstr ""
 
-#: djelectionguard/components.py:261
+#: djelectionguard/components.py:262
 msgid "Create new election"
 msgstr ""
 
-#: djelectionguard/components.py:273
+#: djelectionguard/components.py:279
 msgid "Elections"
 msgstr ""
 
-#: djelectionguard/components.py:284
+#: djelectionguard/components.py:290
 msgid "There are no elections yet"
 msgstr ""
 
-#: djelectionguard/components.py:340 djelectionguard/components.py:358
-#: djelectionguard/components.py:382
+#: djelectionguard/components.py:346 djelectionguard/components.py:364
+#: djelectionguard/components.py:391
 msgid "edit"
 msgstr ""
 
-#: djelectionguard/components.py:345
+#: djelectionguard/components.py:351
 msgid "Basic settings"
 msgstr ""
 
-#: djelectionguard/components.py:346
+#: djelectionguard/components.py:352
 msgid "Name, votes allowed, time and date, etc."
 msgstr ""
 
-#: djelectionguard/components.py:361 djelectionguard/components.py:386
-#: djelectionguard/components.py:589 djelectionguard/components.py:1020
-#: djelectionguard/components.py:1047
+#: djelectionguard/components.py:367 djelectionguard/components.py:395
+#: djelectionguard/components.py:598 djelectionguard/components.py:1029
+#: djelectionguard/components.py:1056
 msgid "add"
 msgstr ""
 
-#: djelectionguard/components.py:365
+#: djelectionguard/components.py:371
 #, python-format
 msgid "%(candidates)d candidates, minimum: %(elected)d"
 msgstr ""
 
-#: djelectionguard/components.py:369
+#: djelectionguard/components.py:378
 msgid "Add candidates"
 msgstr ""
 
-#: djelectionguard/components.py:384
+#: djelectionguard/components.py:393
 #, python-format
 msgid "%(num_voters)d voters"
 msgstr ""
 
-#: djelectionguard/components.py:391
+#: djelectionguard/components.py:400
 msgid "Add voters"
 msgstr ""
 
-#: djelectionguard/components.py:429
+#: djelectionguard/components.py:438
 msgid ""
 "All guardians must possess a private key so that the ballot box is secure "
 "and the election can be opened for voting."
 msgstr ""
 
-#: djelectionguard/components.py:436
+#: djelectionguard/components.py:445
 msgid "Download my private key"
 msgstr ""
 
-#: djelectionguard/components.py:443 djelectionguard/components.py:1532
+#: djelectionguard/components.py:452 djelectionguard/components.py:1541
 msgid "Confirm possession of an uncompromised private key"
 msgstr ""
 
-#: djelectionguard/components.py:455
+#: djelectionguard/components.py:464
 msgid "All guardians confirm possession of uncompromised private keys"
 msgstr ""
 
-#: djelectionguard/components.py:457
+#: djelectionguard/components.py:466
 #, python-format
 msgid "%(confirmed)d/%(gardiens)d confirmed"
 msgstr ""
 
-#: djelectionguard/components.py:465
+#: djelectionguard/components.py:474
 msgid "Lock the ballot box / erase private keys from server memory"
 msgstr ""
 
-#: djelectionguard/components.py:470 djelectionguard/components.py:1612
+#: djelectionguard/components.py:479 djelectionguard/components.py:1621
 msgid "Open the election for voting"
 msgstr ""
 
-#: djelectionguard/components.py:472
+#: djelectionguard/components.py:481
 msgid ""
 "Guardians must NOT loose their PRIVATE keys and they must keep them SECRET."
 msgstr ""
 
-#: djelectionguard/components.py:477
+#: djelectionguard/components.py:486
 msgid "download private key"
 msgstr ""
 
-#: djelectionguard/components.py:485
+#: djelectionguard/components.py:494
 msgid "confirm key integrity"
 msgstr ""
 
-#: djelectionguard/components.py:492 djelectionguard/components.py:1568
+#: djelectionguard/components.py:501 djelectionguard/components.py:1577
 msgid "Lock the ballot box"
 msgstr ""
 
-#: djelectionguard/components.py:498
+#: djelectionguard/components.py:507
 msgid "Open for voting"
 msgstr ""
 
-#: djelectionguard/components.py:513
+#: djelectionguard/components.py:522
 msgid "Secure the election"
 msgstr ""
 
-#: djelectionguard/components.py:517
+#: djelectionguard/components.py:526
 msgid "Ballot box securely locked. Election can be open for voting."
 msgstr ""
 
-#: djelectionguard/components.py:543
+#: djelectionguard/components.py:552
 #, python-format
 msgid ""
 "You casted your vote on %(time)s The results will be published after the "
 "election is closed."
 msgstr ""
 
-#: djelectionguard/components.py:547
+#: djelectionguard/components.py:556
 msgid "Track my vote"
 msgstr ""
 
-#: djelectionguard/components.py:555
+#: djelectionguard/components.py:564
 msgid "vote"
 msgstr ""
 
-#: djelectionguard/components.py:558
+#: djelectionguard/components.py:567
 msgid "Cast my vote"
 msgstr ""
 
-#: djelectionguard/components.py:558 djelectionguard_tracker/views.py:152
+#: djelectionguard/components.py:567 djelectionguard_tracker/views.py:152
 msgid "Voted"
 msgstr ""
 
-#: djelectionguard/components.py:577
+#: djelectionguard/components.py:586
 msgid ""
 "Choose the blockchain you want to deploy your election smart contract to"
 msgstr ""
 
-#: djelectionguard/components.py:586
+#: djelectionguard/components.py:595
 msgid "Add the election smart contract"
 msgstr ""
 
-#: djelectionguard/components.py:602
+#: djelectionguard/components.py:611
 msgid "close"
 msgstr ""
 
-#: djelectionguard/components.py:607
+#: djelectionguard/components.py:616
 msgid "Voting closed"
 msgstr ""
 
-#: djelectionguard/components.py:608
+#: djelectionguard/components.py:617
 #, python-format
 msgid ""
 "The voting started on %(start)s and was open till %(end)s. Timezone: "
 "%(timezone)s."
 msgstr ""
 
-#: djelectionguard/components.py:619
+#: djelectionguard/components.py:628
 msgid "The voting process is currently ongoing"
 msgstr ""
 
-#: djelectionguard/components.py:620
+#: djelectionguard/components.py:629
 #, python-format
 msgid ""
 "The voting started on %(time_start)s and will be closed at %(time_end)s. "
 "Timezone: %(timezone)s"
 msgstr ""
 
-#: djelectionguard/components.py:627
+#: djelectionguard/components.py:636
 #, python-format
 msgid "Vote link: %(link)s"
 msgstr ""
 
-#: djelectionguard/components.py:659
+#: djelectionguard/components.py:668
 msgid "Upload my private key"
 msgstr ""
 
-#: djelectionguard/components.py:662 djelectionguard/components.py:709
+#: djelectionguard/components.py:671 djelectionguard/components.py:718
 msgid ""
 "All guardians need to upload their private keys so that the ballot box can "
 "be opened to reveal the results."
 msgstr ""
 
-#: djelectionguard/components.py:667
+#: djelectionguard/components.py:676
 msgid "upload my private key"
 msgstr ""
 
-#: djelectionguard/components.py:696
+#: djelectionguard/components.py:705
 #, python-format
 msgid "All guardians upload their keys %(uploaded)d/%(guardian)d uploaded"
 msgstr ""
 
-#: djelectionguard/components.py:704
+#: djelectionguard/components.py:713
 msgid "Unlock the ballot box with encrypted ballots and reveal the results"
 msgstr ""
 
-#: djelectionguard/components.py:716
+#: djelectionguard/components.py:725
 msgid ""
 "When the election is over the guardians use their keys to open the ballot "
 "box and count the results."
 msgstr ""
 
-#: djelectionguard/components.py:720
+#: djelectionguard/components.py:729
 msgid "Unlocking the ballot box and revealing the results"
 msgstr ""
 
-#: djelectionguard/components.py:727
+#: djelectionguard/components.py:736
 msgid "reveal results"
 msgstr ""
 
-#: djelectionguard/components.py:747
+#: djelectionguard/components.py:756
 msgid "Once the ballots are counted you will be notified by email"
 msgstr ""
 
-#: djelectionguard/components.py:758
+#: djelectionguard/components.py:767
 msgid "Congratulations! You have been the mediator of a secure election."
 msgstr ""
 
-#: djelectionguard/components.py:761
+#: djelectionguard/components.py:770
 msgid "view result table"
 msgstr ""
 
-#: djelectionguard/components.py:765
+#: djelectionguard/components.py:774
 msgid "Results available"
 msgstr ""
 
-#: djelectionguard/components.py:887
+#: djelectionguard/components.py:896
 msgid "Secured and decentralised with Tezos"
 msgstr ""
 
-#: djelectionguard/components.py:889
+#: djelectionguard/components.py:898
 msgid "Your election data and results will be published on Tezos’ "
 msgstr ""
 
-#: djelectionguard/components.py:891
+#: djelectionguard/components.py:900
 msgid " blockchain."
 msgstr ""
 
-#: djelectionguard/components.py:893
+#: djelectionguard/components.py:902
 msgid "Election contract created"
 msgstr ""
 
-#: djelectionguard/components.py:894
+#: djelectionguard/components.py:903
 msgid "Election opened"
 msgstr ""
 
-#: djelectionguard/components.py:895
+#: djelectionguard/components.py:904
 msgid "Election closed"
 msgstr ""
 
-#: djelectionguard/components.py:896
+#: djelectionguard/components.py:905
 msgid "Election Results available"
 msgstr ""
 
-#: djelectionguard/components.py:897
+#: djelectionguard/components.py:906
 msgid "Election contract updated"
 msgstr ""
 
-#: djelectionguard/components.py:920
+#: djelectionguard/components.py:929
 msgid "Download"
 msgstr ""
 
-#: djelectionguard/components.py:927
+#: djelectionguard/components.py:936
 msgid "Upload"
 msgstr ""
 
-#: djelectionguard/components.py:935
+#: djelectionguard/components.py:944
 msgid "email"
 msgstr ""
 
-#: djelectionguard/components.py:935
+#: djelectionguard/components.py:944
 msgid "key downloaded"
 msgstr ""
 
-#: djelectionguard/components.py:935
+#: djelectionguard/components.py:944
 msgid "key verified"
 msgstr ""
 
-#: djelectionguard/components.py:998
+#: djelectionguard/components.py:1007
 msgid "Guardians"
 msgstr ""
 
-#: djelectionguard/components.py:1013 djelectionguard/components.py:1044
+#: djelectionguard/components.py:1022 djelectionguard/components.py:1053
 msgid "view all/edit"
 msgstr ""
 
-#: djelectionguard/components.py:1016 djelectionguard/components.py:1042
+#: djelectionguard/components.py:1025 djelectionguard/components.py:1051
 msgid "view all"
 msgstr ""
 
-#: djelectionguard/components.py:1025 djelectionguard/components.py:1274
+#: djelectionguard/components.py:1034 djelectionguard/components.py:1283
 msgid "Candidates"
 msgstr ""
 
-#: djelectionguard/components.py:1050 djelectionguard/components.py:2195
+#: djelectionguard/components.py:1059 djelectionguard/components.py:2204
 msgid "Voters"
 msgstr ""
 
-#: djelectionguard/components.py:1051
+#: djelectionguard/components.py:1060
 msgid " voters added"
 msgstr ""
 
-#: djelectionguard/components.py:1114 electeez_auth/components.py:93
+#: djelectionguard/components.py:1123 electeez_auth/components.py:60
 msgid "my elections"
 msgstr ""
 
-#: djelectionguard/components.py:1216 djelectionguard/components.py:1240
+#: djelectionguard/components.py:1225 djelectionguard/components.py:1249
 msgid "No candidate yet."
 msgstr ""
 
-#: djelectionguard/components.py:1256
+#: djelectionguard/components.py:1265
 msgid "No voter yet."
 msgstr ""
 
-#: djelectionguard/components.py:1324
+#: djelectionguard/components.py:1333
 msgid "Copy link"
 msgstr ""
 
-#: djelectionguard/components.py:1380
+#: djelectionguard/components.py:1389
 msgid "edit voters"
 msgstr ""
 
-#: djelectionguard/components.py:1387
+#: djelectionguard/components.py:1396
 msgid "invite new voters"
 msgstr ""
 
-#: djelectionguard/components.py:1401 djelectionguard/components.py:1506
+#: djelectionguard/components.py:1410 djelectionguard/components.py:1515
 msgid " Voters"
 msgstr ""
 
-#: djelectionguard/components.py:1447
+#: djelectionguard/components.py:1456
 msgid "Add candidate"
 msgstr ""
 
-#: djelectionguard/components.py:1453
+#: djelectionguard/components.py:1462
 msgid " Candidates"
 msgstr ""
 
-#: djelectionguard/components.py:1457
+#: djelectionguard/components.py:1466
 msgid "Add a candidate"
 msgstr ""
 
-#: djelectionguard/components.py:1480
+#: djelectionguard/components.py:1489
 msgid "Edit candidate"
 msgstr ""
 
-#: djelectionguard/components.py:1507
+#: djelectionguard/components.py:1516
 msgid ""
 "The list of allowed voters with one email per line (sparated by Enter/Return "
 "⏎)"
 msgstr ""
 
-#: djelectionguard/components.py:1511 djelectionguard/components.py:2220
+#: djelectionguard/components.py:1520 djelectionguard/components.py:2229
 msgid "Save"
 msgstr ""
 
-#: djelectionguard/components.py:1528 djelectionguard/components.py:1646
-#: djelectionguard/components.py:1914 electeez_auth/components.py:155
+#: djelectionguard/components.py:1537 djelectionguard/components.py:1655
+#: djelectionguard/components.py:1923 electeez_auth/components.py:122
 msgid "confirm"
 msgstr ""
 
-#: djelectionguard/components.py:1533
+#: djelectionguard/components.py:1542
 msgid ""
 "You need to upload your private key to confirm that you posses a valid key "
 "that hasn’t been temepered with."
 msgstr ""
 
-#: djelectionguard/components.py:1537 djelectionguard/components.py:1923
+#: djelectionguard/components.py:1546 djelectionguard/components.py:1932
 msgid "Choose file"
 msgstr ""
 
-#: djelectionguard/components.py:1538 djelectionguard/components.py:1924
+#: djelectionguard/components.py:1547 djelectionguard/components.py:1933
 msgid "Your privacy key is a file with '.pkl' extension. "
 msgstr ""
 
-#: djelectionguard/components.py:1570
+#: djelectionguard/components.py:1579
 msgid "This will remove all guardians’ private keys from the server memory."
 msgstr ""
 
-#: djelectionguard/components.py:1571
+#: djelectionguard/components.py:1580
 msgid ""
 "When the voting is over the ballot box can only be opened when all guardians "
 "upload their private keys."
 msgstr ""
 
-#: djelectionguard/components.py:1572
+#: djelectionguard/components.py:1581
 msgid "This is what makes the governing of the election decentralised."
 msgstr ""
 
-#: djelectionguard/components.py:1576
+#: djelectionguard/components.py:1585
 msgid "create"
 msgstr ""
 
-#: djelectionguard/components.py:1592
+#: djelectionguard/components.py:1601
 msgid "Send an invite to the newly added voters"
 msgstr ""
 
-#: djelectionguard/components.py:1614
+#: djelectionguard/components.py:1623
 msgid "Once you open the election for voting you can’t make changes to it."
 msgstr ""
 
-#: djelectionguard/components.py:1622 djelectionguard/components.py:1963
+#: djelectionguard/components.py:1631 djelectionguard/components.py:1972
 msgid "Do not alert voters by email"
 msgstr ""
 
-#: djelectionguard/components.py:1626
+#: djelectionguard/components.py:1635
 msgid "open"
 msgstr ""
 
-#: djelectionguard/components.py:1644
+#: djelectionguard/components.py:1653
 msgid "cancel"
 msgstr ""
 
-#: djelectionguard/components.py:1658
+#: djelectionguard/components.py:1667
 msgid "Confirm your selection"
 msgstr ""
 
-#: djelectionguard/components.py:1725
+#: djelectionguard/components.py:1734
 msgid "create ballot"
 msgstr ""
 
-#: djelectionguard/components.py:1741 djelectionguard_tracker/views.py:71
+#: djelectionguard/components.py:1750 djelectionguard_tracker/views.py:71
 msgid "Tracking informations"
 msgstr ""
 
-#: djelectionguard/components.py:1747 djelectionguard_tracker/views.py:65
+#: djelectionguard/components.py:1756 djelectionguard_tracker/views.py:65
 msgid "Election ID"
 msgstr ""
 
-#: djelectionguard/components.py:1763 djelectionguard_tracker/views.py:66
+#: djelectionguard/components.py:1772 djelectionguard_tracker/views.py:66
 msgid "Ballot ID"
 msgstr ""
 
-#: djelectionguard/components.py:1780
+#: djelectionguard/components.py:1789
 msgid "Ballot found!"
 msgstr ""
 
-#: djelectionguard/components.py:1782
+#: djelectionguard/components.py:1791
 msgid "Ballot not found."
 msgstr ""
 
-#: djelectionguard/components.py:1795
+#: djelectionguard/components.py:1804
 msgid "change"
 msgstr ""
 
-#: djelectionguard/components.py:1796
+#: djelectionguard/components.py:1805
 msgid "encrypt ballot"
 msgstr ""
 
-#: djelectionguard/components.py:1799
+#: djelectionguard/components.py:1808
 msgid "Review your ballot"
 msgstr ""
 
-#: djelectionguard/components.py:1801
+#: djelectionguard/components.py:1810
 msgid ""
 "This is an ecrypted election. Once your ballot is encrypted, it will always "
 "stay that way – no one can see who voted for whom. However, you will be able "
 "to check that your vote has been properly counted.  Learn how"
 msgstr ""
 
-#: djelectionguard/components.py:1803
+#: djelectionguard/components.py:1812
 msgid "Your selection"
 msgstr ""
 
-#: djelectionguard/components.py:1828
+#: djelectionguard/components.py:1837
 msgid "download ballot file"
 msgstr ""
 
-#: djelectionguard/components.py:1829
+#: djelectionguard/components.py:1838
 msgid "confirm my vote"
 msgstr ""
 
-#: djelectionguard/components.py:1832
+#: djelectionguard/components.py:1841
 msgid "Encrypted ballot"
 msgstr ""
 
-#: djelectionguard/components.py:1834
+#: djelectionguard/components.py:1843
 msgid ""
 "This is an ecrypted election. Once your ballot is encrypted, it will always "
 "stay that way – no one can see who voted for whom. However, you will be able "
 "to check that your vote has been properly counted. Learn more"
 msgstr ""
 
-#: djelectionguard/components.py:1889
+#: djelectionguard/components.py:1898
 msgid "Manual closing of the election"
 msgstr ""
 
-#: djelectionguard/components.py:1891
+#: djelectionguard/components.py:1900
 msgid "This will stop the voting process and it can't be undone."
 msgstr ""
 
-#: djelectionguard/components.py:1896
+#: djelectionguard/components.py:1905
 msgid "close the election now"
 msgstr ""
 
-#: djelectionguard/components.py:1918
+#: djelectionguard/components.py:1927
 msgid "Verify your private key"
 msgstr ""
 
-#: djelectionguard/components.py:1919
+#: djelectionguard/components.py:1928
 msgid ""
 "All guardians’ must upload their valid private keys to unlock the ballot box."
 msgstr ""
 
-#: djelectionguard/components.py:1954
+#: djelectionguard/components.py:1963
 msgid "Open ballot box"
 msgstr ""
 
-#: djelectionguard/components.py:1956
+#: djelectionguard/components.py:1965
 msgid "This process will erase all guardian keys from server memory."
 msgstr ""
 
-#: djelectionguard/components.py:1967
+#: djelectionguard/components.py:1976
 msgid "open and view results"
 msgstr ""
 
-#: djelectionguard/components.py:1978
+#: djelectionguard/components.py:1987
 msgid "Publish your election results"
 msgstr ""
 
-#: djelectionguard/components.py:1980
+#: djelectionguard/components.py:1989
 msgid "This will decentralize your election results."
 msgstr ""
 
-#: djelectionguard/components.py:1984 djelectionguard/components.py:2103
+#: djelectionguard/components.py:1993 djelectionguard/components.py:2112
 msgid "publish results"
 msgstr ""
 
-#: djelectionguard/components.py:2111
+#: djelectionguard/components.py:2120
 msgid "Results"
 msgstr ""
 
-#: djelectionguard/components.py:2200
+#: djelectionguard/components.py:2209
 msgid "Add guardians"
 msgstr ""
 
-#: djelectionguard/components.py:2202
+#: djelectionguard/components.py:2211
 msgid ""
 "Guardians are responsible for locking and unlocking of the ballot box with "
 "their private keys."
 msgstr ""
 
-#: djelectionguard/components.py:2206
+#: djelectionguard/components.py:2215
 msgid "No guardians for speed and simplicity (default)."
 msgstr ""
 
-#: djelectionguard/components.py:2207
+#: djelectionguard/components.py:2216
 msgid ""
 " Electis App will technically be your guardian and can secure your ballot "
 "box."
 msgstr ""
 
-#: djelectionguard/components.py:2210
+#: djelectionguard/components.py:2219
 msgid "GUARDIAN_HELP_TEXT"
 msgstr ""
 "With guardians for greater security (recommended). You can distribute "
@@ -674,7 +674,7 @@ msgstr ""
 "guardians. All of their keys will be necessary to conduct an election – from "
 "opening for voting to revealing the results."
 
-#: djelectionguard/components.py:2215
+#: djelectionguard/components.py:2224
 msgid "add guardian"
 msgstr ""
 
@@ -682,269 +682,269 @@ msgstr ""
 msgid "Must be above 0, you have choosen:"
 msgstr ""
 
-#: djelectionguard/views.py:107
+#: djelectionguard/views.py:111
 msgid "You have created contest"
 msgstr ""
 
-#: djelectionguard/views.py:133
+#: djelectionguard/views.py:137
 msgid "You have updated contest"
 msgstr ""
 
-#: djelectionguard/views.py:220 djelectionguard/views.py:380
+#: djelectionguard/views.py:224 djelectionguard/views.py:384
 msgid "Email title"
 msgstr ""
 
-#: djelectionguard/views.py:221 djelectionguard/views.py:379
+#: djelectionguard/views.py:225 djelectionguard/views.py:383
 msgid "Title of the email that will be sent to each voter"
 msgstr ""
 
-#: djelectionguard/views.py:225 djelectionguard/views.py:384
+#: djelectionguard/views.py:229 djelectionguard/views.py:388
 msgid "Email message"
 msgstr ""
 
-#: djelectionguard/views.py:226
+#: djelectionguard/views.py:230
 msgid ""
 "Body of the email that will be sent, LINK will be replaced by the voting link"
 msgstr ""
 
-#: djelectionguard/views.py:236
+#: djelectionguard/views.py:240
 #, python-format
 msgid ""
 "Hello, Election %(objet)s is open for voting, you may use the link belox: "
 "LINK Happy voting! "
 msgstr ""
 
-#: djelectionguard/views.py:243
+#: djelectionguard/views.py:247
 #, python-format
 msgid "Election %(objet)s is open for voting"
 msgstr ""
 
-#: djelectionguard/views.py:277
+#: djelectionguard/views.py:281
 msgid "Send invite"
 msgstr ""
 
-#: djelectionguard/views.py:299
+#: djelectionguard/views.py:303
 msgid "Open votes"
 msgstr ""
 
-#: djelectionguard/views.py:300
+#: djelectionguard/views.py:304
 msgid "Create the Encrypter and BallotBox and open contest for voting"
 msgstr ""
 
-#: djelectionguard/views.py:305
+#: djelectionguard/views.py:309
 msgid "Must have more candidates than number elected"
 msgstr ""
 
-#: djelectionguard/views.py:323
+#: djelectionguard/views.py:327
 msgid "You have open contest"
 msgstr ""
 
-#: djelectionguard/views.py:364
+#: djelectionguard/views.py:368
 msgid "You have closed contest"
 msgstr ""
 
-#: djelectionguard/views.py:385
+#: djelectionguard/views.py:389
 msgid ""
 "Body of the email that will be sent, LINK will be replaced by the result link"
 msgstr ""
 
-#: djelectionguard/views.py:392
+#: djelectionguard/views.py:396
 #, python-format
 msgid ""
 "Hello, Election %(objet)s has been tallied, you may use this link below to "
 "check the results: LINK Thank you for voting on %(obj)s"
 msgstr ""
 
-#: djelectionguard/views.py:399
+#: djelectionguard/views.py:403
 #, python-format
 msgid "Election %(obj)s is has been tallied"
 msgstr ""
 
-#: djelectionguard/views.py:431
+#: djelectionguard/views.py:435
 msgid "You have decrypted tally for"
 msgstr ""
 
-#: djelectionguard/views.py:436
+#: djelectionguard/views.py:440
 msgid "You have published artifacts for"
 msgstr ""
 
-#: djelectionguard/views.py:436
+#: djelectionguard/views.py:440
 msgid " on IPFS "
 msgstr ""
 
-#: djelectionguard/views.py:442
+#: djelectionguard/views.py:446
 msgid "Artifacts were published for"
 msgstr ""
 
-#: djelectionguard/views.py:446
+#: djelectionguard/views.py:450
 msgid "Guardian keys were removed from our memory for"
 msgstr ""
 
-#: djelectionguard/views.py:471
+#: djelectionguard/views.py:475
 msgid "IPFS not initialized on this node"
 msgstr ""
 
-#: djelectionguard/views.py:490
+#: djelectionguard/views.py:494
 #, python-format
 msgid "You have published artifacts for %(obj)s on IPFS"
 msgstr ""
 
-#: djelectionguard/views.py:495
+#: djelectionguard/views.py:499
 #, python-format
 msgid "Artifacts were published for %(obj)s"
 msgstr ""
 
-#: djelectionguard/views.py:499
+#: djelectionguard/views.py:503
 #, python-format
 msgid "Guardian keys were removed from our memory for %(obj)s"
 msgstr ""
 
-#: djelectionguard/views.py:588
+#: djelectionguard/views.py:592
 msgid "You have completed the ceremony for"
 msgstr ""
 
-#: djelectionguard/views.py:592
+#: djelectionguard/views.py:596
 msgid "Guardian keypairs have been deleted from our memory"
 msgstr ""
 
-#: djelectionguard/views.py:608
+#: djelectionguard/views.py:612
 msgid "Please get a magic link to proceed to secure vote"
 msgstr ""
 
-#: djelectionguard/views.py:619
+#: djelectionguard/views.py:623
 msgid "You are not registered to vote on"
 msgstr ""
 
-#: djelectionguard/views.py:622
+#: djelectionguard/views.py:626
 #, python-format
 msgid "%(obj)s vote is closed"
 msgstr ""
 
-#: djelectionguard/views.py:625
+#: djelectionguard/views.py:629
 #, python-format
 msgid "%(obj)s vote is not yet open"
 msgstr ""
 
-#: djelectionguard/views.py:630
+#: djelectionguard/views.py:634
 #, python-format
 msgid "You have already casted your vote for %(obj)s"
 msgstr ""
 
-#: djelectionguard/views.py:641
+#: djelectionguard/views.py:645
 msgid "Create ballot"
 msgstr ""
 
-#: djelectionguard/views.py:651
+#: djelectionguard/views.py:655
 msgid "; you have:"
 msgstr ""
 
-#: djelectionguard/views.py:691
+#: djelectionguard/views.py:695
 #, python-format
 msgid "You spoiled your ballot for %(obj)s you can make another ballot"
 msgstr ""
 
-#: djelectionguard/views.py:699
+#: djelectionguard/views.py:703
 #, python-format
 msgid "You casted your ballot for %(obj)s"
 msgstr ""
 
-#: djelectionguard/views.py:743
+#: djelectionguard/views.py:747
 msgid "Sous-texte"
 msgstr ""
 
-#: djelectionguard/views.py:747 djelectionguard/views.py:775
+#: djelectionguard/views.py:751 djelectionguard/views.py:779
 msgid "CANDIDATE_PICTURE"
 msgstr "Picture of candidat"
 
-#: djelectionguard/views.py:748
+#: djelectionguard/views.py:752
 msgid "Picture of the candidate"
 msgstr ""
 
-#: djelectionguard/views.py:773
+#: djelectionguard/views.py:777
 msgid "CANDIDATE_NAME"
 msgstr "Name of candidate"
 
-#: djelectionguard/views.py:774
+#: djelectionguard/views.py:778
 msgid "CANDIDATE_DESCRIPTION"
 msgstr "Description of candidat"
 
-#: djelectionguard/views.py:805
+#: djelectionguard/views.py:809
 msgid "You have added candidate"
 msgstr ""
 
-#: djelectionguard/views.py:839
+#: djelectionguard/views.py:843
 msgid "You have updated candidate"
 msgstr ""
 
-#: djelectionguard/views.py:865
+#: djelectionguard/views.py:869
 msgid "You have removed candidate"
 msgstr ""
 
-#: djelectionguard/views.py:886
+#: djelectionguard/views.py:890
 msgid "Minimum guardians needed to unlock the ballot box"
 msgstr ""
 
-#: djelectionguard/views.py:897
+#: djelectionguard/views.py:901
 msgid "User not found"
 msgstr ""
 
-#: djelectionguard/views.py:901
+#: djelectionguard/views.py:905
 msgid "already added!"
 msgstr ""
 
-#: djelectionguard/views.py:911
+#: djelectionguard/views.py:915
 msgid "Cannot be higher than the number of guardians"
 msgstr ""
 
-#: djelectionguard/views.py:958
+#: djelectionguard/views.py:962
 msgid "You have invited"
 msgstr ""
 
-#: djelectionguard/views.py:958
+#: djelectionguard/views.py:962
 msgid " as guardian"
 msgstr ""
 
-#: djelectionguard/views.py:963 djelectionguard/views.py:993
+#: djelectionguard/views.py:967 djelectionguard/views.py:997
 msgid "Quorum set to"
 msgstr ""
 
-#: djelectionguard/views.py:993
+#: djelectionguard/views.py:997
 msgid " to match the number of guardians"
 msgstr ""
 
-#: djelectionguard/views.py:997
+#: djelectionguard/views.py:1001
 msgid "You have removed guardian"
 msgstr ""
 
-#: djelectionguard/views.py:1028
+#: djelectionguard/views.py:1032
 msgid "Verify integrity"
 msgstr ""
 
-#: djelectionguard/views.py:1039
+#: djelectionguard/views.py:1043
 msgid "File corrupted, please try downloading again"
 msgstr ""
 
-#: djelectionguard/views.py:1050
+#: djelectionguard/views.py:1054
 msgid "You have verified your guardian key for"
 msgstr ""
 
-#: djelectionguard/views.py:1084
+#: djelectionguard/views.py:1088
 msgid "You have uploaded your guardian key for"
 msgstr ""
 
-#: djelectionguard/views.py:1177
+#: djelectionguard/views.py:1181
 msgid "Please remove lines containing invalid emails: "
 msgstr ""
 
-#: djelectionguard/views.py:1184
+#: djelectionguard/views.py:1188
 msgid "Update voters"
 msgstr ""
 
-#: djelectionguard/views.py:1186
+#: djelectionguard/views.py:1190
 msgid "The list of allowed voters with one email per line"
 msgstr ""
 
-#: djelectionguard/views.py:1259
+#: djelectionguard/views.py:1263
 msgid "You have updated voters for contest"
 msgstr ""
 
@@ -1041,180 +1041,168 @@ msgid "Hello"
 msgstr ""
 
 #: electeez/components.py:131
-msgid "Made by "
+msgid "Made by"
 msgstr ""
 
 #: electeez/components.py:199
 msgid "Secure elections with homomorphic encryption"
 msgstr ""
 
-#: electeez/settings.py:83
+#: electeez/electis_settings.py:11 electeez/neuilly_settings.py:11
 msgid "French"
 msgstr ""
 
-#: electeez/settings.py:84
+#: electeez/electis_settings.py:12 electeez/neuilly_settings.py:12
 msgid "English"
 msgstr ""
 
-#: electeez_auth/components.py:34
-msgid "continue with google"
-msgstr ""
-
-#: electeez_auth/components.py:35
-msgid "continue with facebook"
-msgstr ""
-
-#: electeez_auth/components.py:36
-msgid "continue with apple"
-msgstr ""
-
-#: electeez_auth/components.py:49
+#: electeez_auth/components.py:20
 msgid "Repeat password"
 msgstr ""
 
-#: electeez_auth/components.py:63
+#: electeez_auth/components.py:34
 msgid "Looks like you need to register"
 msgstr ""
 
-#: electeez_auth/components.py:68
+#: electeez_auth/components.py:39
 msgid "Your password needs to follow these criteria:"
 msgstr ""
 
-#: electeez_auth/components.py:70
+#: electeez_auth/components.py:41
 msgid "Contains at least 8 characters"
 msgstr ""
 
-#: electeez_auth/components.py:71
+#: electeez_auth/components.py:42
 msgid "Not too similar to your other personal information"
 msgstr ""
 
-#: electeez_auth/components.py:72
+#: electeez_auth/components.py:43
 msgid "Not entirely numeric"
 msgstr ""
 
-#: electeez_auth/components.py:73
+#: electeez_auth/components.py:44
 msgid "Not a commonly used password"
 msgstr ""
 
-#: electeez_auth/components.py:76
+#: electeez_auth/components.py:47
 msgid "Register"
 msgstr ""
 
-#: electeez_auth/components.py:97
+#: electeez_auth/components.py:64
 msgid "Welcome to Electis.app"
 msgstr ""
 
-#: electeez_auth/components.py:100
+#: electeez_auth/components.py:67
 msgid "Enter email and password:"
 msgstr ""
 
-#: electeez_auth/components.py:105
+#: electeez_auth/components.py:72
 msgid "forgot password"
 msgstr ""
 
-#: electeez_auth/components.py:108
+#: electeez_auth/components.py:75
 msgid "Continue"
 msgstr ""
 
-#: electeez_auth/components.py:119
+#: electeez_auth/components.py:86
 msgid "You have been logged out"
 msgstr ""
 
-#: electeez_auth/components.py:121
+#: electeez_auth/components.py:88
 msgid "Thank you for spending time on our site today."
 msgstr ""
 
-#: electeez_auth/components.py:125
+#: electeez_auth/components.py:92
 msgid "Login again"
 msgstr ""
 
-#: electeez_auth/components.py:137 electeez_auth/components.py:151
+#: electeez_auth/components.py:104 electeez_auth/components.py:118
 msgid "Reset your password"
 msgstr ""
 
-#: electeez_auth/components.py:141
+#: electeez_auth/components.py:108
 msgid "Reset password"
 msgstr ""
 
-#: electeez_auth/components.py:165
+#: electeez_auth/components.py:132
 msgid "Your password have been reset"
 msgstr ""
 
-#: electeez_auth/components.py:167
+#: electeez_auth/components.py:134
 msgid "You may go ahead and "
 msgstr ""
 
-#: electeez_auth/components.py:168 electeez_auth/components.py:211
+#: electeez_auth/components.py:135 electeez_auth/components.py:178
 msgid "login "
 msgstr ""
 
-#: electeez_auth/components.py:169
+#: electeez_auth/components.py:136
 msgid " now"
 msgstr ""
 
-#: electeez_auth/components.py:178
+#: electeez_auth/components.py:145
 msgid "A link has been sent to your email address"
 msgstr ""
 
-#: electeez_auth/components.py:179
+#: electeez_auth/components.py:146
 msgid "Go to login page"
 msgstr ""
 
-#: electeez_auth/components.py:189
+#: electeez_auth/components.py:156
 msgid "Check your emails to finish !"
 msgstr ""
 
-#: electeez_auth/components.py:191
+#: electeez_auth/components.py:158
 msgid ""
 "An activation link has been sent to your email address, please open it to "
 "finish the signup process."
 msgstr ""
 
-#: electeez_auth/components.py:196
+#: electeez_auth/components.py:163
 msgid "Then, come back and login to participate to your election."
 msgstr ""
 
-#: electeez_auth/components.py:208
+#: electeez_auth/components.py:175
 msgid "Your account has been activated !"
 msgstr ""
 
-#: electeez_auth/components.py:210
+#: electeez_auth/components.py:177
 msgid "You may now "
 msgstr ""
 
-#: electeez_auth/components.py:212
+#: electeez_auth/components.py:179
 msgid " and particiapte to an election"
 msgstr ""
 
-#: electeez_auth/components.py:224
+#: electeez_auth/components.py:191
 msgid "Account activation failure"
 msgstr ""
 
-#: electeez_auth/components.py:226
+#: electeez_auth/components.py:193
 msgid "Most likely your account has already been activated."
 msgstr ""
 
-#: electeez_auth/components.py:238
+#: electeez_auth/components.py:205
 msgid "Proceed to automatic authentification"
 msgstr ""
 
-#: electeez_auth/components.py:241
+#: electeez_auth/components.py:208
 msgid "Click here to continue"
 msgstr ""
 
-#: electeez_auth/components.py:254
+#: electeez_auth/components.py:221
 msgid "Receive a magic link by email"
 msgstr ""
 
-#: electeez_auth/components.py:265
+#: electeez_auth/components.py:232
 msgid "To proceed to your "
 msgstr ""
 
-#: electeez_auth/components.py:266
+#: electeez_auth/components.py:233
 msgid "secure link"
 msgstr ""
 
-#: electeez_auth/components.py:276
+#: electeez_auth/components.py:243
 msgid "Email sent with success"
 msgstr ""
 

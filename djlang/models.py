@@ -24,7 +24,7 @@ class Text(models.Model):
         on_delete=models.CASCADE
     )
     key = models.CharField(
-        max_length=255,
+        max_length=1024,
     )
     val = models.CharField(max_length=5096, blank=True, null=True)
     nval = models.CharField(max_length=5096, blank=True, null=True)

@@ -1,6 +1,7 @@
 import requests
 from django import forms
 from django import http
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.contrib import messages
@@ -14,10 +15,13 @@ from djelectionguard.models import Contest
 from ryzom.html import template
 from ryzom_mdc import *
 from ryzom_django_mdc.html import *
-from electeez.components import Document, Card, BackLink, MDCButton
+
+from electeez_common.components import Document, Card, BackLink, MDCButton
+
+from djlang.utils import gettext as _
+
 from .models import ElectionContract
-from django.utils.translation import gettext_lazy as _
-from django.conf import settings
+
 
 
 User = get_user_model()
@@ -32,18 +36,19 @@ class BlockchainItem(Div):
             balance = None
 
         super().__init__(
-            H6('Smart contract on ', blockchain.name),
+            H6(_('Smart contract on %(obj)s', obj=blockchain.name)),
             Div(
-                Span('Wallet address: ', cls='overline'),
+                Span(_('Wallet address:'), cls='overline'),
+                ' ',
                 account.address
             ),
             Div(
                 Span(
-                    Span('Balance needed:', cls='overline'),
+                    Span(_('Balance needed:'), cls='overline'),
                     ' 2Tez'
                 ),
                 Span(
-                    Span('Current balance:', cls='overline'),
+                    Span(_('Current balance:'), cls='overline'),
                     f' {balance/1000000 if balance else 0}Tez'
                 )
                 if balance is not None else None,
