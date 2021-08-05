@@ -125,7 +125,7 @@ TEMPLATES = [
             BASE_DIR / 'templates',
         ],
         'OPTIONS': {
-            'environment': 'electeez.settings.jinja2',
+            'environment': 'electeez_common.settings.jinja2',
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
