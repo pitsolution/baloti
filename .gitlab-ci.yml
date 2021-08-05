@@ -66,8 +66,8 @@ review-deploy-electis:
     name: test/${CI_COMMIT_REF_NAME}-electis
     url: https://${CI_ENVIRONMENT_SLUG}.ci.electis.app
   variables:
-    DJANGO_APP: electeez
-    DJANGO_SETTINGS_MODULE: electeez.settings
+    DJANGO_APP: electis
+    DJANGO_SETTINGS_MODULE: electis.settings
     DEPLOY: >
       compose=docker-compose.yml,docker-compose.traefik.yml
       lifetime=86400

@@ -5,7 +5,7 @@ from electeez_common.settings import *
 SITE_ID = 1
 SITE_NAME = 'electis'
 
-INSTALLED_APPS += ['electeez']
+INSTALLED_APPS += ['electis']
 
 LANGUAGE_CODE = 'en'
 
@@ -17,7 +17,7 @@ LANGUAGES = (
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'public'
 STATICFILES_DIRS = [
-    BASE_DIR / 'electeez' / 'static',
+    BASE_DIR / 'electis' / 'static',
     BASE_DIR / 'static',
 ]
 

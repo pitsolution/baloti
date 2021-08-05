@@ -5,15 +5,14 @@ from electeez_common.settings import *
 SITE_ID = 2
 SITE_NAME = 'neuilly'
 
+INSTALLED_APPS += ['neuilly']
+
 LANGUAGE_CODE = 'fr'
 
 LANGUAGES = (
     ('fr', _('French')),
     ('en', _('English')),
 )
-
-INSTALLED_APPS += ['neuilly']
-
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'public'
