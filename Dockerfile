@@ -33,7 +33,7 @@ CMD /usr/bin/bash -euxc "until djcli dbcheck; do sleep 1; done \
   --spooler-processes=8 \
   --spooler-frequency=1 \
   --spooler-chdir=/app \
-  --module=electeez.wsgi:application \
+  --module=electeez_common.wsgi:application \
   --http-keepalive \
   --harakiri=1024 \
   --max-requests=100 \
