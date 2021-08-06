@@ -1,5 +1,5 @@
 FROM archlinux:base-20210131.0.14634
-RUN useradd --home-dir /app --uid 1000 app && mkdir -p /app/log && chown -R app /app
+RUN useradd --home-dir /app --uid 1000 app && mkdir -p /app/log /app/media && chown -R app /app
 WORKDIR /app
 RUN echo '[testing]' >> /etc/pacman.conf
 RUN echo Include = /etc/pacman.d/mirrorlist >> /etc/pacman.conf
