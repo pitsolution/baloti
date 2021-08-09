@@ -1415,7 +1415,7 @@ class VotersDetailCard(Div):
 
         return super().to_html(
             H4(
-                _('%(count)s Voters', n=voters.count(), count=voter.count()),
+                _('%(count)s Voters', n=voters.count(), count=voters.count()),
                 cls='center-text'
             ),
             Div(edit_btn, email_btn, cls='center-button'),
