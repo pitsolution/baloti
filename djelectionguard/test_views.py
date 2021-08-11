@@ -13,6 +13,18 @@ from djelectionguard.views import VotersEmailsForm, VotersEmailsField
 
 User = apps.get_model(settings.AUTH_USER_MODEL)
 
+from django.core.management import call_command
+from electeez_sites.models import Site
+
+
+@pytest.fixture(autouse=True)
+def django_fixtures_setup(django_db_setup, django_db_blocker):
+    fixture = 'electis/site_data.json'
+    with django_db_blocker.unblock():
+        call_command('loaddata', fixture)
+        Site.objects.clear_cache()
+        Site.objects.get_current()
+
 
 @pytest.mark.django_db
 def test_voters_emails_validation(contest):
@@ -86,7 +98,7 @@ def post(user, url, **data):
 
 @pytest.fixture
 def mediator():
-    return User.objects.create(email='med@example.com', is_active=True)
+    return User.objects.create(email='med@example.com', is_active=True, is_staff=True)
 
 
 @pytest.mark.django_db
@@ -405,15 +417,14 @@ vot1@example.com\rvot2@example.com\rnew@example.com
         vote,
         selections=(candidates[0], candidates[1])
     )
-    m = re.match(r'/en/track/(?P<contest>.*)\/(?P<ballot>.*)/', response.url)
+    m = re.match(r'/en/track/(?P<voter>.*)\/', response.url)
     assert m
     m = m.groupdict()
-    assert 'contest' in m.keys()
-    assert 'ballot' in m.keys()
+    assert 'voter' in m.keys()
 
-    response = get(external, response.url)
+    assert get(external, response.url).status_code == 404
+    response = get(voter1, response.url)
     assert response.status_code == 200
-    assert b'Ballot found' in response.content
 
     assert voter1.voter_set.get(contest=contest).casted
 

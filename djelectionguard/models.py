@@ -154,10 +154,7 @@ class Contest(models.Model):
         self.ciphertext_tally = tally_ballots(self.store, self.metadata, self.context)
 
         from electionguard.decryption_mediator import DecryptionMediator
-        decryption_mediator = DecryptionMediator(
-            'decryption-mediator',
-            self.context,
-        )
+        decryption_mediator = self.decrypter
 
         from electionguard.ballot import BallotBoxState
         from electionguard.ballot_box import get_ballots
@@ -213,7 +210,7 @@ class Contest(models.Model):
             ElectionConstants(),
             [self.device],
             self.store.all(),
-            self.plaintext_spoiled_ballots.values(),
+            [],
             self.ciphertext_tally.publish(),
             self.plaintext_tally,
             self.coefficient_validation_sets,
@@ -258,7 +255,7 @@ class Contest(models.Model):
 
     @property
     def publish_state(self):
-        if self.artifacts_sha1:
+        if self.artifacts_ipfs:
             return self.PublishStates.ELECTION_PUBLISHED
         elif self.plaintext_tally:
             return self.PublishStates.ELECTION_DECRYPTED
@@ -339,6 +336,14 @@ class Contest(models.Model):
             self.metadata,
             self.context,
             self.device,
+        )
+
+    @property
+    def decrypter(self):
+        from electionguard.decryption_mediator import DecryptionMediator
+        return DecryptionMediator(
+            'decryption-mediator',
+            self.context,
         )
 
     @property
@@ -494,8 +499,13 @@ class Candidate(models.Model):
         on_delete=models.CASCADE,
     )
     name = models.CharField(max_length=255)
-    description = models.CharField(
+    subtext = models.CharField(
         max_length=255,
+        blank=True,
+        null=True
+    )
+    description = models.CharField(
+        max_length=300,
         blank=True,
         null=True
     )
@@ -591,6 +601,7 @@ class Voter(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
-    casted = models.DateTimeField(null=True, blank=True)
+    casted = models.BooleanField(null=True, blank=True)
+    ballot_id = models.UUIDField(null=True, blank=True)
     open_email_sent = models.DateTimeField(null=True, blank=True)
     close_email_sent = models.DateTimeField(null=True, blank=True)

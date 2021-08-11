@@ -39,6 +39,9 @@ services:
     - MEMCACHED_HOST=memcached
     - SECRET_KEY
     - DEBUG=
+    - PYTHONPATH=/app
+    - DJANGO_APP
+    - DJANGO_SETTINGS_MODULE
 
   memcached:
     logging:

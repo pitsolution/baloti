@@ -3,11 +3,16 @@ services:
   django:
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=web"
-      - "traefik.http.routers.${CI_PROJECT_SLUG}-${CI_ENVIRONMENT_SLUG}.entryPoints=web"
-      - "traefik.http.routers.${CI_PROJECT_SLUG}-${CI_ENVIRONMENT_SLUG}.rule=host(`${HOST}`)"
+      - "traefik.http.middlewares.${CI_PROJECT_SLUG}-${CI_ENVIRONMENT_SLUG}-redirect.redirectregex.regex=^https?://${HOST}/(.*)"
+      - "traefik.http.middlewares.${CI_PROJECT_SLUG}-${CI_ENVIRONMENT_SLUG}-redirect.redirectregex.replacement=https://www.${HOST}/$${1}"
+      - "traefik.http.routers.${CI_PROJECT_SLUG}-${CI_ENVIRONMENT_SLUG}.middlewares=${CI_PROJECT_SLUG}-${CI_ENVIRONMENT_SLUG}-redirect"
+      - "traefik.http.routers.${CI_PROJECT_SLUG}-${CI_ENVIRONMENT_SLUG}.entryPoints=websecure"
+      - "traefik.http.routers.${CI_PROJECT_SLUG}-${CI_ENVIRONMENT_SLUG}.rule=host(`${HOST}`, `www.${HOST}`)"
+      - "traefik.http.routers.${CI_PROJECT_SLUG}-${CI_ENVIRONMENT_SLUG}.tls=true"
+      - "traefik.http.routers.${CI_PROJECT_SLUG}-${CI_ENVIRONMENT_SLUG}.tls.certResolver=leresolver"
       - "traefik.http.routers.${CI_PROJECT_SLUG}-${CI_ENVIRONMENT_SLUG}.service=${CI_PROJECT_SLUG}-${CI_ENVIRONMENT_SLUG}"
       - "traefik.http.services.${CI_PROJECT_SLUG}-${CI_ENVIRONMENT_SLUG}.loadBalancer.server.port=8000"
+      - "traefik.docker.network=web"
     networks:
       - default
       - web

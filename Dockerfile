@@ -1,5 +1,5 @@
 FROM archlinux:base-20210131.0.14634
-RUN useradd --home-dir /app --uid 1000 app && mkdir -p /app/log && chown -R app /app
+RUN useradd --home-dir /app --uid 1000 app && mkdir -p /app/log /app/media && chown -R app /app
 WORKDIR /app
 RUN echo '[testing]' >> /etc/pacman.conf
 RUN echo Include = /etc/pacman.d/mirrorlist >> /etc/pacman.conf
@@ -11,17 +11,19 @@ RUN mkdir -p /spooler/blockchain /spooler/email && chown -R app /spooler
 COPY requirements.txt /app
 RUN pip3 install -Ur /app/requirements.txt
 COPY . /app/
-RUN DEBUG= ./manage.py compilescss
 RUN DEBUG= ./manage.py ryzom_bundle
-RUN DEBUG= ./manage.py collectstatic --noinput
 RUN DEBUG= ./manage.py compilemessages
 RUN chown -R app. /app/log
-RUN find public -type f | xargs gzip -f -k -9
 USER app
 
 EXPOSE 8000
 CMD /usr/bin/bash -euxc "until djcli dbcheck; do sleep 1; done \
+  && ./manage.py compilescss \
+  && ./manage.py collectstatic --noinput \
   && ./manage.py migrate --noinput \
+  && ./manage.py loaddata ${DJANGO_APP}/site_data.json \
+  && ./manage.py loaddata ${DJANGO_APP}/lang_data.json \
+  && find public -type f | xargs gzip -f -k -9 \
   && uwsgi \
   --http-socket=0.0.0.0:8000 \
   --chdir=/app \
@@ -31,7 +33,7 @@ CMD /usr/bin/bash -euxc "until djcli dbcheck; do sleep 1; done \
   --spooler-processes=8 \
   --spooler-frequency=1 \
   --spooler-chdir=/app \
-  --module=electeez.wsgi:application \
+  --module=electeez_common.wsgi:application \
   --http-keepalive \
   --harakiri=1024 \
   --max-requests=100 \
