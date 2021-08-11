@@ -670,7 +670,7 @@ class ContestVoteView(ContestVoteMixin, FormMixin, generic.DetailView):
                 self.object.voter_set.update_or_create(
                     user=self.request.user,
                     defaults=dict(
-                        casted=timezone.now(),
+                        casted=True,
                         ballot_id=encrypted_ballot.object_id
                     ),
                 )
