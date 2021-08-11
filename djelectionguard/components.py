@@ -1085,7 +1085,7 @@ class ContestFinishedCard(Div):
             H4(contest.name, style='word-break: break-all'),
             Div(
                 *contest.about.split('\n'),
-                style='padding: 12px;',
+                style='padding: 12px; word-break: break-all;',
                 cls='subtitle-2'
             ),
             Ul(
@@ -2103,7 +2103,11 @@ class ContestResultCard(Div):
 
             table_content.addchild(
                 Tr(
-                    Td(num + candidate.name, cls=cls),
+                    Td(
+                        num + candidate.name,
+                        cls=cls,
+                        style='word-break: break-all; white-space: normal'
+                    ),
                     Td(
                         Span(f'{candidate.score}', cls='body-2'),
                         Span(f' {score_percent}', cls='text-btn'),
