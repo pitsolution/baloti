@@ -106,12 +106,14 @@ neuilly-deploy:
     - export $(echo $NEUILLY_ENV | xargs)
     - export $(echo $SMTP | xargs)
   variables:
+    DJANGO_APP: neuilly
+    DJANGO_SETTINGS_MODULE: neuilly.settings
     DEPLOY: >
       compose=docker-compose.yml,docker-compose.traefik.yml,docker-compose.persist.yml
       home=/home/neuilly
   only:
     refs:
-      - neuilly
+      - master
 
 master-deploy:
   <<: *deploy
@@ -124,6 +126,8 @@ master-deploy:
     - export $(echo $MASTER_ENV | xargs)
     - export $(echo $SMTP | xargs)
   variables:
+    DJANGO_APP: electis
+    DJANGO_SETTINGS_MODULE: electis.settings
     DEPLOY: >
       compose=docker-compose.yml,docker-compose.traefik.yml,docker-compose.persist.yml
       home=/home/master

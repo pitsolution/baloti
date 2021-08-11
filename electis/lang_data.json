@@ -1755,8 +1755,8 @@
   "fields": {
     "language": 30,
     "key": "%(num_voters)d voters",
-    "val": null,
-    "nval": null
+    "val": "%(num_voters)s voter",
+    "nval": "%(num_voters)s voters"
   }
 },
 {
@@ -2815,8 +2815,8 @@
   "fields": {
     "language": 30,
     "key": "%(voters)s voters added",
-    "val": null,
-    "nval": null
+    "val": "%(voters)s voter added",
+    "nval": "%(voters)s voters added"
   }
 },
 {
@@ -2935,8 +2935,8 @@
   "fields": {
     "language": 30,
     "key": "%(count)s Voters",
-    "val": null,
-    "nval": null
+    "val": "%(count)s Voter",
+    "nval": "%(count)s Voters"
   }
 },
 {
@@ -2975,8 +2975,8 @@
   "fields": {
     "language": 30,
     "key": "%(count)s Candidates",
-    "val": null,
-    "nval": null
+    "val": "%(count)s Candidate",
+    "nval": "%(count)s Candidates"
   }
 },
 {
@@ -3104,7 +3104,7 @@
   "pk": 3511,
   "fields": {
     "language": 30,
-    "key": "Your privacy key is a file with",
+    "key": "Your privacy key is a file with '.pkl' extension",
     "val": null,
     "nval": null
   }
@@ -3326,16 +3326,6 @@
     "language": 30,
     "key": "create ballot",
     "val": "",
-    "nval": null
-  }
-},
-{
-  "model": "djlang.text",
-  "pk": 3535,
-  "fields": {
-    "language": 30,
-    "key": "",
-    "val": null,
     "nval": null
   }
 },
@@ -4275,7 +4265,7 @@
   "fields": {
     "language": 30,
     "key": "Election %(obj)s is has been tallied",
-    "val": null,
+    "val": "Election %(obj)s has been tallied",
     "nval": null
   }
 },
@@ -5395,8 +5385,8 @@
   "fields": {
     "language": 30,
     "key": "%(candidates)d candidates, minimum: %(elected)d",
-    "val": null,
-    "nval": null
+    "val": "%(candidates)s candidate, minimum: %(elected)s",
+    "nval": "%(candidates)s candidates, minimum: %(elected)s"
   }
 },
 {
@@ -5455,7 +5445,7 @@
   "fields": {
     "language": 30,
     "key": "%(confirmed)d/%(gardiens)d confirmed",
-    "val": null,
+    "val": "%(confirmed)s/%(gardiens)s confirmed",
     "nval": null
   }
 },
@@ -5464,7 +5454,7 @@
   "pk": 3749,
   "fields": {
     "language": 30,
-    "key": "Your privacy key is a file with '.pkl' extension. ",
+    "key": "Your privacy key is a file with '.pkl' extension.",
     "val": null,
     "nval": null
   }
@@ -5564,7 +5554,7 @@
   "pk": 3760,
   "fields": {
     "language": 30,
-    "key": "\n                Hello,\n\n                This is the magic link you have requested: %(link)s\n                ",
+    "key": "Hello,                This is the magic link you have requested: %(link)s",
     "val": null,
     "nval": null
   }
@@ -5584,7 +5574,7 @@
   "pk": 3762,
   "fields": {
     "language": 30,
-    "key": "Hello,\n\n                This is the magic link you have requested: %(link)s\n                ",
+    "key": "Hello,                This is the magic link you have requested: %(link)s",
     "val": null,
     "nval": null
   }
@@ -5595,7 +5585,7 @@
   "fields": {
     "language": 29,
     "key": "Hello,                This is the magic link you have requested: %(link)s",
-    "val": null,
+    "val": "Bonjour, voici le lien de connexion que vous avez demandé:  %(link)s",
     "nval": null
   }
 },
@@ -5736,6 +5726,106 @@
     "language": 29,
     "key": "Voters emails",
     "val": "Emails à inscrire",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3779,
+  "fields": {
+    "language": 29,
+    "key": "An activation link has been sent to your email address, please open it to finish the signup process.",
+    "val": "Un lien d'activation a été envoyé a votre email",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3780,
+  "fields": {
+    "language": 30,
+    "key": "An activation link has been sent to your email address, please open it to finish the signup process.",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3781,
+  "fields": {
+    "language": 29,
+    "key": "login",
+    "val": "vous connecter",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3782,
+  "fields": {
+    "language": 30,
+    "key": "login",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3783,
+  "fields": {
+    "language": 29,
+    "key": "You may now",
+    "val": "Vous pouvez maintenant",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3784,
+  "fields": {
+    "language": 30,
+    "key": "You may now",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3785,
+  "fields": {
+    "language": 29,
+    "key": "You casted your vote The results will be published after the election is closed.",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3786,
+  "fields": {
+    "language": 30,
+    "key": "You casted your vote The results will be published after the election is closed.",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3787,
+  "fields": {
+    "language": 29,
+    "key": "You casted your vote! The results will be published after the election is closed.",
+    "val": "À voté! Les résultats seront publiés après la clôture de l'élection.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3788,
+  "fields": {
+    "language": 30,
+    "key": "You casted your vote! The results will be published after the election is closed.",
+    "val": null,
     "nval": null
   }
 }
