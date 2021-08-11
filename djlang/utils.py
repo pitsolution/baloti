@@ -57,7 +57,7 @@ def gettext(key, n=0, **ph):
             text_obj, created = l.text_set.get_or_create(key=key)
             if l.iso == current_language:
                 text = text_obj
-        return text.process(n, **ph)
+        return text.process(n, **ph) if text else key
     except Exception as e:
         print(f'djlang - Exception {e} raise trying to get value for key: {key}')
         return key
