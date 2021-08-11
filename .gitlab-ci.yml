@@ -23,7 +23,7 @@ test:
     DB_NAME: electeez
     DB_ENGINE: django.db.backends.postgresql
     MEMCACHED_HOST: memcached
-    DJANGO_SETTINGS_MODULE: electeez.settings
+    DJANGO_SETTINGS_MODULE: electis.settings
   services:
     - name: yourlabs/tezos
       alias: tz
