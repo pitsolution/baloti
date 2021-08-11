@@ -156,7 +156,7 @@ class Messages(html.CList):
         msgs = messages.get_messages(view.request)
         if msgs:
             super().__init__(*(
-                MDCSnackBar(msg.message, delay=i*2000)
+                MDCSnackBar(msg.message, delay=i*5000)
                 for i, msg in enumerate(msgs)
             ))
         else:

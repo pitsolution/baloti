@@ -7,6 +7,7 @@ from django.template.defaultfilters import date as _date
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import get_language
+from django.utils.safestring import mark_safe
 
 from electeez_common.components import *
 from ryzom_django.forms import widget_template
@@ -549,9 +550,8 @@ class CastVoteAction(ListAction):
         if voter.casted:
             s = voter.casted
             txt = Span(
-                _('You casted your vote on <b>%(time)s</b>'
-                  ' The results will be published after the election is closed.',
-                    time=_date(s, "d F, G\hi")
+                _('You casted your vote!'
+                  ' The results will be published after the election is closed.'
                 ),
                 Br(),
                 A(_('Track my vote'), href=reverse('tracker_detail', args=[voter.id])) if voter.casted else None,
@@ -621,6 +621,7 @@ class OnGoingElectionAction(ListAction):
                         end=end_time,
                         timezone=str(contest.timezone)
                     )
+            txt = mark_safe(txt)
             icon = SimpleCheckIcon()
         else:
             vote_link = reverse('otp_send') + f'?redirect=' + reverse('contest_vote', args=[contest.id])
@@ -633,16 +634,18 @@ class OnGoingElectionAction(ListAction):
                         time_end=end_time,
                         timezone=str(contest.timezone)
                     )
+            txt = mark_safe(txt)
             if contest.mediator == user:
                 sub_txt = _('Vote link: %(link)s',
                     link=f'<a href={vote_link}>{vote_link}</a>'
                 )
+                sub_txt = mark_safe(sub_txt)
 
             icon = OnGoingIcon()
 
         inner = Span(
             txt,
-            *('<br><br>', sub_txt) if sub_txt else (None, None),
+            *(mark_safe('<br><br>'), sub_txt) if sub_txt else (None, None),
             cls='body-2 red-button-container'
         )
 
@@ -820,10 +823,10 @@ class ContestVotingCard(Div):
             list_content.append(WaitForEmailAction(contest, user))
 
         super().__init__(
-            H4(contest.name),
+            H4(contest.name, style='word-break: break-all;'),
             Div(
                 *contest.about.split('\n'),
-                style='padding: 12px;',
+                style='padding: 12px; word-break: break-all;',
                 cls='subtitle-2'
             ),
             Ul(
@@ -858,10 +861,10 @@ class ContestSettingsCard(Div):
             list_content.append(SecureElectionAction(contest, user))
 
         super().__init__(
-            H4(contest.name),
+            H4(contest.name, style='word-break: break-all;'),
             Div(
                 *contest.about.split('\n'),
-                style='padding: 12px;',
+                style='padding: 12px; word-break: break-all;',
                 cls='subtitle-2'
             ),
             Ul(
@@ -1079,7 +1082,7 @@ class ContestFinishedCard(Div):
             is_voter = True
 
         super().__init__(
-            H4(contest.name),
+            H4(contest.name, style='word-break: break-all'),
             Div(
                 *contest.about.split('\n'),
                 style='padding: 12px;',
@@ -1164,13 +1167,14 @@ class CandidateDetail(Div):
         subcontent = Div(
             H5(
                 candidate.name,
-                style='margin-top: 6px; margin-bottom: 6px;'
+                style='margin-top: 6px; margin-bottom: 6px; word-break: break-all;'
             ),
             I(
                 candidate.subtext,
                 style=dict(
                     font_size='small',
-                    font_weight='initial'
+                    font_weight='initial',
+                    word_break='break-all',
                 )
             ),
             style='flex: 1 1 65%; padding: 12px;'
@@ -1180,7 +1184,7 @@ class CandidateDetail(Div):
             subcontent.addchild(
                 Div(
                     *candidate.description.split('\n'),
-                    style='margin-top: 24px;'
+                    style='margin-top: 24px; word-break: break-all;'
                 )
             )
 
@@ -1727,10 +1731,11 @@ class ContestVoteCard(Div):
              in enumerate(candidates))
 
         return super().to_html(
-            H4(contest.name, cls='center-text'),
+            H4(contest.name, cls='center-text', style='word-break: break-all'),
             Div(
                 contest.about,
-                cls='center-text body-2'
+                cls='center-text body-2',
+                style='word-break: break-all'
             ),
             Ul(
                 *[Li(e) for e in form.non_field_errors()],
@@ -2133,7 +2138,7 @@ class ContestResultCard(Div):
                 H5(contest.name),
                 Div(
                     *contest.about.split('\n'),
-                    style='padding: 12px;',
+                    style='padding: 12px; word-break: break-all;',
                     cls='subtitle-2'
                 ),
                 publish_btn,
