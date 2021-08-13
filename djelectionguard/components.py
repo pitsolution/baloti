@@ -2148,14 +2148,14 @@ class ContestResultCard(Div):
                 publish_btn,
                 score_table,
                 A(
-                    'Download artifacts',
+                    _('Download artifacts'),
                     tag='a',
                     href=contest.artifacts_local_url,
                 ),
                 Div(
                     Br(),
                     Span(
-                        'Or download artifacts on IPFS:',
+                        _('Or download artifacts on IPFS:'),
                         cls='body-2',
                     ),
                     Pre(
