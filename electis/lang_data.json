@@ -5828,5 +5828,45 @@
     "val": null,
     "nval": null
   }
+},
+{
+  "model": "djlang.text",
+  "pk": 3789,
+  "fields": {
+    "language": 29,
+    "key": "login ",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3790,
+  "fields": {
+    "language": 30,
+    "key": "login ",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3791,
+  "fields": {
+    "language": 29,
+    "key": "You may go ahead and ",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3792,
+  "fields": {
+    "language": 30,
+    "key": "You may go ahead and ",
+    "val": null,
+    "nval": null
+  }
 }
 ]

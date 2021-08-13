@@ -58,6 +58,10 @@ class ElectionContract(Transaction):
             state='deploy',
         )
 
+    @property
+    def explorer_link(self):
+        return self.blockchain.explorer.format(self.contract_address)
+
 
 def election_storage(admin):
     return {
