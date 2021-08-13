@@ -822,10 +822,12 @@ class ContestVotingCard(Div):
         if not len(actions):
             list_content.append(WaitForEmailAction(contest, user))
 
+        about = mark_safe(contest.about.replace('\n', '<br>'))
+
         super().__init__(
             H4(contest.name, style='word-break: break-all;'),
             Div(
-                *contest.about.split('\n'),
+                about,
                 style='padding: 12px; word-break: break-all;',
                 cls='subtitle-2'
             ),
@@ -860,10 +862,12 @@ class ContestSettingsCard(Div):
         else:
             list_content.append(SecureElectionAction(contest, user))
 
+        about = mark_safe(contest.about.replace('\n', '<br>'))
+
         super().__init__(
             H4(contest.name, style='word-break: break-all;'),
             Div(
-                *contest.about.split('\n'),
+                about,
                 style='padding: 12px; word-break: break-all;',
                 cls='subtitle-2'
             ),
@@ -1081,10 +1085,11 @@ class ContestFinishedCard(Div):
         if contest.voter_set.filter(user=view.request.user).count():
             is_voter = True
 
+        about = mark_safe(contest.about.replace('\n', '<br>'))
         super().__init__(
             H4(contest.name, style='word-break: break-all'),
             Div(
-                *contest.about.split('\n'),
+                about,
                 style='padding: 12px; word-break: break-all;',
                 cls='subtitle-2'
             ),
@@ -1730,10 +1735,12 @@ class ContestVoteCard(Div):
              for i, candidate
              in enumerate(candidates))
 
+        about = mark_safe(contest.about.replace('\n', '<br>'))
+
         return super().to_html(
             H4(contest.name, cls='center-text', style='word-break: break-all'),
             Div(
-                contest.about,
+                about,
                 cls='center-text body-2',
                 style='word-break: break-all'
             ),
@@ -2136,12 +2143,14 @@ class ContestResultCard(Div):
                 href=reverse('contest_publish', args=[contest.id]),
                 style='margin: 0 auto;')
 
+        about = mark_safe(contest.about.replace('\n', '<br>'))
+
         return super().to_html(
             H4(_('Results'), cls='center-text'),
             Div(
                 H5(contest.name),
                 Div(
-                    *contest.about.split('\n'),
+                    about,
                     style='padding: 12px; word-break: break-all;',
                     cls='subtitle-2'
                 ),
