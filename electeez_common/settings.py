@@ -237,7 +237,6 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', None)
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', None)
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', None)
 EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', None)
-DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'noreply@electeez.com')
 
 if EMAIL_HOST:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
