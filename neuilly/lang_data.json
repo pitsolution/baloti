@@ -1,3 +1,26 @@
+System check identified some issues:
+
+WARNINGS:
+[33;1mdjcall.Call: (models.W042) Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'.
+	HINT: Configure the DEFAULT_AUTO_FIELD setting or the DjcallConfig.default_auto_field attribute to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'.[0m
+[33;1mdjcall.Caller.kwargs: (fields.W904) django.contrib.postgres.fields.JSONField is deprecated. Support for it (except in historical migrations) will be removed in Django 4.0.
+	HINT: Use django.db.models.JSONField instead.[0m
+[33;1mdjcall.Caller: (models.W042) Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'.
+	HINT: Configure the DEFAULT_AUTO_FIELD setting or the DjcallConfig.default_auto_field attribute to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'.[0m
+[33;1mdjcall.Cron: (models.W042) Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'.
+	HINT: Configure the DEFAULT_AUTO_FIELD setting or the DjcallConfig.default_auto_field attribute to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'.[0m
+[33;1mdjlang.Language: (models.W042) Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'.
+	HINT: Configure the DEFAULT_AUTO_FIELD setting or the DjlangConfig.default_auto_field attribute to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'.[0m
+[33;1mdjlang.Text: (models.W042) Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'.
+	HINT: Configure the DEFAULT_AUTO_FIELD setting or the DjlangConfig.default_auto_field attribute to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'.[0m
+[33;1mdjtezos.Account: (models.W042) Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'.
+	HINT: Configure the DEFAULT_AUTO_FIELD setting or the AppConfig.default_auto_field attribute to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'.[0m
+[33;1mdjtezos.Blockchain: (models.W042) Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'.
+	HINT: Configure the DEFAULT_AUTO_FIELD setting or the AppConfig.default_auto_field attribute to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'.[0m
+[33;1melecteez_auth.Token: (models.W042) Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'.
+	HINT: Configure the DEFAULT_AUTO_FIELD setting or the ElecteezAuthConfig.default_auto_field attribute to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'.[0m
+[33;1melecteez_auth.User: (models.W042) Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'.
+	HINT: Configure the DEFAULT_AUTO_FIELD setting or the ElecteezAuthConfig.default_auto_field attribute to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'.[0m
 [
 {
   "model": "djlang.language",
@@ -5828,5 +5851,46 @@
     "val": null,
     "nval": null
   }
+},
+{
+  "model": "djlang.text",
+  "pk": 3789,
+  "fields": {
+    "language": 29,
+    "key": "login ",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3790,
+  "fields": {
+    "language": 30,
+    "key": "login ",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3791,
+  "fields": {
+    "language": 29,
+    "key": "You may go ahead and ",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3792,
+  "fields": {
+    "language": 30,
+    "key": "You may go ahead and ",
+    "val": null,
+    "nval": null
+  }
 }
 ]
+[0m
