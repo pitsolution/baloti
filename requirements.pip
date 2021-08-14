@@ -16,14 +16,22 @@ djtezos[test]>=0.4.1,<0.5
 djcall
 djcli
 electionguard
+fastecdsa
+pysodium
+secp256k1
+
+
 jinja2
+jsons
+pillow
 pymemcache
 
 pytest
 pytest-django
 pytest-watch
 
+pytezos
+
 ryzom>=0.6.10rc0
 
 sentry-sdk
-pytezos
