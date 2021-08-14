@@ -1,6 +1,7 @@
 .ONESHELL:
 
-.PHONY: install
+.PHONY: install data launch lang
+
 install:
 	sudo apt install autoconf
 	sudo apt install libtool
@@ -16,6 +17,22 @@ install:
 	python3.9 -m venv my_env
 	sudo apt-get install postgresql
 	source ./my_env/bin/activate
+	pip install wheel
 	pip install -U 'Twisted[tls,http2]'
 	pip install -r requirements.pip
+	pip install pytezos
+	systemctl enable memcached
+	systemctl start memcached
+	sudo systemctl start postgresql
 
+data:
+	./manage.py makemigrations
+	./manage.py migrate
+	./manage.py loaddata data.json
+	./manage.py loaddata electis/site_data.json
+
+run: 
+	./manage.py runserver
+
+lang:
+	./manage.py loaddata electis/lang_data.json 
