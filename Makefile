@@ -16,7 +16,6 @@ install:
 	python3.9 -m venv my_env
 	sudo apt-get install postgresql
 	source ./my_env/bin/activate
-	pip install wheel
 	pip install -U 'Twisted[tls,http2]'
 	pip install -r requirements.pip
 
