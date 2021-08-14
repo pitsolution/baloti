@@ -30,7 +30,6 @@ pytest
 pytest-django
 pytest-watch
 
-pytezos
 
 ryzom>=0.6.10rc0
 
