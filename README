@@ -27,7 +27,7 @@ cd electeez
 
 # INSTALL PYTHON (IDEALLY >=3.9)
 sudo apt install python3.9-dev
-apt install python3.9-venv
+sudo apt install python3.9-venv
 python3.9 -m venv my_env
 
 # LAUNCH VENV
