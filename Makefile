@@ -13,7 +13,7 @@ install:
 	sudo apt install libmpc-dev
 	pip install wheel
 	pip install -U 'Twisted[tls,http2]'
-	pip install -r requirements.pip
+	pip install -r requirements.txt
 	pip install pytezos
 
 data:
