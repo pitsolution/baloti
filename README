@@ -2,9 +2,17 @@
 
 Electeez (electis.app) is an open source semi-decentralized voting platform. 
 
-It is using  https://www.electionguard.vote/ for its voting engine and the Tezos blockchain (tezos.com) to store the results in the form of a smart contract pointing to an IPFS link with all the details to re run an encrypted tally. Electeez is aimed to be used for low stakes election where the organizer hosting the server can be trusted. We are looking to make it as easy as possible for people to participate but also as verifiable as possible for technical auditors (e.g re running the tally etc...) The elections are organized by a Guardian (Multi guardians are on our roadmap) he/she is in charge of the encryption key used for an election. The votes are encrypted and trackable you can therefore verify at the end of the election that your ballot is indeed conted (its name = hash) Individual Ballots are never decrypted the sum is done via a homeomorphic encryption (only the sum is decrypted) 
+It is using [election guard] (https://www.electionguard.vote/) for its voting engine and the [Tezos blockchain] (tezos.com) to store the results in the form of a smart contract pointing to an IPFS link with all the details to re-run an encrypted tally. Electeez can be used for low-stakes elections when the organizer hosting the server can be trusted. 
 
-This project is developped by electis in partnership with Tezos via its foundation 
+Electis.app is built to be as easy to use as possible for anyone to participate or organize elections. It also allows technical auditors to verify as many pieces of information as possible  (e.g re-running the tally etc...) 
+
+The elections are organized by a Guardian (Multi guardians on our roadmap) A guardian is in charge of the secrecy of the elections by holding an encryption key used to encrypt ballots. 
+
+The votes are encrypted and trackable voters can  verify at the end of the election that their ballots are counted. 
+
+ Individual Ballots are always encrypted and their tallying is done via an homomorphic encryption (only the sum of the ballots is decrypted) 
+
+This project is developed by electis in partnership with Tezos via its foundation #MORE INFO you can find more information about electis and electeez on https://www.electis.io/about you can test an online version of electeez on https://www.electis.app 
 
 #MORE INFO
 you can find more information about electis and electeez on https://www.electis.io/about
