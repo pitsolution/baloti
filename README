@@ -2,7 +2,7 @@
 
 Electeez (electis.app) is an open source semi-decentralized voting platform. 
 
-It is using [election guard] (https://www.electionguard.vote/) for its voting engine and the [Tezos blockchain] (tezos.com) to store the results in the form of a smart contract pointing to an IPFS link with all the details to re-run an encrypted tally. Electeez can be used for low-stakes elections when the organizer hosting the server can be trusted. 
+It is using [election guard](https://www.electionguard.vote/) for its voting engine and the [Tezos blockchain](tezos.com) to store the results in the form of a smart contract pointing to an IPFS link with all the details to re-run an encrypted tally. Electeez can be used for low-stakes elections when the organizer hosting the server can be trusted. 
 
 Electis.app is built to be as easy to use as possible for anyone to participate or organize elections. It also allows technical auditors to verify as many pieces of information as possible  (e.g re-running the tally etc...) 
 
