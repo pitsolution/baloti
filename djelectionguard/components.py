@@ -8,6 +8,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import get_language
 from django.utils.safestring import mark_safe
+from django.utils.html import escape
 
 from electeez_common.components import *
 from ryzom_django.forms import widget_template
@@ -822,7 +823,7 @@ class ContestVotingCard(Div):
         if not len(actions):
             list_content.append(WaitForEmailAction(contest, user))
 
-        about = mark_safe(contest.about.replace('\n', '<br>'))
+        about = mark_safe(escape(contest.about).replace('\n', '<br>'))
 
         super().__init__(
             H4(contest.name, style='word-break: break-all;'),
@@ -862,7 +863,7 @@ class ContestSettingsCard(Div):
         else:
             list_content.append(SecureElectionAction(contest, user))
 
-        about = mark_safe(contest.about.replace('\n', '<br>'))
+        about = mark_safe(escape(contest.about).replace('\n', '<br>'))
 
         super().__init__(
             H4(contest.name, style='word-break: break-all;'),
@@ -1085,7 +1086,7 @@ class ContestFinishedCard(Div):
         if contest.voter_set.filter(user=view.request.user).count():
             is_voter = True
 
-        about = mark_safe(contest.about.replace('\n', '<br>'))
+        about = mark_safe(escape(contest.about).replace('\n', '<br>'))
         super().__init__(
             H4(contest.name, style='word-break: break-all'),
             Div(
@@ -1735,7 +1736,7 @@ class ContestVoteCard(Div):
              for i, candidate
              in enumerate(candidates))
 
-        about = mark_safe(contest.about.replace('\n', '<br>'))
+        about = mark_safe(escape(contest.about).replace('\n', '<br>'))
 
         return super().to_html(
             H4(contest.name, cls='center-text', style='word-break: break-all'),
@@ -2143,7 +2144,7 @@ class ContestResultCard(Div):
                 href=reverse('contest_publish', args=[contest.id]),
                 style='margin: 0 auto;')
 
-        about = mark_safe(contest.about.replace('\n', '<br>'))
+        about = mark_safe(escape(contest.about).replace('\n', '<br>'))
 
         return super().to_html(
             H4(_('Results'), cls='center-text'),
