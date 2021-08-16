@@ -25,6 +25,8 @@ pytest-watch
 
 pytezos
 
+ipfs-api
+
 ryzom>=0.6.10rc0
 
 sentry-sdk
