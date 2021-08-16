@@ -278,7 +278,7 @@ LOGGING = {
 }
 
 LOGGERS = (
-    'django.http',
+    'django.request',
     'djcall',
     'djtezos',
     'daphne',

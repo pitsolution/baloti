@@ -140,7 +140,7 @@ class ContestUpdateView(generic.UpdateView):
     @classmethod
     def as_url(cls):
         return path(
-            '<pk>/update/',
+            '<uuid:pk>/update/',
             login_required(cls.as_view()),
             name='contest_update'
         )
@@ -172,7 +172,7 @@ class ContestResultView(ContestAccessible, generic.DetailView):
     @classmethod
     def as_url(cls):
         return path(
-            '<pk>/result',
+            '<uuid:pk>/result',
             login_required(cls.as_view()),
             name='contest_result'
         )
@@ -194,7 +194,7 @@ class ContestDetailView(ContestAccessible, generic.DetailView):
     @classmethod
     def as_url(cls):
         return path(
-            '<pk>/',
+            '<uuid:pk>/',
             login_required(cls.as_view()),
             name='contest_detail'
         )
@@ -204,7 +204,7 @@ class ContestManifestView(ContestAccessible, generic.DetailView):
     @classmethod
     def as_url(cls):
         return path(
-            '<pk>/manifest/',
+            '<uuid:pk>/manifest/',
             login_required(cls.as_view()),
             name='contest_manifest'
         )
@@ -266,7 +266,7 @@ class EmailVotersView(ContestMediator, EmailBaseView):
     @classmethod
     def as_url(cls):
         return path(
-            '<pk>/email/',
+            '<uuid:pk>/email/',
             login_required(cls.as_view()),
             name='email_voters'
         )
@@ -287,7 +287,7 @@ class ContestOpenView(ContestMediator, EmailBaseView):
     @classmethod
     def as_url(cls):
         return path(
-            '<pk>/open/',
+            '<uuid:pk>/open/',
             login_required(cls.as_view()),
             name='contest_open'
         )
@@ -336,7 +336,7 @@ class ContestCloseView(ContestMediator, generic.UpdateView):
     @classmethod
     def as_url(cls):
         return path(
-            '<pk>/close/',
+            '<uuid:pk>/close/',
             login_required(cls.as_view()),
             name='contest_close'
         )
@@ -409,7 +409,7 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
     @classmethod
     def as_url(cls):
         return path(
-            '<pk>/decrypt/',
+            '<uuid:pk>/decrypt/',
             login_required(cls.as_view()),
             name='contest_decrypt'
         )
@@ -491,7 +491,7 @@ class ContestPublishView(ContestDecentralized, generic.UpdateView):
     @classmethod
     def as_url(cls):
         return path(
-            '<pk>/publish/',
+            '<uuid:pk>/publish/',
             login_required(cls.as_view()),
             name='contest_publish'
         )
@@ -502,7 +502,7 @@ class ContestPubkeyView(ContestMediator, generic.UpdateView):
     @classmethod
     def as_url(cls):
         return path(
-            '<pk>/pubkey/',
+            '<uuid:pk>/pubkey/',
             login_required(cls.as_view()),
             name='contest_pubkey'
         )
@@ -699,7 +699,7 @@ class ContestVoteView(ContestVoteMixin, FormMixin, generic.DetailView):
     @classmethod
     def as_url(cls):
         return path(
-            '<pk>/vote/',
+            '<uuid:pk>/vote/',
             cls.as_view(),
             name='contest_vote'
         )
@@ -711,7 +711,7 @@ class ContestCandidateListView(ContestAccessible, generic.DetailView):
     @classmethod
     def as_url(cls):
         return path(
-            '<pk>/candidates/',
+            '<uuid:pk>/candidates/',
             login_required(cls.as_view()),
             name='contest_candidate_list'
         )
@@ -738,7 +738,6 @@ class CandidateForm(forms.ModelForm):
     picture = forms.ImageField(
         widget=forms.FileInput,
         label = _('CANDIDATE_PICTURE'),
-        help_text=_('Picture of the candidate'),
         required=False
     )
 
@@ -805,7 +804,7 @@ class ContestCandidateCreateView(ContestMediator, FormMixin, generic.DetailView)
     @classmethod
     def as_url(cls):
         return path(
-            '<pk>/candidates/create/',
+            '<uuid:pk>/candidates/create/',
             login_required(cls.as_view()),
             name='contest_candidate_create'
         )
@@ -836,7 +835,7 @@ class ContestCandidateUpdateView(generic.UpdateView):
     @classmethod
     def as_url(cls):
         return path(
-            'candidates/<pk>/update/',
+            'candidates/<uuid:pk>/update/',
             login_required(cls.as_view()),
             name='contest_candidate_update'
         )
@@ -862,7 +861,7 @@ class ContestCandidateDeleteView(ContestMediator, generic.DeleteView):
     @classmethod
     def as_url(cls):
         return path(
-            'candidates/<pk>/delete/',
+            'candidates/<uuid:pk>/delete/',
             login_required(cls.as_view()),
             name='contest_candidate_delete'
         )
@@ -963,7 +962,7 @@ class GuardianCreateView(ContestMediator, FormMixin, generic.DetailView):
     @classmethod
     def as_url(cls):
         return path(
-            '<pk>/guardian/create/',
+            '<uuid:pk>/guardian/create/',
             login_required(cls.as_view()),
             name='contest_guardian_create'
         )
@@ -1007,7 +1006,7 @@ class GuardianDeleteView(ContestMediator, generic.DeleteView):
     @classmethod
     def as_url(cls):
         return path(
-            'guardian/<pk>/delete/',
+            'guardian/<uuid:pk>/delete/',
             login_required(cls.as_view()),
             name='contest_guardian_delete'
         )
@@ -1051,7 +1050,7 @@ class GuardianVerifyView(generic.UpdateView):
     @classmethod
     def as_url(cls):
         return path(
-            'guardian/<pk>/verify/',
+            'guardian/<uuid:pk>/verify/',
             login_required(cls.as_view()),
             name='guardian_verify'
         )
@@ -1087,7 +1086,7 @@ class GuardianUploadView(generic.UpdateView):
     @classmethod
     def as_url(cls):
         return path(
-            'guardian/<pk>/upload/',
+            'guardian/<uuid:pk>/upload/',
             login_required(cls.as_view()),
             name='guardian_upload'
         )
@@ -1100,7 +1099,7 @@ class GuardianDownloadView(generic.DetailView):
     @classmethod
     def as_url(cls):
         return path(
-            'guardian/<pk>/download/',
+            'guardian/<uuid:pk>/download/',
             login_required(cls.as_view()),
             name='guardian_download'
         )
@@ -1142,7 +1141,7 @@ class ContestVotersDetailView(ContestMediator, generic.DetailView):
     @classmethod
     def as_url(cls):
         return path(
-            '<pk>/voters/',
+            '<uuid:pk>/voters/',
             login_required(cls.as_view()),
             name='contest_voters_detail'
         )
@@ -1263,7 +1262,7 @@ class ContestVotersUpdateView(ContestMediator, generic.UpdateView):
     @classmethod
     def as_url(cls):
         return path(
-            '<pk>/voters/update/',
+            '<uuid:pk>/voters/update/',
             login_required(cls.as_view()),
             name='contest_voters_update'
         )
