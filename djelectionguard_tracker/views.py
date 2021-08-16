@@ -25,9 +25,14 @@ class TrackerFormView(generic.FormView):
 
         email = forms.EmailField(label=_('Email'))
 
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return http.HttpResponseRedirect(reverse('tracker_list'))
+        return super().dispatch(request, *args, **kwargs)
+
     def form_valid(self, form):
         # send otp mail
-        super().form_valid(form)
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse('tracker_success')
@@ -132,7 +137,7 @@ class TrackerSuccessCard(Div):
         )
 
 
-class TrackerSuccessView(generic.View):
+class TrackerSuccessView(generic.TemplateView):
     template_name = 'tracker_success'
 
     @classmethod
@@ -164,7 +169,8 @@ class TrackerListCard(Div):
             table.tbody.addchild(
                 MDCDataTableTr(
                     MDCDataTableTd(
-                        _('Contest %(name)s', name=voter.contest.name)
+                        _('Contest %(name)s', name=voter.contest.name),
+                        style='word-break: break-all; white-space: break-spaces'
                     ),
                     MDCDataTableTd(
                         CheckedIcon() if voter.casted else '--'
