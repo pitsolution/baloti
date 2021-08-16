@@ -123,7 +123,7 @@ class TrackerDetailView(generic.DetailView):
     @classmethod
     def as_url(cls):
         return path(
-            '<pk>/',
+            '<uuid:pk>/',
             cls.as_view(),
             name='tracker_detail'
         )
@@ -210,8 +210,8 @@ class TrackerListView(generic.ListView):
 
 
 urlpatterns = [
-    TrackerFormView.as_url(),
-    TrackerSuccessView.as_url(),
-    TrackerListView.as_url(),
+    # TrackerFormView.as_url(),
+    # TrackerSuccessView.as_url(),
+    # TrackerListView.as_url(),
     TrackerDetailView.as_url(),
 ]
