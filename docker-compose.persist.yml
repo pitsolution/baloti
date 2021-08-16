@@ -38,12 +38,15 @@ services:
       - IPFS_PATH=ipfsdata
     volumes:
       - ./data/ipfs:/ipfsdata
+      - ./data/media:/media
     networks:
       - web
       - default
     ports:
       - "4001"
       - "8080"
+    expose:
+      - "5001"
 
   postgres:
     restart: always
