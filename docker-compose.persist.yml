@@ -45,6 +45,9 @@ services:
     ports:
       - "4001"
       - "8080"
+      - "8080"
+    expose:
+      - "5001"
 
   postgres:
     restart: always
