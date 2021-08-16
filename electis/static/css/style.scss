@@ -605,6 +605,7 @@ a.caption {
       border-radius: 8px;
       margin-bottom: 24px;
     }
+
   }
 
   .side-container,
@@ -633,6 +634,10 @@ a.caption {
         }
       }
     }
+  }
+  .side-container {
+    width: -webkit-fill-available;
+    max-width: -moz-available;
   }
 }
 .progress-bar {

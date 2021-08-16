@@ -633,6 +633,10 @@ a.caption {
       }
     }
   }
+  .side-container {
+    width: -webkit-fill-available;
+    max-width: -moz-available;
+  }
 }
 .progress-bar {
   width: 70%;
