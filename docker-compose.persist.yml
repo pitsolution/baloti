@@ -38,6 +38,7 @@ services:
       - IPFS_PATH=ipfsdata
     volumes:
       - ./data/ipfs:/ipfsdata
+      - ./data/media:/media
     networks:
       - web
       - default
