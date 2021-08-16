@@ -32,7 +32,7 @@ services:
     restart: always
     logging:
       driver: journald
-    image: ipfs:go-ipfs:latest
+    image: ipfs/go-ipfs:latest
     environment:
       - IPFS_PROFILE=server
       - IPFS_PATH=ipfsdata
