@@ -1448,14 +1448,17 @@ class ContestCandidateForm(Div):
     def init_counter(form_id, count):
         form = getElementByUuid(form_id)
         counter = form.querySelector('.mdc-text-field-character-counter')
-        counter.innerHTML = count + '/255'
+        counter.innerHTML = count + '/300'
 
     def update_counter(event):
         field = event.currentTarget
         current_count = field.value.length
+        if current_count > 300:
+            field.value = field.value.substr(0, 300)
+            current_count = 300
         parent = field.parentElement.parentElement.parentElement
         counter = parent.querySelector('.mdc-text-field-character-counter')
-        counter.innerHTML = current_count + '/255'
+        counter.innerHTML = current_count + '/300'
 
     def py2js(self):
         self.init_counter(self.id, self.count)
