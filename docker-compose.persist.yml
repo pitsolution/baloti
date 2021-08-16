@@ -28,6 +28,22 @@ services:
     networks:
       - default
 
+  ipfs:
+    restart: always
+    logging:
+      driver: journald
+    image: ipfs:go-ipfs:latest
+    environment:
+      - IPFS_PROFILE=server
+      - IPFS_PATH=ipfsdata
+    volumes:
+      - ./data/ipfs:/ipfsdata
+    networks:
+      - web
+      - default
+    ports:
+      - "4001:4001"
+
   postgres:
     restart: always
     networks:
