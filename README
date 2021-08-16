@@ -2,17 +2,23 @@
 
 Electeez (electis.app) is an open source semi-decentralized voting platform. 
 
-It is using [election guard](https://www.electionguard.vote/) for its voting engine and the [Tezos blockchain](tezos.com) to store the results in the form of a smart contract pointing to an IPFS link with all the details to re-run an encrypted tally. Electeez can be used for low-stakes elections when the organizer hosting the server can be trusted. 
+It is using [election guard](https://www.electionguard.vote/) for its voting engine and the [Tezos blockchain](tezos.com) 
+to store the results in the form of a smart contract pointing to an IPFS link with all the details to re-run an encrypted tally. 
+
+Electeez can be used for low-stakes elections when the organizer hosting the server can be trusted. 
 
 Electis.app is built to be as easy to use as possible for anyone to participate or organize elections. It also allows technical auditors to verify as many pieces of information as possible  (e.g re-running the tally etc...) 
 
-The elections are organized by a Guardian (Multi guardians on our roadmap) A guardian is in charge of the secrecy of the elections by holding an encryption key used to encrypt ballots. 
+The elections are organized by a Guardian (Multi guardians on our roadmap) A guardian is in charge of keeping the private encryption 
+key(s) of the elections used to encrypt the ballots. 
 
-The votes are encrypted and trackable voters can  verify at the end of the election that their ballots are counted. 
+ Individual Ballots are always encrypted and their tallying is done via an homomorphic encryption 
+(only the sum of the ballots is decrypted) At the end of the election all the encrypted ballots and the technical paramters of the 
+elections are shared under a zipped artifacts file. This allow a voter for example to verify that his/her ballot is present and
+also that its hash (sha1) is the same as the information shared at the end of their vote.  
 
- Individual Ballots are always encrypted and their tallying is done via an homomorphic encryption (only the sum of the ballots is decrypted) 
-
-This project is developed by electis in partnership with Tezos via its foundation #MORE INFO you can find more information about electis and electeez on https://www.electis.io/about you can test an online version of electeez on https://www.electis.app 
+This project is developed by electis in partnership with Tezos via its foundation #MORE INFO you can find more information 
+about electis and electeez on https://www.electis.io/about you can test an online version of electeez on https://www.electis.app 
 
 #MORE INFO
 you can find more information about electis and electeez on https://www.electis.io/about
@@ -99,10 +105,45 @@ quit()
 make run #TO LAUNCH DJANGO
 
 # EDIT ADMIN PANEL / BLOCKCHAIN
-#only select blockchain fake under blockchain as active (if not creating a contract will crash)   
-127.0.0.1:8000/admin
+#for local test you only need to select the blockchain "fake" 
+127.0.0.1:8000/admin/djtezos/blockchain/
 
-#ADD YOUR OWN BLOCKCHAIN / WALLET 
+#ACTIVATE TESTNET / WALLET
+#Assuming your docker is running you can set a testnet and mainnet account
+#Exemple to add EDONET TEST 
+Click on Add a blockchain 
+Name: Testnet Edonet
+EndPoint: https://rpc.tzkt.io/edo2net/
+Explorer: https://edo2net.tzkt.io/{}/storagei #{} is later replaced by the contract @
+Provider Class: Tezos
+Confirmation Blocks: 2
+Hit Save
 
+# You will notice no wallets are created on Accounts yet to do so at the moment you need
+# to create an election and to click on add the election smart contract. This will create a wallet 
+# for the newly created blockchain 
 
-#YOU CAN NOW LAUNCH A LOCAL ELECTION
+The balance is 0 #you can also now find the wallet under admin/accounts
+You need to send Tez to the corresponding wallet to enable an election (at the moment we recommend 2Tez) 
+Once done refresh the balance using the Refresh balance button from the "Choose the blockchain" page while 
+setting an election. 
+
+##HOW TO ADD TEZ WITH A FAUCET / TESTNET
+
+#FAUCET (TESTNET)
+# you can use the faucet bot on telegram to feed your Testnet wallet  
+https://t.me/tezos_faucet_bot
+
+#SEND MONEY FROM YOUR WALLET
+
+#WHEN YOUR REBOOT
+
+#IPFS on one console 
+ipfs daemon
+
+#Tezos Image on one console 
+sudo docker restart tz
+sudo docker restart tz  
+
+#ELECTEEZ
+make run #launch it 
