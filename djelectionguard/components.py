@@ -21,7 +21,9 @@ from .models import Contest, Candidate
 
 @widget_template('django/forms/widgets/splitdatetime.html')
 class SplitDateTimeWidget(SplitDateTimeWidget):
+    date_label = _('Date')
     date_style = 'margin-top: 0; margin-bottom: 32px;'
+    time_label = _('Time')
     time_style = 'margin: 0;'
 
 
@@ -1198,11 +1200,11 @@ class CandidateDetail(Div):
 
         if editable and not candidate.description:
             content.append(
-                MDCButtonOutlined('Edit', False, 'edit', **kwargs)
+                MDCButtonOutlined(_('edit'), False, 'edit', **kwargs)
             )
         elif editable:
             subcontent.addchild(
-                MDCButtonOutlined('Edit', False, 'edit', **kwargs)
+                MDCButtonOutlined(_('edit'), False, 'edit', **kwargs)
             )
 
         if 'style' not in kwargs:
@@ -1499,7 +1501,7 @@ class ContestCandidateUpdateCard(Div):
             _('back'),
             reverse('contest_candidate_create', args=[contest.id]))
         delete_btn = MDCTextButton(
-            'delete',
+            _('delete'),
             'delete',
             tag='a',
             href=reverse('contest_candidate_delete', args=[candidate.id]))
@@ -1514,7 +1516,7 @@ class ContestCandidateUpdateCard(Div):
                 ContestCandidateForm(form),
                 Div(
                     Div(delete_btn, cls='red-button-container'),
-                    MDCButton('Save', True),
+                    MDCButton(_('Save'), True),
                     style='display: flex; justify-content: space-between'),
                 method='POST',
                 cls='form'),

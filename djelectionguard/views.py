@@ -738,7 +738,6 @@ class CandidateForm(forms.ModelForm):
     picture = forms.ImageField(
         widget=forms.FileInput,
         label = _('CANDIDATE_PICTURE'),
-        help_text=_('Picture of the candidate'),
         required=False
     )
 
