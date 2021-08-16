@@ -109,9 +109,11 @@ class TrackerDetailView(generic.DetailView):
     model = Voter
 
     def get_queryset(self, qs=None):
-        return Voter.objects.filter(
-            user=self.request.user
-        ).select_related('contest')
+        if self.request.user.is_authenticated:
+            return Voter.objects.filter(
+                user=self.request.user
+            ).select_related('contest')
+        return []
 
     @classmethod
     def as_url(cls):
