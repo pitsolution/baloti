@@ -1667,7 +1667,7 @@ class ContestOpenCard(Div):
 
 
 class DialogConfirmForm(Form):
-    def __init__(self, *content, selections=[], **attrs):
+    def __init__(self, *content, selections=[], max_selections=1, **attrs):
         def hidden_selections():
             for s in selections:
                 candidate = CandidateDetail(s)
@@ -1675,8 +1675,10 @@ class DialogConfirmForm(Form):
                 candidate.attrs['data-candidate-id'] = s.id
                 yield candidate
 
+        self.max_selections = max_selections
+
         actions = MDCDialogActions(
-            MDCDialogCloseButtonOutlined(_('cancel')),
+            MDCDialogCloseButtonOutlined(_('modify')),
             MDCDialogAcceptButton(
                 _('confirm'),
                 addcls='mdc-button--raised black-button',
@@ -1687,11 +1689,18 @@ class DialogConfirmForm(Form):
             }
         )
 
+        self.remaining_text_start = str(_('If you want it, you have'))
+        self.remaining_text_end = str(_('choice left'))
+        self.remaining_text_end_plural = str(_('choices left'))
+
         super().__init__(
             *content,
             MDCDialog(
                 _('Confirm your selection'),
-                Div(*hidden_selections()),
+                Div(
+                    *hidden_selections(),
+                    Div(B(id='remaining')),
+                ),
                 actions=actions,
             ),
             **attrs
@@ -1715,12 +1724,34 @@ class DialogConfirmForm(Form):
                 '[data-candidate-id="' + selection + '"]'
             )
             candidate.style.display = 'flex'
+
+        remaining = this.max_selections - len(selections)
+        self.update_remaining(this, remaining)
         this.dialog.onclosing = self.ondialogclosing
         this.dialog.onclosed = self.ondialogclosed
         this.dialog.open()
 
+    def update_remaining(form, remaining):
+        elem = document.querySelector('#remaining')
+        remaining_text = (
+            form.remaining_text_start + ' ' + remaining + ' '
+        )
+        if remaining > 1:
+            remaining_text += form.remaining_text_end_plural
+        else:
+            remaining_text += form.remaining_text_end
+
+        if remaining == 0:
+            elem.innerHTML = ''
+        else:
+            elem.innerHTML = remaining_text
+
     def py2js(self):
         form = getElementByUuid(self.id)
+        form.max_selections = self.max_selections
+        form.remaining_text_start = self.remaining_text_start
+        form.remaining_text_end = self.remaining_text_end
+        form.remaining_text_end_plural = self.remaining_text_end_plural
         form.addEventListener('submit', self.handle_submit.bind(form))
 
 
@@ -1750,6 +1781,13 @@ class ContestVoteCard(Div):
                 cls='center-text body-2',
                 style='word-break: break-all'
             ),
+            Div(
+                _('You have up to a total of %(vote_allowed)s choice',
+                    n=max_selections,
+                    vote_allowed=max_selections
+                ),
+                style='opacity: 0.6'
+            ),
             Ul(
                 *[Li(e) for e in form.non_field_errors()],
                 cls='error-list'
@@ -1762,6 +1800,7 @@ class ContestVoteCard(Div):
                     n=max_selections),
                 MDCButton(_('create ballot')),
                 selections=candidates,
+                max_selections=max_selections,
                 method='POST',
                 cls='form vote-form',
             ),
