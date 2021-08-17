@@ -2175,6 +2175,41 @@ class ContestResultCard(Div):
             }
         )
 
+        links_table_content = Tbody()
+        if contest.electioncontract.blockchain.explorer:
+            links_table_content.addchild(
+                Tr(
+                    Td(_('Report on Tezos\' blockchain'), style='word-break: keep-all;text-align: right'),
+                    Td(A(contest.electioncontract.explorer_link, href=contest.electioncontract.explorer_link)),
+                )
+            )
+
+        links_table_content.addchild(
+            Tr(
+                Td(_('Local election datas'), style='word-break: keep-all;text-align: right'),
+                Td(A(contest.artifacts_local_url, href=contest.artifacts_local_url)),
+            )
+        )
+
+        if contest.artifacts_ipfs_url:
+            links_table_content.addchild(
+                Tr(
+                    Td(_('IPFS election datas'), style='word-break: keep-all;text-align: right'),
+                    Td(A(contest.artifacts_ipfs_url, href=contest.artifacts_ipfs_url)),
+                )
+            )
+
+        links_table = Table(
+            links_table_content,
+            style=dict(
+                font_size='smaller',
+                margin='0 auto',
+                color='gray',
+                word_break='break-all',
+                border_spacing='6px 12px',
+            )
+        )
+
         publish_btn = ''
         if (
             contest.publish_state == contest.PublishStates.ELECTION_DECRYPTED
@@ -2201,26 +2236,9 @@ class ContestResultCard(Div):
                 ),
                 publish_btn,
                 score_table,
-                A(
-                    _('Download artifacts'),
-                    tag='a',
-                    href=contest.artifacts_local_url,
-                ),
-                Div(
-                    Br(),
-                    Span(
-                        _('Or'),
-                        cls='body-2',
-                    ),
-                    Br(),
-                    A(
-                        _('Download artifacts on IPFS'),
-                        tag='a',
-                        href=contest.artifacts_ipfs_url
-                    ),
-                ) if contest.artifacts_ipfs_url else None,
                 cls='table-container score-table center-text'
             ),
+            links_table,
             cls='card',
         )
 

@@ -231,7 +231,7 @@ class Contest(models.Model):
 
     def publish_ipfs(self):
         try:
-            url = 'ipfs:5001/api/v0/'
+            url = settings.IPFS_URL + '/api/v0/'
             out = subprocess.check_output(
                 ['curl', '-F', f'file=@{self.artifacts_zip_path}', url+'add'],
                 stderr=subprocess.PIPE,
