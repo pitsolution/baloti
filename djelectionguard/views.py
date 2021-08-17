@@ -7,7 +7,7 @@ import re
 import shutil
 import subprocess
 import textwrap
-import jsons
+import json
 
 from django import forms
 from django import http
@@ -667,11 +667,20 @@ class ContestVoteView(ContestVoteMixin, FormMixin, generic.DetailView):
                 self.object.ballot_box.spoil(encrypted_ballot)
             else:
                 self.object.ballot_box.cast(encrypted_ballot)
+
+                submitted_ballot = self.object.ballot_box._store.get(
+                    encrypted_ballot.object_id
+                )
+                ballot_sha1 = hashlib.sha1(
+                    submitted_ballot.to_json().encode('utf8'),
+                ).hexdigest()
+
                 self.object.voter_set.update_or_create(
                     user=self.request.user,
                     defaults=dict(
                         casted=True,
-                        ballot_id=encrypted_ballot.object_id
+                        ballot_id=encrypted_ballot.object_id,
+                        ballot_sha1=ballot_sha1
                     ),
                 )
             self.object.save()

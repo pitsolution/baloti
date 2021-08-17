@@ -231,18 +231,21 @@ class Contest(models.Model):
 
     def publish_ipfs(self):
         try:
+            url = settings.IPFS_URL + '/api/v0/'
             out = subprocess.check_output(
-                ['ipfs', 'add', self.artifacts_zip_path],
+                ['curl', '-F', f'file=@{self.artifacts_zip_path}', url+'add'],
                 stderr=subprocess.PIPE,
             )
-        except subprocess.CalledProcessError as e:
+            result = json.loads(out)
+            self.artifacts_ipfs = result['Hash']
+            self.save()
+            out = subprocess.check_output(
+                ['curl', '-X', 'POST', url+f'pin/add?arg={self.artifacts_ipfs}'],
+                stderr=subprocess.PIPE,
+            )
+        except Exception as e:
             print(e)
             print('Could not upload to IPFS, see error above')
-        else:
-            print(out.decode('utf8'))
-            address = out.split(b' ')[1].decode('utf8')
-            self.artifacts_ipfs = address
-            self.save()
 
     @property
     def state(self):
@@ -603,5 +606,6 @@ class Voter(models.Model):
     )
     casted = models.BooleanField(null=True, blank=True)
     ballot_id = models.UUIDField(null=True, blank=True)
+    ballot_sha1 = models.CharField(max_length=255, null=True, blank=True)
     open_email_sent = models.DateTimeField(null=True, blank=True)
     close_email_sent = models.DateTimeField(null=True, blank=True)

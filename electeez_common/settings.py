@@ -192,7 +192,8 @@ DJBLOCKCHAIN = dict(
 )
 
 ipfs_home = Path(os.getenv('HOME')) / '.ipfs'
-IPFS_ENABLED = 'IPFS_PATH' in os.environ or ipfs_home.exists()
+IPFS_ENABLED = 'IPFS_URL' in os.environ or ipfs_home.exists()
+IPFS_URL = os.getenv('IPFS_URL', 'localhost:5001')
 
 WSGI_APPLICATION = 'electeez_common.wsgi.application'
 

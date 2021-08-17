@@ -71,7 +71,10 @@ class TrackerDetailCard(Div):
             (_('Election name'), contest.name),
             (_('Election ID'), contest.id),
             (_('Ballot ID'), view.object.ballot_id),
+            (_('Ballot Hash'), view.object.ballot_sha1),
         )
+
+        wiki = 'https://fr.wikipedia.org/wiki/Fonction_de_hachage'
 
         return super().to_html(
             H4(
@@ -106,6 +109,22 @@ class TrackerDetailCard(Div):
                 ) for label, value in rows),
                 style='margin: 0 auto;'
             ),
+            Div(
+                B(
+                    _('Learn more'),
+                    style=dict(
+                        text_align='center',
+                        display='block'
+                    )
+                ),
+                P(mark_safe(_('TRACKING_MORE_INFO', link=f'<a href={wiki}>{wiki}</a>'))),
+                style=dict(
+                    background='lightgray',
+                    margin_top='32px',
+                    padding='12px',
+                    opacity='0.6'
+                )
+            )
         )
 
 

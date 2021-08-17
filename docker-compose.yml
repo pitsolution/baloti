@@ -23,7 +23,7 @@ services:
     - SENTRY_DSN
     - MEDIA_ROOT=/app/media
     - LOG_DIR=/app/log
-    - IPFS_PATH=/app/.ipfs
+    - IPFS_URL=ipfs:5001
     - DB_HOST=postgres
     - DB_NAME=electeez
     - DB_USER=electeez
