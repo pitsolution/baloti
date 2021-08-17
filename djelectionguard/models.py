@@ -232,16 +232,15 @@ class Contest(models.Model):
     def publish_ipfs(self):
         try:
             out = subprocess.check_output(
-                ['ipfs', 'add', self.artifacts_zip_path],
+                ['curl', '-F', f'file=@{self.artifacts_zip_path}', 'ipfs:5001/api/v0/add/'],
                 stderr=subprocess.PIPE,
             )
-        except subprocess.CalledProcessError as e:
+            result = json.loads(out)
+            self.artifacts_ipfs = result['Hash']
+        except Exception as e:
             print(e)
             print('Could not upload to IPFS, see error above')
         else:
-            print(out.decode('utf8'))
-            address = out.split(b' ')[1].decode('utf8')
-            self.artifacts_ipfs = address
             self.save()
 
     @property

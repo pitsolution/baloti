@@ -2170,19 +2170,16 @@ class ContestResultCard(Div):
                 Div(
                     Br(),
                     Span(
-                        _('Or download artifacts on IPFS:'),
+                        _('Or'),
                         cls='body-2',
                     ),
-                    Pre(
-                        f'> ipfs get {contest.artifacts_ipfs}',
-                        style='background-color: lightgray;'
-                              'width: fit-content;'
-                              'margin: 12px auto;'
-                              'padding: 4px;'
-                              'max-width: 90%;'
-                              'white-space: break-spaces;'
+                    Br(),
+                    A(
+                        _('Download artifacts on IPFS'),
+                        tag='a',
+                        href=contest.artifacts_ipfs_url
                     ),
-                ) if contest.artifacts_ipfs else None,
+                ) if contest.artifacts_ipfs_url else None,
                 cls='table-container score-table center-text'
             ),
             cls='card',
