@@ -1612,9 +1612,12 @@ class ContestPubKeyCard(Div):
             ),
             Form(
                 CSRFInput(view.request),
-                MDCButton(_('create')),
+                Div(
+                    MDCButton(_('create')),
+                    style='width: fit-content; margin: 0 auto;'
+                ),
                 method='POST',
-                cls='form'
+                cls='form',
             ),
             cls='card'
         )
@@ -1975,7 +1978,7 @@ class ContestCloseCard(Div):
                 CSRFInput(view.request),
                 Div(
                     MDCButtonOutlined(_('close the election now'), False),
-                    style='margin: 0 auto;',
+                    style='margin: 0 auto; width: fit-content',
                     cls='red-button-container'),
                 method='POST',
                 cls='form'),
@@ -2062,7 +2065,10 @@ class ContestPublishCard(Div):
                 cls='center-text body-2'),
             Form(
                 CSRFInput(view.request),
-                MDCButton(_('publish results')),
+                Div(
+                    MDCButton(_('publish results')),
+                    style='width: fit-content; margin: 0 auto;'
+                ),
                 method='POST',
                 cls='form'),
             cls='card',
