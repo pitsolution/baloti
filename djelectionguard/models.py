@@ -606,5 +606,6 @@ class Voter(models.Model):
     )
     casted = models.BooleanField(null=True, blank=True)
     ballot_id = models.UUIDField(null=True, blank=True)
+    ballot_sha1 = models.CharField(max_length=255, null=True, blank=True)
     open_email_sent = models.DateTimeField(null=True, blank=True)
     close_email_sent = models.DateTimeField(null=True, blank=True)

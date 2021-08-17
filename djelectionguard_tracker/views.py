@@ -71,6 +71,7 @@ class TrackerDetailCard(Div):
             (_('Election name'), contest.name),
             (_('Election ID'), contest.id),
             (_('Ballot ID'), view.object.ballot_id),
+            (_('Ballot Hash'), view.object.ballot_sha1),
         )
 
         return super().to_html(
