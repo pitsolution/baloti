@@ -1,4 +1,4 @@
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from django import forms
 from django.conf import settings
 from django.db.models import Sum
@@ -32,6 +32,10 @@ class ContestForm(forms.ModelForm):
         now = datetime.now()
         return now.replace(second=0, microsecond=0)
 
+    def tomorow():
+        tomorow = datetime.now() + timedelta(days=1)
+        return tomorow.replace(second=0, microsecond=0)
+
     about = forms.CharField(
         label=_('FORM_ABOUT_ELECTION_CREATE'),
         widget=forms.Textarea,
@@ -55,7 +59,7 @@ class ContestForm(forms.ModelForm):
     )
     end = forms.SplitDateTimeField(
         label='',
-        initial=now,
+        initial=tomorow,
         widget=forms.SplitDateTimeWidget(
             date_format='%Y-%m-%d',
             date_attrs={'type': 'date'},
