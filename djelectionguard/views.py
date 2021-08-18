@@ -746,7 +746,7 @@ class CandidateForm(forms.ModelForm):
     )
     picture = forms.ImageField(
         widget=forms.FileInput,
-        label = _('CANDIDATE_PICTURE'),
+        label=_('CANDIDATE_PICTURE'),
         required=False
     )
 
@@ -803,7 +803,7 @@ class ContestCandidateCreateView(ContestMediator, FormMixin, generic.DetailView)
         form.save()
         messages.success(
             self.request,
-            _('You have added candidate') + f'{form.instance}',
+            _('You have added candidate') + f' {form.instance}',
         )
         return super().form_valid(form)
 

@@ -1193,9 +1193,10 @@ class CandidateDetail(Div):
         )
 
         if candidate.description:
+            description = mark_safe(escape(candidate.description).replace('\n', '<br>'))
             subcontent.addchild(
                 Div(
-                    *candidate.description.split('\n'),
+                    description,
                     style='margin-top: 24px; word-break: break-all;'
                 )
             )
