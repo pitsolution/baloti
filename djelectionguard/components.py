@@ -2186,40 +2186,36 @@ class ContestResultCard(Div):
             }
         )
 
-        links_table_content = Tbody()
+        links = Div(style=dict(display='flex', flex_flow='row nowrap', justify_content='space-between'))
+
         if contest.electioncontract.blockchain.explorer:
-            links_table_content.addchild(
-                Tr(
-                    Td(_('Report on Tezos\' blockchain'), style='word-break: keep-all;text-align: right'),
-                    Td(A(contest.electioncontract.explorer_link, href=contest.electioncontract.explorer_link)),
+            links.addchild(
+                Div(
+                    A(_('Election report'), href=contest.electioncontract.explorer_link),
+                    Br(),
+                    _('On Tezos\' blockchain'),
+                    style=dict(text_align='center', color='#888', margin='12px')
                 )
             )
 
-        links_table_content.addchild(
-            Tr(
-                Td(_('Local election datas'), style='word-break: keep-all;text-align: right'),
-                Td(A(contest.artifacts_local_url, href=contest.artifacts_local_url)),
+        links.addchild(
+            Div(
+                A(_('Election datas'), href=contest.artifacts_local_url),
+                Br(),
+                _('Local data'),
+                style=dict(text_align='center', color='#888', margin='12px')
             )
         )
 
         if contest.artifacts_ipfs_url:
-            links_table_content.addchild(
-                Tr(
-                    Td(_('IPFS election datas'), style='word-break: keep-all;text-align: right'),
-                    Td(A(contest.artifacts_ipfs_url, href=contest.artifacts_ipfs_url)),
+            links.addchild(
+                Div(
+                    A(_('Election datas'), href=contest.artifacts_ipfs_url),
+                    Br(),
+                    _('On IPFS, decentralized'),
+                    style=dict(text_align='center', color='#888', margin='12px')
                 )
             )
-
-        links_table = Table(
-            links_table_content,
-            style=dict(
-                font_size='smaller',
-                margin='0 auto',
-                color='gray',
-                word_break='break-all',
-                border_spacing='6px 12px',
-            )
-        )
 
         publish_btn = ''
         if (
@@ -2249,7 +2245,7 @@ class ContestResultCard(Div):
                 score_table,
                 cls='table-container score-table center-text'
             ),
-            links_table,
+            links,
             cls='card',
         )
 
