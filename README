@@ -121,7 +121,7 @@ make run #TO LAUNCH DJANGO
 Click on Add a blockchain 
 Name: Testnet Edonet
 EndPoint: https://rpc.tzkt.io/edo2net/
-Explorer: https://edo2net.tzkt.io/{}/storagei #{} is later replaced by the contract @
+Explorer: https://edo2net.tzkt.io/{}/storage #{} is later replaced by the contract @
 Provider Class: Tezos
 Confirmation Blocks: 2
 Hit Save
