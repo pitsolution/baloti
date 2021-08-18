@@ -1706,6 +1706,8 @@ class DialogConfirmForm(Form):
             MDCDialog(
                 _('Confirm your selection'),
                 Div(
+                    _('Be careful, once confirmed,'
+                    ' your choice is definitive and cannot be changed'),
                     *hidden_selections(),
                     Div(B(id='remaining')),
                 ),
