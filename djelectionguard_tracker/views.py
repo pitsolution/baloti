@@ -124,7 +124,8 @@ class TrackerDetailCard(Div):
                     padding='12px',
                     opacity='0.6'
                 )
-            )
+            ),
+            ArtifactsLinks(contest)
         )
 
 
