@@ -6,7 +6,7 @@
     "iso": "fr",
     "name": "Français",
     "active": true,
-    "site": 1
+    "site": 2
   }
 },
 {
@@ -16,7 +16,7 @@
     "iso": "en",
     "name": "English",
     "active": true,
-    "site": 1
+    "site": 2
   }
 },
 {
@@ -1725,7 +1725,7 @@
   "fields": {
     "language": 29,
     "key": "Add candidates",
-    "val": "Ajouter un candidat",
+    "val": "Ajouter des candidats",
     "nval": null
   }
 },
@@ -1985,7 +1985,7 @@
   "fields": {
     "language": 29,
     "key": "Open for voting",
-    "val": "Ouvrir au vote",
+    "val": "Ouvrir le vote",
     "nval": null
   }
 },
@@ -2445,7 +2445,7 @@
   "fields": {
     "language": 29,
     "key": "Secured and decentralised with Tezos",
-    "val": "Sécurisé et décentralisé avec Tezos",
+    "val": "Sécurisé et décentralisé",
     "nval": null
   }
 },
@@ -2465,7 +2465,7 @@
   "fields": {
     "language": 29,
     "key": "Your election data and results will be published on Tezos’",
-    "val": "Les données de votre élection et leurs résultats seront publiés sur la blockchain",
+    "val": "Le PV de cette consultation  seront publiés sur une blockchain",
     "nval": null
   }
 },
@@ -5295,7 +5295,7 @@
   "fields": {
     "language": 29,
     "key": "TRACKING_MSG",
-    "val": "Merci pour votre participation. Votre vote est secret, seul vous en avez connaissance, les informations techniques ci-dessous garantissent que votre vote a bien été pris en compte, vous pouvez à présent fermer cette page.",
+    "val": "Merci pour votre participation si vous le souhaitez vous pouvez à présent fermer cette fenêtre. Votre vote est secret, seul vous en avez connaissance, les informations techniques ci-dessous garantissent que votre vote a bien été pris en compte, et vous permettrons si vous le souhaiter de verifier le bon déroulement de l’élection.",
     "nval": null
   }
 },
@@ -5605,7 +5605,7 @@
   "fields": {
     "language": 29,
     "key": "You casted your vote on <b>%(time)s</b> The results will be published after the election is closed.",
-    "val": "Vous avez voté le <b>%(time)s</b> Les résultats seront publiés après avoir clôturé l'élection.",
+    "val": "Vous avez voté le %(time)s Les résultats seront publiés après avoir clôturé l'élection.",
     "nval": null
   }
 },
@@ -5815,7 +5815,7 @@
   "fields": {
     "language": 29,
     "key": "You casted your vote! The results will be published after the election is closed.",
-    "val": "À voté! Les résultats seront publiés après la clôture de l'élection.",
+    "val": "Votre bulletin a été pris en compte. Les résultats seront publiés après la clôture de l'élection.",
     "nval": null
   }
 },
@@ -5834,7 +5834,7 @@
   "pk": 3789,
   "fields": {
     "language": 29,
-    "key": "login ",
+    "key": "login",
     "val": null,
     "nval": null
   }
@@ -5854,7 +5854,7 @@
   "pk": 3791,
   "fields": {
     "language": 29,
-    "key": "You may go ahead and ",
+    "key": "You may go ahead and",
     "val": null,
     "nval": null
   }
@@ -5866,6 +5866,276 @@
     "language": 30,
     "key": "You may go ahead and ",
     "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3793,
+  "fields": {
+    "language": 29,
+    "key": "Download artifacts",
+    "val": "Télécharger les données de l'élection",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3794,
+  "fields": {
+    "language": 30,
+    "key": "Download artifacts",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3795,
+  "fields": {
+    "language": 29,
+    "key": "To proceed to your",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3796,
+  "fields": {
+    "language": 30,
+    "key": "To proceed to your ",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3797,
+  "fields": {
+    "language": 29,
+    "key": "Or download artifacts on IPFS:",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3798,
+  "fields": {
+    "language": 30,
+    "key": "Or download artifacts on IPFS:",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3799,
+  "fields": {
+    "language": 29,
+    "key": "You have up to a total of %(vote_allowed)s choice",
+    "val": "Vous avez jusqu'à  %(vote_allowed)s choix à faire",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3800,
+  "fields": {
+    "language": 30,
+    "key": "You have up to a total of %(vote_allowed)s choice",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3801,
+  "fields": {
+    "language": 29,
+    "key": "modify",
+    "val": "modifier",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3802,
+  "fields": {
+    "language": 30,
+    "key": "modify",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3803,
+  "fields": {
+    "language": 29,
+    "key": "If you want it, you have",
+    "val": "Si vous le souhaitez, vous pouvez encore faire",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3804,
+  "fields": {
+    "language": 30,
+    "key": "If you want it, you have",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3805,
+  "fields": {
+    "language": 29,
+    "key": "choice left",
+    "val": "choix",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3806,
+  "fields": {
+    "language": 30,
+    "key": "choice left",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3807,
+  "fields": {
+    "language": 29,
+    "key": "choices left",
+    "val": "choix",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3808,
+  "fields": {
+    "language": 30,
+    "key": "choices left",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3809,
+  "fields": {
+    "language": 29,
+    "key": "Ballot Hash",
+    "val": "Hash du bulletin",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3810,
+  "fields": {
+    "language": 30,
+    "key": "Ballot Hash",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3811,
+  "fields": {
+    "language": 29,
+    "key": "Learn more",
+    "val": "Comment ça marche",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3812,
+  "fields": {
+    "language": 30,
+    "key": "Learn more",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3813,
+  "fields": {
+    "language": 29,
+    "key": "TRACKING_MORE_INFO",
+    "val": "Votre bulletin est crypté et  donc secret,  lorsque vous votez l’empreinte digitale de celui ci appelé %(link)s vous permet de verifier qu’il à bien été prix en compte et que personne ne l’a modifié (sinon son empreinte changerai) Les informations de cette page vous permettent de faire cette vérification par vous meme (voir video) cela s’appelle un vote <a href=\"https://en.wikipedia.org/wiki/End-to-end_auditable_voting_systems\">vote vérifiable de bout en bout</a>",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3814,
+  "fields": {
+    "language": 30,
+    "key": "TRACKING_MORE_INFO",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3816,
+  "fields": {
+    "language": 30,
+    "key": "Report on Tezos' blockchain",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3818,
+  "fields": {
+    "language": 30,
+    "key": "Local election datas",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3820,
+  "fields": {
+    "language": 30,
+    "key": "IPFS election datas",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3821,
+  "fields": {
+    "language": 30,
+    "key": "delete",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3822,
+  "fields": {
+    "language": 29,
+    "key": "delete",
+    "val": "supprimer",
     "nval": null
   }
 }
