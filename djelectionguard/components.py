@@ -1817,59 +1817,51 @@ class ContestVoteCard(Div):
             cls='card'
         )
 
-@template('vote_track', Document, Card)
+
+@template('djelectionguard/vote_success', Document, Card)
 class ContestVoteCard(Div):
     def to_html(self, *content, view, **context):
-        contest = view.get_object()
-        self.backlink = BackLink(_(''), '#')
+        voter = view.get_object()
+        self.backlink = BackLink(
+            _('back'),
+            reverse('contest_detail', args=[voter.contest.id])
+        )
+
+        track_link = reverse('tracker_detail', args=[voter.id])
 
         return super().to_html(
             H4(
-                _('Tracking informations'),
+                DoneIcon(),
+                _('Your vote has been validated!'),
                 style='text-align:center;'
             ),
-            Table(
-                Tr(
-                    Td(
-                        _('Election ID'), ': ',
-                        cls='overline',
-                        style='text-align: right;'
-                              'padding: 12px;'
-                              'white-space: nowrap;'
-                    ),
-                    Td(
-                        Pre(
-                            context['contest_id'],
-                            style='word-break: break-word;'
-                                  'white-space: break-spaces;'
-                        ),
+            Div(
+                _('Thank you for your participation.'),
+                _(' Your secret vote has been taken in account.'
+                  ' You can, if you want, close this page.')
+            ),
+            Div(
+                B(
+                    _('How does electronic voting work?'),
+                    style=dict(
+                        text_align='center',
+                        display='block'
                     )
                 ),
-                Tr(
-                    Td(
-                        _('Ballot ID'), ': ',
-                        cls='overline',
-                        style='text-align: right;'
-                              'padding: 12px;'
-                              'white-space: nowrap;'
-                    ),
-                    Td(
-                        Pre(
-                            context['ballot_id'],
-                            style='word-break: break-word;'
-                                  'white-space: break-spaces;'
-                        ),
-                    )
+                P(
+                    _('ELECTRONIC_VOTE_EXPLAINATION'),
+                    ' ',
+                    A(_('here'), href=track_link)
                 ),
-                style='margin: 0 auto;'
-            ),
-            H5(
-                _('Ballot found!')
-                if context['ballot']
-                else _('Ballot not found.'),
-                style='text-align: center'
-            ),
+                style=dict(
+                    background='lightgray',
+                    margin_top='32px',
+                    padding='12px',
+                    opacity='0.6'
+                )
+            )
         )
+
 
 @template('ballot_encrypt', Document, Card)
 class ContestBallotEncryptCard(Div):

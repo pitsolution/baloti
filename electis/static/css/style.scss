@@ -53,6 +53,18 @@ h4 {
   font-size: 34px;
   line-height: 36px;
   color: rgba(0, 0, 0, 0.87);
+
+  .icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    vertical-align: middle;
+    color: #000;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: inline-block;
+    margin-right: 12px;
+  }
 }
 
 h5 {
