@@ -55,8 +55,6 @@ from .components import (
     ContestList,
     ContestVotersUpdateCard,
     ContestVoteCard,
-    ContestBallotEncryptCard,
-    ContestBallotCastCard,
     ContestDecryptCard,
     ContestPublishCard,
     ContestResultCard,
@@ -714,6 +712,25 @@ class ContestVoteView(ContestVoteMixin, FormMixin, generic.DetailView):
         )
 
 
+class ContestVoteSuccessView(generic.DetailView):
+    template_name = 'djelectionguard/vote_success'
+    model = Voter
+
+    def get_queryset(self):
+        return Voter.objects.filter(
+            user=self.request.user,
+            casted=True
+        )
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            'voter/<uuid:pk>/success/',
+            login_required(cls.as_view()),
+            name='contest_candidate_list'
+        )
+
+
 class ContestCandidateListView(ContestAccessible, generic.DetailView):
     template_name = 'djelectionguard/candidate_list.html'
 
@@ -746,7 +763,7 @@ class CandidateForm(forms.ModelForm):
     )
     picture = forms.ImageField(
         widget=forms.FileInput,
-        label = _('CANDIDATE_PICTURE'),
+        label=_('CANDIDATE_PICTURE'),
         required=False
     )
 
@@ -803,7 +820,7 @@ class ContestCandidateCreateView(ContestMediator, FormMixin, generic.DetailView)
         form.save()
         messages.success(
             self.request,
-            _('You have added candidate') + f'{form.instance}',
+            _('You have added candidate') + f' {form.instance}',
         )
         return super().form_valid(form)
 

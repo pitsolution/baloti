@@ -5305,7 +5305,7 @@
   "fields": {
     "language": 30,
     "key": "TRACKING_MSG",
-    "val": "",
+    "val": "Thank you for your vote if you wish you can now close this window. Your vote is secret, only you know its content, the technical informations below ensures that your vote has been taken into account, and you will allow if you wish to verify the smooth running of the election.",
     "nval": null
   }
 },
@@ -5844,7 +5844,7 @@
   "pk": 3790,
   "fields": {
     "language": 30,
-    "key": "login ",
+    "key": "login",
     "val": null,
     "nval": null
   }
@@ -5864,7 +5864,267 @@
   "pk": 3792,
   "fields": {
     "language": 30,
-    "key": "You may go ahead and ",
+    "key": "You may go ahead and",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3793,
+  "fields": {
+    "language": 29,
+    "key": "Download artifacts",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3794,
+  "fields": {
+    "language": 30,
+    "key": "Download artifacts",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3795,
+  "fields": {
+    "language": 29,
+    "key": "delete",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3796,
+  "fields": {
+    "language": 30,
+    "key": "delete",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3797,
+  "fields": {
+    "language": 29,
+    "key": "Report on Tezos' blockchain",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3798,
+  "fields": {
+    "language": 30,
+    "key": "Report on Tezos' blockchain",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3799,
+  "fields": {
+    "language": 29,
+    "key": "Local election datas",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3800,
+  "fields": {
+    "language": 30,
+    "key": "Local election datas",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3801,
+  "fields": {
+    "language": 29,
+    "key": "You have up to a total of %(vote_allowed)s choice",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3802,
+  "fields": {
+    "language": 30,
+    "key": "You have up to a total of %(vote_allowed)s choice",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3803,
+  "fields": {
+    "language": 29,
+    "key": "modify",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3804,
+  "fields": {
+    "language": 30,
+    "key": "modify",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3805,
+  "fields": {
+    "language": 29,
+    "key": "If you want it, you have",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3806,
+  "fields": {
+    "language": 30,
+    "key": "If you want it, you have",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3807,
+  "fields": {
+    "language": 29,
+    "key": "choice left",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3808,
+  "fields": {
+    "language": 30,
+    "key": "choice left",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3809,
+  "fields": {
+    "language": 29,
+    "key": "choices left",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3810,
+  "fields": {
+    "language": 30,
+    "key": "choices left",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3811,
+  "fields": {
+    "language": 29,
+    "key": "Ballot Hash",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3812,
+  "fields": {
+    "language": 30,
+    "key": "Ballot Hash",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3813,
+  "fields": {
+    "language": 29,
+    "key": "Learn more",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3814,
+  "fields": {
+    "language": 30,
+    "key": "Learn more",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3815,
+  "fields": {
+    "language": 29,
+    "key": "TRACKING_MORE_INFO",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3816,
+  "fields": {
+    "language": 30,
+    "key": "TRACKING_MORE_INFO",
+    "val": "Your ballot is encrypted and therefore secret, when you vote the fingerprint of it (called a hash) allows you to check that it has been tallied and that no one has modified it (otherwise its imprint will change) the information of this page allows you to verify it directly (see VIDEO to learn how) This is called an end to end verifiable vote.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3817,
+  "fields": {
+    "language": 29,
+    "key": "IPFS election datas",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3818,
+  "fields": {
+    "language": 30,
+    "key": "IPFS election datas",
     "val": null,
     "nval": null
   }

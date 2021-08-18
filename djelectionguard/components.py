@@ -1193,9 +1193,10 @@ class CandidateDetail(Div):
         )
 
         if candidate.description:
+            description = mark_safe(escape(candidate.description).replace('\n', '<br>'))
             subcontent.addchild(
                 Div(
-                    *candidate.description.split('\n'),
+                    description,
                     style='margin-top: 24px; word-break: break-all;'
                 )
             )
@@ -1705,6 +1706,8 @@ class DialogConfirmForm(Form):
             MDCDialog(
                 _('Confirm your selection'),
                 Div(
+                    _('Be careful, once confirmed,'
+                    ' your choice is definitive and cannot be changed'),
                     *hidden_selections(),
                     Div(B(id='remaining')),
                 ),
@@ -1814,151 +1817,50 @@ class ContestVoteCard(Div):
             cls='card'
         )
 
-@template('vote_track', Document, Card)
-class ContestVoteCard(Div):
+
+@template('djelectionguard/vote_success', Document, Card)
+class ContestVoteSuccessCard(Div):
     def to_html(self, *content, view, **context):
-        contest = view.get_object()
-        self.backlink = BackLink(_(''), '#')
+        voter = view.get_object()
+        self.backlink = BackLink(
+            _('back'),
+            reverse('contest_detail', args=[voter.contest.id])
+        )
+
+        track_link = reverse('tracker_detail', args=[voter.id])
 
         return super().to_html(
             H4(
-                _('Tracking informations'),
+                DoneIcon(),
+                _('Your vote has been validated!'),
                 style='text-align:center;'
             ),
-            Table(
-                Tr(
-                    Td(
-                        _('Election ID'), ': ',
-                        cls='overline',
-                        style='text-align: right;'
-                              'padding: 12px;'
-                              'white-space: nowrap;'
-                    ),
-                    Td(
-                        Pre(
-                            context['contest_id'],
-                            style='word-break: break-word;'
-                                  'white-space: break-spaces;'
-                        ),
+            Div(
+                _('Thank you for your participation.'),
+                _(' Your secret vote has been taken in account.'
+                  ' You can, if you want, close this page.')
+            ),
+            Div(
+                B(
+                    _('How does electronic voting work?'),
+                    style=dict(
+                        text_align='center',
+                        display='block'
                     )
                 ),
-                Tr(
-                    Td(
-                        _('Ballot ID'), ': ',
-                        cls='overline',
-                        style='text-align: right;'
-                              'padding: 12px;'
-                              'white-space: nowrap;'
-                    ),
-                    Td(
-                        Pre(
-                            context['ballot_id'],
-                            style='word-break: break-word;'
-                                  'white-space: break-spaces;'
-                        ),
-                    )
+                P(
+                    _('ELECTRONIC_VOTE_EXPLAINATION'),
+                    ' ',
+                    A(_('here'), href=track_link)
                 ),
-                style='margin: 0 auto;'
-            ),
-            H5(
-                _('Ballot found!')
-                if context['ballot']
-                else _('Ballot not found.'),
-                style='text-align: center'
-            ),
+                style=dict(
+                    background='lightgray',
+                    margin_top='32px',
+                    padding='12px',
+                    opacity='0.6'
+                )
+            )
         )
-
-@template('ballot_encrypt', Document, Card)
-class ContestBallotEncryptCard(Div):
-    def to_html(self, *content, view, form, **context):
-        contest = view.get_object()
-        url = reverse('contest_vote', args=[contest.id])
-        self.backlink = BackLink(_('back'), url)
-        selections = context.get('selections', [])
-        ballot = context.get('ballot', '')
-        change_btn = MDCButtonOutlined(_('change'), False, tag='a', href=url)
-        encrypt_btn = MDCButton(_('encrypt ballot'))
-
-        return super().to_html(
-            H4(_('Review your ballot'), cls='center-text'),
-            Div(
-                P(_('This is an ecrypted election. Once your ballot is encrypted, it will always stay that way – no one can see who voted for whom. However, you will be able to check that your vote has been properly counted.  Learn how')),
-                cls='center-text'),
-            H6(_('Your selection')),
-            Ul(*(
-                CandidateDetail(candidate)
-                for candidate in selections),
-                cls='mdc-list'),
-            change_btn,
-            Form(
-                CSRFInput(view.request),
-                encrypt_btn,
-                method='POST',
-                cls='form'),
-            cls='card',
-        )
-
-
-@template('ballot_cast', Document, Card)
-class ContestBallotCastCard(Div):
-    def to_html(self, *content, view, **context):
-        self.contest = view.get_object()
-        self.backlink = BackLink(
-            _('back'),
-            reverse('contest_ballot', args=[self.contest.id]))
-
-        self.ballot = context['ballot']
-        self.download_btn = MDCButtonOutlined(
-            _('download ballot file'), False, 'file_download', tag='a')
-        cast_btn = MDCButton(_('confirm my vote'))
-
-        return super().to_html(
-            H4(_('Encrypted ballot'), cls='center-text'),
-            Div(
-                P(_('This is an ecrypted election. Once your ballot is encrypted, it will always stay that way – no one can see who voted for whom. However, you will be able to check that your vote has been properly counted. Learn more')),
-                cls='center-text body-2'),
-            Form(
-                Div(
-                    MDCTextareaFieldOutlined(
-                        Textarea(
-                            self.ballot.to_json(),
-                            rows=5,
-                            name='encrypted',
-                        ),
-                    ),
-                    style='margin-bottom: 24px;'
-                ),
-                CSRFInput(view.request),
-                Div(
-                    #self.download_btn,
-                    Div(cast_btn, style='margin-left: auto;'),
-                    style='display: flex;'
-                          'justify-content: space-between;'
-                          'flex-wrap: wrap;'),
-                method='POST',
-                cls='encrypt-form'
-            ),
-            cls='card',
-        )
-        self.download_btn_id = self.download_btn.id
-        self.ballot_json = self.ballot.to_json().replace('"', '\\"')
-        self.file_name = self.contest.name + '_encrypted_ballot.json'
-
-    def download_file(event):
-        elem = event.currentTarget
-        blob = new.Blob([elem.ballot], {'type': 'application/json'})
-        url = URL.createObjectURL(blob)
-        link = document.createElement('a')
-        link.href = url
-        link.download = elem.file_name
-        link.click()
-        URL.revokeObjectURL(url)
-
-    def py2js(self):
-        btn = getElementByUuid(self.download_btn_id)
-        btn.ballot = self.ballot_json
-        btn.file_name = self.file_name
-        btn.addEventListener('click', self.download_file)
 
 
 @template('contest_close', Document, Card)
@@ -2131,6 +2033,42 @@ class PublishProgressBar(Div):
         self.set_progress(self.step, self.nsteps)
 
 
+class ArtifactsLinks(Div):
+    def __init__(self, contest):
+        links = Div(style=dict(display='flex', flex_flow='row nowrap', justify_content='space-between'))
+
+        if contest.electioncontract.blockchain.explorer:
+            links.addchild(
+                Div(
+                    A(_('Election report'), href=contest.electioncontract.explorer_link),
+                    Br(),
+                    _('On Tezos\' blockchain'),
+                    style=dict(text_align='center', color='#888', margin='12px')
+                )
+            )
+
+        links.addchild(
+            Div(
+                A(_('Election datas'), href=contest.artifacts_local_url),
+                Br(),
+                _('Local data'),
+                style=dict(text_align='center', color='#888', margin='12px')
+            )
+        )
+
+        if contest.artifacts_ipfs_url:
+            links.addchild(
+                Div(
+                    A(_('Election datas'), href=contest.artifacts_ipfs_url),
+                    Br(),
+                    _('On IPFS, decentralized'),
+                    style=dict(text_align='center', color='#888', margin='12px')
+                )
+            )
+
+        super().__init__(links, style=dict(margin_top='32px'))
+
+
 @template('contest_result', Document, Card)
 class ContestResultCard(Div):
     def to_html(self, *content, view, **context):
@@ -2185,41 +2123,6 @@ class ContestResultCard(Div):
             }
         )
 
-        links_table_content = Tbody()
-        if contest.electioncontract.blockchain.explorer:
-            links_table_content.addchild(
-                Tr(
-                    Td(_('Report on Tezos\' blockchain'), style='word-break: keep-all;text-align: right'),
-                    Td(A(contest.electioncontract.explorer_link, href=contest.electioncontract.explorer_link)),
-                )
-            )
-
-        links_table_content.addchild(
-            Tr(
-                Td(_('Local election datas'), style='word-break: keep-all;text-align: right'),
-                Td(A(contest.artifacts_local_url, href=contest.artifacts_local_url)),
-            )
-        )
-
-        if contest.artifacts_ipfs_url:
-            links_table_content.addchild(
-                Tr(
-                    Td(_('IPFS election datas'), style='word-break: keep-all;text-align: right'),
-                    Td(A(contest.artifacts_ipfs_url, href=contest.artifacts_ipfs_url)),
-                )
-            )
-
-        links_table = Table(
-            links_table_content,
-            style=dict(
-                font_size='smaller',
-                margin='0 auto',
-                color='gray',
-                word_break='break-all',
-                border_spacing='6px 12px',
-            )
-        )
-
         publish_btn = ''
         if (
             contest.publish_state == contest.PublishStates.ELECTION_DECRYPTED
@@ -2238,7 +2141,7 @@ class ContestResultCard(Div):
         return super().to_html(
             H4(_('Results'), cls='center-text'),
             Div(
-                H5(contest.name),
+                H5(contest.name, style='word-break: break-all'),
                 Div(
                     about,
                     style='padding: 12px; word-break: break-all;',
@@ -2248,7 +2151,7 @@ class ContestResultCard(Div):
                 score_table,
                 cls='table-container score-table center-text'
             ),
-            links_table,
+            ArtifactsLinks(contest),
             cls='card',
         )
 
