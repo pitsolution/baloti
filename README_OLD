@@ -1,0 +1,114 @@
+## Quick start
+
+First, clone the repo:
+
+    git clone https://gitlab.com/electisNGO/electeez
+    cd elicteez
+
+Then, install python packages:
+
+    pip install wheel
+    pip install -r requirements.txt
+
+Note that the above might fail if you are missing packages.
+
+A bunch of packages are required, including libsodium and libsecp256k1 for
+cryptography, see the Dockerfile pacman line for the tested package set. Those
+are for Arch Linux, names might change on other distributions.
+
+See microsoft/electionguard-python and pytezos for details about packages you
+might need you might need other packages, check the error log if any.
+
+### ElectionGuard demo mini-script
+
+You can fiddle with the ElectionGuard-python API in this mini script:
+
+    python electionguard_cli_demo.py
+
+### Memcached
+
+Memcached server is required, example commands to install and start memcached:
+
+    sudo apt install memcached
+    systemctl enable memcached
+    systemctl start memcached
+
+### Database
+
+Currently, SQLite will work out of the box, provided that it is installed.
+
+    # configure db schema
+    ./manage.py migrate
+
+    # load development data
+    ./manage.py loaddata data.json
+
+### IPFS
+
+IPFS is required because election artifacts are published on IPFS. On Arch
+Linux, install with `pacman -S go-ipfs`.
+
+Run `ipfs init` to enable IPFS support: system will use the private key in the
+default IPFS directory `~/.ipfs` or `$IPFS_PATH` env var.
+
+If `$IPFS_PATH` is set in the environment, then it will eventually try to
+initialize ipfs there on WSGI Web Server startup, you there is lazy
+initialization there for cattle deployment.
+
+### Running the development server
+
+Run the development server with this command:
+
+    ./manage.py runserver
+
+Then, you can open:
+
+- http://localhost:8000 for the website
+- http://localhost:8000/admin for the admin, use admin@example.com:test as
+  setup by data.json
+
+Note that emails will be printed out in the runserver console in development.
+
+## Tezos
+
+For tezos to work, you need to start a sandbox:
+
+    docker run --name tz --publish 8732:8732 yourlabs/tezos
+
+If you intend to run tests, then you also need to add `tz` to /etc/hosts, at
+the end of line starting with 127.0.0.1. Example:
+
+    127.0.0.1 localhost tz
+
+The contracts sources are in:
+
+    djelectionguard_tezos/tezos/election.py
+
+Compile them with:
+
+    ~/smartpy-cli/SmartPy.sh compile election.py 'ElectionGuard(sp.address("tz1h4EsGunH2Ue1T2uNs8mfKZ8XZoQji3HcK"))' .
+
+Note that you need to update the init storage in
+djelectionguard_tezos/models.py every time you change the storage in the
+contract. SmartPy outputs Michelson, we need Micheline which is the JSON
+version, you can use this online converter:
+
+https://smart-contracts-micheline-michelson-translator-for-tezos.scalac.io/
+
+
+## Trannslation
+
+For create a new translation 
+- $ cd /path/to/app
+- $ mkdir -p locale/letterslower_LETTERSUP -> Ex for french translation : mkdir -p locale/fr_FR
+- $ django-admin makemessages
+- Edit the file :
+    - edit file : locale/fr_FR/django.po
+        - msgid "" -> message to translate
+        - msgstr "" -> message translated
+- $ python manage.py compilemessages -> for compile to .mo file
+
+
+## White paper 
+to learn more about the architecture / ideas of the electis voting app: 
+https://docs.google.com/document/d/1L8BxuAEboCc5og2WS1xe3mkVNltake347whImNrRsbM/edit?usp=sharing 

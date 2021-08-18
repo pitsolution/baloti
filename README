@@ -1,114 +1,156 @@
-## Quick start
+# ABOUT THE ELECTIS VOTING APP 
 
-First, clone the repo:
+Electeez (electis.app) is an open source semi-decentralized voting platform. 
 
-    git clone https://gitlab.com/electisNGO/electeez
-    cd elicteez
+It is using [election guard](https://www.electionguard.vote/) for its voting engine and 
+the [Tezos blockchain](tezos.com) to store the results in the form of a smart contract 
+pointing to an IPFS link with all the details to re-run an encrypted tally. 
 
-Then, install python packages:
+Electeez can be used for low-stakes elections when the organizer hosting the server can be trusted. 
 
-    pip install wheel
-    pip install -r requirements.txt
+Electis.app is built to be as easy to use as possible for anyone to participate or organize elections. 
+It also allows technical auditors to verify as many pieces of information as possible 
+(e.g re-running the tally etc...) 
 
-Note that the above might fail if you are missing packages.
+The elections are organized by a Guardian (Multi guardians on our roadmap) 
+A guardian is in charge of keeping the private encryption 
+key(s) of the elections used to encrypt the ballots. 
 
-A bunch of packages are required, including libsodium and libsecp256k1 for
-cryptography, see the Dockerfile pacman line for the tested package set. Those
-are for Arch Linux, names might change on other distributions.
+ Individual Ballots are always encrypted and their tallying is done via an homomorphic encryption 
+(only the sum of the ballots is decrypted) At the end of the election all the encrypted ballots and 
+the technical paramters of the elections are shared under a zipped artifacts file. 
 
-See microsoft/electionguard-python and pytezos for details about packages you
-might need you might need other packages, check the error log if any.
+This allow a voter for example to verify that his/her ballot is present and
+also that its hash (sha1) is the same as the information shared at the end of their vote.  
 
-### ElectionGuard demo mini-script
+This project is developed by electis in partnership with Tezos via its foundation #MORE INFO you can find more information about electis and electeez on https://www.electis.io/about you can test an online 
+version of electeez on https://www.electis.app 
 
-You can fiddle with the ElectionGuard-python API in this mini script:
-
-    python electionguard_cli_demo.py
-
-### Memcached
-
-Memcached server is required, example commands to install and start memcached:
-
-    sudo apt install memcached
-    systemctl enable memcached
-    systemctl start memcached
-
-### Database
-
-Currently, SQLite will work out of the box, provided that it is installed.
-
-    # configure db schema
-    ./manage.py migrate
-
-    # load development data
-    ./manage.py loaddata data.json
-
-### IPFS
-
-IPFS is required because election artifacts are published on IPFS. On Arch
-Linux, install with `pacman -S go-ipfs`.
-
-Run `ipfs init` to enable IPFS support: system will use the private key in the
-default IPFS directory `~/.ipfs` or `$IPFS_PATH` env var.
-
-If `$IPFS_PATH` is set in the environment, then it will eventually try to
-initialize ipfs there on WSGI Web Server startup, you there is lazy
-initialization there for cattle deployment.
-
-### Running the development server
-
-Run the development server with this command:
-
-    ./manage.py runserver
-
-Then, you can open:
-
-- http://localhost:8000 for the website
-- http://localhost:8000/admin for the admin, use admin@example.com:test as
-  setup by data.json
-
-Note that emails will be printed out in the runserver console in development.
-
-## Tezos
-
-For tezos to work, you need to start a sandbox:
-
-    docker run --name tz --publish 8732:8732 yourlabs/tezos
-
-If you intend to run tests, then you also need to add `tz` to /etc/hosts, at
-the end of line starting with 127.0.0.1. Example:
-
-    127.0.0.1 localhost tz
-
-The contracts sources are in:
-
-    djelectionguard_tezos/tezos/election.py
-
-Compile them with:
-
-    ~/smartpy-cli/SmartPy.sh compile election.py 'ElectionGuard(sp.address("tz1h4EsGunH2Ue1T2uNs8mfKZ8XZoQji3HcK"))' .
-
-Note that you need to update the init storage in
-djelectionguard_tezos/models.py every time you change the storage in the
-contract. SmartPy outputs Michelson, we need Micheline which is the JSON
-version, you can use this online converter:
-
-https://smart-contracts-micheline-michelson-translator-for-tezos.scalac.io/
+#MORE INFO
+you can find more information about electis and electeez on https://www.electis.io/about
+you can test an online version of electeez on https://www.electis.app  
 
 
-## Trannslation
+###############################
+##  INSTALLATION ON UBUNTU  ###
+###############################
 
-For create a new translation 
-- $ cd /path/to/app
-- $ mkdir -p locale/letterslower_LETTERSUP -> Ex for french translation : mkdir -p locale/fr_FR
-- $ django-admin makemessages
-- Edit the file :
-    - edit file : locale/fr_FR/django.po
-        - msgid "" -> message to translate
-        - msgstr "" -> message translated
-- $ python manage.py compilemessages -> for compile to .mo file
+This readme and scripts are desinged for an Ubunutu install on localhost please adapt if 
+you are using another distro.  
 
+# UPDATE / UPGRADE SYSTEM
+sudo apt update
+sudo apt upgrade
 
-## White paper 
-to learn more about the architecture / ideas of the electis voting app: 
-https://docs.google.com/document/d/1L8BxuAEboCc5og2WS1xe3mkVNltake347whImNrRsbM/edit?usp=sharing 
+# INSTALL / ELECTEEZ (ELECTIS.APP)
+git clone https://gitlab.com/electisNGO/electeez.git
+cd electeez
+
+# INSTALL PYTHON (IDEALLY >=3.9)
+sudo apt install python3.9-dev
+sudo apt install python3.9-venv
+python3.9 -m venv my_env
+
+# LAUNCH VENV
+source ./my_env/bin/activate
+python -V #SHOULD BE 3.9+
+
+# INSTALL / RUN POSTGRESQL
+sudo apt-get install postgresql
+sudo systemctl start postgresql
+
+# INITIALIZE POSTGRESQL
+sudo passwd postgres
+su - postgres
+createdb electeez 
+createuser <your_user_id> 
+exit
+
+# INSTALL / RUN MEMCACHED
+sudo apt install memcached
+systemctl enable memcached
+systemctl start memcached
+
+# INSTALL IPFS 
+Cf https://ipfs.io/ipns/dist.ipfs.io/#go-ipfs
+ipfs init #relaunch if queue error
+# in a new term 
+ipfs daemon
+#check if connected with 
+ipfs swarm peers
+
+# INSTALL DOCKER FOR TEZOS 
+sudo apt  install docker.io
+# in a new terminal (not working on ARM64)
+sudo docker run --name tz --publish 8732:8732 yourlabs/tezos
+
+# add tez alias to /etc/hosts
+127.0.0.1 localhost tez
+
+# INSTALL LIBS / PYTHON MODULES 
+make 
+
+# INITIALIZE THE DB FOR ELECTEEZ 
+make data
+
+# LAUNCH DJANGO SERVER 
+make run
+
+# MANUAL PROCESS TO CREATE A USER 
+Add user -> sign-up -> check logs and copy the link -> login to test -> hit create -> stop server (CTRL+C)
+
+# AFTER FIRST LOGIN UPDATE TEXTS TABLES WITH FR and EN Languages (editable in Admin) 
+make lang
+
+#HOW TO MAKE A USER ADMIN 
+./manage.py shell_plus
+u = User.objects.get(email="<your_user_email>")
+u.is_superuser = True
+u.is_staff = True
+u.save()
+quit()
+make run #TO LAUNCH DJANGO
+
+# EDIT ADMIN PANEL / BLOCKCHAIN
+#for local test you only need to select the blockchain "fake" 
+127.0.0.1:8000/admin/djtezos/blockchain/
+
+#ACTIVATE TESTNET / WALLET
+#Assuming your docker is running you can set a testnet and mainnet account
+#Exemple to add EDONET TEST 
+Click on Add a blockchain 
+Name: Testnet Edonet
+EndPoint: https://rpc.tzkt.io/edo2net/
+Explorer: https://edo2net.tzkt.io/{}/storagei #{} is later replaced by the contract @
+Provider Class: Tezos
+Confirmation Blocks: 2
+Hit Save
+
+# You will notice no wallets are created on Accounts yet to do so at the moment you need
+# to create an election and to click on add the election smart contract. This will create a wallet 
+# for the newly created blockchain. The wallet address generated is where you need to send your XTZ 
+(The wallet is generated and no one can have access to it after / so don't send too much on it at 
+the moment) 
+
+The balance is 0 #you can also now find the wallet under admin/accounts
+You need to send Tez to the corresponding wallet to enable an election (at the moment we recommend 2XTZ) 
+Once done refresh the balance using the Refresh balance button from the "Choose the blockchain" 
+page while setting an election. 
+
+##ADD TEZ WITH A FAUCET / OR JUST TRANSFER TO IT 
+
+#FAUCET (TESTNET)
+# you can use the faucet bot on telegram to feed your Testnet wallet  
+https://t.me/tezos_faucet_bot
+
+#### AFTER REBOOT
+
+#IPFS on one console 
+ipfs daemon
+
+#Tezos Image on one console 
+sudo docker restart tz
+sudo docker restart tz  
+
+#ELECTEEZ
+make run #launch it 
