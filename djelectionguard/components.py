@@ -641,18 +641,16 @@ class OnGoingElectionAction(ListAction):
                         time_end=end_time,
                         timezone=str(contest.timezone)
                     )
-            txt = mark_safe(txt)
             if contest.mediator == user:
                 sub_txt = _('Vote link: %(link)s',
                     link=f'<a href={vote_link}>{vote_link}</a>'
                 )
-                sub_txt = mark_safe(sub_txt)
 
             icon = OnGoingIcon()
 
         inner = Span(
             txt,
-            *(mark_safe('<br><br>'), sub_txt) if sub_txt else (None, None),
+            CList(Br(), Br(), sub_txt) if sub_txt else None,
             cls='body-2 red-button-container'
         )
 

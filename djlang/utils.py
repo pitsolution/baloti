@@ -4,6 +4,7 @@ from django.conf import settings
 from django.utils.translation import get_language
 from django.utils.functional import lazy
 from django.utils.html import escape
+from django.utils.safestring import SafeString, mark_safe
 
 from django.contrib.sites.models import Site
 
@@ -68,8 +69,9 @@ def _gettext(key, n=0, **ph):
 
 def gettext(*args, **kwargs):
     text = _gettext(*args, **kwargs)
-    return escape(text)
+    if not isinstance(text, SafeString):
+        text = escape(text)
+    return text
 
 
 gettext = lazy(gettext, str)
-gettext_unsecure = lazy(_gettext, str)
