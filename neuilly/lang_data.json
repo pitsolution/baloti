@@ -5605,7 +5605,7 @@
   "fields": {
     "language": 29,
     "key": "You casted your vote on <b>%(time)s</b> The results will be published after the election is closed.",
-    "val": "Vous avez voté le %(time)s Les résultats seront publiés après avoir clôturé l'élection.",
+    "val": "Vous avez voté le %(time)s",
     "nval": null
   }
 },
@@ -5815,7 +5815,7 @@
   "fields": {
     "language": 29,
     "key": "You casted your vote! The results will be published after the election is closed.",
-    "val": "Votre bulletin a été pris en compte. Les résultats seront publiés après la clôture de l'élection.",
+    "val": "Votre bulletin a bien été pris en compte.",
     "nval": null
   }
 },
@@ -6075,7 +6075,7 @@
   "fields": {
     "language": 29,
     "key": "TRACKING_MORE_INFO",
-    "val": "Votre bulletin est crypté et  donc secret,  lorsque vous votez l’empreinte digitale de celui ci appelé %(link)s vous permet de verifier qu’il à bien été prix en compte et que personne ne l’a modifié (sinon son empreinte changerai) Les informations de cette page vous permettent de faire cette vérification par vous meme (voir video) cela s’appelle un vote <a href=\"https://en.wikipedia.org/wiki/End-to-end_auditable_voting_systems\">vote vérifiable de bout en bout</a>",
+    "val": "%(link)s Votre bulletin est crypté  lorsque vous votez l’empreinte digitale de celui ci appelé  vous permet de verifier qu’il à bien été prix en compte et que personne ne l’a modifié (sinon son empreinte changerai) Les informations de cette page vous permettent de faire cette vérification par vous meme (voir video) cela s’appelle un vote vote vérifiable de bout en bout",
     "nval": null
   }
 },
@@ -6136,6 +6136,156 @@
     "language": 29,
     "key": "delete",
     "val": "supprimer",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3823,
+  "fields": {
+    "language": 29,
+    "key": "Report on Tezos' blockchain",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3824,
+  "fields": {
+    "language": 29,
+    "key": "Local election datas",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3825,
+  "fields": {
+    "language": 29,
+    "key": "IPFS election datas",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3826,
+  "fields": {
+    "language": 29,
+    "key": "Be careful, once confirmed, your choice is definitive and cannot be changed",
+    "val": "Attention une fois confirmé votre vote est définitif et ne peut être modifié. Vous avez choisi:",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3827,
+  "fields": {
+    "language": 30,
+    "key": "Be careful, once confirmed, your choice is definitive and cannot be changed",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3828,
+  "fields": {
+    "language": 29,
+    "key": "Election report",
+    "val": "Rapport technique",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3829,
+  "fields": {
+    "language": 30,
+    "key": "Election report",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3830,
+  "fields": {
+    "language": 29,
+    "key": "On Tezos' blockchain",
+    "val": "Sur Tezos",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3831,
+  "fields": {
+    "language": 30,
+    "key": "On Tezos' blockchain",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3832,
+  "fields": {
+    "language": 29,
+    "key": "Election datas",
+    "val": "Données techniques",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3833,
+  "fields": {
+    "language": 30,
+    "key": "Election datas",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3834,
+  "fields": {
+    "language": 29,
+    "key": "Local data",
+    "val": "Locale",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3835,
+  "fields": {
+    "language": 30,
+    "key": "Local data",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3836,
+  "fields": {
+    "language": 29,
+    "key": "On IPFS, decentralized",
+    "val": "IPFS (plusieurs minutes)",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3837,
+  "fields": {
+    "language": 30,
+    "key": "On IPFS, decentralized",
+    "val": null,
     "nval": null
   }
 }
