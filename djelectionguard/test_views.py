@@ -417,7 +417,7 @@ vot1@example.com\rvot2@example.com\rnew@example.com
         vote,
         selections=(candidates[0], candidates[1])
     )
-    m = re.match(r'/en/track/(?P<voter>.*)\/', response.url)
+    m = re.match(r'/en/contest/voter/(?P<voter>.*)\/success', response.url)
     assert m
     m = m.groupdict()
     assert 'voter' in m.keys()
