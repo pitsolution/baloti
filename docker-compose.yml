@@ -43,6 +43,121 @@ services:
     - DJANGO_APP
     - DJANGO_SETTINGS_MODULE
 
+  sync:
+    command: sh -c 'while true; do ./manage.py djtezos_sync; sleep 60; done'
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: .
+    logging:
+      driver: journald
+    environment:
+    - HOST
+    - PROTO
+    - ADMINS
+    - BASICAUTH_ENABLE
+    - CI_ENVIRONMENT_NAME
+    - CI_COMMIT_SHA
+    - SENTRY_DSN
+    - MEDIA_ROOT=/app/media
+    - LOG_DIR=/app/log
+    - IPFS_URL=ipfs:5001
+    - DB_HOST=postgres
+    - DB_NAME=electeez
+    - DB_USER=electeez
+    - DB_PASS=electeez
+    - DB_ENGINE=django.db.backends.postgresql
+    - EMAIL_HOST
+    - EMAIL_HOST_USER
+    - EMAIL_HOST_PASSWORD
+    - EMAIL_USE_SSL
+    - EMAIL_USE_TLS
+    - EMAIL_PORT
+    - DEFAULT_FROM_EMAIL
+    - MEMCACHED_HOST=memcached
+    - SECRET_KEY
+    - DEBUG=
+    - PYTHONPATH=/app
+    - DJANGO_APP
+    - DJANGO_SETTINGS_MODULE
+
+
+  balance:
+    command: sh -c 'while true; do ./manage.py djtezos_balance; sleep 30; done'
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: .
+    logging:
+      driver: journald
+    environment:
+    - HOST
+    - PROTO
+    - ADMINS
+    - BASICAUTH_ENABLE
+    - CI_ENVIRONMENT_NAME
+    - CI_COMMIT_SHA
+    - SENTRY_DSN
+    - MEDIA_ROOT=/app/media
+    - LOG_DIR=/app/log
+    - IPFS_URL=ipfs:5001
+    - DB_HOST=postgres
+    - DB_NAME=electeez
+    - DB_USER=electeez
+    - DB_PASS=electeez
+    - DB_ENGINE=django.db.backends.postgresql
+    - EMAIL_HOST
+    - EMAIL_HOST_USER
+    - EMAIL_HOST_PASSWORD
+    - EMAIL_USE_SSL
+    - EMAIL_USE_TLS
+    - EMAIL_PORT
+    - DEFAULT_FROM_EMAIL
+    - MEMCACHED_HOST=memcached
+    - SECRET_KEY
+    - DEBUG=
+    - PYTHONPATH=/app
+    - DJANGO_APP
+    - DJANGO_SETTINGS_MODULE
+
+  write:
+    command: sh -c 'while true; do ./manage.py djtezos_write; sleep 30; done'
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: .
+    logging:
+      driver: journald
+    environment:
+    - HOST
+    - PROTO
+    - ADMINS
+    - BASICAUTH_ENABLE
+    - CI_ENVIRONMENT_NAME
+    - CI_COMMIT_SHA
+    - SENTRY_DSN
+    - MEDIA_ROOT=/app/media
+    - LOG_DIR=/app/log
+    - IPFS_URL=ipfs:5001
+    - DB_HOST=postgres
+    - DB_NAME=electeez
+    - DB_USER=electeez
+    - DB_PASS=electeez
+    - DB_ENGINE=django.db.backends.postgresql
+    - EMAIL_HOST
+    - EMAIL_HOST_USER
+    - EMAIL_HOST_PASSWORD
+    - EMAIL_USE_SSL
+    - EMAIL_USE_TLS
+    - EMAIL_PORT
+    - DEFAULT_FROM_EMAIL
+    - MEMCACHED_HOST=memcached
+    - SECRET_KEY
+    - DEBUG=
+    - PYTHONPATH=/app
+    - DJANGO_APP
+    - DJANGO_SETTINGS_MODULE
+
   memcached:
     logging:
       driver: journald
