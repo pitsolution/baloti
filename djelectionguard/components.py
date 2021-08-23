@@ -1846,8 +1846,8 @@ class ContestVoteSuccessCard(Div):
                 style='text-align:center;'
             ),
             Div(
-                _('Thank you for your participation.'),
-                _(' Your secret vote has been taken in account.'
+                _('Thank you for your participation.'
+                  ' Your secret vote has been taken in account.'
                   ' You can, if you want, close this page.'),
                 style=dict(
                     margin_top='50px'
