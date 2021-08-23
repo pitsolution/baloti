@@ -2,6 +2,7 @@ import os
 
 from django import test
 from django.contrib.auth import get_user_model
+from django.core.management import call_command
 from django.utils import timezone
 
 from djtezos.models import Account, Blockchain
@@ -16,6 +17,7 @@ class ModelStory:
     fixtures = ['data.json']
 
     def assertIsOnBlockchain(self, transaction):
+        call_command('djtezos_write')
         transaction.refresh_from_db()
         assert transaction.state == 'done'
         assert transaction.gas
