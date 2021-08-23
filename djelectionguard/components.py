@@ -2048,7 +2048,7 @@ class PublishProgressBar(Div):
 
 class ArtifactsLinks(Div):
     def __init__(self, contest):
-        links = Div(style=dict(display='flex', flex_flow='row nowrap', justify_content='space-between'))
+        links = Div(style=dict(display='flex', flex_flow='row nowrap', justify_content='space-around'))
 
         if contest.electioncontract.blockchain.explorer:
             links.addchild(
@@ -2060,14 +2060,15 @@ class ArtifactsLinks(Div):
                 )
             )
 
-        links.addchild(
-            Div(
-                A(_('Election datas'), href=contest.artifacts_local_url),
-                Br(),
-                _('Local data'),
-                style=dict(text_align='center', color='#888', margin='12px')
+        if contest.plaintext_tally:
+            links.addchild(
+                Div(
+                    A(_('Election datas'), href=contest.artifacts_local_url),
+                    Br(),
+                    _('Local data'),
+                    style=dict(text_align='center', color='#888', margin='12px')
+                )
             )
-        )
 
         if contest.artifacts_ipfs_url:
             links.addchild(
