@@ -127,6 +127,9 @@ class ElectionContractCreate(generic.FormView):
                 blockchain=blockchain,
                 owner=User.objects.get_or_create(email='bank@elictis.io')[0],
             )
+            if created:
+                account.generate_private_key()
+                account.save()
             context['accounts'].append(account)
 
         return context
