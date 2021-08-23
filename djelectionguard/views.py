@@ -700,7 +700,7 @@ class ContestVoteView(ContestVoteMixin, FormMixin, generic.DetailView):
             )
             uid = self.object.voter_set.get(user=self.request.user).id
             return http.HttpResponseRedirect(
-                    reverse('tracker_detail', args=[uid])
+                    reverse('vote_success', args=[uid])
             )
 
     @classmethod
@@ -727,7 +727,7 @@ class ContestVoteSuccessView(generic.DetailView):
         return path(
             'voter/<uuid:pk>/success/',
             login_required(cls.as_view()),
-            name='contest_candidate_list'
+            name='vote_success'
         )
 
 

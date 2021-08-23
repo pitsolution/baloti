@@ -641,18 +641,16 @@ class OnGoingElectionAction(ListAction):
                         time_end=end_time,
                         timezone=str(contest.timezone)
                     )
-            txt = mark_safe(txt)
             if contest.mediator == user:
                 sub_txt = _('Vote link: %(link)s',
                     link=f'<a href={vote_link}>{vote_link}</a>'
                 )
-                sub_txt = mark_safe(sub_txt)
 
             icon = OnGoingIcon()
 
         inner = Span(
             txt,
-            *(mark_safe('<br><br>'), sub_txt) if sub_txt else (None, None),
+            CList(Br(), Br(), sub_txt) if sub_txt else None,
             cls='body-2 red-button-container'
         )
 
@@ -1709,9 +1707,20 @@ class DialogConfirmForm(Form):
                     _('Be careful, once confirmed,'
                     ' your choice is definitive and cannot be changed'),
                     *hidden_selections(),
-                    Div(B(id='remaining')),
                 ),
-                actions=actions,
+                actions=Div(
+                    actions,
+                    Div(
+                        Span(id='remaining'),
+                        style=dict(
+                            background='aliceblue',
+                            text_align='center',
+                            padding='12px',
+                            margin='24px',
+                            margin_top='0'
+                        ),
+                    ),
+                )
             ),
             **attrs
         )
@@ -1752,9 +1761,10 @@ class DialogConfirmForm(Form):
             remaining_text += form.remaining_text_end
 
         if remaining == 0:
-            elem.innerHTML = ''
+            elem.parentElement.style.display = 'none'
         else:
             elem.innerHTML = remaining_text
+            elem.parentElement.style.display = 'block'
 
     def py2js(self):
         form = getElementByUuid(self.id)
@@ -1838,7 +1848,10 @@ class ContestVoteSuccessCard(Div):
             Div(
                 _('Thank you for your participation.'),
                 _(' Your secret vote has been taken in account.'
-                  ' You can, if you want, close this page.')
+                  ' You can, if you want, close this page.'),
+                style=dict(
+                    margin_top='50px'
+                )
             ),
             Div(
                 B(
@@ -1854,8 +1867,8 @@ class ContestVoteSuccessCard(Div):
                     A(_('here'), href=track_link)
                 ),
                 style=dict(
-                    background='lightgray',
-                    margin_top='32px',
+                    background='aliceblue',
+                    margin_top='50px',
                     padding='12px',
                     opacity='0.6'
                 )
@@ -2035,7 +2048,7 @@ class PublishProgressBar(Div):
 
 class ArtifactsLinks(Div):
     def __init__(self, contest):
-        links = Div(style=dict(display='flex', flex_flow='row nowrap', justify_content='space-between'))
+        links = Div(style=dict(display='flex', flex_flow='row nowrap', justify_content='space-around'))
 
         if contest.electioncontract.blockchain.explorer:
             links.addchild(
@@ -2047,14 +2060,15 @@ class ArtifactsLinks(Div):
                 )
             )
 
-        links.addchild(
-            Div(
-                A(_('Election datas'), href=contest.artifacts_local_url),
-                Br(),
-                _('Local data'),
-                style=dict(text_align='center', color='#888', margin='12px')
+        if contest.plaintext_tally:
+            links.addchild(
+                Div(
+                    A(_('Election datas'), href=contest.artifacts_local_url),
+                    Br(),
+                    _('Local data'),
+                    style=dict(text_align='center', color='#888', margin='12px')
+                )
             )
-        )
 
         if contest.artifacts_ipfs_url:
             links.addchild(

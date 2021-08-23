@@ -119,7 +119,7 @@ class TrackerDetailCard(Div):
                 ),
                 P(mark_safe(_('TRACKING_MORE_INFO', link=f'<a href={wiki}>{wiki}</a>'))),
                 style=dict(
-                    background='lightgray',
+                    background='aliceblue',
                     margin_top='32px',
                     padding='12px',
                     opacity='0.6'

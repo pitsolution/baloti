@@ -3,6 +3,8 @@ import re
 from django.db import models
 from django.conf import settings
 from django.utils.translation import get_language
+from django.utils.html import escape
+from django.utils.safestring import mark_safe
 
 from electeez_sites.models import Site
 
@@ -37,6 +39,8 @@ class Text(models.Model):
         if self.val and n > 1:
             val = self.nval or self.val
 
+        val = escape(val)
+
         #  Replace strings by placeholders
         matches = re.findall(r'(%\((?P<ph>[^%( )]*?)\)s)', val)
 
@@ -44,4 +48,4 @@ class Text(models.Model):
             if match[1] in placeholders:
                 val = val.replace(match[0], str(placeholders[match[1]]))
 
-        return val
+        return mark_safe(val)
