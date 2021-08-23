@@ -50,7 +50,13 @@ test:
     - export ANSIBLE_HOST_KEY_CHECKING=False
     - bigsudo yourlabs.compose
       compose_django_build=
+      compose_balance_build=
+      compose_write_build=
+      compose_sync_build=
       compose_django_image=$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+      compose_sync_image=$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+      compose_write_image=$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+      compose_balance_image=$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
       wait_grep=spawned.uWSGI.worker.1
       $DEPLOY
       deploy@$HOST
