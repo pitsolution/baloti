@@ -6105,7 +6105,7 @@
   "fields": {
     "language": 30,
     "key": "TRACKING_MORE_INFO",
-    "val": "Your ballot is encrypted and therefore secret, when you vote the fingerprint of it (called a hash) allows you to check that it has been tallied and that no one has modified it (otherwise its imprint will change) the information of this page allows you to verify it directly (see VIDEO to learn how) This is called an end to end verifiable vote.",
+    "val": "Your ballot is encrypted and therefore secret, when you vote the fingerprint of it (called a hash %(link)s) allows you to check that it has been tallied and that no one has modified it (otherwise its imprint will change) the information of this page allows you to verify it directly (see VIDEO to learn how) This is called an end to end verifiable vote.",
     "nval": null
   }
 },
@@ -6125,6 +6125,226 @@
   "fields": {
     "language": 30,
     "key": "IPFS election datas",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3819,
+  "fields": {
+    "language": 29,
+    "key": "Be careful, once confirmed, your choice is definitive and cannot be changed",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3820,
+  "fields": {
+    "language": 30,
+    "key": "Be careful, once confirmed, your choice is definitive and cannot be changed",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3821,
+  "fields": {
+    "language": 29,
+    "key": "Your vote has been validated!",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3822,
+  "fields": {
+    "language": 30,
+    "key": "Your vote has been validated!",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3823,
+  "fields": {
+    "language": 29,
+    "key": "Thank you for your participation. Your secret vote has been taken in account. You can, if you want, close this page.",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3824,
+  "fields": {
+    "language": 30,
+    "key": "Thank you for your participation. Your secret vote has been taken in account. You can, if you want, close this page.",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3825,
+  "fields": {
+    "language": 29,
+    "key": "How does electronic voting work?",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3826,
+  "fields": {
+    "language": 30,
+    "key": "How does electronic voting work?",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3827,
+  "fields": {
+    "language": 29,
+    "key": "here",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3828,
+  "fields": {
+    "language": 30,
+    "key": "here",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3829,
+  "fields": {
+    "language": 29,
+    "key": "ELECTRONIC_VOTE_EXPLAINATION",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3830,
+  "fields": {
+    "language": 30,
+    "key": "ELECTRONIC_VOTE_EXPLAINATION",
+    "val": "This election is an end to end verifiable one, it means you will be able if you wish to verify that your vote was counted and not altered learn how to do it :",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3831,
+  "fields": {
+    "language": 29,
+    "key": "Election report",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3832,
+  "fields": {
+    "language": 30,
+    "key": "Election report",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3833,
+  "fields": {
+    "language": 29,
+    "key": "On Tezos' blockchain",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3834,
+  "fields": {
+    "language": 30,
+    "key": "On Tezos' blockchain",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3835,
+  "fields": {
+    "language": 29,
+    "key": "Election datas",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3836,
+  "fields": {
+    "language": 30,
+    "key": "Election datas",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3837,
+  "fields": {
+    "language": 29,
+    "key": "Local data",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3838,
+  "fields": {
+    "language": 30,
+    "key": "Local data",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3839,
+  "fields": {
+    "language": 29,
+    "key": "On IPFS, decentralized",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3840,
+  "fields": {
+    "language": 30,
+    "key": "On IPFS, decentralized",
     "val": null,
     "nval": null
   }
