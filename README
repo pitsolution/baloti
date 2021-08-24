@@ -88,7 +88,7 @@ sudo docker run --name tz --publish 8732:8732 yourlabs/tezos
 127.0.0.1 localhost tez
 
 # INSTALL LIBS / PYTHON MODULES 
-make 
+make install
 
 # INITIALIZE THE DB FOR ELECTEEZ 
 make data
