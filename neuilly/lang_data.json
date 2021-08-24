@@ -6288,5 +6288,135 @@
     "val": null,
     "nval": null
   }
+},
+{
+  "model": "djlang.text",
+  "pk": 3838,
+  "fields": {
+    "language": 29,
+    "key": "Your vote has been validated!",
+    "val": "A voté",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3839,
+  "fields": {
+    "language": 30,
+    "key": "Your vote has been validated!",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3841,
+  "fields": {
+    "language": 30,
+    "key": "Thank you for your participation.",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3843,
+  "fields": {
+    "language": 30,
+    "key": "Your secret vote has been taken in account. You can, if you want, close this page.",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3844,
+  "fields": {
+    "language": 29,
+    "key": "How does electronic voting work?",
+    "val": "Comment marche le vote électronique?",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3845,
+  "fields": {
+    "language": 30,
+    "key": "How does electronic voting work?",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3846,
+  "fields": {
+    "language": 29,
+    "key": "here",
+    "val": "ici",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3847,
+  "fields": {
+    "language": 30,
+    "key": "here",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3849,
+  "fields": {
+    "language": 30,
+    "key": "ELECTRONIC_VOTE_EXPLAINATION",
+    "val": "This secret encrypted electronic vote is also verifiable, find out how to check your vote was contes and not altered by following these instructions at the end of the election",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3850,
+  "fields": {
+    "language": 30,
+    "key": " Your secret vote has been taken in account. You can, if you want, close this page.",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3860,
+  "fields": {
+    "language": 29,
+    "key": "Thank you for your participation. Your secret vote has been taken in account. You can, if you want, close this page.",
+    "val": "Merci de votre participation, par la présente nous confirmons la prise en compte de votre vote électronique secret. Vous pouvez fermer cette page si vous le souhaitez.",
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3861,
+  "fields": {
+    "language": 30,
+    "key": "Thank you for your participation. Your secret vote has been taken in account. You can, if you want, close this page.",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3862,
+  "fields": {
+    "language": 29,
+    "key": "ELECTRONIC_VOTE_EXPLAINATION",
+    "val": null,
+    "nval": null
+  }
 }
 ]

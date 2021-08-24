@@ -22,10 +22,10 @@ data:
 	./manage.py loaddata data.json
 	./manage.py loaddata electis/site_data.json
 
-run_all: runserver tezos_sync tezos_write tezos_balance
+run_all: runserver tezos_sync tezos_write tezos_balance ipfs
 
 run:
-	make -j 4 run_all
+	make -j 5 run_all
 
 runserver:
 	./manage.py runserver
@@ -38,6 +38,9 @@ tezos_write:
 
 tezos_balance:
 	while true; do ./manage.py djtezos_balance; sleep 30; done
+
+ipfs:
+	ipfs daemon
 
 lang:
 	./manage.py loaddata electis/lang_data.json

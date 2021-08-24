@@ -3,9 +3,9 @@
     "model": "djtezos.blockchain",
     "pk": 1,
     "fields": {
-      "name": "tzlocal",
-      "endpoint": "http://tz:8732",
-      "explorer": "http://tz:8732/",
+      "name": "Granadanet",
+      "endpoint": "https://rpc.tzkt.io/granadanet/",
+      "explorer": "https://better-call.dev/granadanet/{}/storage",
       "provider_class": "djtezos.tezos.Provider",
       "confirmation_blocks": 0,
       "description": "",
@@ -16,11 +16,11 @@
     "model": "djtezos.blockchain",
     "pk": 2,
     "fields": {
-      "name": "fake",
-      "endpoint": "http://localhost:1337",
-      "explorer": "http://localhost:1337/",
-      "provider_class": "djtezos.fake.Provider",
-      "confirmation_blocks": 0,
+      "name": "Edo2net",
+      "endpoint": "https://rpc.tzkt.io/edo2net/",
+      "explorer": "https://edo2net.tzkt.io/{}/storage/",
+      "provider_class": "djtezos.tezos.Provider",
+      "confirmation_blocks": 2,
       "description": "",
       "is_active": true
     }
@@ -29,9 +29,9 @@
     "model": "djtezos.blockchain",
     "pk": 3,
     "fields": {
-      "name": "Tezos Testnet (Delphinet)",
-      "endpoint": "https://rpc.tzkt.io/delphinet/",
-      "explorer": "https://better-call.dev/delphinet/{}/operations",
+      "name": "Mainnet",
+      "endpoint": "https://rpc.tzkt.io/mainnet/",
+      "explorer": "https://better-call.dev/mainnet/{}/storage/",
       "provider_class": "djtezos.tezos.Provider",
       "confirmation_blocks": 2,
       "description": "",
