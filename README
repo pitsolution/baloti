@@ -72,7 +72,8 @@ systemctl enable memcached
 systemctl start memcached
 
 # INSTALL IPFS
-Cf https://ipfs.io/ipns/dist.ipfs.io/#go-ipfs
+# Follow IPFS install procedure on https://docs.ipfs.io/install/command-line/#official-distributions 
+# Once ipfs is installed: 
 ipfs init #relaunch if queue error
 
 # INSTALL LIBS / PYTHON MODULES
