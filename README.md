@@ -101,28 +101,7 @@ systemctl start memcached
 `make runserver`
 
 #### CREATE A USER
-Go to 127.0.0.1:8000 
-then Sign up 
-And check the logs for the email link 
-
-#### (OPTIONAL) CHANGE EMAIL LOGS LOCATION 
-When you signup, or do any action supposed to send an email, they will be
-written in the console which you made `make run` in by default.
-If you want to get emails written in a file you must change the email backend
-to `filebased` by changing the lines
-`electeez_common/settings.py:`
-```python
-245     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-246     # EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-247     # EMAIL_FILE_PATH = '/tmp/app-messages' # change this to a proper location
-```
-to:
-```python
-245     # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-246     EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-247     EMAIL_FILE_PATH = '/tmp/app-messages' # change this to a proper location
-```
-And choose the location you want for `EMAIL_FILE_PATH` be sure to mkdir the path before launching it (e.g. : mkdir /tmp/app-messages)
+Go to 127.0.0.1:8000 then Sign up and check the logs for the email link. Once your account is activated and you logged in stop the server and follow the next steps 
 
 
 #### HOW TO MAKE A USER ADMIN 
@@ -174,3 +153,24 @@ page while setting an election.
 #### FAUCET (TESTNET)
 ##### you can use the faucet bot on telegram to feed your Testnet wallet
 `https://t.me/tezos_faucet_bot`
+
+
+#### (OPTIONAL) CHANGE EMAIL LOGS LOCATION 
+When you signup, or do any action supposed to send an email, they will be
+written in the console which you made `make run` in by default and which can be busy. 
+If you want to get emails written in a file you must change the email backend
+to `filebased` by changing the lines
+`electeez_common/settings.py:`
+```python
+245     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+246     # EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+247     # EMAIL_FILE_PATH = '/tmp/app-messages' # change this to a proper location
+```
+to:
+```python
+245     # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+246     EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+247     EMAIL_FILE_PATH = '/tmp/app-messages' # change this to a proper location
+```
+And choose the location you want for `EMAIL_FILE_PATH` be sure to mkdir the path before launching it (e.g. : mkdir /tmp/app-messages)
+
