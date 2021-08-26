@@ -100,8 +100,8 @@ systemctl start memcached
 #### LAUNCH DJANGO SERVER
 `make runserver`
 
-#### CREATE A USER
-Go to 127.0.0.1:8000 then Sign up and check the logs for the email link. Once your account is activated and you logged in stop the server and follow the next steps 
+#### CREATE A USER 
+Go to 127.0.0.1:8000 then Sign up with <your_user_email> and check the logs for the email link. (cf the optional steps bellow if you whish to locate the emails logs in files instead of the console). Once your account is activated and you logged in stop the server and follow the next steps 
 
 
 #### HOW TO MAKE A USER ADMIN 
