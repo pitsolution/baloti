@@ -89,34 +89,23 @@ systemctl start memcached
 `ipfs init` #relaunch if queue error
 
 #### INSTALL LIBS / PYTHON MODULES
-`make`
-
-#### INSTALL LIBS / PYTHON MODULES
 `make install`
 
 #### INITIALIZE THE DB FOR ELECTEEZ
 `make data`
 
+#### INITIALIZE DB FOR LANGUAGES
+'make lang'
+
 #### LAUNCH DJANGO SERVER
-`make run`
+`make runserver`
 
-#### HOW TO MAKE A USER ADMIN
-```sh
-./manage.py shell_plus
-```
+#### CREATE A USER
+# Go to 127.0.0.1:8000 
+# Sign up 
+# Check the logs for the email link 
 
-```python
-u = User.objects.get(email="<your_user_email>")
-u.is_superuser = True
-u.is_staff = True
-u.is_active = True
-u.save()
-quit()
-```
-
-`make run` #TO LAUNCH DJANGO
-
-#### EMAILS
+#### (OPTIONAL) CHANGE EMAIL LOGS LOCATION 
 When you signup, or do any action supposed to send an email, they will be
 written in the console which you made `make run` in by default.
 If you want to get emails written in a file you must change the email backend
@@ -133,7 +122,25 @@ to:
 246     EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 247     EMAIL_FILE_PATH = '/tmp/app-messages' # change this to a proper location
 ```
-And choose the location you want for `EMAIL_FILE_PATH`
+And choose the location you want for `EMAIL_FILE_PATH` be sure to mkdir the path before launching it (e.g. : mkdir /tmp/app-messages)
+
+
+#### HOW TO MAKE A USER ADMIN 
+```sh
+./manage.py shell_plus
+```
+
+```python
+u = User.objects.get(email="<your_user_email>")
+u.is_superuser = True
+u.is_staff = True
+u.is_active = True
+u.save()
+quit()
+```
+
+#### LAUNCH ELECTIS APP
+`make run` #TO LAUNCH ALL NEEDED SERVERS 
 
 
 #### EDIT ADMIN PANEL / BLOCKCHAIN
