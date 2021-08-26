@@ -101,9 +101,9 @@ systemctl start memcached
 `make runserver`
 
 #### CREATE A USER
-# Go to 127.0.0.1:8000 
-# Sign up 
-# Check the logs for the email link 
+Go to 127.0.0.1:8000 
+then Sign up 
+And check the logs for the email link 
 
 #### (OPTIONAL) CHANGE EMAIL LOGS LOCATION 
 When you signup, or do any action supposed to send an email, they will be
