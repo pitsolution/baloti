@@ -28,10 +28,10 @@ class Text(models.Model):
     key = models.CharField(
         max_length=1024,
     )
-    val = models.CharField(max_length=5096, blank=True, null=True)
-    nval = models.CharField(max_length=5096, blank=True, null=True)
+    val = models.TextField(blank=True, null=True)
+    nval = models.TextField(blank=True, null=True)
 
-    def process(self, n=0, **placeholders):
+    def process(self, n=0, allow_unsecure=False, **placeholders):
         #  If pluralize return nval
         #  If not nval use val
         #  If not val use key
@@ -39,7 +39,8 @@ class Text(models.Model):
         if self.val and n > 1:
             val = self.nval or self.val
 
-        val = escape(val)
+        if not allow_unsecure:
+            val = escape(val)
 
         #  Replace strings by placeholders
         matches = re.findall(r'(%\((?P<ph>[^%( )]*?)\)s)', val)

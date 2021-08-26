@@ -55,7 +55,7 @@ class OTPSend(generic.FormView):
                 Hello,
 
                 This is the magic link you have requested: %(link)s
-                ''', link=LINK)
+                ''', allow_insecure=True, link=LINK)
             )),
             'webmaster@electeez.com',
             [form.cleaned_data['email']],

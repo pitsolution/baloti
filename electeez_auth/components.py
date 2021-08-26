@@ -1,7 +1,9 @@
 from django import forms
-from django.urls import include, path, reverse
 from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
+from django.contrib.sites.shortcuts import get_current_site
+from django.urls import include, path, reverse
+from django.utils.safestring import mark_safe
 from django_registration.forms import RegistrationForm
 from django_registration.backends.activation.views import RegistrationView
 import ryzom
@@ -241,4 +243,26 @@ class OTPSendCard(Div):
         super().__init__(
             H4(_('Email sent with success'), style='text-align:center'),
             cls='card',
+        )
+
+
+@template('django_registration/activation_email_body.txt')
+class EmailBody(Text):
+    def __init__(self, *a, **k):
+        super().__init__('')
+
+    def to_html(self, **context):
+        url = ''.join([
+            settings.BASE_URL,
+            reverse(
+                'django_registration_activate',
+                args=[context['activation_key']]
+            )
+        ])
+        site = context['site']
+        return _(
+            'ACTIVATION_EMAIL_BODY',
+            allow_unsecure=True,
+            site_name=site.name,
+            activation_url=url
         )

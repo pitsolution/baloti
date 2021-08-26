@@ -1,6 +1,8 @@
+from django.db import models
 from django.contrib import admin
 from django.contrib.admin.views.main import ChangeList
 from django.core.paginator import EmptyPage, InvalidPage, Paginator
+from django import forms
 
 from .models import Language, Text
 
@@ -58,6 +60,11 @@ class PaginatedTabularInline(admin.TabularInline):
 class TextAdmin(PaginatedTabularInline):
     model = Text
     fields = ('key', 'val', 'nval')
+    formfield_overrides = {
+        models.TextField: {
+            'widget': forms.Textarea(attrs={'rows': 4, 'cols': 40})
+        }
+    }
 
 
 class LanguageAdmin(admin.ModelAdmin):

@@ -6418,5 +6418,25 @@
     "val": null,
     "nval": null
   }
+},
+{
+  "model": "djlang.text",
+  "pk": 3863,
+  "fields": {
+    "language": 30,
+    "key": "ACTIVATION_EMAIL_BODY",
+    "val": "Welcome on %(site_name)s.\r\n\r\nYou are one step away from joining a safe election.\r\n\r\nClick below to verify your email.\r\n%(activation_url)s\r\nThen login and vote !\r\n\r\nThis email as been sended automatically. Please don't respond at this mail.\r\n\r\nThank's.\r\nTeam Electeez.",
+    "nval": ""
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3864,
+  "fields": {
+    "language": 29,
+    "key": "ACTIVATION_EMAIL_BODY",
+    "val": "Bienvenue sur %(site_name)s.\r\n\r\nPlus qu'une étape avant de rejoindre une élection sécurisée.\r\nCliquer sur le lien suivant pour vérifier votre adresse email:\r\n%(activation_url)s\r\n\r\nPuis connectez-vous et votez!\r\n\r\nCeci est un email automatique, merci de ne pas y répondre.\r\n\r\nMerci! \r\nL'équipe d'Electis.",
+    "nval": ""
+  }
 }
 ]
