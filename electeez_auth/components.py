@@ -260,15 +260,9 @@ class EmailBody(Text):
             )
         ])
         site = context['site']
-        return _('''Welcome on %(site_name)s.
-
-You are one step away from joining a safe election.
-Click below to verify your email.
-%(activation_url)s
-Then login and vote !
-
-This email as been sended automatically.
-Please don't respond at this mail.
-Thank's.
-Team Electeez.
-''', allow_unsecure=True, site_name=site.name, activation_url=url)
+        return _(
+            'ACTIVATION_EMAIL_BODY',
+            allow_unsecure=True,
+            site_name=site.name,
+            activation_url=url
+        )

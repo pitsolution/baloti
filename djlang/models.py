@@ -28,8 +28,8 @@ class Text(models.Model):
     key = models.CharField(
         max_length=1024,
     )
-    val = models.CharField(max_length=5096, blank=True, null=True)
-    nval = models.CharField(max_length=5096, blank=True, null=True)
+    val = models.TextField(blank=True, null=True)
+    nval = models.TextField(blank=True, null=True)
 
     def process(self, n=0, allow_unsecure=False, **placeholders):
         #  If pluralize return nval

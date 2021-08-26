@@ -7,6 +7,46 @@
 <fieldset class="module {{ inline_admin_formset.classes }}">
    <h2>{{ inline_admin_formset.opts.verbose_name_plural|capfirst }}</h2>
    {{ inline_admin_formset.formset.non_form_errors }}
+   <div>
+   {% with inline_admin_formset.formset.page as page_obj %}
+    <p class="paginator">
+      {% if page_obj.previous_page_number > 1 %}
+        <a href="?page={{ page_obj.previous_page_number|add:'-1' }}">{% trans 'previous' %}</a>
+      {% endif %}
+
+      {% if page_obj.number|add:"-5" > 0 %}
+        <a href="?page=0">1</a>
+      {% endif %}
+
+      {% if page_obj.number|add:"-5" > 1 %}
+        <span>&hellip;</span>
+      {% endif %}
+
+      {% for page_num in page_obj.paginator.page_range %}
+        {% if page_obj.number == page_num %}
+          <span class="dark">{{ page_num|add:"-1" }}</span>
+        {% else %}
+          {% if page_num > page_obj.number|add:"-5" and page_num < page_obj.number|add:"5" %}
+            <a class="light" style="color:white" href="?page={{ page_num|add:'-1' }}">{{ page_num|add:"-1" }}</a>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.number|add:"5" < page_obj.paginator.num_pages %}
+        <span>&hellip;</span>
+      {% endif %}
+
+      {% if page_obj.number|add:"4" < page_obj.paginator.num_pages %}
+        <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+      {% endif %}
+
+      {% if page_obj.next_page_number < page_obj.paginator.num_pages|add:'1' %}
+        <a href="?page={{ page_obj.next_page_number|add:'-1' }}">{% trans 'next' %}</a>
+      {% endif %}
+      <span class='dark'>{{ page_obj.paginator.count }} Queries</span>
+    </p>
+  {% endwith %}
+  </div>
    <table>
      <thead><tr>
        <th class="original"></th>
