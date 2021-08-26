@@ -125,6 +125,7 @@ quit()
 #### EDIT ADMIN PANEL / BLOCKCHAIN
 ##### for local test you only need to select the blockchain "fake"
 127.0.0.1:8000/admin/djtezos/blockchain/
+##### if it does not exists just click add and name it fake with a random endpoint like 127.0.0.1:1337 and set it as a test class 
 
 #### ACTIVATE TESTNET / WALLET
 ##### Assuming your docker is running you can set a testnet and mainnet account
