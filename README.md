@@ -26,84 +26,123 @@ also that its hash (sha1) is the same as the information shared at the end of th
 This project is developed by electis in partnership with Tezos via its foundation #MORE INFO you can find more information about electis and electeez on https://www.electis.io/about you can test an online
 version of electeez on https://www.electis.app
 
-#MORE INFO
+### MORE INFO
 you can find more information about electis and electeez on https://www.electis.io/about
 you can test an online version of electeez on https://www.electis.app
 
 
-###############################
-##  INSTALLATION ON UBUNTU  ###
-###############################
+##  INSTALLATION ON UBUNTU
 
 This readme and scripts are desinged for an Ubunutu install on localhost please adapt if
 you are using another distro.
 
-# UPDATE / UPGRADE SYSTEM
+#### UPDATE / UPGRADE SYSTEM
+```sh
 sudo apt update
 sudo apt upgrade
+```
 
-# INSTALL / ELECTEEZ (ELECTIS.APP)
+#### INSTALL / ELECTEEZ (ELECTIS.APP)
+```sh
 git clone https://gitlab.com/electisNGO/electeez.git
 cd electeez
+```
 
-# INSTALL PYTHON (IDEALLY >=3.9)
+#### INSTALL PYTHON (IDEALLY >=3.9)
+```sh
 sudo apt install python3.9-dev
 sudo apt install python3.9-venv
 python3.9 -m venv my_env
+```
 
-# LAUNCH VENV
+#### LAUNCH VENV
+```sh
 source ./my_env/bin/activate
 python -V #SHOULD BE 3.9+
+```
 
-# INSTALL / RUN POSTGRESQL
+#### INSTALL / RUN POSTGRESQL
+```sh
 sudo apt-get install postgresql
 sudo systemctl start postgresql
+```
 
-# INITIALIZE POSTGRESQL
+#### INITIALIZE POSTGRESQL
+```sh
 sudo passwd postgres
 su - postgres
 createdb electeez
 createuser <your_user_id>
 exit
+```
 
-# INSTALL / RUN MEMCACHED
+#### INSTALL / RUN MEMCACHED
+```sh
 sudo apt install memcached
 systemctl enable memcached
 systemctl start memcached
+```
 
-# INSTALL IPFS
-# Follow IPFS install procedure on https://docs.ipfs.io/install/command-line/#official-distributions 
-# Once ipfs is installed: 
-ipfs init #relaunch if queue error
+#### INSTALL IPFS
+##### Follow IPFS install procedure on https://docs.ipfs.io/install/command-line/#official-distributions
+##### Once ipfs is installed:
+`ipfs init` #relaunch if queue error
 
-# INSTALL LIBS / PYTHON MODULES
-make
+#### INSTALL LIBS / PYTHON MODULES
+`make`
 
-# INSTALL LIBS / PYTHON MODULES
-make install
+#### INSTALL LIBS / PYTHON MODULES
+`make install`
 
-# INITIALIZE THE DB FOR ELECTEEZ
-make data
+#### INITIALIZE THE DB FOR ELECTEEZ
+`make data`
 
-# LAUNCH DJANGO SERVER
-make run
+#### LAUNCH DJANGO SERVER
+`make run`
 
-#HOW TO MAKE A USER ADMIN
+#### HOW TO MAKE A USER ADMIN
+```sh
 ./manage.py shell_plus
+```
+
+```python
 u = User.objects.get(email="<your_user_email>")
 u.is_superuser = True
 u.is_staff = True
+u.is_active = True
 u.save()
 quit()
-make run #TO LAUNCH DJANGO
+```
 
-# EDIT ADMIN PANEL / BLOCKCHAIN
-#for local test you only need to select the blockchain "fake"
+`make run` #TO LAUNCH DJANGO
+
+#### EMAILS
+When you signup, or do any action supposed to send an email, they will be
+written in the console which you made `make run` in by default.
+If you want to get emails written in a file you must change the email backend
+to `filebased` by changing the lines
+`electeez_common/settings.py:`
+```python
+245     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+246     # EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+247     # EMAIL_FILE_PATH = '/tmp/app-messages' # change this to a proper location
+```
+to:
+```python
+245     # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+246     EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+247     EMAIL_FILE_PATH = '/tmp/app-messages' # change this to a proper location
+```
+And choose the location you want for `EMAIL_FILE_PATH`
+
+
+#### EDIT ADMIN PANEL / BLOCKCHAIN
+##### for local test you only need to select the blockchain "fake"
 127.0.0.1:8000/admin/djtezos/blockchain/
 
-#ACTIVATE TESTNET / WALLET
-#Assuming your docker is running you can set a testnet and mainnet account
-#Exemple to add EDONET TEST
+#### ACTIVATE TESTNET / WALLET
+##### Assuming your docker is running you can set a testnet and mainnet account
+##### Exemple to add EDONET TEST
 Click on Add a blockchain
 Name: Testnet Edonet
 EndPoint: https://rpc.tzkt.io/edo2net/
@@ -112,9 +151,9 @@ Provider Class: Tezos
 Confirmation Blocks: 2
 Hit Save
 
-# You will notice no wallets are created on Accounts yet to do so at the moment you need
-# to create an election and to click on add the election smart contract. This will create a wallet
-# for the newly created blockchain. The wallet address generated is where you need to send your XTZ
+##### You will notice no wallets are created on Accounts yet to do so at the moment you need
+##### to create an election and to click on add the election smart contract. This will create a wallet
+##### for the newly created blockchain. The wallet address generated is where you need to send your XTZ
 (The wallet is generated and no one can have access to it after / so don't send too much on it at
 the moment)
 
@@ -123,8 +162,8 @@ You need to send Tez to the corresponding wallet to enable an election (at the m
 Once done refresh the balance using the Refresh balance button from the "Choose the blockchain"
 page while setting an election.
 
-##ADD TEZ WITH A FAUCET / OR JUST TRANSFER TO IT
+### ADD TEZ WITH A FAUCET / OR JUST TRANSFER TO IT
 
-#FAUCET (TESTNET)
-# you can use the faucet bot on telegram to feed your Testnet wallet
-https://t.me/tezos_faucet_bot
+#### FAUCET (TESTNET)
+##### you can use the faucet bot on telegram to feed your Testnet wallet
+`https://t.me/tezos_faucet_bot`
