@@ -95,7 +95,7 @@ systemctl start memcached
 `make data`
 
 #### INITIALIZE DB FOR LANGUAGES
-'make lang'
+`make lang`
 
 #### LAUNCH DJANGO SERVER
 `make runserver`
