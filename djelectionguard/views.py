@@ -400,7 +400,7 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
         kwargs = super().get_form_kwargs()
         kwargs['initial'] = dict(
             email_title= _('Election %(obj)s is has been tallied', obj=self.object),
-            email_message=textwrap.dedent(str(msg)),
+            email_message=msg
         )
         return kwargs
 
