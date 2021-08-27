@@ -1,3 +1,5 @@
+import random
+
 from datetime import datetime, date, timedelta
 from django import forms
 from django.conf import settings
@@ -1786,7 +1788,9 @@ class ContestVoteCard(Div):
         max_selections = contest.votes_allowed
         number_elected = contest.number_elected
 
-        candidates = contest.candidate_set.all()
+        candidates = list(contest.candidate_set.all())
+        random.shuffle(candidates)
+
         choices = (
             (i, CandidateDetail(candidate), candidate.id)
              for i, candidate
