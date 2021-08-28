@@ -893,9 +893,11 @@ class Section(Div):
 class TezosSecuredCard(Section):
     def __init__(self, contest, user):
         link = None
+        blockchain = None
         if contest.publish_state != contest.PublishStates.ELECTION_NOT_DECENTRALIZED:
             try:
                 contract = contest.electioncontract
+                blockchain = contract.blockchain
                 link = A(
                     contract.contract_address,
                     href=getattr(contract, 'explorer_link', ''),
@@ -916,8 +918,9 @@ class TezosSecuredCard(Section):
                 ListAction(
                     _('Secured and decentralised with Tezos'),
                     Span(
-                        _('Your election data and results will be published on Tezos’ %(blockchain)s blockchain.',
-                            blockchain=contract.blockchain
+                        _('Your election data and results will be published'
+                          ' on Tezos’ %(blockchain)s blockchain.',
+                            blockchain=blockchain
                         ),
                         PublishProgressBar([
                             step(_('Election contract created')),
