@@ -21,6 +21,7 @@ data:
 	./manage.py migrate
 	./manage.py loaddata data.json
 	./manage.py loaddata electis/site_data.json
+	./manage.py lang
 
 run_all: runserver tezos_sync tezos_write tezos_balance ipfs
 
