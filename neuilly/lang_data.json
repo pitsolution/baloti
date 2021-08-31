@@ -4995,8 +4995,8 @@
   "fields": {
     "language": 29,
     "key": "Smart contract on %(obj)s",
-    "val": "Contrat intelligent sur %(obj)s",
-    "nval": null
+    "val": "Contrat intelligent %(obj)s",
+    "nval": ""
   }
 },
 {
@@ -5075,8 +5075,8 @@
   "fields": {
     "language": 29,
     "key": "As a way to bring trust, this election results and parameters will be shared and stored via a Tezos smart contract and an IPFS Link. To keep it simple you have two choices, one is to chose the free / testnet contract (fine for non official elections) or the main net one (you ll need to pay a small fee / just send the needed Tez fees to the Wallet address) version that can be used for official election as the equivalent of a legal proof of the election parameters and its results.",
-    "val": "Pour apporter de la transparence, les résultats de cette élection et les preuves techniques nécessaires à sa vérification sont enregistés sur un smart contract sur la blockchain de Tezos et sur IPFS. Pour faire simple, vous avez deux choix: soit choisir un contrat gratuit, sur le testnet (suffisant pour une élection non officielle), soit un contrat payant sur le mainnet (vous devrez payer une légère commission, envoyez simplement quelques Tez à l'adresse du portefeuille électronique) qui peut être utilisé comme preuve légale du résultat de l'élection et de ses paramètres",
-    "nval": null
+    "val": "Le PV d’élection est stocké sur une blockchain, vous devez choisir laquelle avant l’élection. Pour une election officielle choisir le Mainnet/Payant pour un test choisir Test/Gratuit. En cas de balance insuffisante il vous suffit de transférer des Tez à l'adresse correspondante puis de clicker sur rafraîchir pour mettre à jour la balance.",
+    "nval": ""
   }
 },
 {
@@ -5295,8 +5295,8 @@
   "fields": {
     "language": 29,
     "key": "TRACKING_MSG",
-    "val": "Merci pour votre participation si vous le souhaitez vous pouvez à présent fermer cette fenêtre. Votre vote est secret, seul vous en avez connaissance, les informations techniques ci-dessous garantissent que votre vote a bien été pris en compte, et vous permettrons si vous le souhaiter de verifier le bon déroulement de l’élection.",
-    "nval": null
+    "val": "Votre vote est secret, seul vous en avez connaissance, les informations techniques ci-dessous garantissent que votre vote a bien été pris en compte, et vous permettront si vous le souhaitez de verifier le bon déroulement de l’élection.",
+    "nval": ""
   }
 },
 {
@@ -6075,8 +6075,8 @@
   "fields": {
     "language": 29,
     "key": "TRACKING_MORE_INFO",
-    "val": "%(link)s Votre bulletin est crypté  lorsque vous votez l’empreinte digitale de celui ci appelé  vous permet de verifier qu’il à bien été prix en compte et que personne ne l’a modifié (sinon son empreinte changerai) Les informations de cette page vous permettent de faire cette vérification par vous meme (voir video) cela s’appelle un vote vote vérifiable de bout en bout",
-    "nval": null
+    "val": "Votre bulletin est crypté  lorsque vous votez l’empreinte digitale de celui ci appelé  vous permet de verifier qu’il à bien été prix en compte et que personne ne l’a modifié (voir %(link)s ) Les informations de cette page vous permettent de faire cette vérification par vous meme (voir video) cela s’appelle un vote vote vérifiable de bout en bout.",
+    "nval": ""
   }
 },
 {
@@ -6335,8 +6335,8 @@
   "fields": {
     "language": 29,
     "key": "How does electronic voting work?",
-    "val": "Comment marche le vote électronique?",
-    "nval": null
+    "val": "Comment vérifier son vote?",
+    "nval": ""
   }
 },
 {
@@ -6395,8 +6395,8 @@
   "fields": {
     "language": 29,
     "key": "Thank you for your participation. Your secret vote has been taken in account. You can, if you want, close this page.",
-    "val": "Merci de votre participation, par la présente nous confirmons la prise en compte de votre vote électronique secret. Vous pouvez fermer cette page si vous le souhaitez.",
-    "nval": null
+    "val": "Merci pour votre participation, si vous le souhaitez vous pouvez à présent fermer cette fenêtre.",
+    "nval": ""
   }
 },
 {
@@ -6415,8 +6415,8 @@
   "fields": {
     "language": 29,
     "key": "ELECTRONIC_VOTE_EXPLAINATION",
-    "val": null,
-    "nval": null
+    "val": "Votre vote électronique est secret et seul vous en avez la connaissance. Si vous souhaitez en savoir plus et vérifier que votre vote à bien été pris en compte, voir",
+    "nval": ""
   }
 },
 {
@@ -6436,6 +6436,116 @@
     "language": 29,
     "key": "ACTIVATION_EMAIL_BODY",
     "val": "Bienvenue sur %(site_name)s.\r\n\r\nPlus qu'une étape avant de rejoindre une élection sécurisée.\r\nCliquer sur le lien suivant pour vérifier votre adresse email:\r\n%(activation_url)s\r\n\r\nPuis connectez-vous et votez!\r\n\r\nCeci est un email automatique, merci de ne pas y répondre.\r\n\r\nMerci! \r\nL'équipe d'Electis.",
+    "nval": ""
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3865,
+  "fields": {
+    "language": 29,
+    "key": "To proceed to your",
+    "val": "",
+    "nval": ""
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3866,
+  "fields": {
+    "language": 29,
+    "key": "login",
+    "val": "",
+    "nval": ""
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3867,
+  "fields": {
+    "language": 29,
+    "key": "You may now",
+    "val": "",
+    "nval": ""
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3868,
+  "fields": {
+    "language": 30,
+    "key": "You may now ",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3869,
+  "fields": {
+    "language": 29,
+    "key": "Your election data and results will be published on Tezos’ %(blockchain)s blockchain.",
+    "val": "Afin de garantir le bon déroulé de cette élection, le PV de celle-ci sera partagé publiquement sur la blockchain Tezos.",
+    "nval": ""
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3870,
+  "fields": {
+    "language": 30,
+    "key": "Your election data and results will be published on Tezos’ %(blockchain)s blockchain.",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3871,
+  "fields": {
+    "language": 30,
+    "key": "\n                Hello,\n\n                This is the magic link you have requested: %(link)s\n                ",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3872,
+  "fields": {
+    "language": 29,
+    "key": "Hello,                This is the magic link you have requested: %(link)s",
+    "val": "",
+    "nval": ""
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3873,
+  "fields": {
+    "language": 29,
+    "key": "login",
+    "val": "",
+    "nval": ""
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3874,
+  "fields": {
+    "language": 29,
+    "key": "You may now",
+    "val": "",
+    "nval": ""
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3875,
+  "fields": {
+    "language": 29,
+    "key": "Hello,                This is the magic link you have requested: %(link)s",
+    "val": "",
     "nval": ""
   }
 }
