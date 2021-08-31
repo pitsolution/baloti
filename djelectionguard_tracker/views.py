@@ -138,7 +138,7 @@ class TrackerDetailView(generic.DetailView):
             return Voter.objects.filter(
                 user=self.request.user
             ).select_related('contest')
-        return []
+        return Voter.objects.none()
 
     @classmethod
     def as_url(cls):
