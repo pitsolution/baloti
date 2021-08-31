@@ -160,3 +160,24 @@ production-deploy:
     refs:
       - master
       - production
+
+neuilly-production-deploy:
+  <<: *deploy
+  before_script:
+    - mkdir -p ~/.ssh; echo "$NEUILLY_PRODUCTION_SSH_KEY" > ~/.ssh/id_ed25519; chmod 700 ~/.ssh; chmod 600 ~/.ssh/*
+    - export $(echo $NEUILLY_PRODUCTION_ENV | xargs)
+    - export $(echo $SMTP | xargs)
+  stage: production
+  when: manual
+  environment:
+    name: neuilly-production
+    url: https://neuillyvote.fr
+  variables:
+    DEPLOY: >
+      compose=docker-compose.yml,docker-compose.traefik.yml,docker-compose.persist.yml
+      home=/home/production
+  only:
+    refs:
+      - master
+      - production
+      - neuilly-production
