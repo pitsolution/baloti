@@ -1,0 +1,21 @@
+{% extends "admin/change_list.html" %}
+{% load i18n %}
+{% block object-tools-items %}
+    {{ block.super }}
+    <li>
+      <input type='text' id='djlang_load_url' placeholder='from-url'>
+      <a id='djlang_load_btn' class="historylink" href=''>{% trans "Load" %}</a>
+    </li>
+    <script type='text/javascript'>
+      var btn = document.getElementById('djlang_load_btn')
+      btn.addEventListener('click', function(event) {
+        event.preventDefault()
+        event.stopPropagation()
+        var url = document.getElementById('djlang_load_url').value
+        var redirect_to = "{% url 'admin:djlang_load' %}" + '?q=' + url
+        document.location.href = redirect_to
+      })
+    </script>
+
+
+{% endblock %}
