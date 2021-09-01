@@ -102,9 +102,7 @@ def build(
     details = CeremonyDetails(number_of_guardians, quorum)
     mediator = KeyCeremonyMediator('mediator', details)
     for guardian in guardians:
-        mediator.announce(guardian)
-    orchestrated = mediator.orchestrate()
-    verified = mediator.verify()
+        mediator.announce(guardian.share_public_keys())
     joint_public_key = mediator.publish_joint_key()
     with open('jointkey.pkl', 'wb+') as f:
         f.write(pickle.dumps(joint_public_key))
@@ -114,9 +112,10 @@ def build(
     builder = ElectionBuilder(
         number_of_guardians=number_of_guardians,
         quorum=quorum,
-        description=description(),
+        manifest=description(),
     )
-    builder.set_public_key(joint_public_key)
+    builder.set_public_key(joint_public_key.joint_public_key)
+    builder.set_commitment_hash(joint_public_key.commitment_hash)
     metadata, context = builder.build()
     with open('metadata.pkl', 'wb+') as f:
         f.write(pickle.dumps(metadata))
@@ -126,19 +125,25 @@ def build(
         f.write(pickle.dumps(context))
     print('context.pkl written')
 
-    from electionguard.encrypt import EncryptionDevice
+    from electionguard.encrypt import EncryptionDevice, EncryptionMediator, generate_device_uuid
+    import uuid
     devices = [
-        EncryptionDevice(f'device-{i}')
+        EncryptionDevice(
+            generate_device_uuid(),
+            12345,
+            67890,
+            str(uuid.uuid4())
+        )
         for i in range(number_of_devices)
     ]
     with open('devices.pkl', 'wb+') as f:
         f.write(pickle.dumps(devices))
     print('devices.pkl written')
 
-    from electionguard.ballot_store import BallotStore
+    from electionguard.data_store import DataStore
     for i in range(number_of_stores):
         with open(f'store-{i}.pkl', 'wb+') as f:
-            f.write(pickle.dumps(BallotStore()))
+            f.write(pickle.dumps(DataStore()))
         print(f'store-{i}.pkl written')
 
 
@@ -172,7 +177,7 @@ def ballot(style: int=0, selections: int=1):
             ballot_selections.append(
                 PlaintextBallotSelection(
                     object_id=selection.object_id,
-                    vote='True',
+                    vote=1,
                     is_placeholder_selection=False,
                     extended_data=None,
                 )
@@ -187,7 +192,7 @@ def ballot(style: int=0, selections: int=1):
 
     ballot = PlaintextBallot(
         object_id=uuid.uuid4(),
-        ballot_style=ballot_style.object_id,
+        style_id=ballot_style.object_id,
         contests=ballot_contests,
     )
     return ballot
@@ -214,13 +219,14 @@ def encrypt(style: int=0, selections: int=1, device: int=0):
 
 
 @cli.cmd
-def cast(style: int=0, selections: int=1, store: int=None, device: int=0):
+def cast(ballot_style: int=0, selections: int=1, store: int=None, device: int=0):
     """
     Cast a ballot, writes to store pkl file
     """
     from electionguard.ballot_box import BallotBox
+    print(f'casting {selections} to store-{store}')
     encrypted_ballot = encrypt(
-        style=style,
+        style=ballot_style,
         selections=selections,
         device=device,
     )
@@ -262,11 +268,26 @@ def tally():
     start = datetime.datetime.now()
     print(f'Computing tally for {total} ballots')
     from electionguard.decryption_mediator import DecryptionMediator
-    decryption_mediator = DecryptionMediator(metadata, context, tally)
+    from electionguard.ballot_box import get_ballots
+    from electionguard.ballot import BallotBoxState
+
+    submitted_ballots_list = []
+    for i in  range(build['number_of_stores']):
+        submitted_ballots = get_ballots(load(f'store-{i}'), BallotBoxState.CAST)
+        submitted_ballots_list += list(submitted_ballots.values())
+
+    decryption_mediator = DecryptionMediator('decryption-mediator', context)
+
     guardians = load('guardians')
     for guardian in guardians:
-        decryption_share = decryption_mediator.announce(guardian)
-    plaintext_tally = decryption_mediator.get_plaintext_tally()
+        guardian_key = guardian.share_election_public_key()
+        tally_share = guardian.compute_tally_share(tally, context)
+        ballot_shares = guardian.compute_ballot_shares(
+            submitted_ballots_list, context
+        )
+        decryption_mediator.announce(guardian_key, tally_share, ballot_shares)
+
+    plaintext_tally = decryption_mediator.get_plaintext_tally(tally)
     print(f'Tallying {total} ballots took {delta.total_seconds()} seconds')
 
     for contest_key, contest in plaintext_tally.contests.items():
@@ -294,8 +315,8 @@ async def benchmark(votes: int=50):
         procs = [
             (await asyncio.create_subprocess_shell(
                 f'{sys.argv[0]} cast store={store}',
-                stdout=asyncio.subprocess.PIPE,
-                stderr=asyncio.subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
             )).communicate()
             for store in range(data['number_of_stores'])
         ]
@@ -318,10 +339,10 @@ def description(path='election-manifest.json'):
     This will parse election-manifest.json and fail if the manifest is invalid,
     otherwise print ElectionDescription.
     """
-    from electionguard.election import ElectionDescription
+    from electionguard.manifest import Manifest
     with open(path, 'r') as manifest:
         string_representation = manifest.read()
-    return ElectionDescription.from_json(string_representation)
+    return Manifest.from_json(string_representation)
 
 
 if __name__ == '__main__':

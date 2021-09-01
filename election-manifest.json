@@ -106,6 +106,7 @@
     "start_date": "2020-03-01T08:00:00-05:00",
     "end_date": "2020-03-01T20:00:00-05:00",
     "election_scope_id": "unniversity-leader-scope",
-    "type": "primary"
+    "type": "primary",
+    "spec_version": "v1.2.1"
 }
 
