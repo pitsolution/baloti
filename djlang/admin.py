@@ -82,7 +82,7 @@ class LanguageAdmin(admin.ModelAdmin):
         return [my_urls] + urls
 
     def create_text(self, **kw):
-        kw.pop('id')
+        print(f'creating {dict(**kw)}')
         Text.objects.create(**kw)
 
     def load(self, request):
@@ -94,16 +94,27 @@ class LanguageAdmin(admin.ModelAdmin):
             data = json.loads(res.content)
             for t in data:
                 try:
-                    existing = Text.objects.get(key=t['key'])
+                    t.pop('id')
+                    existing = Text.objects.get(language_id=t['language_id'], key=t['key'])
+                    ex_dict = dict(
+                        key=existing.key,
+                        val=existing.val,
+                        nval=existing.nval,
+                        language_id=existing.language_id
+                    )
+                    if ex_dict == t:
+                        continue
+                    print(f'found new {dict(**t)}')
                 except Text.DoesNotExist:
                     self.create_text(**t)
                 except Text.MultipleObjectsReturned:
-                    Text.objects.filter(key=t['key']).delete()
+                    print('purge')
+                    Text.objects.filter(language_id=t['language_id'], key=t['key']).delete()
                     self.create_text(**t)
                 else:
+                    print('updating')
                     existing.val = t['val']
                     existing.nval = t['nval']
-                    existing.language_id = t['language_id']
                     existing.save()
 
             messages.success(request, 'Lang data loaded successfully')

@@ -3,8 +3,8 @@
   "model": "sites.site",
   "pk": 2,
   "fields": {
-    "domain": "neuilly-vote.fr",
-    "name": "neuilly-vote.fr"
+    "domain": "neuillyvote.fr",
+    "name": "neuillyvote.fr"
   }
 },
 {
@@ -12,9 +12,9 @@
   "pk": 2,
   "fields": {
     "site_ptr_id": 2,
-    "domain": "neuilly-vote.fr",
+    "domain": "neuillyvote.fr",
     "name": "neuilly vote",
-    "all_users_can_create": true,
+    "all_users_can_create": false,
     "all_results_are_visible": true
   }
 }
