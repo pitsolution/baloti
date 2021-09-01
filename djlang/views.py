@@ -7,7 +7,7 @@ from .models import Text
 
 
 def text_view(request):
-    data = list(Text.objects.values())
+    data = list(Text.objects.distinct('key').values())
     return JsonResponse(data, safe=False)
 
 
