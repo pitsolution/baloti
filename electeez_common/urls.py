@@ -32,6 +32,7 @@ urlpatterns += i18n_patterns(
     path('contest/', include('djelectionguard.urls')),
     path('tezos/', include('djelectionguard_tezos.views')),
     path('track/', include('djelectionguard_tracker.views')),
+    path('lang/', include('djlang.views')),
     path('', HomeView.as_view()),
 )
 

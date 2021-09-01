@@ -6368,5 +6368,25 @@
     "val": "Bienvenue sur %(site_name)s.\r\n\r\nPlus qu'une étape avant de rejoindre une élection sécurisée.\r\nCliquer sur le lien suivant pour vérifier votre adresse email:\r\n%(activation_url)s\r\n\r\nPuis connectez-vous et votez!\r\n\r\nCeci est un email automatique, merci de ne pas y répondre.\r\n\r\nMerci! \r\nL'équipe d'Electis.",
     "nval": ""
   }
+},
+{
+  "model": "djlang.text",
+  "pk": 3843,
+  "fields": {
+    "language": 29,
+    "key": "Your election data and results will be published on Tezos’ %(blockchain)s blockchain.",
+    "val": null,
+    "nval": null
+  }
+},
+{
+  "model": "djlang.text",
+  "pk": 3844,
+  "fields": {
+    "language": 30,
+    "key": "Your election data and results will be published on Tezos’ %(blockchain)s blockchain.",
+    "val": null,
+    "nval": null
+  }
 }
 ]

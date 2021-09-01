@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib import admin
 from django.contrib.admin.views.main import ChangeList
 from django.core.paginator import EmptyPage, InvalidPage, Paginator
-from django import forms
+from django.urls import path, reverse
+from django import forms, http
 
 from .models import Language, Text
 
@@ -73,5 +74,42 @@ class LanguageAdmin(admin.ModelAdmin):
     list_display = ('name', 'site')
     fields = ('name', 'iso', 'site')
     readonly_fields = ('site',)
+    change_list_template = 'admin/djlang_load_form.html'
+
+    def get_urls(self):
+        urls = super().get_urls()
+        my_urls = path('load/', self.admin_site.admin_view(self.load), name='djlang_load')
+        return [my_urls] + urls
+
+    def create_text(self, **kw):
+        kw.pop('id')
+        Text.objects.create(**kw)
+
+    def load(self, request):
+        import json
+        import requests
+        from django.contrib import messages
+        try:
+            res = requests.get(request.GET.get('q'))
+            data = json.loads(res.content)
+            for t in data:
+                try:
+                    existing = Text.objects.get(key=t['key'])
+                except Text.DoesNotExist:
+                    self.create_text(**t)
+                except Text.MultipleObjectsReturned:
+                    Text.objects.filter(key=t['key']).delete()
+                    self.create_text(**t)
+                else:
+                    existing.val = t['val']
+                    existing.nval = t['nval']
+                    existing.language_id = t['language_id']
+                    existing.save()
+
+            messages.success(request, 'Lang data loaded successfully')
+        except Exception as e:
+            messages.error(request, 'Could not load lang data')
+
+        return http.HttpResponseRedirect(reverse('admin:djlang_language_changelist'))
 
 admin.site.register(Language, LanguageAdmin)
