@@ -127,20 +127,20 @@ quit()
 #### ADD NEW TEZOS BLOKCHAIN(S) 
 ##### For example an Edo2net blockchain 
 Click on Add a blockchain
-Name: Testnet Edonet
-EndPoint: https://rpc.tzkt.io/edo2net/
-Explorer: https://edo2net.tzkt.io/{}/storage #{} is later replaced by the contract @
-Provider Class: Tezos
-Confirmation Blocks: 2
+-Name: Testnet Edonet
+-EndPoint: https://rpc.tzkt.io/edo2net/
+-Explorer: https://edo2net.tzkt.io/{}/storage #{} is later replaced by the contract @
+-Provider Class: Tezos
+-Confirmation Blocks: 2
 Hit Save
 
 ##### Special case, add a fake blockchain for local test 
 Click on Add a blockchain
-Name: Fake
-EndPoint: 127.0.0.1:1337 (you can put any adress here)
-Explorer: 
-Provider Class: Test
-Confirmation Blocks: 0
+-Name: Fake 
+-EndPoint: 127.0.0.1:1337 (you can put any adress here)
+-Explorer: 
+-Provider Class: Test
+-Confirmation Blocks: 0
 Hit Save
 
 ##### When done you will see the list of active blockchain(s) under localhost:8000/en/tezos/'ELECTION_ID'/create/ URL 
