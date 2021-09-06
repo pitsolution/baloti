@@ -134,7 +134,7 @@ Provider Class: Tezos
 Confirmation Blocks: 2
 Hit Save
 
-#### Special case, add a fake blockchain for local test 
+##### Special case, add a fake blockchain for local test 
 Click on Add a blockchain
 Name: Fake
 EndPoint: 127.0.0.1:1337 (you can put any adress here)
