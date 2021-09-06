@@ -94,9 +94,6 @@ systemctl start memcached
 #### INITIALIZE THE DB FOR ELECTEEZ
 `make data`
 
-#### INITIALIZE DB FOR LANGUAGES
-`make lang`
-
 #### LAUNCH DJANGO SERVER
 `make runserver`
 
