@@ -143,9 +143,8 @@ Provider Class: Test
 Confirmation Blocks: 0
 Hit Save
 
-#### When done you will see the active blockchain(s) under the localhost:8000/en/tezos/'ELECTION_ID'/create/ URL 
-##### a wallet adress is created everytime you add a new blockchain, you need to send the needed fund before launching an election. We recommend at least 2XTZ. You can use the faucet bot on telegram to feed your Testnet wallet 
-`https://t.me/tezos_faucet_bot`
+##### When done you will see the list of active blockchain(s) under localhost:8000/en/tezos/'ELECTION_ID'/create/ URL 
+##### Notice that a wallet adress is created everytime you add a new blockchain, you need to send the needed fund to the corresponding blockchain you are planning to use for your elections before launching one. We recommend at least 2XTZ. You can use the faucet bot on telegram to feed your Testnet wallets `https://t.me/tezos_faucet_bot`
 
 
 #### (OPTIONAL) CHANGE EMAIL LOGS LOCATION 
