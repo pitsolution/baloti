@@ -126,22 +126,22 @@ quit()
 
 #### ADD NEW TEZOS BLOKCHAIN(S) 
 ##### For example an Edo2net blockchain 
-Click on Add a blockchain
--Name: Testnet Edonet
--EndPoint: https://rpc.tzkt.io/edo2net/
--Explorer: https://edo2net.tzkt.io/{}/storage #{} is later replaced by the contract @
--Provider Class: Tezos
--Confirmation Blocks: 2
-Hit Save
+Click on Add a blockchain <br>
+Name: Testnet Edonet <br>
+EndPoint: https://rpc.tzkt.io/edo2net/ <br>
+Explorer: https://edo2net.tzkt.io/{}/storage #{} is later replaced by the contract @ <br>
+Provider Class: Tezos <br>
+Confirmation Blocks: 2 <br>
+Hit Save <br>
 
 ##### Special case, add a fake blockchain for local test 
-Click on Add a blockchain
--Name: Fake 
--EndPoint: 127.0.0.1:1337 (you can put any adress here)
--Explorer: 
--Provider Class: Test
--Confirmation Blocks: 0
-Hit Save
+Click on Add a blockchain <br>
+Name: Fake <br>
+EndPoint: 127.0.0.1:1337 (you can put any adress here) <br>
+Explorer: <br>
+Provider Class: Test <br>
+Confirmation Blocks: 0 <br>
+Hit Save <br>
 
 ##### When done you will see the list of active blockchain(s) under localhost:8000/en/tezos/'ELECTION_ID'/create/ URL 
 ##### Notice that a wallet adress is created everytime you add a new blockchain, you need to send the needed fund to the corresponding blockchain you are planning to use for your elections before launching one. We recommend at least 2XTZ. You can use the faucet bot on telegram to feed your Testnet wallets `https://t.me/tezos_faucet_bot`
