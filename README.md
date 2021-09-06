@@ -119,14 +119,13 @@ quit()
 `make run` #TO LAUNCH ALL NEEDED SERVERS 
 
 
-#### EDIT ADMIN PANEL / BLOCKCHAIN
-##### for local test you only need to select the blockchain "fake"
+####  ACTIVATE YOUR TEZOS BLOCKCHAIN(S)
+##### Go to the blockchain admin panel
 127.0.0.1:8000/admin/djtezos/blockchain/
-##### if it does not exists just click add and name it fake with a random endpoint like 127.0.0.1:1337 and set it as a test class 
+##### you will see a list of pre configured Tezos blockchains set as active, you can deactivate the one you don't need and then click save. 
 
-#### ACTIVATE TESTNET / WALLET
-##### Assuming your docker is running you can set a testnet and mainnet account
-##### Exemple to add EDONET TEST
+#### ADD NEW TEZOS BLOKCHAIN(S) 
+##### For example an Edo2net blockchain 
 Click on Add a blockchain
 Name: Testnet Edonet
 EndPoint: https://rpc.tzkt.io/edo2net/
@@ -135,21 +134,17 @@ Provider Class: Tezos
 Confirmation Blocks: 2
 Hit Save
 
-##### You will notice no wallets are created on Accounts yet to do so at the moment you need
-##### to create an election and to click on add the election smart contract. This will create a wallet
-##### for the newly created blockchain. The wallet address generated is where you need to send your XTZ
-(The wallet is generated and no one can have access to it after / so don't send too much on it at
-the moment)
+#### Special case, add a fake blockchain for local test 
+Click on Add a blockchain
+Name: Fake
+EndPoint: 127.0.0.1:1337 (you can put any adress here)
+Explorer: 
+Provider Class: Test
+Confirmation Blocks: 0
+Hit Save
 
-The balance is 0 #you can also now find the wallet under admin/accounts
-You need to send Tez to the corresponding wallet to enable an election (at the moment we recommend 2XTZ)
-Once done refresh the balance using the Refresh balance button from the "Choose the blockchain"
-page while setting an election.
-
-### ADD TEZ WITH A FAUCET / OR JUST TRANSFER TO IT
-
-#### FAUCET (TESTNET)
-##### you can use the faucet bot on telegram to feed your Testnet wallet
+#### When done you will see the active blockchain(s) under the localhost:8000/en/tezos/'ELECTION_ID'/create/ URL 
+##### a wallet adress is created everytime you add a new blockchain, you need to send the needed fund before launching an election. We recommend at least 2XTZ. You can use the faucet bot on telegram to feed your Testnet wallet 
 `https://t.me/tezos_faucet_bot`
 
 
