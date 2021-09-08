@@ -1,0 +1,22 @@
+
+version: "3.5"
+services:
+  ipfs:
+    restart: always
+    logging:
+      driver: journald
+    image: ipfs/go-ipfs:latest
+    environment:
+      - IPFS_PROFILE=server
+      - IPFS_PATH=ipfsdata
+    volumes:
+      - ./data/ipfs:/ipfsdata
+      - ./data/media:/media
+    networks:
+      - web
+      - default
+    ports:
+      - 4001:4001
+      - 8080:8080
+    expose:
+      - "5001"
