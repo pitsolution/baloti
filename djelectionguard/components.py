@@ -779,18 +779,28 @@ class WaitForEmailAction(ListAction):
 class ResultAction(ListAction):
     def __init__(self, contest, user):
         subtext = Div()
-        if contest.mediator == user:
-            subtext.addchild(
-                Div(_('Congratulations! You have been the mediator of a secure election.')))
+        if contest.decrypting:
+            icon = OnGoingIcon()
+            title = _('Tallying in progress')
+            if contest.mediator == user:
+                subtext.addchild(
+                    Div(_('An email will be sent when finished'))
+                )
+        else:
+            icon = DoneIcon()
+            title = _('Results available')
+            if contest.mediator == user:
+                subtext.addchild(
+                    Div(_('Congratulations! You have been the mediator of a secure election.')))
 
-        url=reverse('contest_result', args=[contest.id])
-        result_btn = MDCButton(_('view result table'), tag='a', href=url)
-        subtext.addchild(result_btn)
+            url=reverse('contest_result', args=[contest.id])
+            result_btn = MDCButton(_('view result table'), tag='a', href=url)
+            subtext.addchild(result_btn)
 
         super().__init__(
-            _('Results available'),
+            title,
             subtext,
-            DoneIcon(),
+            icon,
             None,
             separator=False
         )
@@ -1117,7 +1127,7 @@ class ContestFinishedCard(Div):
 class ContestCard(Div):
     def to_html(self, *content, view, **context):
         contest = view.get_object()
-        if contest.plaintext_tally:
+        if contest.plaintext_tally or contest.decrypting:
             main_section = ContestFinishedCard(view, **context)
         elif contest.actual_start:
             main_section = ContestVotingCard(view, **context)

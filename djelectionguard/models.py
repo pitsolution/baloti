@@ -26,6 +26,9 @@ from timezone_field import TimeZoneField
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
+from electeez_auth.models import User
+from electeez_sites.models import Site
+
 def above_0(value):
     if value <= 0:
         raise ValidationError(
@@ -67,6 +70,8 @@ class Contest(models.Model):
 
     actual_start = models.DateTimeField(null=True, blank=True, db_index=True)
     actual_end = models.DateTimeField(null=True, blank=True)
+
+    decrypting = models.BooleanField(default=False)
 
     joint_public_key = PickledObjectField(null=True, blank=True)
     metadata = PickledObjectField(null=True)
@@ -146,8 +151,31 @@ class Contest(models.Model):
     @property
     def manifest_sha1(self):
         return hashlib.sha1(
-            json.dumps(self.get_manifest()).encode('utf8'),
+            self.description.to_json().encode('utf8')
         ).hexdigest()
+
+    def launch_decryption(
+            self,
+            send_voters_email,
+            email_title,
+            email_body,
+    ):
+        if self.decrypting or self.plaintext_tally:
+            return
+
+        self.decrypting = True
+        self.save()
+
+        Caller(
+            callback='djelectionguard.models.decrypt_contest',
+            kwargs=dict(
+                contest_id=str(self.pk),
+                user_id=self.mediator.pk,
+                send_voters_email=send_voters_email,
+                voters_email_title=email_title,
+                voters_email_msg=email_body
+            ),
+        ).spool('tally')
 
     def decrypt(self):
         from electionguard.tally import tally_ballots
@@ -158,7 +186,7 @@ class Contest(models.Model):
 
         from electionguard.ballot import BallotBoxState
         from electionguard.ballot_box import get_ballots
-        submitted_ballots = get_ballots(self.store, BallotBoxState.SPOILED)
+        submitted_ballots = get_ballots(self.store, BallotBoxState.CAST)
         submitted_ballots_list = list(submitted_ballots.values())
 
         # Decrypt the tally with available guardian keys
@@ -181,9 +209,7 @@ class Contest(models.Model):
         if not self.plaintext_tally:
             raise AttributeError('"self.plaintext_tally" is None')
 
-        self.plaintext_spoiled_ballots = decryption_mediator.get_plaintext_ballots(
-            submitted_ballots_list
-        )
+        self.plaintext_spoiled_ballots = decryption_mediator.get_plaintext_ballots([])
 
         # And delete keys from memory
         for guardian in self.guardian_set.all():
@@ -195,6 +221,10 @@ class Contest(models.Model):
         for candidate in self.candidate_set.all():
             candidate.score = plaintext_tally_contest.selections[f'{candidate.pk}-selection'].tally
             candidate.save()
+
+        self.decrypting = False
+        self.save()
+        self.publish()
 
     def publish(self):
         cwd = os.getcwd()
@@ -375,6 +405,9 @@ class Contest(models.Model):
                             }
                         ]
                     },
+                    "name": {
+                        "text": []
+                    }
                 } for candidate in self.candidate_set.all()
             ],
             "contests": [
@@ -488,8 +521,56 @@ def send_voter_mail(voter_id, title, body, link, field):
     voter.save()
 
 
+def decrypt_contest(
+        contest_id,
+        user_id,
+        send_voters_email,
+        voters_email_title,
+        voters_email_msg
+):
+    from djlang.utils import gettext as _
+
+    contest = None
+    med_email_msg = None
+    has_error = True
+    user = User.objects.get(id=user_id)
+    try:
+        contest = Contest.objects.get(id=contest_id)
+        contest.decrypt()
+        has_error = False
+        med_email_msg = _('The contest %(contest)s has been tallied', contest=contest.name)
+
+    except Contest.DoesNotExist:
+        med_email_msg = _('The contest you wanted to decrypt was not found')
+    except Exception as e:
+        med_email_msg = _(
+            'The decryption raised the exception %(exception)s',
+            exception=e
+        )
+    finally:
+        if med_email_msg:
+            send_mail(
+                _(
+                    'Contest %(contest)s decryption',
+                    contest=contest.name if contest else _('unknown')
+                ),
+                med_email_msg,
+                Site.objects.get_current().sender_email,
+                [user.email]
+            )
+
+        if send_voters_email and not has_error:
+            contest.send_mail(
+                voters_email_title,
+                voters_email_msg,
+                reverse('contest_detail', args=[contest_id]),
+                'close_email_sent'
+            )
+
+
 def upload_picture(instance, filename):
     return f'{uuid.uuid4()}.{filename.split(".")[-1]}'
+
 
 class Candidate(models.Model):
     id = models.UUIDField(

@@ -13,6 +13,7 @@ from django import forms
 from django import http
 from django.apps import apps
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib import messages
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -36,6 +37,7 @@ from .models import Contest, Candidate, Guardian, Voter
 from datetime import datetime, date
 
 from ryzom import html
+from electeez_sites.models import Site
 from electeez_sites.utils import (
     create_access_required,
     result_access_required
@@ -155,13 +157,21 @@ class ContestListView(ContestAccessible, generic.ListView):
             name='contest_list'
         )
 
-class ContestResultView(ContestAccessible, generic.DetailView):
+class ContestResultView(UserPassesTestMixin, ContestAccessible, generic.DetailView):
     template_name = 'contest_result'
 
+    def test_func(self):
+        if Site.objects.get_current().all_results_are_visible:
+            return True
+        return self.request.user.is_authenticated
+
     def get_queryset(self):
-        return Contest.objects.exclude(
-            actual_end=None
-        ).filter(
+        qs = Contest.objects.exclude(plaintext_tally=None)
+
+        if Site.objects.get_current().all_results_are_visible:
+            return qs
+
+        return qs.filter(
             Q(voter__user=self.request.user)
             | Q(guardian__user=self.request.user)
             | Q(mediator=self.request.user)
@@ -171,7 +181,7 @@ class ContestResultView(ContestAccessible, generic.DetailView):
     def as_url(cls):
         return path(
             '<uuid:pk>/result',
-            login_required(cls.as_view()),
+            cls.as_view(),
             name='contest_result'
         )
 
@@ -413,34 +423,29 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
         )
 
     def get_queryset(self):
-        return self.request.user.contest_set.exclude(actual_end=None)
+        return self.request.user.contest_set.exclude(
+            actual_end=None, decrypting=True
+        ).filter(
+            plaintext_tally=None
+        )
 
     def form_valid(self, form):
-        self.object.decrypt()
-        self.object.publish()
+        email_voters = (
+            'send_email' not in form.cleaned_data
+            or not form.cleaned_data['send_email']
+        )
+        self.object.launch_decryption(
+            email_voters,
+            form.cleaned_data['email_title'],
+            form.cleaned_data['email_message']
+        )
 
-        if 'send_email' not in form.cleaned_data or not form.cleaned_data['send_email']:
-            self.object.send_mail(
-                form.cleaned_data['email_title'],
-                form.cleaned_data['email_message'],
-                reverse('contest_detail', args=[self.object.pk]),
-                'close_email_sent',
-            )
-
-        return super().form_valid(form)
+        return http.HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
         messages.success(
             self.request,
-            _('You have decrypted tally for %(obj)s', obj=self.object)
-        )
-        messages.info(
-            self.request,
-            _('Artifacts were published for %(obj)s', obj=self.object)
-        )
-        messages.info(
-            self.request,
-            _('Guardian keys were removed from our memory for %(obj)s', obj=self.object)
+            _('You have started tallying for %(obj)s', obj=self.object)
         )
         return self.object.get_absolute_url()
 

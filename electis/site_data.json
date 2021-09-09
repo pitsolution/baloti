@@ -15,7 +15,10 @@
     "domain": "electis.app",
     "name": "electis.app",
     "all_users_can_create": true,
-    "all_results_are_visible": true
+    "all_results_are_visible": false,
+    "sender_email": "noreply@electis.io",
+    "contact_email": "contact@electis.io",
+    "footer_url": "https://electis.app"
   }
 }
 ]
