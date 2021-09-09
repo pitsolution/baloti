@@ -1,10 +1,29 @@
 :root {
+  --mdc-theme-primary: #302783;
   --yellow: #adb1d4;
+  --danger: #e30513;
 }
 
 .top-panel {
-  background-color: #fafafa;
-  color: var(--black);
+  background-color: #302783;
+  color: white;
+
+  .link {
+    .top-panel-logo {
+      height: 100%;
+      width: 100%;
+      background-image: url(/static/branding.svg);
+      position: relative;
+      background-size: contain;
+      background-repeat: no-repeat;
+      display: block;
+    }
+  }
+  .mdc-button--raised.black-button,
+  .mdc-button--raised.black-button .mdc-button__label,
+  .mdc-button--raised.black-button:not(:disabled) {
+    background-color: var(--danger);
+  }
 }
 
 .contest-list {

@@ -105,12 +105,14 @@ class TopPanel(html.Div):
                 account_btn = MDCButton(_('log in'), tag='a', href=reverse('login'), style='width:120')
 
         super().__init__(
-            html.A(
-                html.Img(
-                    src=Static('branding.png'),
+            html.Span(
+                html.A(
+                    href='/',
                     cls='top-panel-sub top-panel-logo',
-                    style='height: 50px'),
-                href='/', style='width:120'),
+                ),
+                cls='link',
+                style='width:180; height:50',
+            ),
             html.Span(
                 html.Span(text, cls='top-panel-sub top-panel-msg'),
                 cls='top-panel-elem over'),
