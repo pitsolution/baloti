@@ -5,6 +5,10 @@
 .top-panel {
   background-color: var(--black);
   color: #fff;
+
+  .top-panel-logo {
+    background-image: url('/static/branding.png');
+  }
 }
 
 .contest-list {
