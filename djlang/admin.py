@@ -104,15 +104,14 @@ class LanguageAdmin(admin.ModelAdmin):
                     )
                     if ex_dict == t:
                         continue
-                    print(f'found new {dict(**t)}')
                 except Text.DoesNotExist:
                     self.create_text(**t)
                 except Text.MultipleObjectsReturned:
-                    print('purge')
                     Text.objects.filter(language_id=t['language_id'], key=t['key']).delete()
                     self.create_text(**t)
+                except Exception as e:
+                    messages.error(request, f'{e}')
                 else:
-                    print('updating')
                     existing.val = t['val']
                     existing.nval = t['nval']
                     existing.save()

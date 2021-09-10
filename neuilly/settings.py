@@ -38,4 +38,4 @@ DATABASES = {
     }
 }
 
-DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'noreply@neuilly-vote.fr')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'neuillyvote@ville-neuillysurseine.fr')
