@@ -15,15 +15,21 @@ urlpatterns = [
 ]
 
 
-class HomeView(generic.View):
+class HomeView(generic.TemplateView):
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return http.HttpResponseRedirect('/contest/')
+        url = reverse('login')
 
-        if settings.SITE_ID == 1:
-            return http.HttpResponseRedirect(static_url('landing/index.html'))
-        else:
-            return http.HttpResponseRedirect(reverse('login'))
+        if request.user.is_authenticated:
+            url = reverse('contest_list')
+
+        elif home_page := getattr(settings, 'STATIC_HOME_PAGE', None):
+            url = static_url(home_page)
+
+        elif template := getattr(settings, 'HOME_TEMPLATE', None):
+            self.template_name = template
+            return super().dispatch(request, *args, **kwargs)
+
+        return http.HttpResponseRedirect(url)
 
 
 urlpatterns += i18n_patterns(
@@ -33,7 +39,7 @@ urlpatterns += i18n_patterns(
     path('tezos/', include('djelectionguard_tezos.views')),
     path('track/', include('djelectionguard_tracker.views')),
     path('lang/', include('djlang.views')),
-    path('', HomeView.as_view()),
+    path('', HomeView.as_view(), name='home'),
 )
 
 if settings.DEBUG:

@@ -13,6 +13,8 @@ from ryzom_django_mdc.html import *
 
 from djlang.utils import gettext as _
 
+from electeez_sites.models import Site
+
 
 class MDCTextButton(Button):
     def __init__(self, text, icon=None, **kwargs):
@@ -92,29 +94,31 @@ class TopPanel(html.Div):
         self.user = user = request.user
 
         if user.is_authenticated:
-            text = user.email
-            account_btn = MDCButton(_('log out'), tag='a', href=reverse('logout'))
+            text = _('Hello, %(user)s', user=user.email)
+            account_btn = MDCButton(_('log out'), tag='a', href=reverse('logout'), style='width:120')
         else:
-            text = 'Anonymous'
+            text = ''
             if request.path.rstrip('/') == reverse('login').rstrip('/'):
                 url = reverse('django_registration_register')
-                account_btn = MDCButton(_('sign up'), tag='a', href=url)
+                account_btn = MDCButton(_('sign up'), tag='a', href=url, style='width:120')
             else:
-                account_btn = MDCButton(_('log in'), tag='a', href=reverse('login'))
+                account_btn = MDCButton(_('log in'), tag='a', href=reverse('login'), style='width:120')
 
         super().__init__(
-            html.A(
-                html.Img(
-                    src=Static('branding.png'),
-                    cls='top-panel-sub top-panel-logo',
-                    style='height: 50px'),
-                href='/'),
             html.Span(
-                html.Span(_('Hello') + f", {text}", cls='top-panel-sub top-panel-msg'),
+                html.A(
+                    href='/',
+                    cls='top-panel-sub top-panel-logo',
+                ),
+                cls='link',
+                style='width:180; height:50',
+            ),
+            html.Span(
+                html.Span(text, cls='top-panel-sub top-panel-msg'),
                 cls='top-panel-elem over'),
             html.Span(account_btn, cls='top-panel-elem top-panel-btn'),
             html.Span(
-                html.Span(_('Hello') + f", {text}", cls='top-panel-sub top-panel-msg'),
+                html.Span(text, cls='top-panel-sub top-panel-msg'),
                 cls='top-panel-elem under'),
             cls='top-panel')
 
@@ -128,7 +132,9 @@ class Footer(html.Div):
                         src=Static('logo.png'),
                         style='height: 80px'
                     ),
-                    style='width: 100%;'
+                    style='width: 100%;',
+                    tag='a',
+                    href=Site.objects.get_current().footer_url
                 ),
                 Br(),
                 html.Span(_('Made by'), ' ', cls='caption'),
@@ -204,10 +210,13 @@ class Document(html.Html):
 
     def to_html(self, head, body, **context):
         if settings.DEBUG:
+            common_style_src = sass_processor('css/common.scss')
             style_src = sass_processor('css/style.scss')
         else:
+            common_style_src = '/static/css/common.css'
             style_src = '/static/css/style.css'
 
+        head.addchild(html.Stylesheet(href=common_style_src))
         head.addchild(html.Stylesheet(href=style_src))
 
         return super().to_html(head, body, **context)

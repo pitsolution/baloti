@@ -15,7 +15,10 @@
     "domain": "neuillyvote.fr",
     "name": "neuilly vote",
     "all_users_can_create": false,
-    "all_results_are_visible": true
+    "all_results_are_visible": true,
+    "sender_email": "noreply@neuillyvote.fr",
+    "contact_email": "contact@neuillysurseine.fr",
+    "footer_url": "https://www.neuillysurseine.fr"
   }
 }
 ]

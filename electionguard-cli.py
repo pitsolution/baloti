@@ -288,6 +288,7 @@ def tally():
         decryption_mediator.announce(guardian_key, tally_share, ballot_shares)
 
     plaintext_tally = decryption_mediator.get_plaintext_tally(tally)
+    delta = datetime.datetime.now() - start
     print(f'Tallying {total} ballots took {delta.total_seconds()} seconds')
 
     for contest_key, contest in plaintext_tally.contests.items():

@@ -93,7 +93,7 @@ class LogoutViewComponent(Div):
                     _('Login again'),
                     tag='a',
                     href=reverse('login')),
-                style='display:flex; justify-content: flex-end;'),
+                style='display:flex; justify-content: center;'),
             cls='card',
             style='text-align: center'
         )

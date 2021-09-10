@@ -17,4 +17,6 @@ class Site(Site):
     all_users_can_create = models.BooleanField(default=True)
     all_results_are_visible = models.BooleanField(default=True)
 
+    footer_url = models.CharField(max_length=255, default='https://electis.app')
+
     objects = SiteManager()

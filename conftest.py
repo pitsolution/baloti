@@ -68,7 +68,8 @@ def manifest():
                             "language": "en"
                         }
                     ]
-                }
+                },
+                "name" : { "text": []},
             },
             {
                 "object_id": "38b8e19f-1447-47a3-8df3-8a42be422f9a",
@@ -79,7 +80,8 @@ def manifest():
                             "language": "en"
                         }
                     ]
-                }
+                },
+                "name" : { "text": []},
             },
             {
                 "object_id": "46dd83c8-26de-417d-9421-a61c5e5f4d36",
@@ -90,7 +92,8 @@ def manifest():
                             "language": "en"
                         }
                     ]
-                }
+                },
+                "name" : { "text": []},
             },
         ],
         "contests": [

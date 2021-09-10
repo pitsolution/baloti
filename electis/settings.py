@@ -21,6 +21,8 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
+STATIC_HOME_PAGE = 'landing/index.html'
+
 if DEBUG:
     STATIC_URL = f'/static/{SITE_NAME}/'
     STATIC_ROOT = BASE_DIR / 'public' / SITE_NAME
