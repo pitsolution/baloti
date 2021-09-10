@@ -391,7 +391,7 @@ vot1@example.com\rvot2@example.com\rnew@example.com
 
     # OTP links should have been sent and take directly to the vote page
     emails = contest.voter_set.values_list('user__email', flat=True)
-    assert len(mailoutbox) == len(emails)
+    assert len(mailoutbox) == len(emails) + 1  # add the mail to the mediator
     assert mailoutbox[-1].subject == 'title'
     link = mailoutbox[-1].body[3:]
 
