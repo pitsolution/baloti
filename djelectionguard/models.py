@@ -256,6 +256,7 @@ class Contest(models.Model):
             while data := f.read(65536):
                 sha1.update(data)
         self.artifacts_sha1 = sha1.hexdigest()
+        self.save()
 
         os.chdir(cwd)
 
