@@ -1,5 +1,7 @@
 import sys
 
+from django.core import serializers
+from django.core.cache import cache
 from django.conf import settings
 from django.utils.translation import get_language
 from django.utils.functional import lazy
@@ -47,11 +49,21 @@ def _gettext(key, n=0, **ph):
 
         current_site = Site.objects.get_current()
 
-        text = Text.objects.get(
-            language__site=current_site,
-            language__iso=current_language,
-            key=key
-        )
+        text = cache.get(f'{current_language}-{current_site.name}-{key}')
+
+        if not text:
+            text = Text.objects.get(
+                language__site=current_site,
+                language__iso=current_language,
+                key=key
+            )
+            serialized = serializers.serialize('json', [text])
+            cache.set(
+                f'{current_language}-{current_site.name}-{key}',
+                serialized
+            )
+        else:
+            text = list(serializers.deserialize('json', text))[0].object
 
     except Text.DoesNotExist:
         text = None
@@ -61,7 +73,7 @@ def _gettext(key, n=0, **ph):
                 text = text_obj
         return text.process(n, **ph) if text else key
     except Exception as e:
-        print(f'djlang - Exception {e} raise trying to get value for key: {key}')
+        print(f'djlang - Exception {e} was raised trying to get value for key: {key}')
         return key
 
     return text.process(n, **ph)
