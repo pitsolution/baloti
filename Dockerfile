@@ -11,13 +11,13 @@ RUN mkdir -p /spooler/blockchain /spooler/email /spooler/tally && chown -R app /
 COPY requirements.txt /app
 RUN pip3 install -Ur /app/requirements.txt
 COPY . /app/
+RUN DEBUG= ./manage.py ryzom_bundle
 RUN DEBUG= ./manage.py compilemessages
 RUN chown -R app. /app/log
 USER app
 
 EXPOSE 8000
 CMD /usr/bin/bash -euxc "until djcli dbcheck; do sleep 1; done \
-  && ./manage.py ryzom_bundle \
   && ./manage.py compilescss \
   && ./manage.py collectstatic --noinput \
   && ./manage.py migrate --noinput \
