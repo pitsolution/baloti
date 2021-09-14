@@ -304,16 +304,17 @@ class ContestList(Div):
 
 
 class CircleIcon(Span):
-    def __init__(self, icon, color='', small=False):
+    def __init__(self, icon, color='', small=False, **kw):
         base_cls = f'icon {icon} {"small " if small else ""}'
         super().__init__(
-            cls=base_cls + color
+            cls=base_cls + color,
+            **kw
         )
 
 
 class TodoIcon(CircleIcon):
-    def __init__(self):
-        super().__init__('empty-icon', 'yellow')
+    def __init__(self, **kw):
+        super().__init__('empty-icon', 'yellow', **kw)
 
 
 class DoneIcon(CircleIcon):
@@ -557,6 +558,7 @@ class CastVoteAction(ListAction):
     def __init__(self, obj, user):
         voter = obj.voter_set.filter(user=user).first()
         if voter.casted:
+            head = _('Voted')
             s = voter.casted
             txt = Span(
                 _('You casted your vote!'
@@ -567,17 +569,19 @@ class CastVoteAction(ListAction):
             )
             icon = DoneIcon()
             btn_comp = None
-        else:
+        elif not obj.actual_end:
+            head = _('Cast my vote')
             txt = ''
             icon = TodoIcon()
             url = reverse('contest_vote', args=(obj.id,))
             btn_comp = MDCButtonOutlined(_('vote'), False, tag='a', href=url)
+        else:
+            head = _('You did not vote')
+            txt = _('The vote is closed, sorry you missed it.')
+            icon = TodoIcon(style=dict(filter='brightness(0.5)'))
+            btn_comp = None
 
-        super().__init__(
-            _('Cast my vote') if not voter.casted else _('Voted'),
-            txt, icon, btn_comp,
-            separator=True
-        )
+        super().__init__( head, txt, icon, btn_comp, separator=True)
 
 
 class ChooseBlockchainAction(ListAction):
@@ -1939,6 +1943,7 @@ class GuardianUploadKeyCard(Div):
                     Input(id='file_input', type='file', name='pkl_file'),
                     label=_('Choose file')),
                 Span(_("Your privacy key is a file with '.pkl' extension."), cls='body-2'),
+                MDCErrorList(form.non_field_errors()),
                 self.submit_btn,
                 CSRFInput(view.request),
                 enctype='multipart/form-data',

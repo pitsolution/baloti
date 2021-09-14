@@ -1101,6 +1101,15 @@ class GuardianUploadView(generic.UpdateView):
             model = Guardian
             fields = []
 
+        def clean(self):
+            file_content = self.cleaned_data['pkl_file'].read()
+            self.cleaned_data['pkl_file'].seek(0)
+            sha1 = hashlib.sha1(file_content).hexdigest()
+            if sha1 != self.instance.key_sha1:
+                raise forms.ValidationError(_("The provided guardian key is invalid"))
+
+            return self.cleaned_data
+
         def save(self, *args, **kwargs):
             self.instance.upload_keypair(self.cleaned_data['pkl_file'].read())
             return self.instance
