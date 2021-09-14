@@ -20,6 +20,16 @@ class LandingApp(Html):
         head.addchild(Stylesheet(href=common_style_src))
         head.addchild(Stylesheet(href=style_src))
         head.addchild(Stylesheet(href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;700&display=swap"))
+        head.addchild(
+            Script(
+                src='https://privacyportalde-cdn.onetrust.com/consent-receipt-scripts/scripts/otconsent-1.0.min.js',
+                type="text/javascript",
+                data_ot_id="40ec4ddd-1627-4efb-b428-a53e211552ad",
+                charset="UTF-8",
+                id="consent-receipt-script",
+                data_ot_consent_register_event="document-load"
+            )
+        )
 
         return super().to_html(head, body, **ctx)
 
