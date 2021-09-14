@@ -139,19 +139,35 @@ class LandingPage(Main):
                         margin=12,
                     )
                 ),
-                MDCButtonOutlined(
-                    _('I take part'),
-                    style=dict(
-                        margin='50 auto',
-                        font_size=32,
-                        color='black',
-                        padding='32 64',
-                        border_radius='8px',
-                        font_weight=400,
-                        border='4px solid black',
+                Form(
+                    MDCTextFieldOutlined(
+                        Input(type='email', name='email'),
+                        label=_('Email address'),
+                        help_text=_('Type your email to register to this service'),
+                        style=dict(
+                            max_width=450,
+                            margin='64 auto',
+                            margin_bottom=0,
+                        )
                     ),
+                    MDCButtonOutlined(
+                        _('I take part'),
+                        style=dict(
+                            margin='50 auto',
+                            font_size=32,
+                            color='black',
+                            padding='32 64',
+                            border_radius='8px',
+                            font_weight=400,
+                            border='4px solid black',
+                        ),
+                    ),
+                    action='',
+                    method='POST',
+                    data_ot_cp_id="cd2cd391-6c19-4ec3-bdd8-b0d024bca161-draft",
+                    cls='agree-form',
+                    addcls='ot-form-consent'
                 ),
-                cls='agree-form'
             ),
             Footer(
                 Div(
