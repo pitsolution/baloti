@@ -1647,7 +1647,8 @@ class ContestEmailVoters(Div):
         return super().to_html(
             H4(_('Send an invite to the newly added voters'), cls='center-text'),
             Form(
-                context['form'],
+                context['form']['email_title'],
+                context['form']['email_message'],
                 CSRFInput(view.request),
                 MDCButton(context['form'].submit_label),
                 method='POST',
