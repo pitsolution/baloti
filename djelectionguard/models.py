@@ -514,7 +514,7 @@ def send_voter_mail(voter_id, title, body, link, field):
     send_mail(
         title,
         body.replace('LINK', otp_link),
-        'webmaster@electeez.com',
+        settings.DEFAULT_FROM_EMAIL,
         [voter.user.email],
     )
 
