@@ -55,6 +55,21 @@ class LandingPage(Main):
                     ),
                 ),
                 Span(
+                    MDCButtonRaised(
+                        _('log in'),
+                        tag='a',
+                        href=reverse('login'),
+                        style=dict(
+                            background_color='var(--danger)'
+                        )
+                    ),
+                    style=dict(
+                        margin='50 100',
+                        align_self='flex-end',
+                        margin_top=-120
+                    ),
+                ),
+                Span(
                     B(
                         I(
                             'how_to_vote',
