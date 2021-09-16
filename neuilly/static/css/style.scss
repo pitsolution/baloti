@@ -45,3 +45,14 @@
     }
   }
 }
+
+.agree-form {
+  .mdc-form-field {
+    flex-flow: row nowrap;
+    justify-content: center;
+
+    label {
+      margin: 0
+    }
+  }
+}

@@ -1,11 +1,15 @@
+from django.utils.safestring import mark_safe
 from django.conf import settings
 from django.urls import reverse
 
 from sass_processor.processor import sass_processor
 
+from py2js.transpiler import transpile_body
 from ryzom_django_mdc.html import *
 
 from djlang.utils import gettext as _
+
+from electeez_common.components import Messages
 
 
 class LandingApp(Html):
@@ -31,7 +35,10 @@ class LandingApp(Html):
             )
         )
 
+        body.addchild(Messages(ctx['view']))
+
         return super().to_html(head, body, **ctx)
+
 
 class Footer(Footer):
     sass = '''
@@ -140,28 +147,40 @@ class LandingPage(Main):
                     )
                 ),
                 H5(
-                    _('I consent to the use of my email address'),
-                    style=dict(
-                        font_size=18,
-                        font_weight=400,
-                        font_style='italic',
-                        text_align='center',
-                        margin=12,
-                    )
                 ),
                 Form(
+                    MDCCheckboxField(
+                        MDCCheckboxInput(
+                            value='Neuilly Vote',
+                            required=True,
+                        ),
+                        name='confirmation',
+                        label=Span(
+                            _('I consent to the use of my email address'),
+                            style=dict(
+                                font_size=18,
+                                font_weight=400,
+                                font_style='italic',
+                                text_align='center',
+                                margin=12,
+                            )
+                        ),
+                    ),
                     MDCTextFieldOutlined(
-                        Input(type='email', name='email'),
+                        Input(type='email', id='inputEmail', name='inputEmail', required=True),
                         label=_('Email address'),
                         help_text=_('Type your email to register to this service'),
+                        addcls='ot-form-control',
                         style=dict(
-                            max_width=450,
-                            margin='64 auto',
+                            max_width=520,
+                            margin='0 auto',
                             margin_bottom=0,
                         )
                     ),
                     MDCButtonOutlined(
                         _('I take part'),
+                        id='trigger',
+                        addcls='ot-submit-button',
                         style=dict(
                             margin='50 auto',
                             font_size=32,
@@ -174,9 +193,10 @@ class LandingPage(Main):
                     ),
                     action='',
                     method='POST',
-                    data_ot_cp_id="cd2cd391-6c19-4ec3-bdd8-b0d024bca161-draft",
+                    data_ot_cp_id="cd2cd391-6c19-4ec3-bdd8-b0d024bca161-active",
                     cls='agree-form',
-                    addcls='ot-form-consent'
+                    addcls='ot-form-consent',
+                    id='ot-form-consent'
                 ),
             ),
             Footer(
