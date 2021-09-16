@@ -1,13 +1,17 @@
 from django import http
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls import url
 from django.conf.urls.static import static
 from django.views import generic
+from django.views.decorators.csrf import csrf_exempt
 from django.urls import include, path, reverse
+from django.utils.decorators import method_decorator
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.templatetags.static import static as static_url
+
+from djlang.utils import gettext as _
 
 
 urlpatterns = [
@@ -15,6 +19,7 @@ urlpatterns = [
 ]
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class HomeView(generic.TemplateView):
     def dispatch(self, request, *args, **kwargs):
         url = reverse('login')
@@ -30,6 +35,16 @@ class HomeView(generic.TemplateView):
             return super().dispatch(request, *args, **kwargs)
 
         return http.HttpResponseRedirect(url)
+
+    def post(self, request, *args, **kwargs):
+        if 'inputEmail' in request.POST:
+            messages.success(
+                request,
+                _('You have successfully subscribed to %(app)s mailing list',
+                    app=_('Neuilly Vote')
+                )
+            )
+        return self.get(request, *args, **kwargs)
 
 
 urlpatterns += i18n_patterns(

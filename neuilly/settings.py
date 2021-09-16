@@ -38,4 +38,6 @@ DATABASES = {
     }
 }
 
+ROOT_URLCONF = 'neuilly.urls'
+
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'neuillyvote@ville-neuillysurseine.fr')

@@ -514,7 +514,7 @@ def send_voter_mail(voter_id, title, body, link, field):
     send_mail(
         title,
         body.replace('LINK', otp_link),
-        'webmaster@electeez.com',
+        settings.DEFAULT_FROM_EMAIL,
         [voter.user.email],
     )
 
@@ -630,6 +630,7 @@ class Guardian(models.Model):
     uploaded = models.DateTimeField(null=True, blank=True)
     uploaded_erased = models.DateTimeField(null=True, blank=True)
     sequence = models.PositiveIntegerField(null=True, blank=True)
+    key_sha1 = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return str(self.user)
@@ -664,6 +665,7 @@ class Guardian(models.Model):
             )
             result = pickle.dumps(guardian)
             client.set(str(self.pk), result)
+            self.key_sha1 = hashlib.sha1(result).hexdigest()
             self.sequence = sequence
             self.save()
         return result

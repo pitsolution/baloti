@@ -231,7 +231,7 @@ a.caption {
 
 .mdc-form-field {
   flex-flow: column;
-  & div,
+  & div:not(.mdc-checkbox, .mdc-checkbox__background),
   & mdc-select-outlined {
     width: 100%;
   }
