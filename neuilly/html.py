@@ -118,7 +118,6 @@ class Footer(Footer):
             ),
             Hr(style=dict(width=150, margin=24)),
             Div(
-                A(_('Site plan'), href='#', style=dict(margin=12)),
                 A(_('Legal notices'), href=reverse('legal'), style=dict(margin=12)),
                 A(_('Data privacy policy'), href=reverse('policy'), style=dict(margin=12)),
                 A(_('FAQ'), href=reverse('faq'), style=dict(margin=12)),
