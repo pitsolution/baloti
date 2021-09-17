@@ -556,7 +556,7 @@ def decrypt_contest(
                     contest=contest.name if contest else _('unknown')
                 ),
                 med_email_msg,
-                Site.objects.get_current().sender_email,
+                settings.DEFAULT_FROM_EMAIL,
                 [user.email]
             )
 
