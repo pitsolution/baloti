@@ -284,7 +284,6 @@ LOGGING = {
 LOGGERS = (
     'django.request',
     'djcall',
-    'djtezos',
     'daphne',
     'electionguard'
 )
