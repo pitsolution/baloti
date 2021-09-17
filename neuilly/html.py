@@ -118,13 +118,9 @@ class Footer(Footer):
             ),
             Hr(style=dict(width=150, margin=24)),
             Div(
-                A(_('Site plan'), href='#', style=dict(margin=12)),
                 A(_('Legal notices'), href=reverse('legal'), style=dict(margin=12)),
-                A(_('Accessibility'), href='#', style=dict(margin=12)),
                 A(_('Data privacy policy'), href=reverse('policy'), style=dict(margin=12)),
-                A(_('Cookies'), href=reverse('cookies'), style=dict(margin=12)),
                 A(_('FAQ'), href=reverse('faq'), style=dict(margin=12)),
-                A(_('Press'), href='#', style=dict(margin=12)),
                 style=dict(
                     display='flex',
                     flex_flow='row wrap',
@@ -270,13 +266,13 @@ class Legal(Div):
                     )
                 ),
                 H5(_('Edition')),
-                Div(mark_safe(
-                    escape(_('LEGAL_EDITION_TEXT'))
-                ).replace('\n', '<br>')),
+                Div(
+                    mark_safe(_('LEGAL_EDITION_TEXT').replace('\n', '<br>'))
+                ),
                 H5(_('Author rights')),
-                Div(mark_safe(
-                    escape(_('AUTHOR_RIGHTS_TEXT'))
-                ).replace('\n', '<br>')),
+                Div(
+                   mark_safe(_('AUTHOR_RIGHTS_TEXT').replace('\n', '<br>'))
+                ),
                 cls='info-panel',
             )
         )
@@ -293,9 +289,24 @@ class Legal(Div):
                         text_align='center'
                     )
                 ),
-                Div(mark_safe(
-                    escape(_('DATA_PRIVACY_TEXT'))
-                ).replace('\n', '<br>')),
+                Div(
+                    mark_safe('''<!-- OneTrust Privacy Notice start -->
+  <!-- Container in which the privacy notice will be rendered -->
+  <div id="otnotice-e2599a30-e42d-4991-8e52-c386265763b7" class="otnotice"></div>
+
+  <script src="https://privacyportalde-cdn.onetrust.com/privacy-notice-scripts/otnotice-1.0.min.js" type="text/javascript" charset="UTF-8" id="otprivacy-notice-script">
+      settings="eyJjYWxsYmFja1VybCI6Imh0dHBzOi8vcHJpdmFjeXBvcnRhbC1kZS5vbmV0cnVzdC5jb20vcmVxdWVzdC92MS9wcml2YWN5Tm90aWNlcy9zdGF0cy92aWV3cyJ9"
+    </script>
+
+  <script type="text/javascript" charset="UTF-8">
+      // To ensure external settings are loaded, use the Initialized promise:
+      OneTrust.NoticeApi.Initialized.then(function() {
+        OneTrust.NoticeApi.LoadNotices(["https://privacyportalde-cdn.onetrust.com/40ec4ddd-1627-4efb-b428-a53e211552ad/privacy-notices/e2599a30-e42d-4991-8e52-c386265763b7.json"]);
+      });
+    </script>
+
+  <!-- OneTrust Privacy Notice end -->'''),
+                ),
                 cls='info-panel',
             )
         )
@@ -312,9 +323,7 @@ class Legal(Div):
                         text_align='center'
                     )
                 ),
-                Div(mark_safe(
-                    escape(_('COOKIES_TEXT'))
-                ).replace('\n', '<br>')),
+                Div(mark_safe(_('COOKIES_TEXT').replace('\n', '<br>'))),
                 cls='info-panel',
             )
         )
@@ -333,9 +342,7 @@ class Legal(Div):
                 ),
                 Div(
                     mark_safe(
-                        escape(
-                            _('FAQ_TEXT')
-                        ).replace(
+                        _('FAQ_TEXT').replace(
                             '\n', '<br>'
                         ).replace(
                             'TITLE_START', '<h5>'

@@ -49,21 +49,12 @@ def _gettext(key, n=0, **ph):
 
         current_site = Site.objects.get_current()
 
-        text = cache.get(f'{current_language}-{current_site.name}-{key}')
 
-        if not text:
-            text = Text.objects.get(
-                language__site=current_site,
-                language__iso=current_language,
-                key=key
-            )
-            serialized = serializers.serialize('json', [text])
-            cache.set(
-                f'{current_language}-{current_site.name}-{key}',
-                serialized
-            )
-        else:
-            text = list(serializers.deserialize('json', text))[0].object
+        text = Text.objects.get(
+            language__site=current_site,
+            language__iso=current_language,
+            key=key
+        )
 
     except Text.DoesNotExist:
         text = None
