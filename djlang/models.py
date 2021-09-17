@@ -1,6 +1,8 @@
 import re
 
 from django.db import models
+from django.core import serializers
+from django.core.cache import cache
 from django.conf import settings
 from django.utils.translation import get_language
 from django.utils.html import escape
@@ -30,6 +32,11 @@ class Text(models.Model):
     )
     val = models.TextField(blank=True, null=True)
     nval = models.TextField(blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        serialized = serializers.serialize('json', [self])
+        cache.set(f'{self.language.site}-{self.language.iso}-{self.key}', serialized)
 
     def process(self, n=0, allow_unsecure=False, **placeholders):
         #  If pluralize return nval

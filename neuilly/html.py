@@ -120,11 +120,8 @@ class Footer(Footer):
             Div(
                 A(_('Site plan'), href='#', style=dict(margin=12)),
                 A(_('Legal notices'), href=reverse('legal'), style=dict(margin=12)),
-                A(_('Accessibility'), href='#', style=dict(margin=12)),
                 A(_('Data privacy policy'), href=reverse('policy'), style=dict(margin=12)),
-                A(_('Cookies'), href=reverse('cookies'), style=dict(margin=12)),
                 A(_('FAQ'), href=reverse('faq'), style=dict(margin=12)),
-                A(_('Press'), href='#', style=dict(margin=12)),
                 style=dict(
                     display='flex',
                     flex_flow='row wrap',
@@ -270,13 +267,13 @@ class Legal(Div):
                     )
                 ),
                 H5(_('Edition')),
-                Div(mark_safe(
-                    escape(_('LEGAL_EDITION_TEXT'))
-                ).replace('\n', '<br>')),
+                Div(
+                    mark_safe(_('LEGAL_EDITION_TEXT').replace('\n', '<br>'))
+                ),
                 H5(_('Author rights')),
-                Div(mark_safe(
-                    escape(_('AUTHOR_RIGHTS_TEXT'))
-                ).replace('\n', '<br>')),
+                Div(
+                   mark_safe(_('AUTHOR_RIGHTS_TEXT').replace('\n', '<br>'))
+                ),
                 cls='info-panel',
             )
         )
@@ -312,9 +309,7 @@ class Legal(Div):
                         text_align='center'
                     )
                 ),
-                Div(mark_safe(
-                    escape(_('COOKIES_TEXT'))
-                ).replace('\n', '<br>')),
+                Div(mark_safe(_('COOKIES_TEXT').replace('\n', '<br>'))),
                 cls='info-panel',
             )
         )
@@ -333,9 +328,7 @@ class Legal(Div):
                 ),
                 Div(
                     mark_safe(
-                        escape(
-                            _('FAQ_TEXT')
-                        ).replace(
+                        _('FAQ_TEXT').replace(
                             '\n', '<br>'
                         ).replace(
                             'TITLE_START', '<h5>'
