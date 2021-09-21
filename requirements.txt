@@ -7,7 +7,6 @@ django-jinja
 django-picklefield
 django-registration
 django-timezone-field
-django-svg-image-form-field
 
 libsass
 django-compressor
