@@ -15,7 +15,8 @@ LANGUAGES = (
 )
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'public'
+STATIC_ROOT_DIR = 'public'
+STATIC_ROOT = BASE_DIR / STATIC_ROOT_DIR
 STATICFILES_DIRS = [
     BASE_DIR / 'neuilly' / 'static',
     BASE_DIR / 'static',
@@ -23,7 +24,8 @@ STATICFILES_DIRS = [
 
 if DEBUG:
     STATIC_URL = f'/static/{SITE_NAME}/'
-    STATIC_ROOT = BASE_DIR / 'public' / SITE_NAME
+    STATIC_ROOT_DIR = f'public/{SITE_NAME}'
+    STATIC_ROOT = BASE_DIR / STATIC_ROOT_DIR
 
 HOME_TEMPLATE = 'landing'
 

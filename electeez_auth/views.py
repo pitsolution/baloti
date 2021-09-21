@@ -7,7 +7,6 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.backends import BaseBackend
 from django.core.exceptions import ValidationError
-from django.core.mail import send_mail
 from django.views import generic
 from django.utils import timezone
 from django.urls import include, path, reverse
@@ -15,6 +14,7 @@ from django_registration.forms import RegistrationForm
 from django_registration.backends.activation.views import RegistrationView
 
 from electeez_common.components import Document, TopPanel, Footer
+from electeez_common.mail import send_mail
 from .models import Token, User
 from django.conf import settings
 from djlang.utils import gettext as _

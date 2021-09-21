@@ -12,7 +12,6 @@ from enum import IntEnum
 from django.apps import apps
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.core.mail import send_mail
 from django.db import models, transaction
 from django.db.models import signals
 from django.urls import reverse
@@ -27,6 +26,7 @@ from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
 from electeez_auth.models import User
+from electeez_common.mail import send_mail
 from electeez_sites.models import Site
 
 def above_0(value):

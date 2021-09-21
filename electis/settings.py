@@ -15,7 +15,8 @@ LANGUAGES = (
 )
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'public'
+STATIC_ROOT_DIR = 'public'
+STATIC_ROOT = BASE_DIR / STATIC_ROOT_DIR
 STATICFILES_DIRS = [
     BASE_DIR / 'electis' / 'static',
     BASE_DIR / 'static',
@@ -25,7 +26,8 @@ STATIC_HOME_PAGE = 'landing/index.html'
 
 if DEBUG:
     STATIC_URL = f'/static/{SITE_NAME}/'
-    STATIC_ROOT = BASE_DIR / 'public' / SITE_NAME
+    STATIC_ROOT_DIR = f'public/{SITE_NAME}'
+    STATIC_ROOT = BASE_DIR / STATIC_ROOT_DIR
 
 DATABASES = {
     'default': {
