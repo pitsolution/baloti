@@ -36,6 +36,10 @@ class Site(Site):
         blank=True
     )
 
+    email_banner_url = models.URLField(
+        null=True, blank=True
+    )
+
     email_footer_fg = models.CharField(
         max_length=7,
         default='#000000'
@@ -51,5 +55,10 @@ class Site(Site):
         null=True,
         blank=True
     )
+
+    email_footer_url = models.URLField(
+        null=True, blank=True
+    )
+
 
     objects = SiteManager()

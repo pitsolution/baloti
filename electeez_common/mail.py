@@ -15,6 +15,57 @@ from electeez_sites.models import Site
 
 class EmailHtml(Html):
     def __init__(self, site, content):
+        banner_row = Tr(cls='header')
+        footer_row = Tr(cls='footer')
+        if site.email_banner:
+            if site.email_banner_url:
+                banner_row.addchild(
+                    Td(
+                        A(
+                            Img(src=f'cid:{site.email_banner.name}', height=50),
+                            href=site.email_banner_url
+                        )
+                    )
+                )
+            else:
+                banner_row.addchild(
+                    Td(
+                        Img(src=f'cid:{site.email_banner.name}', height=50),
+                    )
+                )
+
+        banner_row.addchild(
+            Td(
+                H3(mark_safe(_('EMAIL_BANNER_TEXT').replace('\n', '<br>'))),
+                cls='center'
+            )
+        )
+
+        footer_row.addchild(
+            Td(
+                mark_safe(_('EMAIL_FOOTER_TEXT').replace('\n', '<br>')),
+            )
+        )
+
+        if site.email_footer:
+            if site.email_footer_url:
+                footer_row.addchild(
+                    Td(
+                        A(
+                            Img(src=f'cid:{site.email_footer.name}', height=50),
+                            href=site.email_footer_url
+                        ),
+                        cls='right'
+                    )
+                )
+            else:
+                footer_row.addchild(
+                    Td(
+                        Img(src=f'cid:{site.email_footer.name}', height=50),
+                        cls='right'
+                    )
+                )
+
         super().__init__(
             head=Head(
                 Meta(charset='utf-8'),
@@ -55,19 +106,7 @@ class EmailHtml(Html):
                 )
             ),
             body=Body(
-                Table(
-                    Tr(
-                        Td(
-                            Img(src=f'cid:{site.email_banner.name}', height=50),
-                            cls='banner-image'
-                        ) if site.email_banner else None,
-                        Td(
-                            H3(mark_safe(_('EMAIL_BANNER_TEXT').replace('\n', '<br>'))),
-                            cls='center'
-                        ),
-                        cls='header'
-                    ),
-                ),
+                Table(banner_row),
                 Table(
                     Tr(
                         Td(
@@ -76,18 +115,7 @@ class EmailHtml(Html):
                         )
                     ),
                 ),
-                Table(
-                    Tr(
-                        Td(
-                            mark_safe(_('EMAIL_FOOTER_TEXT').replace('\n', '<br>')),
-                        ),
-                        Td(
-                            Img(src=f'cid:{site.email_footer.name}', height=50),
-                            cls='right'
-                        ) if site.email_footer else None,
-                        cls='footer'
-                    )
-                )
+                Table(footer_row)
             )
         )
 
@@ -101,7 +129,7 @@ def attach_image(email, image):
     email.attach(to_attach)
 
 
-def send_email(subject, body, sender, recipient):
+def send_mail(subject, body, sender, recipient):
     email = EmailMultiAlternatives(subject=subject, body=body, from_email=sender, to=recipient)
 
     site = Site.objects.get_current()
