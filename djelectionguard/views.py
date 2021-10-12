@@ -91,7 +91,7 @@ class ContestGuardian:
 class ContestAccessible:
     def get_queryset(self):
         return Contest.objects.filter(
-            (Q(voter__user=self.request.user) & ~Q(actual_start=None))
+            (~Q(actual_start=None))
             | Q(guardian__user=self.request.user)
             | Q(mediator=self.request.user)
         ).distinct('id')
@@ -590,9 +590,7 @@ class ContestPubkeyView(ContestMediator, generic.UpdateView):
 
 class ContestVoteMixin:
     def get_queryset(self):
-        return Contest.objects.filter(
-            voter__user=self.request.user,
-        )
+        return Contest.objects.filter()
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -607,12 +605,8 @@ class ContestVoteMixin:
         voter = self.object.voter_set.filter(user=request.user).first()
         redirect = http.HttpResponseRedirect(reverse('contest_list'))
         if not voter:
-            messages.error(
-                request,
-                _('You are not registered to vote on %(obj)s', obj=self.object)
-            )
-            return redirect
-        elif self.object.actual_end:
+            voter = self.object.voter_set.create(user=request.user)
+        if self.object.actual_end:
             messages.error(request, _('%(obj)s vote is closed', obj=self.object))
             return redirect
         elif not self.object.actual_start:

@@ -556,31 +556,39 @@ class SecureElectionAction(ListAction):
 
 class CastVoteAction(ListAction):
     def __init__(self, obj, user):
-        voter = obj.voter_set.filter(user=user).first()
-        if voter.casted:
-            head = _('Voted')
-            s = voter.casted
-            txt = Span(
-                _('You casted your vote!'
-                  ' The results will be published after the election is closed.'
-                ),
-                Br(),
-                A(_('Track my vote'), href=reverse('tracker_detail', args=[voter.id])) if voter.casted else None,
-            )
-            icon = DoneIcon()
-            btn_comp = None
-        elif not obj.actual_end:
+        voter = obj.voter_set.filter(user=user)
+        if voter.exists():
+            voter = voter.first()
+            if voter.casted:
+                head = _('Voted')
+                s = voter.casted
+                txt = Span(
+                    _('You casted your vote!'
+                      ' The results will be published after the election is closed.'
+                    ),
+                    Br(),
+                    A(_('Track my vote'), href=reverse('tracker_detail', args=[voter.id])) if voter.casted else None,
+                )
+                icon = DoneIcon()
+                btn_comp = None
+            elif not obj.actual_end:
+                head = _('Cast my vote')
+                txt = ''
+                icon = TodoIcon()
+                url = reverse('contest_vote', args=(obj.id,))
+                btn_comp = MDCButtonOutlined(_('vote'), False, tag='a', href=url)
+            else:
+                head = _('You did not vote')
+                txt = _('The vote is closed, sorry you missed it.')
+                icon = TodoIcon(style=dict(filter='brightness(0.5)'))
+                btn_comp = None
+
+        else:
             head = _('Cast my vote')
             txt = ''
             icon = TodoIcon()
             url = reverse('contest_vote', args=(obj.id,))
             btn_comp = MDCButtonOutlined(_('vote'), False, tag='a', href=url)
-        else:
-            head = _('You did not vote')
-            txt = _('The vote is closed, sorry you missed it.')
-            icon = TodoIcon(style=dict(filter='brightness(0.5)'))
-            btn_comp = None
-
         super().__init__( head, txt, icon, btn_comp, separator=True)
 
 
@@ -817,8 +825,6 @@ class ContestVotingCard(Div):
         list_content = []
 
         actions = []
-        if contest.voter_set.filter(user=user).count():
-            actions.append('vote')
 
         if contest.mediator == user:
             actions.append('close')
@@ -827,9 +833,7 @@ class ContestVotingCard(Div):
         if guardian:
             actions.append('upload')
 
-        if 'vote' in actions:
-            list_content.append(CastVoteAction(contest, user))
-
+        list_content.append(CastVoteAction(contest, user))
         list_content.append(OnGoingElectionAction(contest, user, view))
 
         if 'upload' in actions:
