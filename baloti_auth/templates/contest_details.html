@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %} Elections {% endblock %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-8 mx-auto social-container my-2 order-md-1">
+
+    </div>
+    <ul>
+        {% for u in contests %}
+            <li><a href="/admin/inckd/profile/{{u.id}}/change/">{{u.name}}</a></li>
+
+            <button class="btn btn-primary mb-2">
+                <a href={% url 'baloti:VoteChoices' id=u.id %}>VOTE NOW</a><br>
+            </button>
+            
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+
+
