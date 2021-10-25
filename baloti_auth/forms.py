@@ -14,4 +14,3 @@ class UserLoginForm(AuthenticationForm):
             'id': 'hi',
         }
     ))
-    next_url = forms.CharField(widget=forms.HiddenInput(), required=False)

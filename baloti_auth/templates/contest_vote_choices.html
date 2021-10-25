@@ -1,16 +1,20 @@
 {% extends 'base.html' %}
-{% block title %} Make your choice {% endblock %}
+{% block title %}Make your choice{% endblock %}
+
 {% block content %}
+    <div id="content-container" class="container p-none">
+        <div class="lgn-container col-lg-8">
 
-<select>
-    {% for choice in candidates %}
-        <option>{{choice}}</option>
-    {% endfor %}
-</select>
-
-<button class="btn btn-primary mb-2">
-    <a href="/en/baloti/login/">CREATE BALLET</a>
-</button>
-{% endblock %}
-
-
+            <form action={% url 'baloti:choice_submit_url' %} method="post" id="choice-select">
+                {% csrf_token %}
+                <select id="id_choice" name="choice">
+                    <option disabled selected> -- select an option -- </option>
+                    {% for i in candidates %}
+                        <option value={{i.id}}>{{i.name}}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="OK">
+            </form>
+        </div>
+    </div>
+{% endblock content %}
