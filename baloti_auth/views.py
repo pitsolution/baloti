@@ -12,78 +12,94 @@ from django.views.generic import TemplateView
 from django.contrib.auth.views import LoginView
 from baloti_auth.forms import UserLoginForm
 
-
-def baloti_index(request):
-    """Index View
-
-    Args:
-        request (Request): Http request object
-
-    Returns:
-        html : returns baloti_index.html html file
+class BalotiIndexView(TemplateView):
     """
-    return render(request, 'baloti_index.html')
-
-def getContestList(request):
-    """Contest List View
-
-    Args:
-        request (Request): Http request object
-
-    Returns:
-        html : returns contest_list.html html file
+    Index view.
     """
-    # if request.user.is_anonymous:
-    contests = Contest.objects.filter(~Q(actual_start=None)
-                ).distinct('id')
-    return render(request, 'contest_list.html',{'title':'Contests',"contests":contests})
+    template_name = "baloti_index.html"
+
+
+class ContestListView(TemplateView):
+    """
+    Contest List View
+    """
+
+    def get(self, request, *args, **kwargs):
+        """
+        Args:
+            request (Request): Http request object
+
+        Returns:
+            html : returns contest_list.html html file
+        """
+        # if request.user.is_anonymous:
+        contests = Contest.objects.filter(~Q(actual_start=None)
+                    ).distinct('id')
+        return render(request, 'contest_list.html',{'title':'Contests',"contests":contests})
     
 
-def getContestDetails(request, id):
-    """Contest Detail View
-
-    Args:
-        request (Request): Http request object
-
-    Returns:
-        html : returns contest_details.html html file
+class ContestDetailView(TemplateView):
     """
-    contest = Contest.objects.filter(id=id
-                )
-    return render(request, 'contest_details.html',{"contests":contest})
-
-def getVoteChoices(request, id):
-    """Contest Choices View
-
-    Args:
-        request (Request): Http request object
-
-    Returns:
-        html : returns contest_vote_choices.html html file
+    Contest Detail View
     """
-    candidates = Candidate.objects.filter(contest=id)
-    return render(request, 'contest_vote_choices.html',{"candidates":candidates})
+    
+    def get(self, request, id):
+        """
+        Args:
+            request (Request): Http request object
 
-def baloti_disclaimer(request):
-    """Disclaimer View
+        Returns:
+            html : returns contest_details.html html file
+        """
+        contest = Contest.objects.filter(id=id
+                    )
+        return render(request, 'contest_details.html',{"contests":contest})
 
-    Args:
-        request (Request): Http request object
 
-    Returns:
-        html : returns baloti_disclaimer.html html file
+class ContestChoicesView(TemplateView):
     """
-    return render(request, 'baloti/baloti_disclaimer.html',{'name':request.user, 'title':'Disclaimer'})
+    Contest Choices View
+    """
+    
+    def get(self, request, id):
+        """
+        Args:
+            request (Request): Http request object
+
+        Returns:
+            html : returns contest_vote_choices.html html file
+        """
+        candidates = Candidate.objects.filter(contest=id)
+        return render(request, 'contest_vote_choices.html',{"candidates":candidates})
+
+    def post(self, request):
+        """
+        Args:
+            request (Request): Http request object
+
+        Returns:
+            html : returns login.html html file
+        """
+        choice = ''
+        if request.method == 'POST':
+            choice = request.POST.get('choice')
+        return render(request, 'login.html',{'name':request.user, 'title':'Login', 'choice': choice})
  
-def home(request):
-    """Home View
- 
-     Args:
-         request (Request): Http request object
-     Returns:
-         html : returns home.html html file
-     """
-    return render(request, 'home.html')
+class DisclaimerView(TemplateView):
+    """
+    Disclaimer View
+    """
+    
+    def get(self, request):
+        """
+        Args:
+            request (Request): Http request object
+
+        Returns:
+            html : returns baloti_disclaimer.html html file
+        """
+        return render(request, 'baloti/baloti_disclaimer.html',{'name':request.user, 'title':'Disclaimer'})
+
 
 
 class BalotiLoginView(LoginView):
@@ -94,20 +110,6 @@ class BalotiLoginView(LoginView):
     form_class = UserLoginForm
     template_name = 'login.html'
 
-
-def choice_submit_url(request):
-    """Choice Submit View
-
-    Args:
-        request (Request): Http request object
-
-    Returns:
-        html : returns login.html html file
-    """
-    choice = ''
-    if request.method == 'POST':
-        choice = request.POST.get('choice')
-    return render(request, 'login.html',{'name':request.user, 'title':'Login', 'choice': choice})
 
 @login_required
 def login_redirect(request):
@@ -120,3 +122,13 @@ def login_redirect(request):
         html : returns baloti_disclaimer.html html file
     """
     return render(request, 'baloti/baloti_disclaimer.html',{'name':request.user, 'title':'Disclaimer'})
+
+def home(request):
+    """Home View
+ 
+     Args:
+         request (Request): Http request object
+     Returns:
+         html : returns home.html html file
+     """
+    return render(request, 'home.html')

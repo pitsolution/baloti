@@ -5,7 +5,7 @@
     <div id="content-container" class="container p-none">
         <div class="lgn-container col-lg-8">
 
-            <form action={% url 'baloti:choice_submit_url' %} method="post" id="choice-select">
+            <form action={% url 'baloti:ChoiceSubmit' %} method="post" id="choice-select">
                 {% csrf_token %}
                 <select id="id_choice" name="choice">
                     <option disabled selected> -- select an option -- </option>
