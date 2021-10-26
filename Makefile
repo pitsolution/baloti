@@ -31,6 +31,11 @@ run:
 runserver:
 	./manage.py runserver
 
+run_all_remote: runserver_remote tezos_sync tezos_write tezos_balance ipfs
+
+run_remote:
+	make -j 5 run_all_remote
+
 runserver_remote:
 	./manage.py runserver 0.0.0.0:8000
 
