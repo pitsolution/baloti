@@ -31,6 +31,9 @@ run:
 runserver:
 	./manage.py runserver
 
+runserver_remote:
+	./manage.py runserver 0.0.0.0:8000
+
 tezos_sync:
 	while true; do ./manage.py djtezos_sync; sleep 60; done
 
