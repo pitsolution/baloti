@@ -7,6 +7,10 @@
             <form id="login-form" method="post" 
                   action="{% url 'baloti:login' %}">
                 {% csrf_token %}
+                
+                <button class="btn btn-primary mb-2">
+                    <a href="{% url 'social:begin' 'facebook' %}?next=/baloti/vote/{{choice}}">Login with Facebook</a>
+                </button>
                 <table class="table">
                     <tr>
                         <td><label for="id_username">Username</label></td>
@@ -25,6 +29,7 @@
                         Please try again.
                     </p>
                 {% endif %}
+
 
                 <input type="submit" value="Login" 
                        class="btn btn-primary pull-right" />
