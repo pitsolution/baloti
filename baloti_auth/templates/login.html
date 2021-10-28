@@ -28,7 +28,8 @@
 
                 <input type="submit" value="Login" 
                        class="btn btn-primary pull-right" />
-                <input type="hidden" name="next" value="/baloti/login/redirect" />
+                <input type="hidden" name="choice" value={{choice}} />
+                <input type="hidden" name="next" value="/baloti/vote/{{choice}}" />
             </form>
         </div>
     </div>

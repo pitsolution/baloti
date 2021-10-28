@@ -8,7 +8,6 @@
     </div>
     <ul>
         {% for u in contests %}
-            <li><a href="/admin/inckd/profile/{{u.id}}/change/">{{u.name}}</a></li>
 
             <button class="btn btn-primary mb-2">
                 <a href={% url 'baloti:VoteChoices' id=u.id %}>VOTE NOW</a><br>
