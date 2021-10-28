@@ -129,37 +129,43 @@ class VoteView(TemplateView):
         Returns:
             html : returns contest_details.html html file
         """
+
         candidate = Candidate.objects.filter(id=id)
         contest = Contest.objects.get(id=candidate.first().contest.id)
-        ballot = contest.get_ballot(*[
-                selection.pk
-                for selection in candidate
-            ])
-        encrypted_ballot = contest.encrypter.encrypt(ballot)
-        contest.ballot_box.cast(encrypted_ballot)
+        voter = contest.voter_set.filter(user=request.user)
+        if voter and voter.first().casted:
+            voter = voter.first()
+            return render(request, 'vote_success.html',{'user':request.user, 'title':'Already voted.'})
+        else:
+            ballot = contest.get_ballot(*[
+                    selection.pk
+                    for selection in candidate
+                ])
+            encrypted_ballot = contest.encrypter.encrypt(ballot)
+            contest.ballot_box.cast(encrypted_ballot)
 
-        submitted_ballot = contest.ballot_box._store.get(
-            encrypted_ballot.object_id
-        )
-        ballot_sha1 = hashlib.sha1(
-            submitted_ballot.to_json().encode('utf8'),
-        ).hexdigest()
-
-        contest.voter_set.update_or_create(
-            user=request.user,
-            defaults=dict(
-                casted=True,
-                ballot_id=encrypted_ballot.object_id,
-                ballot_sha1=ballot_sha1
-            ),
-        )
-        contest.save()
-        messages.success(
-                request,
-                _('You casted your ballot for %(obj)s', obj=contest)
+            submitted_ballot = contest.ballot_box._store.get(
+                encrypted_ballot.object_id
             )
-        uid = contest.voter_set.get(user=request.user).id
-        return render(request, 'vote_success.html',{'user':request.user, 'title':'Your vote has been Validated'})
+            ballot_sha1 = hashlib.sha1(
+                submitted_ballot.to_json().encode('utf8'),
+            ).hexdigest()
+
+            contest.voter_set.update_or_create(
+                user=request.user,
+                defaults=dict(
+                    casted=True,
+                    ballot_id=encrypted_ballot.object_id,
+                    ballot_sha1=ballot_sha1
+                ),
+            )
+            contest.save()
+            messages.success(
+                    request,
+                    _('You casted your ballot for %(obj)s', obj=contest)
+                )
+            uid = contest.voter_set.get(user=request.user).id
+            return render(request, 'vote_success.html',{'user':request.user, 'title':'Your vote has been Validated'})
 
 def home(request):
     """Home View
