@@ -15,7 +15,7 @@ django-sass-processor
 djtezos[test]==0.5.1
 djcall
 djcli
-electionguard
+electionguard==1.2.3
 fastecdsa
 pysodium
 secp256k1
