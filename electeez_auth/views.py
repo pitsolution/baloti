@@ -48,6 +48,9 @@ class OTPSend(generic.FormView):
         LINK = form.user.otp_new(
             redirect=self.request.GET.get('redirect', None)
         ).url
+        print('LINKLINKLINKLINKLINKLINKLINK================>>>>>>>>>>>>', LINK)
+        print('LINKLINKLINKLINKLINKLINKLINK================>>>>>>>>>>>>', self.request)
+        print('LINKLINKLINKLINKLINKLINKLINK================>>>>>>>>>>>>', self.request.GET.get('redirect', None))
 
         send_mail(
             _('Your magic link'),
