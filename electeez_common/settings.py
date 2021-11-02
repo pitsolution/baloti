@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 HOST = os.getenv('HOST')
-ENVIRONMENT = os.getenv('CI_ENVIRONMENT_NAME', 'localhost')
+ENVIRONMENT = os.getenv('CI_ENVIRONMENT_NAME', 'http://uat.baloti.org/')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 default = 'notsecretnotsecretnotsecretnotsecretnotsecretnotsecret'
