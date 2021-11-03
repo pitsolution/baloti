@@ -36,9 +36,22 @@ class BalotiContestListView(TemplateView):
         Returns:
             html : returns contest_list.html html file
         """
-        # if request.user.is_anonymous:
         contests = Contest.objects.exclude(actual_start=None
                     ).distinct('id')
+        contest_list = []
+        if not request.user.is_anonymous:
+            for con in contests:
+                if con.actual_end:
+                    action = 'view_result'
+                else:
+                    voter = con.voter_set.filter(user=request.user).first()
+                    if voter and voter.casted:
+                        action = 'view_detail'
+                    else:
+                        action = 'vote_now'
+                contest_list.append({'name': con.name, 'id': con.id, 'action': action})
+
+            return render(request, 'contest_list.html',{'title':'Contests',"contests":contest_list})
         return render(request, 'contest_list.html',{'title':'Contests',"contests":contests})
     
 
@@ -86,10 +99,11 @@ class BalotiContestChoicesView(TemplateView):
         Returns:
             html : returns login.html html file
         """
-        choice = ''
-        if request.method == 'POST':
-            choice = request.POST.get('choice')
-        return render(request, 'login.html',{'name':request.user, 'title':'Login', 'choice': choice})
+        choice = request.POST.get('choice')
+        if request.user.is_anonymous:
+            return render(request, 'login.html',{'name':request.user, 'title':'Login', 'choice': choice})
+        else:
+            return VoteView().casteVote(request, choice)
  
 class BalotiDisclaimerView(TemplateView):
     """
@@ -121,6 +135,17 @@ class VoteView(TemplateView):
     """
 
     def get(self, request, id):
+        """
+        Args:
+            request (Request): Http request object
+            id: Candidate UID
+
+        Returns:
+            html : returns contest_details.html html file
+        """
+        return VoteView().casteVote(request, id)
+
+    def casteVote(self, request, id):
         """
         Args:
             request (Request): Http request object

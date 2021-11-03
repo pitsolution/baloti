@@ -14,15 +14,19 @@
                     <a href={% url 'baloti:ContestDetails' id=u.id %}>VOTE NOW</a><br>
                 </button>
             {% else %}
-                <button class="btn btn-primary mb-2">
-                    <a href="/en/baloti/contest/list/">VOTE NOW
-                </button>
-                <button class="btn btn-primary mb-2">
-                    <a href="/en/baloti/contest/list/">VIEW DETAILS</a>
-                </button>
-                <button class="btn btn-primary mb-2">
-                    <a href="/en/baloti/contest/list/">VIEW RESULT</a>
-                </button>
+                {% if u.action == 'vote_now' %}
+                    <button class="btn btn-primary mb-2">
+                        <a href={% url 'baloti:ContestDetails' id=u.id %}>VOTE NOW</a><br>
+                    </button>
+                {% elif u.action == 'view_detail' %}
+                    <button class="btn btn-primary mb-2">
+                        <a href="/en/baloti/contest/list/">VIEW DETAILS</a>
+                    </button>
+                {% else %}
+                    <button class="btn btn-primary mb-2">
+                        <a href="/en/baloti/contest/list/">VIEW RESULT</a>
+                    </button>
+                {% endif %}
             {% endif %}
         {% endfor %}
     </ul>

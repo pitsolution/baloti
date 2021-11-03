@@ -9,7 +9,11 @@
                 {% csrf_token %}
                 
                 <button class="btn btn-primary mb-2">
-                    <a href="{% url 'social:begin' 'facebook' %}?next=/baloti/vote/{{choice}}">Login with Facebook</a>
+                    {% if choice %}
+                        <a href="{% url 'social:begin' 'facebook' %}?next=/baloti/vote/{{choice}}">Login with Facebook</a>
+                    {% else %}
+                        <a href="{% url 'social:begin' 'facebook' %}?next=/en/baloti/contest/list/">Login with Facebook</a>
+                    {% endif %}
                 </button>
                 <table class="table">
                     <tr>
@@ -34,7 +38,12 @@
                 <input type="submit" value="Login" 
                        class="btn btn-primary pull-right" />
                 <input type="hidden" name="choice" value={{choice}} />
-                <input type="hidden" name="next" value="/baloti/vote/{{choice}}" />
+
+                {% if choice %}
+                    <input type="hidden" name="next" value="/baloti/vote/{{choice}}" />
+                {% else %}
+                    <input type="hidden" name="next" value="/en/baloti/contest/list/" />
+                {% endif %}
             </form>
         </div>
     </div>
