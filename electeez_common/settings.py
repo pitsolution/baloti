@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'ryzom_django_mdc',
     'social_django',
     'baloti_auth',
+    'baloti_djelectionguard'
 ]
 
 AUTH_USER_MODEL = 'electeez_auth.User'

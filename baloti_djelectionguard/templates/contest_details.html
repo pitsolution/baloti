@@ -10,7 +10,7 @@
         {% for u in contests %}
 
             <button class="btn btn-primary mb-2">
-                <a href={% url 'baloti:VoteChoices' id=u.id %}>VOTE NOW</a><br>
+                <a href={% url 'baloti_djelectionguard:VoteChoices' id=u.id %}>VOTE NOW</a><br>
             </button>
             
         {% endfor %}
