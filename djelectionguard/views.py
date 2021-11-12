@@ -245,14 +245,14 @@ class EmailForm(forms.ModelForm):
 class EmailBaseView(generic.UpdateView):
     def get_form_kwargs(self):
         msg = _('Hello, '
-        'Election %(obj)s is open for voting, you may use the link belox: '
+        'Referendum %(obj)s is open for voting, you may use the link belox: '
         'LINK '
         'Happy voting!', obj=self.object
         )
 
         kwargs = super().get_form_kwargs()
         kwargs['initial'] = dict(
-            email_title=_('Election %(obj)s is open for voting', obj=self.object),
+            email_title=_('Referendum %(obj)s is open for voting', obj=self.object),
             email_message=msg,
         )
         return kwargs
@@ -402,14 +402,14 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
 
     def get_form_kwargs(self):
         msg = _('Hello, '
-        'Election %(obj)s has been tallied, you may use this link below to check the results: '
+        'Referendum %(obj)s has been tallied, you may use this link below to check the results: '
         'LINK '
         'Thank you for voting on %(obj)s', obj=self.object
         )
 
         kwargs = super().get_form_kwargs()
         kwargs['initial'] = dict(
-            email_title= _('Election %(obj)s is has been tallied', obj=self.object),
+            email_title= _('Referendum %(obj)s is has been tallied', obj=self.object),
             email_message=msg
         )
         return kwargs
