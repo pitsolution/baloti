@@ -38,3 +38,5 @@ ryzom>=0.6.10rc0
 sentry-sdk
 
 social-auth-app-django==3.1.0
+django-ckeditor==6.0.0
+

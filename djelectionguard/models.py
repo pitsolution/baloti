@@ -28,6 +28,7 @@ from django.conf import settings
 
 from electeez_auth.models import User
 from electeez_sites.models import Site
+from ckeditor.fields import RichTextField
 
 def above_0(value):
     if value <= 0:
@@ -35,6 +36,39 @@ def above_0(value):
             _('Must be above 0, you have choosen:') + f'{value}'
         )
 
+class ParentContest(models.Model):
+
+    STATUS = (
+        ('draft', 'DRAFT'),
+        ('open', 'OPEN'),
+        ('closed', 'CLOSED')
+    )
+
+    uid = models.UUIDField(
+        primary_key=True,
+        editable=False,
+        default=uuid.uuid4
+    )
+    name = models.CharField(max_length=255)
+    start = models.DateTimeField()
+    end = models.DateTimeField()
+    actual_start = models.DateTimeField(null=True, blank=True, db_index=True)
+    actual_end = models.DateTimeField(null=True, blank=True)
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS,
+        default='draft',
+        null=True
+    )
+
+    def __str__(self):
+        return self.name
+
+class Recommender(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
 
 class Contest(models.Model):
     id = models.UUIDField(
@@ -85,6 +119,26 @@ class Contest(models.Model):
 
     artifacts_sha1 = models.CharField(max_length=255, null=True, blank=True)
     artifacts_ipfs = models.CharField(max_length=255, null=True, blank=True)
+
+    parent = models.ForeignKey(
+        ParentContest,
+        related_name='parent',
+        on_delete=models.CASCADE,
+        null=True
+    )
+    initiator = models.ForeignKey(
+        Recommender,
+        on_delete=models.CASCADE,
+        null=True
+    )
+    infavour_arguments = RichTextField(
+        config_name="awesome_ckeditor",
+        null=True
+    )
+    against_arguments = RichTextField(
+        config_name="awesome_ckeditor",
+        null=True
+    )
 
     class PublishStates(IntEnum):
         ELECTION_NOT_DECENTRALIZED = 0,
@@ -693,3 +747,29 @@ class Voter(models.Model):
     ballot_sha1 = models.CharField(max_length=255, null=True, blank=True)
     open_email_sent = models.DateTimeField(null=True, blank=True)
     close_email_sent = models.DateTimeField(null=True, blank=True)
+
+
+
+
+class ContestRecommender(models.Model):
+
+    RECOMMENDER_TYPE = (
+        ('infavour', 'IN FAVOUR'),
+        ('against', 'AGAINST'),
+    )
+
+    contest = models.ForeignKey(
+        Contest,
+        on_delete=models.CASCADE,
+        null=True
+    )
+    recommender = models.ForeignKey(
+        Recommender,
+        on_delete=models.CASCADE,
+        null=True
+    )
+    recommender_type = models.CharField(
+        max_length=20,
+        choices=RECOMMENDER_TYPE,
+        null=True
+    )

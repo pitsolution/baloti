@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'ryzom_django',
     'ryzom_django_mdc',
     'social_django',
+    'ckeditor',
     'baloti_auth',
     'baloti_djelectionguard'
 ]
@@ -343,3 +344,7 @@ AUTHENTICATION_BACKENDS = [
 
 SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY')
 SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET')
+
+TEMPLATE_LOADERS = (
+    'django.template.loaders.app_directories.load_template_source',
+)

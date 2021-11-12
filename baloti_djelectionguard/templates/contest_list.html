@@ -8,25 +8,25 @@
     </div>
     <ul>
         {% for u in contests %}
-            <li>{{u.name}}</li>
-            {% if user.is_anonymous %}
+            <li>{{u.name}}
+                <ul>Date: {{u.start_date}}</ul>
+                <ul>Issues: {{u.child_count}}</ul>
+                {% for c in u.child_contests %}
+                    <ul>{{forloop.counter}} - {{c.name}}</ul>
+                {% endfor %}
+            </li>
+            {% if u.action == 'vote_now' %}
                 <button class="btn btn-primary mb-2">
                     <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %}>VOTE NOW</a><br>
                 </button>
+            {% elif u.action == 'view_detail' %}
+                <button class="btn btn-primary mb-2">
+                    <a href="/en/baloti/contest/list/">VIEW DETAILS</a>
+                </button>
             {% else %}
-                {% if u.action == 'vote_now' %}
-                    <button class="btn btn-primary mb-2">
-                        <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %}>VOTE NOW</a><br>
-                    </button>
-                {% elif u.action == 'view_detail' %}
-                    <button class="btn btn-primary mb-2">
-                        <a href="/en/baloti/contest/list/">VIEW DETAILS</a>
-                    </button>
-                {% else %}
-                    <button class="btn btn-primary mb-2">
-                        <a href="/en/baloti/contest/list/">VIEW RESULT</a>
-                    </button>
-                {% endif %}
+                <button class="btn btn-primary mb-2">
+                    <a href="/en/baloti/contest/list/">VIEW RESULT</a>
+                </button>
             {% endif %}
         {% endfor %}
     </ul>

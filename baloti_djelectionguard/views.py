@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from djelectionguard.models import Contest, Candidate
+from djelectionguard.models import Contest, Candidate, ParentContest
 from django.db.models import ObjectDoesNotExist, Q
 from django.http import *
 from django.views.generic import TemplateView
@@ -27,23 +27,37 @@ class BalotiContestListView(TemplateView):
         Returns:
             html : returns contest_list.html html file
         """
-        contests = Contest.objects.exclude(actual_start=None
-                    ).distinct('id')
         contest_list = []
-        if not request.user.is_anonymous:
-            for con in contests:
-                if con.actual_end:
-                    action = 'view_result'
-                else:
-                    voter = con.voter_set.filter(user=request.user).first()
-                    if voter and voter.casted:
-                        action = 'view_detail'
-                    else:
-                        action = 'vote_now'
-                contest_list.append({'name': con.name, 'id': con.id, 'action': action})
+        action = ''
+        parentcontest = ParentContest.objects.filter()
+        for parent_id in parentcontest:
+            data = {}
+            contests = Contest.objects.filter(parent=parent_id)
 
-            return render(request, 'contest_list.html',{'title':'Contests',"contests":contest_list})
-        return render(request, 'contest_list.html',{'title':'Contests',"contests":contests})
+            data = {
+                    'name': parent_id.name,
+                    'id': parent_id.uid,
+                    'start_date': parent_id.start,
+                    'child_count': len(contests),
+                    'child_contests': contests
+                    }
+            if parent_id.actual_end:
+                action = 'view_result'
+            elif not parent_id.actual_start:
+                action = 'view_detail'
+            else:
+                if not request.user.is_anonymous:
+                    for contest_id in contests:
+                        voter = contest_id.voter_set.filter(user=request.user)
+                        if voter and voter.first().casted and action != 'vote_now':
+                            action = 'view_detail'
+                        else:
+                            action = 'vote_now'
+                else:
+                    action = 'vote_now'
+                data['action'] = action
+            contest_list.append(data)
+        return render(request, 'contest_list.html',{'title':'Contests',"contests":contest_list})
     
 
 class BalotiContestDetailView(TemplateView):
@@ -60,9 +74,11 @@ class BalotiContestDetailView(TemplateView):
         Returns:
             html : returns contest_details.html html file
         """
-        contest = Contest.objects.filter(id=id
-                    )
-        return render(request, 'contest_details.html',{"contests":contest})
+        contest = ParentContest.objects.filter(uid=id)
+        child_contests = Contest.objects.filter(
+                parent=contest.first()
+                ).distinct('id')
+        return render(request, 'contest_details.html',{"contest": contest, "child_contests": child_contests})
 
 
 class BalotiContestChoicesView(TemplateView):
