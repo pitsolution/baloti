@@ -105,6 +105,8 @@ class ContestCreateView(generic.CreateView):
         form.instance.mediator = self.request.user
         response = super().form_valid(form)
         form.instance.guardian_set.create(user=self.request.user)
+        for option in ['Yes', 'No', 'Abstain']:
+            form.instance.candidate_set.create(name=option)
         messages.success(
             self.request,
             _('You have created contest %(obj)s', obj=form.instance)
