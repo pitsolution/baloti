@@ -4,6 +4,15 @@ from djelectionguard.models import Contest, Voter
 register = template.Library()
 
 @register.simple_tag
+def displayVoteNow(contest, user):
+    contest = Contest.objects.filter(id=contest.id).first()
+    if not user.is_anonymous:
+        voter = contest.voter_set.filter(user=user).first()
+        if voter and voter.casted:
+            return False
+    return True
+
+@register.simple_tag
 def getContestIssues(contest):
     child_contests = Contest.objects.filter(
                 parent=contest.first()

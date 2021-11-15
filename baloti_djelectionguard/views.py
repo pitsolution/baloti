@@ -41,9 +41,9 @@ class BalotiContestListView(TemplateView):
                     'child_count': len(contests),
                     'child_contests': contests
                     }
-            if parent_id.actual_end:
+            if parent_id.status == 'closed':
                 action = 'view_result'
-            elif not parent_id.actual_start:
+            elif parent_id.status == 'draft':
                 action = 'view_detail'
             else:
                 if not request.user.is_anonymous:
@@ -55,7 +55,7 @@ class BalotiContestListView(TemplateView):
                             action = 'vote_now'
                 else:
                     action = 'vote_now'
-                data['action'] = action
+            data['action'] = action
             contest_list.append(data)
         return render(request, 'contest_list.html',{'title':'Contests',"contests":contest_list})
     
@@ -79,6 +79,27 @@ class BalotiContestDetailView(TemplateView):
                 parent=contest.first()
                 ).distinct('id')
         return render(request, 'contest_details.html',{"contest": contest, "child_contests": child_contests})
+
+
+class BalotiContestResultView(TemplateView):
+    """
+    Contest Result View
+    """
+
+    def get(self, request, id):
+        """
+        Args:
+            request (Request): Http request object
+            id: Contest UID
+
+        Returns:
+            html : returns contest_results.html html file
+        """
+        contest = ParentContest.objects.filter(uid=id)
+        child_contests = Contest.objects.filter(
+                parent=contest.first()
+                ).distinct('id')
+        return render(request, 'contest_results.html',{"contest": contest, "child_contests": child_contests})
 
 
 class BalotiContestChoicesView(TemplateView):
