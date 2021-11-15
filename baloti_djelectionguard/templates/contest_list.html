@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} Elections {% endblock %}
+{% block title %} Elections  & Vote{% endblock %}
 {% block content %}
 
 <div class="row">
@@ -7,8 +7,9 @@
 
     </div>
     <ul>
+        <h2><b>Elections & Vote</b></h2>
         {% for u in contests %}
-            <li>{{u.name}}
+            <li><h6 style="color: red;">{{u.name}}</h6>
                 <ul>Date: {{u.start_date}}</ul>
                 <ul>Issues: {{u.child_count}}</ul>
                 {% for c in u.child_contests %}
@@ -21,11 +22,12 @@
                 </button>
             {% elif u.action == 'view_detail' %}
                 <button class="btn btn-primary mb-2">
-                    <a href="/en/baloti/contest/list/">VIEW DETAILS</a>
+                    <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %}>VIEW DETAILS</a><br>
                 </button>
-            {% else %}
+            {% elif u.action == 'view_result' %}
                 <button class="btn btn-primary mb-2">
-                    <a href="/en/baloti/contest/list/">VIEW RESULT</a>
+                    <a href={% url 'baloti_djelectionguard:viewContestResult' id=u.id %}>VIEW RESULT</a><br>
+                    <a href="/en/baloti/contest/list/"></a>
                 </button>
             {% endif %}
         {% endfor %}

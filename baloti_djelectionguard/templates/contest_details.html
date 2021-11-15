@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} Elections {% endblock %}
+{% block title %}  {% endblock %}
 {% block content %}
 
 <div class="row">
@@ -8,10 +8,15 @@
     </div>
     <ul>{{contest.name}}
         {% for u in child_contests %}
-            <b>{{u.name}}</b>
-                <button class="btn btn-primary mb-2">
-                    <a href={% url 'baloti_djelectionguard:VoteChoices' id=u.id %}>VOTE NOW</a><br>
-                </button>
+            <h2><b>{{u.name}}</b></h2>
+                {% load contest_summary %}
+                {% displayVoteNow u user as result %}
+                {% if result %}
+                    <button class="btn btn-primary mb-2">
+                        <a href={% url 'baloti_djelectionguard:VoteChoices' id=u.id %}>VOTE NOW</a><br>
+                    </button>
+                {% endif %}
+
                 <br/>
             <b>DESCRIPTION</b>
             <ul><b>Type:</b> {{u.type}} <b>Initiator:</b> {{u.initiator.name}}</ul>

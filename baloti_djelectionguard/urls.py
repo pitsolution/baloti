@@ -8,4 +8,6 @@ urlpatterns = [
     path('contest/vote/choices/<str:id>', BalotiContestChoicesView.as_view(), name='VoteChoices'),
     path('choice/submit', BalotiContestChoicesView.as_view(), name='ChoiceSubmit'),
     path('vote/<str:id>', VoteView.as_view(), name='casteVote'),
+    path('contest/detail/<str:id>', BalotiContestDetailView.as_view(), name='viewContestDetails'),
+    path('contest/result/<str:id>', BalotiContestResultView.as_view(), name='viewContestResult'),
 ]

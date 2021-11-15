@@ -7,14 +7,21 @@
             <form id="login-form" method="post" 
                   action="{% url 'baloti:login' %}">
                 {% csrf_token %}
+
+                <b><h2>Login required!</h2></b>
+                Please login to your account to continue your voting
+                <br/>
+                <br/>
                 
                 <button class="btn btn-primary mb-2">
                     {% if choice %}
-                        <a href="{% url 'social:begin' 'facebook' %}?next=/baloti/vote/{{choice}}">Login with Facebook</a>
+                        <a href="{% url 'social:begin' 'facebook' %}?next=/baloti/vote/{{choice}}">Continue with Facebook</a>
                     {% else %}
-                        <a href="{% url 'social:begin' 'facebook' %}?next=/en/baloti/contest/list/">Login with Facebook</a>
+                        <a href="{% url 'social:begin' 'facebook' %}?next=/en/baloti/contest/list/">Continue with Facebook</a>
                     {% endif %}
                 </button>
+                <br/>
+                <br/>
                 <table class="table">
                     <tr>
                         <td><label for="id_username">Username</label></td>
@@ -34,8 +41,10 @@
                     </p>
                 {% endif %}
 
+                <br/>
+                <br/>
 
-                <input type="submit" value="Login" 
+                <input type="submit" value="CONTINUE"
                        class="btn btn-primary pull-right" />
                 <input type="hidden" name="choice" value={{choice}} />
 
@@ -44,6 +53,9 @@
                 {% else %}
                     <input type="hidden" name="next" value="/en/baloti/contest/list/" />
                 {% endif %}
+                <br/>
+                <br/>
+                Not registered yet? Create an account now!
             </form>
         </div>
     </div>

@@ -7,6 +7,7 @@
 
             <form action={% url 'baloti_djelectionguard:ChoiceSubmit' %} method="post" id="choice-select">
                 {% csrf_token %}
+                <b><h2>Make your choice</h2></b>
                 <select id="id_choice" name="choice">
                     <option disabled selected> -- select an option -- </option>
                     {% for i in candidates %}
