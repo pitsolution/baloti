@@ -1,0 +1,15 @@
+
+$_label-secondary: #171742;
+.label{
+    font-size: 20px;
+    background: $_label-secondary;
+    color: $app-white;
+    padding: 0 15px;
+    line-height: 35px;
+    border-radius: 13px;
+    text-transform: uppercase;
+    font-family: Poppins-Medium;
+    &-primary{
+        background: $app-primary;
+    }
+}

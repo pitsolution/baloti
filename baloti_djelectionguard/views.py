@@ -6,6 +6,8 @@ from django.views.generic import TemplateView
 from djlang.utils import gettext as _
 from electeez_common.components import *
 import hashlib
+from django.views.decorators.csrf import csrf_exempt,csrf_protect
+from electeez_auth.models import User
 
 class BalotiIndexView(TemplateView):
     """
@@ -13,6 +15,17 @@ class BalotiIndexView(TemplateView):
     """
     template_name = "index.html"
 
+class BalotiDisclaimerView(TemplateView):
+    """
+    Disclaimer View
+    """
+    template_name = "disclaimer.html"
+
+class BalotiAboutUsView(TemplateView):
+    """
+    AboutUs View
+    """
+    template_name = "about-us.html"
 
 class BalotiContestListView(TemplateView):
     """
@@ -33,11 +46,13 @@ class BalotiContestListView(TemplateView):
         for parent_id in parentcontest:
             data = {}
             contests = Contest.objects.filter(parent=parent_id)
-
             data = {
                     'name': parent_id.name,
                     'id': parent_id.uid,
-                    'start_date': parent_id.start,
+                    'date': parent_id.start.date(),
+                    'month': parent_id.start.strftime('%B'),
+                    'year': parent_id.start.strftime('%Y'),
+                    'status': parent_id.status,
                     'child_count': len(contests),
                     'child_contests': contests
                     }
@@ -116,8 +131,14 @@ class BalotiContestChoicesView(TemplateView):
         Returns:
             html : returns contest_vote_choices.html html file
         """
+        contest = Contest.objects.get(pk=id)
         candidates = Candidate.objects.filter(contest=id)
-        return render(request, 'contest_vote_choices.html',{"candidates":candidates})
+        # return render(request, 'contest_vote_choices.html',{"candidates":candidates})
+        if request.user.is_anonymous:
+            return render(request, 'choice-no-login.html',{"contest": contest, "candidates":candidates})
+        else:
+            return render(request, 'choice.html',{"contest": contest, "candidates":candidates})
+
 
     def post(self, request):
         """
@@ -158,13 +179,20 @@ class VoteView(TemplateView):
         Returns:
             html : returns contest_details.html html file
         """
+        user = request.user
+        if request.user.is_anonymous:
+            username = request.POST.get('username')
+            try:
+                user = User.objects.get(email=username)
+            except User.DoesNotExist:
+                return None
 
         candidate = Candidate.objects.filter(id=id)
         contest = Contest.objects.get(id=candidate.first().contest.id)
-        voter = contest.voter_set.filter(user=request.user)
+        voter = contest.voter_set.filter(user=user)
         if voter and voter.first().casted:
             voter = voter.first()
-            return render(request, 'vote_success.html',{'user':request.user, 'title':'Already voted.'})
+            return render(request, 'vote_success.html',{'user':user, 'title':'Already voted.'})
         else:
             ballot = contest.get_ballot(*[
                     selection.pk
@@ -181,7 +209,7 @@ class VoteView(TemplateView):
             ).hexdigest()
 
             contest.voter_set.update_or_create(
-                user=request.user,
+                user=user,
                 defaults=dict(
                     casted=True,
                     ballot_id=encrypted_ballot.object_id,
@@ -193,5 +221,20 @@ class VoteView(TemplateView):
                     request,
                     _('You casted your ballot for %(obj)s', obj=contest)
                 )
-            uid = contest.voter_set.get(user=request.user).id
-            return render(request, 'vote_success.html',{'user':request.user, 'title':'Your vote has been Validated'})
+
+
+class BalotiAnonymousVoteView(TemplateView):
+    """
+    Contest Anonymous Vote
+    """
+
+    def post(self, request):
+        """
+        Args:
+            request (Request): Http request object
+
+        Returns:
+            html : returns login.html html file
+        """
+        choice = request.POST.get('choice')
+        return VoteView().casteVote(request, choice)

@@ -1,0 +1,17 @@
+.app{
+    &-choice{
+        padding: 130px 0;
+        .app{
+            &-card{
+                margin-top: 20px;
+                margin-bottom: 0;
+                &__btngroup{
+                    margin-top: 100px;
+                }
+                &__body{
+                    padding-top: 47px;
+                }
+            }
+        }
+    }
+}

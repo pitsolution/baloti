@@ -19,6 +19,7 @@ STATIC_ROOT = BASE_DIR / 'public'
 STATICFILES_DIRS = [
     BASE_DIR / 'electis' / 'static',
     BASE_DIR / 'static',
+    BASE_DIR / 'baloti_djelectionguard' / 'static',
 ]
 
 STATIC_HOME_PAGE = 'landing/index.html'

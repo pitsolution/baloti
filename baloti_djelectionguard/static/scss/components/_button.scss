@@ -1,0 +1,155 @@
+@import '../abstracts/variables';
+@import '../abstracts/mixins';
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the button component.
+// -----------------------------------------------------------------------------
+.btn{
+    font-size: $app-p - 2;
+    color: $app-black;
+    border: 1px solid $app-black;
+    padding: 5.5px 15.5px;
+    border-radius: 0;
+    min-height: 34px;
+    line-height: 20px;
+    font-weight: 500;
+    font-family: Poppins-Medium;
+    position: relative;
+    transition: all $app-global-duration $app-cubic-bez;
+    @include mq(tablet, max){
+        font-size: $app-sm-text;
+    }
+    &:focus{
+        box-shadow: unset;
+        outline: none;
+    }
+    &-sm{
+        height: 30px;
+        font-size: $app-sm-text; 
+        padding: 3px 15px;
+        line-height: 10px;
+    }
+    
+    &-md{
+        font-size: $app-h5;
+        padding: 9px 20.18px;
+        min-height: 54px;
+        &--small{
+            height: 42px;
+            font-size: $app-h6; 
+            padding-left: 35px;
+            padding-right: 35px;
+        }
+        .app{
+            &-icon{
+                font-size: $app-p - 4;
+                margin-left: 16.2px;
+            }
+        }
+    }
+    &-block{
+        display: block;
+        width: 100%;
+    }
+    &-flex{
+        display: flex;
+        align-items: center;
+        &--between{
+            justify-content: space-between;
+        }
+    }
+    &-primary{
+        background-color: $app-primary;
+        border-color: $app-primary;
+        color: $app-white;
+        &:hover, &:focus{
+            background-color: darken($app-primary, 10%); 
+            border-color: $app-primary;
+        }
+        &--outlined{
+            background-color: transparent;
+            color: $app-primary;
+        }
+    }
+    &-secondary{
+        background-color: $app-secondary;
+    }
+    &-danger{
+        background-color: $app-red;
+    }
+    &-default{
+        color: $app-black;
+        border-color:$app-border-color-light;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .icon{
+            &-left{
+                margin-right: 10px;
+            }
+            &-right{
+                margin-left: 10px;
+            }
+            &-arrow{
+                transform: rotate(90deg);
+            }
+        }
+        .app{
+            &-icon{
+                display: inline-block;
+                font-size: 12px;
+            }
+        }
+    }
+    &-back{
+        font-size: $app-sm-text !important;
+        .app-icon{
+            margin: -1px 10px 0 0 !important;
+            transform: rotate(180deg);
+        }
+    }
+    
+    &.disabled{
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+    &-link{
+        color: $app-black;
+        font-weight: 500;
+        padding: 0;
+        text-decoration: none !important;
+        border: 0;
+        min-height: inherit;
+        font-size: $app-h6;
+        &:hover{
+            text-decoration: none !important;
+            color: $app-primary-font;
+        }
+        .app{
+            &-icon{
+                font-size: $app-p - 6;
+                margin-left: 26.5px;
+                display: inline-flex;
+            }
+        }
+        &--primary{
+            color: $app-primary;
+        }
+    }
+    &-group{
+        margin: 30px 0;
+        border: 1px solid $app-dark-grey;
+        border-radius: 4px;
+        .btn{
+            border-right: 1px solid $app-dark-grey;
+            &:last-child{
+                border-right: 0;
+            }
+        }
+      .btn + .btn, .btn + .btn-group, .btn-group + .btn, .btn-group + .btn-group{
+            margin-left: 0 !important;
+        }
+    }
+    &-regular{
+        font-family: Poppins-Regular;
+    }
+}

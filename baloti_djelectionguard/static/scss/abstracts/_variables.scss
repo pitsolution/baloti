@@ -1,0 +1,74 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+
+
+//primary colors
+$app-primary:#CE2323; //main color
+$app-secondary: #F8F8F8; //secondary color
+$app-danger: $app-primary;
+$app-lightgrey: #F6F6F6;
+$app-grey:#404040;
+$app-dark-grey: #636363;
+$app-default-font: #000000;
+$app-bg: $app-secondary;
+
+//colors
+$app-white: #ffffff;
+$app-black: $app-default-font;
+$app-red: $app-danger;
+$app-border-color:#B5B5B5;
+$app-border-color-light: #E1DDD9;
+$app-border-color-dark: #E9E9E9;
+$app-border-color-card: #C7C7C7;
+$app-success: #459850;
+$app-warning: #c5970d;
+$app-primary-font: $app-primary;
+$app-secondary-font: #3D3D3D;
+$app-light-font: #A4A4A4;
+$app-facebook: #2257AC;
+$app-forminput-light: #757575;
+
+//genaral font sizes
+$app-h1: 70px;
+$app-h2: 58px;
+$app-h3: 48px;
+$app-h4: 34px;
+$app-h5: 26px;
+$app-h6: 20px;
+$app-p: 18px;
+$app-sm-text: $app-p - 2;
+
+//transistion durations
+$transition-duration: 0.15s;
+$app-global-duration: 0.22s;
+
+//Cubic Beziers
+$app-cubic-bez: cubic-bezier(0.4, 0.0, 0.2, 1);
+
+
+// Padding Styles
+$padd-5 : 5px;
+$padd-10 : 10px;
+$padd-percentage-5: 5%;
+$padd-percentage-10: 10%;
+
+//Margin Styles
+$marg-5: 5px;
+$marg-10: 10px;
+$marg-percentage-5: 5%;
+$marg-percentage-10: 10%;
+
+//Width Styles
+$width-5: 5px;
+$width-10: 10px;
+$width-percentage-5: 5%;
+$width-percentage-10: 10%;
+
+//Height Styles
+$height-5: 5px;
+$height-10: 10px;
+$height-percentage-5: 5%;
+$height-percentage-10: 10%;
+
+

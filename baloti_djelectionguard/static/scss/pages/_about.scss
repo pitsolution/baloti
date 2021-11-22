@@ -1,0 +1,58 @@
+.app{
+    &-aboutus{
+        padding-bottom: 15px;
+        border-bottom: 1px solid $app-border-color;
+        &__banner{
+            position: relative;
+            padding-bottom: 90px;
+            padding-top: 260px;
+            &::before{
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: $app-bg;
+                z-index: -1;
+            }
+        }
+        &__bannercontent{
+            padding-bottom: 160px;
+        }
+        &__img{
+            position: absolute;
+            top: 120px;
+            right: 73.85px;
+            width: 40%;
+            padding-right: 0;
+        }
+        &__voting{
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-column-gap: 150px;
+            padding-top: 84px;
+        }
+        &__col{
+            &.left{
+                margin-top: -255px;
+                padding: 50px 60px;
+                background-color: $app-white;
+                border-top-right-radius: 180px;
+            }
+        }
+        &__heading{
+            margin-bottom: 52px;
+        }
+        &__links{
+            p{
+                margin-bottom: 6px;
+                line-height: 28px;
+            }
+            a{
+                margin-bottom: 35px;
+                display: inline-block;
+            }
+        }
+    }
+}

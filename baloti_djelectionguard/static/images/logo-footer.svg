@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="122.075" height="32.778" viewBox="0 0 122.075 32.778">
+  <g id="Group_13581" data-name="Group 13581" transform="translate(-296.769 -614.001)">
+    <text id="baloti" transform="translate(343.844 638.001)" fill="#d4d4d4" font-size="25" font-family="Montserrat-Bold, Montserrat" font-weight="700"><tspan x="0" y="0">baloti</tspan></text>
+    <g id="Group_13578" data-name="Group 13578" transform="translate(296.769 618.643)">
+      <g id="Group_13577" data-name="Group 13577" transform="translate(0)">
+        <path id="Path_20051" data-name="Path 20051" d="M311.5,669.841V659.615H300.8a4.046,4.046,0,0,0-4.034,4.034v10.776a4.045,4.045,0,0,0,4.034,4.033h.3v4.711l6.83-4.711h12.014a4.045,4.045,0,0,0,4.033-4.033v-.55h-8.444A4.045,4.045,0,0,1,311.5,669.841Z" transform="translate(-296.769 -655.032)" fill="#d4d4d4"/>
+        <path id="Path_20052" data-name="Path 20052" d="M377.943,643H358.8a4.045,4.045,0,0,0-4.034,4.034v.55h8.444a4.045,4.045,0,0,1,4.033,4.034v10.226h3.571l6.831,4.711v-4.711h.3a4.045,4.045,0,0,0,4.034-4.034V647.034A4.045,4.045,0,0,0,377.943,643Z" transform="translate(-340.039 -643)" fill="#d4d4d4"/>
+      </g>
+      <path id="Path_20053" data-name="Path 20053" d="M372.3,676.439a.832.832,0,0,0-1.175-.013l-3.254,3.183-1.234-1.158a.831.831,0,0,0-1.136,1.214l1.814,1.7a.829.829,0,0,0,1.149-.014l3.823-3.74a.831.831,0,0,0,.012-1.175Z" transform="translate(-347.618 -667.034)" fill="#d4d4d4"/>
+    </g>
+  </g>
+</svg>

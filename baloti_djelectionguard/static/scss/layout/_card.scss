@@ -1,0 +1,202 @@
+.app{
+    &-card{
+        background-color: $app-white;
+        padding: 19.77px 30.5px 24.77px;
+        margin-bottom: 20px;
+        &--flex{
+            display: flex;
+            flex-direction: column;
+            .app{
+                &-card{
+                    &__footer{
+                        margin-top: auto;
+                    }
+                }
+            }
+        }
+        p{
+            &:last-child{
+                margin-bottom: 0;
+            }
+        }
+        &__title{
+            line-height: 51px;
+            margin-bottom: 12.5px;
+            color: $app-primary;
+            &.sm{
+                font-size: $app-h5 + 2;
+                line-height: 42px;
+            }
+            &.dark{
+                color: $app-black;
+            }
+        }
+        &__monthyear{
+            font-size: $app-h4 - 4;
+            line-height: 46px;
+            margin-bottom: 32.73px;
+        }
+        &__date{
+            font-size: $app-h6;
+            line-height: 30px;
+            margin-bottom: 32.5px;
+            font-family: Poppins-Medium;
+        }
+        &__footer{
+            border-top: 1px solid $app-border-color;
+            padding-top: 31px;
+        }
+        &--features{
+            padding: 0;
+            margin: 0;
+            img{
+                margin-bottom: 13px;
+            }
+        }
+
+        &--dictionary{
+            padding: 0;
+            margin: 0;
+            background-color: transparent;
+            display: flex;
+            flex-direction: column;
+            .app{
+                &-card{
+                    &__content{
+                        margin: -65px 10px 0;
+                        background: $app-white;
+                        padding: 24px 30px 27px;
+                        position: relative;
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        .d-flex{
+                            margin-top: auto;
+                        }
+                    }
+                    &__title{
+                        margin-bottom: 8.82px;
+                    }
+                   
+                    &__date{
+                        font-size: $app-p;
+                        color: $app-secondary-font;
+                        margin: 0;
+                        line-height: 18px;
+                    }
+                }
+                &-txt{
+                    font-size: $app-p;
+                    margin-bottom: 22px;
+                }
+            }
+            .btn-link{
+                font-size: $app-p;
+                color: $app-secondary-font;
+            }
+        }
+        &-group{
+            margin-bottom: 30px;
+            .app{
+                &-card{
+                    &:last-child{
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+        &--nopad{
+            padding: 0;
+        }
+        &__header{
+            padding: 26px 32px 21px;
+            position: relative;
+            &-title{
+                font-size: $app-h4 - 4;
+                line-height: 43px;
+            }
+            &.border-btm{
+                border-bottom: 1px solid $app-border-color;
+                &-dotted{
+                    overflow: hidden;
+                    &::after{
+                        content: "";
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 2px;
+                        border-bottom: 2px dashed $app-border-color-dark;
+                    }
+                }
+               
+            }
+        }
+        &__body{
+            padding: 23px 32px 27px;
+        }
+        &--bordered{
+            border: 1px solid $app-border-color-card;
+            border-radius: 10px;
+            .app{
+                &-card{
+                    &__body{
+                        max-height: 600px;
+                        overflow: auto;
+                    }
+                }
+            }
+        }
+        &--sm{
+            .app{
+                &-card{
+                    &__header{
+                        padding-top: 13px;
+                        padding-bottom: 13px;
+                        display: flex;
+                        align-items: center;
+                        p{
+                            font-size: $app-h6;
+                        }
+                    }
+                    &__body{
+                        padding-top: 15px;
+                        padding-bottom: 15px;
+                    }
+                }
+            }
+        }
+        &--no-radius{
+            border-right: 0;
+        }
+    }
+    @media only screen and (min-width: 1024px) and (max-width: 1400px) {
+        &-card{
+            padding: 15px 15.5px 15px;
+            &__title{
+                line-height: 35px;
+                margin-bottom: 12.5px;
+                font-size: $app-h5 - 2;
+            }
+            &__monthyear{
+                font-size: $app-h6 + 2;
+                line-height: 26px;
+                margin-bottom: 18.73px;
+            }
+            &__date{
+                font-size: $app-sm-text;
+                line-height: 22px;
+                margin-bottom: 24.5px;
+            }
+            &__footer{
+                padding-top: 15px;
+            }
+            .btn-link{
+                font-size: $app-sm-text;
+            }
+            &--features, &--dictionary{
+                padding: 0;
+            }
+        }
+    }
+}

@@ -1,0 +1,184 @@
+//  base import
+@import '../abstracts/variables';
+@import '../abstracts/mixins';
+@import 'fonts';
+/**
+ * Basic typography style for copy text
+ */
+body, html{
+  line-height: 28px;
+  color: $app-default-font;
+  font-family: Poppins-Regular;
+  font-size: $app-p;
+}
+img{
+  max-width: 100%;
+}
+.app{
+  &-h1{
+    font-size: $app-h1;
+  }
+  &-h2{
+    font-size: $app-h2;
+  }
+  &-h3{
+    font-size: $app-h3;
+  }
+  &-h4{
+    font-size: $app-h4;
+  }
+  &-h5{
+    font-size: $app-h5;
+  }
+  &-h6{
+    font-size: $app-h6;
+  }
+  &-p, &-txt{
+    font-size: $app-p - 2;
+    color: $app-secondary-font;
+    line-height: 28px;
+    margin-bottom: 17.23px;
+    &--md{
+      font-size: $app-p;
+    }
+  }
+  &-sm{
+    &-text{
+      font-size: $app-sm-text;
+    }
+  }
+  &-xs{
+    &-text{
+      font-size: $app-sm-text - 2;
+    }
+  }
+  &-bg{
+    background: $app-bg;
+  }
+
+  &-text{
+    &--danger{
+      color: $app-danger;
+    }
+    &--black{
+      color: $app-black;
+    }
+  }
+  &-link{
+    color: $app-primary;
+    font-size: $app-sm-text;
+    line-height: 23px;
+  }
+
+  &-subtitle{
+    font-size: $app-h5 - 2;
+    line-height: 35px;
+    letter-spacing: 2.4px;
+    font-family: Poppins-Medium;
+    margin-bottom: 18.27px;
+  }
+  &-title{
+    line-height: 72px;
+    margin-bottom: 23.5px;
+    &--sm{
+      font-size: $app-h3 - 4;
+      margin-bottom: 18.27px;
+    }
+    &--xs{
+      font-size: $app-h5 + 2;
+      margin-bottom: 23px;
+      line-height: 35px;
+    }
+    &--xsm{
+      font-size: $app-h5 - 2;
+      margin-bottom: 7.5px;
+      line-height: 35px;
+    }
+  }
+
+
+  @media only screen and (max-width: 991px){
+     &-h1{
+      font-size: $app-h1 / 2;
+     }
+     &-h2{
+      font-size: $app-h2 / 2;
+     }
+  }
+  @media only screen and (min-width: 1024px) and (max-width: 1400px) {
+    &-subtitle{
+      font-size: $app-h6;
+      line-height: 35px;
+    }
+    &-title{
+      line-height: 50px;
+      font-size: $app-h3 - 10;
+    }
+  }
+}
+
+
+
+
+.text{
+  &-lightgrey{
+    color: $app-lightgrey !important;
+  }
+  &-primary{
+    color: $app-primary-font !important;
+  }
+  &-secondary{
+    color: $app-secondary-font !important;
+  }
+  &-red{
+    color: $app-red !important;
+  }
+  &-black{
+    color: $app-black !important;
+  }
+  &-success{
+    color: $app-success !important;
+  }
+  &-bold{
+    font-family: Poppins-SemiBold;
+  }
+  &-regular{
+    font-family: Poppins-Regular;
+  }
+  &-light{
+    font-family: Poppins-Light;
+  }
+  &-dark{
+    color: $app-black !important;
+  }
+  &-medium{
+    font-family: Poppins-Medium;
+  }
+}
+
+.bg{
+  &-primary{
+    background-color: $app-primary !important;
+  }
+}
+
+a{
+  transition: all 0.3s ease-in;
+  text-decoration: none !important;
+  &:focus{
+    text-decoration: none !important;
+  }
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgba($app-secondary-font, 0.5);
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: $app-secondary-font;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: $app-secondary-font;
+}

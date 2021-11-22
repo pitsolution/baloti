@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %} Results {% endblock %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-8 mx-auto social-container my-2 order-md-1">
+
+    </div>
+    <ul>{{contest.name}}
+        {% for u in child_contests %}
+            <b>{{u.name}}</b>
+                <br/>
+            <b>DESCRIPTION</b>
+            <ul><b>Type:</b> {{u.type}} <b>Initiator:</b> {{u.initiator.name}}</ul>
+            <br/>
+            <ul>{{u.about}}</ul>
+            <b>ARGUMENTS</b>
+
+            <table>
+                <tr>
+                    <td><b>IN FAVOUR</b></td>
+                    <td><b>AGAINST</b></td>
+                </tr>
+                <tr>
+                    <td>{{u.infavour_arguments}}</td>
+                    <td>{{u.against_arguments}}</td>
+                </tr>
+            </table>
+            
+            <b>RECOMMENDATIONS</b>
+            {% load contest_recommendations %}
+            <table>
+                <tr>
+                    <td><b>IN FAVOUR</b></td>
+                    <td><b>AGAINST</b></td>
+                </tr>
+                <tr>
+                    <td>
+                        {% for i in u|getInfavourRecommenders %}
+                            {{i.recommender.name}}
+                            <br/>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for i in u|getAgainstRecommenders %}
+                            {{i.recommender.name}}
+                            <br/>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
+            <br/>
+
+            {% if not user.is_anonymous %}
+            {% load contest_summary %}
+                <b>Summary</b>
+
+                <ul>Issues to vote:
+                    {% getContestIssues contest %}
+                </ul>
+                <ul>Voted:
+                    {% getContestVoted contest user %}
+                </ul>
+                <ul>Not voted:
+                    {% getContestNotVoted contest user %}
+                </ul>
+            {% endif %}
+
+            <br/>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+
+

@@ -1,0 +1,200 @@
+@import '../abstracts/variables';
+// -----------------------------------------------------------------------------
+// This file contains CSS helper classes.
+// -----------------------------------------------------------------------------
+
+/*------------------------------------*\
+  =FONT WEIGHTS
+\*------------------------------------*/
+
+$fontWeights: (400, 500, 600, 700);
+
+@each $fontWeight in $fontWeights {
+    .fw-#{$fontWeight} {
+        font-weight: $fontWeight !important;
+    }
+}
+
+/*------------------------------------*\
+  =MOUSE CURSORS
+\*------------------------------------*/
+
+.m-pointer {
+  cursor: pointer !important;
+}
+
+/*------------------------------------*\
+  =BORDERS
+\*------------------------------------*/
+
+.border {
+  border: 1px solid $app-border-color;
+}
+
+/*------------------------------------*\
+  =LAYOUTS
+\*------------------------------------*/
+.d-flex {
+  display: flex;
+}
+
+.flex {
+  &-column {
+      flex-direction: column;
+  }
+
+  &-fill {
+      flex: 1 1 auto;
+  }
+
+  &-wrap {
+      flex-wrap: wrap;
+  }
+}
+
+.justify-content {
+  &-end {
+      justify-content: flex-end;
+  }
+
+  &-center {
+      justify-content: center;
+  }
+
+  &-between {
+      justify-content: space-between;
+  }
+}
+
+.align-items {
+  &-end {
+      align-items: flex-end;
+  }
+
+  &-center {
+      align-items: center;
+  }
+
+  &-stretch {
+      align-items: stretch;
+  }
+}
+
+/*------------------------------------*\
+=TEXT TRANSFORMATIONS
+\*------------------------------------*/
+.text-lowercase {
+  text-transform: lowercase;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+.text-undeline {
+  text-decoration: underline !important;
+}
+
+
+/*------------------------------------*\
+=TEXT TRUNCATION
+\*------------------------------------*/
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/*------------------------------------*\
+=abolute positions
+\*------------------------------------*/
+.absolute{
+  &-center{
+    @include absoluteposition(both);
+  }
+}
+
+
+
+.box{
+  &-shadow{
+    box-shadow: 0px 3px 26px #C9C9C929;
+  }
+}
+.app{
+  &-sepeartor{
+    margin: 20.5px 0;
+    height: 23px;
+    position: relative;
+    font-size: $app-sm-text;
+    &::before{
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 0;
+      width: 100%;
+      height: 1px;
+      border-bottom: 1px solid $app-border-color-light;
+    }
+    span{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: $app-white;
+      padding: 0 10px;
+    }
+  }
+  &-body{
+    &-bg{
+      position: relative;
+      &:before{
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: $app-bg;
+        z-index: -1;
+      }
+    }
+  }
+  &-rad-top{
+    &--right{
+      border-top-right-radius: 180px;
+    }
+  }
+  &-circle{
+    background-color: lighten($app-border-color, 20%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 31px;
+    height: 31px;
+    border-radius: 100px;
+    margin-right: 10px;
+    .app-icon{
+      font-size: 12px;
+    }
+  }
+  &-header{
+    &-flex{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 34px;
+      .app{
+        &-title{
+          margin: 0;
+        }
+      }
+    }
+  }
+}

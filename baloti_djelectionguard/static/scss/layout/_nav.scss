@@ -1,0 +1,266 @@
+.app{
+    &-header{
+        padding: 34px 73.85px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1;
+        transition: all 0.5s ease-in-out;
+        &-nav{
+            margin: 0 0 0 auto;
+            .dropdown{
+                &-toggle{
+                    font-size: $app-h6 + 2;
+                    color: $app-black;
+                    font-family: Poppins-SemiBold;
+                    &:after{
+                        content: "\e900";
+                        font-family: 'icomoon' !important;
+                        border: 0;
+                        font-size: $app-p - 9;
+                    }
+                }
+            }
+        }
+        &.fixed{
+            padding-top: 15px;
+            padding-bottom: 15px;
+            background: $app-bg;
+            box-shadow: 0px 0px 11px 0px darken($app-bg, 10%);
+        }
+    }
+    &-loginbtn{
+        margin-left: 36px;
+    }
+    &-loggedin{
+        margin-left: 57.93px;
+        &__dropdown{
+            width: 31.18px;
+            height: 31.18px;
+            .dropdown{
+                &-toggle:after{
+                    display: none;
+                }
+                &-toggle{
+                    .app-icon{
+                        font-size: $app-h4 - 3;
+                    }
+                }
+                
+                &-menu{
+                    right: -10px !important;
+                    left: auto !important;
+                    transform: none !important;
+                    top: calc(100% + 10px) !important;
+                    padding: 0;
+                    &__header{
+                        padding: 18px 23px;
+                        font-size: $app-sm-text;
+                        background: $app-bg;
+                        color: $app-black;
+                        p{
+                            margin: 0;
+                            display: flex;
+                            align-items: center;
+                        }
+                        .app-icon{
+                            margin-right: 15px;
+                        }
+                    }
+                    &:after{
+                        content: "";
+                        position: absolute;
+                        top: -6px;
+                        right: 22px;
+                        width: 0;
+                        height: 0;
+                        border-style: solid;
+                        border-width: 0 7.5px 7px 7.5px;
+                        border-color: transparent transparent $app-bg transparent;
+                    }
+                }
+            }
+            
+        }
+        &__menulist{
+            padding: 0 23px 20px;
+            li{
+                &:not(:first-child){
+                    .dropdown{
+                        &-item{
+                            border-top: 1px solid $app-bg;
+                        }
+                    }
+                   
+                }
+            }
+            .dropdown{
+                &-item{
+                    padding: 12.5px 0;
+                    font-size: $app-sm-text;
+                    display: flex;
+                    align-items: center;
+                    color: $app-black;
+                    .app-icon{
+                        margin-right: 15px;
+                    }
+                    &:hover{
+                        background-color: transparent;
+                        color: $app-danger;
+                    }
+                    &:active{
+                        background-color: transparent;
+                    }
+                }
+            }
+            .btn{
+                min-height: 44px;
+            }
+        }
+    }
+    &-menu{
+        width: 31.07px;
+        height: 26.3px;
+        position: relative;
+        display: block;
+        margin-left: 29.93px;
+        &-drawer{
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s $app-cubic-bez;
+            background-color: $app-white;
+            opacity: 0;
+        }
+        &-list{
+            width: 794px;
+            margin: 0 auto;
+            position: relative;
+            li{
+                &:not(:last-child){
+                    margin-bottom: 12px;
+                }
+            }
+            a{
+                font-size: $app-h3 - 2;
+                display: block;
+                line-height: 69px;
+                color: $app-black;
+                font-family: Poppins-SemiBold;
+                position: relative;
+                &:hover{
+                    color: $app-primary;
+                    &:after{
+                        content: "\e901";
+                        font-family: 'icomoon' !important;
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                    }
+                }
+            }
+        }
+        &-btn{
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            > span , > span:after, > span:before{
+                display: block;
+                position: absolute;
+                width: 100%;
+                height: 3px;
+                background-color: $app-black;
+                transition: all 0.5s $app-cubic-bez;
+                top: 50%;
+                transform: translateY(-50%);
+                border-radius: 100px;
+            }
+            > span{
+                &:before{
+                    content: '';
+                    top: -10px;
+                }
+                &:after{
+                    content: '';
+                    top: 14px;
+                    width: 50%;
+                    right: 0;
+                }
+            }
+        }
+        &-toggle{
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            &:checked{
+                ~ .app{
+                    &-menu{
+                        &-btn{
+                            position: fixed;
+                            z-index: 9;
+                            width: 31.07px;
+                            height: 26.3px;
+                            right: 158px;
+                            > span{
+                                transform: rotate(45deg);
+                                top: 11px;
+                                &:before{
+                                    top: 0;
+                                    transform: rotate(0);
+                                }
+                                &:after{
+                                    top: 0;
+                                    transform: rotate(90deg);
+                                    width: 100%;
+                                    right: auto;
+                                }
+                            }
+                        }
+                        &-drawer{
+                            right: 0;
+                            opacity: 1;
+                            z-index: 1;
+                            .app{
+                                &-menu{
+                                    &-list{
+                                        &::before{
+                                            content: "";
+                                            position: absolute;
+                                            top: 50%;
+                                            right: calc(100% + 51px);
+                                            width: 194px;
+                                            height: 700px;
+                                            transform: translateY(-50%);
+                                            background-image: url('./../images/menu-baloti.jpg');
+                                            background-repeat: no-repeat;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @media only screen and (min-width: 1024px) and (max-width: 1200px) {
+       &-header{
+           padding: 34px 30.85px;
+       }
+       &-menu{
+        &-list{
+            width: 494px;
+        }
+       }
+    }
+}
