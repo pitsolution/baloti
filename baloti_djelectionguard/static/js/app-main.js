@@ -40,15 +40,8 @@ $(document).ready(function(){
 
 
     $("#closeBtn").on("click", function(){
-        console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh')
         $('#createballet').modal('hide');
     });
-
-    // $('#closemodal').click(function() {
-    //     $('#modalwindow').modal('hide');
-    // });
-
-
 
 
     $("#loginBtn").on("click", function(){

@@ -28,6 +28,8 @@ if DEBUG:
     STATIC_URL = f'/static/{SITE_NAME}/'
     STATIC_ROOT = BASE_DIR / 'public' / SITE_NAME
 
+SASS_PROCESSOR_ROOT = STATIC_ROOT
+
 DATABASES = {
     'default': {
         'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.postgresql'),

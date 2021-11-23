@@ -140,20 +140,6 @@ class BalotiContestChoicesView(TemplateView):
             return render(request, 'choice.html',{"contest": contest, "candidates":candidates})
 
 
-    def post(self, request):
-        """
-        Args:
-            request (Request): Http request object
-
-        Returns:
-            html : returns login.html html file
-        """
-        choice = request.POST.get('choice')
-        if request.user.is_anonymous:
-            return render(request, 'login.html',{'name':request.user, 'title':'Login', 'choice': choice})
-        else:
-            return VoteView().casteVote(request, choice)
-
 class VoteView(TemplateView):
     """
     Vote Caste View
