@@ -4,7 +4,7 @@
 
 <section class="app-choice app-body-bg">
     <div class="container">
-        <button class="btn btn-link btn-back"> <span class="app-icon icon-arrow-right"></span> <span>BACK</span> </button>
+        <a class="btn btn-link btn-back" href="javascript:window.history.back()"> <span class="app-icon icon-arrow-right"></span> <span>BACK</span> </a>
         <div class="row">
             <div class="col-sm-7 mx-auto">
                 <div class="app-card app-card--lg app-card--nopad">
@@ -24,7 +24,7 @@
                             {{i.id}}
                         </ul>
                         <div class="app-card__btngroup d-flex align-items-center justify-content-between">
-                            <button class="btn btn-default">BACK</button>
+                            <a class="btn btn-default" href="javascript:window.history.back()">BACK</a>
                             <button class="btn btn-primary" id="showBalletModal">CREAT BALLET</button>
                         </div>
                     </div>
@@ -85,16 +85,11 @@
                             Please try again.
                         </p>
                     {% endif %}
-
-
-                    <button type="button" isloggedIn="false" id="loginBtn" class="btn btn-primary">CONTINUE</button>
+                    <button type="button" isloggedIn="false" id="loginBtn" class="btn btn-primary btn-block btn-md--small">CONTINUE</button>
                     <input type="hidden" name="choice" value={{choice}} />
-
-                    
                     <p class="app-login__createaccount"><span>Not registered yet?</span> <a href="#" class="app-link">Create an account now!</a> </p>
                 </div>
-
-                <button class="btn btn-link btn-flex btn-back"><span class="app-icon icon-arrow"></span> <span>Back</span></button>
+                <button type="button" id="logincloseBtn" class="btn btn-default mx-auto" data-dismiss="modal">CLOSE</button>
             </div>
         </div>
 

@@ -97,6 +97,12 @@ $(document).ready(function(){
         // });
     });
 
+    $("#logincloseBtn").on("click", function(){
+        $(this).closest(".app-modal").find("#confirmVote").removeClass("d-none");
+        $(this).closest(".app-modal").find("#appLogin").addClass("d-none");
+        $(this).closest(".app-modal").find("#success").addClass("d-none");
+    });
+
 });
 
 
