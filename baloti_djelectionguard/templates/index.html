@@ -43,51 +43,22 @@
         <div class="col-sm-4">
             <h6 class="app-subtitle">LATEST ELECTIONS & VOTE</h6>
             <div class="app-card-group">
-                {% for u in open_contests %}
+                {% for u in contests %}
                     <div class="app-card box-shadow">
                         <h4 class="app-h4 app-card__title">{{u.name}}</h4>
                         <h5 class="app-card__monthyear">{{u.month}} {{u.year}}</h5>
                         <p class="app-card__date"><span>Date:</span> <span>{{u.date|date:"Y-m-d"}}</span></p>
                         <div class="app-card__footer">
-                            <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a>
+                            {% if u.status == 'open' %}
+                                <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a>
+                            {% elif u.status == 'closed' %}
+                                <a href={% url 'baloti_djelectionguard:viewContestResult' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><span>VIEW RESULT</span> <span class="app-icon icon-arrow"></span></a>
+                            {% endif %}
                         </div>
                     </div>
                 {% endfor %}
-                {% for u in closed_contests %}
-                    <div class="app-card box-shadow">
-                        <h4 class="app-h4 app-card__title">{{u.name}}</h4>
-                        <h5 class="app-card__monthyear">{{u.month}} {{u.year}}</h5>
-                        <p class="app-card__date"><span>Date:</span> <span>{{u.date|date:"Y-m-d"}}</span></p>
-                        <div class="app-card__footer">
-                            <a href={% url 'baloti_djelectionguard:viewContestResult' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><span>VIEW RESULT</span> <span class="app-icon icon-arrow"></span></a>
-                        </div>
-                    </div>
-                {% endfor %}
-                
             </div>
-            
-            <!-- <ul class="app-link-list list-unstyled">
-                <li>
-                    <a href="#">
-                        National vote - February 2021
-                    </a>
-                    <span class="app-icon icon-arrow"></span>
-                </li>
-                <li>
-                    <a href="#">
-                        National vote - November 2020
-                    </a>
-                    <span class="app-icon icon-arrow"></span>
-                </li>
-                <li>
-                    <a href="#">
-                        National vote - September 2020
-                    </a>
-                    <span class="app-icon icon-arrow"></span>
-                </li>
-            </ul> -->
-
-            <!-- <button class="btn btn-link btn-link--primary btn-flex"><span>VIEW ALL</span> <span class="app-icon icon-arrow"></span></button> -->
+            <a href="/en/baloti/contest/list/" class="btn btn-link btn-link--primary btn-flex"><span>VIEW ALL</span> <span class="app-icon icon-arrow"></span></a>
         </div>
        </div>
     </div>

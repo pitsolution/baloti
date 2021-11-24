@@ -40,15 +40,12 @@ class BalotiIndexView(TemplateView):
         Returns:
             html : returns contest_list.html html file
         """
-        open_list = []
-        closed_list = []
-        open_contests = ParentContest.objects.filter(status='open').order_by('-pk')[:2]
-        for contest_id in open_contests:
-            open_list.append(getParentDetails(contest_id))
-        closed_contests = ParentContest.objects.filter(status="closed").order_by('-pk')[:2]
-        for contest_id in closed_contests:
-            closed_list.append(getParentDetails(contest_id))
-        return render(request, 'index.html',{"open_contests": open_list, "closed_contests": closed_list})
+        contests = []
+        open_contests = ParentContest.objects.filter(status="open").order_by('-start')
+        contests.append(getParentDetails(open_contests[0])) if open_contests else None
+        closed_contests = ParentContest.objects.filter(status="closed").order_by('-start')
+        contests.append(getParentDetails(closed_contests[0])) if closed_contests else None
+        return render(request, 'index.html',{"contests": contests})
 
 class BalotiDisclaimerView(TemplateView):
     """
