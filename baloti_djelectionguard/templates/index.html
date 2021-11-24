@@ -43,25 +43,30 @@
         <div class="col-sm-4">
             <h6 class="app-subtitle">LATEST ELECTIONS & VOTE</h6>
             <div class="app-card-group">
-                <div class="app-card box-shadow">
-                    <h4 class="app-h4 app-card__title">National council election</h4>
-                    <h5 class="app-card__monthyear">October 2021</h5>
-                    <p class="app-card__date"><span>Date:</span> <span>2021-10-23</span></p>
-                    <div class="app-card__footer">
-                        <a href="#" class="btn btn-link btn-flex btn-flex--between"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a>
+                {% for u in open_contests %}
+                    <div class="app-card box-shadow">
+                        <h4 class="app-h4 app-card__title">{{u.name}}</h4>
+                        <h5 class="app-card__monthyear">{{u.month}} {{u.year}}</h5>
+                        <p class="app-card__date"><span>Date:</span> <span>{{u.date|date:"Y-m-d"}}</span></p>
+                        <div class="app-card__footer">
+                            <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a>
+                        </div>
                     </div>
-                </div>
-                <div class="app-card box-shadow">
-                    <h4 class="app-h4 app-card__title">National council election</h4>
-                    <h5 class="app-card__monthyear">October 2021</h5>
-                    <p class="app-card__date"><span>Date:</span> <span>2021-10-23</span></p>
-                    <div class="app-card__footer">
-                        <a href="#" class="btn btn-link btn-flex btn-flex--between"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a>
+                {% endfor %}
+                {% for u in closed_contests %}
+                    <div class="app-card box-shadow">
+                        <h4 class="app-h4 app-card__title">{{u.name}}</h4>
+                        <h5 class="app-card__monthyear">{{u.month}} {{u.year}}</h5>
+                        <p class="app-card__date"><span>Date:</span> <span>{{u.date|date:"Y-m-d"}}</span></p>
+                        <div class="app-card__footer">
+                            <a href={% url 'baloti_djelectionguard:viewContestResult' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><span>VIEW RESULT</span> <span class="app-icon icon-arrow"></span></a>
+                        </div>
                     </div>
-                </div>
+                {% endfor %}
+                
             </div>
             
-            <ul class="app-link-list list-unstyled">
+            <!-- <ul class="app-link-list list-unstyled">
                 <li>
                     <a href="#">
                         National vote - February 2021
@@ -80,9 +85,9 @@
                     </a>
                     <span class="app-icon icon-arrow"></span>
                 </li>
-            </ul>
+            </ul> -->
 
-            <button class="btn btn-link btn-link--primary btn-flex"><span>VIEW ALL</span> <span class="app-icon icon-arrow"></span></button>
+            <!-- <button class="btn btn-link btn-link--primary btn-flex"><span>VIEW ALL</span> <span class="app-icon icon-arrow"></span></button> -->
         </div>
        </div>
     </div>

@@ -9,11 +9,46 @@ import hashlib
 from django.views.decorators.csrf import csrf_exempt,csrf_protect
 from electeez_auth.models import User
 
+def getParentDetails(parent):
+        """
+        Args:
+            @param id - parent
+
+        Returns:
+            @return array
+        """
+        data = {
+            'name': parent.name,
+            'id': parent.uid,
+            'date': parent.start.date(),
+            'month': parent.start.strftime('%B'),
+            'year': parent.start.strftime('%Y'),
+            'status': parent.status,
+            }
+        return data
+
 class BalotiIndexView(TemplateView):
     """
     Index view.
     """
-    template_name = "index.html"
+
+    def get(self, request):
+        """
+        Args:
+            request (Request): Http request object
+
+        Returns:
+            html : returns contest_list.html html file
+        """
+        open_list = []
+        closed_list = []
+        open_contests = ParentContest.objects.filter(status='open').order_by('-pk')[:2]
+        for contest_id in open_contests:
+            open_list.append(getParentDetails(contest_id))
+        closed_contests = ParentContest.objects.filter(status="closed").order_by('-pk')[:2]
+        for contest_id in closed_contests:
+            closed_list.append(getParentDetails(contest_id))
+        return render(request, 'index.html',{"open_contests": open_list, "closed_contests": closed_list})
 
 class BalotiDisclaimerView(TemplateView):
     """
