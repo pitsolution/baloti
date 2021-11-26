@@ -10,10 +10,8 @@ $(document).ready(function(){
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
     $("#showBalletModal").on("click", function(){
-        $("input[type='radio']:checked").each(function() {
-        var idVal = $(this).attr("id");
-        $('#choice_input').val($("label[for='"+idVal+"']").text());
-        });
+        var choice_name = $("input[type='radio']:checked").attr("dataname");
+        $('#choice_input').text(choice_name);
         $('#createballet').modal("show");
     });
 
@@ -89,14 +87,12 @@ $(document).ready(function(){
         $(this).closest(".app-modal").find("#appLogin").addClass("d-none");
     });
 
-    // var choice = $(".form-check-input:checked").val();
-    // var vote_success_url = 'baloti/contest/vote/success/' + choice
-    // console.log('vote_success_urlvote_success_url=================', vote_success_url)
-    // if(window.location.href.indexOf(vote_success_url) > -1)
-    //     {
-    //         console.log('llllllllllllllllllllllllllllllllllll')
-    //         $('#ballet_success').modal("show");
-    //     }
+    var choice = $(".form-check-input:checked").val();
+    var vote_success_url = 'baloti/contest/vote/success/' + choice
+    if(window.location.href.indexOf(vote_success_url) > -1)
+        {
+            $('#ballet_success').modal("show");
+        }
 
     // if($("#ballet_success").length > 0){
     //     $(document).ready(function(){
