@@ -1,0 +1,25 @@
+.app{
+    &-toast{
+        position: fixed;
+        bottom: 40px;
+        padding: 17px;
+        background-color: $app-success;
+        font-size: $app-sm-text;
+        color: $app-white;
+        left: 50%;
+        transform: translateX(-50%);
+        &__msg{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        &__tick{
+            margin-right: 15px;
+            font-size: $app-h5 - 1;
+        }
+        &__close{
+            margin-left: 15px;
+            font-size: $app-p - 4;
+        }
+    }
+}

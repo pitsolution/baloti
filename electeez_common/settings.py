@@ -64,6 +64,10 @@ INSTALLED_APPS = [
     'py2js',
     'ryzom_django',
     'ryzom_django_mdc',
+    'social_django',
+    'ckeditor',
+    'baloti_auth',
+    'baloti_djelectionguard'
 ]
 
 AUTH_USER_MODEL = 'electeez_auth.User'
@@ -325,3 +329,22 @@ STATICFILES_FINDERS = [
 
 if 'collectstatic' in sys.argv or not DEBUG:
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.linkedin.LinkedinOAuth2',
+    'social_core.backends.instagram.InstagramOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+# LOGIN_URL = 'login'
+# LOGIN_REDIRECT_URL = 'home'
+# LOGOUT_URL = 'logout'
+# LOGOUT_REDIRECT_URL = 'login'
+
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET')
+
+TEMPLATE_LOADERS = (
+    'django.template.loaders.app_directories.load_template_source',
+)

@@ -1,0 +1,235 @@
+@import '../abstracts/mixins';
+@import '../abstracts/variables';
+
+$app-modal-header-bg: #F1F2EE;
+
+.container{
+    @include mq("desktop-lg", min){
+        max-width: 1600px !important;
+    }
+}
+
+// Dropdown styles
+.arrow{
+    &-left, &-bottom {
+        width: 0;
+        height: 0;
+        border-top: 7px solid transparent;
+        border-bottom: 7px solid transparent;
+        border-right: 7px solid $app-white;
+        position: absolute;
+        bottom: 15px;
+        left: -7px;
+    }
+    &-bottom{
+        bottom: -10px;
+        left: 10px;
+        transform: rotate(-90deg);
+        border-right-color: $app-warning;
+    }
+}
+
+.dropdown{
+    &-menu{
+        box-shadow:0px 0px 6px #43497b38;
+        border: 0;
+        &--left{
+            left: auto !important;
+            right: 0;
+            top: 100% !important;
+            transform: none !important;
+        }
+        &.md{
+            min-width: 275px;
+            padding: 10px;
+        }
+        .app{
+            &-iconlist{
+                li{
+                    padding: 10px;
+                    border-bottom: 1px solid $app-border-color;
+                    cursor: pointer;
+                    &:last-child{
+                        border-bottom: 0;
+                    }
+                    &:hover{
+                        background-color: $app-lightgrey;
+                    }
+                }
+            }
+        }
+        .dropdown-item{
+            font-size: 14px;
+            border-bottom: 1px solid $app-border-color;
+            &:last-child{
+                border-bottom: 0;
+            }
+        }
+    }
+    &-inline{
+        display: inline-block;
+    }
+}
+
+.app{
+    &-accordion{
+        margin-bottom: 43px;
+        .accordion{
+            &-item{
+                border-color: $app-border-color-dark;
+            }
+            &-header{
+                font-size: $app-h5 - 2;
+            }
+            &-button{
+                font-size: $app-h5 - 2;
+                &:not(.collapsed){
+                    background-color: $app-white;
+                    color: $app-black;
+                    box-shadow: none;
+                    &::after{
+                        content: "\e905";
+                        transform: rotate(90deg);
+                        font-family: 'icomoon' !important;
+                        background-image: none;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+            &-body{
+                border-top: 1px solid $app-border-color-dark;
+                padding: 26px 30px;
+            }
+        }
+        &--basic{
+            .accordion{
+                &-item{
+                    margin-bottom: 20px;
+                    border: 0;
+                    border-right: 0;
+                }
+                &-body{
+                    padding: 0;
+                    border-top-color: darken($app-bg, 5%);
+                    .tab{
+                        &-content{
+                            padding: 32px 50px;
+                        }
+                    }
+                    .app{
+                        &-txt{
+                            &:not(:last-child){
+                                margin-bottom: 35px;
+                            }
+                        }
+                    }
+                }
+                &-header{
+                    padding: 22px 29px 23px 50px;
+                    font-size: $app-h5 + 2;
+                    &__title{
+                        line-height: 40px;
+                    }
+                    .app{
+                        &-icon{
+                            width: 43px;
+                            height: 43px;
+                            border: 0;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 14px;
+                            background: $app-bg;
+                            transform: rotate(90deg);
+                            margin-left: 20px;
+                            &:not(.collapsed){
+                                transform: rotate(-90deg);
+                                background: darken($app-bg, 2%);
+                            }
+                        }
+                    }
+                    .btn{
+                        min-height: 42px;
+                    }
+                }
+            }
+            .nav{
+                &-tabs{
+                    display: table;
+                    table-layout: fixed;
+                    width: 100%;
+                    border-bottom-color: $app-border-color;
+                }
+                &-item{
+                    display: table-cell;
+                    &:not(:last-child){
+                        border-right: 1px solid darken($app-bg, 5%);
+                    }
+                }
+                &-link{
+                    border:0;
+                    width: 100%;
+                    font-size: $app-h6;
+                    text-transform: uppercase;
+                    color: $app-black;
+                    font-family: Poppins-Medium;
+                    &.active{
+                        color: $app-primary;
+                        border-bottom: 2px solid $app-primary !important;
+                    }
+                }
+            }
+        }
+    }
+    &-modal{
+        .modal{
+            &-header{
+                padding: 30px ;
+                background: $app-modal-header-bg;
+                border: 0;
+                border-radius: 0;
+            }
+            &-content{
+                border-radius: 0;
+            }
+            &-title{
+                font-size: $app-h6 + 2;
+                text-transform: capitalize;
+            }
+            &-body{
+                padding: 50px 20px;
+            }
+            &-footer{
+                border: 0;
+                border-radius: 0;
+                padding: 0 38px 38px;
+            }
+           
+        }
+        .app-login{ 
+            &__box{
+                margin-top: 0;
+            }
+            &__heading{
+                font-size: $app-h4 + 2;
+            }
+        }
+        &__msgbox{
+            padding: 20px 64px;
+            background: $app-modal-header-bg;
+            display: inline-block;
+            font-size: $app-h6 + 2;
+        }
+        &--md{
+            .modal{
+                &-dialog{
+                    max-width: 600px;
+                }
+            }
+        }
+    }
+}
+
+

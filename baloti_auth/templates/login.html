@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baloti</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+
+    <div class="app">
+         <!-- Header Section -->
+         <header class="app-header d-flex align-items-center">
+            <ul class="app-header-nav list-unstyled d-flex align-items-center ml-auto">
+                <li>
+                    <div class="dropdown">
+                        <a class=" dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                         EN
+                        </a>
+                      
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <li><a class="dropdown-item" href="#">AR</a></li>
+                        </ul>
+                      </div>
+                </li>
+            </ul>
+        </header>
+
+
+        <section class="app-login">
+            <div class="app-login__img">
+                <img src="/static/images/login-img.png" alt="">
+            </div>
+            <div class="container">
+                <div class="row flex-row-reverse">
+                    <div class="col-sm-5">
+                        <div class="app-login__box">
+                            <form id="login-form" method="post" action="{% url 'baloti:login' %}">
+                            {% csrf_token %}
+                                <div class="app-login__logo">
+                                    <img src="/static/images/logo.svg" alt="">
+                                </div>
+                                <h3 class="app-login__heading">
+                                    Welcome to baloti!
+                                </h3>
+                                <p class="app-login__subhead">Login to your account</p>
+
+                                <div class="app-login__btn-group">
+                                        {% if choice %}
+                                            <a class="btn btn-facebook btn-block" href="{% url 'social:begin' 'facebook' %}?next=/baloti/vote/{{choice}}"><span class="app-icon icon-facebook-box"></span> <span>Continue with Facebook</span></a>
+                                        {% else %}
+                                            <a class="btn btn-facebook btn-block" href="{% url 'social:begin' 'facebook' %}?next=/en/baloti/contest/list/"><span class="app-icon icon-facebook-box"></span> <span>Continue with Facebook</span></a>
+                                        {% endif %}
+                                    <button class="btn btn-google btn-block"><span class="app-icon icon-google"></span> <span>Continue with Google</span></button>
+                                    <button class="btn btn-apple btn-block"><span class="app-icon icon-apple"></span> <span>Continue with Apple</span></button>
+                                </div>
+                                
+                                <p class="app-sepeartor"><span>or</span></p>
+                                <div class="app-form">
+                                    <div class="app-form__control">
+                                        <input id="id_username" name="username" 
+                                                   type="text" class="form-control" placeholder=" ">
+                                        <label for="id_username" class="app-form__label">Email address</label>
+                                    </div>
+                                    <div class="app-form__control">
+                                        <input id="id_password" name="password" 
+                                                   type="password" class="form-control" placeholder=" ">
+                                        <label for="id_password" class="app-form__label">Password</label>
+                                    </div>
+                                    {% if form.errors %}
+                                        <p class=" label label-danger">
+                                            Your username and password didn't match. 
+                                            Please try again.
+                                        </p>
+                                    {% endif %}
+
+
+                                    <button type="submit" class="btn btn-primary btn-block btn-md--small">CONTINUE</button>
+                                    <input type="hidden" name="choice" value={{choice}} />
+
+                                    {% if choice %}
+                                        <input type="hidden" name="next" value="/baloti/vote/{{choice}}" />
+                                    {% else %}
+                                        <input type="hidden" name="next" value="/en/baloti/contest/list/" />
+                                    {% endif %}
+                                    <p class="app-login__createaccount"><span>Not registered yet?</span> <a href="#" class="app-link">Create an account now!</a> </p>
+                                </div>
+
+                                <button class="btn btn-link btn-flex btn-back"><span class="app-icon icon-arrow"></span> <span>Back</span></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+
+<script src="/static/js/jquery-3.5.1.min.js"></script>
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/app-main.js"></script>
+</body>
+</html>

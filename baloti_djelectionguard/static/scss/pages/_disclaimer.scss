@@ -1,0 +1,11 @@
+.app{
+    &-disclaimer{
+        padding-top: 190px;
+        .app{
+            &-card{
+                margin: 0;
+                padding: 52px 60px 160px;
+            }
+        }
+    }
+}

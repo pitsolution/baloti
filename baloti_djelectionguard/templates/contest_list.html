@@ -1,0 +1,97 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block body %}   
+
+<section class="app-elections">
+    <div class="app-elections__vote">
+        <div class="container">
+            <div class="app-header-flex">
+                <h3 class="app-title app-title--sm">Elections & Vote</h3>
+
+                <ul class="app-formlist list-unstyled">
+                    <li>
+                        <div class="app-form__control icon no-radius">
+                            <input type="text" id="search" placeholder="  ">
+                            <label for="search" class="app-form__label">Search here</label>
+                            <span class="app-icon icon-search"></span>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="btn btn-default btn-regular"> <span class="app-icon icon-left icon-filter-new"></span> <span>Filter by</span> <span class="app-icon icon-right icon-arrow"></span> </button>
+                    </li>
+                    <li>
+                        <button class="btn btn-default btn-regular"> <span class="app-icon icon-left icon-sort"></span> <span>Sort by</span> <span class="app-icon icon-right icon-arrow"></span> </button>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="app-griditem app-griditem--onrow-three">
+                {% for u in contests %}
+                {% if u.status != 'closed' %}
+                <div class="app-card app-card--bordered m-0 app-card--flex">
+                    <h4 class="app-h4 app-card__title">{{u.name}}</h4>
+                    <h5 class="app-card__monthyear">{{u.month}} {{u.year}}</h5>
+                    <p class="app-card__date"><span>Date:</span> <span>{{u.date|date:"Y-m-d"}}</span></p>
+                    <p class="app-h6 text-medium text-dark">Issues: {{u.child_count}}</p>
+                    <ul class="app-list list-unstyled app-sm-text">
+                        {% for c in u.child_contests %}
+                            <li>{{forloop.counter}} - {{c.name}}</li>
+                        {% endfor %}
+                    </ul>
+                    <div class="app-card__footer">
+                        {% if u.action == 'vote_now' %}
+                            <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a>
+                        {% elif u.action == 'view_detail' %}
+                            <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><span>VIEW DETAILS</span> <span class="app-icon icon-arrow"></span></a>
+                        {% elif u.action == 'view_result' %}
+                            <a href={% url 'baloti_djelectionguard:viewContestResult' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><span>VIEW RESULT</span> <span class="app-icon icon-arrow"></span></a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="app-elections__result app-bg">
+        <div class="container">
+            <h5 class="app-title app-title--xs">Results</h5>
+            <div class="app-griditem app-griditem--onrow-three">
+                {% for u in contests %}
+                {% if u.status == 'closed' %}
+                <div class="app-card m-0 app-card--flex">
+                    <h4 class="app-h4 app-card__title">{{u.name}}</h4>
+                    <h5 class="app-card__monthyear">{{u.month}} {{u.year}}</h5>
+                    <p class="app-card__date"><span>Date:</span> <span>{{u.date|date:"Y-m-d"}}</span></p>
+                    <p class="app-h6 text-medium text-dark">Issues: {{u.child_count}}</p>
+                    <ul class="app-list list-unstyled app-sm-text">
+                        {% for c in u.child_contests %}
+                            <li>{{forloop.counter}} - {{c.name}}</li>
+                        {% endfor %}
+                    </ul>
+                    <div class="app-card__footer">
+                        {% if u.action == 'vote_now' %}
+                            <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a>
+                        {% elif u.action == 'view_detail' %}
+                            <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><span>VIEW DETAILS</span> <span class="app-icon icon-arrow"></span></a>
+                        {% elif u.action == 'view_result' %}
+                            <a href={% url 'baloti_djelectionguard:viewContestResult' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><span>VIEW RESULT</span> <span class="app-icon icon-arrow"></span></a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<div class="app-social-follow">
+    <a href="#" class="app-icon icon-facebook"></a>
+    <a href="#" class="app-icon icon-twiter"></a>
+    <span class="app-social-follow__txt">FOLLOW US ON</span>
+</div>
+{% endblock body %}
+

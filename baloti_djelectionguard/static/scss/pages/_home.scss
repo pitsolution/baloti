@@ -1,0 +1,114 @@
+@import '../abstracts/variables';
+// -----------------------------------------------------------------------------
+// This file contains styles that are specific to the home page.
+// -----------------------------------------------------------------------------
+
+
+.app{
+    // Follow US -> Social Icon fixed Link
+    &-social{
+        &-follow{
+            position: fixed;
+            top: 50%;
+            width: 23px;
+            transform: translateY(-50%);
+            left: 20.5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: $app-light-font;
+            font-family: Poppins-Medium;
+            .app{
+                &-icon{
+                    margin-bottom: 12.5px;
+                    color: $app-light-font;
+                    font-size: $app-p - 3;
+                }
+            }
+            &__txt{
+                display: block;
+                writing-mode: vertical-rl;
+                text-orientation: mixed;
+                font-size: $app-sm-text;
+                transform: rotate(180deg);
+                margin-top: 2px;
+            }
+        }
+    }
+
+    // Our Platform Section Styles
+
+    &-our{
+        &-platform{
+            padding-top: 129.5px;
+            padding-bottom: 129.5px;
+        }
+
+        // Our Feature Section Styles
+        &-feature{
+            padding: 150.73px 0 162.54px;
+            .app{
+                &-title{
+                    margin-bottom: 69.23px;
+                }
+            }
+        }
+    }
+
+    // Picture Dictionary Section Styles
+    &-picture{
+        &-dictionary{
+            padding: 101px 0 104px;
+            border-bottom-left-radius: 100px;
+            &__heading{
+                margin-bottom: 43.23px;
+                .app-subtitle{
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    // Project Partner Section Styles
+    &-project{
+        &-partner{
+            padding: 60px 0 66.2px;
+            .app-subtitle{
+                margin: 0;
+            }
+        }
+    }
+    @media only screen and (min-width: 1024px) and (max-width: 1400px) {
+        &-social{
+            &-follow{
+                left: 10.5px;
+            } 
+        }
+        
+     }
+     @media only screen and (min-width: 1024px) {
+        &-our{
+            &-platform{
+                &__content{
+                    padding-right: 70px;
+                }
+            }
+        }
+     }
+     @media only screen and (min-width: 1700px) {
+        &-our{
+            &-platform{
+                &__content{
+                    padding-right: 220px;
+                }
+            }
+        }
+     }
+      @media only screen and (min-width: 1920px) {
+        &-social{
+            &-follow{
+                left: 77.7px;
+            } 
+        }
+      }
+}

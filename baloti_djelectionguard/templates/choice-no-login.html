@@ -1,0 +1,115 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block body %}  
+
+<section class="app-choice app-body-bg">
+    <div class="container">
+        <a class="btn btn-link btn-back" href="javascript:window.history.back()"> <span class="app-icon icon-arrow-right"></span> <span>BACK</span> </a>
+        <div class="row">
+            <div class="col-sm-7 mx-auto">
+                <div class="app-card app-card--lg app-card--nopad">
+                    <div class="app-card__header border-btm">
+                        <p class="app-card__header-title">Make your choice</p>
+                        <p class="app-sm-text text-medium">{{contest.name}}</p>
+                    </div>
+                    {% csrf_token %}
+                    <div class="app-card__body">
+                        <ul class="app-checkboxlist list-unstyled">
+                            {% for i in candidates %}
+                                <li class="app-form__control checkbox">
+                                    <input class="form-check-input" checked type="radio" value={{i.id}} id={{i.id}} name="choice">
+                                    <label class="form-check-label" for="{{i.id}}">{{i.name}}</label>
+                                </li>
+                            {% endfor %}
+                            {{i.id}}
+                        </ul>
+                        <div class="app-card__btngroup d-flex align-items-center justify-content-between">
+                            <a class="btn btn-default" href="javascript:window.history.back()">BACK</a>
+                            <button class="btn btn-primary" id="showBalletModal">CREAT BALLET</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<div class="app-social-follow">
+    <a href="#" class="app-icon icon-facebook"></a>
+    <a href="#" class="app-icon icon-twiter"></a>
+    <span class="app-social-follow__txt">FOLLOW US ON</span>
+</div>
+
+  
+<!-- Modal -->
+<div class="modal fade app-modal" id="createballet" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content d-none" id="appLogin">
+            <div class="app-login__box">
+                {% csrf_token %}
+                <div class="app-login__logo">
+                    <img src="/static/images/logo.svg" alt="">
+                </div>
+                <h3 class="app-login__heading">
+                    Welcome to baloti!
+                </h3>
+                <p class="app-login__subhead">Login to your account</p>
+
+                <div class="app-login__btn-group">
+                    <a class="btn btn-facebook btn-block" id="fbloginBtn" href="{% url 'social:begin' 'facebook' %}?next=/baloti/contest/vote/success/"><span class="app-icon icon-facebook-box"></span> <span>Continue with Facebook</span></a>
+                    <button class="btn btn-google btn-block"><span class="app-icon icon-google"></span> <span>Continue with Google</span></button>
+                    <button class="btn btn-apple btn-block"><span class="app-icon icon-apple"></span> <span>Continue with Apple</span></button>
+                </div>
+                
+                <p class="app-sepeartor"><span>or</span></p>
+                <div class="app-form">
+                    <div class="app-form__control">
+                        <input id="id_username" name="username" 
+                                   type="text" class="form-control" placeholder=" ">
+                        <label for="id_username" class="app-form__label">Email address</label>
+                    </div>
+                    <div class="app-form__control">
+                        <input id="id_password" name="password" 
+                                   type="password" class="form-control" placeholder=" ">
+                        <label for="id_password" class="app-form__label">Password</label>
+                    </div>
+                    {% if form.errors %}
+                        <p class=" label label-danger">
+                            Your username and password didn't match. 
+                            Please try again.
+                        </p>
+                    {% endif %}
+                    <button type="button" isloggedIn="false" id="loginBtn" class="btn btn-primary btn-block btn-md--small">CONTINUE</button>
+                    <p class="app-login__createaccount"><span>Not registered yet?</span> <a href="#" class="app-link">Create an account now!</a> </p>
+                </div>
+                <button type="button" id="logincloseBtn" class="btn btn-default mx-auto" data-dismiss="modal">CLOSE</button>
+            </div>
+        </div>
+
+        <div class="modal-content app-bg d-none" id="success">
+            <div class="modal-body text-center">
+                <p class="app-h6">Your Choice Added</p>
+                <p class="app-h5 text-success text-bold">Successfully</p>
+                <button class="btn btn-default mx-auto"><a href="/en/baloti/contest/list/">BACK TO ELECTIONS</a></button>
+            </div>
+        </div>
+
+        <div class="modal-content" id="confirmVote">
+            <div class="modal-header">
+                <h5 class="modal-title text-bold" id="exampleModalLongTitle">Confirm Your Selection </h5>
+            </div>
+            <div class="modal-body text-center">
+                <div class="app-modal__msgbox text-bold text-uppercase">
+                    <span><input type="text" id="choice_input" name="choice" readonly /></span>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" id="closeBtn" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" isloggedIn="false" id="confirmBtn" class="btn btn-primary">CONFIRM</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

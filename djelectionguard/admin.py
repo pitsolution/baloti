@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Candidate, Contest, Guardian, Voter
+from .models import Candidate, Contest, Guardian, Voter, ParentContest, Recommender, ContestRecommender
 
 
 class CandidateInline(admin.TabularInline):
@@ -11,14 +11,31 @@ class CandidateInline(admin.TabularInline):
 class GuardianInline(admin.TabularInline):
     model = Guardian
 
+class ContestRecommenderInline(admin.TabularInline):
+    model = ContestRecommender
+
+
+class ParentContestAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+        'status'
+    )
+admin.site.register(ParentContest, ParentContestAdmin)
+
+class RecommenderAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+    )
+admin.site.register(Recommender, RecommenderAdmin)
 
 class ContestAdmin(admin.ModelAdmin):
-    inlines = [CandidateInline, GuardianInline]
+    inlines = [ContestRecommenderInline, CandidateInline, GuardianInline]
     list_display = (
         'name',
         'mediator',
         'start',
         'end',
+        'parent',
     )
 admin.site.register(Contest, ContestAdmin)
 
@@ -41,3 +58,4 @@ class VoterAdmin(admin.ModelAdmin):
         'close_email_sent',
     )
 admin.site.register(Voter, VoterAdmin)
+

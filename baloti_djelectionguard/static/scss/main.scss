@@ -1,0 +1,26 @@
+
+// 7. Vendors
+@import 'vendors/base';
+
+// 8. Vendors extensions
+@import 'vendors-extensions/base';
+
+// 2. Base stuff
+@import 'base/base';
+
+// 1. Configuration and helpers
+@import 'abstracts/base';
+
+// 4. Layout-related sections
+@import 'layout/base';
+
+// 3. Components
+@import 'components/base';
+
+// 5. Page-specific styles
+@import 'pages/base';
+ 
+
+
+
+

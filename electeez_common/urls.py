@@ -10,6 +10,7 @@ from django.urls import include, path, reverse
 from django.utils.decorators import method_decorator
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.templatetags.static import static as static_url
+from django.contrib.auth import views as auth_views
 
 from djlang.utils import gettext as _
 
@@ -55,6 +56,10 @@ urlpatterns += i18n_patterns(
     path('track/', include('djelectionguard_tracker.views')),
     path('lang/', include('djlang.views')),
     path('', HomeView.as_view(), name='home'),
+    path('baloti/', include(('baloti_auth.urls', 'baloti'), namespace="baloti"), name='baloti'),
+    path('baloti/', include(('baloti_djelectionguard.urls', 'baloti_djelectionguard'), namespace="baloti_djelectionguard"), name='baloti_djelectionguard'),
+    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
+    path('social-auth/', include('social_django.urls', namespace="social")),
 )
 
 if settings.DEBUG:
@@ -65,8 +70,8 @@ if settings.DEBUG:
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += staticfiles_urlpatterns('/static/')
+urlpatterns += staticfiles_urlpatterns('/public/electis')
 urlpatterns += staticfiles_urlpatterns()
-
 
 if settings.DEBUG:
     import debug_toolbar
