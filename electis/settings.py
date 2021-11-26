@@ -3,7 +3,8 @@ from django.utils.translation import gettext_lazy as _
 from electeez_common.settings import *
 
 SITE_ID = 1
-SITE_NAME = 'electis'
+SITE_NAME = 'baloti_djelectionguard'
+# SITE_NAME = 'electis'
 
 INSTALLED_APPS += ['electis']
 
@@ -40,5 +41,7 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT', None),
     }
 }
+
+TEMPLATE_CONTEXT_PROCESSORS = ['django.core.context_processors.request',]
 
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'noreply@electis.app')
