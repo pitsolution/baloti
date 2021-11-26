@@ -58,7 +58,7 @@ RegistrationView.form_class = RegistrationForm
 class LoginFormViewComponent(Div):
     def to_html(self, *content, view, form, **kwargs):
         if view.request.user.is_authenticated:
-            self.backlink = BackLink(_('my elections'), reverse('contest_list'))
+            self.backlink = BackLink(_('my referendums'), reverse('contest_list'))
 
         return super().to_html(
             Form(

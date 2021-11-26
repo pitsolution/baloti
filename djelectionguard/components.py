@@ -98,19 +98,19 @@ class ContestFormComponent(CList):
         ))
 
         super().__init__(
-            H4(_('Edit election') if edit else _('Create an election')),
+            H4(_('Edit referendum') if edit else _('Create a referendum')),
             Form(
                 form['name'],
                 form['about'],
                 H6(_('Voting settings:')),
                 form['votes_allowed'],
-                H6(_('Election starts:')),
+                H6(_('Referendum starts:')),
                 form['start'],
-                H6(_('Election ends:')),
+                H6(_('Referendum ends:')),
                 form['end'],
                 form['timezone'],
                 CSRFInput(view.request),
-                MDCButton(_('update election') if edit else _('create election')),
+                MDCButton(_('update referendum') if edit else _('create referendum')),
                 method='POST',
                 cls='form'),
         )
@@ -265,7 +265,7 @@ class ContestListCreateBtn(A):
                     Span('+', cls='new-contest-icon'),
                     cls='new-contest-icon-container'
                 ),
-                Span(_('Create new election')),
+                Span(_('Create new referendum')),
                 cls='mdc-list-item__text text-btn mdc-ripple-upgraded'
             ),
             cls='mdc-list-item contest-list-item',
@@ -282,7 +282,7 @@ class ContestList(Div):
             or view.request.user.is_superuser
         )
         return super().to_html(
-            H4(_('Elections'), style='text-align: center;'),
+            H4(_('Referendums'), style='text-align: center;'),
             # ContestFilters(view),
             Ul(
                 ListItem(ContestListCreateBtn())
@@ -293,7 +293,7 @@ class ContestList(Div):
                 ) if len(context['contest_list'])
                 else (
                     Li(
-                        _('There are no elections yet'),
+                        _('There are no referendums yet'),
                         cls='mdc-list-item body-1'
                     ),
                 ),
@@ -442,7 +442,7 @@ class DownloadBtn(DownloadBtnMixin, MDCTextButton):
 
 class SecureElectionInner(Span):
     def __init__(self, obj, user):
-        text = _('All guardians must possess a private key so that the ballot box is secure and the election can be opened for voting.')
+        text = _('All guardians must possess a private key so that the ballot box is secure and the referendum can be opened for voting.')
         todo_list = Ol()
 
         #todo_list.addchild(Li('Add guardians', cls='line'))
@@ -487,7 +487,7 @@ class SecureElectionInner(Span):
             cls = ''
             if guardian.contest.joint_public_key:
                 cls = 'bold'
-            todo_list.addchild(Li(_('Open the election for voting'), cls=cls))
+            todo_list.addchild(Li(_('Open the referendum for voting'), cls=cls))
 
         subtext = _('Guardians must NOT loose their PRIVATE keys and they must keep them SECRET.')
 
@@ -530,11 +530,11 @@ class SecureElectionInner(Span):
 
 class SecureElectionAction(ListAction):
     def __init__(self, obj, user):
-        title = _('Secure the election')
+        title = _('Secure the referendum')
 
         if obj.mediator == user:
             if obj.joint_public_key:
-                title = _('Ballot box securely locked. Election can be open for voting.')
+                title = _('Ballot box securely locked. Referendum can be open for voting.')
                 icon = DoneIcon()
             else:
                 icon = TodoIcon()
@@ -562,7 +562,7 @@ class CastVoteAction(ListAction):
             s = voter.casted
             txt = Span(
                 _('You casted your vote!'
-                  ' The results will be published after the election is closed.'
+                  ' The results will be published after the referendum is closed.'
                 ),
                 Br(),
                 A(_('Track my vote'), href=reverse('tracker_detail', args=[voter.id])) if voter.casted else None,
@@ -597,7 +597,7 @@ class ChooseBlockchainAction(ListAction):
             txt = ''
             icon = DoneIcon()
         else:
-            txt = _('Choose the blockchain you want to deploy your election smart contract to')
+            txt = _('Choose the blockchain you want to deploy your referendum smart contract to')
             icon = TodoIcon()
 
         try:
@@ -606,7 +606,7 @@ class ChooseBlockchainAction(ListAction):
             has_contract = False
 
         super().__init__(
-            _('Add the election smart contract'),
+            _('Add the referendum smart contract'),
             txt, icon,
             MDCButtonOutlined(
                 _('add'),
@@ -743,7 +743,7 @@ class UnlockBallotAction(ListAction):
             )
         else:
             content = Span(
-                P(_('When the election is over the guardians use their keys to open the ballot box and count the results.')),
+                P(_('When the referendum is over the guardians use their keys to open the ballot box and count the results.')),
                 cls='body-2'
             )
 
@@ -795,7 +795,7 @@ class ResultAction(ListAction):
             title = _('Results available')
             if contest.mediator == user:
                 subtext.addchild(
-                    Div(_('Congratulations! You have been the mediator of a secure election.')))
+                    Div(_('Congratulations! You have been the mediator of a secure referendum.')))
 
             url=reverse('contest_result', args=[contest.id])
             result_btn = MDCButton(_('view result table'), tag='a', href=url)
@@ -932,7 +932,7 @@ class TezosSecuredCard(Section):
                 ListAction(
                     _('Secured and decentralised with Tezos'),
                     Span(
-                        _('Your election data and results will be published'
+                        _('Your referendum data and results will be published'
                           ' on Tezos’ %(blockchain)s blockchain.',
                             blockchain=blockchain
                         ),
@@ -1670,9 +1670,9 @@ class ContestOpenCard(Div):
             reverse('contest_detail', args=[contest.id]))
 
         return super().to_html(
-            H4(_('Open the election for voting'), cls='center-text'),
+            H4(_('Open the referendum for voting'), cls='center-text'),
             Div(
-                P(_('Once you open the election for voting you can’t make changes to it.')),
+                P(_('Once you open the referendum for voting you can’t make changes to it.')),
                 cls='center-text'
             ),
             Form(
@@ -1907,14 +1907,14 @@ class ContestCloseCard(Div):
             reverse('contest_detail', args=[contest.id]))
 
         return super().to_html(
-            H4(_('Manual closing of the election'), cls='center-text'),
+            H4(_('Manual closing of the referendum'), cls='center-text'),
             Div(
                 P(_('This will stop the voting process and it can\'t be undone.')),
                 cls='center-text body-2'),
             Form(
                 CSRFInput(view.request),
                 Div(
-                    MDCButtonOutlined(_('close the election now'), False),
+                    MDCButtonOutlined(_('close the referendum now'), False),
                     style='margin: 0 auto; width: fit-content',
                     cls='red-button-container'),
                 method='POST',
@@ -1997,9 +1997,9 @@ class ContestDecryptCard(Div):
 class ContestPublishCard(Div):
     def to_html(self, *content, view, form , **ctx):
         return super().to_html(
-            H4(_('Publish your election results'), cls='center-text'),
+            H4(_('Publish your referendum results'), cls='center-text'),
             Div(
-                P(_('This will decentralize your election results.')),
+                P(_('This will decentralize your referendum results.')),
                 cls='center-text body-2'),
             Form(
                 CSRFInput(view.request),
@@ -2076,7 +2076,7 @@ class ArtifactsLinks(Div):
         if contest.electioncontract.blockchain.explorer:
             links.addchild(
                 Div(
-                    A(_('Election report'), href=contest.electioncontract.explorer_link),
+                    A(_('Referendum report'), href=contest.electioncontract.explorer_link),
                     Br(),
                     _('On Tezos\' blockchain'),
                     style=dict(text_align='center', color='#888', margin='12px')
@@ -2086,7 +2086,7 @@ class ArtifactsLinks(Div):
         if contest.plaintext_tally:
             links.addchild(
                 Div(
-                    A(_('Election datas'), href=contest.artifacts_local_url),
+                    A(_('Referendum datas'), href=contest.artifacts_local_url),
                     Br(),
                     _('Local data'),
                     style=dict(text_align='center', color='#888', margin='12px')
@@ -2096,7 +2096,7 @@ class ArtifactsLinks(Div):
         if contest.artifacts_ipfs_url:
             links.addchild(
                 Div(
-                    A(_('Election datas'), href=contest.artifacts_ipfs_url),
+                    A(_('Referendum datas'), href=contest.artifacts_ipfs_url),
                     Br(),
                     _('On IPFS, decentralized'),
                     style=dict(text_align='center', color='#888', margin='12px')
