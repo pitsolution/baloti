@@ -58,11 +58,7 @@
                 <p class="app-login__subhead">Login to your account</p>
 
                 <div class="app-login__btn-group">
-                        {% if choice %}
-                            <a class="btn btn-facebook btn-block" href="{% url 'social:begin' 'facebook' %}?next=/baloti/vote/{{choice}}"><span class="app-icon icon-facebook-box"></span> <span>Continue with Facebook</span></a>
-                        {% else %}
-                            <a class="btn btn-facebook btn-block" href="{% url 'social:begin' 'facebook' %}?next=/en/baloti/contest/list/"><span class="app-icon icon-facebook-box"></span> <span>Continue with Facebook</span></a>
-                        {% endif %}
+                    <a class="btn btn-facebook btn-block" id="fbloginBtn" href="{% url 'social:begin' 'facebook' %}?next=/baloti/contest/vote/success/"><span class="app-icon icon-facebook-box"></span> <span>Continue with Facebook</span></a>
                     <button class="btn btn-google btn-block"><span class="app-icon icon-google"></span> <span>Continue with Google</span></button>
                     <button class="btn btn-apple btn-block"><span class="app-icon icon-apple"></span> <span>Continue with Apple</span></button>
                 </div>
@@ -86,7 +82,6 @@
                         </p>
                     {% endif %}
                     <button type="button" isloggedIn="false" id="loginBtn" class="btn btn-primary btn-block btn-md--small">CONTINUE</button>
-                    <input type="hidden" name="choice" value={{choice}} />
                     <p class="app-login__createaccount"><span>Not registered yet?</span> <a href="#" class="app-link">Create an account now!</a> </p>
                 </div>
                 <button type="button" id="logincloseBtn" class="btn btn-default mx-auto" data-dismiss="modal">CLOSE</button>
@@ -107,7 +102,7 @@
             </div>
             <div class="modal-body text-center">
                 <div class="app-modal__msgbox text-bold text-uppercase">
-                    <span>yes</span>
+                    <span><input type="text" id="choice_input" name="choice" readonly /></span>
                 </div>
             </div>
             <div class="modal-footer justify-content-between">

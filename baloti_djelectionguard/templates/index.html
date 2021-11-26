@@ -51,8 +51,10 @@
                         <div class="app-card__footer">
                             {% if u.status == 'open' %}
                                 <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a>
+                                <label class="label label-primary">OPEN</label>
                             {% elif u.status == 'closed' %}
                                 <a href={% url 'baloti_djelectionguard:viewContestResult' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><span>VIEW RESULT</span> <span class="app-icon icon-arrow"></span></a>
+                                <label class="label label">CLOSED</label>
                             {% endif %}
                         </div>
                     </div>

@@ -169,7 +169,23 @@ class BalotiContestChoicesView(TemplateView):
         if request.user.is_anonymous:
             return render(request, 'choice-no-login.html',{"contest": contest, "candidates":candidates})
         else:
+            choice = request.GET.get('choice')
             return render(request, 'choice.html',{"contest": contest, "candidates":candidates})
+
+    def post(self, request):
+        """
+        Args:
+            request (Request): Http request object
+
+        Returns:
+            html : returns login.html html file
+        """
+        contest = request.POST.get('contest')
+        choice = request.POST.get('choice')
+        if request.user.is_anonymous:
+            return render(request, 'login.html',{'name':request.user, 'title':'Login', 'choice': choice})
+        else:
+            return VoteView().casteVote(request, choice)
 
 
 class VoteView(TemplateView):
@@ -210,7 +226,7 @@ class VoteView(TemplateView):
         voter = contest.voter_set.filter(user=user)
         if voter and voter.first().casted:
             voter = voter.first()
-            return render(request, 'vote_success.html',{'user':user, 'title':'Already voted.'})
+            # return render(request, 'already_voted.html',{'user':user, 'title':'Already voted.'})
         else:
             ballot = contest.get_ballot(*[
                     selection.pk
@@ -239,6 +255,7 @@ class VoteView(TemplateView):
                     request,
                     _('You casted your ballot for %(obj)s', obj=contest)
                 )
+        # return render(request, 'vote_success.html',{"contest": contest, "choice_selected":id})
 
 
 class BalotiAnonymousVoteView(TemplateView):
@@ -256,3 +273,56 @@ class BalotiAnonymousVoteView(TemplateView):
         """
         choice = request.POST.get('choice')
         return VoteView().casteVote(request, choice)
+
+class VoteSuccessView(TemplateView):
+    """
+    Contest Choices View
+    """
+    
+    def get(self, request, id):
+        """
+        Args:
+            request (Request): Http request object
+            id: Candidate UID
+
+        Returns:
+            html : returns vote_success.html html file
+        """
+        user = request.user
+        candidate = Candidate.objects.filter(id=id)
+        contest = Contest.objects.get(id=candidate.first().contest.id)
+        candidates = Candidate.objects.filter(contest=contest)
+        voter = contest.voter_set.filter(user=user)
+        if voter and voter.first().casted:
+            voter = voter.first()
+            # return render(request, 'already_voted.html',{'user':user, 'title':'Already voted.'})
+        else:
+            ballot = contest.get_ballot(*[
+                    selection.pk
+                    for selection in candidate
+                ])
+            encrypted_ballot = contest.encrypter.encrypt(ballot)
+            contest.ballot_box.cast(encrypted_ballot)
+
+            submitted_ballot = contest.ballot_box._store.get(
+                encrypted_ballot.object_id
+            )
+            ballot_sha1 = hashlib.sha1(
+                submitted_ballot.to_json().encode('utf8'),
+            ).hexdigest()
+
+            contest.voter_set.update_or_create(
+                user=user,
+                defaults=dict(
+                    casted=True,
+                    ballot_id=encrypted_ballot.object_id,
+                    ballot_sha1=ballot_sha1
+                ),
+            )
+            contest.save()
+            
+        return render(request, 'vote_success.html',{"contest": contest, "candidates":candidates, "choice": candidate.first()})
+
+
+
+       
