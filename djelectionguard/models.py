@@ -54,6 +54,11 @@ class ParentContest(models.Model):
     end = models.DateTimeField()
     actual_start = models.DateTimeField(null=True, blank=True, db_index=True)
     actual_end = models.DateTimeField(null=True, blank=True)
+    timezone = TimeZoneField(
+    choices_display='WITH_GMT_OFFSET',
+    default='Europe/Paris',
+    )
+
     status = models.CharField(
         max_length=20,
         choices=STATUS,
