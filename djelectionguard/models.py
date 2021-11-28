@@ -91,6 +91,7 @@ class Contest(models.Model):
         blank=True,
         null=True
     )
+    referendum_type = models.CharField(null=True, max_length=100)
     type = models.CharField(default='school', max_length=100)
     votes_allowed = models.PositiveIntegerField(
         default=1,
