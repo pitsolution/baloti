@@ -6,6 +6,8 @@ register = template.Library()
 @register.simple_tag
 def displayVoteNow(contest, user):
     contest = Contest.objects.filter(id=contest.id).first()
+    if not contest.actual_start:
+        return False
     if not user.is_anonymous:
         voter = contest.voter_set.filter(user=user).first()
         if voter and voter.casted:
