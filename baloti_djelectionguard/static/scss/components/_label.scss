@@ -1,5 +1,6 @@
 
 $_label-secondary: #171742;
+$_label-outlined-color:#707070;
 .label{
     font-size: 20px;
     background: $_label-secondary;
@@ -9,6 +10,17 @@ $_label-secondary: #171742;
     border-radius: 13px;
     text-transform: uppercase;
     font-family: Poppins-Medium;
+    &-outlined{
+        background: transparent;
+        border: 1px solid $app-border-color;
+        color: $_label-outlined-color;
+    }
+    &-sm{
+        font-size: 16px;
+        padding: 4px 23px;
+        line-height: 25px;
+        border-radius: 16px;
+    }
     &-primary{
         background: $app-primary;
     }

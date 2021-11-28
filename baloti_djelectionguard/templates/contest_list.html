@@ -40,11 +40,11 @@
                     </ul>
                     <div class="app-card__footer">
                         {% if u.action == 'vote_now' %}
-                            <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a>
+                            <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><label for="" class="label label-primary label-sm">OPEN</label><span>VOTE NOW</span><span class="app-icon icon-arrow"></span></a>
                         {% elif u.action == 'view_detail' %}
                             <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><span>VIEW DETAILS</span> <span class="app-icon icon-arrow"></span></a>
                         {% elif u.action == 'view_result' %}
-                            <a href={% url 'baloti_djelectionguard:viewContestResult' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><span>VIEW RESULT</span> <span class="app-icon icon-arrow"></span></a>
+                            <a href={% url 'baloti_djelectionguard:viewContestResult' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><label for="" class="label label-outlined label-sm">CLOSED</label> <span>VIEW RESULT</span><span class="app-icon icon-arrow"></span></a>
                         {% endif %}
                     </div>
                 </div>
@@ -72,11 +72,11 @@
                     </ul>
                     <div class="app-card__footer">
                         {% if u.action == 'vote_now' %}
-                            <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a>
+                            <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><label for="" class="label label-primary label-sm">OPEN</label><span>VOTE NOW</span><span class="app-icon icon-arrow"></span></a>
                         {% elif u.action == 'view_detail' %}
                             <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><span>VIEW DETAILS</span> <span class="app-icon icon-arrow"></span></a>
                         {% elif u.action == 'view_result' %}
-                            <a href={% url 'baloti_djelectionguard:viewContestResult' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><span>VIEW RESULT</span> <span class="app-icon icon-arrow"></span></a>
+                            <a href={% url 'baloti_djelectionguard:viewContestResult' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><label for="" class="label label-outlined label-sm">CLOSED</label> <span>VIEW RESULT</span><span class="app-icon icon-arrow"></span></a>
                         {% endif %}
                     </div>
                 </div>
