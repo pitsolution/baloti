@@ -5,7 +5,7 @@
 <section class="app-elections app-body-bg">
     <div class="container">
         {% for u in child_contests %}
-        <button class="btn btn-link btn-back"> <span class="app-icon icon-arrow-right"></span> Elections & Vote</button>
+        <a class="btn btn-link btn-back" href="javascript:window.history.back()"> <span class="app-icon icon-arrow-right"></span> Elections & Vote</a>
         <div class="app-election__head text-center">
             <h4 class="app-title app-title--sm">{{u.name}}</h4>
         </div>
