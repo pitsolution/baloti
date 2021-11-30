@@ -9,9 +9,39 @@ from django.utils import timezone
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
+from django.contrib.auth.models import BaseUserManager
 
+class BalotiUserManager(BaseUserManager):
+    def create_user(self, email, password=None, username=""):
+        """
+        Creates and saves a User with the given email and password.
+
+        NOTE: Argument 'username' is needed for social-auth. It is not actually used.
+        """
+        if not email:
+            raise ValueError('Users must have an email address.')
+
+        # Validate email is unique in database
+        if User.objects.filter(email = self.normalize_email(email).lower()).exists():
+            raise ValueError('This email has already been registered.')
+
+        user = self.model(
+            email=self.normalize_email(email).lower(),
+        )
+
+        user.set_password(password)
+
+        # Save and catch IntegrityError (due to email being unique)
+        try:
+            user.save(using=self._db)
+
+        except IntegrityError:
+            raise ValueError('This email has already been registered.')
+
+        return user
 
 class User(AbstractUser):
+    objects = BalotiUserManager()
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     username = None
@@ -36,6 +66,31 @@ class User(AbstractUser):
                 self.is_superuser = True
                 self.is_staff = True
         return super().save(*args, **kwargs)
+
+
+    def get_full_name(self):
+        # The user is identified by their email address
+        return self.email
+
+    def get_short_name(self):
+        # The user is identified by their email address
+        return self.email
+
+    def __str__(self):
+        return self.email
+
+    def __unicode__(self):
+        return self.email
+
+    def has_perm(self, perm, obj=None):
+        "Does the user have a specific permission?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    def has_module_perms(self, app_label):
+        "Does the user have permissions to view the app `app_label`?"
+        # Simplest possible answer: Yes, always
+        return True
 
 
 def default_token():
