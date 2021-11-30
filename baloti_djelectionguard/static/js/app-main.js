@@ -13,6 +13,17 @@ $(document).ready(function(){
         var choice_name = $("input[type='radio']:checked").attr("dataname");
         $('#choice_input').text(choice_name);
         $('#createballet').modal("show");
+        var choice = $(".form-check-input:checked").val();
+
+        var href = document.getElementsByClassName("btn btn-facebook btn-block")[0].href;
+        var href = href + choice
+        $("#fbloginBtn").attr("href", href)
+
+        // var vote_success_url = 'baloti/contest/vote/success/' + choice
+        // if(window.location.href.indexOf(vote_success_url) > -1)
+        //     {
+        //         $('#ballet_success').modal("show");
+        //     }
     });
 
 
@@ -87,26 +98,12 @@ $(document).ready(function(){
         $(this).closest(".app-modal").find("#appLogin").addClass("d-none");
     });
 
-    var choice = $(".form-check-input:checked").val();
-    var vote_success_url = 'baloti/contest/vote/success/' + choice
-    if(window.location.href.indexOf(vote_success_url) > -1)
-        {
-            $('#ballet_success').modal("show");
-        }
 
-    // if($("#ballet_success").length > 0){
-    //     $(document).ready(function(){
-    //         console.log('dddddddddddddddddddddddddddddddddddddddddd')
-    //         // $(this).closest(".app-modal").find("#ballet_success").removeClass("d-none");
-    //         $('#ballet_success').modal("show");
-    //         $(this).closest(".app-modal").find("#success").removeClass("d-none");
-    //     });
-    // }
-   
-    var href = document.getElementsByClassName("btn btn-facebook btn-block")[0].href;
-    var choice = $(".form-check-input:checked").val();
-    var href = href + choice
-    $("#fbloginBtn").attr("href", href)
+    if($("#ballet_success").length > 0){
+        $(document).ready(function(){
+                $('#ballet_success').modal("show");
+            });
+    }
 
     $("#closeBtn").on("click", function(){
         $('#createballet').modal('hide');
