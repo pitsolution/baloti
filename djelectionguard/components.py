@@ -2334,9 +2334,9 @@ class AddRecommenderAction(ListAction):
 class ContestRecommenderForm(Div):
     def __init__(self, form):
         self.form = form
-        self.count = 0
-        if form.instance and form.instance.recommender:
-            self.count = len(form.instance.recommender)
+        # self.count = 0
+        # if form.instance and form.instance.recommender:
+        #     self.count = len(form.instance.recommender)
         super().__init__(form)
 
     def init_counter(form_id, count):
