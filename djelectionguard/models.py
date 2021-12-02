@@ -36,6 +36,9 @@ def above_0(value):
             _('Must be above 0, you have choosen:') + f'{value}'
         )
 
+def upload_picture(instance, filename):
+    return f'{uuid.uuid4()}.{filename.split(".")[-1]}'
+
 class ParentContest(models.Model):
 
     STATUS = (
@@ -71,6 +74,11 @@ class ParentContest(models.Model):
 
 class Recommender(models.Model):
     name = models.CharField(max_length=255)
+    picture = models.ImageField(
+        upload_to=upload_picture,
+        blank=True,
+        null=True
+    )
 
     def __str__(self):
         return self.name
@@ -629,8 +637,6 @@ def decrypt_contest(
             )
 
 
-def upload_picture(instance, filename):
-    return f'{uuid.uuid4()}.{filename.split(".")[-1]}'
 
 
 class Candidate(models.Model):

@@ -32,7 +32,7 @@ from electionguard.ballot import CiphertextBallot, PlaintextBallot
 
 from pymemcache.client.base import Client
 
-from .models import Contest, Candidate, Guardian, Voter
+from .models import Contest, Candidate, Guardian, Voter, Recommender, ContestRecommender
 
 from datetime import datetime, date
 
@@ -50,6 +50,8 @@ from .components import (
     ContestPubKeyCard,
     ContestCandidateCreateCard,
     ContestCandidateUpdateCard,
+    ContestRecommenderCreateCard,
+    ContestRecommenderUpdateCard,
     ContestCreateCard,
     ContestCard,
     ContestOpenCard,
@@ -1307,4 +1309,150 @@ class ContestVotersUpdateView(ContestMediator, generic.UpdateView):
             '<uuid:pk>/voters/update/',
             login_required(cls.as_view()),
             name='contest_voters_update'
+        )
+
+
+class ContestRecommenderListView(ContestAccessible, generic.DetailView):
+    template_name = 'djelectionguard/recommender_list.html'
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            '<uuid:pk>/recommenders/',
+            login_required(cls.as_view()),
+            name='contest_recommender_list'
+        )
+
+
+class ContestRecommenderForm(forms.ModelForm):
+
+    RECOMMENDER_TYPE = (
+        ('infavour', 'IN FAVOUR'),
+        ('against', 'AGAINST'),
+    )
+
+    recommender = forms.ModelChoiceField(
+        queryset=Recommender.objects.filter(),
+        empty_label="(Recommender)",
+        # widget=RelatedFieldWidgetCanAdd(Recommender, related_url="http://localhost:8000/en/admin/djelectionguard/recommender/add/")
+        )
+    recommender_type = forms.ChoiceField(
+        choices=RECOMMENDER_TYPE
+        )
+
+    def clean_recommender(self):
+        recommender = self.cleaned_data['recommender']
+        if self.instance.contest.contestrecommender_set.filter(
+            recommender=recommender
+            ).exclude(pk=self.instance.pk):
+            raise forms.ValidationError(
+                f'{recommender} already added!'
+            )
+        return recommender
+
+    class Meta:
+        model = ContestRecommender
+        fields = [
+            'recommender',
+            'recommender_type'
+        ]
+
+        labels = {
+            'recommender': _('RECOMMENDER_NAME'),
+            'recommender_type': _('RECOMMENDER_TYPE')
+        }
+
+
+class ContestRecommenderCreateView(ContestMediator, FormMixin, generic.DetailView):
+    template_name = 'djelectionguard/recommender_form.html'
+    form_class = ContestRecommenderForm
+
+    def get_queryset(self):
+        return Contest.objects.filter(
+            mediator=self.request.user,
+            actual_start=None)
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)
+        form.instance.contest = self.get_object()
+        return form
+
+    def form_valid(self, form):
+        form.save()
+        messages.success(
+            self.request,
+            _('You have added recommender') + f' {form.instance.recommender}',
+        )
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('contest_recommender_create', args=[self.get_object().id])
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            '<uuid:pk>/recommenders/create/',
+            login_required(cls.as_view()),
+            name='contest_recommender_create'
+        )
+
+class ContestRecommenderUpdateView(generic.UpdateView):
+    model = ContestRecommender
+    form_class = ContestRecommenderForm
+    template_name = 'djelectionguard/recommender_update.html'
+
+    def get_form(self, *args, **kwargs):
+        form = super().get_form()
+        form.contest = self.get_object().contest
+        return form
+
+    def get_queryset(self):
+        return ContestRecommender.objects.filter()
+
+    def get_success_url(self):
+        contest = self.get_object().contest
+        messages.success(
+            self.request,
+            _('You have updated recommender') + f'{self.object}',
+        )
+        return reverse('contest_recommender_create', args=(contest.id,))
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            'recommenders/<pk>/update/',
+            login_required(cls.as_view()),
+            name='contest_recommender_update'
+        )
+
+
+class ContestRecommenderDeleteView(ContestMediator, generic.DeleteView):
+    def dispatch(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return ContestRecommender.objects.filter()
+
+    def get_success_url(self):
+        contest = self.get_object().contest
+        messages.success(
+            self.request,
+            _('You have removed recommender') + f'{self.object.recommender}',
+        )
+        return reverse('contest_recommender_create', args=(contest.id,))
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            'recommenders/<pk>/delete/',
+            login_required(cls.as_view()),
+            name='contest_recommender_delete'
         )

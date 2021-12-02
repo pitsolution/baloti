@@ -18,7 +18,8 @@ from django.conf import settings
 
 from djlang.utils import gettext as _
 from electeez_sites.models import Site
-from .models import Contest, Candidate
+from .models import Contest, Candidate, ParentContest, Recommender
+from ckeditor.widgets import CKEditorWidget
 
 
 @widget_template('django/forms/widgets/splitdatetime.html')
@@ -37,6 +38,15 @@ class ContestForm(forms.ModelForm):
     def tomorow():
         tomorow = datetime.now() + timedelta(days=1)
         return tomorow.replace(second=0, microsecond=0)
+
+    referendum_type = forms.CharField(
+        label=_('FORM_REFERENDUM_TYPE'),
+        required=False
+    )
+    parent = forms.ModelChoiceField(queryset=ParentContest.objects.filter(), empty_label="(Parent)")
+    initiator = forms.ModelChoiceField(queryset=Recommender.objects.filter(), empty_label="(Initiator)")
+    infavour_arguments = forms.CharField(widget=CKEditorWidget())
+    against_arguments = forms.CharField(widget=CKEditorWidget())
 
     about = forms.CharField(
         label=_('FORM_ABOUT_ELECTION_CREATE'),
@@ -73,6 +83,11 @@ class ContestForm(forms.ModelForm):
         model = Contest
         fields = [
             'name',
+            'referendum_type',
+            'parent',
+            'initiator',
+            'infavour_arguments',
+            'against_arguments',
             'about',
             'votes_allowed',
             'start',
@@ -81,6 +96,11 @@ class ContestForm(forms.ModelForm):
         ]
         labels = {
             'name': _('FORM_TITLE_ELECTION_CREATE'),
+            'referendum_type': _('FORM_TITLE_REFERENDUM_TYPE'),
+            'parent': _('FORM_TITLE_PARENT'),
+            'initiator': _('FORM_TITLE_INITIATOR'),
+            'infavour_arguments': _('FORM_TITLE_INFAVOUR_ARGUMENTS'),
+            'against_arguments': _('FORM_TITLE_AGAINST_ARGUMENTS'),
             'about': _('FORM_ABOUT_ELECTION_CREATE'),
             'votes_allowed': _('FORM_VOTES_ALLOWED_ELECTION_CREATE'),
             'start': _('FORM_START_ELECTION_CREATE'),
@@ -101,6 +121,11 @@ class ContestFormComponent(CList):
             H4(_('Edit referendum') if edit else _('Create a referendum')),
             Form(
                 form['name'],
+                form['referendum_type'],
+                form['parent'],
+                form['initiator'],
+                form['infavour_arguments'],
+                form['against_arguments'],
                 form['about'],
                 H6(_('Voting settings:')),
                 form['votes_allowed'],
@@ -869,6 +894,7 @@ class ContestSettingsCard(Div):
             list_content += [
                 BasicSettingsAction(contest),
                 AddCandidateAction(contest),
+                AddRecommenderAction(contest),
                 AddVoterAction(contest),
                 ChooseBlockchainAction(contest, user),
             ]
@@ -1154,6 +1180,7 @@ class ContestCard(Div):
 
         if contest.mediator == view.request.user:
             sub_section.addchild(VotersSettingsCard(view, **context))
+        # sub_section.addchild(RecommendersSettingsCard(view, **context))
 
 
         return super().to_html(
@@ -2275,4 +2302,266 @@ class GuardianCreateCard(Div):
                 cls='form'
             ),
             cls='card'
+        )
+
+
+class AddRecommenderAction(ListAction):
+    def __init__(self, obj):
+        num_recommender = obj.contestrecommender_set.count()
+        kwargs = dict(
+            tag='a',
+            href=reverse('contest_recommender_create', args=[obj.id]))
+        if num_recommender:
+            btn_comp = MDCButtonOutlined(_('edit'), False, **kwargs)
+            icon = DoneIcon()
+        else:
+            btn_comp = MDCButtonOutlined(_('add'), False, 'add', **kwargs)
+            icon = TodoIcon()
+
+        infavour_recommender = obj.contestrecommender_set.filter(recommender_type='infavour').count()
+        against_recommender = obj.contestrecommender_set.filter(recommender_type='against').count()
+        # txt = _('%(candidates)d candidates, minimum: %(elected)d',
+        #     n=against_recommender,
+        #     candidates=infavour_recommender,
+        #     elected=against_recommender
+        # )
+        txt = _('Infavour Recommenders, Against Recommenders')
+
+        super().__init__(
+            _('Add recommender'), txt, icon, btn_comp,
+        )
+
+class ContestRecommenderForm(Div):
+    def __init__(self, form):
+        self.form = form
+        self.count = 0
+        if form.instance and form.instance.recommender:
+            self.count = len(form.instance.recommender)
+        super().__init__(form)
+
+    def init_counter(form_id, count):
+        form = getElementByUuid(form_id)
+        counter = form.querySelector('.mdc-text-field-character-counter')
+        counter.innerHTML = count + '/300'
+
+    def update_counter(event):
+        field = event.currentTarget
+        current_count = field.value.length
+        if current_count > 300:
+            field.value = field.value.substr(0, 300)
+            current_count = 300
+        parent = field.parentElement.parentElement.parentElement
+        counter = parent.querySelector('.mdc-text-field-character-counter')
+        counter.innerHTML = current_count + '/300'
+
+    def py2js(self):
+        self.init_counter(self.id, self.count)
+        field = document.getElementById('id_description')
+        field.addEventListener('keyup', self.update_counter)
+
+
+@template('djelectionguard/recommender_form.html', Document, Card)
+class ContestRecommenderCreateCard(Div):
+    def to_html(self, *content, view, form, **context):
+        contest = view.get_object()
+        editable = (view.request.user == contest.mediator
+                    and not contest.actual_start)
+        self.backlink = BackLink(_('back'), reverse('contest_detail', args=[contest.id]))
+        form_component = ''
+        if editable:
+            form_component = Form(
+                ContestRecommenderForm(form),
+                CSRFInput(view.request),
+                MDCButton(_('Add recommender'), icon='person_add_alt_1'),
+                method='POST',
+                cls='form')
+        count = contest.contestrecommender_set.count()
+        return super().to_html(
+            H4(
+                _('%(count)s Recommeders', n=count, count=count),
+                cls='center-text'
+            ),
+            RecommenderAccordion(contest, editable),
+            H5(_('Add a recommender'), cls='center-text'),
+            form_component,
+            cls='card'
+        )
+
+
+
+@template('djelectionguard/recommender_update.html', Document, Card)
+class ContestRecommenderUpdateCard(Div):
+    def to_html(self, *content, view, form, **context):
+        recommender = view.get_object()
+        contest = recommender.contest
+        self.backlink = BackLink(
+            _('back'),
+            reverse('contest_recommender_create', args=[contest.id]))
+        delete_btn = MDCTextButton(
+            _('delete'),
+            'delete',
+            tag='a',
+            href=reverse('contest_recommender_delete', args=[recommender.id]))
+
+        return super().to_html(
+            H4(
+                _('Edit recommender'),
+                style='text-align: center;'
+            ),
+            Form(
+                CSRFInput(view.request),
+                ContestRecommenderForm(form),
+                Div(
+                    Div(delete_btn, cls='red-button-container'),
+                    MDCButton(_('Save'), True),
+                    style='display: flex; justify-content: space-between'),
+                method='POST',
+                cls='form'),
+            cls='card'
+        )
+
+class RecommenderDetail(Div):
+    def __init__(self, recommender, editable=False, **kwargs):
+        if editable:
+            kwargs['tag'] = 'a'
+            kwargs['href'] = reverse('contest_recommender_update', args=[recommender.id])
+            kwargs['style'] = 'margin-left: auto; margin-top: 12px;'
+
+        extra_style = 'align-items: baseline;'
+        content = []
+
+        if recommender.recommender.picture:
+            extra_style = ''
+            content.append(
+                Div(
+                    Image(
+                        loading='eager',
+                        src=recommender.recommender.picture.url,
+                        style='width: 100%;'
+                              'display: block;'
+                    ),
+                    style='width: 150px; padding: 12px;'
+                )
+            )
+
+        subcontent = Div(
+            H5(
+                recommender.recommender,
+                style='margin-top: 6px; margin-bottom: 6px; word-break: break-all;'
+            ),
+            I(
+                recommender.recommender,
+                style=dict(
+                    font_size='small',
+                    font_weight='initial',
+                    word_break='break-all',
+                )
+            ),
+            style='flex: 1 1 65%; padding: 12px;'
+        )
+
+        if recommender.recommender_type:
+            recommender_type = recommender.recommender_type
+            subcontent.addchild(
+                Div(
+                    recommender_type,
+                    style='margin-top: 24px; word-break: break-all;'
+                )
+            )
+
+        content.append(subcontent)
+
+        if editable and not recommender.recommender:
+            content.append(
+                MDCButtonOutlined(_('edit'), False, 'edit', **kwargs)
+            )
+        elif editable:
+            subcontent.addchild(
+                MDCButtonOutlined(_('edit'), False, 'edit', **kwargs)
+            )
+
+        if 'style' not in kwargs:
+            kwargs['style'] = ''
+
+        super().__init__(
+            *content,
+            style='padding: 12px;'
+                  'display: flex;'
+                  'flex-flow: row wrap;'
+                  'justify-content: center;'
+                  + kwargs.pop('style')
+                  + extra_style,
+            cls='recommender-detail',
+        )
+
+class RecommenderAccordionItem(MDCAccordionSection):
+    tag = 'recommender-list-item'
+
+    def __init__(self, recommender, editable=False):
+        super().__init__(
+            RecommenderDetail(recommender, editable),
+            label=recommender.recommender,
+        )
+
+
+class RecommenderAccordion(MDCAccordion):
+    tag = 'recommender-accordion'
+    def __init__(self, contest, editable=False):
+        super().__init__(
+            *(
+                RecommenderAccordionItem(recommender, editable)
+                for recommender
+                in contest.contestrecommender_set.all()
+            ) if contest.contestrecommender_set.count()
+            else [_('No recommender yet.')]
+        )
+
+class RecommenderListComp(MDCList):
+    tag = 'recommender-list'
+    def __init__(self, contest, editable=False):
+        qs = contest.contestrecommender_set.all()[:]
+        def recommenders(qs):
+            for recommender in qs:
+                attrs = dict()
+                if editable:
+                    attrs['tag'] = 'a'
+                    attrs['href'] = reverse(
+                        'contest_recommender_update',
+                        args=[recommender.id]
+                    )
+                yield (recommender, attrs)
+
+        super().__init__(
+            *(
+                MDCListItem(recommender, **attrs)
+                for recommender, attrs in recommenders(qs)
+            ) if qs.count()
+            else [_('No recommender yet.')]
+        )
+
+class RecommendersSettingsCard(Div):
+    def __init__(self, view, **context):
+        contest = view.get_object()
+        editable = (view.request.user == contest.mediator
+                    and not contest.actual_start)
+        kwargs = dict(p=False, tag='a')
+        if contest.contestrecommender_set.count():
+            if editable:
+                kwargs['href'] = reverse('contest_recommender_create', args=[contest.id])
+                btn = MDCButtonOutlined(_('view all/edit'), **kwargs)
+            else:
+                kwargs['href'] = reverse('contest_recommender_list', args=[contest.id])
+                btn = MDCButtonOutlined(_('view all'), **kwargs)
+        else:
+            if editable:
+                kwargs['href'] = reverse('contest_recommender_create', args=[contest.id])
+                btn = MDCButtonOutlined(_('add'), icon='add', **kwargs)
+            else:
+                btn = None
+
+        super().__init__(
+            H5(_('Recommeders')),
+            RecommenderListComp(contest, editable),
+            btn,
+            cls='setting-section'
         )
