@@ -2565,3 +2565,377 @@ class RecommendersSettingsCard(Div):
             btn,
             cls='setting-section'
         )
+
+
+
+
+class ParentContestForm(forms.ModelForm):
+    def now():
+        now = datetime.now()
+        return now.replace(second=0, microsecond=0)
+
+    def tomorow():
+        tomorow = datetime.now() + timedelta(days=1)
+        return tomorow.replace(second=0, microsecond=0)
+
+    start = forms.SplitDateTimeField(
+        label='',
+        initial=now,
+        widget=forms.SplitDateTimeWidget(
+            date_format='%Y-%m-%d',
+            date_attrs={'type': 'date', 'label': 'date'},
+            time_attrs={'type': 'time', 'label': 'heure'},
+        ),
+    )
+    end = forms.SplitDateTimeField(
+        label='',
+        initial=tomorow,
+        widget=forms.SplitDateTimeWidget(
+            date_format='%Y-%m-%d',
+            date_attrs={'type': 'date'},
+            time_attrs={'type': 'time'},
+        )
+    )
+
+    class Meta:
+        model = ParentContest
+        fields = [
+            'name',
+            'start',
+            'end',
+            'timezone',
+        ]
+        labels = {
+            'name': _('FORM_TITLE_ELECTION_CREATE'),
+            'start': _('FORM_START_ELECTION_CREATE'),
+            'end': _('FORM_END_ELECTION_CREATE'),
+            'timezone': _('FORM_TIMEZONE_ELECTION_CREATE')
+        }
+
+
+class ParentContestFormComponent(CList):
+    def __init__(self, view, form, edit=False):
+        content = []
+        content.append(Ul(
+            *[Li(e) for e in form.non_field_errors()],
+            cls='error-list'
+        ))
+
+        super().__init__(
+            H4(_('Edit referendum') if edit else _('Create a referendum')),
+            Form(
+                form['name'],
+                H6(_('Referendum starts:')),
+                form['start'],
+                H6(_('Referendum ends:')),
+                form['end'],
+                form['timezone'],
+                CSRFInput(view.request),
+                MDCButton(_('update referendum') if edit else _('create referendum')),
+                method='POST',
+                cls='form'),
+        )
+
+
+@template('djelectionguard/parentcontest_form.html', Document, Card)
+class ParentContestCreateCard(Div):
+    style = dict(cls='card')
+
+    def to_html(self, *content, view, form, **context):
+        self.backlink = BackLink(_('back'), reverse('parentcontest_list'))
+
+        edit = view.object is not None
+        return super().to_html(
+            ParentContestFormComponent(view, form, edit),
+        )
+
+
+class ParentContestFiltersBtn(Button):
+    def __init__(self, pos, text, active=False):
+        active_cls_name = 'mdc-tab--active' if active else ''
+        active_indicator = 'mdc-tab-indicator--active' if active else ''
+
+        attrs = {
+            'class': f'parentcontest-filter-btn mdc-tab {active_cls_name}',
+            'role': 'tab',
+            'aria-selected': 'true',
+            'tabindex': pos
+        }
+        super().__init__(
+            Span(
+                Span(text, cls='mdc-tab__text-label'),
+                cls='mdc-tab__content'
+            ),
+            Span(
+                Span(cls='mdc-tab-indicator__content ' +
+                              'mdc-tab-indicator__content--underline'
+                ),
+                cls=f'mdc-tab-indicator {active_indicator}'
+            ),
+            Span(cls='mdc-tab__ripple'),
+            **attrs
+        )
+
+
+class ParentContestFilters(Div):
+    def __init__(self, view):
+        active_btn = view.request.GET.get('q', 'all')
+
+        self.all_parentcontests_btn = ParentContestFiltersBtn(1, _('all'), active_btn == 'all')
+        self.my_parentcontests_btn = ParentContestFiltersBtn(2, _('created by me'), active_btn == 'created')
+        self.shared_parentcontests_btn = ParentContestFiltersBtn(3, _('shared with me'), active_btn == 'shared')
+
+        super().__init__(
+            Div(
+                Div(
+                    self.all_parentcontests_btn,
+                    self.my_parentcontests_btn,
+                    self.shared_parentcontests_btn,
+                    cls='mdc-tab-scroller__scroll-content'
+                ),
+                cls='mdc-tab-scroller__scroll-area ' +
+                    'mdc-tab-scroller__scroll-area--scroll'
+            ),
+            cls='mdc-tab-bar parentcontest-filter'
+        )
+
+
+class ParentContestItem(A):
+    def __init__(self, parentcontest, user, *args, **kwargs):
+        active_cls = ''
+        status = ''
+        status_2 = ''
+        # voter = parentcontest.voter_set.filter(user=user).first()
+        # voted = voter and voter.casted
+        if parentcontest.actual_start:
+            status = _('voting ongoing')
+            active_cls = 'active'
+        if parentcontest.actual_end:
+            status = _('voting closed')
+        # if parentcontest.plaintext_tally:
+        #     active_cls = ''
+        #     status = _('result available')
+
+        super().__init__(
+            Span(cls='mdc-list-item__ripple'),
+            Span(
+                Span(cls=f'parentcontest-indicator'),
+                Span(
+                    Span(status, status_2, cls='parentcontest-status overline'),
+                    Span(parentcontest.name, cls='parentcontest-name'),
+                    cls='list-item__text-container'
+                ),
+                cls='mdc-list-item__text'
+            ),
+            cls=f'parentcontest-list-item mdc-list-item mdc-ripple-upgraded {active_cls}',
+            href=reverse('parentcontest_detail', args=[parentcontest.uid])
+        )
+
+
+
+class ParentContestListItem(ListItem):
+    def __init__(self, obj, user, **kwargs):
+        super().__init__(ParentContestItem(obj, user))
+
+
+class ParentListAction(ListItem):
+    def __init__(self, title, txt, icon_comp, btn_comp, **kwargs):
+        self.action_btn = btn_comp
+
+        subitem_cls = 'mdc-list-item__primary-text list-action-row'
+        if not txt:
+            subitem_cls = 'list-action-row'
+        subitem = Span(cls=subitem_cls)
+
+        if icon_comp:
+            subitem.addchild(icon_comp)
+        subitem.addchild(H6(title))
+        if btn_comp:
+            subitem.addchild(btn_comp)
+
+        item = Span(subitem, cls='mdc-list-item__text list-action-column')
+        if txt:
+            item.addchild(Span(txt, cls='mdc-list-item__secondary-text ' +
+                                             'list-action-text body-2'))
+
+        super().__init__(Li(item, cls='mdc-list-item list-action-item'), **kwargs)
+
+
+class ParentContestListCreateBtn(A):
+    def __init__(self):
+        super().__init__(
+            Span(
+                Span(cls='mdc-list-item__ripple'),
+                Span(
+                    Span('+', cls='new-parentcontest-icon'),
+                    cls='new-parentcontest-icon-container'
+                ),
+                Span(_('Create new referendum')),
+                cls='mdc-list-item__text text-btn mdc-ripple-upgraded'
+            ),
+            cls='mdc-list-item parentcontest-list-item',
+            href=reverse('parentcontest_create')
+        )
+
+
+@template('djelectionguard/parentcontest_list.html', Document, Card)
+class ParentContestList(Div):
+    def to_html(self, *content, view, **context):
+        site = Site.objects.get_current()
+        can_create = (site.all_users_can_create
+            or view.request.user.is_staff
+            or view.request.user.is_superuser
+        )
+        return super().to_html(
+            H4(_('Referendums'), style='text-align: center;'),
+            # ContestFilters(view),
+            Ul(
+                ListItem(ParentContestListCreateBtn())
+                if can_create else None,
+                *(
+                    ParentContestListItem(parentcontest, view.request.user)
+                    for parentcontest in context['parentcontest_list']
+                ) if len(context['parentcontest_list'])
+                else (
+                    Li(
+                        _('There are no referendums yet'),
+                        cls='mdc-list-item body-1'
+                    ),
+                ),
+                cls='mdc-list parentcontest-list'
+            ),
+            cls='card'
+        )
+
+
+class ParentBasicSettingsAction(ListAction):
+    def __init__(self, obj):
+        btn_comp = MDCButtonOutlined(
+            _('edit'),
+            False,
+            tag='a',
+            href=reverse('parentcontest_update', args=[obj.uid]))
+        super().__init__(
+            _('Basic settings'),
+            _('Name, votes allowed, time and date, etc.'),
+            DoneIcon(), btn_comp
+        )
+
+class AddIssuesAction(ListAction):
+    def __init__(self, obj):
+        btn_comp = MDCButtonOutlined(
+            _('edit'),
+            False,
+            tag='a',
+            href=reverse('contest_list'))
+        super().__init__(
+            _('Add Issues'),
+            _('Name, votes allowed, time and date, etc.'),
+            DoneIcon(), btn_comp
+        )
+
+class ParentContestSettingsCard(Div):
+    def __init__(self, view, **context):
+        parentcontest = view.get_object()
+        user = view.request.user
+        list_content = []
+        # if contest.mediator == view.request.user:
+        list_content += [
+            ParentBasicSettingsAction(parentcontest),
+            AddIssuesAction(parentcontest)
+        ]
+
+        #     if (
+        #         contest.voter_set.count()
+        #         and contest.candidate_set.count()
+        #         and contest.candidate_set.count() > contest.number_elected
+        #     ):
+        #         if contest.publish_state != contest.PublishStates.ELECTION_NOT_DECENTRALIZED:
+        #             list_content.append(SecureElectionAction(contest, user))
+        # else:
+        #     list_content.append(SecureElectionAction(contest, user))
+
+        # about = mark_safe(escape(contest.about).replace('\n', '<br>'))
+
+        super().__init__(
+            H4(parentcontest.name, style='word-break: break-all;'),
+            Div(
+                parentcontest.name,
+                style='padding: 12px; word-break: break-all;',
+                cls='subtitle-2'
+            ),
+            Ul(
+                *list_content,
+                cls='mdc-list action-list'
+            ),
+            cls='setting-section main-setting-section'
+        )
+
+class IssuesSettingsCard(Div):
+    def __init__(self, view, **context):
+        parentcontest = view.get_object()
+        user = view.request.user
+        list_content = []
+        # if contest.mediator == view.request.user:
+        list_content += [
+            ParentBasicSettingsAction(parentcontest),
+            # AddIssuesAction(parentcontest)
+        ]
+
+        super().__init__(
+            H4(parentcontest.name, style='word-break: break-all;'),
+            Div(
+                parentcontest.name,
+                style='padding: 12px; word-break: break-all;',
+                cls='subtitle-2'
+            ),
+            Ul(
+                *list_content,
+                cls='mdc-list action-list'
+            ),
+            cls='setting-section main-setting-section'
+        )
+
+
+@template('djelectionguard/parentcontest_detail.html', Document)
+class ParentContestCard(Div):
+    def to_html(self, *content, view, **context):
+        parentcontest = view.get_object()
+        # if parentcontest.status == 'closed':
+        #     main_section = ContestFinishedCard(view, **context)
+        # elif parentcontest.status == 'open':
+        #     main_section = ContestVotingCard(view, **context)
+        # else:
+        #     main_section = ContestSettingsCard(view, **context)
+
+        main_section = ParentContestSettingsCard(view, **context)
+
+        action_section = Div(
+            main_section,
+            cls='main-container')
+        sub_section = Div(
+            IssuesSettingsCard(view, **context),
+            cls='side-container')
+
+        # if (
+        #     contest.mediator == view.request.user
+        #     or contest.guardian_set.filter(user=view.request.user).count()
+        # ):
+        #     action_section.addchild(GuardiansSettingsCard(view, **context))
+
+        # if contest.mediator == view.request.user:
+            # sub_section.addchild(VotersSettingsCard(view, **context))
+        # sub_section.addchild(RecommendersSettingsCard(view, **context))
+
+
+        return super().to_html(
+            Div(
+                Div(
+                    BackLink(_('my elections'), reverse('contest_list')),
+                    cls='main-container'),
+                Div(cls='side-container'),
+                action_section,
+                # sub_section,
+                cls='flex-container'
+            )
+        )

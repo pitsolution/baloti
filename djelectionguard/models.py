@@ -72,6 +72,14 @@ class ParentContest(models.Model):
     def __str__(self):
         return self.name
 
+    # def get_absolute_url(self):
+    #     return reverse('parentcontest_list', args=[self.pk])
+
+    def get_absolute_url(self):
+        return reverse('parentcontest_detail', args=[self.pk])
+
+
+
 class Recommender(models.Model):
     name = models.CharField(max_length=255)
     picture = models.ImageField(

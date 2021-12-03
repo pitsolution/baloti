@@ -32,7 +32,8 @@ from electionguard.ballot import CiphertextBallot, PlaintextBallot
 
 from pymemcache.client.base import Client
 
-from .models import Contest, Candidate, Guardian, Voter, Recommender, ContestRecommender
+from .models import Contest, Candidate, Guardian, Voter, ParentContest, Recommender, ContestRecommender
+from .widgets import RelatedFieldWidgetCanAdd
 
 from datetime import datetime, date
 
@@ -46,6 +47,7 @@ from electeez_sites.utils import (
 from electeez_common.components import Document, BackLink
 from electeez_auth.models import User
 from .components import (
+    ParentContestForm,
     ContestForm,
     ContestPubKeyCard,
     ContestCandidateCreateCard,
@@ -1456,3 +1458,90 @@ class ContestRecommenderDeleteView(ContestMediator, generic.DeleteView):
             login_required(cls.as_view()),
             name='contest_recommender_delete'
         )
+
+
+class ParentContestAccessible:
+    def get_queryset(self):
+        return ParentContest.objects.filter(
+        ).distinct('uid')
+
+
+class ParentContestCreateView(generic.CreateView):
+    model = ParentContest
+    form_class = ParentContestForm
+
+    def form_valid(self, form):
+        form.instance.mediator = self.request.user
+        response = super().form_valid(form)
+        messages.success(
+            self.request,
+            _('You have created parentcontest %(obj)s', obj=form.instance)
+        )
+        return response
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            'parent/create/',
+            create_access_required(cls.as_view()),
+            name='parentcontest_create'
+        )
+
+
+class ParentContestUpdateView(generic.UpdateView):
+    model = ParentContest
+    form_class = ParentContestForm
+
+    def get_queryset(self):
+        return ParentContest.objects.filter()
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(
+            self.request,
+            _('You have updated parentcontest %(obj)s', obj=form.instance)
+        )
+        return response
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            'parent/<uuid:pk>/update/',
+            login_required(cls.as_view()),
+            name='parentcontest_update'
+        )
+
+
+class ParentContestListView(ParentContestAccessible, generic.ListView):
+    model = ParentContest
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            'parent',
+            login_required(cls.as_view()),
+            name='parentcontest_list'
+        )
+
+
+class ParentContestDetailView(ParentContestAccessible, generic.DetailView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # voter = self.object.voter_set.filter(user=self.request.user).first()
+        # context['casted'] = voter.casted if voter else None
+        # context['can_vote'] = (
+        #     self.object.actual_start
+        #     and not self.object.actual_end
+        #     and voter
+        #     and not voter.casted
+        # )
+        return context
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            'parent/<uuid:pk>/',
+            login_required(cls.as_view()),
+            name='parentcontest_detail'
+        )
+
