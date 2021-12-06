@@ -43,7 +43,7 @@ class ContestForm(forms.ModelForm):
         label=_('FORM_REFERENDUM_TYPE'),
         required=False
     )
-    parent = forms.ModelChoiceField(queryset=ParentContest.objects.filter(), empty_label="(Parent)")
+    # parent = forms.ModelChoiceField(queryset=ParentContest.objects.filter(), empty_label="(Parent)")
     initiator = forms.ModelChoiceField(queryset=Recommender.objects.filter(), empty_label="(Initiator)")
     infavour_arguments = forms.CharField(widget=CKEditorWidget())
     against_arguments = forms.CharField(widget=CKEditorWidget())
@@ -84,7 +84,7 @@ class ContestForm(forms.ModelForm):
         fields = [
             'name',
             'referendum_type',
-            'parent',
+            # 'parent',
             'initiator',
             'infavour_arguments',
             'against_arguments',
@@ -97,7 +97,7 @@ class ContestForm(forms.ModelForm):
         labels = {
             'name': _('FORM_TITLE_ELECTION_CREATE'),
             'referendum_type': _('FORM_TITLE_REFERENDUM_TYPE'),
-            'parent': _('FORM_TITLE_PARENT'),
+            # 'parent': _('FORM_TITLE_PARENT'),
             'initiator': _('FORM_TITLE_INITIATOR'),
             'infavour_arguments': _('FORM_TITLE_INFAVOUR_ARGUMENTS'),
             'against_arguments': _('FORM_TITLE_AGAINST_ARGUMENTS'),
@@ -122,7 +122,7 @@ class ContestFormComponent(CList):
             Form(
                 form['name'],
                 form['referendum_type'],
-                form['parent'],
+                # form['parent'],
                 form['initiator'],
                 form['infavour_arguments'],
                 form['against_arguments'],
@@ -282,7 +282,7 @@ class ListAction(ListItem):
 
 
 class ContestListCreateBtn(A):
-    def __init__(self):
+    def __init__(self, parent):
         super().__init__(
             Span(
                 Span(cls='mdc-list-item__ripple'),
@@ -294,13 +294,43 @@ class ContestListCreateBtn(A):
                 cls='mdc-list-item__text text-btn mdc-ripple-upgraded'
             ),
             cls='mdc-list-item contest-list-item',
-            href=reverse('contest_create')
+            href=reverse('contest_create', args=[parent])
         )
 
 
 @template('djelectionguard/contest_list.html', Document, Card)
 class ContestList(Div):
     def to_html(self, *content, view, **context):
+        site = Site.objects.get_current()
+        can_create = (site.all_users_can_create
+            or view.request.user.is_staff
+            or view.request.user.is_superuser
+        )
+        return super().to_html(
+            H4(_('Referendums'), style='text-align: center;'),
+            # ContestFilters(view),
+            Ul(
+                ListItem(ContestListCreateBtn(context['contest_list'][0].parent.pk))
+                if can_create else None,
+                *(
+                    ContestListItem(contest, view.request.user)
+                    for contest in context['contest_list']
+                ) if len(context['contest_list'])
+                else (
+                    Li(
+                        _('There are no referendums yet'),
+                        cls='mdc-list-item body-1'
+                    ),
+                ),
+                cls='mdc-list contest-list'
+            ),
+            cls='card'
+        )
+
+@template('djelectionguard/baloti_contest_list.html', Document, Card)
+class BalotiContestList(Div):
+    def to_html(self, *content, view, **context):
+        
         site = Site.objects.get_current()
         can_create = (site.all_users_can_create
             or view.request.user.is_staff
@@ -893,15 +923,14 @@ class ContestSettingsCard(Div):
         if contest.mediator == view.request.user:
             list_content += [
                 BasicSettingsAction(contest),
-                AddCandidateAction(contest),
+                # AddCandidateAction(contest),
                 AddRecommenderAction(contest),
-                AddVoterAction(contest),
+                # AddVoterAction(contest),
                 ChooseBlockchainAction(contest, user),
             ]
 
             if (
-                contest.voter_set.count()
-                and contest.candidate_set.count()
+                contest.candidate_set.count()
                 and contest.candidate_set.count() > contest.number_elected
             ):
                 if contest.publish_state != contest.PublishStates.ELECTION_NOT_DECENTRALIZED:
@@ -2320,12 +2349,10 @@ class AddRecommenderAction(ListAction):
 
         infavour_recommender = obj.contestrecommender_set.filter(recommender_type='infavour').count()
         against_recommender = obj.contestrecommender_set.filter(recommender_type='against').count()
-        # txt = _('%(candidates)d candidates, minimum: %(elected)d',
-        #     n=against_recommender,
-        #     candidates=infavour_recommender,
-        #     elected=against_recommender
-        # )
-        txt = _('Infavour Recommenders, Against Recommenders')
+        txt = _(' %(infavour_recommender)s Infavour, %(against_recommender)s Against',
+                infavour_recommender=infavour_recommender,
+                against_recommender=against_recommender,
+            )
 
         super().__init__(
             _('Add recommender'), txt, icon, btn_comp,
@@ -2817,21 +2844,27 @@ class ParentBasicSettingsAction(ListAction):
             href=reverse('parentcontest_update', args=[obj.uid]))
         super().__init__(
             _('Basic settings'),
-            _('Name, votes allowed, time and date, etc.'),
+            _('Name, time and date, etc.'),
             DoneIcon(), btn_comp
         )
 
 class AddIssuesAction(ListAction):
     def __init__(self, obj):
-        btn_comp = MDCButtonOutlined(
-            _('edit'),
-            False,
+        num_issues = Contest.objects.filter(parent=obj).count()
+        kwargs = dict(
             tag='a',
-            href=reverse('contest_list'))
+            href=reverse('baloti_contest_list', args=[obj.uid]))
+        if num_issues:
+            btn_comp = MDCButtonOutlined(_('edit'), False, **kwargs)
+            icon = DoneIcon()
+        else:
+            btn_comp = MDCButtonOutlined(_('add'), False, 'add', **kwargs)
+            icon = TodoIcon()
+        txt = _(' %(issue)s Issues',
+                issue=num_issues,
+            )
         super().__init__(
-            _('Add Issues'),
-            _('Name, votes allowed, time and date, etc.'),
-            DoneIcon(), btn_comp
+            _('Add Issues'), txt, icon, btn_comp,
         )
 
 class ParentContestSettingsCard(Div):
@@ -2913,9 +2946,9 @@ class ParentContestCard(Div):
         action_section = Div(
             main_section,
             cls='main-container')
-        sub_section = Div(
-            IssuesSettingsCard(view, **context),
-            cls='side-container')
+        # sub_section = Div(
+        #     IssuesSettingsCard(view, **context),
+        #     cls='side-container')
 
         # if (
         #     contest.mediator == view.request.user
@@ -2931,7 +2964,7 @@ class ParentContestCard(Div):
         return super().to_html(
             Div(
                 Div(
-                    BackLink(_('my elections'), reverse('contest_list')),
+                    BackLink(_('my referendums'), reverse('parentcontest_list')),
                     cls='main-container'),
                 Div(cls='side-container'),
                 action_section,

@@ -54,6 +54,7 @@ from .components import (
     ContestCandidateUpdateCard,
     ContestRecommenderCreateCard,
     ContestRecommenderUpdateCard,
+    ParentContestCreateCard,
     ContestCreateCard,
     ContestCard,
     ContestOpenCard,
@@ -107,6 +108,7 @@ class ContestCreateView(generic.CreateView):
 
     def form_valid(self, form):
         form.instance.mediator = self.request.user
+        form.instance.parent = ParentContest.objects.get(pk=self.kwargs['pk'])
         response = super().form_valid(form)
         form.instance.guardian_set.create(user=self.request.user)
         for option in ['Yes', 'No', 'Abstain']:
@@ -120,7 +122,7 @@ class ContestCreateView(generic.CreateView):
     @classmethod
     def as_url(cls):
         return path(
-            'create/',
+            '<uuid:pk>/create/',
             create_access_required(cls.as_view()),
             name='contest_create'
         )
@@ -161,6 +163,28 @@ class ContestListView(ContestAccessible, generic.ListView):
             '',
             login_required(cls.as_view()),
             name='contest_list'
+        )
+
+class BalotiContestAccessible:
+    def get_queryset(self):
+        return Contest.objects.filter(
+            (Q(voter__user=self.request.user) & ~Q(actual_start=None))
+            | Q(guardian__user=self.request.user)
+            | Q(mediator=self.request.user)
+        ).distinct('id')
+
+class BalotiContestListView(BalotiContestAccessible, generic.ListView):
+    model = Contest
+
+    def get_queryset(self):
+        return Contest.objects.filter(parent_id=self.kwargs['pk']).distinct('id')
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            'parent/<uuid:pk>/contests/',
+            login_required(cls.as_view()),
+            name='baloti_contest_list'
         )
 
 class ContestResultView(UserPassesTestMixin, ContestAccessible, generic.DetailView):
