@@ -146,7 +146,7 @@ class ContestCreateCard(Div):
     style = dict(cls='card')
 
     def to_html(self, *content, view, form, **context):
-        self.backlink = BackLink(_('back'), reverse('contest_list'))
+        self.backlink = BackLink(_('back'), reverse('contest_list', args=[context['parent'].pk]))
 
         edit = view.object is not None
         return super().to_html(
@@ -329,36 +329,6 @@ class ContestList(Div):
             ),
             cls='card'
         )
-
-@template('djelectionguard/baloti_contest_list.html', Document, Card)
-class BalotiContestList(Div):
-    def to_html(self, *content, view, **context):
-        site = Site.objects.get_current()
-        can_create = (site.all_users_can_create
-            or view.request.user.is_staff
-            or view.request.user.is_superuser
-        )
-        return super().to_html(
-            H4(_('Referendums'), style='text-align: center;'),
-            # ContestFilters(view),
-            Ul(
-                ListItem(ContestListCreateBtn())
-                if can_create else None,
-                *(
-                    ContestListItem(contest, view.request.user)
-                    for contest in context['contest_list']
-                ) if len(context['contest_list'])
-                else (
-                    Li(
-                        _('There are no referendums yet'),
-                        cls='mdc-list-item body-1'
-                    ),
-                ),
-                cls='mdc-list contest-list'
-            ),
-            cls='card'
-        )
-
 
 class CircleIcon(Span):
     def __init__(self, icon, color='', small=False, **kw):
@@ -1217,7 +1187,7 @@ class ContestCard(Div):
         return super().to_html(
             Div(
                 Div(
-                    BackLink(_('my elections'), reverse('contest_list')),
+                    BackLink(_('back'), reverse('contest_list', args=[contest.parent.pk])),
                     cls='main-container'),
                 Div(cls='side-container'),
                 action_section,
@@ -2858,7 +2828,7 @@ class AddIssuesAction(ListAction):
         num_issues = Contest.objects.filter(parent=obj).count()
         kwargs = dict(
             tag='a',
-            href=reverse('baloti_contest_list', args=[obj.uid]))
+            href=reverse('contest_list', args=[obj.uid]))
         if num_issues:
             btn_comp = MDCButtonOutlined(_('edit'), False, **kwargs)
             icon = DoneIcon()

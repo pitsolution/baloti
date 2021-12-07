@@ -119,6 +119,11 @@ class ContestCreateView(generic.CreateView):
         )
         return response
 
+    def get_context_data(self, **kwargs):
+        context = super(ContestCreateView, self).get_context_data(**kwargs)
+        context['parent'] = ParentContest.objects.get(pk=self.kwargs['pk'])
+        return context
+
     @classmethod
     def as_url(cls):
         return path(
@@ -136,6 +141,11 @@ class ContestUpdateView(generic.UpdateView):
         return Contest.objects.filter(
             mediator=self.request.user,
             actual_start=None)
+
+    def get_context_data(self, **kwargs):
+        context = super(ContestUpdateView, self).get_context_data(**kwargs)
+        context['parent'] = Contest.objects.get(pk=self.kwargs['pk']).parent
+        return context
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -157,30 +167,11 @@ class ContestUpdateView(generic.UpdateView):
 class ContestListView(ContestAccessible, generic.ListView):
     model = Contest
 
-    @classmethod
-    def as_url(cls):
-        return path(
-            '',
-            login_required(cls.as_view()),
-            name='contest_list'
-        )
-
-class BalotiContestAccessible:
-    def get_queryset(self):
-        return Contest.objects.filter(
-            (Q(voter__user=self.request.user) & ~Q(actual_start=None))
-            | Q(guardian__user=self.request.user)
-            | Q(mediator=self.request.user)
-        ).distinct('id')
-
-class BalotiContestListView(BalotiContestAccessible, generic.ListView):
-    model = Contest
-
     def get_queryset(self):
         return Contest.objects.filter(parent_id=self.kwargs['pk']).distinct('id')
 
     def get_context_data(self, **kwargs):
-        context = super(BalotiContestListView, self).get_context_data(**kwargs)
+        context = super(ContestListView, self).get_context_data(**kwargs)
         context['parent'] = self.kwargs['pk']
         return context
 
@@ -189,8 +180,9 @@ class BalotiContestListView(BalotiContestAccessible, generic.ListView):
         return path(
             'referendum/<uuid:pk>/issues/',
             login_required(cls.as_view()),
-            name='baloti_contest_list'
+            name='contest_list'
         )
+
 
 class ContestResultView(UserPassesTestMixin, ContestAccessible, generic.DetailView):
     template_name = 'contest_result'
