@@ -113,59 +113,14 @@
                                                         {% for i in u|getInfavourRecommenders %}
                                                             <li class="d-flex">
                                                                 <div class="app-list__img">
-                                                                    <img src="/static/images/vote-1.png" alt="">
+                                                                    <img src="{{i.recommender.picture.url}}" alt="">
                                                                 </div>
                                                                 <div class="app-list__content">
-                                                                    <p class="app-sm-text ">Political party</p>
+                                                                <p class="app-sm-text ">{{i.recommender.recommender_type}}</p>
                                                                     <p class="app-list__title text-medium">{{i.recommender.name}}</p>
                                                                 </div>
                                                             </li>
                                                         {% endfor %}
-                                                        <li class="d-flex">
-                                                            <div class="app-list__img">
-                                                                <img src="/static/images/vote-2.png" alt="">
-                                                            </div>
-                                                            <div class="app-list__content">
-                                                                <p class="app-sm-text ">Political party</p>
-                                                                <p class="app-list__title text-medium">Freedom Party (FP)</p>
-                                                            </div>
-                                                        </li>
-                                                        <li class="d-flex">
-                                                            <div class="app-list__img">
-                                                                <img src="/static/images/vote-3.png" alt="">
-                                                            </div>
-                                                            <div class="app-list__content">
-                                                                <p class="app-sm-text">Political party</p>
-                                                                <p class="app-list__title text-medium">Freedom Party (FP)</p>
-                                                            </div>
-                                                        </li>
-                                                        <li class="d-flex">
-                                                            <div class="app-list__img">
-                                                                <img src="/static/images/vote-4.png" alt="">
-                                                            </div>
-                                                            <div class="app-list__content">
-                                                                <p class="app-sm-text">Political party</p>
-                                                                <p class="app-list__title text-medium">Freedom Party (FP)</p>
-                                                            </div>
-                                                        </li>
-                                                        <li class="d-flex">
-                                                            <div class="app-list__img">
-                                                                <img src="/static/images/vote-5.png" alt="">
-                                                            </div>
-                                                            <div class="app-list__content">
-                                                                <p class="app-sm-text">Political party</p>
-                                                                <p class="app-list__title text-medium">Freedom Party (FP)</p>
-                                                            </div>
-                                                        </li>
-                                                        <li class="d-flex">
-                                                            <div class="app-list__img">
-                                                                <img src="/static/images/vote-6.png" alt="">
-                                                            </div>
-                                                            <div class="app-list__content">
-                                                                <p class="app-sm-text">Political party</p>
-                                                                <p class="app-list__title text-medium">Freedom Party (FP)</p>
-                                                            </div>
-                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -183,59 +138,14 @@
                                                         {% for i in u|getAgainstRecommenders %}
                                                         <li class="d-flex">
                                                             <div class="app-list__img">
-                                                                <img src="/static/images/vote-7.png" alt="">
+                                                                <img src="{{i.recommender.picture.url}}" alt="">
                                                             </div>
                                                             <div class="app-list__content">
-                                                                <p class="app-sm-text ">Political party</p>
+                                                                <p class="app-sm-text ">{{i.recommender.recommender_type}}</p>
                                                                 <p class="app-list__title text-medium">{{i.recommender.name}}</p>
                                                             </div>
                                                         </li>
                                                         {% endfor %}
-                                                        <li class="d-flex">
-                                                            <div class="app-list__img">
-                                                                <img src="/static/images/vote-8.png" alt="">
-                                                            </div>
-                                                            <div class="app-list__content">
-                                                                <p class="app-sm-text ">Political party</p>
-                                                                <p class="app-list__title text-medium">Freedom Party (FP)</p>
-                                                            </div>
-                                                        </li>
-                                                        <li class="d-flex">
-                                                            <div class="app-list__img">
-                                                                <img src="/static/images/vote-9.png" alt="">
-                                                            </div>
-                                                            <div class="app-list__content">
-                                                                <p class="app-sm-text">Political party</p>
-                                                                <p class="app-list__title text-medium">Freedom Party (FP)</p>
-                                                            </div>
-                                                        </li>
-                                                        <li class="d-flex">
-                                                            <div class="app-list__img">
-                                                                <img src="/static/images/vote-10.png" alt="">
-                                                            </div>
-                                                            <div class="app-list__content">
-                                                                <p class="app-sm-text">Political party</p>
-                                                                <p class="app-list__title text-medium">Freedom Party (FP)</p>
-                                                            </div>
-                                                        </li>
-                                                        <li class="d-flex">
-                                                            <div class="app-list__img">
-                                                                <img src="/static/images/vote-11.png" alt="">
-                                                            </div>
-                                                            <div class="app-list__content">
-                                                                <p class="app-sm-text">Political party</p>
-                                                                <p class="app-list__title text-medium">Freedom Party (FP)</p>
-                                                            </div>
-                                                        </li>
-                                                        <li class="d-flex">
-                                                            <div class="app-list__img">
-                                                                <img src="/static/images/vote-11.png" alt="">
-                                                            </div>
-                                                            <div class="app-list__content">
-                                                                <p class="app-sm-text">Political party</p>
-                                                                <p class="app-list__title text-medium">Freedom Party (FP)</p>
-                                                            </div>
-                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>

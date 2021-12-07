@@ -82,6 +82,7 @@ class ParentContest(models.Model):
 
 class Recommender(models.Model):
     name = models.CharField(max_length=255)
+    recommender_type = models.CharField(max_length=255, blank=True)
     picture = models.ImageField(
         upload_to=upload_picture,
         blank=True,

@@ -2449,7 +2449,7 @@ class RecommenderDetail(Div):
                 style='margin-top: 6px; margin-bottom: 6px; word-break: break-all;'
             ),
             I(
-                recommender.recommender,
+                recommender.recommender.recommender_type,
                 style=dict(
                     font_size='small',
                     font_weight='initial',
