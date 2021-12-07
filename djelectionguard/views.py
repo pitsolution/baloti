@@ -179,10 +179,15 @@ class BalotiContestListView(BalotiContestAccessible, generic.ListView):
     def get_queryset(self):
         return Contest.objects.filter(parent_id=self.kwargs['pk']).distinct('id')
 
+    def get_context_data(self, **kwargs):
+        context = super(BalotiContestListView, self).get_context_data(**kwargs)
+        context['parent'] = self.kwargs['pk']
+        return context
+
     @classmethod
     def as_url(cls):
         return path(
-            'parent/<uuid:pk>/contests/',
+            'referendum/<uuid:pk>/issues/',
             login_required(cls.as_view()),
             name='baloti_contest_list'
         )
@@ -350,6 +355,11 @@ class ContestOpenView(ContestMediator, EmailBaseView):
         def save(self, *args, **kwargs):
             self.instance.prepare()
             self.instance.actual_start = timezone.now()
+            draft_contests = Contest.objects.filter(parent=self.instance.parent, actual_start=None).exclude(pk=self.instance.id)
+            if not draft_contests:
+                self.instance.parent.status = 'open'
+                self.instance.parent.actual_start = timezone.now()
+                self.instance.parent.save()
             return super().save(self, *args, **kwargs)
 
     def form_valid(self, form):
@@ -392,6 +402,11 @@ class ContestCloseView(ContestMediator, generic.UpdateView):
 
         def save(self, *args, **kwargs):
             self.instance.actual_end = timezone.now()
+            closed_contests = Contest.objects.filter(parent=self.instance.parent, actual_end=None).exclude(pk=self.instance.id)
+            if not closed_contests:
+                self.instance.parent.status = 'closed'
+                self.instance.parent.actual_end = timezone.now()
+                self.instance.parent.save()
             return super().save(self, *args, **kwargs)
 
     def form_valid(self, form):
@@ -1506,7 +1521,7 @@ class ParentContestCreateView(generic.CreateView):
     @classmethod
     def as_url(cls):
         return path(
-            'parent/create/',
+            'referendum/create/',
             create_access_required(cls.as_view()),
             name='parentcontest_create'
         )
@@ -1530,7 +1545,7 @@ class ParentContestUpdateView(generic.UpdateView):
     @classmethod
     def as_url(cls):
         return path(
-            'parent/<uuid:pk>/update/',
+            'referendum/<uuid:pk>/update/',
             login_required(cls.as_view()),
             name='parentcontest_update'
         )
@@ -1542,7 +1557,7 @@ class ParentContestListView(ParentContestAccessible, generic.ListView):
     @classmethod
     def as_url(cls):
         return path(
-            'parent',
+            'referendums',
             login_required(cls.as_view()),
             name='parentcontest_list'
         )
@@ -1564,7 +1579,7 @@ class ParentContestDetailView(ParentContestAccessible, generic.DetailView):
     @classmethod
     def as_url(cls):
         return path(
-            'parent/<uuid:pk>/',
+            'referendum/<uuid:pk>/',
             login_required(cls.as_view()),
             name='parentcontest_detail'
         )

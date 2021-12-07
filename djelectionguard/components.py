@@ -290,7 +290,7 @@ class ContestListCreateBtn(A):
                     Span('+', cls='new-contest-icon'),
                     cls='new-contest-icon-container'
                 ),
-                Span(_('Create new referendum')),
+                Span(_('Create new issue')),
                 cls='mdc-list-item__text text-btn mdc-ripple-upgraded'
             ),
             cls='mdc-list-item contest-list-item',
@@ -302,23 +302,26 @@ class ContestListCreateBtn(A):
 class ContestList(Div):
     def to_html(self, *content, view, **context):
         site = Site.objects.get_current()
+        parent = ParentContest.objects.get(pk=context['parent'])
+        draft_parent = True if parent.status == 'draft' else False
         can_create = (site.all_users_can_create
             or view.request.user.is_staff
             or view.request.user.is_superuser
         )
+        self.backlink = BackLink(_('back'), reverse('parentcontest_list'))
         return super().to_html(
-            H4(_('Referendums'), style='text-align: center;'),
+            H4(_('Issues'), style='text-align: center;'),
             # ContestFilters(view),
             Ul(
-                ListItem(ContestListCreateBtn(context['contest_list'][0].parent.pk))
-                if can_create else None,
+                ListItem(ContestListCreateBtn(context['parent']))
+                if can_create and draft_parent else None,
                 *(
                     ContestListItem(contest, view.request.user)
                     for contest in context['contest_list']
                 ) if len(context['contest_list'])
                 else (
                     Li(
-                        _('There are no referendums yet'),
+                        _('There are no issues yet'),
                         cls='mdc-list-item body-1'
                     ),
                 ),
@@ -330,7 +333,6 @@ class ContestList(Div):
 @template('djelectionguard/baloti_contest_list.html', Document, Card)
 class BalotiContestList(Div):
     def to_html(self, *content, view, **context):
-        
         site = Site.objects.get_current()
         can_create = (site.all_users_can_create
             or view.request.user.is_staff
@@ -2746,15 +2748,15 @@ class ParentContestItem(A):
         super().__init__(
             Span(cls='mdc-list-item__ripple'),
             Span(
-                Span(cls=f'parentcontest-indicator'),
+                Span(cls=f'contest-indicator'),
                 Span(
-                    Span(status, status_2, cls='parentcontest-status overline'),
-                    Span(parentcontest.name, cls='parentcontest-name'),
+                    Span(status, status_2, cls='contest-status overline'),
+                    Span(parentcontest.name, cls='contest-name'),
                     cls='list-item__text-container'
                 ),
                 cls='mdc-list-item__text'
             ),
-            cls=f'parentcontest-list-item mdc-list-item mdc-ripple-upgraded {active_cls}',
+            cls=f'contest-list-item mdc-list-item mdc-ripple-upgraded {active_cls}',
             href=reverse('parentcontest_detail', args=[parentcontest.uid])
         )
 
@@ -2837,11 +2839,14 @@ class ParentContestList(Div):
 
 class ParentBasicSettingsAction(ListAction):
     def __init__(self, obj):
-        btn_comp = MDCButtonOutlined(
-            _('edit'),
-            False,
-            tag='a',
-            href=reverse('parentcontest_update', args=[obj.uid]))
+        if obj.status == 'draft':
+            btn_comp = MDCButtonOutlined(
+                _('edit'),
+                False,
+                tag='a',
+                href=reverse('parentcontest_update', args=[obj.uid]))
+        else:
+            btn_comp = False
         super().__init__(
             _('Basic settings'),
             _('Name, time and date, etc.'),
@@ -2873,10 +2878,20 @@ class ParentContestSettingsCard(Div):
         user = view.request.user
         list_content = []
         # if contest.mediator == view.request.user:
+
         list_content += [
-            ParentBasicSettingsAction(parentcontest),
-            AddIssuesAction(parentcontest)
-        ]
+                ParentBasicSettingsAction(parentcontest),
+                AddIssuesAction(parentcontest)
+            ]
+        # if parentcontest.status == 'draft':
+        #     list_content += [
+        #         ParentBasicSettingsAction(parentcontest),
+        #         AddIssuesAction(parentcontest)
+        #     ]
+        # else:
+        #     list_content += [
+        #         AddIssuesAction(parentcontest)
+        #     ]
 
         #     if (
         #         contest.voter_set.count()
