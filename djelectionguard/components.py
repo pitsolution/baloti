@@ -2766,16 +2766,15 @@ class ParentContestListCreateBtn(A):
             Span(
                 Span(cls='mdc-list-item__ripple'),
                 Span(
-                    Span('+', cls='new-parentcontest-icon'),
-                    cls='new-parentcontest-icon-container'
+                    Span('+', cls='new-contest-icon'),
+                    cls='new-contest-icon-container'
                 ),
                 Span(_('Create new referendum')),
                 cls='mdc-list-item__text text-btn mdc-ripple-upgraded'
             ),
-            cls='mdc-list-item parentcontest-list-item',
+            cls='mdc-list-item contest-list-item',
             href=reverse('parentcontest_create')
         )
-
 
 @template('djelectionguard/parentcontest_list.html', Document, Card)
 class ParentContestList(Div):
@@ -2801,7 +2800,7 @@ class ParentContestList(Div):
                         cls='mdc-list-item body-1'
                     ),
                 ),
-                cls='mdc-list parentcontest-list'
+                cls='mdc-list contest-list'
             ),
             cls='card'
         )
