@@ -49,6 +49,7 @@ from electeez_auth.models import User
 from .components import (
     ParentContestForm,
     ContestForm,
+    RecommenderForm,
     ContestPubKeyCard,
     ContestCandidateCreateCard,
     ContestCandidateUpdateCard,
@@ -1397,7 +1398,7 @@ class ContestRecommenderForm(forms.ModelForm):
 
 
 class ContestRecommenderCreateView(ContestMediator, FormMixin, generic.DetailView):
-    template_name = 'djelectionguard/recommender_form.html'
+    template_name = 'djelectionguard/contestrecommender_form.html'
     form_class = ContestRecommenderForm
 
     def get_queryset(self):
@@ -1432,7 +1433,7 @@ class ContestRecommenderCreateView(ContestMediator, FormMixin, generic.DetailVie
     @classmethod
     def as_url(cls):
         return path(
-            '<uuid:pk>/recommenders/create/',
+            '<uuid:pk>/recommenders/add/',
             login_required(cls.as_view()),
             name='contest_recommender_create'
         )
@@ -1489,6 +1490,37 @@ class ContestRecommenderDeleteView(ContestMediator, generic.DeleteView):
             login_required(cls.as_view()),
             name='contest_recommender_delete'
         )
+
+
+class RecommenderCreateView(generic.CreateView):
+    model = Recommender
+    form_class = RecommenderForm
+    template_name = 'djelectionguard/recommender_form.html'
+
+    def form_valid(self, form):
+        # form.instance.mediator = self.request.user
+        response = super().form_valid(form)
+        messages.success(
+            self.request,
+            _('You have created recommender %(obj)s', obj=form.instance)
+        )
+        return response
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            '<uuid:pk>/recommender/create/',
+            create_access_required(cls.as_view()),
+            name='recommender_create'
+        )
+    def get_context_data(self, **kwargs):
+        context = super(RecommenderCreateView, self).get_context_data(**kwargs)
+        context['contest'] = Contest.objects.get(pk=self.kwargs['pk'])
+        return context
+
+    def get_success_url(self):
+        # return self.object.get_absolute_url()
+        return reverse('contest_recommender_create', args=[self.kwargs['pk']])
 
 
 class ParentContestAccessible:
@@ -1556,17 +1588,7 @@ class ParentContestListView(ParentContestAccessible, generic.ListView):
 
 
 class ParentContestDetailView(ParentContestAccessible, generic.DetailView):
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # voter = self.object.voter_set.filter(user=self.request.user).first()
-        # context['casted'] = voter.casted if voter else None
-        # context['can_vote'] = (
-        #     self.object.actual_start
-        #     and not self.object.actual_end
-        #     and voter
-        #     and not voter.casted
-        # )
-        return context
+    model = ParentContest
 
     @classmethod
     def as_url(cls):
