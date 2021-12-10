@@ -102,6 +102,12 @@ class ContestAccessible:
             | Q(mediator=self.request.user)
         ).distinct('id')
 
+class ParentContestAccessible:
+    def get_queryset(self):
+        return ParentContest.objects.filter(
+            Q(mediator=self.request.user)
+        ).distinct('uid')
+
 
 class ContestCreateView(generic.CreateView):
     model = Contest
@@ -112,8 +118,9 @@ class ContestCreateView(generic.CreateView):
         form.instance.parent = ParentContest.objects.get(pk=self.kwargs['pk'])
         response = super().form_valid(form)
         form.instance.guardian_set.create(user=self.request.user)
-        for option in ['Yes', 'No', 'Abstain']:
-            form.instance.candidate_set.create(name=option)
+        form.instance.candidate_set.create(name='Yes', candidate_type='yes')
+        form.instance.candidate_set.create(name='No', candidate_type='no')
+        form.instance.candidate_set.create(name='Abstain', candidate_type='others')
         messages.success(
             self.request,
             _('You have created contest %(obj)s', obj=form.instance)
@@ -1374,6 +1381,18 @@ class ContestRecommenderForm(forms.ModelForm):
         choices=RECOMMENDER_TYPE
         )
 
+    def __init__(self, *args, **kwargs):
+        if kwargs.get('contest'):
+            contest = kwargs.pop('contest')
+            super().__init__(*args, **kwargs)
+            recommenderlist = []
+            recommenders = ContestRecommender.objects.filter(pk__in=contest.first().contestrecommender_set.filter())
+            for rem in recommenders:
+                recommenderlist.append(rem.recommender.id)
+            self.fields['recommender'].queryset = Recommender.objects.filter().exclude(pk__in=recommenderlist)
+        else:
+            super().__init__(*args, **kwargs)
+
     def clean_recommender(self):
         recommender = self.cleaned_data['recommender']
         if self.instance.contest.contestrecommender_set.filter(
@@ -1419,6 +1438,11 @@ class ContestRecommenderCreateView(ContestMediator, FormMixin, generic.DetailVie
         form.instance.contest = self.get_object()
         return form
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['contest'] = Contest.objects.filter(pk=self.kwargs.get('pk'))
+        return kwargs
+
     def form_valid(self, form):
         form.save()
         messages.success(
@@ -1455,7 +1479,7 @@ class ContestRecommenderUpdateView(generic.UpdateView):
         contest = self.get_object().contest
         messages.success(
             self.request,
-            _('You have updated recommender') + f'{self.object}',
+            _('You have updated recommender') + ' ' + f'{self.object.recommender.name}',
         )
         return reverse('contest_recommender_create', args=(contest.id,))
 
@@ -1479,7 +1503,7 @@ class ContestRecommenderDeleteView(ContestMediator, generic.DeleteView):
         contest = self.get_object().contest
         messages.success(
             self.request,
-            _('You have removed recommender') + f'{self.object.recommender}',
+            _('You have removed recommender') + ' ' + f'{self.object.recommender}',
         )
         return reverse('contest_recommender_create', args=(contest.id,))
 
@@ -1521,12 +1545,6 @@ class RecommenderCreateView(generic.CreateView):
     def get_success_url(self):
         # return self.object.get_absolute_url()
         return reverse('contest_recommender_create', args=[self.kwargs['pk']])
-
-
-class ParentContestAccessible:
-    def get_queryset(self):
-        return ParentContest.objects.filter(
-        ).distinct('uid')
 
 
 class ParentContestCreateView(generic.CreateView):

@@ -1078,25 +1078,10 @@ class CandidatesSettingsCard(Div):
         contest = view.get_object()
         editable = (view.request.user == contest.mediator
                     and not contest.actual_start)
-        kwargs = dict(p=False, tag='a')
-        if contest.candidate_set.count():
-            if editable:
-                kwargs['href'] = reverse('contest_candidate_create', args=[contest.id])
-                btn = MDCButtonOutlined(_('view all/edit'), **kwargs)
-            else:
-                kwargs['href'] = reverse('contest_candidate_list', args=[contest.id])
-                btn = MDCButtonOutlined(_('view all'), **kwargs)
-        else:
-            if editable:
-                kwargs['href'] = reverse('contest_candidate_create', args=[contest.id])
-                btn = MDCButtonOutlined(_('add'), icon='add', **kwargs)
-            else:
-                btn = None
-
         super().__init__(
             H5(_('Candidates')),
             CandidateListComp(contest, editable),
-            btn,
+            None,
             cls='setting-section'
         )
 
@@ -1176,11 +1161,6 @@ class ContestCard(Div):
             or contest.guardian_set.filter(user=view.request.user).count()
         ):
             action_section.addchild(GuardiansSettingsCard(view, **context))
-
-        if contest.mediator == view.request.user:
-            sub_section.addchild(VotersSettingsCard(view, **context))
-        # sub_section.addchild(RecommendersSettingsCard(view, **context))
-
 
         return super().to_html(
             Div(
@@ -2895,12 +2875,12 @@ class ParentContestSettingsCard(Div):
         parentcontest = view.get_object()
         user = view.request.user
         list_content = []
-        # if contest.mediator == view.request.user:
+        if parentcontest.mediator == view.request.user:
 
-        list_content += [
-                ParentBasicSettingsAction(parentcontest),
-                AddIssuesAction(parentcontest)
-            ]
+            list_content += [
+                    ParentBasicSettingsAction(parentcontest),
+                    AddIssuesAction(parentcontest)
+                ]
 
         super().__init__(
             H4(parentcontest.name, style='word-break: break-all;'),
@@ -2921,10 +2901,10 @@ class IssuesSettingsCard(Div):
         parentcontest = view.get_object()
         user = view.request.user
         list_content = []
-        # if contest.mediator == view.request.user:
-        list_content += [
-            ParentBasicSettingsAction(parentcontest),
-        ]
+        if contest.mediator == view.request.user:
+            list_content += [
+                ParentBasicSettingsAction(parentcontest),
+            ]
 
         super().__init__(
             H4(parentcontest.name, style='word-break: break-all;'),

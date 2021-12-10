@@ -58,15 +58,19 @@ class ParentContest(models.Model):
     actual_start = models.DateTimeField(null=True, blank=True, db_index=True)
     actual_end = models.DateTimeField(null=True, blank=True)
     timezone = TimeZoneField(
-    choices_display='WITH_GMT_OFFSET',
-    default='Europe/Paris',
+        choices_display='WITH_GMT_OFFSET',
+        default='Europe/Paris',
     )
-
     status = models.CharField(
         max_length=20,
         choices=STATUS,
         default='draft',
         null=True
+    )
+    mediator = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        blank=True, null=True
     )
 
     def __str__(self):
@@ -155,11 +159,9 @@ class Contest(models.Model):
         null=True
     )
     infavour_arguments = RichTextField(
-        config_name="awesome_ckeditor",
         null=True
     )
     against_arguments = RichTextField(
-        config_name="awesome_ckeditor",
         null=True
     )
 
@@ -649,6 +651,12 @@ def decrypt_contest(
 
 
 class Candidate(models.Model):
+    CANDIDATE_TYPE = (
+        ('yes', 'YES'),
+        ('no', 'NO'),
+        ('others', 'OTHERS'),
+    )
+
     id = models.UUIDField(
         primary_key=True,
         editable=False,
@@ -675,6 +683,12 @@ class Candidate(models.Model):
         null=True
     )
     score = models.IntegerField(null=True)
+
+    candidate_type = models.CharField(
+        max_length=10,
+        choices=CANDIDATE_TYPE,
+        null=True
+    )
 
     def __str__(self):
         return self.name
