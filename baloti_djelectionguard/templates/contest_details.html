@@ -21,7 +21,7 @@
                                 <div class="col-sm-3">
                                     <div class="d-flex align-items-center text-center justify-content-end">
                                         {% if result %}
-                                        <button class="btn btn-primary btn-primary--outlined"><a href={% url 'baloti_djelectionguard:VoteChoices' id=u.id %}>Vote now</a></button>
+                                        <a class="btn btn-primary btn-primary--outlined" href={% url 'baloti_djelectionguard:VoteChoices' id=u.id %}>Vote now</a>
                                         {% endif %}
                                         <button class="app-icon icon-arrow"  data-bs-toggle="collapse" data-bs-target="#collapse{{u.id}}" aria-expanded="true" aria-controls="#collapse{{u.id}}">
                                     </div>
