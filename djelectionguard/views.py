@@ -32,7 +32,8 @@ from electionguard.ballot import CiphertextBallot, PlaintextBallot
 
 from pymemcache.client.base import Client
 
-from .models import Contest, Candidate, Guardian, Voter
+from .models import Contest, Candidate, Guardian, Voter, ParentContest, Recommender, ContestRecommender
+from .widgets import RelatedFieldWidgetCanAdd
 
 from datetime import datetime, date
 
@@ -46,10 +47,15 @@ from electeez_sites.utils import (
 from electeez_common.components import Document, BackLink
 from electeez_auth.models import User
 from .components import (
+    ParentContestForm,
     ContestForm,
+    RecommenderForm,
     ContestPubKeyCard,
     ContestCandidateCreateCard,
     ContestCandidateUpdateCard,
+    ContestRecommenderCreateCard,
+    ContestRecommenderUpdateCard,
+    ParentContestCreateCard,
     ContestCreateCard,
     ContestCard,
     ContestOpenCard,
@@ -96,6 +102,12 @@ class ContestAccessible:
             | Q(mediator=self.request.user)
         ).distinct('id')
 
+class ParentContestAccessible:
+    def get_queryset(self):
+        return ParentContest.objects.filter(
+            Q(mediator=self.request.user)
+        ).distinct('uid')
+
 
 class ContestCreateView(generic.CreateView):
     model = Contest
@@ -103,20 +115,27 @@ class ContestCreateView(generic.CreateView):
 
     def form_valid(self, form):
         form.instance.mediator = self.request.user
+        form.instance.parent = ParentContest.objects.get(pk=self.kwargs['pk'])
         response = super().form_valid(form)
         form.instance.guardian_set.create(user=self.request.user)
-        for option in ['Yes', 'No', 'Abstain']:
-            form.instance.candidate_set.create(name=option)
+        form.instance.candidate_set.create(name='Yes', candidate_type='yes')
+        form.instance.candidate_set.create(name='No', candidate_type='no')
+        form.instance.candidate_set.create(name='Abstain', candidate_type='others')
         messages.success(
             self.request,
             _('You have created contest %(obj)s', obj=form.instance)
         )
         return response
 
+    def get_context_data(self, **kwargs):
+        context = super(ContestCreateView, self).get_context_data(**kwargs)
+        context['parent'] = ParentContest.objects.get(pk=self.kwargs['pk'])
+        return context
+
     @classmethod
     def as_url(cls):
         return path(
-            'create/',
+            '<uuid:pk>/create/',
             create_access_required(cls.as_view()),
             name='contest_create'
         )
@@ -130,6 +149,11 @@ class ContestUpdateView(generic.UpdateView):
         return Contest.objects.filter(
             mediator=self.request.user,
             actual_start=None)
+
+    def get_context_data(self, **kwargs):
+        context = super(ContestUpdateView, self).get_context_data(**kwargs)
+        context['parent'] = Contest.objects.get(pk=self.kwargs['pk']).parent
+        return context
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -151,13 +175,22 @@ class ContestUpdateView(generic.UpdateView):
 class ContestListView(ContestAccessible, generic.ListView):
     model = Contest
 
+    def get_queryset(self):
+        return Contest.objects.filter(parent_id=self.kwargs['pk']).distinct('id')
+
+    def get_context_data(self, **kwargs):
+        context = super(ContestListView, self).get_context_data(**kwargs)
+        context['parent'] = self.kwargs['pk']
+        return context
+
     @classmethod
     def as_url(cls):
         return path(
-            '',
+            'referendum/<uuid:pk>/issues/',
             login_required(cls.as_view()),
             name='contest_list'
         )
+
 
 class ContestResultView(UserPassesTestMixin, ContestAccessible, generic.DetailView):
     template_name = 'contest_result'
@@ -322,6 +355,11 @@ class ContestOpenView(ContestMediator, EmailBaseView):
         def save(self, *args, **kwargs):
             self.instance.prepare()
             self.instance.actual_start = timezone.now()
+            draft_contests = Contest.objects.filter(parent=self.instance.parent, actual_start=None).exclude(pk=self.instance.id)
+            if not draft_contests:
+                self.instance.parent.status = 'open'
+                self.instance.parent.actual_start = timezone.now()
+                self.instance.parent.save()
             return super().save(self, *args, **kwargs)
 
     def form_valid(self, form):
@@ -364,6 +402,11 @@ class ContestCloseView(ContestMediator, generic.UpdateView):
 
         def save(self, *args, **kwargs):
             self.instance.actual_end = timezone.now()
+            closed_contests = Contest.objects.filter(parent=self.instance.parent, actual_end=None).exclude(pk=self.instance.id)
+            if not closed_contests:
+                self.instance.parent.status = 'closed'
+                self.instance.parent.actual_end = timezone.now()
+                self.instance.parent.save()
             return super().save(self, *args, **kwargs)
 
     def form_valid(self, form):
@@ -1308,3 +1351,268 @@ class ContestVotersUpdateView(ContestMediator, generic.UpdateView):
             login_required(cls.as_view()),
             name='contest_voters_update'
         )
+
+
+class ContestRecommenderListView(ContestAccessible, generic.DetailView):
+    template_name = 'djelectionguard/recommender_list.html'
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            '<uuid:pk>/recommenders/',
+            login_required(cls.as_view()),
+            name='contest_recommender_list'
+        )
+
+
+class ContestRecommenderForm(forms.ModelForm):
+
+    RECOMMENDER_TYPE = (
+        ('infavour', 'IN FAVOUR'),
+        ('against', 'AGAINST'),
+    )
+
+    recommender = forms.ModelChoiceField(
+        queryset=Recommender.objects.filter(),
+        empty_label="(Recommender)",
+        # widget=RelatedFieldWidgetCanAdd(Recommender, related_url="http://localhost:8000/en/admin/djelectionguard/recommender/add/")
+        )
+    recommender_type = forms.ChoiceField(
+        choices=RECOMMENDER_TYPE
+        )
+
+    def __init__(self, *args, **kwargs):
+        if kwargs.get('contest'):
+            contest = kwargs.pop('contest')
+            super().__init__(*args, **kwargs)
+            recommenderlist = []
+            recommenders = ContestRecommender.objects.filter(pk__in=contest.first().contestrecommender_set.filter())
+            for rem in recommenders:
+                recommenderlist.append(rem.recommender.id)
+            self.fields['recommender'].queryset = Recommender.objects.filter().exclude(pk__in=recommenderlist)
+        else:
+            super().__init__(*args, **kwargs)
+
+    def clean_recommender(self):
+        recommender = self.cleaned_data['recommender']
+        if self.instance.contest.contestrecommender_set.filter(
+            recommender=recommender
+            ).exclude(pk=self.instance.pk):
+            raise forms.ValidationError(
+                f'{recommender} already added!'
+            )
+        return recommender
+
+    class Meta:
+        model = ContestRecommender
+        fields = [
+            'recommender',
+            'recommender_type'
+        ]
+
+        labels = {
+            'recommender': _('RECOMMENDER_NAME'),
+            'recommender_type': _('RECOMMENDER_TYPE')
+        }
+
+
+class ContestRecommenderCreateView(ContestMediator, FormMixin, generic.DetailView):
+    template_name = 'djelectionguard/contestrecommender_form.html'
+    form_class = ContestRecommenderForm
+
+    def get_queryset(self):
+        return Contest.objects.filter(
+            mediator=self.request.user,
+            actual_start=None)
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)
+        form.instance.contest = self.get_object()
+        return form
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['contest'] = Contest.objects.filter(pk=self.kwargs.get('pk'))
+        return kwargs
+
+    def form_valid(self, form):
+        form.save()
+        messages.success(
+            self.request,
+            _('You have added recommender') + f' {form.instance.recommender}',
+        )
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('contest_recommender_create', args=[self.get_object().id])
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            '<uuid:pk>/recommenders/add/',
+            login_required(cls.as_view()),
+            name='contest_recommender_create'
+        )
+
+class ContestRecommenderUpdateView(generic.UpdateView):
+    model = ContestRecommender
+    form_class = ContestRecommenderForm
+    template_name = 'djelectionguard/recommender_update.html'
+
+    def get_form(self, *args, **kwargs):
+        form = super().get_form()
+        form.contest = self.get_object().contest
+        return form
+
+    def get_queryset(self):
+        return ContestRecommender.objects.filter()
+
+    def get_success_url(self):
+        contest = self.get_object().contest
+        messages.success(
+            self.request,
+            _('You have updated recommender') + ' ' + f'{self.object.recommender.name}',
+        )
+        return reverse('contest_recommender_create', args=(contest.id,))
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            'recommenders/<pk>/update/',
+            login_required(cls.as_view()),
+            name='contest_recommender_update'
+        )
+
+
+class ContestRecommenderDeleteView(ContestMediator, generic.DeleteView):
+    def dispatch(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return ContestRecommender.objects.filter()
+
+    def get_success_url(self):
+        contest = self.get_object().contest
+        messages.success(
+            self.request,
+            _('You have removed recommender') + ' ' + f'{self.object.recommender}',
+        )
+        return reverse('contest_recommender_create', args=(contest.id,))
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            'recommenders/<pk>/delete/',
+            login_required(cls.as_view()),
+            name='contest_recommender_delete'
+        )
+
+
+class RecommenderCreateView(generic.CreateView):
+    model = Recommender
+    form_class = RecommenderForm
+    template_name = 'djelectionguard/recommender_form.html'
+
+    def form_valid(self, form):
+        # form.instance.mediator = self.request.user
+        response = super().form_valid(form)
+        messages.success(
+            self.request,
+            _('You have created recommender %(obj)s', obj=form.instance)
+        )
+        return response
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            '<uuid:pk>/recommender/create/',
+            create_access_required(cls.as_view()),
+            name='recommender_create'
+        )
+    def get_context_data(self, **kwargs):
+        context = super(RecommenderCreateView, self).get_context_data(**kwargs)
+        context['contest'] = Contest.objects.get(pk=self.kwargs['pk'])
+        return context
+
+    def get_success_url(self):
+        # return self.object.get_absolute_url()
+        return reverse('contest_recommender_create', args=[self.kwargs['pk']])
+
+
+class ParentContestCreateView(generic.CreateView):
+    model = ParentContest
+    form_class = ParentContestForm
+
+    def form_valid(self, form):
+        form.instance.mediator = self.request.user
+        response = super().form_valid(form)
+        messages.success(
+            self.request,
+            _('You have created parentcontest %(obj)s', obj=form.instance)
+        )
+        return response
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            'referendum/create/',
+            create_access_required(cls.as_view()),
+            name='parentcontest_create'
+        )
+
+
+class ParentContestUpdateView(generic.UpdateView):
+    model = ParentContest
+    form_class = ParentContestForm
+
+    def get_queryset(self):
+        return ParentContest.objects.filter()
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(
+            self.request,
+            _('You have updated parentcontest %(obj)s', obj=form.instance)
+        )
+        return response
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            'referendum/<uuid:pk>/update/',
+            login_required(cls.as_view()),
+            name='parentcontest_update'
+        )
+
+
+class ParentContestListView(ParentContestAccessible, generic.ListView):
+    model = ParentContest
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            'referendums',
+            login_required(cls.as_view()),
+            name='parentcontest_list'
+        )
+
+
+class ParentContestDetailView(ParentContestAccessible, generic.DetailView):
+    model = ParentContest
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            'referendum/<uuid:pk>/',
+            login_required(cls.as_view()),
+            name='parentcontest_detail'
+        )
+

@@ -26,7 +26,7 @@ class HomeView(generic.TemplateView):
         url = reverse('login')
 
         if request.user.is_authenticated:
-            url = reverse('contest_list')
+            url = reverse('parentcontest_list')
 
         elif home_page := getattr(settings, 'STATIC_HOME_PAGE', None):
             url = static_url(home_page)
