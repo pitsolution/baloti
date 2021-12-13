@@ -33,8 +33,6 @@ from electionguard.ballot import CiphertextBallot, PlaintextBallot
 from pymemcache.client.base import Client
 
 from .models import Contest, Candidate, Guardian, Voter, ParentContest, Recommender, ContestRecommender
-from .widgets import RelatedFieldWidgetCanAdd
-
 from datetime import datetime, date
 
 from ryzom import html
@@ -1375,7 +1373,6 @@ class ContestRecommenderForm(forms.ModelForm):
     recommender = forms.ModelChoiceField(
         queryset=Recommender.objects.filter(),
         empty_label="(Recommender)",
-        # widget=RelatedFieldWidgetCanAdd(Recommender, related_url="http://localhost:8000/en/admin/djelectionguard/recommender/add/")
         )
     recommender_type = forms.ChoiceField(
         choices=RECOMMENDER_TYPE
