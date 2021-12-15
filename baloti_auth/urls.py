@@ -10,4 +10,8 @@ urlpatterns = [
                     ), name='login'),
     path('logout/', LogoutView.as_view(
                     ), name='logout'),
+    path('signup/', BalotiSignupView.as_view(
+        ), name="signup"),
+    path('signup/mailsent/', BalotiSignupMailView.as_view(
+        ), name="signup_mail"),
 ]
