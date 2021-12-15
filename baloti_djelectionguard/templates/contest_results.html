@@ -11,6 +11,8 @@
         </div>
 
         <div class="app-progress">
+            {% load contest_results %}
+            {% displayResult u user as result %}
             <div class="app-progress__left">
                 <div class="app-election__logo">
                     <div class="app-election__logo-inner">
@@ -18,15 +20,16 @@
                     </div>
                 </div>
                 <div class="app-progress__content">
-                    <p class="app-progress__title">Switzerland Government</p>
-                    <label class="label label-secondary">yes</label>
+                    <p class="app-progress__title">Baloti Government</p>
+                    <label class="label label-secondary">{{result.2}}</label>
                 </div>
             </div>
             <div class="app-progress__right">
                 <div class="app-progrss__bar">
+
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">40%</div>
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">60%</div>
+                        <div class="progress-bar" role="progressbar" style="width: {{result.0}}%" aria-valuenow="{{result.0}}" aria-valuemin="0" aria-valuemax="100">{{result.0}}%</div>
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: {{result.1}}%" aria-valuenow="{{result.1}}" aria-valuemin="0" aria-valuemax="100">{{result.1}}%</div>
                     </div>
                     <ul class="list-unstyled app-progress__timelist">
                         <li>0%</li>
