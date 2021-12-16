@@ -104,22 +104,50 @@ class ContestForm(forms.ModelForm):
 
 
 class ContestFormComponent(CList):
-    def __init__(self, view, form, edit=False):
+    def __init__(self, view, form, parent, contest, edit=False):
         content = []
         content.append(Ul(
             *[Li(e) for e in form.non_field_errors()],
             cls='error-list'
         ))
+        if contest:
+            initiator_create_btn = MDCButtonOutlined(
+                    _('create a new initiator'),
+                    'create',
+                    tag='a',
+                    href=reverse('contest_initiator_create', args=[parent, contest.pk])
+                    )
+            issue_type_create_btn = MDCButtonOutlined(
+                    _('create a new type'),
+                    'create',
+                    tag='a',
+                    href=reverse('contest_issue_type_create', args=[parent, contest.pk])
+                    )
+        else:
+            initiator_create_btn = MDCButtonOutlined(
+                    _('create a new initiator'),
+                    'create',
+                    tag='a',
+                    href=reverse('initiator_create', args=[parent])
+                    )
+            issue_type_create_btn = MDCButtonOutlined(
+                    _('create a new initiator'),
+                    'create',
+                    tag='a',
+                    href=reverse('issue_type_create', args=[parent])
+                    )
 
         super().__init__(
-            H4(_('Edit referendum') if edit else _('Create a referendum')),
+            H4(_('Edit issue') if edit else _('Create an issue')),
             Form(
                 form['name'],
-                form['contest_type'],
-                form['contest_initiator'],
-                form['infavour_arguments'],
-                form['against_arguments'],
                 form['about'],
+                H6(_('Type:')),
+                form['contest_type'],
+                Div(issue_type_create_btn, icon='person_add_alt_1'),
+                H6(_('Initiator:')),
+                form['contest_initiator'],
+                Div(initiator_create_btn, icon='person_add_alt_1'),
                 H6(_('Voting settings:')),
                 form['votes_allowed'],
                 H6(_('Referendum starts:')),
@@ -127,8 +155,11 @@ class ContestFormComponent(CList):
                 H6(_('Referendum ends:')),
                 form['end'],
                 form['timezone'],
+                H6(_('Arguments:')),
+                form['infavour_arguments'],
+                form['against_arguments'],
                 CSRFInput(view.request),
-                MDCButton(_('update referendum') if edit else _('create referendum')),
+                MDCButton(_('update issue') if edit else _('create issue')),
                 method='POST',
                 cls='form'),
         )
@@ -143,7 +174,7 @@ class ContestCreateCard(Div):
 
         edit = view.object is not None
         return super().to_html(
-            ContestFormComponent(view, form, edit),
+            ContestFormComponent(view, form, context['parent'].pk, view.object, edit),
         )
 
 
@@ -373,7 +404,7 @@ class BasicSettingsAction(ListAction):
             _('edit'),
             False,
             tag='a',
-            href=reverse('contest_update', args=[obj.id]))
+            href=reverse('contest_update', args=[obj.parent.pk, obj.id]))
         super().__init__(
             _('Basic settings'),
             _('Name, votes allowed, time and date, etc.'),
@@ -2933,4 +2964,95 @@ class ParentContestCard(Div):
                 # sub_section,
                 cls='flex-container'
             )
+        )
+
+
+class InitiatorForm(forms.ModelForm):
+
+    class Meta:
+        model = Initiator
+        fields = [
+            'name',
+        ]
+        labels = {
+            'name': _('FORM_TITLE_INITIATOR_CREATE'),
+        }
+
+
+class InitiatorFormComponent(CList):
+    def __init__(self, view, form):
+        content = []
+        content.append(Ul(
+            *[Li(e) for e in form.non_field_errors()],
+            cls='error-list'
+        ))
+        super().__init__(
+            H4(_('Create a new initiator')),
+            Form(
+                H6(_('Name:')),
+                form['name'],
+                CSRFInput(view.request),
+                MDCButton(_('create initiator')),
+                method='POST',
+                cls='form'),
+        )
+
+
+@template('djelectionguard/initiator_form.html', Document, Card)
+class InitiatorCreateCard(Div):
+    style = dict(cls='card')
+
+    def to_html(self, *content, view, form, **context):
+        if context.get('issue'):
+            self.backlink = BackLink(_('back'), reverse('contest_update', args=[context['parent'], context['issue']]))
+        else:
+            self.backlink = BackLink(_('back'), reverse('contest_list', args=[context['parent']]))
+
+        return super().to_html(
+            InitiatorFormComponent(view, form),
+        )
+
+class IssueTypeForm(forms.ModelForm):
+
+    class Meta:
+        model = ContestType
+        fields = [
+            'name',
+        ]
+        labels = {
+            'name': _('FORM_TITLE_ISSUE_TYPE_CREATE'),
+        }
+
+
+class IssueTypeFormComponent(CList):
+    def __init__(self, view, form):
+        content = []
+        content.append(Ul(
+            *[Li(e) for e in form.non_field_errors()],
+            cls='error-list'
+        ))
+        super().__init__(
+            H4(_('Create a new issue type')),
+            Form(
+                H6(_('Name:')),
+                form['name'],
+                CSRFInput(view.request),
+                MDCButton(_('create issue type')),
+                method='POST',
+                cls='form'),
+        )
+
+
+@template('djelectionguard/issue_type_form.html', Document, Card)
+class IssueTypeCreateCard(Div):
+    style = dict(cls='card')
+
+    def to_html(self, *content, view, form, **context):
+        if context.get('issue'):
+            self.backlink = BackLink(_('back'), reverse('contest_update', args=[context['parent'], context['issue']]))
+        else:
+            self.backlink = BackLink(_('back'), reverse('contest_list', args=[context['parent']]))
+
+        return super().to_html(
+            IssueTypeFormComponent(view, form),
         )

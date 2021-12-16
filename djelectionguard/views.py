@@ -32,7 +32,7 @@ from electionguard.ballot import CiphertextBallot, PlaintextBallot
 
 from pymemcache.client.base import Client
 
-from .models import Contest, Candidate, Guardian, Voter, ParentContest, Recommender, ContestRecommender
+from .models import Contest, Candidate, Guardian, Voter, ParentContest, Recommender, ContestRecommender, Initiator, ContestType
 from datetime import datetime, date
 
 from ryzom import html
@@ -48,6 +48,8 @@ from .components import (
     ParentContestForm,
     ContestForm,
     RecommenderForm,
+    InitiatorForm,
+    IssueTypeForm,
     ContestPubKeyCard,
     ContestCandidateCreateCard,
     ContestCandidateUpdateCard,
@@ -164,7 +166,7 @@ class ContestUpdateView(generic.UpdateView):
     @classmethod
     def as_url(cls):
         return path(
-            '<uuid:pk>/update/',
+            '<uuid:parentpk>/update/<uuid:pk>/',
             login_required(cls.as_view()),
             name='contest_update'
         )
@@ -1544,6 +1546,7 @@ class RecommenderCreateView(generic.CreateView):
         return reverse('contest_recommender_create', args=[self.kwargs['pk']])
 
 
+
 class ParentContestCreateView(generic.CreateView):
     model = ParentContest
     form_class = ParentContestForm
@@ -1613,3 +1616,85 @@ class ParentContestDetailView(ParentContestAccessible, generic.DetailView):
             name='parentcontest_detail'
         )
 
+class ContestInitiatorCreateView(generic.CreateView):
+    model = Initiator
+    form_class = InitiatorForm
+    template_name = 'djelectionguard/initiator_form.html'
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            '<uuid:parent>/issue/<uuid:issue>initiator/create/',
+            create_access_required(cls.as_view()),
+            name='contest_initiator_create'
+        )
+    def get_context_data(self, **kwargs):
+        context = super(ContestInitiatorCreateView, self).get_context_data(**kwargs)
+        context['parent'] = self.kwargs['parent']
+        context['issue'] = self.kwargs['issue']
+        return context
+
+    def get_success_url(self):
+        return reverse('contest_update', args=[self.kwargs['parent'], self.kwargs['issue']])
+
+class InitiatorCreateView(generic.CreateView):
+    model = Initiator
+    form_class = InitiatorForm
+    template_name = 'djelectionguard/initiator_form.html'
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            '<uuid:parent>/initiator/create/',
+            create_access_required(cls.as_view()),
+            name='initiator_create'
+        )
+    def get_context_data(self, **kwargs):
+        context = super(InitiatorCreateView, self).get_context_data(**kwargs)
+        context['parent'] = self.kwargs['parent']
+        return context
+
+    def get_success_url(self):
+        return reverse('contest_list', args=[self.kwargs['parent']])
+
+
+class ContestIssueTypeCreateView(generic.CreateView):
+    model = ContestType
+    form_class = IssueTypeForm
+    template_name = 'djelectionguard/issue_type_form.html'
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            '<uuid:parent>/issue/<uuid:issue>type/create/',
+            create_access_required(cls.as_view()),
+            name='contest_issue_type_create'
+        )
+    def get_context_data(self, **kwargs):
+        context = super(ContestIssueTypeCreateView, self).get_context_data(**kwargs)
+        context['parent'] = self.kwargs['parent']
+        context['issue'] = self.kwargs['issue']
+        return context
+
+    def get_success_url(self):
+        return reverse('contest_update', args=[self.kwargs['parent'], self.kwargs['issue']])
+
+class IssueTypeCreateView(generic.CreateView):
+    model = ContestType
+    form_class = IssueTypeForm
+    template_name = 'djelectionguard/issue_type_form.html'
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            '<uuid:parent>/type/create/',
+            create_access_required(cls.as_view()),
+            name='issue_type_create'
+        )
+    def get_context_data(self, **kwargs):
+        context = super(IssueTypeCreateView, self).get_context_data(**kwargs)
+        context['parent'] = self.kwargs['parent']
+        return context
+
+    def get_success_url(self):
+        return reverse('contest_list', args=[self.kwargs['parent']])
