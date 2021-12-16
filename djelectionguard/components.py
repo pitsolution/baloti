@@ -18,7 +18,7 @@ from django.conf import settings
 
 from djlang.utils import gettext as _
 from electeez_sites.models import Site
-from .models import Contest, Candidate, ParentContest, Recommender
+from .models import Contest, Candidate, ParentContest, Recommender, ContestType, Initiator
 from ckeditor.widgets import CKEditorWidget
 
 
@@ -39,12 +39,8 @@ class ContestForm(forms.ModelForm):
         tomorow = datetime.now() + timedelta(days=1)
         return tomorow.replace(second=0, microsecond=0)
 
-    referendum_type = forms.CharField(
-        label=_('FORM_REFERENDUM_TYPE'),
-        required=False
-    )
-    # parent = forms.ModelChoiceField(queryset=ParentContest.objects.filter(), empty_label="(Parent)")
-    initiator = forms.ModelChoiceField(queryset=Recommender.objects.filter(), empty_label="(Initiator)")
+    contest_type = forms.ModelChoiceField(queryset=ContestType.objects.filter(), empty_label="(Type)")
+    contest_initiator = forms.ModelChoiceField(queryset=Initiator.objects.filter(), empty_label="(Initiator)")
     infavour_arguments = forms.CharField(widget=CKEditorWidget())
     against_arguments = forms.CharField(widget=CKEditorWidget())
 
@@ -83,9 +79,8 @@ class ContestForm(forms.ModelForm):
         model = Contest
         fields = [
             'name',
-            'referendum_type',
-            # 'parent',
-            'initiator',
+            'contest_type',
+            'contest_initiator',
             'infavour_arguments',
             'against_arguments',
             'about',
@@ -96,9 +91,8 @@ class ContestForm(forms.ModelForm):
         ]
         labels = {
             'name': _('FORM_TITLE_ELECTION_CREATE'),
-            'referendum_type': _('FORM_TITLE_REFERENDUM_TYPE'),
-            # 'parent': _('FORM_TITLE_PARENT'),
-            'initiator': _('FORM_TITLE_INITIATOR'),
+            'contest_type': _('FORM_TITLE_REFERENDUM_TYPE'),
+            'contest_initiator': _('FORM_TITLE_INITIATOR'),
             'infavour_arguments': _('FORM_TITLE_INFAVOUR_ARGUMENTS'),
             'against_arguments': _('FORM_TITLE_AGAINST_ARGUMENTS'),
             'about': _('FORM_ABOUT_ELECTION_CREATE'),
@@ -121,9 +115,8 @@ class ContestFormComponent(CList):
             H4(_('Edit referendum') if edit else _('Create a referendum')),
             Form(
                 form['name'],
-                form['referendum_type'],
-                # form['parent'],
-                form['initiator'],
+                form['contest_type'],
+                form['contest_initiator'],
                 form['infavour_arguments'],
                 form['against_arguments'],
                 form['about'],
