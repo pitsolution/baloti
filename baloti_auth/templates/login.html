@@ -48,11 +48,7 @@
                                 <p class="app-login__subhead">Login to your account</p>
 
                                 <div class="app-login__btn-group">
-                                        {% if choice %}
-                                            <a class="btn btn-facebook btn-block" href="{% url 'social:begin' 'facebook' %}?next=/baloti/vote/{{choice}}"><span class="app-icon icon-facebook-box"></span> <span>Continue with Facebook</span></a>
-                                        {% else %}
-                                            <a class="btn btn-facebook btn-block" href="{% url 'social:begin' 'facebook' %}?next=/en/baloti/contest/list/"><span class="app-icon icon-facebook-box"></span> <span>Continue with Facebook</span></a>
-                                        {% endif %}
+                                    <a class="btn btn-facebook btn-block" href="{% url 'social:begin' 'facebook' %}?next=/en/baloti/contest/list/"><span class="app-icon icon-facebook-box"></span> <span>Continue with Facebook</span></a>
                                     <button class="btn btn-google btn-block"><span class="app-icon icon-google"></span> <span>Continue with Google</span></button>
                                     <button class="btn btn-apple btn-block"><span class="app-icon icon-apple"></span> <span>Continue with Apple</span></button>
                                 </div>
@@ -85,7 +81,7 @@
                                     {% else %}
                                         <input type="hidden" name="next" value="/en/baloti/contest/list/" />
                                     {% endif %}
-                                    <p class="app-login__createaccount"><span>Not registered yet?</span> <a href="#" class="app-link">Create an account now!</a> </p>
+                                    <p class="app-login__createaccount"><span>Not registered yet?</span> <a href="/en/baloti/signup/" class="app-link">Create an account now!</a> </p>
                                 </div>
 
                                 <a class="btn btn-link btn-flex btn-back" href="javascript:window.history.back()"><span class="app-icon icon-arrow"></span> <span>Back</span></a>
