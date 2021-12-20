@@ -57,41 +57,61 @@ $(document).ready(function(){
         var login = $(this).attr("isloggedIn");
         var username = document.getElementById('id_username').value;
         var password = document.getElementById('id_password').value;
-      
+
+        var self = this;
         $.ajax({
                 type: "POST",
                 url: '/en/accounts/login/',
                 data: {'username': username, 'password': password, 'csrfmiddlewaretoken': csrftoken},
                 headers: {'X-CSRFToken': csrftoken},
                 mode: 'same-origin',
+                success: function(data){
+                        // setTimeout(() => {
+                        $(this).closest(".app-modal").find("#success").removeClass("d-none");
+                        var choice = $(".form-check-input:checked").val();
+                        var vote_url = '/en/baloti/contest/vote/success/' + choice
+
+                        function getCookie(name) {
+                        var cookieValue = null;
+                        if (document.cookie && document.cookie !== '') {
+                            var cookies = document.cookie.split(';');
+                            for (var i = 0; i < cookies.length; i++) {
+                                var cookie = jQuery.trim(cookies[i]);
+                                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                    break;
+                                }
+                            }
+                        }
+                        return cookieValue;
+                        }
+                        var logincsrftoken = getCookie('csrftoken');
+                        $.ajax({
+                            headers: {'X-CSRFToken': logincsrftoken},
+                            type: "POST",
+                            url: '/en/baloti/anonymous/vote/',
+                            data: {'choice': choice, 'username': username},
+                            credentials: 'include',
+                            mode: 'same-origin',
+                            success: function(data){
+                                $("#login_error").addClass("d-none");
+                                $(self).closest(".app-modal").find("#success").removeClass("d-none"); 
+                                $(self).closest(".app-modal").find("#appLogin").addClass("d-none");
+                            },
+
+                            error:function (xhr, ajaxOptions, thrownError){
+                                if(xhr.status==400) {
+                                    $("#login_error").removeClass("d-none");
+                                    $(self).closest(".app-modal").find("#success").addClass("d-none");
+                                    $(self).closest(".app-modal").find("#appLogin").removeClass("d-none");
+
+                                }
+                            }
+                        });
+                    // }, 3000);
+                }
             });
 
-        function getCookie(name) {
-            var cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                var cookies = document.cookie.split(';');
-                for (var i = 0; i < cookies.length; i++) {
-                    var cookie = jQuery.trim(cookies[i]);
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
-        var logincsrftoken = getCookie('csrftoken');
-        $(this).closest(".app-modal").find("#success").removeClass("d-none");
-        var choice = $(".form-check-input:checked").val();
-        
-        $.ajax({
-            type: "POST",
-            url: '/en/baloti/anonymous/vote/',
-            data: {'choice': choice, 'username': username },
-            credentials: 'include',
-            headers: {'X-CSRFToken': logincsrftoken},
-            mode: 'same-origin',
-        });
     });
 
     $("#fbloginBtn").on("click", function(){

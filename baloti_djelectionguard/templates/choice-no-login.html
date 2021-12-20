@@ -67,20 +67,21 @@
                 <div class="app-form">
                     <div class="app-form__control">
                         <input id="id_username" name="username" 
-                                   type="text" class="form-control" placeholder=" ">
+                                   type="text" class="form-control" placeholder=" " required>
                         <label for="id_username" class="app-form__label">Email address</label>
                     </div>
                     <div class="app-form__control">
                         <input id="id_password" name="password" 
-                                   type="password" class="form-control" placeholder=" ">
+                                   type="password" class="form-control" placeholder=" " required>
                         <label for="id_password" class="app-form__label">Password</label>
                     </div>
-                    {% if form.errors %}
-                        <p class=" label label-danger">
-                            Your username and password didn't match. 
-                            Please try again.
-                        </p>
-                    {% endif %}
+
+
+                    <p class="label label-danger d-none" id="login_error">
+                        Your username and password didn't match. 
+                        Please try again.
+                    </p>
+
                     <button type="button" isloggedIn="false" id="loginBtn" class="btn btn-primary btn-block btn-md--small">CONTINUE</button>
                     <p class="app-login__createaccount"><span>Not registered yet?</span> <a href="#" class="app-link">Create an account now!</a> </p>
                 </div>
