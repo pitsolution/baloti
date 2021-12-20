@@ -41,9 +41,6 @@ $(document).ready(function(){
                 data: {'choice': choice},
                 headers: {'X-CSRFToken': csrftoken},
                 mode: 'same-origin',
-                success: function(data){
-                     alert(data);         
-                    }
             });
         }
         else{
