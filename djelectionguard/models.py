@@ -96,6 +96,18 @@ class Recommender(models.Model):
     def __str__(self):
         return self.name
 
+class Initiator(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+class ContestType(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
 class Contest(models.Model):
     id = models.UUIDField(
         primary_key=True,
@@ -112,7 +124,6 @@ class Contest(models.Model):
         blank=True,
         null=True
     )
-    referendum_type = models.CharField(null=True, max_length=100)
     type = models.CharField(default='school', max_length=100)
     votes_allowed = models.PositiveIntegerField(
         default=1,
@@ -153,9 +164,15 @@ class Contest(models.Model):
         on_delete=models.CASCADE,
         null=True
     )
-    initiator = models.ForeignKey(
-        Recommender,
+    contest_type  = models.ForeignKey(
+        ContestType,
         on_delete=models.CASCADE,
+        null=True
+    )
+    contest_initiator = models.ForeignKey(
+        Initiator,
+        on_delete=models.CASCADE,
+        blank=True,
         null=True
     )
     infavour_arguments = RichTextField(
