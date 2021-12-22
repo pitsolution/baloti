@@ -98,6 +98,27 @@
                                 background-color: $app-primary;
                                 border-color: $app-primary;
                             }
+                            &::after{
+                                content: "\e914";
+                                position: absolute;
+                                top: 50%;
+                                left: 36px;
+                                font-size: 14px;
+                                transform: translateY(-50%);
+                                color: $app-white;
+                                font-weight: 600;
+                                font-family: 'icomoon' !important;
+                                speak: none;
+                                font-style: normal;
+                                font-weight: normal;
+                                font-variant: normal;
+                                text-transform: none;
+                                line-height: 1;
+                            
+                                /* Better Font Rendering =========== */
+                                -webkit-font-smoothing: antialiased;
+                                -moz-osx-font-smoothing: grayscale;
+                            }
                         }
                     }
                 }

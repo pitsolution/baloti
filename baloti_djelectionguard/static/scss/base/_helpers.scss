@@ -50,6 +50,9 @@ $fontWeights: (400, 500, 600, 700);
   &-wrap {
       flex-wrap: wrap;
   }
+  &-shrink{
+    flex-shrink: 0;
+  }
 }
 
 .justify-content {

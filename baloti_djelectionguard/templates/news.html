@@ -1,0 +1,121 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block body %} 
+
+<section class="app-news app-bg">
+    <div class="app-elections__vote">
+        <div class="container">
+            <div class="app-header-flex">
+                <h3 class="app-title app-title--sm">News</h3>
+
+                <ul class="app-newslist list-unstyled">
+                    <li>
+                        <a href="#" class="app-newslist__link"><span class="app-icon icon-search"></span></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="app-newslist__link" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"><span class="app-icon icon-filter-new"></span></a>
+                        <div class="dropdown-menu dropdown-menu-right app-dropdown" aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-menu__header">
+                                <p><span>Sort by</span></p>
+                            </div>
+                            <a class="dropdown-item" href="#">Old to new</a>
+                            <a class="dropdown-item" href="#">New to old</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+    <div class="container">
+        <div class="app-griditem app-griditem--dictionary">
+            <div class="app-card app-card--dictionary">
+                <div class="app-card__img">
+                    <img src="/static/images/dictionary.png" alt="">
+                </div>
+                <div class="app-card__content">
+                    <h5 class="app-card__title sm dark">Sources of Information</h5>
+                    <p class="app-txt">Selectio Helvetica light to safeguard ballot secrecy. The secret ballot protects the voter in a vote or election, so that his or her choice remains confidential. Securing ballot secrecy is a central...</p>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <p class="app-card__date">12-05-2021</p>
+                        <button class="btn btn-link"><span>Read</span> <span class="app-icon icon-arrow"></span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="app-card app-card--dictionary">
+                <div class="app-card__img">
+                    <img src="/static/images/dictionary-1.png" alt="">
+                </div>
+                <div class="app-card__content">
+                    <h5 class="app-card__title sm dark">Television debates</h5>
+                    <p class="app-txt">Selectio Helvetica light to safeguard ballot secrecy. The secret ballot protects the voter in a vote or election, so that his or her choice remains confidential. Securing ballot secrecy is a central...</p>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <p class="app-card__date">12-05-2021</p>
+                        <button class="btn btn-link"><span>Read</span> <span class="app-icon icon-arrow"></span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="app-card app-card--dictionary">
+                <div class="app-card__img">
+                    <img src="/static/images/dictionary-2.png" alt="">
+                </div>
+                <div class="app-card__content">
+                    <h5 class="app-card__title sm dark">Postal voting</h5>
+                    <p class="app-txt">Selectio Helvetica light to safeguard ballot secrecy. The secret ballot protects the voter in a vote or election, so that his or her choice remains confidential. Securing ballot secrecy is a central...</p>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <p class="app-card__date">12-05-2021</p>
+                        <button class="btn btn-link"><span>Read</span> <span class="app-icon icon-arrow"></span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="app-card app-card--dictionary">
+                <div class="app-card__img">
+                    <img src="/static/images/dictionary.png" alt="">
+                </div>
+                <div class="app-card__content">
+                    <h5 class="app-card__title sm dark">Sources of Information</h5>
+                    <p class="app-txt">Selectio Helvetica light to safeguard ballot secrecy. The secret ballot protects the voter in a vote or election, so that his or her choice remains confidential. Securing ballot secrecy is a central...</p>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <p class="app-card__date">12-05-2021</p>
+                        <button class="btn btn-link"><span>Read</span> <span class="app-icon icon-arrow"></span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="app-card app-card--dictionary">
+                <div class="app-card__img">
+                    <img src="/static/images/dictionary-1.png" alt="">
+                </div>
+                <div class="app-card__content">
+                    <h5 class="app-card__title sm dark">Television debates</h5>
+                    <p class="app-txt">Selectio Helvetica light to safeguard ballot secrecy. The secret ballot protects the voter in a vote or election, so that his or her choice remains confidential. Securing ballot secrecy is a central...</p>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <p class="app-card__date">12-05-2021</p>
+                        <button class="btn btn-link"><span>Read</span> <span class="app-icon icon-arrow"></span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="app-card app-card--dictionary">
+                <div class="app-card__img">
+                    <img src="/static/images/dictionary-2.png" alt="">
+                </div>
+                <div class="app-card__content">
+                    <h5 class="app-card__title sm dark">Postal voting</h5>
+                    <p class="app-txt">Selectio Helvetica light to safeguard ballot secrecy. The secret ballot protects the voter in a vote or election, so that his or her choice remains confidential. Securing ballot secrecy is a central...</p>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <p class="app-card__date">12-05-2021</p>
+                        <button class="btn btn-link"><span>Read</span> <span class="app-icon icon-arrow"></span></button>
+                    </div>
+                </div>
+            </div>
+          </div>
+    </div>
+
+</section>
+
+
+<div class="app-social-follow">
+    <a href="#" class="app-icon icon-facebook"></a>
+    <a href="#" class="app-icon icon-twiter"></a>
+    <span class="app-social-follow__txt">FOLLOW US ON</span>
+</div>
+{% endblock body %}

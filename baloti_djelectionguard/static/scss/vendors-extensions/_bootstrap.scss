@@ -152,6 +152,26 @@ $app-modal-header-bg: #F1F2EE;
                     }
                     .btn{
                         min-height: 42px;
+                        display: inline-flex;
+                        align-items: center;
+                        padding-left: 30px;
+                        padding-right: 30px;
+                        margin-left: 15px;
+                    }
+                    .label{
+                        margin-left: 15px;
+                        &.icon{
+                            min-height: 42px;
+                            position: relative;
+                            padding-left: 45px;
+                            padding-right: 38px;
+                            [class*=" icon-"], [class^=icon-]{
+                                position: absolute;
+                                font-size: 24px;
+                                left: 12px;
+                            }
+                        }
+                        
                     }
                 }
             }
@@ -228,6 +248,76 @@ $app-modal-header-bg: #F1F2EE;
                     max-width: 600px;
                 }
             }
+        }
+        &--success{
+            .modal{
+                &-body{
+                    padding: 0;
+                }
+            }
+            img{
+                width: 150px;
+            }
+            .app{
+                &-result-wrap{
+                    padding: 30px;
+                }
+                
+                &-resultdate{
+                    background: #DEDEDE;
+                    min-width: 300px;
+                    margin: 0 auto 15px;
+                    font-size: 28px;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 8px;
+                    border-radius: 7px;
+                    font-family: Poppins-Medium;
+                }
+            }
+        }
+    }
+    &-dropdown{
+        min-width: 190px;
+        overflow: hidden;
+        padding: 0;
+        .dropdown{
+            &-menu{
+                &__header{
+                    padding: 10px 20px;
+                    background-color: $app-secondary;
+                    p{
+                        margin:0;
+                        font-size: $app-sm-text;
+                        font-family: Poppins-Medium;
+                    }
+                }
+            }
+            &-item{
+                padding: 14px 20px;
+                border-color: $app-secondary;
+                font-size: $app-sm-text;
+            }
+        }
+        &--arrow{
+            margin-top: 10px !important;
+            overflow: inherit;
+            &::before{
+                content: "";
+                position: absolute;
+                top: -7px;
+                left: 16px;
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 0 7.5px 7px 7.5px;
+                border-color: transparent transparent #ffffff transparent;                      
+            }
+        }
+        &--icon{
+            padding: 30px 20px;
+            min-width: 345px;
         }
     }
 }

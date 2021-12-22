@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render
 from djelectionguard.models import Contest, Candidate, ParentContest
 from django.db.models import ObjectDoesNotExist, Q
@@ -8,6 +9,8 @@ from electeez_common.components import *
 import hashlib
 from django.views.decorators.csrf import csrf_exempt,csrf_protect
 from electeez_auth.models import User
+from django.template.loader import render_to_string
+from django.core.mail import EmailMultiAlternatives
 
 def getParentDetails(parent):
         """
@@ -47,6 +50,12 @@ class BalotiIndexView(TemplateView):
         contests.append(getParentDetails(closed_contests[0])) if closed_contests else None
         return render(request, 'index.html',{"contests": contests})
 
+class BalotiNewsView(TemplateView):
+    """
+    News View
+    """
+    template_name = "news.html"
+
 class BalotiDisclaimerView(TemplateView):
     """
     Disclaimer View
@@ -58,6 +67,60 @@ class BalotiAboutUsView(TemplateView):
     AboutUs View
     """
     template_name = "about-us.html"
+
+class BalotiInfoView(TemplateView):
+    """
+    Info View
+    """
+
+    def get(self, request):
+        """
+        Args:
+            request (Request): Http request object
+
+        Returns:
+            html : returns landing-en.html html file
+        """
+        return render(request, 'landing-en.html')
+
+    def post(self, request):
+        """
+        Args:
+            request (Request): Http request object
+
+        Returns:
+            html : returns landing-en.html html file
+        """
+        firstname = request.POST.get('firstname')
+        lastname = request.POST.get('lastname')
+        email = request.POST.get('email')
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+        email_from = settings.DEFAULT_FROM_EMAIL
+        email_to = 'baloti@pitsolutions.ch'
+        if firstname and lastname and email and subject and message:
+            merge_data = {
+                        'firstname': firstname,
+                        'lastname': lastname,
+                        'email': email,
+                        'message': message
+                        }
+            html_body = render_to_string("contactinfo_mail.html", merge_data)
+
+            message = EmailMultiAlternatives(
+               subject=subject,
+               body="mail testing",
+               from_email=email_from,
+               to=[email_to],
+            )
+            message.attach_alternative(html_body, "text/html")
+            message.send()
+            messages.success(self.request, _('dcfxv sent by email'))
+            responseData = {}
+            return HttpResponse(json.dumps(responseData), content_type="application/json")
+        else:
+            return HttpResponseBadRequest()
+
 
 class BalotiContestListView(TemplateView):
     """
@@ -72,40 +135,16 @@ class BalotiContestListView(TemplateView):
         Returns:
             html : returns contest_list.html html file
         """
-        contest_list = []
-        action = ''
-        parentcontest = ParentContest.objects.filter().order_by('actual_end')
-        for parent_id in parentcontest:
-            data = {}
-            contests = Contest.objects.filter(parent=parent_id)
-            data = {
-                    'name': parent_id.name,
-                    'id': parent_id.uid,
-                    'date': parent_id.start.date(),
-                    'month': parent_id.start.strftime('%B'),
-                    'year': parent_id.start.strftime('%Y'),
-                    'status': parent_id.status,
-                    'child_count': len(contests),
-                    'child_contests': contests
-                    }
-            if parent_id.status == 'closed':
-                action = 'view_result'
-            elif parent_id.status == 'draft':
-                action = 'view_detail'
-            else:
-                if not request.user.is_anonymous:
-                    for contest_id in contests:
-                        voter = contest_id.voter_set.filter(user=request.user)
-                        if voter and voter.first().casted and action != 'vote_now':
-                            action = 'view_detail'
-                        else:
-                            action = 'vote_now'
-                else:
-                    action = 'vote_now'
-            data['action'] = action
-            contest_list.append(data)
-        return render(request, 'contest_list.html',{'title':'Contests',"contests":contest_list})
-    
+        open_list = []
+        closed_list = []
+        open_contests = ParentContest.objects.filter(status="open").order_by('-actual_start')
+        for open_contest in open_contests:
+            open_list.append(getParentDetails(open_contest))
+        closed_contests = ParentContest.objects.filter(status="closed").order_by('-actual_end')
+        for closed_contest in closed_contests:
+            closed_list.append(getParentDetails(closed_contest))
+        return render(request, 'contest_list.html',{"open_contests": open_list, "closed_contests": closed_list})
+
 
 class BalotiContestDetailView(TemplateView):
     """

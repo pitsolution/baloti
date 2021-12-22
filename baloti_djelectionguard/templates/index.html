@@ -10,16 +10,17 @@
                 <div class="app-banner__content">
                     <h1 class="app-h1">Baloti Voting system</h1>
                     <h3 class="app-h3">On our platform you can <br> practice direct democracy in <br> several languages</h3>
-                    <!-- <a href="electionvote-main.html"> -->
-                    <a href="/en/baloti/contest/list/">
-                    <button class="btn btn-primary btn-md text-uppercase btn-flex"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span> </button>
-                </a>
+                    <div class="btn-inline-group d-flex align-items-center">
+                        <a class="btn btn-primary btn-md text-uppercase btn-flex" href="/en/baloti/contest/list/"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span> </a>
+                        <button class="btn btn-default btn-md text-uppercase btn-flex" id="howitworksbtn">HOW IT WORKS</button>
+                    </div>
+                    
                 </div>
             </div>
         </div>
     </div>
     <div class="app-banner__img">
-        <img src="/static/images/banner-img.png" alt="">
+        <img src="/static/images/banner.png" alt="">
     </div>
     <div class="app-social-follow">
         <a href="#" class="app-icon icon-facebook"></a>
@@ -36,23 +37,36 @@
             <div class="app-our-platform__content">
                 <h6 class="app-subtitle">ABOUT US</h6>
                 <h2 class="app-title app-h2">On our platform you can practice direct democracy in several languages</h2>
-                <p class="app-p">The baloti.ch. project is carried out by an interdisciplinary team at the Zentrum für Demokratie Aarau in cooperation with the University of Neuchatel. Diversified project partnerships ensure that the project will be made static all over the country.</p>
+                <p class="app-p">The baloti.ch. project is carried out by an interdisciplinary team at the Zentrum für Demokratie Aarau in cooperation with the University of Neuchatel. Diversified project partnerships ensure that the project will be made public all over the country.</p>
                 <img src="/static/images/our-platform.png" alt="">
             </div>
         </div>
         <div class="col-sm-4">
-            <h6 class="app-subtitle">LATEST ELECTIONS & VOTE</h6>
-            <div class="app-card-group">
+            <h6 class="app-subtitle">LATEST REFERENDUMS & VOTE</h6>
+            <div class="app-card-group app-elections">
                 {% for u in contests %}
-                    <div class="app-card box-shadow">
+                    {% load contest_issues %}
+                    {% displayIssuesCount u.id user as issues %}
+                    <div class="app-card  app-card--flex box-shadow">
                         <h4 class="app-h4 app-card__title">{{u.name}}</h4>
                         <h5 class="app-card__monthyear">{{u.month}} {{u.year}}</h5>
-                        <p class="app-card__date"><span>Date:</span> <span>{{u.date|date:"Y-m-d"}}</span></p>
+                        <p class="app-card__date"><span>Date:</span> <span>{{u.date|date:"d.m.Y"}}</span></p>
+                        <p class="app-h6 text-medium text-dark">Issues: {{issues}}</p>
+                        <ul class="app-list list-unstyled app-sm-text">
+                            {% for i in u.id|getContestIssues %}
+                                <li>{{forloop.counter}} - {{i.name}}</li>
+                            {% endfor %}
+                        </ul>
                         <div class="app-card__footer">
                             {% if u.status == 'open' %}
-                                <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><label for="" class="label label-primary label-sm">OPEN</label><span>VOTE NOW</span><span class="app-icon icon-arrow"></span></a>
+                                <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-outlined--primary  label-sm">open</label> <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a></div>
                             {% elif u.status == 'closed' %}
-                                <a href={% url 'baloti_djelectionguard:viewContestResult' id=u.id %} class="btn btn-link btn-flex btn-flex--between"><label for="" class="label label-outlined label-sm">CLOSED</label> <span>VIEW RESULT</span><span class="app-icon icon-arrow"></span></a>
+                                {% checkResultStatus u.id user as result %}
+                                {% if result %}
+                                    <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestResult' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>VIEW RESULT</span> <span class="app-icon icon-arrow"></span></a></div>
+                                {% else %}
+                                    <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>VIEW DETAILS</span> <span class="app-icon icon-arrow"></span></a></div>
+                                {% endif %}
                             {% endif %}
                         </div>
                     </div>
@@ -63,9 +77,31 @@
        </div>
     </div>
 </section>
+<!-- Our Platform Section -->
+ <section class="app-how-it-works" id="howItWorksSection">
+    <div class="container">
+        <h6 class="app-subtitle">LETS DIVE IN</h6>
+        <h2 class="app-title app-h2">How it works</h2>
 
-  <!-- Our Feature Section -->
-<section class="app-our-feature">
+        <ul class="app-gridlist list-unstyled">
+            <li>
+                <span class="number"><span>1</span></span>
+                <p>Inform yourself about the latest votes in Switzerland and learn new facts about Swiss politics.</p>
+            </li>
+            <li>
+                <span class="number"><span>2</span></span>
+                <p>Register on the Baloti platform and vote, whether you already have Swiss voting rights or not</p>
+            </li>
+            <li>
+                <span class="number"><span>3</span></span>
+                <p>Stay up to date with notifications and information from Baloti.</p>
+            </li>
+        </ul>
+    </div>
+ </section>
+
+<!-- Our Feature Section -->
+<section class="app-our-feature app-bg">
     <div class="container">
         <div class="row">
             <div class="col-sm-6">
@@ -113,8 +149,58 @@
     </div>
 </section>
 
+<!-- Picture Dictionary Section -->
+<section class="app-picture-dictionary">
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-between app-picture-dictionary__heading">
+            <h6 class="app-subtitle">PICTURE DICTIONARY</h6>
+            <button class="btn btn-link"><span class="app-icon icon-arrow m-0"></span></button>
+          </div>
+          <div class="app-griditem app-griditem--dictionary">
+            <div class="app-card app-card--dictionary">
+                <div class="app-card__img">
+                    <img src="/static/images/dictionary.png" alt="">
+                </div>
+                <div class="app-card__content">
+                    <h5 class="app-card__title sm dark">Sources of Information</h5>
+                    <p class="app-txt">Selectio Helvetica light to safeguard ballot secrecy. The secret ballot protects the voter in a vote or election, so that his or her choice remains confidential. Securing ballot secrecy is a central...</p>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <p class="app-card__date">12-05-2021</p>
+                        <button class="btn btn-link"><span>Read</span> <span class="app-icon icon-arrow"></span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="app-card app-card--dictionary">
+                <div class="app-card__img">
+                    <img src="/static/images/dictionary-1.png" alt="">
+                </div>
+                <div class="app-card__content">
+                    <h5 class="app-card__title sm dark">Television debates</h5>
+                    <p class="app-txt">Selectio Helvetica light to safeguard ballot secrecy. The secret ballot protects the voter in a vote or election, so that his or her choice remains confidential. Securing ballot secrecy is a central...</p>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <p class="app-card__date">12-05-2021</p>
+                        <button class="btn btn-link"><span>Read</span> <span class="app-icon icon-arrow"></span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="app-card app-card--dictionary">
+                <div class="app-card__img">
+                    <img src="/static/images/dictionary-2.png" alt="">
+                </div>
+                <div class="app-card__content">
+                    <h5 class="app-card__title sm dark">Postal voting</h5>
+                    <p class="app-txt">Selectio Helvetica light to safeguard ballot secrecy. The secret ballot protects the voter in a vote or election, so that his or her choice remains confidential. Securing ballot secrecy is a central...</p>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <p class="app-card__date">12-05-2021</p>
+                        <button class="btn btn-link"><span>Read</span> <span class="app-icon icon-arrow"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-  <!-- Project Partner Section -->
+<!-- Project Partner Section -->
 <section class="app-project-partner">
     <div class="container">
         <div class="row align-items-center">
@@ -122,7 +208,7 @@
                 <h6 class="app-subtitle">OUR PROJECT PARTNERS</h6>
             </div>
             <div class="col-sm-9">
-                  <ul class="app-partner-list list-unstyled">
+                <ul class="app-partner-list list-unstyled">
                     <li>
                         <a href="">
                             <img src="/static/images/partner.png" alt="">
@@ -130,27 +216,27 @@
                     </li>
                     <li>
                         <a href="">
-                          <img src="/static/images/partner-1.png" alt="">
+                            <img src="/static/images/partner-1.png" alt="">
+                        </a>
+                    </li>
+                    <li>
+                    <a href="">
+                        <img src="/static/images/partner-2.png" alt="">
+                    </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="/static/images/partner-3.png" alt="">
                         </a>
                     </li>
                     <li>
                         <a href="">
-                          <img src="/static/images/partner-2.png" alt="">
+                            <img src="/static/images/partner-4.png" alt="">
                         </a>
                     </li>
                     <li>
                         <a href="">
-                          <img src="/static/images/partner-3.png" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                          <img src="/static/images/partner-4.png" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                          <img src="/static/images/partner-5.png" alt="">
+                            <img src="/static/images/partner-5.png" alt="">
                         </a>
                     </li>
                 </ul>
@@ -160,13 +246,13 @@
 </section>
 
    
-  <!-- Then put toasts within -->
-  <!-- <div class="app-toast">
-      <div class="app-toast__msg">
-          <span class="app-icon app-toast__tick icon-tick-fill"></span>
-          <span>Registration successful</span>
-          <span class="app-icon app-toast__close icon-close m-pointer m-l-15"></span>
-      </div>
-  </div> -->
+<!-- Then put toasts within -->
+<!-- <div class="app-toast">
+  <div class="app-toast__msg">
+      <span class="app-icon app-toast__tick icon-tick-fill"></span>
+      <span>Registration successful</span>
+      <span class="app-icon app-toast__close icon-close m-pointer m-l-15"></span>
+  </div>
+</div> -->
     
 {% endblock body %}

@@ -24,7 +24,40 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-
+  .icon-tick-sm:before {
+    content: "\e914";
+    color: #fff;
+  }
+  .icon-share:before {
+    content: "\e915";
+    color: #ce2323;
+  }
+  .icon-linkedin:before {
+    content: "\e916";
+    color: #fff;
+  }
+  .icon-whatsapp:before {
+    content: "\e917";
+    color: #fff;
+  }
+  .icon-copy-share:before {
+    content: "\e918";
+    color: #fff;
+  }
+  .icon-unlike:before {
+    content: "\e919";
+    color: #ce2323;
+  }
+  .icon-Security-Safes:before {
+    content: "\e91a";
+  }
+  .icon-delete:before {
+    content: "\e91b";
+    color: #ce2323;
+  }
+  .icon-mail:before {
+    content: "\e91c";
+  }
   .icon-tick-success:before {
     content: "\e906";
   }
@@ -55,6 +88,7 @@
   }
   .icon-like:before {
     content: "\e90d";
+    color: #ce2323;
   }
   .icon-search:before {
     content: "\e90e";

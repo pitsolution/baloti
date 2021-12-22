@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baloti</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+    <div class="app">
+        <section class="app-login">
+            <div class="app-login__img">
+                <img src="/static/images/login-img.png" alt="">
+            </div>
+            <div class="container">
+                <div class="row flex-row-reverse">
+                    <div class="col-sm-5">
+                        <div class="app-login__box">
+                            <div class="app-login__logo">
+                                <img src="/static/images/logo.svg" alt="">
+                            </div>
+                            <h3 class="app-login__heading">
+                                Contact Information
+                            </h3>
+                            <p class="app-sepeartor text-center"><span>{{message}}</span></p>
+                            <p class="app-sepeartor text-center"><span>First Name: {{firstname}}</span></p>
+                            <p class="app-sepeartor text-center"><span>Last Name: {{lastname}}</span></p>
+                            <p class="app-sepeartor text-center"><span>Email: {{email}}</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

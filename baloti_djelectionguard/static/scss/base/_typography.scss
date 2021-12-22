@@ -154,6 +154,17 @@ img{
   &-medium{
     font-family: Poppins-Medium;
   }
+  &-outfit{
+    &-semibold{
+      font-family: Outfit-SemiBold !important;
+    }
+    &-regular{
+      font-family: Outfit-Regular !important;
+    }
+    &-medium{
+      font-family: Outfit-Medium !important;
+    }
+  }
 }
 
 .bg{

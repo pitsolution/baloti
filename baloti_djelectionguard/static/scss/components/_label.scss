@@ -14,6 +14,14 @@ $_label-outlined-color:#707070;
         background: transparent;
         border: 1px solid $app-border-color;
         color: $_label-outlined-color;
+        &--primary{
+            border: 1px solid $app-primary;
+            color: $app-primary;
+        }
+        &--basic{
+            border:  1px solid #171742;
+            color: #171742;
+        }
     }
     &-sm{
         font-size: 16px;
@@ -21,7 +29,40 @@ $_label-outlined-color:#707070;
         line-height: 25px;
         border-radius: 16px;
     }
+    &-xsm{
+        font-size: 16px;
+        padding: 4px 15px;
+        line-height: 25px;
+        border-radius: 9px;
+        text-transform: capitalize;
+    }
     &-primary{
         background: $app-primary;
+    }
+    &-success{
+        background: $app-success;
+        &--light{
+            background: rgba($app-success, 0.3);
+            color: $app-success;
+        }
+    }
+    &-icon{
+        position: relative;
+        padding: 4px 15px 4px 40px;
+        .app-icon{
+            font-size: 21px;
+            position: absolute;
+            left: 10px;
+        }
+    }
+    &-noradius{
+        border-radius: 0;
+    }
+    &-flex{
+        display: inline-flex;
+        align-items: center;
+    }
+    [class*=" icon-"], [class^=icon-]{
+        margin-right: 10px;
     }
 }

@@ -7,7 +7,8 @@ $(window).scroll(function(){
   });
 
 $(document).ready(function(){
-    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    
+    var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
     $("#showBalletModal").on("click", function(){
         var choice_name = $("input[type='radio']:checked").attr("dataname");
@@ -29,8 +30,10 @@ $(document).ready(function(){
 
     $("#confirmBtn").on("click", function(){
         $(this).closest(".app-modal").find("#confirmVote").addClass("d-none");
+        console.log('ccccccccccccccccccccccccccccccccccccccccc')
         var login = $(this).attr("isloggedIn");
         if($(this).attr("isloggedIn") == "true"){
+            var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
             $(this).closest(".app-modal").find("#appLogin").removeClass("d-none");
             $(this).closest(".app-modal").addClass("app-modal--md");
             $("#success").removeClass("d-none");
@@ -54,6 +57,7 @@ $(document).ready(function(){
         var login = $(this).attr("isloggedIn");
         var username = document.getElementById('id_username').value;
         var password = document.getElementById('id_password').value;
+        var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
         var self = this;
         $.ajax({
@@ -130,6 +134,39 @@ $(document).ready(function(){
         $(this).closest(".app-modal").find("#confirmVote").removeClass("d-none");
         $(this).closest(".app-modal").find("#appLogin").addClass("d-none");
         $(this).closest(".app-modal").find("#success").addClass("d-none");
+    });
+
+    $("#howitworksbtn").click(function() {
+        $('html, body').animate({
+            scrollTop: $("#howItWorksSection").offset().top
+        }, 2000);
+    });
+
+    $("#infomailSubmit").on("click", function(){
+        var firstname = document.getElementById('id_firstname').value;
+        var lastname = document.getElementById('id_lastname').value;
+        var email = document.getElementById('id_email').value;
+        var subject = document.getElementById('id_subject').value;
+        var message = document.getElementById('id_message').value;
+        
+        var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            $.ajax({
+                type: "POST",
+                url: '/en/info/submit',
+                data: {'firstname': firstname, 'lastname': lastname, 'email': email, 'subject': subject, 'message': message},
+                headers: {'X-CSRFToken': csrftoken},
+                mode: 'same-origin',
+                success: function(data){
+                        document.getElementById('id_firstname').value = "";
+                        document.getElementById('id_lastname').value = "";
+                        document.getElementById('id_email').value = "";
+                        document.getElementById('id_subject').value = "";
+                        document.getElementById('id_message').value = "";
+                        $("#info_mailsent").removeClass("d-none");
+                },
+                
+            });
+        
     });
 
 });

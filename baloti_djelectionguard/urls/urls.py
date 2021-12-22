@@ -1,10 +1,8 @@
 from django.urls import path
-from .views import *
+from ..views import *
 
 urlpatterns = [
     path('', BalotiIndexView.as_view()),
-    path('disclaimer', BalotiDisclaimerView.as_view()),
-    path('about-us', BalotiAboutUsView.as_view()),
     path('contest/list/', BalotiContestListView.as_view()),
     path('contest/<str:id>', BalotiContestDetailView.as_view(), name='ContestDetails'),
     path('contest/vote/choices/<str:id>', BalotiContestChoicesView.as_view(), name='VoteChoices'),
