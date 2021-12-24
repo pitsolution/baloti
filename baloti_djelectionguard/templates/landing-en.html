@@ -145,7 +145,7 @@
                                 </div>
                                 <div class="row g-0">
                                     <div class="col">
-                                        <input id="id_email" name="email" type="text" class="form-control" required>
+                                        <input id="id_email" name="email" type="email" class="form-control" required>
                                         <label for="">Email*</label>
                                     </div>
                                     <div class="col">
@@ -196,8 +196,8 @@
     <div class="app-toast alert alert-dismissible d-none" id="info_mailsent" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="app-toast__msg">
             <span class="app-icon app-toast__tick icon-tick-success"></span>
-            <span>Mail sent successfully</span>
-            <span class="app-icon app-toast__close icon-close-bold m-pointer m-l-15" data-bs-dismiss="alert" aria-label="Close"></span>
+            <span id="message_text">Mail sent successfully</span>
+            <span class="app-icon app-toast__close icon-close-bold m-pointer m-l-15" id="closeMailSent"></span>
         </div>
     </div>
 
