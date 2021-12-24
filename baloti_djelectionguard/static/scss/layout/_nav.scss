@@ -274,15 +274,32 @@
         }
        }
     }
+    @media only screen and (max-width: 991px) {
+        &-header{
+            padding: 35px;
+        }
+        
+    }
     @media only screen and (max-width: 767px) {
         &-header{
             padding: 15px;
+            &-nav{
+                &.main{
+                    li{
+                        &:first-child, &:last-child{
+                            display: none;
+                        }
+                    }
+                }
+                
+            }
         }
         &-logo{
-            width: 100px;
+            width: 165px;
         }
         &-loginbtn, &-loggedin, &-menu{
             margin-left: 15px;
         }
     }
+    
 }

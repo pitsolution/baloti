@@ -122,13 +122,7 @@
         }
         &-group{
             margin-bottom: 30px;
-            .app{
-                &-card{
-                    &:last-child{
-                        margin-bottom: 0;
-                    }
-                }
-            }
+            
         }
         &--nopad{
             padding: 0;
@@ -250,11 +244,63 @@ background: linear-gradient(356deg, rgba(18,21,103,1) 0%, rgba(206,35,35,1) 100%
     }
     @media only screen and  (max-width: 767px) {
         &-card{
+            padding: 12px 20px;
+            margin-bottom: 16px;
+            &__title{
+                line-height: 33px;
+                margin-bottom: 6px;
+                font-size: $app-h6 + 2;
+                &.sm{
+                    font-size: $app-p + 2;
+                    line-height: 30px;
+                }
+            }
+            &__monthyear{
+                font-size: 19px;
+                line-height: 29px;
+                margin-bottom: 10px;
+            }
+            &__date{
+                font-size: $app-p - 2;
+                line-height: 25px;
+                margin-bottom: 8px;
+            }
             &--impact{
                 padding: 30px;
                 margin: 0;
                 border-radius: 17px;
             }
+            &--dictionary{
+                padding: 0;
+                margin-bottom: 0;
+                .app{
+                    &-card{
+                        &__content{
+                            margin-top: -35px;
+                            padding: 20px;
+                        }
+                        &__title{
+                            margin-bottom: 17px;
+                        }
+                        &__date{
+                            font-size: $app-sm-text;
+                        }
+                    }
+                    &-txt{
+                        font-size: $app-sm-text;
+                        margin-bottom: 32px;
+                    }
+                    
+                }
+            }
+            .app{
+                &-h6{
+                    font-size: $app-p - 2;
+                    line-height: 25px;
+                    margin-bottom: 15px;
+                }
+            }
         }
     }
+    
 }

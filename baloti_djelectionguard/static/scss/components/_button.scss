@@ -15,9 +15,6 @@
     font-family: Poppins-Medium;
     position: relative;
     transition: all $app-global-duration $app-cubic-bez;
-    @include mq(tablet, max){
-        font-size: $app-sm-text;
-    }
     &:focus{
         box-shadow: unset;
         outline: none;
@@ -197,6 +194,27 @@
         color: $app-white;
         &:hover{
             color: $app-white !important;
+        }
+    }
+    @media only screen and (max-width: 991px) {
+        font-size: $app-sm-text;
+        &-md{
+            font-size: $app-sm-text;
+            padding: 6px 10.18px;
+            min-height: 44px;
+        }
+        &-inline{
+            &-group {
+                .btn:not(:last-child){
+                    margin-right: 20px;
+                }
+            }
+        }
+        &-link{
+            .app-icon{
+                font-size: $app-sm-text - 6;
+                margin-left: 10px;
+            }
         }
     }
 }

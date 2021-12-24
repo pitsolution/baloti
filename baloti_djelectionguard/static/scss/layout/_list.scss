@@ -337,15 +337,34 @@ background: linear-gradient(40deg, rgba(19,87,126,1) 31%, rgba(77,193,217,1) 100
         &-gridlist{
             display: grid;
             margin: 0;
-            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            grid-template-columns: repeat(1, minmax(190px, 1fr));
             // grid-column-gap: 120px;
             padding-top: 24px;
             grid-row-gap: 30px;
             li{
-                padding: 0;
-                &::before{
+                padding: 0 0 50px;
+                &:before{
+                    width: 1px;
+                    height: 100%;
+                    border-left: 2px dashed $app-border-color;
+                    left: 50%;
+                    z-index: -1;
+                }
+                &:first-child:before{
+                    width: 1px;
+                    left: 50%;
+                }
+                &:last-child:before{
                     display: none;
                 }
+            }
+            .number{
+                margin-bottom: 0;
+            }
+            p{
+                font-size: $app-sm-text;
+                padding: 20px 0;
+                background: $app-white;
             }
         }
         &-griditem{
@@ -368,9 +387,22 @@ background: linear-gradient(40deg, rgba(19,87,126,1) 31%, rgba(77,193,217,1) 100
         }
         &-partner-list{
             margin-top: 30px;
-            grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+            grid-template-columns: repeat(3, minmax(75px, 1fr));
             grid-column-gap: 30px;
             grid-row-gap: 30px;
+        }
+        &-list li:not(:last-child){
+            margin-bottom: 5px;
+        }
+    }
+    @media only screen and (min-width: 768px) and (max-width: 991px){
+        &-gridlist {
+            li{
+                padding: 0 15px;
+            }
+        }
+        &-griditem{
+            grid-template-columns: repeat(2, minmax(10%, 1fr));
         }
     }
 }

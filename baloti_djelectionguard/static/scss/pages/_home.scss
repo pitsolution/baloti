@@ -228,17 +228,126 @@
             } 
         }
     }
+    @media only screen and (max-width: 767px) {
+        &-picture{
+            &-dictionary{
+                &__heading{
+                    margin-bottom: 19px;
+                    .btn{
+                        display: none;
+                    }
+                }
+            }
+        }
+        &-social{
+            &-follow{
+                display: none;
+            }
+        }
+        &-our{
+            &-platform{
+                   .app{
+                        &-card{
+                            height: inherit !important;
+                        }
+                   }
+            }
+            &-feature{
+                border-top-left-radius: 0;
+                position: relative;
+                .app{
+                    &-subtitle{
+                        margin-bottom: 15px;
+                    }
+                    &-title{
+                        margin-bottom: 38px;
+                    }
+                    &-griditem{
+                        .app{
+                            &-card{
+                                padding: 0;
+                                &:nth-child(n+4) {
+                                    display:none;
+                                }
+                            }
+                        }
+                    }
+                    
+                    &-showmore, &-hiddeninput{
+                        position: absolute;
+                        bottom: 35px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                    }
+                }
+                .img-block{
+                    display: none;
+                }
+                input[type=checkbox]:checked + .app-griditem .app-card {
+                    display:block;
+                }
+            }
+        }
+        &-how-it-works{
+            padding-bottom: 0 !important;
+            .app{
+                &-subtitle{
+                    margin-bottom: 7px;
+                }
+                &-title{
+                    margin-bottom: 47px;
+                }
+            }
+        }
+        
+    }
     @media only screen and (max-width: 991px) {
         &-our{
             &-platform{
-                padding: 30px 0;
+                padding: 37px 0;
+                    border-bottom-right-radius: 110px;
+                   .row{
+                       flex-direction: column-reverse;
+                   }
+                   &__content{
+                    padding-top: 57px;
+                    .app{
+                        &-subtitle{
+                            margin-bottom: 4px;
+                        }
+                        &-title{
+                            margin-bottom: 20px;
+                        }
+                        
+                    }
+                   }
+                   .app{
+                        &-elections{
+                            padding-top: 0;
+                            .row{
+                                flex-direction: inherit;
+                            }
+                        }
+                        &-card{
+                            height: 100%;
+                            margin-bottom: 16px;
+                        }
+                   }
             }
         }
-        &-how-it-works, &-our-feature, &-picture-dictionary, &-project-partner, &-about-project, &-impact, &-project-support, &-contact{
-            padding: 30px 0;
+        &-social{
+            &-follow{
+                left: 5px;
+            }
+        }
+        &-how-it-works, &-picture-dictionary, &-project-partner, &-about-project, &-impact, &-project-support, &-contact{
+            padding: 37px 0;
             .app-title{
                 line-height: 38px;
             }
+        }
+        &-our-feature{
+            padding: 68px 0;
         }
         &-impact {
             .app{
@@ -272,6 +381,15 @@
                 padding: 10px 90px;
                 width: 100%;
                 font-size: $app-p;
+            }
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        &-our-feature{
+            .app{
+                &-showmore{
+                    display: none;
+                }
             }
         }
     }
