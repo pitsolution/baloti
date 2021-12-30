@@ -1,7 +1,8 @@
 {% extends 'layout/base.html' %}
 {% load static %}
+{% load referendum %}
+{% load issues %}
 {% block body %}        
-
 
 <!-- Banner Section -->
 <section class="app-banner">
@@ -46,7 +47,6 @@
             <h6 class="app-subtitle">LATEST REFERENDUMS & VOTE</h6>
             <div class="app-card-group app-elections">
                 {% for u in contests %}
-                    {% load contest_issues %}
                     {% displayIssuesCount u.id user as issues %}
                     <div class="row">
                         <div class="col-sm-12 col-md-6 col-lg-12">
@@ -64,9 +64,9 @@
                                     {% if u.status == 'open' %}
                                         <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-outlined--primary  label-sm">open</label> <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a></div>
                                     {% elif u.status == 'closed' %}
-                                        {% checkResultStatus u.id user as result %}
+                                        {% checkReferendumResultPublished u.id user as result %}
                                         {% if result %}
-                                            <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestResult' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>VIEW RESULT</span> <span class="app-icon icon-arrow"></span></a></div>
+                                            <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>VIEW RESULT</span> <span class="app-icon icon-arrow"></span></a></div>
                                         {% else %}
                                             <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>VIEW DETAILS</span> <span class="app-icon icon-arrow"></span></a></div>
                                         {% endif %}

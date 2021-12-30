@@ -7,9 +7,7 @@ $(window).scroll(function(){
   });
 
 $(document).ready(function(){
-    
     var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
     $("#showBalletModal").on("click", function(){
         var choice_name = $("input[type='radio']:checked").attr("dataname");
         $('#choice_input').text(choice_name);
@@ -26,7 +24,6 @@ $(document).ready(function(){
         //         $('#ballet_success').modal("show");
         //     }
     });
-
 
     $("#confirmBtn").on("click", function(){
         $(this).closest(".app-modal").find("#confirmVote").addClass("d-none");
@@ -136,16 +133,9 @@ $(document).ready(function(){
         $(this).closest(".app-modal").find("#success").addClass("d-none");
     });
 
-    $("#howitworksbtn").click(function() {
-        $('html, body').animate({
-            scrollTop: $("#howItWorksSection").offset().top
-        }, 2000);
-    });
-
     $("#closeMailSent").click(function() {
         $(this).closest(".app-toast").addClass("d-none");
     });
-
 
     $("#infomailSubmit").on("click", function(){
         var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
@@ -210,7 +200,32 @@ $(document).ready(function(){
         }
         
     });
+    
 
+    $("#howitworksbtn").click(function() {
+        $('html, body').animate({
+            scrollTop: $("#howItWorksSection").offset().top
+        }, 2000);
+    });
+    $(".app-showmore").on("click", function(){
+        $(this).hide();
+    });
+    if($(window).width() < 768){
+        App.slider(".app-griditem--dictionary");
+    }
 });
 
+
+var App = {
+    slider : function(sliderClass){
+        $(sliderClass).slick({
+            dots: true,
+            infinite: true,
+            speed: 300,
+            slidesToShow: 1,
+            adaptiveHeight: true,
+            arrows: false
+        });
+    }
+}
 

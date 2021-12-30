@@ -181,6 +181,8 @@ class Contest(models.Model):
     against_arguments = RichTextField(
         null=True
     )
+    govt_infavour_percent = models.FloatField(blank=True, null=True)
+    govt_against_percent = models.FloatField(blank=True, null=True)
 
     class PublishStates(IntEnum):
         ELECTION_NOT_DECENTRALIZED = 0,
