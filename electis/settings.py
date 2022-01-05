@@ -11,9 +11,10 @@ INSTALLED_APPS += ['electis']
 LANGUAGE_CODE = 'en'
 
 LANGUAGES = (
-    ('fr', _('French')),
-    ('en', _('English'))
+    ('de', _('German')),
+    ('en', _('English')),
 )
+
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'public'

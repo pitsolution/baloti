@@ -1,13 +1,14 @@
-{% load i18n %}
+{% load static i18n %}
 {% load static %}
 {% load sass_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baloti-Landing</title>
+   <title> Baloti-Landing</title>
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/main.min.css'%}">
     <link href="{% sass_src 'scss/main.scss' %}" rel="stylesheet" type="text/css" />
@@ -20,17 +21,15 @@
                 <img src="/static/images/logo.svg" alt="">
             </a>
             <ul class="app-header-nav list-unstyled d-flex align-items-center ml-auto">
-                <li>
-                    <div class="dropdown dropdown-lang">
-                        <a class=" dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                         EN
-                        </a>
-                      
-                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                          <li><a class="dropdown-item" href="#">DE</a></li>
-                        </ul>
+
+                    <div class="dropdown">
+                        {% load contest_summary %}
+                       {% get_available_languages as LANGUAGES %}
+                        {% for lang_code, lang_name in LANGUAGES %}
+                        <li><a class = "dropdown-item" href="/{{ lang_code }}{{ request.get_full_path|slice:'3:' }}">{{ lang_code}}</a></li>
+                        {% endfor %}
                       </div>
-                </li>
+
             </ul>
         </header>
 
@@ -40,8 +39,9 @@
                 <div class="row">
                     <div class="col-sm-7">
                         <div class="app-banner__content">
-                            <h1 class="app-h1 text-outfit-semibold">Baloti Voting Project</h1>
-                            <h3 class="app-h3 text-outfit-regular">A voting platform for all residents of switzerland is our vision</h3>
+
+                            <h1 class="app-h1 text-outfit-semibold">{% trans "Baloti Voting Project" %}</h1>
+                            <h3 class="app-h3 text-outfit-regular">{% trans "A voting platform for all residents of switzerland is our vision" %}</h3>
                         </div>
                     </div>
                 </div>
@@ -57,20 +57,20 @@
                 <div class="row">
                     <div class="col-sm-10">
                         <div class="app-our-platform__content">
-                            <h6 class="app-subtitle text-outfit-medium">ABOUT THE PROJECT</h6>
-                            <h2 class="app-title app-h2 text-outfit-regular">Learn and experience the swiss voting system online on baloti</h2>
-                            <p class="app-p text-outfit-regular">With baloti, people living in Switzerland without voting rights can learn about direct democracy and try it out in practice in the form of a symbolic vote in their own national language.</p>
+                            <h6 class="app-subtitle text-outfit-medium">{% trans "ABOUT THE PROJECT" %}</h6>
+                            <h2 class="app-title app-h2 text-outfit-regular">{% trans "Learn and experience the swiss voting system online on baloti" %}</h2>
+                            <p class="app-p text-outfit-regular">{% trans "With baloti, people living in Switzerland without voting rights can learn about direct democracy and try it out in practice in the form of a symbolic vote in their own national language" %}.</p>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
          </section>
 
          <!-- Our Platform Section -->
          <section class="app-impact">
             <div class="container">
-                <h6 class="app-subtitle text-center text-outfit-medium">OUR IMPACT</h6>
+                <h6 class="app-subtitle text-center text-outfit-medium">{% trans "OUR IMPACT" %}</h6>
 
                 <div class="app-griditem">
                     <div class="app-card app-card--impact">
@@ -96,7 +96,7 @@
           <!-- Project Partner Section -->
           <section class="app-project-support app-bg">
                 <div class="container">
-                    <h6 class="app-subtitle text-outfit-medium">OUR PROJECT PARTNERS</h6>
+                    <h6 class="app-subtitle text-outfit-medium">{% trans "OUR PROJECT PARTNERS" %}</h6>
                     <ul class="app-partner-list list-unstyled">
                         <li>
                             <a href="">
@@ -127,8 +127,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-5">
-                            <h6 class="app-subtitle">CONTACT US</h6>
-                            <h2 class="app-title app-h2 text-outfit-regular">Feel free to <br> contact us</h2>
+                            <h6 class="app-subtitle">{% trans "CONTACT US" %}</h6>
+                            <h2 class="app-title app-h2 text-outfit-regular">{% trans "Feel free to <br> contact us" %}</h2>
                         </div>
                         <div class="col-sm-7">
                             <form class="app-contact__form">
@@ -136,32 +136,32 @@
                                 <div class="row g-0">
                                     <div class="col">
                                         <input id="id_firstname" name="firstname" type="text" class="form-control" required>
-                                        <label for="">Firstname*</label>
+                                        <label for="">{% trans "Firstname*" %}</label>
                                     </div>
                                     <div class="col">
                                         <input id="id_lastname" name="lastname" type="text" class="form-control" required>
-                                        <label for="">Lastname*</label>
+                                        <label for="">{% trans "Lastname*" %}</label>
                                     </div>
                                 </div>
                                 <div class="row g-0">
                                     <div class="col">
                                         <input id="id_email" name="email" type="text" class="form-control" required>
-                                        <label for="">Email*</label>
+                                        <label for="">{% trans "Email*" %}</label>
                                     </div>
                                     <div class="col">
                                         <input id="id_subject" name="subject" type="text" class="form-control" required>
-                                        <label for="">Subject*</label>
+                                        <label for="">{% trans "Subject*" %}</label>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <input id="id_message" name="message" type="text" class="form-control" required>
-                                    <label for="">Message*</label>
+                                    <label for="">{% trans "Message*" %}</label>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                 </div>
                                 <div class="col-md-6">
-                                    <button type="button" class="btn btn-outline btn-contact" id="infomailSubmit">SEND</button>
+                                    <button type="button" class="btn btn-outline btn-contact" id="infomailSubmit">{% trans "SEND" %}</button>
                                   </div>
                                 </div>
                             </form>
