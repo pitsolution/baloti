@@ -11,8 +11,9 @@ INSTALLED_APPS += ['electis']
 LANGUAGE_CODE = 'en'
 
 LANGUAGES = (
-    ('de', _('German')),
     ('en', _('English')),
+    ('de', _('German')),
+
 )
 
 
