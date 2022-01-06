@@ -80,6 +80,7 @@ img{
   &-title{
     line-height: 72px;
     margin-bottom: 23.5px;
+    font-family: Outfit-Regular;
     &--sm{
       font-size: $app-h3 - 4;
       margin-bottom: 18.27px;
@@ -96,14 +97,25 @@ img{
     }
   }
 
-
+  @media only screen and (max-width: 767px){
+    &-subtitle{
+      font-size: $app-p;
+      line-height: 27px;
+      letter-spacing: 1.8px;
+      margin-bottom: 21.27px;
+    }
+ }
   @media only screen and (max-width: 991px){
      &-h1{
-      font-size: $app-h1 / 2;
+      font-size: $app-h3 - 2;
      }
      &-h2{
       font-size: $app-h2 / 2;
      }
+     &-title{
+      line-height: 38px;
+      font-size: $app-h4 - 2;
+    }
   }
   @media only screen and (min-width: 1024px) and (max-width: 1400px) {
     &-subtitle{
@@ -111,8 +123,8 @@ img{
       line-height: 35px;
     }
     &-title{
-      line-height: 50px;
-      font-size: $app-h3 - 10;
+      line-height: 58px;
+      font-size: $app-h3 + 3;
     }
   }
 }

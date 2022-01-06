@@ -2,11 +2,12 @@
 {% load static %}
 {% block body %}        
 
+
 <!-- Banner Section -->
 <section class="app-banner">
     <div class="container">
         <div class="row">
-            <div class="col-sm-7">
+            <div class="col-sm-12 col-md-6 col-lg-7">
                 <div class="app-banner__content">
                     <h1 class="app-h1">Baloti Voting system</h1>
                     <h3 class="app-h3">On our platform you can <br> practice direct democracy in <br> several languages</h3>
@@ -33,7 +34,7 @@
 <section class="app-our-platform app-bg">
     <div class="container">
        <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-12 col-md-12 col-lg-8">
             <div class="app-our-platform__content">
                 <h6 class="app-subtitle">ABOUT US</h6>
                 <h2 class="app-title app-h2">On our platform you can practice direct democracy in several languages</h2>
@@ -41,44 +42,49 @@
                 <img src="/static/images/our-platform.png" alt="">
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-12 col-md-12 col-lg-4">
             <h6 class="app-subtitle">LATEST REFERENDUMS & VOTE</h6>
             <div class="app-card-group app-elections">
                 {% for u in contests %}
                     {% load contest_issues %}
                     {% displayIssuesCount u.id user as issues %}
-                    <div class="app-card  app-card--flex box-shadow">
-                        <h4 class="app-h4 app-card__title">{{u.name}}</h4>
-                        <h5 class="app-card__monthyear">{{u.month}} {{u.year}}</h5>
-                        <p class="app-card__date"><span>Date:</span> <span>{{u.date|date:"d.m.Y"}}</span></p>
-                        <p class="app-h6 text-medium text-dark">Issues: {{issues}}</p>
-                        <ul class="app-list list-unstyled app-sm-text">
-                            {% for i in u.id|getContestIssues %}
-                                <li>{{forloop.counter}} - {{i.name}}</li>
-                            {% endfor %}
-                        </ul>
-                        <div class="app-card__footer">
-                            {% if u.status == 'open' %}
-                                <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-outlined--primary  label-sm">open</label> <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a></div>
-                            {% elif u.status == 'closed' %}
-                                {% checkResultStatus u.id user as result %}
-                                {% if result %}
-                                    <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestResult' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>VIEW RESULT</span> <span class="app-icon icon-arrow"></span></a></div>
-                                {% else %}
-                                    <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>VIEW DETAILS</span> <span class="app-icon icon-arrow"></span></a></div>
-                                {% endif %}
-                            {% endif %}
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-lg-12">
+                            <div class="app-card  app-card--flex box-shadow">
+                                <h4 class="app-h4 app-card__title">{{u.name}}</h4>
+                                <h5 class="app-card__monthyear">{{u.month}} {{u.year}}</h5>
+                                <p class="app-card__date"><span>Date:</span> <span>{{u.date|date:"d.m.Y"}}</span></p>
+                                <p class="app-h6 text-medium text-dark">Issues: {{issues}}</p>
+                                <ul class="app-list list-unstyled app-sm-text">
+                                    {% for i in u.id|getContestIssues %}
+                                        <li>{{forloop.counter}} - {{i.name}}</li>
+                                    {% endfor %}
+                                </ul>
+                                <div class="app-card__footer">
+                                    {% if u.status == 'open' %}
+                                        <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-outlined--primary  label-sm">open</label> <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a></div>
+                                    {% elif u.status == 'closed' %}
+                                        {% checkResultStatus u.id user as result %}
+                                        {% if result %}
+                                            <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestResult' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>VIEW RESULT</span> <span class="app-icon icon-arrow"></span></a></div>
+                                        {% else %}
+                                            <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>VIEW DETAILS</span> <span class="app-icon icon-arrow"></span></a></div>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 {% endfor %}
             </div>
-            <a href="/en/baloti/contest/list/" class="btn btn-link btn-link--primary btn-flex"><span>VIEW ALL</span> <span class="app-icon icon-arrow"></span></a>
+            <a href="/en/baloti/contest/list/" class="btn btn-link btn-link--primary btn-flex app-viewall"><span>VIEW ALL</span> <span class="app-icon icon-arrow"></span></a>
         </div>
        </div>
     </div>
 </section>
+
 <!-- Our Platform Section -->
- <section class="app-how-it-works" id="howItWorksSection">
+<section class="app-how-it-works" id="howItWorksSection">
     <div class="container">
         <h6 class="app-subtitle">LETS DIVE IN</h6>
         <h2 class="app-title app-h2">How it works</h2>
@@ -106,7 +112,7 @@
         <div class="row">
             <div class="col-sm-6">
                 <h6 class="app-subtitle">OUR FEATURES</h6>
-                <h2 class="app-title app-h2">The Easiest Election Experience Ever</h2>
+                <h2 class="app-title app-h2">The Easiest Referendum Experience Ever</h2>
             </div>
             <div class="col-sm-6">
                 <div class="img-block">
@@ -114,34 +120,36 @@
                 </div>
             </div>
         </div>
+        <label for="showlast" class="app-showmore app-link">VIEW MORE</label>
+        <input type="checkbox" id="showlast" class="app-hiddeninput">
         <div class="app-griditem">
             <div class="app-card app-card--features">
-                <img src="./static/images/blockchain.png" alt="">
+                <img src="/static/images/blockchain.png" alt="">
                 <h5 class="app-card__title sm dark">Blockchain technology</h5>
                 <p class="app-txt">Blockchain technology allows recording transactions between two parties in a verifiable and permanent way without needing any middlemen.</p>
             </div>
             <div class="app-card app-card--features">
-                <img src="./static/images/blockchain.png" alt="">
+                <img src="/static/images/blockchain.png" alt="">
                 <h5 class="app-card__title sm dark">Blockchain technology</h5>
                 <p class="app-txt">Blockchain technology allows recording transactions between two parties in a verifiable and permanent way without needing any middlemen.</p>
             </div>
             <div class="app-card app-card--features">
-                <img src="./static/images/blockchain.png" alt="">
+                <img src="/static/images/blockchain.png" alt="">
                 <h5 class="app-card__title sm dark">Blockchain technology</h5>
                 <p class="app-txt">Blockchain technology allows recording transactions between two parties in a verifiable and permanent way without needing any middlemen.</p>
             </div>
             <div class="app-card app-card--features">
-                <img src="./static/images/blockchain.png" alt="">
+                <img src="/static/images/blockchain.png" alt="">
                 <h5 class="app-card__title sm dark">Blockchain technology</h5>
                 <p class="app-txt">Blockchain technology allows recording transactions between two parties in a verifiable and permanent way without needing any middlemen.</p>
             </div>
             <div class="app-card app-card--features">
-                <img src="./static/images/blockchain.png" alt="">
+                <img src="/static/images/blockchain.png" alt="">
                 <h5 class="app-card__title sm dark">Blockchain technology</h5>
                 <p class="app-txt">Blockchain technology allows recording transactions between two parties in a verifiable and permanent way without needing any middlemen.</p>
             </div>
             <div class="app-card app-card--features">
-                <img src="./static/images/blockchain.png" alt="">
+                <img src="/static/images/blockchain.png" alt="">
                 <h5 class="app-card__title sm dark">Blockchain technology</h5>
                 <p class="app-txt">Blockchain technology allows recording transactions between two parties in a verifiable and permanent way without needing any middlemen.</p>
             </div>
@@ -153,10 +161,10 @@
 <section class="app-picture-dictionary">
     <div class="container">
         <div class="d-flex align-items-center justify-content-between app-picture-dictionary__heading">
-            <h6 class="app-subtitle">PICTURE DICTIONARY</h6>
+            <h6 class="app-subtitle">NEWS</h6>
             <button class="btn btn-link"><span class="app-icon icon-arrow m-0"></span></button>
-          </div>
-          <div class="app-griditem app-griditem--dictionary">
+        </div>
+        <div class="app-griditem app-griditem--dictionary">
             <div class="app-card app-card--dictionary">
                 <div class="app-card__img">
                     <img src="/static/images/dictionary.png" alt="">
@@ -216,27 +224,27 @@
                     </li>
                     <li>
                         <a href="">
-                            <img src="/static/images/partner-1.png" alt="">
-                        </a>
-                    </li>
-                    <li>
-                    <a href="">
-                        <img src="/static/images/partner-2.png" alt="">
-                    </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="/static/images/partner-3.png" alt="">
+                          <img src="/static/images/partner-1.png" alt="">
                         </a>
                     </li>
                     <li>
                         <a href="">
-                            <img src="/static/images/partner-4.png" alt="">
+                            <img src="/static/images/partner-2.png" alt="">
                         </a>
                     </li>
                     <li>
                         <a href="">
-                            <img src="/static/images/partner-5.png" alt="">
+                          <img src="/static/images/partner-3.png" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                          <img src="/static/images/partner-4.png" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                          <img src="/static/images/partner-5.png" alt="">
                         </a>
                     </li>
                 </ul>
@@ -245,14 +253,13 @@
     </div>
 </section>
 
-   
 <!-- Then put toasts within -->
 <!-- <div class="app-toast">
-  <div class="app-toast__msg">
-      <span class="app-icon app-toast__tick icon-tick-fill"></span>
-      <span>Registration successful</span>
-      <span class="app-icon app-toast__close icon-close m-pointer m-l-15"></span>
-  </div>
+    <div class="app-toast__msg">
+        <span class="app-icon app-toast__tick icon-tick-success"></span>
+        <span>Registration successful</span>
+        <span class="app-icon app-toast__close icon-close-bold m-pointer m-l-15"></span>
+    </div>
 </div> -->
     
 {% endblock body %}

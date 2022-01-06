@@ -21,5 +21,8 @@
             margin-left: 15px;
             font-size: $app-p - 4;
         }
+        &.error{
+            background-color: $app-danger;
+        }
     }
 }

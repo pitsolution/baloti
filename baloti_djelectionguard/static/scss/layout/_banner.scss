@@ -36,19 +36,20 @@
             padding-bottom: 121px;
             .app{
                 &-h1{
-                    font-family: Poppins-SemiBold;
+                    font-family: Outfit-SemiBold;
                     line-height: 106px;
                     margin-bottom: 8px;
                 }
                 &-h3{
                     line-height: 60px;
                     margin-bottom: 42.5px;
+                    font-family: Outfit-Regular;
                 }
             }
         }
         &--landing{
             padding-bottom: 127.52px;
-            margin-top: 130px;
+            margin-top: 130px !important;
         }
         @media only screen and (min-width: 1024px) and (max-width: 1400px) {
             &__content {
@@ -77,17 +78,48 @@
                 }
             }
             &--landing{
-                margin-top: 200px;
+                margin-top: 200px !important;
             }
         }
-        @media only screen and (max-width: 991px) {
+        @media only screen and (max-width: 767px) {
+            padding-bottom: 16px;
+            margin-top: 50px;
+            &__content{
+                padding-top: 62px;
+            }
             &__img{
                 top: 0;
                 right: 0;
                 width: 100%;
+                position: relative;
+                margin-top: 55px;
+                border-bottom-left-radius: 100px;
+                &::before{
+                    content: "";
+                    width: 100%;
+                    top: 0;
+                    left: 0;
+                    height: 100px;
+                    position: absolute;
+                    background: rgb(255,255,255);
+                    background: linear-gradient(0deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,1) 100%);
+                }
                 img{
                     height: 100%;
                 }
+            }
+        }
+        @media only screen and (min-width: 768px) and (max-width: 991px){
+            &__img{
+                width: 48%;
+                img{
+                    height: 550px;
+                }
+            }
+        }
+        @media only screen and (max-width: 991px) {
+            
+            &__img{
                 &-landing{
                     top: 0;
                     width: 100%;
@@ -110,12 +142,16 @@
                 padding-bottom: 0;
                 .app{
                     &-h1{
-                        line-height: 40px;
-                        margin-bottom: 8px;
+                        line-height: 56px;
+                        margin-bottom: 15px;
                     }
                     &-h3{
-                        line-height: 35px;
-                        font-size: $app-h5 + 2;
+                        line-height: 31px;
+                        font-size: $app-h5;
+                        margin-bottom: 30px;
+                        br{
+                            display: none;
+                        }
                     }
                 }
             }
@@ -126,5 +162,6 @@
                 }
             }
         }
+       
     }
 }

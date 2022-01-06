@@ -94,17 +94,45 @@
     }
     @media only screen and (max-width: 767px) {
         &-footer{
+            padding: 27px 0 20px;
             &-link {
-                display: block;
-                margin-top: 20px;
+                margin-bottom: 48px;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                a{
+                    font-size: $app-sm-text - 2;
+                }
                 li{
+                    flex-basis: 50%;
                     margin: 0;
+                    &:nth-child(even){
+                        text-align: right;
+                    }
                     &:not(:last-child){
                         margin-bottom: 10px;
                     }
                     &:not(:first-child){
                         margin-left: 0;
                     }
+                    margin-left: 0;
+                }
+            }
+            &__bottom{
+                padding-top: 30px;
+                position: relative;
+            }
+            .row{
+                flex-direction: column-reverse;
+            }
+            .app{
+                &-email{
+                    display: block;
+                    text-align: center;
+                }
+                &-social-link{
+                    position: absolute;
+                    bottom: 63px;
+                    right: 0;
                 }
             }
            &--landing {
@@ -119,11 +147,15 @@
                         &:not(:last-child){
                             margin-bottom: 0;
                         }
+                        &:not(:first-child){
+                            margin-left: 0;
+                        }
+                        margin-left: 0;
                     }
                 }
             }
             &__right{
-               justify-content: center;
+               display: block;
             }
             &__left{
                 display: flex;
@@ -131,6 +163,19 @@
                 justify-content: space-between;
             }
            }
+        }
+    }
+    @media only screen and (min-width: 768px) and (max-width: 991px) {
+        &-footer{
+            &-link {
+                a{
+                    font-size: $app-sm-text - 4;
+                    line-height: 30px;
+                }
+                li:not(:first-child){
+                    margin-left: 20px;
+                }
+            }
         }
     }
 }

@@ -209,4 +209,28 @@ $app-election-logo-border: #171742;
         font-family: Poppins-SemiBold;
        }
    }
+   @media only screen and (max-width: 767px) {
+    &-elections{
+        .app{
+            &-card{
+                &__title, &__date{
+                    margin-bottom: 8px;
+                }
+                &__monthyear{
+                    margin-bottom: 10px;
+                }
+                &__footer{
+                    padding-top: 22px;
+                }
+            }
+            &-list{
+                margin-bottom: 22px;
+            }
+            
+        }
+    }
+    &-viewall{
+        margin-left: auto;
+    }
+   }
 }

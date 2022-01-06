@@ -142,7 +142,13 @@ $(document).ready(function(){
         }, 2000);
     });
 
+    $("#closeMailSent").click(function() {
+        $(this).closest(".app-toast").addClass("d-none");
+    });
+
+
     $("#infomailSubmit").on("click", function(){
+        var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
         var firstname = document.getElementById('id_firstname').value;
         var lastname = document.getElementById('id_lastname').value;
         var email = document.getElementById('id_email').value;
@@ -150,22 +156,58 @@ $(document).ready(function(){
         var message = document.getElementById('id_message').value;
         
         var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        // if (!$("#info_mailsent").hasClass("d-none") ) {
+        //     $("#info_mailsent").addClass("d-none");
+        // }
+        if(!firstname || !lastname || !email || !subject || !message){
+            console.log('hgghjghghjg')
+            // alert('ddsdsd errorrnknnlk')
+            $("#info_mailsent").removeClass("d-none");
+            $("#message_text").text('Fill all the fields');
+            $("#info_mailsent").addClass("error");
+            $(".app-toast__tick").addClass("d-none");
+        }
+        else if(!pattern.test(email)){
+            $("#info_mailsent").removeClass("d-none");
+            $("#message_text").text('Invalid Email Address');
+            $("#info_mailsent").addClass("error");
+            $(".app-toast__tick").addClass("d-none");
+        }
+        else{
             $.ajax({
                 type: "POST",
                 url: '/en/info/submit',
                 data: {'firstname': firstname, 'lastname': lastname, 'email': email, 'subject': subject, 'message': message},
                 headers: {'X-CSRFToken': csrftoken},
                 mode: 'same-origin',
+                beforeSend: function(){
+                                $('body').append('<div class="app-loaderwrap"><div class="app-loader"></div></div>');
+                            },
+                            complete: function(){
+                                $('.app-loaderwrap').remove();                       
+                            },
                 success: function(data){
                         document.getElementById('id_firstname').value = "";
                         document.getElementById('id_lastname').value = "";
                         document.getElementById('id_email').value = "";
                         document.getElementById('id_subject').value = "";
                         document.getElementById('id_message').value = "";
+                        $("#message_text").text('Mail sent successfully');
                         $("#info_mailsent").removeClass("d-none");
+                        $("#info_mailsent").removeClass("error");
+                        $(".app-toast__tick").removeClass("d-none");
                 },
+                error:function (xhr, ajaxOptions, thrownError){
+                    if(xhr.status==400) {
+                        $("#message_text").text('Service not available');
+                        $("#info_mailsent").removeClass("d-none")
+                        $("#info_mailsent").addClass("error");
+                        $(".app-toast__tick").addClass("d-none");
+                    }
+                }
                 
             });
+        }
         
     });
 

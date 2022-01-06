@@ -65,4 +65,10 @@ $_label-outlined-color:#707070;
     [class*=" icon-"], [class^=icon-]{
         margin-right: 10px;
     }
+    @media only screen and (max-width: 767px) {
+        &-sm{
+            font-size: $app-p - 4;
+            line-height: 21px;
+        }
+    }
 }
