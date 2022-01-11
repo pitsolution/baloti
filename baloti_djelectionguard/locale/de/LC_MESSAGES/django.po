@@ -23,8 +23,6 @@ msgid "Baloti Voting Project"
 msgstr "Baloti Voting Projekt"
 
 #: baloti_djelectionguard/templates/landing-en.html:62
-#, fuzzy
-#| msgid "A voting platform for all residents of Switzerland is our vision"
 msgid "A voting platform for all residents of Switzerland is our vision"
 msgstr "Eine Wahlplattform für alle Einwohner der Schweiz ist unsere Vision."
 
