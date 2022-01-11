@@ -5,7 +5,7 @@ from django.db.models import Sum
 register = template.Library()
 
 @register.simple_tag
-def displayResult(contest, user):
+def displayBalotiResult(contest, user):
     votes = contest.candidate_set.aggregate(total=Sum('score'))
     yes = 0
     no = 0
@@ -27,5 +27,19 @@ def displayResult(contest, user):
         baloti_result = no_candidate
     else:
         baloti_result = None
-
     return yes, no, baloti_result
+
+@register.simple_tag
+def displayGovtResult(contest, user):
+    votes = contest.candidate_set.aggregate(total=Sum('score'))
+    yes = contest.govt_infavour_percent or 0
+    no = contest.govt_against_percent or 0
+    result = None
+    if yes and no:
+        if yes > no:
+            result = 'yes'
+        elif yes < no:
+            result = 'no'
+        else:
+            result = None
+    return yes, no, result

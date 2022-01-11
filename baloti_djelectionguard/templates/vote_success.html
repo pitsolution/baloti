@@ -48,13 +48,23 @@
 
   
 <!-- Modal -->
+
 <div class="modal fade app-modal" id="ballet_success" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content app-bg" id="success">
+        <div class="modal-content" id="success">
             <div class="modal-body text-center">
-                <p class="app-h6">Your Choice Added</p>
-                <p class="app-h5 text-success text-bold">Successfully</p>
-                <button class="btn btn-default mx-auto"><a href="/en/baloti/contest/list/">BACK TO ELECTIONS</a></button>
+                <div class="app-bg app-result-wrap app-modal--success">
+                    <img src="/static/images/vote-success.png" alt="">
+                    <p class="app-h5 text-success text-bold">Success!</p>
+                    <p class="app-h6 m-0">Your Choice Added Successfully</p>
+                </div>
+                <div class="modal-result app-result-wrap">
+                    <p class="app-p">Thank for voting at the Referendum and be a part of Direct Democracy.</p>
+                    <p class="app-h6 text-danger">The results will be announced on</p>
+                    <p class="app-resultdate">{{contest.end|date:"d.m.Y"}}</p>
+                    <p class="app-p">and you will be notified via email.</p>
+                    <button class="btn btn-default mx-auto"><a href="/en/baloti/contest/list/">BACK TO REFERENDUMS</a></button>
+                </div>
             </div>
         </div>
     </div>

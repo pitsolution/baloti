@@ -1,65 +1,64 @@
 {% extends 'layout/base.html' %}
 {% load static %}
-{% block body %}
+{% load referendum %}
+{% load issues %}
+{% load contest_recommendations %}
+{% load contest_results %}
+{% block body %} 
 
 <section class="app-elections app-body-bg">
     <div class="container">
-        {% for u in child_contests %}
-        <a class="btn btn-link btn-back" href="javascript:window.history.back()"> <span class="app-icon icon-arrow-right"></span> Elections & Vote</a>
-        <div class="app-election__head text-center">
-            <h4 class="app-title app-title--sm">{{u.name}}</h4>
-        </div>
+        <a class="btn btn-link btn-back" href="javascript:window.history.back()"> <span class="app-icon icon-arrow-right"></span> Referendums & Vote</a>
 
-        <div class="app-progress">
-            {% load contest_results %}
-            {% displayResult u user as result %}
-            <div class="app-progress__left">
-                <div class="app-election__logo">
-                    <div class="app-election__logo-inner">
-                        <img src="/static/images/election-logo.png" alt="">
-                    </div>
-                </div>
+        <div class="app-votedetail">
+            <div class="app-election__head text-center">
+                <h4 class="app-title app-title--sm">{{contest}}</h4>
+            </div>
+            <div class="app-progress">
+                {% displayBalotiResult contest user as result %}
+                {% displayGovtResult contest user as govt_result %}
                 <div class="app-progress__content">
-                    <p class="app-progress__title">Baloti Government</p>
+                    <p class="app-progress__title">Baloti</p>
                     <label class="label label-secondary">{{result.2}}</label>
                 </div>
-            </div>
-            <div class="app-progress__right">
-                <div class="app-progrss__bar">
-
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: {{result.0}}%" aria-valuenow="{{result.0}}" aria-valuemin="0" aria-valuemax="100">{{result.0}}%</div>
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: {{result.1}}%" aria-valuenow="{{result.1}}" aria-valuemin="0" aria-valuemax="100">{{result.1}}%</div>
+                <div class="app-progress__wrap">
+                    <div class="app-progress__left">
+                        <div class="app-election__logo">
+                            <div class="app-election__logo-inner">
+                                <img src="/static/images/logo.svg" alt="">
+                            </div>
+                        </div>
+                        <div class="app-progress__bar">
+                            <div class="progress">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: {{result.0}}%" aria-valuenow="{{result.0}}" aria-valuemin="0" aria-valuemax="100">{{result.0}}%</div>
+                                <div class="progress-bar" role="progressbar" style="width: {{result.1}}%" aria-valuenow="{{result.1}}" aria-valuemin="0" aria-valuemax="100">{{result.1}}%</div>
+                            </div>
+                        </div>
                     </div>
-                    <ul class="list-unstyled app-progress__timelist">
-                        <li>0%</li>
-                        <li>10%</li>
-                        <li>20%</li>
-                        <li>30%</li>
-                        <li>40%</li>
-                        <li>50%</li>
-                        <li>60%</li>
-                        <li>70%</li>
-                        <li>80%</li>
-                        <li>90%</li>
-                        <li>100%</li>
-                    </ul>
-                </div>
-                <div class="app-election__logo">
-                    <div class="app-election__logo-inner">
-                        <img src="/static/images/election-logo.png" alt="">
+                    <div class="app-progress__right">
+                        <div class="app-progress__bar">
+                            <div class="progress">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: {{govt_result.0}}%" aria-valuenow="{{govt_result.0}}" aria-valuemin="0" aria-valuemax="100">{{govt_result.0}}%</div>
+                                <div class="progress-bar" role="progressbar" style="width: {{govt_result.1}}%" aria-valuenow="{{govt_result.1}}" aria-valuemin="0" aria-valuemax="100">{{govt_result.1}}%</div>
+                            </div>
+                        </div>
+                        <div class="app-election__logo">
+                            <div class="app-election__logo-inner">
+                                <img src="/static/images/election-logo.png" alt="">
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
                 <div class="app-progress__content">
                     <p class="app-progress__title">Switzerland Government</p>
-                    <label class="label label-primary">yes</label>
+                    <label class="label label-primary">{{govt_result.2}}</label>
                 </div>
             </div>
-            
         </div>
 
         <div class="app-thirdhalf-col">
-            <div class="app-thidhalf-col__left">
+            <div class="app-thirdhalf-col__left">
                 <div class="accordion app-accordion app-accordion--basic bg-white">
                     <div class="accordion-body">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -78,15 +77,15 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <p class="app-p app-text--black app-p--md m-0 text-medium">Type:</p>
-                                        <p class="app-p app-p--md app-text--black text-medium">{{u.contest_type.name}}</p>
+                                        <p class="app-p app-p--md app-text--black text-medium">{{contest.contest_type.name}}</p>
                                     </div>
                                     <div class="col-sm-6">
                                         <p class="app-p app-p--md app-text--black m-0 text-medium">Initiator:</p>
-                                        <p class="app-p app-p--md app-text--black text-medium">{{u.contest_initiator.name}}</p>
+                                        <p class="app-p app-p--md app-text--black text-medium">{{contest.contest_initiator.name}}</p>
                                     </div>
                                 </div>
                                 <p class="app-txt app-txt--md text-dark">
-                                    {{u.about}}
+                                    {{contest.about}}
                                 </p>
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -102,7 +101,7 @@
                                             <div class="app-card__body">
                                                 <ul class="list-unstyled app-list">
                                                     <li>
-                                                        <p class="app-list__title text-medium">{{u.infavour_arguments|safe}}</p>
+                                                        <p class="app-list__title text-medium">{{contest.infavour_arguments|safe}}</p>
                                                     </li>
                                                   </ul>
                                             </div>
@@ -119,7 +118,7 @@
                                             <div class="app-card__body">
                                                 <ul class="list-unstyled app-list">
                                                     <li>
-                                                        <p class="app-list__title text-medium">{{u.against_arguments|safe}}</p>
+                                                        <p class="app-list__title text-medium">{{contest.against_arguments|safe}}</p>
                                                     </li>
                                                   </ul>
                                             </div>
@@ -127,189 +126,86 @@
                                     </div>
                                 </div>
                             </div>
-                            {% load contest_recommendations %}
                             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="app-card app-card--nopad app-card--sm app-card--bordered">
-                                                <div class="app-card__header border-btm">
-                                                    <div class="app-circle">
-                                                        <span class="app-icon icon-like text-danger"></span>
-                                                    </div>
-                                                    <p class="text-uppercase text-bold">In favour</p>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="app-card app-card--nopad app-card--sm app-card--bordered">
+                                            <div class="app-card__header border-btm">
+                                                <div class="app-circle">
+                                                    <span class="app-icon icon-like text-danger"></span>
                                                 </div>
-                                                <div class="app-card__body">
-                                                    <ul class="app-list list-unstyled app-list--md">
-                                                        {% for i in u|getInfavourRecommenders %}
-                                                            <li class="d-flex">
-                                                                <div class="app-list__img">
-                                                                    <img src="/static/images/vote-1.png" alt="">
-                                                                </div>
-                                                                <div class="app-list__content">
-                                                                    <p class="app-sm-text ">Political party</p>
-                                                                    <p class="app-list__title text-medium">{{i.recommender.name}}</p>
-                                                                </div>
-                                                            </li>
-                                                        {% endfor %}
-                                                        <li class="d-flex">
-                                                            <div class="app-list__img">
-                                                                <img src="/static/images/vote-2.png" alt="">
-                                                            </div>
-                                                            <div class="app-list__content">
-                                                                <p class="app-sm-text ">Political party</p>
-                                                                <p class="app-list__title text-medium">Freedom Party (FP)</p>
-                                                            </div>
-                                                        </li>
-                                                        <li class="d-flex">
-                                                            <div class="app-list__img">
-                                                                <img src="/static/images/vote-3.png" alt="">
-                                                            </div>
-                                                            <div class="app-list__content">
-                                                                <p class="app-sm-text">Political party</p>
-                                                                <p class="app-list__title text-medium">Freedom Party (FP)</p>
-                                                            </div>
-                                                        </li>
-                                                        <li class="d-flex">
-                                                            <div class="app-list__img">
-                                                                <img src="/static/images/vote-4.png" alt="">
-                                                            </div>
-                                                            <div class="app-list__content">
-                                                                <p class="app-sm-text">Political party</p>
-                                                                <p class="app-list__title text-medium">Freedom Party (FP)</p>
-                                                            </div>
-                                                        </li>
-                                                        <li class="d-flex">
-                                                            <div class="app-list__img">
-                                                                <img src="/static/images/vote-5.png" alt="">
-                                                            </div>
-                                                            <div class="app-list__content">
-                                                                <p class="app-sm-text">Political party</p>
-                                                                <p class="app-list__title text-medium">Freedom Party (FP)</p>
-                                                            </div>
-                                                        </li>
-                                                        <li class="d-flex">
-                                                            <div class="app-list__img">
-                                                                <img src="/static/images/vote-6.png" alt="">
-                                                            </div>
-                                                            <div class="app-list__content">
-                                                                <p class="app-sm-text">Political party</p>
-                                                                <p class="app-list__title text-medium">Freedom Party (FP)</p>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                <p class="text-uppercase text-bold">In favour</p>
+                                            </div>
+                                            <div class="app-card__body">
+                                                <ul class="app-list list-unstyled app-list--md">
+                                                    {% for i in contest|getInfavourRecommenders %}
+                                                    <li class="d-flex">
+                                                        <div class="app-list__img">
+                                                            <img src="{{i.recommender.picture.url}}" alt="">
+                                                        </div>
+                                                        <div class="app-list__content">
+                                                        <p class="app-sm-text ">{{i.recommender.recommender_type}}</p>
+                                                            <p class="app-list__title text-medium">{{i.recommender.name}}</p>
+                                                        </div>
+                                                    </li>
+                                                    {% endfor %}
+                                                </ul>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
-                                            <div class="app-card app-card--nopad app-card--sm app-card--bordered">
-                                                <div class="app-card__header border-btm">
-                                                    <div class="app-circle">
-                                                        <span class="app-icon icon-like text-danger"></span>
-                                                    </div>
-                                                    <p class="text-uppercase text-bold">Against</p>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="app-card app-card--nopad app-card--sm app-card--bordered">
+                                            <div class="app-card__header border-btm">
+                                                <div class="app-circle">
+                                                    <span class="app-icon icon-like text-danger"></span>
                                                 </div>
-                                                <div class="app-card__body">
-                                                    <ul class="app-list list-unstyled app-list--md">
-                                                        {% for i in u|getAgainstRecommenders %}
-                                                        <li class="d-flex">
-                                                            <div class="app-list__img">
-                                                                <img src="/static/images/vote-7.png" alt="">
-                                                            </div>
-                                                            <div class="app-list__content">
-                                                                <p class="app-sm-text ">Political party</p>
-                                                                <p class="app-list__title text-medium">{{i.recommender.name}}</p>
-                                                            </div>
-                                                        </li>
-                                                        {% endfor %}
-                                                        <li class="d-flex">
-                                                            <div class="app-list__img">
-                                                                <img src="/static/images/vote-8.png" alt="">
-                                                            </div>
-                                                            <div class="app-list__content">
-                                                                <p class="app-sm-text ">Political party</p>
-                                                                <p class="app-list__title text-medium">Freedom Party (FP)</p>
-                                                            </div>
-                                                        </li>
-                                                        <li class="d-flex">
-                                                            <div class="app-list__img">
-                                                                <img src="/static/images/vote-9.png" alt="">
-                                                            </div>
-                                                            <div class="app-list__content">
-                                                                <p class="app-sm-text">Political party</p>
-                                                                <p class="app-list__title text-medium">Freedom Party (FP)</p>
-                                                            </div>
-                                                        </li>
-                                                        <li class="d-flex">
-                                                            <div class="app-list__img">
-                                                                <img src="/static/images/vote-10.png" alt="">
-                                                            </div>
-                                                            <div class="app-list__content">
-                                                                <p class="app-sm-text">Political party</p>
-                                                                <p class="app-list__title text-medium">Freedom Party (FP)</p>
-                                                            </div>
-                                                        </li>
-                                                        <li class="d-flex">
-                                                            <div class="app-list__img">
-                                                                <img src="/static/images/vote-11.png" alt="">
-                                                            </div>
-                                                            <div class="app-list__content">
-                                                                <p class="app-sm-text">Political party</p>
-                                                                <p class="app-list__title text-medium">Freedom Party (FP)</p>
-                                                            </div>
-                                                        </li>
-                                                        <li class="d-flex">
-                                                            <div class="app-list__img">
-                                                                <img src="/static/images/vote-11.png" alt="">
-                                                            </div>
-                                                            <div class="app-list__content">
-                                                                <p class="app-sm-text">Political party</p>
-                                                                <p class="app-list__title text-medium">Freedom Party (FP)</p>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                <p class="text-uppercase text-bold">Against</p>
+                                            </div>
+                                            <div class="app-card__body">
+                                                <ul class="app-list list-unstyled app-list--md">
+                                                    {% for i in contest|getAgainstRecommenders %}
+                                                    <li class="d-flex">
+                                                        <div class="app-list__img">
+                                                            <img src="{{i.recommender.picture.url}}" alt="">
+                                                        </div>
+                                                        <div class="app-list__content">
+                                                            <p class="app-sm-text ">{{i.recommender.recommender_type}}</p>
+                                                            <p class="app-list__title text-medium">{{i.recommender.name}}</p>
+                                                        </div>
+                                                    </li>
+                                                    {% endfor %}
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                           </div>
-                    </div>
-                  </div>
-            </div>
-            {% endfor %}
-            {% if not user.is_anonymous %}
-            {% load contest_summary %}
-            <div class="app-thidhalf-col__right">
-                <div class="app-card app-card--nopad">
-                    <div class="app-card__header border-btm-dotted">
-                        <p class="app-card__header-title">Summary</p>
-                    </div>
-                    <div class="app-card__body">
-                        <ul class="app-list list-unstyled app-list--bordered">
-                            <li class="app-h6 d-flex align-items-center justify-content-between">
-                                <span>Issues to vote</span>
-                                <span class="app-list__count">{% getContestIssues contest %}</span>
-                            </li>
-                            <li class="app-h6 d-flex align-items-center justify-content-between">
-                                <span>Voted</span>
-                                <span class="app-list__count">{% getContestVoted contest user %}</span>
-                            </li>
-                            <li class="app-h6 d-flex align-items-center justify-content-between">
-                                <span>Not voted</span>
-                                <span class="app-list__count">{% getContestNotVoted contest user %}</span>
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>
-            {% endif %}
+            <div class="app-thirdhalf-col__right">
+                <div class="dropdown">
+                    <button class="btn btn-primary btn-primary--outlined btn-primary--bgwhite btn-icon left" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"><span class="app-icon icon icon-share"></span> <span>Share</span></button>
+                    <div class="dropdown-menu app-dropdown app-dropdown--arrow app-dropdown--icon" aria-labelledby="dropdownMenuButton">
+                        <ul class="list-unstyled app-socialicons-list">
+                            <li><a href="" class="link"><span class="app-icon icon-copy-share"></span></a>
+                            <span>Copy link</span></li>
+                            <li><a href="" class="facebook"><span class="app-icon icon-facebook-sm"></span></a>
+                                <span>Facebook</span></li>
+                            <li><a href="" class="twitter"><span class="app-icon icon-twiter"></span></a>
+                                <span>Twitter</span></li>
+                            <li><a href="" class="whatsapp"><span class="app-icon icon-whatsapp"></span></a>
+                                <span>WhatsApp</span></li>
+                            <li><a href="" class="email"><span class="app-icon icon-mail"></span></a>
+                                <span>E-Mail</span></li>
+                            <li><a href="" class="linkedin"><span class="app-icon icon-linkedin"></span></a>
+                                <span>Linkedin</span></li>
+                        </ul>
+                      </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
-
-<div class="app-social-follow">
-    <a href="#" class="app-icon icon-facebook"></a>
-    <a href="#" class="app-icon icon-twiter"></a>
-    <span class="app-social-follow__txt">FOLLOW US ON</span>
-</div>
 {% endblock body %}

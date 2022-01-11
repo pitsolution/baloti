@@ -1,189 +1,232 @@
 {% extends 'layout/base.html' %}
 {% load static %}
-{% block body %}  
+{% load referendum %}
+{% load issues %}
+{% load contest_recommendations %}
+{% block body %} 
 
 <section class="app-elections app-body-bg">
     <div class="container">
-        <a class="btn btn-link btn-back" href="javascript:window.history.back()"> <span class="app-icon icon-arrow-right"></span> Elections & Vote</a>
+        <a class="btn btn-link btn-back" href="javascript:window.history.back()"> <span class="app-icon icon-arrow-right"></span> Referendums & Vote</a>
         <div class="app-thirdhalf-col">
-            <div class="app-thidhalf-col__left">
+            <div class="app-thirdhalf-col__left">
                 <div class="accordion app-accordion app-accordion--basic" id="accordionExample">
                     {% for u in child_contests %}
                     <div class="accordion-item">
-                      <h2 class="accordion-header" id="headingOne">
-                          <div class="row">
-                                <div class="col-sm-9">
+                        <h2 class="accordion-header" id="headingOne">
+                            <div class="d-flex justify-content-between">
+                                <div class="accordion-header__wrap">
                                     <span class="accordion-header__title">{{u.name}}</span>
                                 </div>
 
-                                {% load contest_summary %}
-                                {% displayVoteNow u user as result %}
-                                <div class="col-sm-3">
+                                {% checkIssueVotingStatus u user as votenow %}
+                                {% displayIssueViewResult u user as result %}
+                                {% displayIssueVotedFlag u user as voted %}
+                                <div class="flex-shrink">
                                     <div class="d-flex align-items-center text-center justify-content-end">
+                                        {% if votenow %}
+                                        <a href={% url 'baloti_djelectionguard:VoteChoices' id=u.id %} class="btn btn-primary">Vote now</a>
+                                        {% endif %}
+                                        {% if voted %}
+                                        <label for="" class="label icon label-success label-success--light label-noradius label-flex"><span class="icon-tick-success"></span> <span>VOTED</span> </label>
+                                        {% endif %}
                                         {% if result %}
-                                        <a class="btn btn-primary btn-primary--outlined" href={% url 'baloti_djelectionguard:VoteChoices' id=u.id %}>Vote now</a>
+                                        <label for="" class="label label-outlined label-outlined--basic label-xsm"> <span>Your choice:</span> <span>YES</span></label>
+                                        <a href={% url 'baloti_djelectionguard:viewContestResult' id=u.id %} class="btn btn-basic">VIEW RESULT</a>
                                         {% endif %}
                                         <button class="app-icon icon-arrow"  data-bs-toggle="collapse" data-bs-target="#collapse{{u.id}}" aria-expanded="true" aria-controls="#collapse{{u.id}}">
                                     </div>
                                 </div>
                             </div>
-                        </button>
-                      </h2>
-                      <div id="collapse{{u.id}}" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                  <button class="nav-link active" id="home-tab{{u.id}}" data-bs-toggle="tab" data-bs-target="#home{{u.id}}" type="button" role="tab" aria-controls="home{{u.id}}" aria-selected="true">Description</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                  <button class="nav-link" id="profile-tab{{u.id}}" data-bs-toggle="tab" data-bs-target="#profile{{u.id}}" type="button" role="tab" aria-controls="profile{{u.id}}" aria-selected="false">Arguments</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                  <button class="nav-link" id="contact-tab{{u.id}}" data-bs-toggle="tab" data-bs-target="#contact{{u.id}}" type="button" role="tab" aria-controls="contact{{u.id}}" aria-selected="false">Recommendations</button>
-                                </li>
-                              </ul>
-                              <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="home{{u.id}}" role="tabpanel" aria-labelledby="home-tab">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <p class="app-p app-text--black app-p--md m-0 text-medium">Type:</p>
-                                            <p class="app-p app-p--md app-text--black text-medium">{{u.contest_type.name}}</p>
+                        </h2>
+
+                        <div id="collapse{{u.id}}" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                      <button class="nav-link active" id="home-tab{{u.id}}" data-bs-toggle="tab" data-bs-target="#home{{u.id}}" type="button" role="tab" aria-controls="home{{u.id}}" aria-selected="true">Description</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                      <button class="nav-link" id="profile-tab{{u.id}}" data-bs-toggle="tab" data-bs-target="#profile{{u.id}}" type="button" role="tab" aria-controls="profile{{u.id}}" aria-selected="false">Arguments</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                      <button class="nav-link" id="contact-tab{{u.id}}" data-bs-toggle="tab" data-bs-target="#contact{{u.id}}" type="button" role="tab" aria-controls="contact{{u.id}}" aria-selected="false">Recommendations</button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="home{{u.id}}" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <p class="app-p app-text--black app-p--md m-0 text-medium">Type:</p>
+                                                <p class="app-p app-p--md app-text--black text-medium">{{u.contest_type.name}}</p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="app-p app-p--md app-text--black m-0 text-medium">Initiator:</p>
+                                                <p class="app-p app-p--md app-text--black text-medium"> {{u.contest_initiator.name}}</p>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-6">
-                                            <p class="app-p app-p--md app-text--black m-0 text-medium">Initiator:</p>
-                                            <p class="app-p app-p--md app-text--black text-medium"> {{u.contest_initiator.name}}</p>
-                                        </div>
+                                        <p class="app-txt app-txt--md text-dark">
+                                            {{u.about}}
+                                        </p>
                                     </div>
-                                    <p class="app-txt app-txt--md text-dark">
-                                        {{u.about}}
-                                    </p>
-                                </div>
-                                <div class="tab-pane fade" id="profile{{u.id}}" role="tabpanel" aria-labelledby="profile-tab">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="app-card app-card--nopad app-card--sm app-card--bordered">
-                                                <div class="app-card__header border-btm">
-                                                    <div class="app-circle">
-                                                        <span class="app-icon icon-like text-danger"></span>
+
+                                    <div class="tab-pane fade" id="profile{{u.id}}" role="tabpanel" aria-labelledby="profile-tab">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="app-card app-card--nopad app-card--sm app-card--bordered">
+                                                    <div class="app-card__header border-btm">
+                                                        <div class="app-circle">
+                                                            <span class="app-icon icon-like text-danger"></span>
+                                                        </div>
+                                                        <p class="m-0 app-h6 text-uppercase text-bold">In favour</p>
                                                     </div>
-                                                    <p class="m-0 app-h6 text-uppercase text-bold">In favour</p>
+                                                    <div class="app-card__body">
+                                                        <ul class="list-unstyled app-list">
+                                                            <li>
+                                                                <p class="app-list__title text-medium">{{u.infavour_arguments|safe}}</p>
+                                                            </li>
+                                                          </ul>
+                                                    </div>
                                                 </div>
-                                                <div class="app-card__body">
-                                                    <ul class="list-unstyled app-list">
-                                                        <li>
-                                                            <p class="app-list__title text-medium">{{u.infavour_arguments|safe}}</p>
-                                                        </li>
-                                                      </ul>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="app-card app-card--nopad app-card--sm app-card--bordered">
+                                                    <div class="app-card__header border-btm">
+                                                        <div class="app-circle">
+                                                            <span class="app-icon icon-like text-danger"></span>
+                                                        </div>
+                                                        <p class="app-h6 m-0 text-uppercase text-bold">Against</p>
+                                                    </div>
+                                                    <div class="app-card__body">
+                                                        <ul class="list-unstyled app-list">
+                                                            <li>
+                                                                <p class="app-list__title text-medium">{{u.against_arguments|safe}}</p>
+                                                                
+                                                            </li>
+                                                          </ul>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
-                                            <div class="app-card app-card--nopad app-card--sm app-card--bordered">
-                                                <div class="app-card__header border-btm">
-                                                    <div class="app-circle">
-                                                        <span class="app-icon icon-like text-danger"></span>
+                                    </div>
+                                          
+                                    <div class="tab-pane fade" id="contact{{u.id}}" role="tabpanel" aria-labelledby="contact-tab">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="app-card app-card--nopad app-card--sm app-card--bordered">
+                                                    <div class="app-card__header border-btm">
+                                                        <div class="app-circle">
+                                                            <span class="app-icon icon-like text-danger"></span>
+                                                        </div>
+                                                        <p class="text-uppercase text-bold">In favour</p>
                                                     </div>
-                                                    <p class="app-h6 m-0 text-uppercase text-bold">Against</p>
-                                                </div>
-                                                <div class="app-card__body">
-                                                    <ul class="list-unstyled app-list">
-                                                        <li>
-                                                            <p class="app-list__title text-medium">{{u.against_arguments|safe}}</p>
-                                                            
-                                                        </li>
-                                                      </ul>
+                                                    <div class="app-card__body">
+                                                        <ul class="app-list list-unstyled app-list--md">
+                                                            {% for i in u|getInfavourRecommenders %}
+                                                                <li class="d-flex">
+                                                                    <div class="app-list__img">
+                                                                        <img src="{{i.recommender.picture.url}}" alt="">
+                                                                    </div>
+                                                                    <div class="app-list__content">
+                                                                    <p class="app-sm-text ">{{i.recommender.recommender_type}}</p>
+                                                                        <p class="app-list__title text-medium">{{i.recommender.name}}</p>
+                                                                    </div>
+                                                                </li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% load contest_recommendations %}
-                                <div class="tab-pane fade" id="contact{{u.id}}" role="tabpanel" aria-labelledby="contact-tab">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="app-card app-card--nopad app-card--sm app-card--bordered">
-                                                <div class="app-card__header border-btm">
-                                                    <div class="app-circle">
-                                                        <span class="app-icon icon-like text-danger"></span>
+                                            <div class="col-sm-6">
+                                                <div class="app-card app-card--nopad app-card--sm app-card--bordered">
+                                                    <div class="app-card__header border-btm">
+                                                        <div class="app-circle">
+                                                            <span class="app-icon icon-like text-danger"></span>
+                                                        </div>
+                                                        <p class="text-uppercase text-bold">Against</p>
                                                     </div>
-                                                    <p class="text-uppercase text-bold">In favour</p>
-                                                </div>
-                                                <div class="app-card__body">
-                                                    <ul class="app-list list-unstyled app-list--md">
-                                                        {% for i in u|getInfavourRecommenders %}
+                                                    <div class="app-card__body">
+                                                        <ul class="app-list list-unstyled app-list--md">
+                                                            {% for i in u|getAgainstRecommenders %}
                                                             <li class="d-flex">
                                                                 <div class="app-list__img">
                                                                     <img src="{{i.recommender.picture.url}}" alt="">
                                                                 </div>
                                                                 <div class="app-list__content">
-                                                                <p class="app-sm-text ">{{i.recommender.recommender_type}}</p>
+                                                                    <p class="app-sm-text ">{{i.recommender.recommender_type}}</p>
                                                                     <p class="app-list__title text-medium">{{i.recommender.name}}</p>
                                                                 </div>
                                                             </li>
-                                                        {% endfor %}
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="app-card app-card--nopad app-card--sm app-card--bordered">
-                                                <div class="app-card__header border-btm">
-                                                    <div class="app-circle">
-                                                        <span class="app-icon icon-like text-danger"></span>
+                                                            {% endfor %}
+                                                        </ul>
                                                     </div>
-                                                    <p class="text-uppercase text-bold">Against</p>
-                                                </div>
-                                                <div class="app-card__body">
-                                                    <ul class="app-list list-unstyled app-list--md">
-                                                        {% for i in u|getAgainstRecommenders %}
-                                                        <li class="d-flex">
-                                                            <div class="app-list__img">
-                                                                <img src="{{i.recommender.picture.url}}" alt="">
-                                                            </div>
-                                                            <div class="app-list__content">
-                                                                <p class="app-sm-text ">{{i.recommender.recommender_type}}</p>
-                                                                <p class="app-list__title text-medium">{{i.recommender.name}}</p>
-                                                            </div>
-                                                        </li>
-                                                        {% endfor %}
-                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                              </div>
+                            </div>
                         </div>
-                      </div>
                     </div>
                     {% endfor %}
-                    
                 </div>
             </div>
-            {% if not user.is_anonymous %}
-            {% load contest_summary %}
-            <div class="app-thidhalf-col__right">
-                <div class="app-card app-card--nopad">
-                    <div class="app-card__header border-btm-dotted">
-                        <p class="app-card__header-title">Summary</p>
-                    </div>
-                    <div class="app-card__body">
-                        <ul class="app-list list-unstyled app-list--bordered">
-                            <li class="app-h6 d-flex align-items-center justify-content-between">
-                                <span>Issues to vote</span>
-                                <span class="app-list__count">{% getContestIssues contest %}</span>
-                            </li>
-                            <li class="app-h6 d-flex align-items-center justify-content-between">
-                                <span>Voted</span>
-                                <span class="app-list__count">{% getContestVoted contest user %}</span>
-                            </li>
-                            <li class="app-h6 d-flex align-items-center justify-content-between">
-                                <span>Not voted</span>
-                                <span class="app-list__count">{% getContestNotVoted contest user %}</span>
-                            </li>
+
+            {% if contest.status == 'open' %}
+            <div class="app-thirdhalf-col__right">
+                <div class="app-card app-card--countdown box-shadow">
+                    <h1 id="headline" class="app-card--countdown__title">VOTING END</h1>
+                    <div id="countdown">
+                        <ul class="list-unstyled app-timerlist">
+
+                          <li><span id="days" class="app-timerlist__count"></span> <span class="app-timerlist__txt">days</span></li>
+                          <li><span id="hours" class="app-timerlist__count"></span> <span class="app-timerlist__txt">Hours</span></li>
+                          <li><span id="minutes" class="app-timerlist__count"></span> <span class="app-timerlist__txt">Minutes</span></li>
+                          <li><span id="seconds" class="app-timerlist__count"></span> <span class="app-timerlist__txt">Seconds</span></li>
                         </ul>
                     </div>
                 </div>
+
+                {% if not user.is_anonymous %}
+                {% getUserVotedData contest user as votedData %}
+                <div class="app-card app-card--voteresult box-shadow">
+                    <h1 class="app-card--voteresult__title">YOUR VOTE</h1>
+                    <div class="app-chart">
+                        <canvas id="electionchart" width="100" height="100"></canvas>
+                        <span class="app-chart__count">{{votedData.1}}</span>
+                    </div>
+                </div>
+                <ul class="app-votelist list-unstyled box-shadow">
+                    <li class="voted">
+                       <span>Voted</span>
+                       <span class="count">{{votedData.0}}</span>
+                    </li>
+                    <li class="non-voted">
+                        <span>Not Voted</span>
+                        <span class="count">{{votedData.1}}</span>
+                    </li>
+                </ul>
+                <div class="dropdown">
+                    <button class="btn btn-primary btn-primary--outlined btn-icon left" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"><span class="app-icon icon icon-filter-new"></span> <span>Share</span></button>
+                    <div class="dropdown-menu app-dropdown app-dropdown--arrow app-dropdown--icon" aria-labelledby="dropdownMenuButton">
+                        <ul class="list-unstyled app-socialicons-list">
+                            <li><a href="" class="link"><span class="app-icon icon-twiter"></span></a>
+                            <span>Copy link</span></li>
+                            <li><a href="" class="facebook"><span class="app-icon icon-facebook-sm"></span></a>
+                                <span>Facebook</span></li>
+                            <li><a href="" class="twitter"><span class="app-icon icon-twiter"></span></a>
+                                <span>Twitter</span></li>
+                            <li><a href="" class="whatsapp"><span class="app-icon icon-twiter"></span></a>
+                                <span>WhatsApp</span></li>
+                            <li><a href="" class="email"><span class="app-icon icon-twiter"></span></a>
+                                <span>E-Mail</span></li>
+                            <li><a href="" class="linkedin"><span class="app-icon icon-twiter"></span></a>
+                                <span>Linkedin</span></li>
+                        </ul>
+                      </div>
+                </div>
+                {% endif %}
+                
             </div>
             {% endif %}
         </div>
@@ -195,4 +238,6 @@
     <a href="#" class="app-icon icon-twiter"></a>
     <span class="app-social-follow__txt">FOLLOW US ON</span>
 </div>
+
+<script>$(document).ready(function(){countDownFunc('{{date}}');voteDetailFunc({{votedData.3}}, {{votedData.2}})});</script>
 {% endblock body %}

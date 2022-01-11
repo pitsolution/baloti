@@ -1,5 +1,7 @@
 {% extends 'layout/base.html' %}
 {% load static %}
+{% load referendum %}
+{% load issues %}
 {% block body %}   
 
 <section class="app-elections">
@@ -34,7 +36,7 @@
 
             <div class="app-griditem app-griditem--onrow-three">
                 {% for u in open_contests %}
-                {% load contest_issues %}
+                
                 {% displayIssuesCount u.id user as issues %}
                 <div class="app-card app-card--bordered m-0 app-card--flex">
                     <h4 class="app-h4 app-card__title">{{u.name}}</h4>
@@ -47,9 +49,8 @@
                             <li>{{forloop.counter}} - {{i.name}}</li>
                         {% endfor %}
                     </ul>
-
                     <div class="app-card__footer">
-                        {% checkVotingStatus u.id user as result %}
+                        {% checkReferendumVotingStatus u.id user as result %}
                         {% if result %}
                             <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-outlined--primary  label-sm">open</label> <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a></div>
                         {% else %}
@@ -67,7 +68,6 @@
             <h5 class="app-title app-title--xs">Results</h5>
             <div class="app-griditem app-griditem--onrow-three">
                 {% for u in closed_contests %}
-                {% load contest_issues %}
                 {% displayIssuesCount u.id user as issues %}
                 <div class="app-card m-0 app-card--flex">
                     <h4 class="app-h4 app-card__title">{{u.name}}</h4>
@@ -79,12 +79,11 @@
                             <li>{{forloop.counter}} - {{i.name}}</li>
                         {% endfor %}
                     </ul>
-
-                   
                     <div class="app-card__footer">
-                        {% checkResultStatus u.id user as result %}
+                        {% checkReferendumResultPublished u.id user as result %}
                         {% if result %}
-                            <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestResult' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>VIEW RESULT</span> <span class="app-icon icon-arrow"></span></a></div>
+                            <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>VIEW RESULT</span> <span class="app-icon icon-arrow"></span></a></div>
+                            <!-- <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestResult' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>VIEW RESULT</span> <span class="app-icon icon-arrow"></span></a></div> -->
                         {% else %}
                             <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>VIEW DETAILS</span> <span class="app-icon icon-arrow"></span></a></div>
                         {% endif %}
@@ -94,7 +93,6 @@
             </div>
         </div>
     </div>
-
 </section>
 
 <div class="app-social-follow">

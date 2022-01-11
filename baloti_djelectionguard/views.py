@@ -44,9 +44,9 @@ class BalotiIndexView(TemplateView):
             html : returns contest_list.html html file
         """
         contests = []
-        open_contests = ParentContest.objects.filter(status="open").order_by('-start')
+        open_contests = ParentContest.objects.filter(status="open").order_by('-actual_start')
         contests.append(getParentDetails(open_contests[0])) if open_contests else None
-        closed_contests = ParentContest.objects.filter(status="closed").order_by('-start')
+        closed_contests = ParentContest.objects.filter(status="closed").order_by('-actual_end')
         contests.append(getParentDetails(closed_contests[0])) if closed_contests else None
         return render(request, 'index.html',{"contests": contests})
 
@@ -164,7 +164,8 @@ class BalotiContestDetailView(TemplateView):
         child_contests = Contest.objects.filter(
                 parent=contest.first()
                 ).distinct('id')
-        return render(request, 'contest_details.html',{"contest": contest, "child_contests": child_contests})
+        date_string = contest.first().end.strftime("%m/%d/")
+        return render(request, 'contest_details.html',{"contest": contest, "date": str(date_string), "child_contests": child_contests})
 
 
 class BalotiContestResultView(TemplateView):
