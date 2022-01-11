@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-11 13:05+0000\n"
+"POT-Creation-Date: 2022-01-11 10:47+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,109 +17,227 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-#: baloti_djelectionguard/templates/landing-en.html:58
+
+#: baloti_djelectionguard/templates/landing-en.html:61
 msgid "Baloti Voting Project"
-msgstr ""
+msgstr "Baloti Voting Projekt"
 
-#: baloti_djelectionguard/templates/landing-en.html:59
+#: baloti_djelectionguard/templates/landing-en.html:62
+#, fuzzy
+#| msgid "A voting platform for all residents of Switzerland is our vision"
 msgid "A voting platform for all residents of Switzerland is our vision"
-msgstr ""
+msgstr "Eine Wahlplattform für alle Einwohner der Schweiz ist unsere Vision."
 
-#: baloti_djelectionguard/templates/landing-en.html:75
+#: baloti_djelectionguard/templates/landing-en.html:78
 msgid "ABOUT THE PROJECT"
-msgstr ""
+msgstr "ÜBER UNSER PROJEKT"
 
-#: baloti_djelectionguard/templates/landing-en.html:76
+#: baloti_djelectionguard/templates/landing-en.html:79
 msgid "Learn and experience the swiss voting system online on baloti"
-msgstr ""
+msgstr "Testen und erleben Sie das Schweizer Wahlsystem online auf baloti"
 
-#: baloti_djelectionguard/templates/landing-en.html:77
+#: baloti_djelectionguard/templates/landing-en.html:80
 msgid ""
 "baloti is a technical solution allowing you to cast your vote online in "
 "several languages in a safe and secure way."
 msgstr ""
+"baloti ist eine technische Lösung, die es Ihnen ermöglicht, Ihre Stimme "
+"online in mehreren Sprachen auf sichere Weise abzugeben."
 
-#: baloti_djelectionguard/templates/landing-en.html:87
+#: baloti_djelectionguard/templates/landing-en.html:91
 msgid "OUR IMPACT"
-msgstr ""
+msgstr "WIR BIETEN"
 
-#: baloti_djelectionguard/templates/landing-en.html:92
+#: baloti_djelectionguard/templates/landing-en.html:96
 msgid "Democratic"
-msgstr ""
+msgstr "Demokratisch"
 
-#: baloti_djelectionguard/templates/landing-en.html:93
+#: baloti_djelectionguard/templates/landing-en.html:97
 msgid ""
 "allow more people to participate in voting independently of time and space"
 msgstr ""
+"Ermöglicht mehr Menschen die Teilnahme an Abstimmungen unabhängig von Zeit "
+"und Ort."
 
-#: baloti_djelectionguard/templates/landing-en.html:97
+#: baloti_djelectionguard/templates/landing-en.html:101
 msgid "Safe, Secure & Open"
-msgstr ""
+msgstr "Sicher und offen"
 
-#: baloti_djelectionguard/templates/landing-en.html:98
+#: baloti_djelectionguard/templates/landing-en.html:102
 msgid ""
 "Our solution is fully open source and we use blockchain technology for "
 "saving and verifying votes"
 msgstr ""
+"Unsere Lösung ist vollständig Open Source und wir verwenden die Blockchain-"
+"Technologie zur Speicherung und Verifizierung von Stimmen."
 
-#: baloti_djelectionguard/templates/landing-en.html:102
+#: baloti_djelectionguard/templates/landing-en.html:106
 msgid "Multilingual"
-msgstr ""
+msgstr "Mehrsprachig"
 
-#: baloti_djelectionguard/templates/landing-en.html:103
+#: baloti_djelectionguard/templates/landing-en.html:107
 msgid ""
 "making the voting experience more accessible, vote in your own language."
 msgstr ""
+"Wir machen die Wahlerfahrung leicht zugänglich, wählen Sie in Ihrer eigenen "
+"Sprache."
 
-#: baloti_djelectionguard/templates/landing-en.html:113
+#: baloti_djelectionguard/templates/landing-en.html:117
 msgid "OUR PROJECT PARTNERS"
-msgstr ""
+msgstr "Unsere Projektpartner"
 
-#: baloti_djelectionguard/templates/landing-en.html:144
+#: baloti_djelectionguard/templates/landing-en.html:148
 msgid "CONTACT US"
-msgstr ""
+msgstr "KONTAKT"
 
-#: baloti_djelectionguard/templates/landing-en.html:145
+#: baloti_djelectionguard/templates/landing-en.html:149
 msgid "Feel free to <br> contact us"
-msgstr ""
-
-#: baloti_djelectionguard/templates/landing-en.html:153
-msgid "Firstname*"
-msgstr ""
+msgstr "Wir freuen uns <br> auf Ihre Nachricht!"
 
 #: baloti_djelectionguard/templates/landing-en.html:157
-msgid "Lastname*"
-msgstr ""
+msgid "Firstname*"
+msgstr "Vorname*"
 
-#: baloti_djelectionguard/templates/landing-en.html:163
-msgid "Email*"
-msgstr ""
+#: baloti_djelectionguard/templates/landing-en.html:161
+msgid "Lastname*"
+msgstr "Nachname*"
 
 #: baloti_djelectionguard/templates/landing-en.html:167
-msgid "Subject*"
-msgstr ""
+msgid "Email*"
+msgstr "E-mail*"
 
 #: baloti_djelectionguard/templates/landing-en.html:172
+msgid "Subject*"
+msgstr "Betreff*"
+
+#: baloti_djelectionguard/templates/landing-en.html:177
 msgid "Message*"
-msgstr ""
+msgstr "Nachricht*"
 
-#: baloti_djelectionguard/templates/landing-en.html:178
+#: baloti_djelectionguard/templates/landing-en.html:183
 msgid "SEND"
-msgstr ""
+msgstr "SENDEN"
 
-#: baloti_djelectionguard/templates/landing-en.html:199
+#: baloti_djelectionguard/templates/landing-en.html:204
 msgid "Data Privacy"
-msgstr ""
+msgstr "Datenschutz"
 
-#: baloti_djelectionguard/templates/landing-en.html:200
+#: baloti_djelectionguard/templates/landing-en.html:205
 msgid "Imprint"
-msgstr ""
+msgstr "Impressum"
 
 #: baloti_djelectionguard/views.py:118
 msgid "dcfxv sent by email"
 msgstr ""
 
-#: baloti_djelectionguard/views.py:292
+#: baloti_djelectionguard/views.py:291
 #, python-format
 msgid "You casted your ballot for %(obj)s"
 msgstr ""
+
+#~ msgid "Our vision is a voting platform for all."
+#~ msgstr "Unsere Vision ist eine Wahlplattform für alle."
+
+#~ msgid "ABOUT US"
+#~ msgstr "ÜBER UNS"
+
+#~ msgid ""
+#~ "On our platform you can practice direct democracy in several languages"
+#~ msgstr ""
+#~ "Auf unserer Plattform können Sie direkte Demokratie in mehreren Sprachen "
+#~ "praktizieren"
+
+#~ msgid ""
+#~ "The baloti.ch. project is carried out by an interdisciplinary team at the "
+#~ "Zentrum für Demokratie Aarau in cooperation with the University of "
+#~ "Neuchatel. Diversified project partnerships ensure that the project will "
+#~ "be made static all over the country."
+#~ msgstr ""
+#~ "Das Projekt baloti.ch. wird von einem interdisziplinären Team am Zentrum "
+#~ "für Demokratie Aarau in Zusammenarbeit mit der Universität Neuenburg "
+#~ "durchgeführt. Diverse Projektpartnerschaften sorgen dafür, dass das "
+#~ "Projekt landesweit statisch gemacht wird."
+
+#~ msgid ""
+#~ "baloti uses a sophisticated voting system to guarantee the security and "
+#~ "the transparency of the vote processes. This voting system is provided by "
+#~ "Selectio Helvetica."
+#~ msgstr ""
+#~ "baloti verwendet ein ausgeklügeltes Abstimmungssystem, um die Sicherheit "
+#~ "und die Transparenz der Abstimmungsprozesse zu gewährleisten. Dieses "
+#~ "Abstimmungssystem wird von Selectio Helvetica bereitgestellt."
+
+#~ msgid ""
+#~ "Selectio Helvetica light to safeguard ballot secrecy The secret ballot "
+#~ "protects the voter in a vote or election, so that his or her choice "
+#~ "remains confidential. Securing ballot secrecy is a central principle of "
+#~ "democratic voting rights. The voting platform baloti.ch uses Selectio "
+#~ "Helvetica light (SH light) to meet all the requirements of ballot "
+#~ "secrecy. The fact that not even the organizer of the vote is informed of "
+#~ "the decision of individual voters is of particular importance."
+#~ msgstr ""
+#~ "Selectio Helvetica light ist für die Gewährleistung  des "
+#~ "Wahlgeheimnisses. Das Wahlgeheimnis schützt die Wählerin oder den Wähler "
+#~ "bei einer Abstimmung oder Wahl, damit ihre oder seine Wahl geheim bleibt. "
+#~ "Die Wahrung des Stimmgeheimnisses ist ein zentraler Grundsatz des "
+#~ "demokratischen Wahlrechts. Die Wahlplattform baloti.ch erfüllt mit "
+#~ "Selectio Helvetica light (SH light) alle Anforderungen an das "
+#~ "Wahlgeheimnis. Von besonderer Bedeutung ist die Tatsache, dass nicht "
+#~ "einmal der Organisator der Abstimmung über den Entscheid der einzelnen "
+#~ "Stimmberechtigten informiert wird."
+
+#~ msgid "How Selectio Helvetica light works"
+#~ msgstr "So funktioniert Selectio Helvetica light"
+
+#~ msgid ""
+#~ "Eligible users receive a voting code by email. They then have to enter "
+#~ "this code in order for their vote to be counted. The user's Internet "
+#~ "browser calculates an encryption of the vote and uses the voting code for "
+#~ "an anonymous electronic signature. The encryption and the signature are "
+#~ "sent to the electronic ballot. When the polls have closed the correctly "
+#~ "signed encryptions are decrypted and sent to the vote organizer. The "
+#~ "organizer counts the votes and determines the result of the vote. Ballot "
+#~ "secrecy is maintained, as the anonymous signatures provide no clues as to "
+#~ "the identity of the individual voter."
+#~ msgstr ""
+#~ "Die teilnahmeberechtigten Nutzer erhalten per E-Mail einen "
+#~ "Abstimmungscode. Diesen Code müssen sie dann eingeben, damit ihre Stimme "
+#~ "gezählt wird. Der Internetbrowser des Nutzers berechnet eine "
+#~ "Verschlüsselung der Stimme und verwendet den Abstimmungscode für eine "
+#~ "anonyme elektronische Signatur. Die Verschlüsselung und die Signatur "
+#~ "werden an den elektronischen Stimmzettel gesendet. Wenn die Wahllokale "
+#~ "geschlossen sind, werden die korrekt signierten Verschlüsselungen "
+#~ "entschlüsselt und an den Wahlorganisator geschickt. Der Organisator zählt "
+#~ "die Stimmen und ermittelt das Wahlergebnis. Das Wahlgeheimnis bleibt "
+#~ "gewahrt, da die anonymen Signaturen keine Rückschlüsse auf die Identität "
+#~ "des einzelnen Wählers zulassen"
+
+#~ msgid "The Selectio Helvetica Project"
+#~ msgstr "Das Projekt Selectio Helvetica"
+
+#~ msgid ""
+#~ "SH light was developed by the Berne University of Applied Sciences, in "
+#~ "cooperation with the University of Fribourg, and the Swiss E-voting "
+#~ "Competence Center. Use the following link to find out more about SH light "
+#~ "and the Selectio Helvetica project."
+#~ msgstr ""
+#~ "SH light wurde von der Berner Fachhochschule in Zusammenarbeit mit der "
+#~ "Universität Fribourg und dem Kompetenzzentrum E-Voting Schweiz "
+#~ "entwickelt. Unter dem folgenden Link erfahren Sie mehr über SH light und "
+#~ "das Projekt Selectio Helvetica."
+
+#~ msgid "Translators"
+#~ msgstr "Übersetzungen"
+
+#~ msgid "Text by Vimentis"
+#~ msgstr "Text von Vimentis"
+
+#~ msgid ""
+#~ "With baloti, people living in Switzerland without voting rights can learn "
+#~ "about direct democracy and try it out in practice in the form of a "
+#~ "symbolic vote in their own national language"
+#~ msgstr ""
+#~ "Mit baloti können Personen, die in der Schweiz leben und nicht "
+#~ "stimmberechtigt sind, die direkte Demokratie kennenlernen und in Form "
+#~ "einer symbolischen Abstimmung in ihrer Landessprache in der Praxis "
+#~ "ausprobieren."
