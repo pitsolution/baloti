@@ -62,6 +62,23 @@ class BalotiDisclaimerView(TemplateView):
     """
     template_name = "disclaimer.html"
 
+class BalotiImprintView(TemplateView):
+    """
+    Imprint View
+    """
+    template_name = "imprint.html"
+
+    def get(self, request):
+        """
+        Args:
+            request (Request): Http request object
+
+        Returns:
+            html : returns landing-en.html html file
+        """
+        return render(request, 'imprint.html')
+
+
 class BalotiAboutUsView(TemplateView):
     """
     AboutUs View
