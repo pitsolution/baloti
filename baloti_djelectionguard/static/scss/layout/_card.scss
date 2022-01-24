@@ -293,12 +293,18 @@ background: linear-gradient(356deg, rgba(18,21,103,1) 0%, rgba(206,35,35,1) 100%
                     
                 }
             }
+            &--nopad{
+                padding: 0;
+            }
             .app{
                 &-h6{
                     font-size: $app-p - 2;
                     line-height: 25px;
                     margin-bottom: 15px;
                 }
+            }
+            &__header{
+                padding: 15px;
             }
         }
     }

@@ -89,6 +89,42 @@
                 object-fit: cover;
             }
         }
+        &--contact{
+            .app{
+                &-subtitle{
+                    &.main{
+                        margin: 0;
+                    }
+                    &.sub{
+                        margin-bottom: 30px;
+                        &:last-child{
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+            li{
+                &:not(:last-child){
+                    margin-bottom: 30px;
+                }
+            }
+        }
+        &-style{
+            &--dashed{
+                li{
+                    position: relative;
+                    padding-left: 25px;
+                    &:before{
+                        content: "-";
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        font-size: $app-h5;
+                        line-height: 31px;
+                    }
+                }
+            }
+        }
     }
     &-formlist{
         margin: 0;
@@ -378,7 +414,7 @@ background: linear-gradient(40deg, rgba(19,87,126,1) 31%, rgba(77,193,217,1) 100
             }
             &--onrow{
                 &-three{
-                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
                     grid-column-gap: 30px;
                     grid-row-gap: 30px;
                     margin-bottom: 30px;

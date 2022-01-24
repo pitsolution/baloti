@@ -55,4 +55,51 @@
             }
         }
     }
+    @media only screen and (max-width: 991px) {
+        &-aboutus{
+            &__banner{
+                padding-top: 120px;
+                padding-bottom: 15px;
+                border-bottom-right-radius: 100px;
+                overflow: hidden;
+            }
+            &__img{
+                position: inherit;
+                width: 100%;
+                top: 0;
+                right: 0;
+            }
+            &__bannercontent{
+                padding-bottom: 15px;
+            }
+            &__voting{
+                grid-template-columns: 1fr;
+                grid-column-gap: 0;
+                padding-top: 30px;
+            }
+            &__col{
+                &.left{
+                    margin-top: 0;
+                    padding: 15px;
+                }
+            }
+        }
+    }
+    @media only screen and (min-width: 992px) and (max-width: 1199px){
+        &-aboutus{
+            &__img{
+                top: 50%;
+                right: 15px;
+                transform: translateY(-50%);
+            }
+            &__col{
+                &.left{
+                    padding: 30px;
+                }
+            }
+            &__voting{
+                grid-column-gap: 30px;
+            }
+        }
+    }
 }
