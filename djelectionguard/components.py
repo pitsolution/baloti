@@ -74,7 +74,86 @@ class ContestForm(forms.ModelForm):
             time_attrs={'type': 'time'},
         )
     )
+    govt_infavour_percent = forms.FloatField(required=False,
+        max_value=100,
+        min_value=0)
+    govt_against_percent = forms.FloatField(required=False,
+        max_value=100,
+        min_value=0)
 
+    def __init__(self, *args, **kwargs):
+        super(ContestForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk and instance.actual_end:
+            self.fields['name'].widget = forms.HiddenInput()
+            self.fields['contest_type'].widget = forms.HiddenInput()
+            self.fields['contest_initiator'].widget = forms.HiddenInput()
+            self.fields['infavour_arguments'].widget = forms.HiddenInput()
+            self.fields['against_arguments'].widget = forms.HiddenInput()
+            self.fields['about'].widget = forms.HiddenInput()
+            self.fields['votes_allowed'].widget = forms.HiddenInput()
+            # self.fields['start'].widget = forms.HiddenInput()
+            # self.fields['end'].widget = forms.HiddenInput()
+            self.fields['timezone'].widget = forms.HiddenInput()
+
+    def clean_name(self):
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk and instance.actual_end:
+            return instance.name
+        else:
+            return self.cleaned_data['name']
+
+    def clean_contest_type(self):
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk and instance.actual_end:
+            return instance.contest_type
+        else:
+            return self.cleaned_data['contest_type']
+
+    def clean_contest_initiator(self):
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk and instance.actual_end:
+            return instance.contest_initiator
+        else:
+            return self.cleaned_data['contest_initiator']
+
+    def clean_infavour_arguments(self):
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk and instance.actual_end:
+            return instance.infavour_arguments
+        else:
+            return self.cleaned_data['infavour_arguments']
+
+    def clean_against_arguments(self):
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk and instance.actual_end:
+            return instance.against_arguments
+        else:
+            return self.cleaned_data['against_arguments']
+
+    def clean_votes_allowed(self):
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk and instance.actual_end:
+            return instance.votes_allowed
+        else:
+            return self.cleaned_data['votes_allowed']
+
+    def clean_about(self):
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk and instance.actual_end:
+            return instance.about
+        else:
+            return self.cleaned_data['about']
+
+    def clean_timezone(self):
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk and instance.actual_end:
+            return instance.timezone
+        else:
+            return self.cleaned_data['timezone']
+
+
+   
     class Meta:
         model = Contest
         fields = [
@@ -88,6 +167,8 @@ class ContestForm(forms.ModelForm):
             'start',
             'end',
             'timezone',
+            'govt_infavour_percent',
+            'govt_against_percent'
         ]
         labels = {
             'name': _('FORM_TITLE_ELECTION_CREATE'),
@@ -99,7 +180,9 @@ class ContestForm(forms.ModelForm):
             'votes_allowed': _('FORM_VOTES_ALLOWED_ELECTION_CREATE'),
             'start': _('FORM_START_ELECTION_CREATE'),
             'end': _('FORM_END_ELECTION_CREATE'),
-            'timezone': _('FORM_TIMEZONE_ELECTION_CREATE')
+            'timezone': _('FORM_TIMEZONE_ELECTION_CREATE'),
+            'govt_infavour_percent': _('GOVT_INFAVOUR_RESULTS'),
+            'govt_against_percent': _('GOVT_AGAINST_RESULTS')
         }
 
 
@@ -136,33 +219,55 @@ class ContestFormComponent(CList):
                     tag='a',
                     href=reverse('issue_type_create', args=[parent])
                     )
+        if contest.actual_end:
+            super().__init__(
+                H4(_('Update Government Results')),
+                Form(
+                    form['name'],
+                    form['about'],
+                    form['govt_infavour_percent'],
+                    form['govt_against_percent'],
+                    form['contest_type'],
+                    form['contest_initiator'],
+                    form['votes_allowed'],
+                    form['start'],
+                    form['end'],
+                    form['timezone'],
+                    form['infavour_arguments'],
+                    form['against_arguments'],
+                    CSRFInput(view.request),
+                    MDCButton(_('update issue') if edit else _('create issue')),
+                    method='POST',
+                    cls='form'),
+            )
 
-        super().__init__(
-            H4(_('Edit issue') if edit else _('Create an issue')),
-            Form(
-                form['name'],
-                form['about'],
-                H6(_('Type:')),
-                form['contest_type'],
-                Div(issue_type_create_btn, icon='person_add_alt_1'),
-                H6(_('Initiator:')),
-                form['contest_initiator'],
-                Div(initiator_create_btn, icon='person_add_alt_1'),
-                H6(_('Voting settings:')),
-                form['votes_allowed'],
-                H6(_('Referendum starts:')),
-                form['start'],
-                H6(_('Referendum ends:')),
-                form['end'],
-                form['timezone'],
-                H6(_('Arguments:')),
-                form['infavour_arguments'],
-                form['against_arguments'],
-                CSRFInput(view.request),
-                MDCButton(_('update issue') if edit else _('create issue')),
-                method='POST',
-                cls='form'),
-        )
+        else:
+            super().__init__(
+                H4(_('Edit issue') if edit else _('Create an issue')),
+                Form(
+                    form['name'],
+                    form['about'],
+                    H6(_('Type:')),
+                    form['contest_type'],
+                    Div(issue_type_create_btn, icon='person_add_alt_1'),
+                    H6(_('Initiator:')),
+                    form['contest_initiator'],
+                    Div(initiator_create_btn, icon='person_add_alt_1'),
+                    H6(_('Voting settings:')),
+                    form['votes_allowed'],
+                    H6(_('Referendum starts:')),
+                    form['start'],
+                    H6(_('Referendum ends:')),
+                    form['end'],
+                    form['timezone'],
+                    H6(_('Arguments:')),
+                    form['infavour_arguments'],
+                    form['against_arguments'],
+                    CSRFInput(view.request),
+                    MDCButton(_('update issue') if edit else _('create issue')),
+                    method='POST',
+                    cls='form'),
+            )
 
 
 @template('djelectionguard/contest_form.html', Document, Card)
@@ -171,6 +276,9 @@ class ContestCreateCard(Div):
 
     def to_html(self, *content, view, form, **context):
         self.backlink = BackLink(_('back'), reverse('contest_list', args=[context['parent'].pk]))
+        if context.get('contest'):
+            if context['contest'].actual_end:
+                self.backlink = BackLink(_('back'), reverse('contest_detail', args=[context['contest'].pk]))
 
         edit = view.object is not None
         return super().to_html(
@@ -1154,6 +1262,7 @@ class ContestFinishedCard(Div):
             Ul(
                 CastVoteAction(contest, view.request.user)
                 if is_voter else None,
+                GovtResultAction(contest, view.request.user),
                 ResultAction(contest, view.request.user),
                 cls='mdc-list action-list'
             ),
@@ -3055,4 +3164,19 @@ class IssueTypeCreateCard(Div):
 
         return super().to_html(
             IssueTypeFormComponent(view, form),
+        )
+    
+
+class GovtResultAction(ListAction):
+    def __init__(self, contest, user):
+        btn_comp = MDCButtonOutlined(
+            _('edit'),
+            False,
+            tag='a',
+            # href=reverse('contest_update', args=[contest.parent.pk, contest.id]))
+            href=reverse('govt_results_create', args=[contest.parent.pk, contest.id]))
+        super().__init__(
+            _('Switzerland Government Results'),
+            _('Infavour/Against Percentages'),
+            DoneIcon(), btn_comp
         )

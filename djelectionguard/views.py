@@ -153,6 +153,7 @@ class ContestUpdateView(generic.UpdateView):
     def get_context_data(self, **kwargs):
         context = super(ContestUpdateView, self).get_context_data(**kwargs)
         context['parent'] = Contest.objects.get(pk=self.kwargs['pk']).parent
+        context['contest'] = Contest.objects.get(pk=self.kwargs['pk'])
         return context
 
     def form_valid(self, form):
@@ -170,6 +171,7 @@ class ContestUpdateView(generic.UpdateView):
             login_required(cls.as_view()),
             name='contest_update'
         )
+
 
 
 class ContestListView(ContestAccessible, generic.ListView):
@@ -1698,3 +1700,29 @@ class IssueTypeCreateView(generic.CreateView):
 
     def get_success_url(self):
         return reverse('contest_list', args=[self.kwargs['parent']])
+
+
+class GovtResultsUpdateView(generic.UpdateView):
+    model = Contest
+    form_class = ContestForm
+
+    def get_context_data(self, **kwargs):
+        context = super(GovtResultsUpdateView, self).get_context_data(**kwargs)
+        context['parent'] = Contest.objects.get(pk=self.kwargs['pk']).parent
+        return context
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(
+            self.request,
+            _('You have updated contest %(obj)s', obj=form.instance)
+        )
+        return response
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            '<uuid:parentpk>/<uuid:pk>/govt/results/create/',
+            login_required(cls.as_view()),
+            name='govt_results_create'
+        )
