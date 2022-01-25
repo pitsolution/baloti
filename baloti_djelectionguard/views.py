@@ -182,11 +182,8 @@ class BalotiContestResultView(TemplateView):
         Returns:
             html : returns contest_results.html html file
         """
-        contest = ParentContest.objects.filter(uid=id)
-        child_contests = Contest.objects.filter(
-                parent=contest.first()
-                ).distinct('id')
-        return render(request, 'contest_results.html',{"contest": contest, "child_contests": child_contests})
+        contest = Contest.objects.filter(pk=id).first()
+        return render(request, 'contest_results.html',{"contest": contest})
 
 
 class BalotiContestChoicesView(TemplateView):

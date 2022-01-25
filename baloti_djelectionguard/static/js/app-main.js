@@ -200,6 +200,7 @@ $(document).ready(function(){
         }
         
     });
+    
 
     $("#howitworksbtn").click(function() {
         $('html, body').animate({

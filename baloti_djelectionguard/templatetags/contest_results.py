@@ -13,13 +13,14 @@ def displayBalotiResult(contest, user):
         num = f'{i + 1}. '
         if votes['total']:
             yes = 100 * yes_candidate.score / votes['total']
-            yes = round(yes)
+            yes = yes
 
     for i, no_candidate in enumerate(contest.candidate_set.filter(candidate_type='no').order_by('-score')):
         num = f'{i + 1}. '
         if votes['total']:
             no = 100 * no_candidate.score / votes['total']
-            no = round(no)
+            # no = round(no)
+            no = no
             
     if yes > no:
         baloti_result = yes_candidate
