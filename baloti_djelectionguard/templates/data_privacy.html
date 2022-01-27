@@ -99,8 +99,8 @@
                     </div>
                     <div class="col-md-6 app-footer--landing__right">
                         <ul class="app-footer-link list-unstyled">
-                            <li><a href="#">{% trans "Data Privacy" %}</a></li>
-                            <li><a href="#">{% trans "Imprint" %}</a></li>
+                               <li><a href="{% url 'baloti_djelectionguard:data-privacy' %}">{% trans "Data Privacy" %}</a></li>
+                               <li><a href="{% url 'baloti_djelectionguard:imprint' %}">{% trans "Imprint" %}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -114,8 +114,8 @@
         </div>
     </div>
 
-<script src="/public/js/jquery-3.5.1.min.js"></script>
-<script src="/public/js/bootstrap.bundle.min.js"></script>
-<script src="/public/js/app-main.js"></script>
+  <script src="/static/js/jquery-3.5.1.min.js"></script>
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/app-main.js"></script>
 </body>
 </html>
