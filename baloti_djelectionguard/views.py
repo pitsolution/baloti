@@ -74,9 +74,26 @@ class BalotiImprintView(TemplateView):
             request (Request): Http request object
 
         Returns:
-            html : returns landing-en.html html file
+            html : returns imprint.html html file
         """
         return render(request, 'imprint.html')
+
+class BalotiDataPrivacyView(TemplateView):
+    """
+    Data Privacy View
+    """
+    template_name = "data_privacy.html"
+
+    def get(self, request):
+        """
+        Args:
+            request (Request): Http request object
+
+        Returns:
+            html : returns data_privacy.html html file
+        """
+        return render(request, 'data_privacy.html')
+
 
 
 class BalotiAboutUsView(TemplateView):
