@@ -219,7 +219,7 @@ class ContestFormComponent(CList):
                     tag='a',
                     href=reverse('issue_type_create', args=[parent])
                     )
-        if contest.actual_end:
+        if contest and contest.actual_end:
             super().__init__(
                 H4(_('Update Government Results')),
                 Form(
