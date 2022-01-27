@@ -303,7 +303,7 @@ msgstr "SENDEN"
 
 #: baloti_djelectionguard/templates/landing-en.html:213
 msgid "Mail sent successfully"
-msgstr "Nachricht erfolgreich versendet"
+msgstr "E-Mail erfolgreich versendet"
 
 #: baloti_djelectionguard/views.py:152
 msgid "dcfxv sent by email"
