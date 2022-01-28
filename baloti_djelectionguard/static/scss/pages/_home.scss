@@ -5,6 +5,10 @@
 
 
 .app{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+
     // Follow US -> Social Icon fixed Link
     &-social{
         &-follow{
@@ -42,6 +46,11 @@
         &-platform{
             padding-top: 129.5px;
             padding-bottom: 129.5px;
+            .app{
+                &-elections{
+                    padding-top: 0;
+                }
+            }
         }
 
         // Our Feature Section Styles

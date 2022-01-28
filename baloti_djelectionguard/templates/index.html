@@ -47,34 +47,34 @@
             <h6 class="app-subtitle">LATEST REFERENDUMS & VOTE</h6>
             <div class="app-card-group app-elections">
                 <div class="row">
-                    <div class="col-sm-12 col-md-6 col-lg-12">
-                        {% for u in contests %}
-                            {% displayIssuesCount u.id user as issues %}
-                                <div class="app-card  app-card--flex box-shadow">
-                                    <h4 class="app-h4 app-card__title">{{u.name}}</h4>
-                                    <h5 class="app-card__monthyear">{{u.month}} {{u.year}}</h5>
-                                    <p class="app-card__date"><span>Date:</span> <span>{{u.date|date:"d.m.Y"}}</span></p>
-                                    <p class="app-h6 text-medium text-dark">Issues: {{issues}}</p>
-                                    <ul class="app-list list-unstyled app-sm-text">
-                                        {% for i in u.id|getContestIssues %}
-                                            <li>{{forloop.counter}} - {{i.name}}</li>
-                                        {% endfor %}
-                                    </ul>
-                                    <div class="app-card__footer">
-                                        {% if u.status == 'open' %}
-                                            <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-outlined--primary  label-sm">open</label> <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a></div>
-                                        {% elif u.status == 'closed' %}
-                                            {% checkReferendumResultPublished u.id user as result %}
-                                            {% if result %}
-                                                <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>VIEW RESULT</span> <span class="app-icon icon-arrow"></span></a></div>
-                                            {% else %}
-                                                <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>VIEW DETAILS</span> <span class="app-icon icon-arrow"></span></a></div>
-                                            {% endif %}
+                    {% for u in contests %}
+                        {% displayIssuesCount u.id user as issues %}
+                        <div class="col-sm-12 col-md-6 col-lg-12">
+                            <div class="app-card  app-card--flex box-shadow">
+                                <h4 class="app-h4 app-card__title">{{u.name}}</h4>
+                                <h5 class="app-card__monthyear">{{u.month}} {{u.year}}</h5>
+                                <p class="app-card__date"><span>Date:</span> <span>{{u.date|date:"d.m.Y"}}</span></p>
+                                <p class="app-h6 text-medium text-dark">Issues: {{issues}}</p>
+                                <ul class="app-list list-unstyled app-sm-text">
+                                    {% for i in u.id|getContestIssues %}
+                                        <li>{{forloop.counter}} - {{i.name}}</li>
+                                    {% endfor %}
+                                </ul>
+                                <div class="app-card__footer">
+                                    {% if u.status == 'open' %}
+                                        <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-outlined--primary  label-sm">open</label> <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a></div>
+                                    {% elif u.status == 'closed' %}
+                                        {% checkReferendumResultPublished u.id user as result %}
+                                        {% if result %}
+                                            <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>VIEW RESULT</span> <span class="app-icon icon-arrow"></span></a></div>
+                                        {% else %}
+                                            <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>VIEW DETAILS</span> <span class="app-icon icon-arrow"></span></a></div>
                                         {% endif %}
-                                    </div>
+                                    {% endif %}
                                 </div>
-                            {% endfor %}
-                    </div>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
             <a href="/en/baloti/contest/list/" class="btn btn-link btn-link--primary btn-flex app-viewall"><span>VIEW ALL</span> <span class="app-icon icon-arrow"></span></a>
