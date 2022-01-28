@@ -204,8 +204,8 @@ msgid "Fax"
 msgstr "Fax"
 
 #: baloti_djelectionguard/templates/landing-en.html:58
-msgid "Baloti Voting Project"
-msgstr "Baloti Voting Projekt"
+msgid "baloti Voting Project"
+msgstr "baloti Voting Projekt"
 
 #: baloti_djelectionguard/templates/landing-en.html:59
 msgid "A voting platform for all residents of Switzerland is our vision"
