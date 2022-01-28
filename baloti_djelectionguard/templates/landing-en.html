@@ -8,16 +8,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/>
-   <title>Baloti-Landing</title>
+   <title>baloti landingpage</title>
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/main.min.css'%}">
     <link href="{% sass_src 'scss/main.scss' %}" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <ul class="app">
+    <div class="app">
         <!-- Header Section -->
         <header class="app-header d-flex align-items-center">
-            <a href="/en/baloti/" class="app-logo">
+            <a href="#" class="app-logo">
                 <img src="/static/images/logo.svg" alt="">
             </a>
                         <ul class="app-header-nav list-unstyled d-flex align-items-center ml-auto">
@@ -31,7 +31,6 @@
                          <a style="text-transform:uppercase" class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{LANGUAGE}}</a>
 
                          <ul class="dropdown-menu">
-                             {% load contest_summary %}
                        {% get_available_languages as LANGUAGES %}
                         {% for lang_code, lang_name in LANGUAGES %}
                              {% if LANGUAGE != lang_code %}
@@ -55,7 +54,7 @@
                     <div class="col-sm-7">
                         <div class="app-banner__content">
 
-                            <h1 class="app-h1 text-outfit-semibold">{% trans "Baloti Voting Project" %}</h1>
+                            <h1 class="app-h1 text-outfit-semibold">{% trans "baloti Voting Project" %}</h1>
                             <h3 class="app-h3 text-outfit-regular">{% trans "A voting platform for all residents of Switzerland is our vision" %}</h3>
                         </div>
                     </div>
@@ -74,7 +73,7 @@
                         <div class="app-our-platform__content">
                             <h6 class="app-subtitle text-outfit-medium">{% trans "ABOUT THE PROJECT" %}</h6>
                             <h2 class="app-title app-h2 text-outfit-regular">{% trans "Learn and experience the swiss voting system online on baloti" %}</h2>
-                            <p class="app-p text-outfit-regular">{% trans "baloti is a technical solution allowing you to cast your vote online in several languages in a safe and secure way." %}.</p>
+                            <p class="app-p text-outfit-regular">{% trans "baloti is a technical solution allowing you to cast your vote online in several languages in a safe and secure way" %}.</p>
                         </div>
                     </div>
                 </div>
@@ -113,22 +112,22 @@
                     <h6 class="app-subtitle text-outfit-medium">{% trans "OUR PROJECT PARTNERS" %}</h6>
                     <ul class="app-partner-list list-unstyled">
                         <li>
-                            <a href="https://www.pitsolutions.ch/en/">
+                            <a href="https://www.pitsolutions.ch/en/" target="_blank">
                                 <img src="/static/images/pits-web.svg" width="111" alt="">
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.electis.io/">
+                            <a href="https://www.electis.io/" target="_blank">
                                 <img src="/static/images/Electis.png" width="270" alt="">
                             </a>
                         </li>
                         <li>
-                            <a href="https://prototypefund.de/en/">
+                            <a href="https://prototypefund.de/en/" target="_blank">
                                 <img src="/static/images/protoypefond_logo.png" width="93" alt="">
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.zdaarau.ch/">
+                            <a href="https://www.zdaarau.ch/" target="_blank">
                                 <img src="/static/images/zda-logo.png" width="206" alt="">
                             </a>
                         </li>
@@ -192,12 +191,12 @@
                         <a href="#" class="app-footer__logo">
                             <img src="/static/images/logo-footer.svg" alt="">
                         </a>
-                        <a href="#" class="app-email">copyright@baloti.com</a>
+                        <a href="mailto:copyright@baloti.com" target="_blank" class="app-email">copyright@baloti.com</a>
                        </div>
                        <div class="col-md-6 app-footer--landing__right">
                            <ul class="app-footer-link list-unstyled">
-                               <li><a href="#">{% trans "Data Privacy" %}</a></li>
-                               <li><a href="https://www.pitsolutions.ch/en/imprint">{% trans "Imprint" %}</a></li>
+                               <li><a href="{% url 'baloti_djelectionguard:data-privacy' %}">{% trans "Data Privacy" %}</a></li>
+                               <li><a href="{% url 'baloti_djelectionguard:imprint' %}">{% trans "Imprint" %}</a></li>
                            </ul>
                        </div>
                    </div>
