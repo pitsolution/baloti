@@ -320,6 +320,79 @@ $app-modal-header-bg: #F1F2EE;
             min-width: 345px;
         }
     }
+    @media only screen and (max-width: 767px) {
+        &-modal{
+            &--success {
+                .app-resultdate{
+                    min-width: auto;
+                }
+            }
+        }
+        &-accordion{
+            margin-bottom: 15px;
+            &--basic {
+                .accordion{
+                    &-header{
+                        padding: 15px;
+                        font-size: $app-h6 + 2;
+                        position: relative;
+                        &--mb{
+                            flex-wrap: wrap;
+                        }
+                        &__wrap{
+                            margin-bottom: 13px;
+                            padding-right: 25px;
+                        }
+                        &__title{
+                            line-height: 32px;
+                        }
+                        .btn{
+                            margin-left: 0;
+                            padding-left: 18px;
+                            padding-right: 18px;
+                            min-height: 40px;
+                        }
+                        .label{
+                            margin-left: 0;
+                            + .btn{
+                                margin-left: 10px;
+                            }
+                        }
+                        .app-icon{
+                            position: absolute;
+                            top: 20px;
+                            right: 15px;
+                            height: auto;
+                            background: transparent;
+                            width: auto;
+                            &:not(.collapsed){
+                                background: transparent;
+                            }
+                        }
+                    }
+                   &-body {
+                    .tab-content{
+                        padding: 15px;
+                    }
+                   }
+                }
+                .nav{
+                    &-tabs{
+                        width: auto;
+                    }
+                   
+                    &-link{
+                        font-size: $app-p;
+                    }
+                }
+            }
+        }
+        &-dropdown{
+            &--icon{
+                width: 100%;
+            }
+        }
+    }
 }
 
 

@@ -90,4 +90,16 @@
             z-index: -1;
         }
     }
+    @media only screen and (max-width: 991px) {
+        &-login{
+            &__box{
+                height: auto;
+                padding: 15px;
+                overflow: inherit;
+            }
+            &__img{
+                display: none;
+            }
+        }
+    }
 }

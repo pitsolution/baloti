@@ -14,7 +14,7 @@
     <link href="{% sass_src 'scss/main.scss' %}" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <ul class="app">
+    <div class="app">
         <!-- Header Section -->
         <header class="app-header d-flex align-items-center">
             <a href="#" class="app-logo">
@@ -31,7 +31,6 @@
                          <a style="text-transform:uppercase" class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{LANGUAGE}}</a>
 
                          <ul class="dropdown-menu">
-                             {% load contest_summary %}
                        {% get_available_languages as LANGUAGES %}
                         {% for lang_code, lang_name in LANGUAGES %}
                              {% if LANGUAGE != lang_code %}

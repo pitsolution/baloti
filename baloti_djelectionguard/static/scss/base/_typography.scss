@@ -76,6 +76,11 @@ img{
     letter-spacing: 2.4px;
     font-family: Poppins-Medium;
     margin-bottom: 18.27px;
+    &--md{
+      font-size: $app-h5;
+      letter-spacing: 2.6px;
+      margin-bottom: 30px;
+    }
   }
   &-title{
     line-height: 72px;
@@ -175,6 +180,12 @@ img{
     }
     &-medium{
       font-family: Outfit-Medium !important;
+    }
+    &-bold{
+      font-family: Outfit-Bold !important;
+    }
+    &-light{
+      font-family: Outfit-Light !important;
     }
   }
 }
