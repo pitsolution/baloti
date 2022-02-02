@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-11 21:27+0530\n"
+"POT-Creation-Date: 2022-01-14 15:49+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,9 +18,194 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: baloti_djelectionguard/templates/data_privacy.html:61
+msgid "Data Protection"
+msgstr "Datenschutz"
+
+#: baloti_djelectionguard/templates/data_privacy.html:62
+msgid ""
+"We take the protection of your personal data very seriously and strictly "
+"adhere to the rules of the data protection laws. Personal data is collected "
+"on this website only to the technically necessary extent. Under no "
+"circumstances will the data collected be sold or passed on to third parties "
+"for any other reason."
+msgstr ""
+"Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst und halten uns "
+"strikt an die Regeln der Datenschutzgesetze. Personenbezogene Daten werden "
+"auf dieser Webseite nur im technisch notwendigen Umfang erhoben. In keinem "
+"Fall werden die erhobenen Daten verkauft oder aus anderen Gründen an Dritte "
+"weitergegeben"
+
+#: baloti_djelectionguard/templates/data_privacy.html:63
+msgid ""
+"The following declaration gives you an overview of how we guarantee this "
+"protection and what kind of data is collected for what purpose."
+msgstr ""
+"Die nachfolgende Erklärung gibt Ihnen einen Überblick darüber, wie wir "
+"diesen Schutz gewährleisten und welche Art von Daten zu welchem Zweck "
+"erhoben werden"
+
+#: baloti_djelectionguard/templates/data_privacy.html:64
+msgid ""
+"We automatically collect and store information that your browser transmits "
+"to us in the server log files. These are:"
+msgstr ""
+"Wir erheben und speichern automatisch in den Server Log Files Informationen, "
+"die Ihr Browser an uns übermittelt. Dies sind:"
+
+#: baloti_djelectionguard/templates/data_privacy.html:67
+msgid "Browser type/ version"
+msgstr "Browsertyp/ -version"
+
+#: baloti_djelectionguard/templates/data_privacy.html:68
+msgid "Operating system used"
+msgstr "verwendetes Betriebssystem"
+
+#: baloti_djelectionguard/templates/data_privacy.html:69
+msgid "Referrer URL (the previously visited page)"
+msgstr "Referrer URL (die zuvor besuchte Seite)"
+
+#: baloti_djelectionguard/templates/data_privacy.html:70
+msgid "Host name of the accessing computer (IP address)"
+msgstr "Hostname des zugreifenden Rechners (IP Adresse)"
+
+#: baloti_djelectionguard/templates/data_privacy.html:71
+msgid "Date and time of the server request"
+msgstr "Datum und Uhrzeit der Serveranfrage"
+
+#: baloti_djelectionguard/templates/data_privacy.html:73
+msgid ""
+"These data cannot be assigned to specific persons. These data are not "
+"combined with other data sources. The data will also be deleted after a "
+"statistical evaluation."
+msgstr ""
+"Diese Daten sind für uns nicht bestimmten Personen zuordenbar. Eine "
+"Zusammenführung dieser Daten mit anderen Datenquellen wird nicht "
+"vorgenommen. Die Daten werden zudem nach einer statistischen Auswertung "
+"gelöscht."
+
+#: baloti_djelectionguard/templates/data_privacy.html:76
+msgid "Cookies"
+msgstr "Cookies"
+
+#: baloti_djelectionguard/templates/data_privacy.html:77
+msgid ""
+"On some of our pages we use cookies to make visiting our website attractive "
+"and to enable the use of certain functions. „Cookies“ are small text files "
+"that your browser can store on your computer. These cookies are deleted from "
+"your hard disk at the end of the browser session („session cookies“). You "
+"can set your browser to inform you about the setting of cookies, to decide "
+"on acceptance on a case-by-case basis or to generally accept or exclude the "
+"acceptance of cookies. If you deactivate cookies, certain functions of our "
+"website may not be available."
+msgstr ""
+"Auf einigen unserer Seiten verwenden wir Cookies, um den Besuch unserer "
+"Website attraktiv zu gestalten und die Nutzung bestimmter Funktionen zu "
+"ermöglichen. „Cookies“ sind kleine Textdateien, die Ihr Browser auf Ihrem "
+"Rechner ablegen kann. Diese Cookies werden nach Ende der Browser-Sitzung "
+"wieder von Ihrer Festplatte gelöscht („Session-Cookies“). Sie können Ihren "
+"Browser so einstellen, dass Sie über das Setzen von Cookies informiert "
+"werden, von Fall zu Fall über die Annahme entscheiden oder die Annahme von "
+"Cookies grundsätzlich ausschließen. Wenn Sie Cookies deaktivieren, stehen "
+"Ihnen unter Umständen bestimmte Funktionen unserer Website nicht zur "
+"Verfügung."
+
+#: baloti_djelectionguard/templates/data_privacy.html:80
+msgid "Use of Google Analytics"
+msgstr "Use of Google Analytics"
+
+#: baloti_djelectionguard/templates/data_privacy.html:81
+msgid ""
+"This website uses Google Analytics, a web analysis service of Google Inc. "
+"(„Google“) Google Analytics uses cookies, which are text files placed on "
+"your computer, to help the website analyze how users use the site. The "
+"information generated by the cookie about your use of this website "
+"(including your IP address, which is anonymised using the _anonymizeIp() "
+"method so that you can no longer be assigned to a connection) is transmitted "
+"to a Google server in the USA and stored there. Google will use this "
+"information for the purpose of evaluating your use of the website, compiling "
+"reports on website activity for website operators and providing other "
+"services relating to website activity and internet usage. Google may also "
+"transfer this information to third parties if this is required by law or if "
+"third parties process this data on behalf of Google. Google will not "
+"associate your IP address with any other data held by Google. You may refuse "
+"the use of cookies by selecting the appropriate settings on your browser, "
+"however please note that if you do this you may not be able to use the full "
+"functionality of this website. By using this website, you consent to the "
+"processing of data about you by Google in the manner and for the purposes "
+"set out above. You can object to the collection of data by Google Analytics "
+"with future effect by installing a deactivation add-on for your browser."
+msgstr ""
+"Verwendung von Google Analytics Diese Website benutzt Google Analytics, "
+"einen Webanalysedienst der Google Inc. („Google“) Google Analytics verwendet "
+"sog. „Cookies“, Textdateien, die auf Ihrem Computer gespeichert werden und "
+"die eine Analyse der Benutzung der Website durch Sie ermöglichen. Die durch "
+"den Cookie erzeugten Informationen über Ihre Benutzung dieser Website "
+"(einschließlich Ihrer IP-Adresse, die mit der Methode _anonymizeIp() "
+"anonymisiert wird, so dass sie nicht mehr einem Anschluss zugeordnet werden "
+"kann) wird an einen Server von Google in den USA übertragen und dort "
+"gespeichert. Google wird diese Informationen benutzen, um Ihre Nutzung der "
+"Website auszuwerten, um Reports über die Websiteaktivitäten für die "
+"Websitebetreiber zusammenzustellen und um weitere mit der Websitenutzung und "
+"der Internetnutzung verbundene Dienstleistungen zu erbringen. Auch wird "
+"Google diese Informationen gegebenenfalls an Dritte übertragen, sofern dies "
+"gesetzlich vorgeschrieben ist oder soweit Dritte diese Daten im Auftrag von "
+"Google verarbeiten. Google wird in keinem Fall Ihre IP-Adresse mit anderen "
+"Daten von Google in Verbindung bringen. Sie können die Installation der "
+"Cookies durch eine entsprechende Einstellung Ihrer Browser Software "
+"verhindern; wir weisen Sie jedoch darauf hin, dass Sie in diesem Fall "
+"gegebenenfalls nicht sämtliche Funktionen dieser Website voll umfänglich "
+"nutzen können. Durch die Nutzung dieser Website erklären Sie sich mit der "
+"Bearbeitung der über Sie erhobenen Daten durch Google in der zuvor "
+"beschriebenen Art und Weise und zu dem zuvor benannten Zweck einverstanden. "
+"Sie können der Datenerhebung durch Google Analytics mit Wirkung für die "
+"Zukunft widersprechen, indem Sie ein Deaktivierungs-Add-on für Ihren Browser "
+"installieren."
+
+#: baloti_djelectionguard/templates/data_privacy.html:103
+#: baloti_djelectionguard/templates/imprint.html:109
+#: baloti_djelectionguard/templates/landing-en.html:199
+msgid "Data Privacy"
+msgstr "Datenschutz"
+
+#: baloti_djelectionguard/templates/data_privacy.html:104
+#: baloti_djelectionguard/templates/imprint.html:110
+#: baloti_djelectionguard/templates/landing-en.html:200
+msgid "Imprint"
+msgstr "Impressum"
+
+#: baloti_djelectionguard/templates/data_privacy.html:114
+#: baloti_djelectionguard/templates/imprint.html:120
+msgid "FOLLOW US ON"
+msgstr ""
+
+#: baloti_djelectionguard/templates/imprint.html:63
+msgid "Represented by"
+msgstr "Vertreten durch"
+
+#: baloti_djelectionguard/templates/imprint.html:67
+msgid "Address"
+msgstr "Adresse"
+
+#: baloti_djelectionguard/templates/imprint.html:71
+msgid "Firm Number"
+msgstr "Firmennummer"
+
+#: baloti_djelectionguard/templates/imprint.html:75
+msgid "VAT Number"
+msgstr "Umsatzsteuer-Identifikationsnummer"
+
+#: baloti_djelectionguard/templates/imprint.html:79
+msgid "Phone"
+msgstr "Telefon"
+
+#: baloti_djelectionguard/templates/imprint.html:83
+msgid "Fax"
+msgstr "Fax"
+
 #: baloti_djelectionguard/templates/landing-en.html:58
-msgid "Baloti Voting Project"
-msgstr "Baloti Voting Projekt"
+msgid "baloti Voting Project"
+msgstr "baloti Voting Projekt"
 
 #: baloti_djelectionguard/templates/landing-en.html:59
 msgid "A voting platform for all residents of Switzerland is our vision"
@@ -116,23 +301,15 @@ msgstr "Nachricht*"
 msgid "SEND"
 msgstr "SENDEN"
 
-#: baloti_djelectionguard/templates/landing-en.html:199
-msgid "Data Privacy"
-msgstr "Datenschutz"
-
-#: baloti_djelectionguard/templates/landing-en.html:200
-msgid "Imprint"
-msgstr "Impressum"
-
 #: baloti_djelectionguard/templates/landing-en.html:213
 msgid "Mail sent successfully"
-msgstr "Nachricht erfolgreich versendet"
+msgstr "E-Mail erfolgreich versendet"
 
-#: baloti_djelectionguard/views.py:118
+#: baloti_djelectionguard/views.py:152
 msgid "dcfxv sent by email"
 msgstr ""
 
-#: baloti_djelectionguard/views.py:292
+#: baloti_djelectionguard/views.py:326
 #, python-format
 msgid "You casted your ballot for %(obj)s"
 msgstr ""
