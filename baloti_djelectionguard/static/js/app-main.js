@@ -17,7 +17,6 @@ $("#en").click(function(){
 });
 
 $(document).ready(function(){
-    var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     $("#showBalletModal").on("click", function(){
         var choice_name = $("input[type='radio']:checked").attr("dataname");
         $('#choice_input').text(choice_name);

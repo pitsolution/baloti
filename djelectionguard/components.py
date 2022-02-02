@@ -2491,7 +2491,7 @@ class ContestRecommenderCreateCard(Div):
         count = contest.contestrecommender_set.count()
         return super().to_html(
             H4(
-                _('%(count)s Recommeders', n=count, count=count),
+                _('%(count)s Recommenders', n=count, count=count),
                 cls='center-text'
             ),
             RecommenderAccordion(contest, editable),
