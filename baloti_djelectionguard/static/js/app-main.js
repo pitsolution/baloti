@@ -1,3 +1,4 @@
+localStorage.setItem('lang', lang_code);
 $(window).scroll(function(){
     var sticky = $('.app-header'),
         scroll = $(window).scrollTop();
@@ -5,6 +6,15 @@ $(window).scroll(function(){
     if (scroll >= 100) sticky.addClass('fixed');
     else sticky.removeClass('fixed');
   });
+
+  $("#de").click(function(){
+  $("html").attr("lang", "de");
+  $("body").addClass("app-de");
+});
+$("#en").click(function(){
+  $("html").attr("lang", "en");
+  $("body").addClass("app-en");
+});
 
 $(document).ready(function(){
     var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
@@ -94,8 +104,7 @@ $(document).ready(function(){
                             success: function(data){
                                 $("#login_error").addClass("d-none");
                                 $(self).closest(".app-modal").find("#success").removeClass("d-none"); 
-                                $(self).closest(".app-modal").find("#appLogin").addClass("d-none");
-                            },
+                                $(self).closest(".app-modal").find("#appLogin").addClass("
 
                             error:function (xhr, ajaxOptions, thrownError){
                                 if(xhr.status==400) {
@@ -126,6 +135,7 @@ $(document).ready(function(){
     $("#closeBtn").on("click", function(){
         $('#createballet').modal('hide');
     });
+
 
     $("#logincloseBtn").on("click", function(){
         $(this).closest(".app-modal").find("#confirmVote").removeClass("d-none");
@@ -182,7 +192,13 @@ $(document).ready(function(){
                         document.getElementById('id_email').value = "";
                         document.getElementById('id_subject').value = "";
                         document.getElementById('id_message').value = "";
-                        $("#message_text").text('Mail sent successfully');
+                        if($("html").attr("lang") == "de" ){
+                          $("#message_text").text('E-Mail erfolgreich versendet');
+                        }
+                        else {
+                         $("#message_text").text('Mail sent successfully');
+                        }
+
                         $("#info_mailsent").removeClass("d-none");
                         $("#info_mailsent").removeClass("error");
                         $(".app-toast__tick").removeClass("d-none");
