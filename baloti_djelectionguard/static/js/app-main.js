@@ -1,4 +1,3 @@
-localStorage.setItem('lang', lang_code);
 $(window).scroll(function(){
     var sticky = $('.app-header'),
         scroll = $(window).scrollTop();
@@ -7,14 +6,7 @@ $(window).scroll(function(){
     else sticky.removeClass('fixed');
   });
 
-  $("#de").click(function(){
-  $("html").attr("lang", "de");
-  $("body").addClass("app-de");
-});
-$("#en").click(function(){
-  $("html").attr("lang", "en");
-  $("body").addClass("app-en");
-});
+  
 
 $(document).ready(function(){
     $("#showBalletModal").on("click", function(){
@@ -103,7 +95,8 @@ $(document).ready(function(){
                             success: function(data){
                                 $("#login_error").addClass("d-none");
                                 $(self).closest(".app-modal").find("#success").removeClass("d-none"); 
-                                $(self).closest(".app-modal").find("#appLogin").addClass("
+                                $(self).closest(".app-modal").find("#appLogin").addClass("d-none");
+                            },
 
                             error:function (xhr, ajaxOptions, thrownError){
                                 if(xhr.status==400) {
