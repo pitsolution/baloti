@@ -155,13 +155,24 @@ $(document).ready(function(){
             console.log('hgghjghghjg')
             // alert('ddsdsd errorrnknnlk')
             $("#info_mailsent").removeClass("d-none");
+            if($("html").attr("lang") == "de" ){
+            $("#message_text").text(' Füllen Sie alle Felder aus');}
+            else
+            {
             $("#message_text").text('Fill all the fields');
+            }
+
             $("#info_mailsent").addClass("error");
             $(".app-toast__tick").addClass("d-none");
         }
         else if(!pattern.test(email)){
             $("#info_mailsent").removeClass("d-none");
+            if($("html").attr("lang") == "de" ){
+            $("#message_text").text('Ungültige E-Mail');}
+            else
+            {
             $("#message_text").text('Invalid Email Address');
+            }
             $("#info_mailsent").addClass("error");
             $(".app-toast__tick").addClass("d-none");
         }
@@ -197,7 +208,12 @@ $(document).ready(function(){
                 },
                 error:function (xhr, ajaxOptions, thrownError){
                     if(xhr.status==400) {
+                        if($("html").attr("lang") == "de" ){
+                        $("#message_text").text('Dienst nicht verfügbar');}
+                        else
+                        {
                         $("#message_text").text('Service not available');
+                        }
                         $("#info_mailsent").removeClass("d-none")
                         $("#info_mailsent").addClass("error");
                         $(".app-toast__tick").addClass("d-none");
