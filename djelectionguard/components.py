@@ -20,6 +20,7 @@ from djlang.utils import gettext as _
 from electeez_sites.models import Site
 from .models import Contest, Candidate, ParentContest, Recommender, ContestType, Initiator
 from ckeditor.widgets import CKEditorWidget
+from django.contrib.admin import widgets
 
 
 @widget_template('django/forms/widgets/splitdatetime.html')
@@ -65,6 +66,7 @@ class ContestForm(forms.ModelForm):
             time_attrs={'type': 'time', 'label': 'heure'},
         ),
     )
+    # start = forms.SplitDateTimeField(widget=widgets.AdminSplitDateTime())
     end = forms.SplitDateTimeField(
         label='',
         initial=tomorow,
@@ -95,6 +97,11 @@ class ContestForm(forms.ModelForm):
             # self.fields['start'].widget = forms.HiddenInput()
             # self.fields['end'].widget = forms.HiddenInput()
             self.fields['timezone'].widget = forms.HiddenInput()
+            self.fields['start'].disabled = True
+            self.fields['end'].disabled = True
+        else:
+            self.fields['start'].disabled = False
+            self.fields['end'].disabled = False
 
     def clean_name(self):
         instance = getattr(self, 'instance', None)
