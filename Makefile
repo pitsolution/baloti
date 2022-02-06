@@ -37,7 +37,7 @@ run_remote:
 	make -j 5 run_all_remote
 
 runserver_remote:
-	./manage.py runserver 0.0.0.0:8000
+	./manage.py runserver 0.0.0.0:8061
 
 tezos_sync:
 	while true; do ./manage.py djtezos_sync; sleep 60; done
