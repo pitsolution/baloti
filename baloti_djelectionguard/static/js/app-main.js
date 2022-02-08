@@ -9,6 +9,21 @@ $(window).scroll(function(){
   
 
 $(document).ready(function(){
+
+    $("#filter").keyup(function() {
+        var filter = $(this).val(),
+        count = 0;
+
+        $('.search').each(function() {
+            if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+                $(this).hide();
+            } else {
+                $(this).show();
+                count++;
+            }
+        });
+    });
+
     $("#showBalletModal").on("click", function(){
         var choice_name = $("input[type='radio']:checked").attr("dataname");
         $('#choice_input').text(choice_name);
@@ -28,7 +43,6 @@ $(document).ready(function(){
 
     $("#confirmBtn").on("click", function(){
         $(this).closest(".app-modal").find("#confirmVote").addClass("d-none");
-        console.log('ccccccccccccccccccccccccccccccccccccccccc')
         var login = $(this).attr("isloggedIn");
         if($(this).attr("isloggedIn") == "true"){
             var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
@@ -224,7 +238,7 @@ $(document).ready(function(){
         }
         
     });
-    
+
 
     $("#howitworksbtn").click(function() {
         $('html, body').animate({
