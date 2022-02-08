@@ -6,8 +6,9 @@ $(window).scroll(function(){
     else sticky.removeClass('fixed');
   });
 
+  
+
 $(document).ready(function(){
-    var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     $("#showBalletModal").on("click", function(){
         var choice_name = $("input[type='radio']:checked").attr("dataname");
         $('#choice_input').text(choice_name);
@@ -127,6 +128,7 @@ $(document).ready(function(){
         $('#createballet').modal('hide');
     });
 
+
     $("#logincloseBtn").on("click", function(){
         $(this).closest(".app-modal").find("#confirmVote").removeClass("d-none");
         $(this).closest(".app-modal").find("#appLogin").addClass("d-none");
@@ -153,13 +155,24 @@ $(document).ready(function(){
             console.log('hgghjghghjg')
             // alert('ddsdsd errorrnknnlk')
             $("#info_mailsent").removeClass("d-none");
+            if($("html").attr("lang") == "de" ){
+            $("#message_text").text(' Füllen Sie alle Felder aus');}
+            else
+            {
             $("#message_text").text('Fill all the fields');
+            }
+
             $("#info_mailsent").addClass("error");
             $(".app-toast__tick").addClass("d-none");
         }
         else if(!pattern.test(email)){
             $("#info_mailsent").removeClass("d-none");
+            if($("html").attr("lang") == "de" ){
+            $("#message_text").text('Ungültige E-Mail');}
+            else
+            {
             $("#message_text").text('Invalid Email Address');
+            }
             $("#info_mailsent").addClass("error");
             $(".app-toast__tick").addClass("d-none");
         }
@@ -182,14 +195,25 @@ $(document).ready(function(){
                         document.getElementById('id_email').value = "";
                         document.getElementById('id_subject').value = "";
                         document.getElementById('id_message').value = "";
-                        $("#message_text").text('Mail sent successfully');
+                        if($("html").attr("lang") == "de" ){
+                          $("#message_text").text('E-Mail erfolgreich versendet');
+                        }
+                        else {
+                         $("#message_text").text('Mail sent successfully');
+                        }
+
                         $("#info_mailsent").removeClass("d-none");
                         $("#info_mailsent").removeClass("error");
                         $(".app-toast__tick").removeClass("d-none");
                 },
                 error:function (xhr, ajaxOptions, thrownError){
                     if(xhr.status==400) {
+                        if($("html").attr("lang") == "de" ){
+                        $("#message_text").text('Dienst nicht verfügbar');}
+                        else
+                        {
                         $("#message_text").text('Service not available');
+                        }
                         $("#info_mailsent").removeClass("d-none")
                         $("#info_mailsent").addClass("error");
                         $(".app-toast__tick").addClass("d-none");
@@ -200,6 +224,7 @@ $(document).ready(function(){
         }
         
     });
+    
 
     $("#howitworksbtn").click(function() {
         $('html, body').animate({
