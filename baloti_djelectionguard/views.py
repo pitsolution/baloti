@@ -179,6 +179,33 @@ class BalotiContestListView(TemplateView):
             closed_list.append(getParentDetails(closed_contest))
         return render(request, 'contest_list.html',{"open_contests": open_list, "closed_contests": closed_list})
 
+class BalotiContestListSortView(TemplateView):
+    """
+    Contest List View
+    """
+
+    def get(self, request, sort):
+        """
+        Args:
+            request (Request): Http request object
+
+        Returns:
+            html : returns contest_list.html html file
+        """
+        open_list = []
+        closed_list = []
+        if sort == 'asc':
+            open_contests = ParentContest.objects.filter(status="open").order_by('actual_start')
+            closed_contests = ParentContest.objects.filter(status="closed").order_by('actual_end')
+        else:
+            open_contests = ParentContest.objects.filter(status="open").order_by('-actual_start')
+            closed_contests = ParentContest.objects.filter(status="closed").order_by('-actual_end')
+        for open_contest in open_contests:
+            open_list.append(getParentDetails(open_contest))
+        for closed_contest in closed_contests:
+            closed_list.append(getParentDetails(closed_contest))
+        return render(request, 'contest_list.html',{"open_contests": open_list, "closed_contests": closed_list})
+
 
 class BalotiContestDetailView(TemplateView):
     """
