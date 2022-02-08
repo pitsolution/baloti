@@ -20,18 +20,17 @@
 
 
                     <li class="dropdown">
-                        <a href="#" class="app-newslist__link" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"><span class="app-icon icon-filter-new"></span></a>
+                        <a href="#" class="app-newslist__link" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"><span class="app-icon icon-sort"></span></a>
                         <div class="dropdown-menu dropdown-menu-right app-dropdown" aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-menu__header">
                                 <p><span>Sort by</span></p>
                             </div>
-                            <input type="text" name="search" onkeyup="myFunction()">
-                            <a class="dropdown-item" href="#">Old to new</a>
-                            <a class="dropdown-item" href="#">New to old</a>
+                            <a class="dropdown-item" href={% url 'baloti_djelectionguard:ContestSortedList' sort='asc' %}>Old to new</a>
+                            <a class="dropdown-item" href={% url 'baloti_djelectionguard:ContestSortedList' sort='desc' %}>New to old</a>
                         </div>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="app-newslist__link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="app-icon icon-sort"></span></a>
+                        <a href="#" class="app-newslist__link" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"><span class="app-icon icon-filter-new"></span></a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <button class="dropdown-item" type="button">Action</button>
                             <button class="dropdown-item" type="button">Another action</button>
