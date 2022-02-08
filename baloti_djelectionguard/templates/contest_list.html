@@ -10,15 +10,22 @@
             <div class="app-header-flex">
                 <h3 class="app-title app-title--sm">Referendums & Vote</h3>
                 <ul class="app-newslist list-unstyled">
-                    <li>
-                        <a href="#" class="app-newslist__link"><span class="app-icon icon-search"></span></a>
+
+                    <li class="dropdown">
+                        <a href="#" class="app-newslist__link" role="button" id="dropdownSearchMenuLink" data-bs-toggle="dropdown" aria-expanded="false"><span class="app-icon icon-search"></span></a>
+                        <div class="dropdown-menu dropdown-menu-right app-dropdown" aria-labelledby="dropdownSearchMenuLink">
+                            <input type="text" name="search" id="filter">
+                        </div>
                     </li>
+
+
                     <li class="dropdown">
                         <a href="#" class="app-newslist__link" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"><span class="app-icon icon-filter-new"></span></a>
                         <div class="dropdown-menu dropdown-menu-right app-dropdown" aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-menu__header">
                                 <p><span>Sort by</span></p>
                             </div>
+                            <input type="text" name="search" onkeyup="myFunction()">
                             <a class="dropdown-item" href="#">Old to new</a>
                             <a class="dropdown-item" href="#">New to old</a>
                         </div>
@@ -38,7 +45,7 @@
                 {% for u in open_contests %}
                 
                 {% displayIssuesCount u.id user as issues %}
-                <div class="app-card app-card--bordered m-0 app-card--flex">
+                <div class="app-card app-card--bordered m-0 app-card--flex search" >
                     <h4 class="app-h4 app-card__title">{{u.name}}</h4>
                     <h5 class="app-card__monthyear">{{u.month}} {{u.year}}</h5>
                     <p class="app-card__date"><span>Date:</span> <span>{{u.date|date:"d.m.Y"}}</span></p>
@@ -69,7 +76,7 @@
             <div class="app-griditem app-griditem--onrow-three">
                 {% for u in closed_contests %}
                 {% displayIssuesCount u.id user as issues %}
-                <div class="app-card m-0 app-card--flex">
+                <div class="app-card m-0 app-card--flex search">
                     <h4 class="app-h4 app-card__title">{{u.name}}</h4>
                     <h5 class="app-card__monthyear">{{u.month}} {{u.year}}</h5>
                     <p class="app-card__date"><span>Date:</span> <span>{{u.date|date:"d.m.Y"}}</span></p>
