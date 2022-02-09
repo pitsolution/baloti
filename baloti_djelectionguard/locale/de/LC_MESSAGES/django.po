@@ -211,6 +211,10 @@ msgstr "baloti Voting Projekt"
 msgid "A voting platform for all residents of Switzerland is our vision"
 msgstr "Eine Wahlplattform für alle Einwohner der Schweiz ist unsere Vision."
 
+#: baloti_djelectionguard/templates/landing-en.html:60
+msgid "Go to baloti Portal"
+msgstr "baloti Plattform öffnen"
+
 #: baloti_djelectionguard/templates/landing-en.html:75
 msgid "ABOUT THE PROJECT"
 msgstr "ÜBER UNSER PROJEKT"
