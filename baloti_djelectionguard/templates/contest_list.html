@@ -10,12 +10,15 @@
             <div class="app-header-flex">
                 <h3 class="app-title app-title--sm">Referendums & Vote</h3>
                 <ul class="app-newslist list-unstyled">
-
-                    <li class="dropdown">
-                        <a href="#" class="app-newslist__link" role="button" id="dropdownSearchMenuLink" data-bs-toggle="dropdown" aria-expanded="false"><span class="app-icon icon-search"></span></a>
-                        <div class="dropdown-menu dropdown-menu-right app-dropdown" aria-labelledby="dropdownSearchMenuLink">
-                            <input type="text" name="search" id="filter">
-                        </div>
+                    <li>
+                        <a href="#" class="app-newslist__link">
+                            <input type="checkbox" id="searchBox" class="app-newslist__searchinput app-hiddeninput">
+                             <div class="app-newslist__searchbox">
+                                <input type="text" class="form-control" name="search" id="filter"/>
+                            </div>
+                            <span class="app-icon app-newslist__searchicon icon-search"></span>
+                            <span class="app-icon app-newslist__closeicon icon-close-bold"></span>
+                        </a>
                     </li>
 
 
