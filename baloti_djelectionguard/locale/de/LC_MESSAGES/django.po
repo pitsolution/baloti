@@ -220,7 +220,7 @@ msgid "ABOUT THE PROJECT"
 msgstr "ÜBER UNSER PROJEKT"
 
 #: baloti_djelectionguard/templates/landing-en.html:76
-msgid "Learn and experience the swiss voting system online on baloti"
+msgid "Learn and experience the Swiss voting system online on baloti"
 msgstr "Testen und erleben Sie das Schweizer Wahlsystem online auf baloti"
 
 #: baloti_djelectionguard/templates/landing-en.html:77
