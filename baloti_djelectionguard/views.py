@@ -319,7 +319,7 @@ def casteVote(self, request, id):
         voter = contest.voter_set.filter(user=user)
         if voter and voter.first().casted:
             voter = voter.first()
-            return HttpResponse(status=204)
+            return HttpResponse({'voted':True}, status=200)
         else:
             ballot = contest.get_ballot(*[
                     selection.pk

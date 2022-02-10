@@ -107,16 +107,15 @@ $(document).ready(function(){
                             credentials: 'include',
                             mode: 'same-origin',
                             success: function(data, textStatus, jqXHR){
-                                if(jqXHR.status==200) {
-                                    $("#login_error").addClass("d-none");
-                                    $(self).closest(".app-modal").find("#success").removeClass("d-none"); 
-                                    $(self).closest(".app-modal").find("#appLogin").addClass("d-none");
-                                }
-                                if(jqXHR.status==204) {
+                                if(data=='voted') {
                                     $("#login_error").addClass("d-none");
                                     $(self).closest(".app-modal").find("#alreadyVoted").removeClass("d-none");
                                     $(self).closest(".app-modal").find("#appLogin").addClass("d-none");
-
+                                }
+                                else {
+                                    $("#login_error").addClass("d-none");
+                                    $(self).closest(".app-modal").find("#success").removeClass("d-none"); 
+                                    $(self).closest(".app-modal").find("#appLogin").addClass("d-none");
                                 }
                             },
 
