@@ -106,10 +106,18 @@ $(document).ready(function(){
                             data: {'choice': choice, 'username': username},
                             credentials: 'include',
                             mode: 'same-origin',
-                            success: function(data){
-                                $("#login_error").addClass("d-none");
-                                $(self).closest(".app-modal").find("#success").removeClass("d-none"); 
-                                $(self).closest(".app-modal").find("#appLogin").addClass("d-none");
+                            success: function(data, textStatus, jqXHR){
+                                if(jqXHR.status==200) {
+                                    $("#login_error").addClass("d-none");
+                                    $(self).closest(".app-modal").find("#success").removeClass("d-none"); 
+                                    $(self).closest(".app-modal").find("#appLogin").addClass("d-none");
+                                }
+                                if(jqXHR.status==204) {
+                                    $("#login_error").addClass("d-none");
+                                    $(self).closest(".app-modal").find("#alreadyVoted").removeClass("d-none");
+                                    $(self).closest(".app-modal").find("#appLogin").addClass("d-none");
+
+                                }
                             },
 
                             error:function (xhr, ajaxOptions, thrownError){
@@ -117,12 +125,6 @@ $(document).ready(function(){
                                     $("#login_error").removeClass("d-none");
                                     $(self).closest(".app-modal").find("#success").addClass("d-none");
                                     $(self).closest(".app-modal").find("#appLogin").removeClass("d-none");
-
-                                }
-                                if(xhr.status==403) {
-                                    $("#login_error").addClass("d-none");
-                                    $(self).closest(".app-modal").find("#alreadyVoted").removeClass("d-none");
-                                    $(self).closest(".app-modal").find("#appLogin").addClass("d-none");
 
                                 }
                             }
