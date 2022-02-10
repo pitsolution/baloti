@@ -119,6 +119,12 @@ $(document).ready(function(){
                                     $(self).closest(".app-modal").find("#appLogin").removeClass("d-none");
 
                                 }
+                                if(xhr.status==403) {
+                                    $("#login_error").addClass("d-none");
+                                    $(self).closest(".app-modal").find("#alreadyVoted").removeClass("d-none");
+                                    $(self).closest(".app-modal").find("#appLogin").addClass("d-none");
+
+                                }
                             }
                         });
                     // }, 3000);
