@@ -1,0 +1,71 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block body %}  
+
+<section class="app-choice app-body-bg">
+    <div class="container">
+        <a class="btn btn-link btn-back" href="javascript:window.history.back()"> <span class="app-icon icon-arrow-right"></span> <span>BACK</span> </a>
+        <div class="row">
+            <div class="col-sm-12 col-lg-7 mx-auto">
+                <div class="app-card app-card--lg app-card--nopad">
+                    <div class="app-card__header border-btm">
+                        <p class="app-card__header-title">Make your choice</p>
+                        <p class="app-sm-text text-medium">{{contest.name}}</p>
+                    </div>
+                    {% csrf_token %}
+                    <div class="app-card__body">
+                        <ul class="app-checkboxlist list-unstyled">
+                            {% for i in candidates %}
+                                <li class="app-form__control checkbox">
+                                    {% if i == choice %}
+                                        <input class="form-check-input" type="radio" checked value={{i.id}} id={{i.id}} name="choiceinput">
+                                        <label class="form-check-label" for="{{i.id}}">{{i.name}}</label>
+                                    {% else %}
+                                        <input class="form-check-input" type="radio" value={{i.id}} id={{i.id}} name="choiceinput">
+                                        <label class="form-check-label" for="{{i.id}}">{{i.name}}</label>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                            {{i.id}}
+                        </ul>
+                        <div class="app-card__btngroup d-flex align-items-center justify-content-between">
+                            <a class="btn btn-default" href="javascript:window.history.back()">BACK</a>
+                            <button class="btn btn-primary" id="showBalletModal">CREAT BALLOT</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="app-social-follow">
+    <a href="#" class="app-icon icon-facebook"></a>
+    <a href="#" class="app-icon icon-twiter"></a>
+    <span class="app-social-follow__txt">FOLLOW US ON</span>
+</div>
+
+  
+<!-- Modal -->
+
+<div class="modal fade app-modal" id="ballet_success" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content d-none" id="alreadyVoted">
+            <div class="modal-body text-center">
+                <div class="app-bg app-result-wrap">
+                    <img src="/static/images/vote-completed.png" alt="">
+                    <p class="app-h5 text-warning text-bold">You've already voted!!</p>
+                </div>
+                <div class="modal-result app-result-wrap">
+                    <p class="app-p">No problem, there are other referendums you can vote for.</p>
+                    <p class="app-h6 text-danger">The results will be announced on</p>
+                    <p class="app-resultdate">20.01.2022</p>
+                    <p class="app-p">and you will be notified via email.</p>
+                    <button class="btn btn-default mx-auto"><a href="/baloti/contest/list/">BACK TO REFERENDUMS</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

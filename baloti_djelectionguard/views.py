@@ -318,7 +318,6 @@ def casteVote(self, request, id):
         candidates = Candidate.objects.filter(contest=contest)
         voter = contest.voter_set.filter(user=user)
         if voter and voter.first().casted:
-            voter = voter.first()
             return HttpResponse({'voted':True}, status=200)
         else:
             ballot = contest.get_ballot(*[
@@ -369,6 +368,7 @@ class BalotiAnonymousVoteView(TemplateView):
         choice = request.POST.get('choice')
         return casteVote(self, request, choice)
 
+
 class VoteSuccessView(TemplateView):
     """
     Contest Choices View
@@ -383,5 +383,42 @@ class VoteSuccessView(TemplateView):
         Returns:
             html : returns vote_success.html html file
         """
-        return casteVote(self, request, id)
-       
+        user = request.user
+        if not request.user.is_anonymous:
+            candidate = Candidate.objects.filter(id=id)
+            contest = Contest.objects.get(id=candidate.first().contest.id)
+            candidates = Candidate.objects.filter(contest=contest)
+            voter = contest.voter_set.filter(user=user)
+            if voter and voter.first().casted:
+                return render(request, 'already_voted.html',{"contest": contest, "candidates":candidates, "choice": candidate.first()})
+            else:
+                ballot = contest.get_ballot(*[
+                        selection.pk
+                        for selection in candidate
+                    ])
+                encrypted_ballot = contest.encrypter.encrypt(ballot)
+                contest.ballot_box.cast(encrypted_ballot)
+
+                submitted_ballot = contest.ballot_box._store.get(
+                    encrypted_ballot.object_id
+                )
+                ballot_sha1 = hashlib.sha1(
+                    submitted_ballot.to_json().encode('utf8'),
+                ).hexdigest()
+
+                contest.voter_set.update_or_create(
+                    user=user,
+                    defaults=dict(
+                        casted=True,
+                        ballot_id=encrypted_ballot.object_id,
+                        ballot_sha1=ballot_sha1
+                    ),
+                )
+                contest.save()
+                messages.success(
+                        request,
+                        _('You casted your ballot for %(obj)s', obj=contest)
+                    )
+                return render(request, 'vote_success.html',{"contest": contest, "candidates":candidates, "choice": candidate.first()})
+        else:
+            return HttpResponseBadRequest()
