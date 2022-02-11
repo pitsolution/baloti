@@ -122,6 +122,8 @@
     }
     &-back{
         font-size: $app-h6 !important;
+        font-family: Poppins-Regular !important;
+        text-transform: uppercase;
         .app-icon{
             margin: -1px 5px 0 0 !important;
             transform: rotate(180deg);
