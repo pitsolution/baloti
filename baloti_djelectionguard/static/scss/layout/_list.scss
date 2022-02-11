@@ -85,8 +85,10 @@
             border: 1px solid $app-border-color;
             margin-right: 15px;
             height: 65px;
+            display: flex;
+            padding: 5px 10px;
             img{
-                object-fit: cover;
+                object-fit: contain;
             }
         }
         &--contact{

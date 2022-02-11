@@ -121,10 +121,11 @@
         }
     }
     &-back{
-        font-size: $app-sm-text !important;
+        font-size: $app-h6 !important;
         .app-icon{
-            margin: -1px 10px 0 0 !important;
+            margin: -1px 5px 0 0 !important;
             transform: rotate(180deg);
+            font-size: $app-p - 4 !important;
         }
     }
     
@@ -139,7 +140,7 @@
         text-decoration: none !important;
         border: 0;
         min-height: inherit;
-        font-size: $app-h6;
+        font-size: $app-h6 - 4;
         &:hover{
             text-decoration: none !important;
             color: $app-primary-font;
