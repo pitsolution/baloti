@@ -319,8 +319,7 @@ def casteVote(self, request, id):
         voter = contest.voter_set.filter(user=user)
         if voter and voter.first().casted:
             voter = voter.first()
-            return render(request, 'vote_success.html',{"contest": contest, "candidates":candidates, "choice": candidate.first()})
-            # return render(request, 'already_voted.html',{'user':user, 'title':'Already voted.'})
+            return HttpResponse({'voted':True}, status=200)
         else:
             ballot = contest.get_ballot(*[
                     selection.pk
