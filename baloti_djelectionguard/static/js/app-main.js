@@ -47,7 +47,7 @@ $(document).ready(function(){
         if($(this).attr("isloggedIn") == "true"){
             var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
             $(this).closest(".app-modal").find("#appLogin").removeClass("d-none");
-            $(this).closest(".app-modal").addClass("app-modal--md");
+            $(this).closest(".app-modal").addClass("app-modal--md app-modal--success");
             $("#success").removeClass("d-none");
             var choice = $(".form-check-input:checked").val();
             $.ajax({
