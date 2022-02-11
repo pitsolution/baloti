@@ -106,10 +106,17 @@ $(document).ready(function(){
                             data: {'choice': choice, 'username': username},
                             credentials: 'include',
                             mode: 'same-origin',
-                            success: function(data){
-                                $("#login_error").addClass("d-none");
-                                $(self).closest(".app-modal").find("#success").removeClass("d-none"); 
-                                $(self).closest(".app-modal").find("#appLogin").addClass("d-none");
+                            success: function(data, textStatus, jqXHR){
+                                if(data=='voted') {
+                                    $("#login_error").addClass("d-none");
+                                    $(self).closest(".app-modal").find("#alreadyVoted").removeClass("d-none");
+                                    $(self).closest(".app-modal").find("#appLogin").addClass("d-none");
+                                }
+                                else {
+                                    $("#login_error").addClass("d-none");
+                                    $(self).closest(".app-modal").find("#success").removeClass("d-none"); 
+                                    $(self).closest(".app-modal").find("#appLogin").addClass("d-none");
+                                }
                             },
 
                             error:function (xhr, ajaxOptions, thrownError){
