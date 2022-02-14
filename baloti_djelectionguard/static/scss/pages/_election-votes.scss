@@ -183,6 +183,44 @@ $app-election-logo-border: #171742;
             display: block;
             font-size: 24px;
             color: $app-black;
+            position: relative;
+        }
+        &__closeicon{
+            display: none;
+            &::before{
+                color: #787878;
+            }
+        }
+        .app-icon{
+            transition: all 0.3s ease-in;
+        }
+        &__searchinput{
+            width: 100%;
+            height: 100%;
+            z-index: 9;
+            &:checked {
+                + .app-newslist__searchbox{
+                    right: calc(100% + 15px);
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                ~ .app-newslist__closeicon{
+                    display: block;
+                }
+                ~ .app-newslist__searchicon{
+                    display: none;
+                }
+            }
+        }
+        &__searchbox{
+            background: $app-white;
+            position: absolute;
+            right: 0;
+            top: -10px;
+            min-width: 300px;
+            transition: all 0.3s ease-in;
+            transform: translateX(-30px);
+            opacity: 0;
         }
     }
    &-chart{
@@ -234,10 +272,13 @@ $app-election-logo-border: #171742;
     }
     &-newslist{
         margin: 20px 0 0;
-        justify-content: space-between;
+        justify-content: flex-end;
         flex-basis: 100%;
         li{
-            margin-left: 0;
+            margin-left: 15px;
+        }
+        &__searchbox{
+            min-width: 210px;
         }
     }
     &-thirdhalf{

@@ -25,7 +25,7 @@
                         </ul>
                         <div class="app-card__btngroup d-flex align-items-center justify-content-between">
                             <a class="btn btn-default" href="javascript:window.history.back()">BACK</a>
-                            <button class="btn btn-primary" id="showBalletModal">CREAT BALLET</button>
+                            <button class="btn btn-primary" id="showBalletModal">CREATE BALLOT</button>
                         </div>
                     </div>
                 </div>
@@ -89,14 +89,6 @@
             </div>
         </div>
 
-     <!--    <div class="modal-content app-bg d-none" id="success">
-            <div class="modal-body text-center">
-                <p class="app-h6">Your Choice Added</p>
-                <p class="app-h5 text-success text-bold">Successfully</p>
-                <button class="btn btn-default mx-auto"><a href="/baloti/contest/list/">BACK TO REFERENDUMS</a></button>
-            </div>
-        </div> -->
-
         <div class="modal-content d-none" id="success">
             <div class="modal-body text-center">
                 <div class="app-bg app-result-wrap app-modal--success">
@@ -114,9 +106,26 @@
             </div>
         </div>
 
+        <!-- Modal Warning-->
+        <div class="modal-content d-none" id="alreadyVoted">
+            <div class="modal-body text-center">
+                <div class="app-bg app-result-wrap">
+                    <img src="/static/images/vote-completed.png" alt="">
+                    <p class="app-h5 text-warning text-bold">You've already voted!!</p>
+                </div>
+                <div class="modal-result app-result-wrap">
+                    <p class="app-p">No problem, there are other referendums you can vote for.</p>
+                    <p class="app-h6 text-danger">The results will be announced on</p>
+                    <p class="app-resultdate">20.01.2022</p>
+                    <p class="app-p">and you will be notified via email.</p>
+                    <button class="btn btn-default mx-auto"><a href="/baloti/contest/list/">BACK TO REFERENDUMS</a></button>
+                </div>
+            </div>
+        </div>
+
         <div class="modal-content app-bg" id="confirmVote">
             <div class="modal-header">
-                <h5 class="modal-title text-bold" id="exampleModalLongTitle">Confirm Your Selection </h5>
+                <h5 class="modal-title text-bold" id="exampleModalLongTitle">Confirm your selection </h5>
             </div>
             <div class="modal-body text-center">
                 <div class="app-modal__msgbox text-bold text-uppercase">
@@ -124,7 +133,7 @@
                 </div>
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" id="closeBtn" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="closeBtn" class="btn btn-default" data-dismiss="modal">CANCEL</button>
                 <button type="button" isloggedIn="false" id="confirmBtn" class="btn btn-primary">CONFIRM</button>
             </div>
         </div>

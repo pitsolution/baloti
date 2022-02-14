@@ -47,7 +47,7 @@ $(document).ready(function(){
         if($(this).attr("isloggedIn") == "true"){
             var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
             $(this).closest(".app-modal").find("#appLogin").removeClass("d-none");
-            $(this).closest(".app-modal").addClass("app-modal--md");
+            $(this).closest(".app-modal").addClass("app-modal--md app-modal--success");
             $("#success").removeClass("d-none");
             var choice = $(".form-check-input:checked").val();
             $.ajax({
@@ -106,10 +106,17 @@ $(document).ready(function(){
                             data: {'choice': choice, 'username': username},
                             credentials: 'include',
                             mode: 'same-origin',
-                            success: function(data){
-                                $("#login_error").addClass("d-none");
-                                $(self).closest(".app-modal").find("#success").removeClass("d-none"); 
-                                $(self).closest(".app-modal").find("#appLogin").addClass("d-none");
+                            success: function(data, textStatus, jqXHR){
+                                if(data=='voted') {
+                                    $("#login_error").addClass("d-none");
+                                    $(self).closest(".app-modal").find("#alreadyVoted").removeClass("d-none");
+                                    $(self).closest(".app-modal").find("#appLogin").addClass("d-none");
+                                }
+                                else {
+                                    $("#login_error").addClass("d-none");
+                                    $(self).closest(".app-modal").find("#success").removeClass("d-none"); 
+                                    $(self).closest(".app-modal").find("#appLogin").addClass("d-none");
+                                }
                             },
 
                             error:function (xhr, ajaxOptions, thrownError){

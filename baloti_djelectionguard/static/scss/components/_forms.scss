@@ -74,6 +74,7 @@
                     cursor: pointer;
                     font-size: $app-sm-text;
                     font-family: Poppins-SemiBold;
+                    text-transform: uppercase;
                     &::before{
                         content: "";
                         position: absolute;
