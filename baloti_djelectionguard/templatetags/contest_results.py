@@ -20,14 +20,15 @@ def displayBalotiResult(contest, user):
         if votes['total']:
             no = 100 * no_candidate.score / votes['total']
             no = round(no, 2)
-            
     if yes > no:
         baloti_result = yes_candidate
+        result_label = 'yes'
     elif yes < no:
         baloti_result = no_candidate
+        result_label = 'no'
     else:
         baloti_result = None
-    return yes, no, baloti_result
+    return yes, no, baloti_result, result_label
 
 @register.simple_tag
 def displayGovtResult(contest, user):

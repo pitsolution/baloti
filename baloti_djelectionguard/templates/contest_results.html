@@ -19,7 +19,11 @@
                 {% displayGovtResult contest user as govt_result %}
                 <div class="app-progress__content">
                     <p class="app-progress__title">Baloti</p>
+                    {% if result.3 == 'yes' %}
                     <label class="label label-secondary">{{result.2}}</label>
+                    {% else %}
+                    <label class="label label-primary">{{result.2}}</label>
+                    {% endif %}
                 </div>
                 <div class="app-progress__wrap">
                     <div class="app-progress__left">
@@ -60,7 +64,11 @@
                 </div>
                 <div class="app-progress__content">
                     <p class="app-progress__title">Switzerland Government</p>
+                    {% if govt_result.2 == 'yes' %}
+                    <label class="label label-secondary">{{govt_result.2}}</label>
+                    {% else %}
                     <label class="label label-primary">{{govt_result.2}}</label>
+                    {% endif %}
                 </div>
             </div>
         </div>
