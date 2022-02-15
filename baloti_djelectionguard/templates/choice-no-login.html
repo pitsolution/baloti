@@ -64,7 +64,7 @@
                 </div>
                 
                 <p class="app-sepeartor"><span>or</span></p>
-                <div class="app-form">
+                <div class="app-form" id="idLogin">
                     <div class="app-form__control">
                         <input id="id_username" name="username" 
                                    type="text" class="form-control" placeholder=" " required>
@@ -83,9 +83,45 @@
                     </p>
 
                     <button type="button" isloggedIn="false" id="loginBtn" class="btn btn-primary btn-block btn-md--small">CONTINUE</button>
-                    <p class="app-login__createaccount"><span>Not registered yet?</span> <a href="#" class="app-link">Create an account now!</a> </p>
+                    <p class="app-login__createaccount"><span>Not registered yet?</span> <a id="idCreateAccount"  href="#" class="app-link" signup="true">Create an account now!</a> </p>
+                </div>
+
+                <div class="app-form d-none" id="idSignup">
+                    <div class="app-form__control">
+                        {% if email %}
+                        <input type="email" name="email" id="exampleInputEmail1" value={{email}} aria-describedby="emailHelp" placeholder=" "/>
+                        {% else %}
+                        <input type="email" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder=" "/>
+                        {% endif %}
+                        <label for="exampleInputEmail1" class="app-form__label">Email address</label>
+                        <div class="app-form__msg">
+                            <p class="text-danger">{{error}}</p>
+                            <p>We will send you the registration link to the email address you entered.</p>
+                        </div>
+                    </div>
+                    <button id="signupBtn" class="btn btn-primary btn-block btn-md--small">SEND</button>
+                    <p class="app-login__createaccount"><span>Already have an account?</span> <a id="idButtonLogin" href="#" class="app-link">Login here!</a> </p>
                 </div>
                 <button type="button" id="logincloseBtn" class="btn btn-default mx-auto" data-dismiss="modal">CLOSE</button>
+            </div>
+        </div>
+
+        <div class="modal-content d-none" id="idsignupSuccess">
+            <div class="app-login__box">
+                <div class="app-login__logo">
+                    <img src="/static/images/logo.svg" alt="">
+                </div>
+                <h3 class="app-login__heading">
+                    Mail sent!
+                </h3>
+                <p class="app-login__subhead">Please check your inbox to get the registration informations. Thank you.</p>
+
+                <div class="text-center">
+                    <div class="img-block">
+                        <img src="/static/images/login-complete.svg" alt="">
+                    </div>
+                    <a class="btn btn-primary btn-md--small" id="idButtonLoginAfterSuccess" href="#!">LOGIN NOW</a>
+                </div>
             </div>
         </div>
 
