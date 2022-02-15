@@ -156,15 +156,20 @@ $(document).ready(function(){
 
     $("#signupBtn").on("click", function(){
         var email = document.getElementById('exampleInputEmail1').value;
+        var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
+        if(!email || !pattern.test(email)){
+            $("#signup_error").addClass("d-none");
+            $("#signup_nofielderror").removeClass("d-none");
+        }
+        else{
+
 
         var self = this;
         var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
         $.ajax({
                 type: "POST",
-                url: '/en/baloti/signup/mailsent/',
-                // url: '/en/baloti/anonymous/vote/',
-                // url: '/en/baloti/vote/signup/',
+                url: '/en/baloti/modalsignup/mailsent/',
                 data: {'email': email, 'csrfmiddlewaretoken': csrftoken},
                 headers: {'X-CSRFToken': csrftoken},
                 dataType: "text",
@@ -172,12 +177,16 @@ $(document).ready(function(){
                 success: function(data, textStatus, jqXHR){
                     $("#appLogin").addClass("d-none");
                     $("#idsignupSuccess").removeClass("d-none");
+                    $("#signup_error").addClass("d-none");
+                    $("#signup_nofielderror").addClass("d-none");
                 },
 
                 error:function (xhr, ajaxOptions, thrownError){
-                    console.log('errorrrr------------------------------')
+                    $("#signup_error").removeClass("d-none");
+                    $("#signup_nofielderror").addClass("d-none");
                 }
             });
+        }
 
     });
 

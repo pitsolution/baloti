@@ -14,6 +14,8 @@ urlpatterns = [
         ), name="signup"),
     path('signup/mailsent/', BalotiSignupMailView.as_view(
         ), name="signup_mail"),
+    path('modalsignup/mailsent/', BalotiModalSignupMailView.as_view(
+        ), name="modalsignup_mail"),
     path(
         'change-password/',
         PasswordChangeView.as_view(
