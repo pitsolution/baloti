@@ -28,6 +28,7 @@ def displayBalotiResult(contest, user):
         result_label = 'no'
     else:
         baloti_result = None
+        result_label = ''
     return yes, no, baloti_result, result_label
 
 @register.simple_tag
