@@ -10,6 +10,7 @@ import random
 import string
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
+from django.http import *
 
 class BalotiLoginView(LoginView):
     """
@@ -36,6 +37,27 @@ class BalotiSignupView(TemplateView):
     template_name = "signup.html"
 
 
+def signupMailSent(self, email, password):
+    subject = 'Baloti Registration Information'
+    email_from = settings.DEFAULT_FROM_EMAIL
+    login_url = settings.BASE_URL + '/en/baloti/login/'
+    merge_data = {
+                'username': email,
+                'password': password,
+                'login_url': login_url
+                }
+    html_body = render_to_string("signup_mail.html", merge_data)
+
+    message = EmailMultiAlternatives(
+       subject=subject,
+       body="mail testing",
+       from_email=email_from,
+       to=[email],
+    )
+    message.attach_alternative(html_body, "text/html")
+    message.send()
+    messages.success(self.request, _('Registration information sent by email'))
+
 class BalotiSignupMailView(TemplateView):
     """
     Baloti Signup Mail View
@@ -49,31 +71,36 @@ class BalotiSignupMailView(TemplateView):
         Returns:
             html : returns signup_success.html html file
         """
-        subject = 'Baloti Registration Information'
-        email_from = settings.DEFAULT_FROM_EMAIL
         email = request.POST.get('email')
         password = ''.join(random.choices(string.ascii_uppercase + string.digits, k=7))
-        login_url = settings.BASE_URL + '/en/baloti/login/'
 
         try:
             user = User.objects.create_user(email, password)
         except Exception as err:
             return render(request, 'signup.html', {"email": email, "error":err})
+        signupMailSent(self, email, password)
+        return render(request, 'signup_success.html')
 
-        merge_data = {
-                    'username': email,
-                    'password': password,
-                    'login_url': login_url
-                    }
-        html_body = render_to_string("signup_mail.html", merge_data)
 
-        message = EmailMultiAlternatives(
-           subject=subject,
-           body="mail testing",
-           from_email=email_from,
-           to=[email],
-        )
-        message.attach_alternative(html_body, "text/html")
-        message.send()
-        messages.success(self.request, _('Registration information sent by email'))
+class BalotiModalSignupMailView(TemplateView):
+    """
+    Baloti Signup Mail View
+    """
+
+    def post(self, request):
+        """
+        Args:
+            request (Request): Http request object
+
+        Returns:
+            html : returns signup_success.html html file
+        """
+        email = request.POST.get('email')
+        password = ''.join(random.choices(string.ascii_uppercase + string.digits, k=7))
+
+        try:
+            user = User.objects.create_user(email, password)
+        except Exception as err:
+            return HttpResponseBadRequest()
+        signupMailSent(self, email, password)
         return render(request, 'signup_success.html')

@@ -38,6 +38,6 @@ def displayIssueVotedFlag(contest, user):
 @register.simple_tag
 def displayIssueViewResult(contest, user):
     contest = Contest.objects.filter(id=contest.id).first()
-    if contest.candidate_set.aggregate(total=Sum('score'))['total'] == None and not contest.actual_end:
+    if contest.candidate_set.aggregate(total=Sum('score'))['total'] == None:
         return False
     return True
