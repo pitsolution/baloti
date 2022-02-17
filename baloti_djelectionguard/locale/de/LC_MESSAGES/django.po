@@ -775,8 +775,8 @@ msgstr "Demokratisch"
 msgid ""
 "allow more people to participate in voting independently of time and space"
 msgstr ""
-"Ermöglicht mehr Menschen die Teilnahme an Abstimmungen unabhängig von Zeit "
-"und Ort."
+"ermöglicht mehr Menschen die Teilnahme an Abstimmungen unabhängig von Zeit "
+"und Ort"
 
 #: baloti_djelectionguard/templates/index.html:122
 #: baloti_djelectionguard/templates/landing-en.html:94
@@ -801,8 +801,8 @@ msgstr "Mehrsprachig"
 msgid ""
 "making the voting experience more accessible, vote in your own language."
 msgstr ""
-"Wir machen die Wahlerfahrung leicht zugänglich, wählen Sie in Ihrer eigenen "
-"Sprache."
+"wir machen die Wahlerfahrung leicht zugänglich, wählen Sie in Ihrer eigenen "
+"Sprache"
 
 #: baloti_djelectionguard/templates/index.html:188
 msgid "ILLUSTRATIONS"
@@ -916,7 +916,7 @@ msgid ""
 "baloti is fully open source and uses blockchain technology for saving and "
 "verifying votes"
 msgstr ""
-"Sicher und offen baloti ist vollständig Open Source und wir verwenden die Blockchain-Technologie zur Speicherung und Verifizierung von Stimmen"
+"baloti ist vollständig Open Source und wir verwenden die Blockchain-Technologie zur Speicherung und Verifizierung von Stimmen"
 
 #: baloti_djelectionguard/templates/landing-en.html:120
 
