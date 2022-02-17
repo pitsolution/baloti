@@ -50,6 +50,13 @@
         &--landing{
             padding-bottom: 127.52px;
             margin-top: 130px !important;
+            .app{
+                &-banner{
+                    &__content{
+                        padding-bottom: 40px;
+                    }
+                }
+            }
         }
         @media only screen and (min-width: 1024px) and (max-width: 1400px) {
             &__content {
@@ -139,7 +146,7 @@
                 }
             }
             &__content{
-                padding-bottom: 0;
+                padding-bottom: 30px;
                 .app{
                     &-h1{
                         line-height: 56px;
@@ -159,6 +166,7 @@
                 padding-bottom: 0;
                 .app-banner__content{
                     padding-top: 235px;
+                    padding-bottom: 30px;
                 }
             }
         }

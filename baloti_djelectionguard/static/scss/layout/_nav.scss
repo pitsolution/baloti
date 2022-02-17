@@ -1,3 +1,4 @@
+$_app-menu-title-mobile: #060504;
 .app{
     &-header{
         padding: 34px 73.85px;
@@ -148,6 +149,7 @@
             transition: all 0.5s $app-cubic-bez;
             background-color: $app-white;
             opacity: 0;
+            flex-direction: column;
         }
         &-list{
             width: 794px;
@@ -281,7 +283,7 @@
             &-nav{
                 &.main{
                     > li{
-                        &:first-child, &:last-child{
+                        &:last-child{
                             display: none;
                         }
                     }
@@ -290,21 +292,23 @@
             }
         }
         &-logo{
-            width: 165px;
+            width: 150px;
         }
         &-loginbtn, &-loggedin, &-menu{
-            margin-left: 15px;
+            margin-left: 31px;
         }
         &-menu{
             &-list {
                 width: 90%;
+                margin-top: auto;
+                overflow: auto;
                 li{
                     &:not(:last-child){
                         margin-bottom: 25px;
                     }
                 }
                 a{
-                    font-size: $app-h5 + 2;
+                    font-size: $app-h5;
                     line-height: 28px;
                 }
             }
@@ -322,6 +326,41 @@
                             right: 15px;
                         }
                     }
+                }
+            }
+            &-drawer{
+                &__mobile{
+                    width: 100%;
+                    margin-top: auto;
+                    .app-link{
+                        display: block;
+                        padding: 16px;
+                        color: $app-black;
+                    }
+                }
+                &__profile{
+                    display: flex;
+                    align-items: center;
+                    padding: 14px 15px;
+                    background-color: $app-secondary;
+                    flex-wrap: wrap;
+                    .app-icon.icon-profile{
+                        font-size: 35px;
+                        margin-right: 15px;
+                    }
+                    summary{
+                        display: block;
+                        color: $app-primary;
+                    }
+                }
+                &__profiletitle{
+                    word-break: break-all;
+                    flex-basis: calc(100% - 50px);
+                    p{
+                        color: $_app-menu-title-mobile;
+                    }
+                    font-size: $app-p;
+                    
                 }
             }
         }

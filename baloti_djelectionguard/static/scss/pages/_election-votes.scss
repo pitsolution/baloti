@@ -206,6 +206,9 @@ $app-election-logo-border: #171742;
                 }
                 ~ .app-newslist__closeicon{
                     display: block;
+                    &:before{
+                        color: $app-danger;
+                    }
                 }
                 ~ .app-newslist__searchicon{
                     display: none;
@@ -221,6 +224,19 @@ $app-election-logo-border: #171742;
             transition: all 0.3s ease-in;
             transform: translateX(-30px);
             opacity: 0;
+            .form{
+                &-control{
+                    border-radius: 0;
+                    border-left: 0;
+                    border-top: 0;
+                    border-right: 0;
+                    border-width: 2px
+                }
+            }
+        }
+        &__link{
+            width: 24px;
+            height: 28px;
         }
     }
    &-chart{
