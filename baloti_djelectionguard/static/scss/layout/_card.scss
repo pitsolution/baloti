@@ -11,14 +11,17 @@
             img{
                 width: 58px;
                 margin-bottom: 34px;
+                &:not(:last-child){
+                    margin-right: 26px;
+                }
             }
             .app{
                 &-card{
                     &__title{
-                        font-size: $app-h6 + 3;
+                        font-size: $app-h6 + 6 !important;
                         color: $app-black;
                         letter-spacing: 2.3px;
-                        font-family: Outfit-SemiBold;
+                        font-family: Outfit-Bold;
                     }
                 }
                 &-txt{
@@ -210,6 +213,17 @@ background: linear-gradient(356deg, rgba(18,21,103,1) 0%, rgba(206,35,35,1) 100%
             }
         }
     }
+    @media only screen and (min-width: 1024px) and (max-width: 1200px) {
+        &-card{
+            &--impact{
+                img{
+                    &:not(:last-child){
+                        margin-right: 15px;
+                    }
+                }
+            }
+        }
+    }
     @media only screen and (min-width: 1024px) and (max-width: 1400px) {
         &-card{
             padding: 15px 15.5px 15px;
@@ -272,6 +286,9 @@ background: linear-gradient(356deg, rgba(18,21,103,1) 0%, rgba(206,35,35,1) 100%
                 padding: 30px;
                 margin: 0;
                 border-radius: 17px;
+                img{
+                    margin-right: 10px;
+                }
             }
             &--dictionary{
                 padding: 0;
