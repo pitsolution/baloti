@@ -6,9 +6,20 @@ $(window).scroll(function(){
     else sticky.removeClass('fixed');
   });
 
-  
+function updateShareUrl(elements){
+
+    var currentLocation = window.location.href;
+
+    for(i = 0; i <= arguments.length; i++){
+        var hrefPath = $(arguments[i]).attr('href');
+        var sharedPath = hrefPath + currentLocation;
+        $(arguments[i]).attr("href", sharedPath);
+    }
+}
 
 $(document).ready(function(){
+
+    updateShareUrl(".share-facebook", ".share-twitter", ".share-whatsapp", ".share-email", ".share-linkedin");
 
     $(".copytoclipboard").click(function (event) {
         event.preventDefault();
