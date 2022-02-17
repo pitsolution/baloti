@@ -262,7 +262,7 @@ class BalotiContestChoicesView(TemplateView):
             html : returns contest_vote_choices.html html file
         """
         contest = Contest.objects.get(pk=id)
-        candidates = Candidate.objects.filter(contest=id)
+        candidates = Candidate.objects.filter(contest=id).order_by('-id')
         # return render(request, 'contest_vote_choices.html',{"candidates":candidates})
         if request.user.is_anonymous:
             return render(request, 'choice-no-login.html',{"contest": contest, "candidates":candidates})
