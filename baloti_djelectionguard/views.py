@@ -226,7 +226,7 @@ class BalotiContestDetailView(TemplateView):
                 parent=contest.first()
                 ).distinct('id')
         date_string = contest.first().end.strftime("%m/%d/")
-        return render(request, 'contest_details.html',{"contest": contest, "date": str(date_string), "child_contests": child_contests})
+        return render(request, 'contest_details.html',{"contest": contest.first(), "date": str(date_string), "child_contests": child_contests})
 
 
 class BalotiContestResultView(TemplateView):
