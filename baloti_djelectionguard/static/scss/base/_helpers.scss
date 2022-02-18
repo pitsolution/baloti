@@ -237,4 +237,8 @@ $fontWeights: (400, 500, 600, 700);
   position: absolute;
   cursor: pointer;
   }
+  &-customlink{
+    color: $app-primary;
+    font-family: Poppins-Medium;
+  }
 }

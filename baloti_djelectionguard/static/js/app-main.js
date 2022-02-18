@@ -30,7 +30,16 @@ $(document).ready(function(){
         $(this).closest('.modal-confirmbox').addClass("d-none");
         $(this).closest('.modal-body').find('.modal-confirmbox--step-2').removeClass("d-none");
     });
-    
+    $('#showHidePassword').on('click', function() {
+        $(this).toggleClass("icon-view icon-hide");
+        var input = $(this).closest(".app-form__control--password").find("input");
+        if (input.attr("type") === "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+
+    });
     $("#filter").keyup(function() {
         var filter = $(this).val(),
         count = 0;
