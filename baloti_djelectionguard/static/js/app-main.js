@@ -26,6 +26,11 @@ $(document).ready(function(){
         CopyToClipboard(window.location.href, true, "URL copied");
     });
 
+    $("#deleteProfileStep2").on("click", function(){
+        $(this).closest('.modal-confirmbox').addClass("d-none");
+        $(this).closest('.modal-body').find('.modal-confirmbox--step-2').removeClass("d-none");
+    });
+    
     $("#filter").keyup(function() {
         var filter = $(this).val(),
         count = 0;
