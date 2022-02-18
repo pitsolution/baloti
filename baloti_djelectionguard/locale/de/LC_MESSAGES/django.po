@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-18 16:44+0530\n"
+"POT-Creation-Date: 2022-02-18 17:26+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -212,7 +212,6 @@ msgid "an online voting platform for all languages is our vision"
 msgstr "eine online voting plattform in allen sprachen ist unsere vision"
 
 #: baloti_djelectionguard/templates/landing-en.html:64
-
 msgid "go to the baloti portal"
 msgstr "baloti plattform óffnen"
 
@@ -225,7 +224,7 @@ msgid ""
 "baloti is a technical solution allowing you to cast your vote online in "
 "several languages in a safe and secure way"
 msgstr ""
-"baloti ist eine online Lösung, um auf sichere art und weise in mehreren "
+"baloti ist eine online lösung, um auf sichere art und weise in mehreren "
 "sprachen abzustimmen"
 
 #: baloti_djelectionguard/templates/landing-en.html:83
@@ -237,7 +236,8 @@ msgid "IMPACT"
 msgstr "WIR BIETEN"
 
 #: baloti_djelectionguard/templates/landing-en.html:101
-msgid "Safe, Secure & Open"
+
+msgid "safe, secure & open"
 msgstr "sicher und offen"
 
 #: baloti_djelectionguard/templates/landing-en.html:102
@@ -249,7 +249,8 @@ msgstr ""
 "zur speicherung und verifizierung von stimmen"
 
 #: baloti_djelectionguard/templates/landing-en.html:112
-msgid "Multilingual"
+
+msgid "multilingual"
 msgstr "mehrsprachig"
 
 #: baloti_djelectionguard/templates/landing-en.html:113
@@ -258,7 +259,8 @@ msgstr ""
 "wir machen die abstimmung zugänglicher, stimme in der eigenen Sprache ab"
 
 #: baloti_djelectionguard/templates/landing-en.html:122
-msgid "Democratic"
+
+msgid "democratic"
 msgstr "demokratisch"
 
 #: baloti_djelectionguard/templates/landing-en.html:123
@@ -480,7 +482,7 @@ msgstr ""
 #~ "Our solution is fully open source and we use blockchain technology for "
 #~ "saving and verifying votes"
 #~ msgstr ""
-#~ "Unsere Lösung ist vollständig Open Source und wir verwenden die "
+#~ "Unsere lösung ist vollständig Open Source und wir verwenden die "
 #~ "Blockchain-Technologie zur Speicherung und Verifizierung von Stimmen."
 
 #~ msgid "OUR PROJECT PARTNERS"
