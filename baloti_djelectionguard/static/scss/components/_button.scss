@@ -44,6 +44,10 @@
             }
         }
     }
+    &-lg{
+        height: 42px;
+        padding: 10px 37px;  
+    }
     &-icon{
         .app{
             &-icon{
@@ -213,7 +217,7 @@
         &-inline{
             &-group {
                 .btn:not(:last-child){
-                    margin-right: 20px;
+                    margin-right: 15px;
                 }
             }
         }

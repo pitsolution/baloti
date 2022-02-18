@@ -189,6 +189,27 @@ $fontWeights: (400, 500, 600, 700);
     .app-icon{
       font-size: 12px;
     }
+
+    &--lg{
+      width: 85px;
+      height: 85px;
+      .app-icon{
+        font-size: $app-h4 - 4;
+      }
+      &.border-white{
+        border: 4px solid $app-white;
+      }
+    }
+    &--primary{
+      background-color: $app-primary;
+      color: $app-white;
+      .app-icon{
+        color: $app-white;
+        &::before{
+          color: $app-white;
+        }
+      }
+    }
   }
   &-header{
     &-flex{
