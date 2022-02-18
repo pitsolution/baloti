@@ -171,6 +171,9 @@ img{
   &-medium{
     font-family: Poppins-Medium;
   }
+  &-warning{
+    color: $app-warning !important;
+  }
   &-outfit{
     &-semibold{
       font-family: Outfit-SemiBold !important;

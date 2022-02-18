@@ -278,6 +278,44 @@ $app-modal-header-bg: #F1F2EE;
                 }
             }
         }
+        &--deleteprofile{
+            .modal{
+                &-dialog{
+                    max-width: 483px;
+                }
+                &-body{
+                    padding: 63px 63px 30px;
+                }
+                &-confirmbox{
+                    &__title{
+                        font-family: Poppins-SemiBold;
+                        font-size: $app-h6 + 2;
+                        line-height: 34px;
+                        margin: 0;
+                    }
+                    .btn-inline-group{
+                        padding-top: 40px;
+                    }
+                    &--step-2{
+                        .btn-inline-group{
+                            padding-top: 20px;
+                        }
+                        .modal-confirmbox__title{
+                            margin-bottom: 20px;
+                        }
+                    }
+                }
+            }
+           
+            .app{
+                &-circle{
+                    position: absolute;
+                    top: -40px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+            }
+        }
     }
     &-dropdown{
         min-width: 190px;
@@ -326,6 +364,12 @@ $app-modal-header-bg: #F1F2EE;
             &--success {
                 .app-resultdate{
                     min-width: auto;
+                }
+            }
+            &--deleteprofile {
+                .modal-body{
+                    padding-left: 15px;
+                    padding-right: 15px;
                 }
             }
         }

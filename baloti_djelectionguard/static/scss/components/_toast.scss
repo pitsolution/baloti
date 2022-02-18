@@ -50,6 +50,18 @@
         justify-content: center;
         z-index: 9999;
     }
+
+    &-copy-notification{
+        background-color: $app-primary;
+        color: $app-white;
+        padding: 10px 30px;
+        border-radius: 100px;
+        font-size: $app-p;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        z-index: 999;
+    }
 }
 
  @keyframes loader {

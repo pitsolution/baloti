@@ -1713,10 +1713,17 @@ class GovtResultsUpdateView(generic.UpdateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        messages.success(
-            self.request,
-            _('You have updated contest %(obj)s', obj=form.instance)
-        )
+        if form.instance.govt_infavour_percent and form.instance.govt_against_percent and form.instance.govt_infavour_percent + form.instance.govt_against_percent > 100:
+            messages.error(
+                self.request,
+                _('The total percentage of results is not allowed to exceed 100')
+                )
+
+        else:
+            messages.success(
+                self.request,
+                _('You have updated contest %(obj)s', obj=form.instance)
+            )
         return response
 
     @classmethod

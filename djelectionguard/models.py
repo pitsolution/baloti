@@ -184,6 +184,13 @@ class Contest(models.Model):
     govt_infavour_percent = models.FloatField(blank=True, null=True, default="0.0")
     govt_against_percent = models.FloatField(blank=True, null=True, default="0.0")
 
+    def save(self, *args, **kwargs):
+        if self.govt_infavour_percent and self.govt_against_percent and self.govt_infavour_percent + self.govt_against_percent > 100:
+            return None
+        else:
+            res = super(Contest, self).save(*args, **kwargs)
+            return res
+
     class PublishStates(IntEnum):
         ELECTION_NOT_DECENTRALIZED = 0,
         ELECTION_CONTRACT_CREATED = 1,
