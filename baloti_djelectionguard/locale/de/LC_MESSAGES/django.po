@@ -213,7 +213,7 @@ msgstr "eine online voting plattform in allen sprachen ist unsere vision"
 
 #: baloti_djelectionguard/templates/landing-en.html:64
 msgid "go to the baloti portal"
-msgstr "baloti plattform óffnen"
+msgstr "baloti plattform öffnen"
 
 #: baloti_djelectionguard/templates/landing-en.html:81
 msgid "ABOUT THE PROJECT"
