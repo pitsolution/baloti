@@ -207,8 +207,8 @@ MEMCACHED_HOST = os.getenv('MEMCACHED_HOST', 'localhost')
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
 if DEBUG:
-    AUTH_PASSWORD_VALIDATORS = []
-else:
+#     AUTH_PASSWORD_VALIDATORS = []
+# else:
     AUTH_PASSWORD_VALIDATORS = [
         {
             'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
