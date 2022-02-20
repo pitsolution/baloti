@@ -31,7 +31,7 @@
                                         <label for="" class="label icon label-success label-success--light label-noradius label-flex"><span class="icon-tick-success"></span> <span>VOTED</span> </label>
                                         {% endif %}
                                         {% if result %}
-                                        <label for="" class="label label-outlined label-outlined--basic label-xsm"> <span>Your choice:</span> <span>YES</span></label>
+                                        <!-- <label for="" class="label label-outlined label-outlined--basic label-xsm"> <span>Your choice:</span> <span>YES</span></label> -->
                                         <a href={% url 'baloti_djelectionguard:viewContestResult' id=u.id %} class="btn btn-basic">VIEW RESULT</a>
                                         {% endif %}
                                         <button class="app-icon icon-arrow"  data-bs-toggle="collapse" data-bs-target="#collapse{{u.id}}" aria-expanded="true" aria-controls="#collapse{{u.id}}">
