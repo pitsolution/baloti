@@ -78,13 +78,7 @@
 
 
                                     <button type="submit" class="btn btn-primary btn-block btn-md--small">CONTINUE</button>
-                                    <input type="hidden" name="choice" value={{choice}} />
-
-                                    {% if choice %}
-                                        <input type="hidden" name="next" value="/baloti/vote/{{choice}}" />
-                                    {% else %}
-                                        <input type="hidden" name="next" value="/en/baloti/contest/list/" />
-                                    {% endif %}
+                                    <input type="hidden" name="next" value="/en/baloti/" />
                                     <p class="app-login__createaccount"><span>Not registered yet?</span> <a href="/en/baloti/signup/" class="app-link">Create an account now!</a> </p>
                                 </div>
 
