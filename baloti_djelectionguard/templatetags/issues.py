@@ -36,6 +36,19 @@ def displayIssueVotedFlag(contest, user):
     return False
 
 @register.simple_tag
+def displayReferendumVotedFlag(contest, user):
+    if not user.is_anonymous:
+        issues = Contest.objects.filter(parent=contest)
+        for issue in issues:
+            voter = issue.voter_set.filter(user=user).first()
+            if voter and voter.casted:
+                pass
+            else:
+                return False
+        return True
+    return False
+
+@register.simple_tag
 def displayIssueViewResult(contest, user):
     contest = Contest.objects.filter(id=contest.id).first()
     if contest.candidate_set.aggregate(total=Sum('score'))['total'] == None:
