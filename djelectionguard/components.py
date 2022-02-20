@@ -2690,7 +2690,7 @@ class RecommenderForm(forms.ModelForm):
     recommender_type  = forms.CharField()
     picture = forms.ImageField(
         widget=forms.FileInput,
-        required=False
+        required=True
     )
 
     class Meta:
