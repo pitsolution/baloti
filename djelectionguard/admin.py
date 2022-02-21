@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Candidate, Contest, Guardian, Voter, ParentContest, Recommender, ContestRecommender
+from .models import Candidate, Contest, Guardian, Voter, ParentContest, Recommender, ContestRecommender, ContestType
 
 
 class CandidateInline(admin.TabularInline):
@@ -27,6 +27,12 @@ class RecommenderAdmin(admin.ModelAdmin):
         'name',
     )
 admin.site.register(Recommender, RecommenderAdmin)
+
+class ContestTypeAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+    )
+admin.site.register(ContestType, ContestTypeAdmin)
 
 class ContestAdmin(admin.ModelAdmin):
     inlines = [ContestRecommenderInline, CandidateInline, GuardianInline]

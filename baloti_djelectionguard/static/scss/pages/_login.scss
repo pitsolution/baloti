@@ -1,5 +1,8 @@
 .app{
     &-login{
+        display: flex;
+        align-items: center;
+        height: 100%;
         &__img{
             position: fixed;
             top:0;
@@ -15,7 +18,7 @@
             }
         }
         &__box{
-            height: calc(100vh - 145px);
+            max-height: calc(100vh - 145px);
             padding: 30px 50px;
             background-color: $app-white;
             overflow: auto;

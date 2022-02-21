@@ -124,6 +124,22 @@
                     }
                 }
             }
+            &--password{
+                input{
+                    padding-right: 40px;
+                }
+                .app-icon{
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    width: 40px;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                }
+            }
         }
         &__msg{
             border-radius: 6px;

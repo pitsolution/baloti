@@ -106,7 +106,7 @@ class ParentContestAccessible:
     def get_queryset(self):
         return ParentContest.objects.filter(
             Q(mediator=self.request.user)
-        ).distinct('uid')
+        ).order_by('-start')
 
 
 class ContestCreateView(generic.CreateView):

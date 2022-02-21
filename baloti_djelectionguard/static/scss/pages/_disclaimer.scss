@@ -1,6 +1,10 @@
 .app{
     &-disclaimer{
         padding-top: 190px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
         .app{
             &-card{
                 margin: 0;

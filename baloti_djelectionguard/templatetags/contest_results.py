@@ -27,7 +27,7 @@ def displayBalotiResult(contest, user):
         baloti_result = no_candidate
         result_label = 'no'
     else:
-        baloti_result = None
+        baloti_result = 'no'
         result_label = ''
     return yes, no, baloti_result, result_label
 
@@ -43,5 +43,5 @@ def displayGovtResult(contest, user):
         elif yes < no:
             result = 'no'
         else:
-            result = None
+            result = 'no'
     return yes, no, result

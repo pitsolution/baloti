@@ -12,24 +12,27 @@
 
     <div class="app">
          <!-- Header Section -->
-         <header class="app-header d-flex align-items-center">
-            <ul class="app-header-nav list-unstyled d-flex align-items-center ml-auto">
-                <li>
-                    <div class="dropdown">
-                        <a class=" dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                         EN
-                        </a>
-                      
-                        <ul class="dropdown-menu dropdown-menu--device dropdown-menu-end" aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-menu__header">
-                                <span class="dropdown-menu__title">Languages</span>
-                                <span class="app-icon icon-close-bold m-pointer"></span>
-                            </div>
-                          <li><a class="dropdown-item" href="#">AR</a></li>
-                        </ul>
-                      </div>
-                </li>
-            </ul>
+         <header class="app-header">
+             <div class="container d-flex align-items-center">
+                <ul class="app-header-nav list-unstyled d-flex align-items-center ml-auto">
+                    <li>
+                        <div class="dropdown">
+                            <a class=" dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            EN
+                            </a>
+                        
+                            <ul class="dropdown-menu dropdown-menu--device dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+                                <div class="dropdown-menu__header">
+                                    <span class="dropdown-menu__title">Languages</span>
+                                    <span class="app-icon icon-close-bold m-pointer"></span>
+                                </div>
+                            <li><a class="dropdown-item" href="#">AR</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+             </div>
+            
         </header>
 
 
@@ -47,13 +50,13 @@
                                 <img src="/static/images/logo.svg" alt="">
                             </div>
                             <h3 class="app-login__heading">
-                                Welcome to baloti!
+                                Create account!
                             </h3>
-                            <p class="app-login__subhead">Login to your account</p>
+                            <p class="app-login__subhead">You can register with your social login or email address.</p>
                             <div class="app-login__btn-group">
                                 <a class="btn btn-facebook btn-block" href="{% url 'social:begin' 'facebook' %}?next=/en/baloti/contest/list/"><span class="app-icon icon-facebook-box"></span> <span>Continue with Facebook</span></a>
-                                <button class="btn btn-google btn-block"><span class="app-icon"><img src="/static/images/google.svg" alt=""></span> <span>Continue with Google</span></button>
-                                <button class="btn btn-apple btn-block"><span class="app-icon icon-apple"></span> <span>Continue with Apple</span></button>
+                               <!--  <button class="btn btn-google btn-block"><span class="app-icon"><img src="/static/images/google.svg" alt=""></span> <span>Continue with Google</span></button>
+                                <button class="btn btn-apple btn-block"><span class="app-icon icon-apple"></span> <span>Continue with Apple</span></button> -->
                             </div>
                             
                             <p class="app-sepeartor"><span>or</span></p>
@@ -76,7 +79,7 @@
                                 </form>
                                 <p class="app-login__createaccount"><span>Already have an account?</span> <a href="/en/baloti/login/" class="app-link">Login here!</a> </p>
                             </div>
-                            <button class="btn btn-link btn-flex btn-back"><span class="app-icon icon-arrow"></span> <span>Back</span></button>
+                            <!-- <button class="btn btn-link btn-flex btn-back"><span class="app-icon icon-arrow"></span> <span>Back</span></button> -->
                         </form>
                         </div>
                     </div>

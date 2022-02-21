@@ -38,12 +38,18 @@ def getReferendumIssues(contest):
 
 @register.simple_tag
 def getUserVotedData(contest, user):
-    child_contests = Contest.objects.filter(
-                parent=contest.first()
+    if user.is_anonymous:
+        voted_count = 0
+        non_voted_count = 0
+        voted_percent = 0
+        non_voted_percent = 0
+    else:
+        child_contests = Contest.objects.filter(
+                parent=contest
                 ).distinct('id')
-    voted_count =  Voter.objects.filter(contest__in=child_contests, user=user, casted=True).count()
-    non_voted_count = child_contests.count() - voted_count
-    total_count = voted_count + non_voted_count
-    voted_percent = (voted_count/total_count) * 100 if (total_count != 0) else 0
-    non_voted_percent = (non_voted_count/total_count) * 100 if (total_count != 0) else 0
+        voted_count =  Voter.objects.filter(contest__in=child_contests, user=user, casted=True).count()
+        non_voted_count = child_contests.count() - voted_count
+        total_count = voted_count + non_voted_count
+        voted_percent = (voted_count/total_count) * 100 if (total_count != 0) else 0
+        non_voted_percent = (non_voted_count/total_count) * 100 if (total_count != 0) else 0
     return voted_count, non_voted_count, voted_percent, non_voted_percent

@@ -39,10 +39,17 @@
                 {% for u in open_contests %}
                 
                 {% displayIssuesCount u.id user as issues %}
+                {% displayReferendumVotedFlag u.id user as voted %}
                 <div class="app-card app-card--bordered m-0 app-card--flex search" >
                     <h4 class="app-h4 app-card__title">{{u.name}}</h4>
                     <h5 class="app-card__monthyear">{{u.month}} {{u.year}}</h5>
-                    <p class="app-card__date"><span>Date:</span> <span>{{u.date|date:"d.m.Y"}}</span></p>
+                    <p class="app-card__date">
+                        <span>Date:</span> <span>{{u.date|date:"d.m.Y"}} </span>
+                        {% if voted %}
+                            <label for="" class="label icon label-success label-success--light label-noradius label-flex"><span class="icon-tick-success"></span> <span>VOTED</span> 
+                            </label>
+                        {% endif %}
+                    </p>
 
                     <p class="app-h6 text-medium text-dark">Issues: {{issues}}</p>
                     <ul class="app-list list-unstyled app-sm-text">
@@ -70,10 +77,17 @@
             <div class="app-griditem app-griditem--onrow-three">
                 {% for u in closed_contests %}
                 {% displayIssuesCount u.id user as issues %}
+                {% displayReferendumVotedFlag u.id user as voted %}
                 <div class="app-card m-0 app-card--flex search">
                     <h4 class="app-h4 app-card__title">{{u.name}}</h4>
                     <h5 class="app-card__monthyear">{{u.month}} {{u.year}}</h5>
-                    <p class="app-card__date"><span>Date:</span> <span>{{u.date|date:"d.m.Y"}}</span></p>
+                    <p class="app-card__date">
+                        <span>Date:</span> <span>{{u.date|date:"d.m.Y"}}</span>
+                        {% if voted %}
+                            <label for="" class="label icon label-success label-success--light label-noradius label-flex"><span class="icon-tick-success"></span> <span>VOTED</span> 
+                            </label>
+                        {% endif %}
+                    </p>
                     <p class="app-h6 text-medium text-dark">Issues: {{issues}}</p>
                     <ul class="app-list list-unstyled app-sm-text">
                         {% for i in u.id|getContestIssues %}
