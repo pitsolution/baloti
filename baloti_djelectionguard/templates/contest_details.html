@@ -174,9 +174,9 @@
                 </div>
             </div>
 
-            {% if contest.status == 'open' %}
             {% getUserVotedData contest user as votedData %}
             <div class="app-thirdhalf-col__right">
+                {% if contest.status == 'open' %}
                 <div class="app-card app-card--countdown box-shadow">
                     <h1 id="headline" class="app-card--countdown__title">VOTING END</h1>
                     <div id="countdown">
@@ -189,6 +189,7 @@
                         </ul>
                     </div>
                 </div>
+                {% endif %}
 
                 {% if not user.is_anonymous %}
                 <div class="app-card app-card--voteresult box-shadow">
@@ -230,7 +231,6 @@
                 {% endif %}
                 
             </div>
-            {% endif %}
         </div>
     </div>
 </section>
