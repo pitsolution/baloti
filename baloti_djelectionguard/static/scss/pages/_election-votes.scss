@@ -336,6 +336,7 @@ $app-election-logo-border: #171742;
                 }
                 padding-left: 22px;
                 position: relative;
+                font-size: $app-sm-text;
                 &::before{
                     content: "";
                     top: 5px;
@@ -464,5 +465,10 @@ $app-election-logo-border: #171742;
             left: calc(100% + 15px);
         }
     }
+   }
+   @media only screen and (min-width: 1200px) {
+        &-thirdhalf-col__right{
+            margin-bottom: 50px;
+        } 
    }
 }

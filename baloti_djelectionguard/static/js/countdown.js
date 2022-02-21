@@ -42,16 +42,16 @@ x = setInterval(function() {
           return `<span>${el}</span>`;
         }).join('');
 
-        var secondchars = Math.floor((distance % (minute)) / second);
-        var secondArr = Array.from(secondchars.toString()).map(Number);
-        var secondres = secondArr.map(function(el, i) {
-          return `<span>${el}</span>`;
-        }).join('');
+        // var secondchars = Math.floor((distance % (minute)) / second);
+        // var secondArr = Array.from(secondchars.toString()).map(Number);
+        // var secondres = secondArr.map(function(el, i) {
+        //   return `<span>${el}</span>`;
+        // }).join('');
 
     document.getElementById("days").innerHTML = dayres,
     document.getElementById("hours").innerHTML = hoursres,
-    document.getElementById("minutes").innerHTML = minuteres,
-    document.getElementById("seconds").innerHTML = secondres;
+    document.getElementById("minutes").innerHTML = minuteres;
+    // document.getElementById("seconds").innerHTML = secondres;
 
   //do something later when date is reached
   if (distance < 0) {
