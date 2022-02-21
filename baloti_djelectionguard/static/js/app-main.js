@@ -344,6 +344,10 @@ $(document).ready(function(){
     if($(window).width() < 768){
         App.slider(".app-griditem--dictionary");
     }
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+    });
 });
 
 function CopyToClipboard(value, showNotification, notificationText) {
