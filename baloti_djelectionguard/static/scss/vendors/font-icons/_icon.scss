@@ -24,6 +24,10 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  .icon-hide:before {
+    content: "\e91d";
+  }
   .icon-tick-sm:before {
     content: "\e914";
     color: #fff;
