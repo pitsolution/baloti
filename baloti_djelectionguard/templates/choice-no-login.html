@@ -4,7 +4,7 @@
 
 <section class="app-choice app-body-bg">
     <div class="container">
-        <a class="btn btn-link btn-back" href="javascript:window.history.back()"> <span class="app-icon icon-arrow-right"></span> <span>BACK</span> </a>
+        <!-- <a class="btn btn-link btn-back" href="javascript:window.history.back()"> <span class="app-icon icon-arrow-right"></span> <span>BACK</span> </a> -->
         <div class="row">
             <div class="col-sm-12 col-lg-7 mx-auto">
                 <div class="app-card app-card--lg app-card--nopad">
@@ -52,10 +52,10 @@
                 <div class="app-login__logo">
                     <img src="/static/images/logo.svg" alt="">
                 </div>
-                <h3 class="app-login__heading">
-                    Welcome to baloti!
+                <h3 class="app-login__heading text-bold">
+                    Login Required!
                 </h3>
-                <p class="app-login__subhead">Login to your account</p>
+                <p class="app-login__subhead">Please Login to your account to continue voting</p>
 
                 <div class="app-login__btn-group">
                     <a class="btn btn-facebook btn-block" id="fbloginBtn" href="{% url 'social:begin' 'facebook' %}?next=/baloti/contest/vote/success/"><span class="app-icon icon-facebook-box"></span> <span>Continue with Facebook</span></a>
@@ -70,10 +70,11 @@
                                    type="text" class="form-control" placeholder=" " required>
                         <label for="id_username" class="app-form__label">Email address</label>
                     </div>
-                    <div class="app-form__control">
+                    <div class="app-form__control app-form__control--password">
                         <input id="id_password" name="password" 
                                    type="password" class="form-control" placeholder=" " required>
                         <label for="id_password" class="app-form__label">Password</label>
+                        <span id="showHidePassword" class="app-icon icon-view"></span>
                     </div>
 
 

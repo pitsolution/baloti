@@ -102,6 +102,7 @@
                 justify-content: space-between;
                 a{
                     font-size: $app-sm-text - 2;
+                    text-align: left;
                 }
                 li{
                     flex-basis: 50%;
@@ -109,9 +110,7 @@
                     &:nth-child(even){
                         text-align: right;
                     }
-                    &:not(:last-child){
-                        margin-bottom: 10px;
-                    }
+                    margin-bottom: 10px;
                     &:not(:first-child){
                         margin-left: 0;
                     }
