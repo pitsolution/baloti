@@ -307,6 +307,11 @@ background: linear-gradient(356deg, rgba(18,21,103,1) 0%, rgba(206,35,35,1) 100%
                         &__date{
                             font-size: $app-sm-text;
                         }
+                        &__img{
+                            img{
+                                height: 175px;
+                            }
+                        }
                     }
                     &-txt{
                         font-size: $app-sm-text;
