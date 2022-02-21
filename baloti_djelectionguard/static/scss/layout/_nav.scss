@@ -4,13 +4,15 @@ $_app-menu-title-mobile: #060504;
         padding: 34px 73.85px;
         position: fixed;
         top: 0;
-        left: 50%;
+        left: 0;
         width: 100%;
         z-index: 9;
         transition: all 0.5s ease-in-out;
-        max-width: 1900px;
-        margin: 0 auto;
-        transform: translateX(-50%);
+        &__wrapper{
+            max-width: 1900px;
+            margin: 0 auto;
+        }
+        
         &-nav{
             margin: 0 0 0 auto;
             .dropdown{
