@@ -68,13 +68,13 @@ var voteDetailFunc = function(voted, nonVoted){
   var canvas = document.getElementById("electionchart");
   var ctx = canvas.getContext('2d');
   var gradientColors = [
-    {
-      start: '#F3F3F3',
-      end: '#C8C8C8'
-    },
   {
     start: '#CE2323',
     end: '#121567'
+  },
+  {
+    start: '#F3F3F3',
+    end: '#C8C8C8'
   }
   ];
   
