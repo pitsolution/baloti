@@ -62,15 +62,15 @@
                 }
             }
             a{
-                width: 26.75px;
-                height: 26.75px;
+                width: 36.75px;
+                height: 36.75px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 border-radius: 100px;
                 background: $app-grey;
                 color: $app-white;
-                font-size: $app-p - 6; 
+                font-size: $app-p - 4; 
             }
         }
     }
@@ -95,9 +95,9 @@
     }
     @media only screen and (max-width: 767px) {
         &-footer{
-            padding: 27px 0 20px;
+            padding: 27px 0 10px;
             &-link {
-                margin-bottom: 48px;
+                margin-bottom: 31px;
                 flex-wrap: wrap;
                 justify-content: space-between;
                 a{
@@ -131,7 +131,7 @@
                 }
                 &-social-link{
                     position: absolute;
-                    bottom: 63px;
+                    bottom: 58px;
                     right: 0;
                 }
             }

@@ -60,6 +60,7 @@
         }
         &__title{
             font-family: Poppins-SemiBold;
+            font-weight: 600;
         }
         &--bordered{
             li{
@@ -433,7 +434,7 @@ background: linear-gradient(40deg, rgba(19,87,126,1) 31%, rgba(77,193,217,1) 100
             text-align: left;
         }
         &-list li:not(:last-child){
-            margin-bottom: 5px;
+            margin-bottom: 23px;
         }
     }
     @media only screen and (min-width: 768px) and (max-width: 991px){

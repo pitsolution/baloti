@@ -342,7 +342,7 @@ $(document).ready(function(){
         $(this).hide();
     });
     if($(window).width() < 768){
-        App.slider(".app-griditem--dictionary");
+        App.slider("#illustrationSlider");
     }
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {

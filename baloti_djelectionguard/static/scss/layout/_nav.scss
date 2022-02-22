@@ -309,6 +309,7 @@ $_app-menu-title-mobile: #060504;
                             &-item{
                                 font-size: $app-h5 + 2;
                                 font-family: Poppins-SemiBold;
+                                text-transform: capitalize;
                                 &:hover{
                                     background-color: transparent !important;
                                 }
@@ -346,12 +347,15 @@ $_app-menu-title-mobile: #060504;
                 flex-direction: column;
                 justify-content: center;
                 li{
-                    margin-bottom: 25px;
+                    &:not(:last-child){
+                        margin-bottom: 26px;
+                    }
+                   
                     &:first-child{
                         margin-top: 100px;
                     }
                     &:last-child{
-                        margin-bottom: 50px;
+                        margin-bottom: 50px !important;
                     }
                 }
                 a{

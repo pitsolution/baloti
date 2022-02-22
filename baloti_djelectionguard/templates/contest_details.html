@@ -210,20 +210,21 @@
                     </li>
                 </ul>
                 <div class="dropdown">
-                    <button class="btn btn-primary btn-primary--outlined btn-icon left" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"><span class="app-icon icon icon-filter-new"></span> <span>Share</span></button>
+                    <button class="btn btn-primary btn-primary--outlined btn-icon left btn-share" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"><span class="app-icon icon icon-share"></span> <span>Share</span></button>
                     <div class="dropdown-menu app-dropdown app-dropdown--arrow app-dropdown--icon" aria-labelledby="dropdownMenuButton">
                         <ul class="list-unstyled app-socialicons-list">
-                            <li><a href="" class="link"><span class="app-icon icon-twiter"></span></a>
+                            <li><a href="" class="link copytoclipboard"><span class="app-icon icon-copy-share"></span></a>
                             <span>Copy link</span></li>
-                            <li><a href="" class="facebook"><span class="app-icon icon-facebook-sm"></span></a>
+                            <li><a class="facebook share-facebook" target="_blank" href="http://www.facebook.com/sharer/sharer.php?s=100&amp;p[url]="><span class="app-icon icon-facebook-sm"></span></a>
                                 <span>Facebook</span></li>
-                            <li><a href="" class="twitter"><span class="app-icon icon-twiter"></span></a>
+                            <li><a href="http://twitter.com/intent/tweet?text=" class="twitter share-twitter" target="_blank"><span class="app-icon icon-twiter"></span></a>
                                 <span>Twitter</span></li>
-                            <li><a href="" class="whatsapp"><span class="app-icon icon-twiter"></span></a>
+                            <li>
+                                <a class="whatsapp share-whatsapp" href="https://api.whatsapp.com/send?text=" data-action="share/whatsapp/share" target="_blank"><span class="app-icon icon-whatsapp"></span></a>
                                 <span>WhatsApp</span></li>
-                            <li><a href="" class="email"><span class="app-icon icon-twiter"></span></a>
+                            <li><a href="mailto:?body=" title="Share by Email" class="email share-email"><span class="app-icon icon-mail"></span></a>
                                 <span>E-Mail</span></li>
-                            <li><a href="" class="linkedin"><span class="app-icon icon-twiter"></span></a>
+                            <li><a href="https://www.linkedin.com/sharing/share-offsite/?url=" class="linkedin share-linkedin" target="_blank"><span class="app-icon icon-linkedin"></span></a>
                                 <span>Linkedin</span></li>
                         </ul>
                       </div>
