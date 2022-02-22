@@ -40,9 +40,7 @@ $(document).ready(function(){
         }
 
     });
-    $(".app-newslist__searchinput").on("click", function(){
-        $('.app-newslist__searchbox input').val("");
-    });
+    
     $("#filter").keyup(function() {
         var filter = $(this).val(),
         count = 0;
@@ -55,6 +53,11 @@ $(document).ready(function(){
                 count++;
             }
         });
+    });
+
+    $(".app-newslist__searchinput").on("click", function(){
+        $('.app-newslist__searchbox input').val("");
+        $('#filter').trigger("keyup");
     });
 
     $("#showBalletModal").on("click", function(){
