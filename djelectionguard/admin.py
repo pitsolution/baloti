@@ -18,6 +18,8 @@ class ContestRecommenderInline(admin.TabularInline):
 class ParentContestAdmin(admin.ModelAdmin):
     list_display = (
         'name',
+        'start',
+        'end',
         'status'
     )
 admin.site.register(ParentContest, ParentContestAdmin)
