@@ -12,7 +12,7 @@
     min-height: 34px;
     line-height: 20px;
     font-weight: 500;
-    font-family: Poppins-Medium;
+    font-family: Outfit-Medium;
     position: relative;
     transition: all $app-global-duration $app-cubic-bez;
     &:focus{
@@ -130,7 +130,7 @@
     }
     &-back{
         font-size: $app-h6 !important;
-        font-family: Poppins-Regular !important;
+        font-family: Outfit-Regular !important;
         text-transform: uppercase;
         .app-icon{
             margin: -1px 5px 0 0 !important;
@@ -189,7 +189,7 @@
         }
     }
     &-regular{
-        font-family: Poppins-Regular;
+        font-family: Outfit-Regular;
     }
     &-inline{
         &-group{
@@ -225,6 +225,13 @@
             .app-icon{
                 font-size: $app-sm-text - 6;
                 margin-left: 10px;
+            }
+        }
+        &-back{
+            font-size: $app-h6 - 4 !important;
+            .app-icon{
+                font-size: $app-sm-text - 4 !important;
+                margin-top: 0 !important;
             }
         }
     }

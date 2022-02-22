@@ -30,7 +30,7 @@ $(document).ready(function(){
         $(this).closest('.modal-confirmbox').addClass("d-none");
         $(this).closest('.modal-body').find('.modal-confirmbox--step-2').removeClass("d-none");
     });
-    $('#showHidePassword').on('click', function() {
+    $('.show-hide-password').on('click', function() {
         $(this).toggleClass("icon-view icon-hide");
         var input = $(this).closest(".app-form__control--password").find("input");
         if (input.attr("type") === "password") {
@@ -39,6 +39,9 @@ $(document).ready(function(){
             input.attr("type", "password");
         }
 
+    });
+    $(".app-newslist__searchinput").on("click", function(){
+        $('.app-newslist__searchbox input').val("");
     });
     $("#filter").keyup(function() {
         var filter = $(this).val(),

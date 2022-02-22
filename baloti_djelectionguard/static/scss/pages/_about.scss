@@ -55,6 +55,14 @@
                 text-decoration: underline !important;
             }
         }
+        .app{
+            &-list{
+                &__title{
+                    font-family: Outfit-SemiBold;
+                    font-weight: 600;
+                }
+            }
+        }
     }
     @media only screen and (max-width: 991px) {
         &-aboutus{

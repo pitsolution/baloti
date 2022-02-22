@@ -58,10 +58,6 @@
                 margin: 0;
             }
         }
-        &__title{
-            font-family: Poppins-SemiBold;
-            font-weight: 600;
-        }
         &--bordered{
             li{
                 &:not(:last-child){
@@ -72,7 +68,7 @@
         }
         &__count{
             font-size: 30px;
-            font-family: Poppins-SemiBold;
+            font-family: Outfit-SemiBold;
         }
         &--md{
             li{
@@ -88,6 +84,7 @@
             height: 65px;
             display: flex;
             padding: 5px 10px;
+            flex-shrink: 0;
             img{
                 object-fit: contain;
             }
@@ -212,7 +209,7 @@
             }
             span{
                 z-index: 1;
-                font-family: Poppins-Medium;
+                font-family: Outfit-Medium;
             }
         }
     }
@@ -234,7 +231,7 @@
                 padding: 6px 10px;
                 border-radius: 6px;
                 font-size: 20px;
-                font-family: Poppins-Medium;
+                font-family: Outfit-Medium;
                 display: inline-block;
             }
         }
@@ -242,13 +239,12 @@
             font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 1.2px;
-            font-family: Poppins-Medium;
+            font-family: Outfit-Medium;
             display: block;
         }
     }
     &-votelist{
         position: relative;
-        border-top: 1px dashed $app-border-color;
         background: $app-white;
         margin-top: -20px;
         &::before, &:after{
@@ -260,6 +256,7 @@
             background: $app-bg;
             position: absolute;
             border-radius: 100px;
+            z-index: 1;
         }
         &:after{
             left: auto;
@@ -272,6 +269,18 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            &:first-child{
+                overflow: hidden;
+                &::after{
+                    content: '';
+                    border-top: 4px dashed #E0E0E0;
+                    height: 1px;
+                    width: 100%;
+                    top: -3px;
+                    left: 0;
+                    position: absolute;
+                }
+            }
             &::before{
                 content: "";
                 top: 19px;
@@ -288,7 +297,7 @@ background: linear-gradient(356deg, rgba(200,200,200,1) 0%, rgba(243,243,243,1) 
             }
             .count{
                 font-size: 30px;
-                font-family: Poppins-SemiBold;
+                font-family: Outfit-SemiBold;
             }
             &.voted{
                 &::before{
