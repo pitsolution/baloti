@@ -81,7 +81,7 @@ var voteDetailFunc = function(voted, nonVoted){
   var gradients = [];
   
   gradientColors.forEach( function( item ){
-      var gradient = ctx.createLinearGradient(0, 0, 150 , 150);
+      var gradient = ctx.createLinearGradient(150,0, 0,100);
       gradient.addColorStop(0, item.start);
       gradient.addColorStop(1, item.end);
       gradients.push(gradient);

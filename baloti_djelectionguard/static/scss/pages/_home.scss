@@ -98,7 +98,7 @@
                 }
                 
                 &-partner-list{
-                    filter: inherit;
+                    filter: grayscale(1);
                     
                     li{
                         &:first-child{
@@ -398,6 +398,15 @@
             .app{
                 &-showmore{
                     display: none;
+                }
+            }
+        }
+    }
+    @media only screen and (max-width: 767px) {
+        &-project-partner {
+            .app-partner-list{
+                img{
+                    width: 50%;
                 }
             }
         }

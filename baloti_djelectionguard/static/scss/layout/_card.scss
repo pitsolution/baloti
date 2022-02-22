@@ -112,6 +112,13 @@
                         margin: 0;
                         line-height: 18px;
                     }
+                    &__img{
+                        img{
+                            height: 275px;
+                            width: 100%;
+                            object-fit: cover;
+                        }
+                    }
                 }
                 &-txt{
                     font-size: $app-p;
