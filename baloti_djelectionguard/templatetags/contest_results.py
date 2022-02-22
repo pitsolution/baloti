@@ -36,7 +36,7 @@ def displayGovtResult(contest, user):
     votes = contest.candidate_set.aggregate(total=Sum('score'))
     yes = contest.govt_infavour_percent or 0
     no = contest.govt_against_percent or 0
-    result = None
+    result = 'no'
     if yes and no:
         if yes > no:
             result = 'yes'
