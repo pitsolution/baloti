@@ -12,6 +12,9 @@ $_app-menu-title-mobile: #060504;
             max-width: 1900px;
             margin: 0 auto;
         }
+        &-no-bg{
+            background: none;
+        }
         
         &-nav{
             margin: 0 0 0 auto;
@@ -19,7 +22,7 @@ $_app-menu-title-mobile: #060504;
                 &-toggle{
                     font-size: $app-h6 + 2;
                     color: $app-black;
-                    font-family: Poppins-SemiBold;
+                    font-family: Outfit-SemiBold;
                     &:after{
                         content: "\e900";
                         font-family: 'icomoon' !important;
@@ -170,7 +173,7 @@ $_app-menu-title-mobile: #060504;
                 display: block;
                 line-height: 69px;
                 color: $app-black;
-                font-family: Poppins-SemiBold;
+                font-family: Outfit-SemiBold;
                 position: relative;
                 &:hover{
                     color: $app-primary;
@@ -259,7 +262,7 @@ $_app-menu-title-mobile: #060504;
                                             width: 194px;
                                             height: 700px;
                                             transform: translateY(-50%);
-                                            background-image: url('./../images/menu-baloti.jpg');
+                                            background-image: url('./../images/menu-baloti-latest.jpg');
                                             background-repeat: no-repeat;
                                         }
                                     }
@@ -308,14 +311,15 @@ $_app-menu-title-mobile: #060504;
                         .dropdown{
                             &-item{
                                 font-size: $app-h5 + 2;
-                                font-family: Poppins-SemiBold;
+                                font-family: Outfit-SemiBold;
+                                text-transform: capitalize;
                                 &:hover{
                                     background-color: transparent !important;
                                 }
                             }
                            &-menu{
                             &__title{
-                                font-family: Poppins-SemiBold;
+                                font-family: Outfit-SemiBold;
                                 font-size: $app-h5 + 2;
                             }
                             &__header{
@@ -346,12 +350,15 @@ $_app-menu-title-mobile: #060504;
                 flex-direction: column;
                 justify-content: center;
                 li{
-                    margin-bottom: 25px;
+                    &:not(:last-child){
+                        margin-bottom: 26px;
+                    }
+                   
                     &:first-child{
                         margin-top: 100px;
                     }
                     &:last-child{
-                        margin-bottom: 50px;
+                        margin-bottom: 50px !important;
                     }
                 }
                 a{
@@ -457,6 +464,7 @@ $_app-menu-title-mobile: #060504;
         &-menu{
             &-drawer__mobile{
                 display: none;
+                
             }
         }
         .dropdown{

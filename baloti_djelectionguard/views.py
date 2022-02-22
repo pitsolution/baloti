@@ -24,6 +24,7 @@ def getParentDetails(parent):
             'name': parent.name,
             'id': parent.uid,
             'date': parent.start.date(),
+            'end_date': parent.end.date(),
             'month': parent.start.strftime('%B'),
             'year': parent.start.strftime('%Y'),
             'status': parent.status,
@@ -41,12 +42,12 @@ class BalotiIndexView(TemplateView):
             request (Request): Http request object
 
         Returns:
-            html : returns contest_list.html html file
+            html : returns index.html html file
         """
         contests = []
-        open_contests = ParentContest.objects.filter(status="open").order_by('-actual_start')
+        open_contests = ParentContest.objects.filter(status="open").order_by('-start')
         contests.append(getParentDetails(open_contests[0])) if open_contests else None
-        closed_contests = ParentContest.objects.filter(status="closed").order_by('-actual_end')
+        closed_contests = ParentContest.objects.filter(status="closed").order_by('-end')
         contests.append(getParentDetails(closed_contests[0])) if closed_contests else None
         return render(request, 'index.html',{"contests": contests})
 
@@ -171,10 +172,10 @@ class BalotiContestListView(TemplateView):
         """
         open_list = []
         closed_list = []
-        open_contests = ParentContest.objects.filter(status="open").order_by('-actual_start')
+        open_contests = ParentContest.objects.filter(status="open").order_by('-start')
         for open_contest in open_contests:
             open_list.append(getParentDetails(open_contest))
-        closed_contests = ParentContest.objects.filter(status="closed").order_by('-actual_end')
+        closed_contests = ParentContest.objects.filter(status="closed").order_by('-end')
         for closed_contest in closed_contests:
             closed_list.append(getParentDetails(closed_contest))
         return render(request, 'contest_list.html',{"open_contests": open_list, "closed_contests": closed_list})

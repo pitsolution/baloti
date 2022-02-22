@@ -57,25 +57,24 @@ class ContestForm(forms.ModelForm):
         help_text=_('The maximum number of choice a voter can make for this election')
     )
 
-    start = forms.SplitDateTimeField(
-        label='',
-        initial=now,
-        widget=forms.SplitDateTimeWidget(
-            date_format='%Y-%m-%d',
-            date_attrs={'type': 'date', 'label': 'date'},
-            time_attrs={'type': 'time', 'label': 'heure'},
-        ),
-    )
-    # start = forms.SplitDateTimeField(widget=widgets.AdminSplitDateTime())
-    end = forms.SplitDateTimeField(
-        label='',
-        initial=tomorow,
-        widget=forms.SplitDateTimeWidget(
-            date_format='%Y-%m-%d',
-            date_attrs={'type': 'date'},
-            time_attrs={'type': 'time'},
-        )
-    )
+    # start = forms.SplitDateTimeField(
+    #     label='',
+    #     initial=now,
+    #     widget=forms.SplitDateTimeWidget(
+    #         date_format='%Y-%m-%d',
+    #         date_attrs={'type': 'date', 'label': 'date'},
+    #         time_attrs={'type': 'time', 'label': 'heure'},
+    #     ),
+    # )
+    # end = forms.SplitDateTimeField(
+    #     label='',
+    #     initial=tomorow,
+    #     widget=forms.SplitDateTimeWidget(
+    #         date_format='%Y-%m-%d',
+    #         date_attrs={'type': 'date'},
+    #         time_attrs={'type': 'time'},
+    #     )
+    # )
     govt_infavour_percent = forms.FloatField(required=False,
         max_value=100,
         min_value=0)
@@ -94,14 +93,12 @@ class ContestForm(forms.ModelForm):
             self.fields['against_arguments'].widget = forms.HiddenInput()
             self.fields['about'].widget = forms.HiddenInput()
             self.fields['votes_allowed'].widget = forms.HiddenInput()
-            # self.fields['start'].widget = forms.HiddenInput()
-            # self.fields['end'].widget = forms.HiddenInput()
-            self.fields['timezone'].widget = forms.HiddenInput()
-            self.fields['start'].disabled = True
-            self.fields['end'].disabled = True
-        else:
-            self.fields['start'].disabled = False
-            self.fields['end'].disabled = False
+        #     self.fields['timezone'].widget = forms.HiddenInput()
+        #     self.fields['start'].disabled = True
+        #     self.fields['end'].disabled = True
+        # else:
+        #     self.fields['start'].disabled = False
+        #     self.fields['end'].disabled = False
 
     def clean_name(self):
         instance = getattr(self, 'instance', None)
@@ -152,12 +149,12 @@ class ContestForm(forms.ModelForm):
         else:
             return self.cleaned_data['about']
 
-    def clean_timezone(self):
-        instance = getattr(self, 'instance', None)
-        if instance and instance.pk and instance.actual_end:
-            return instance.timezone
-        else:
-            return self.cleaned_data['timezone']
+    # def clean_timezone(self):
+    #     instance = getattr(self, 'instance', None)
+    #     if instance and instance.pk and instance.actual_end:
+    #         return instance.timezone
+    #     else:
+    #         return self.cleaned_data['timezone']
 
 
    
@@ -171,9 +168,9 @@ class ContestForm(forms.ModelForm):
             'against_arguments',
             'about',
             'votes_allowed',
-            'start',
-            'end',
-            'timezone',
+            # 'start',
+            # 'end',
+            # 'timezone',
             'govt_infavour_percent',
             'govt_against_percent'
         ]
@@ -185,9 +182,9 @@ class ContestForm(forms.ModelForm):
             'against_arguments': _('FORM_TITLE_AGAINST_ARGUMENTS'),
             'about': _('FORM_ABOUT_ELECTION_CREATE'),
             'votes_allowed': _('FORM_VOTES_ALLOWED_ELECTION_CREATE'),
-            'start': _('FORM_START_ELECTION_CREATE'),
-            'end': _('FORM_END_ELECTION_CREATE'),
-            'timezone': _('FORM_TIMEZONE_ELECTION_CREATE'),
+            # 'start': _('FORM_START_ELECTION_CREATE'),
+            # 'end': _('FORM_END_ELECTION_CREATE'),
+            # 'timezone': _('FORM_TIMEZONE_ELECTION_CREATE'),
             'govt_infavour_percent': _('GOVT_INFAVOUR_RESULTS'),
             'govt_against_percent': _('GOVT_AGAINST_RESULTS')
         }
@@ -221,7 +218,7 @@ class ContestFormComponent(CList):
                     href=reverse('initiator_create', args=[parent])
                     )
             issue_type_create_btn = MDCButtonOutlined(
-                    _('create a new initiator'),
+                    _('create a new type'),
                     'create',
                     tag='a',
                     href=reverse('issue_type_create', args=[parent])
@@ -237,9 +234,9 @@ class ContestFormComponent(CList):
                     form['contest_type'],
                     form['contest_initiator'],
                     form['votes_allowed'],
-                    form['start'],
-                    form['end'],
-                    form['timezone'],
+                    # form['start'],
+                    # form['end'],
+                    # form['timezone'],
                     form['infavour_arguments'],
                     form['against_arguments'],
                     CSRFInput(view.request),
@@ -262,11 +259,11 @@ class ContestFormComponent(CList):
                     Div(initiator_create_btn, icon='person_add_alt_1'),
                     H6(_('Voting settings:')),
                     form['votes_allowed'],
-                    H6(_('Referendum starts:')),
-                    form['start'],
-                    H6(_('Referendum ends:')),
-                    form['end'],
-                    form['timezone'],
+                    # H6(_('Referendum starts:')),
+                    # form['start'],
+                    # H6(_('Referendum ends:')),
+                    # form['end'],
+                    # form['timezone'],
                     H6(_('Arguments:')),
                     form['infavour_arguments'],
                     form['against_arguments'],

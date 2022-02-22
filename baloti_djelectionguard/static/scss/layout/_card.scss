@@ -38,6 +38,9 @@
                 &-card{
                     &__footer{
                         margin-top: auto;
+                        a{
+                            margin-left: auto;
+                        }
                     }
                 }
             }
@@ -68,7 +71,7 @@
             font-size: $app-h6;
             line-height: 30px;
             margin-bottom: 32.5px;
-            font-family: Poppins-Medium;
+            font-family: Outfit-Medium;
         }
         &__footer{
             border-top: 1px solid $app-border-color;
@@ -112,6 +115,13 @@
                         margin: 0;
                         line-height: 18px;
                     }
+                    &__img{
+                        img{
+                            height: 275px;
+                            width: 100%;
+                            object-fit: cover;
+                        }
+                    }
                 }
                 &-txt{
                     font-size: $app-p;
@@ -121,6 +131,11 @@
             .btn-link{
                 font-size: $app-p;
                 color: $app-secondary-font;
+                .app-icon{
+                    margin-left: 8.5px;
+                    position: relative;
+                    top: -1px;
+                }
             }
         }
         &-group{
@@ -195,7 +210,7 @@
             text-align: center;
             &__title{
                 font-size: $app-h6 + 2;
-                font-family: Poppins-Medium;
+                font-family: Outfit-Medium;
                 margin-bottom: 17px;
             }
         }
@@ -306,6 +321,11 @@ background: linear-gradient(356deg, rgba(18,21,103,1) 0%, rgba(206,35,35,1) 100%
                         }
                         &__date{
                             font-size: $app-sm-text;
+                        }
+                        &__img{
+                            img{
+                                height: 175px;
+                            }
                         }
                     }
                     &-txt{

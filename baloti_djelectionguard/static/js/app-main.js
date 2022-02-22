@@ -30,7 +30,7 @@ $(document).ready(function(){
         $(this).closest('.modal-confirmbox').addClass("d-none");
         $(this).closest('.modal-body').find('.modal-confirmbox--step-2').removeClass("d-none");
     });
-    $('#showHidePassword').on('click', function() {
+    $('.show-hide-password').on('click', function() {
         $(this).toggleClass("icon-view icon-hide");
         var input = $(this).closest(".app-form__control--password").find("input");
         if (input.attr("type") === "password") {
@@ -40,6 +40,7 @@ $(document).ready(function(){
         }
 
     });
+    
     $("#filter").keyup(function() {
         var filter = $(this).val(),
         count = 0;
@@ -52,6 +53,11 @@ $(document).ready(function(){
                 count++;
             }
         });
+    });
+
+    $(".app-newslist__searchinput").on("click", function(){
+        $('.app-newslist__searchbox input').val("");
+        $('#filter').trigger("keyup");
     });
 
     $("#showBalletModal").on("click", function(){
@@ -342,7 +348,7 @@ $(document).ready(function(){
         $(this).hide();
     });
     if($(window).width() < 768){
-        App.slider(".app-griditem--dictionary");
+        App.slider("#illustrationSlider");
     }
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {

@@ -68,20 +68,20 @@ var voteDetailFunc = function(voted, nonVoted){
   var canvas = document.getElementById("electionchart");
   var ctx = canvas.getContext('2d');
   var gradientColors = [
-    {
-      start: '#F3F3F3',
-      end: '#C8C8C8'
-    },
   {
     start: '#CE2323',
     end: '#121567'
+  },
+  {
+    start: '#F3F3F3',
+    end: '#C8C8C8'
   }
   ];
   
   var gradients = [];
   
   gradientColors.forEach( function( item ){
-      var gradient = ctx.createLinearGradient(0, 0, 150 , 150);
+      var gradient = ctx.createLinearGradient(150,0, 0,100);
       gradient.addColorStop(0, item.start);
       gradient.addColorStop(1, item.end);
       gradients.push(gradient);
@@ -102,6 +102,9 @@ var voteDetailFunc = function(voted, nonVoted){
   },
   options: {
       plugins: {
+        tooltip: {
+          enabled: false
+        },
         aspectRatio: 1,
       cutoutPercentage: 90,
       responsive: true,
