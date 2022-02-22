@@ -102,6 +102,9 @@ var voteDetailFunc = function(voted, nonVoted){
   },
   options: {
       plugins: {
+        tooltip: {
+          enabled: false
+        },
         aspectRatio: 1,
       cutoutPercentage: 90,
       responsive: true,

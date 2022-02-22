@@ -195,6 +195,7 @@ $fontWeights: (400, 500, 600, 700);
       height: 85px;
       .app-icon{
         font-size: $app-h4 - 4;
+        font-weight: 600;
       }
       &.border-white{
         border: 4px solid $app-white;
@@ -239,6 +240,6 @@ $fontWeights: (400, 500, 600, 700);
   }
   &-customlink{
     color: $app-primary;
-    font-family: Poppins-Medium;
+    font-family: Outfit-Medium;
   }
 }

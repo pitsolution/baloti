@@ -68,7 +68,7 @@
             font-size: $app-h6;
             line-height: 30px;
             margin-bottom: 32.5px;
-            font-family: Poppins-Medium;
+            font-family: Outfit-Medium;
         }
         &__footer{
             border-top: 1px solid $app-border-color;
@@ -128,6 +128,11 @@
             .btn-link{
                 font-size: $app-p;
                 color: $app-secondary-font;
+                .app-icon{
+                    margin-left: 8.5px;
+                    position: relative;
+                    top: -1px;
+                }
             }
         }
         &-group{
@@ -202,7 +207,7 @@
             text-align: center;
             &__title{
                 font-size: $app-h6 + 2;
-                font-family: Poppins-Medium;
+                font-family: Outfit-Medium;
                 margin-bottom: 17px;
             }
         }

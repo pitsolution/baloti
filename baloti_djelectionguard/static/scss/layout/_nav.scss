@@ -8,6 +8,8 @@ $_app-menu-title-mobile: #060504;
         width: 100%;
         z-index: 9;
         transition: all 0.5s ease-in-out;
+        background: rgb(255,255,255);
+        background: linear-gradient(180deg, rgba(255,255,255,1) 75%, rgba(255,255,255,0) 100%);
         &__wrapper{
             max-width: 1900px;
             margin: 0 auto;
@@ -19,7 +21,7 @@ $_app-menu-title-mobile: #060504;
                 &-toggle{
                     font-size: $app-h6 + 2;
                     color: $app-black;
-                    font-family: Poppins-SemiBold;
+                    font-family: Outfit-SemiBold;
                     &:after{
                         content: "\e900";
                         font-family: 'icomoon' !important;
@@ -170,7 +172,7 @@ $_app-menu-title-mobile: #060504;
                 display: block;
                 line-height: 69px;
                 color: $app-black;
-                font-family: Poppins-SemiBold;
+                font-family: Outfit-SemiBold;
                 position: relative;
                 &:hover{
                     color: $app-primary;
@@ -308,7 +310,7 @@ $_app-menu-title-mobile: #060504;
                         .dropdown{
                             &-item{
                                 font-size: $app-h5 + 2;
-                                font-family: Poppins-SemiBold;
+                                font-family: Outfit-SemiBold;
                                 text-transform: capitalize;
                                 &:hover{
                                     background-color: transparent !important;
@@ -316,7 +318,7 @@ $_app-menu-title-mobile: #060504;
                             }
                            &-menu{
                             &__title{
-                                font-family: Poppins-SemiBold;
+                                font-family: Outfit-SemiBold;
                                 font-size: $app-h5 + 2;
                             }
                             &__header{
