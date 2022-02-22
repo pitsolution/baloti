@@ -45,9 +45,9 @@ class BalotiIndexView(TemplateView):
             html : returns index.html html file
         """
         contests = []
-        open_contests = ParentContest.objects.filter(status="open").order_by('-actual_start')
+        open_contests = ParentContest.objects.filter(status="open").order_by('-start')
         contests.append(getParentDetails(open_contests[0])) if open_contests else None
-        closed_contests = ParentContest.objects.filter(status="closed").order_by('-actual_end')
+        closed_contests = ParentContest.objects.filter(status="closed").order_by('-end')
         contests.append(getParentDetails(closed_contests[0])) if closed_contests else None
         return render(request, 'index.html',{"contests": contests})
 
