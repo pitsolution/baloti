@@ -29,7 +29,12 @@ $app-election-logo-border: #171742;
             }
             &-list{
                 margin-bottom: 24px;
-                
+                &__img{
+                    flex-basis: 40%;
+                }
+                &__content{
+                    flex-basis: 52%;
+                }
             }
         }
         &__result{
@@ -492,10 +497,22 @@ $app-election-logo-border: #171742;
         }
    }
    @media only screen and (min-height: 1200px) {
-    &-elections{
-        &__vote{
-            min-height: 50vh;
-        }
-    } 
- }
+        &-elections{
+            &__vote{
+                min-height: 50vh;
+            }
+        } 
+    }
+    @media only screen and (max-width: 400px) {
+        &-elections{
+            .app{
+                &-list{
+                    &__content{
+                        flex-basis: 100%;
+                        margin-top: 5px;
+                    }
+                }
+            }
+        } 
+    }
 }
