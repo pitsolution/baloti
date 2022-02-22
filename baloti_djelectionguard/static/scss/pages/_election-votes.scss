@@ -15,8 +15,11 @@ $app-election-logo-border: #171742;
                     margin-bottom: 20px;
                     display: flex;
                     align-items: center;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
                     label{
-                        margin-left: 20px;
+                        margin-left: 0;
+                        margin-top: 5px;
                     }
                 }
                 &__footer{
@@ -158,6 +161,9 @@ $app-election-logo-border: #171742;
         }
         &__left{
             position: relative;
+            .app-election__logo img{
+                width: 50% !important;
+            }
         }
         &__content{
             flex-basis: 10%;

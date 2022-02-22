@@ -74,7 +74,7 @@
 
                                     <div class="tab-pane fade" id="profile{{u.id}}" role="tabpanel" aria-labelledby="profile-tab">
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-12 col-sm-12 col-lg-6">
                                                 <div class="app-card app-card--nopad app-card--sm app-card--bordered">
                                                     <div class="app-card__header border-btm">
                                                         <div class="app-circle">
@@ -91,7 +91,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-12 col-sm-12 col-lg-6">
                                                 <div class="app-card app-card--nopad app-card--sm app-card--bordered">
                                                     <div class="app-card__header border-btm">
                                                         <div class="app-circle">
@@ -114,7 +114,7 @@
                                           
                                     <div class="tab-pane fade" id="contact{{u.id}}" role="tabpanel" aria-labelledby="contact-tab">
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-12 col-sm-12 col-lg-6">
                                                 <div class="app-card app-card--nopad app-card--sm app-card--bordered">
                                                     <div class="app-card__header border-btm">
                                                         <div class="app-circle">
@@ -125,7 +125,7 @@
                                                     <div class="app-card__body">
                                                         <ul class="app-list list-unstyled app-list--md">
                                                             {% for i in u|getInfavourRecommenders %}
-                                                                <li class="d-flex">
+                                                                <li class="d-flex flex-wrap">
                                                                     <div class="app-list__img">
                                                                         <img src="{{i.recommender.picture.url}}" alt="">
                                                                     </div>
@@ -139,7 +139,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-12 col-sm-12 col-lg-6">
                                                 <div class="app-card app-card--nopad app-card--sm app-card--bordered">
                                                     <div class="app-card__header border-btm">
                                                         <div class="app-circle">
@@ -150,7 +150,7 @@
                                                     <div class="app-card__body">
                                                         <ul class="app-list list-unstyled app-list--md">
                                                             {% for i in u|getAgainstRecommenders %}
-                                                            <li class="d-flex">
+                                                            <li class="d-flex flex-wrap">
                                                                 <div class="app-list__img">
                                                                     <img src="{{i.recommender.picture.url}}" alt="">
                                                                 </div>

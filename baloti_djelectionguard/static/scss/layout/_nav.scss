@@ -8,11 +8,12 @@ $_app-menu-title-mobile: #060504;
         width: 100%;
         z-index: 9;
         transition: all 0.5s ease-in-out;
-        background: rgb(255,255,255);
-        background: linear-gradient(180deg, rgba(255,255,255,1) 75%, rgba(255,255,255,0) 100%);
         &__wrapper{
             max-width: 1900px;
             margin: 0 auto;
+        }
+        &-no-bg{
+            background: none;
         }
         
         &-nav{
