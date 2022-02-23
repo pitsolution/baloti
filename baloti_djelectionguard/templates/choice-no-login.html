@@ -59,8 +59,6 @@
 
                 <div class="app-login__btn-group">
                     <a class="btn btn-facebook btn-block" id="fbloginBtn" href="{% url 'social:begin' 'facebook' %}?next=/baloti/contest/vote/success/"><span class="app-icon icon-facebook-box"></span> <span>Continue with Facebook</span></a>
-                    <!-- <button class="btn btn-google btn-block"><span class="app-icon icon-google"></span> <span>Continue with Google</span></button>
-                    <button class="btn btn-apple btn-block"><span class="app-icon icon-apple"></span> <span>Continue with Apple</span></button> -->
                 </div>
                 
                 <p class="app-sepeartor"><span>or</span></p>
@@ -77,7 +75,6 @@
                         <span id="showHidePassword" class="app-icon icon-view show-hide-password"></span>
                     </div>
 
-
                     <p class="label label-danger d-none" id="login_error">
                         Your username and password didn't match. 
                         Please try again.
@@ -87,7 +84,26 @@
                     <p class="app-login__createaccount"><span>Not registered yet?</span> <a id="idCreateAccount"  href="#" class="app-link" signup="true">Create an account now!</a> </p>
                 </div>
 
-                <div class="app-form d-none" id="idSignup">
+                <button type="button" id="logincloseBtn" class="btn btn-default mx-auto" data-dismiss="modal">CLOSE</button>
+            </div>
+        </div>
+
+
+        <div class="modal-content d-none" id="idSignup">
+            <div class="app-login__box">
+                {% csrf_token %}
+
+                <h3 class="app-login__heading text-bold">
+                    Create account!
+                </h3>
+                <p class="app-login__subhead">You can register with your social login or email address.</p>
+
+                <div class="app-login__btn-group">
+                    <a class="btn btn-facebook btn-block" id="fbloginBtn" href="{% url 'social:begin' 'facebook' %}?next=/baloti/contest/vote/success/"><span class="app-icon icon-facebook-box"></span> <span>Continue with Facebook</span></a>
+                </div>
+                <p class="app-sepeartor"><span>or</span></p>
+
+                <div class="app-form">
                     <div class="app-form__control">
                         {% if email %}
                         <input type="email" name="email" id="exampleInputEmail1" value={{email}} aria-describedby="emailHelp" placeholder=" "/>
