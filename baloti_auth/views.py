@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordChangeView
 from baloti_auth.forms import UserLoginForm
 from django.views.generic import TemplateView
 from django.contrib import messages
@@ -104,3 +104,33 @@ class BalotiModalSignupMailView(TemplateView):
             return HttpResponseBadRequest()
         signupMailSent(self, email, password)
         return render(request, 'signup_success.html')
+
+class BalotiPasswordChangeView(PasswordChangeView):
+
+
+    def validate_password():
+        """
+        Validate whether the password meets all validator requirements.
+
+        If the password is valid, return ``None``.
+        If the password is invalid, raise ValidationError with all error messages.
+        """
+        from .forms import ChangePasswordForm
+        from electeez_common import settings
+        form = ChangePasswordForm
+        errors = []
+        from django.core.exceptions import (
+            FieldDoesNotExist, ImproperlyConfigured, ValidationError,
+        )
+        if form.is_valid():
+            old_password = form.cleaned_data['old_password']
+            password = form.cleaned_data['password']
+            confirm_password = form.cleaned_data['confirm_password']
+
+            if old_password == password:
+                raise ValidationError('New Password must be different from previous passwords'
+                                      )
+
+
+        return True
+
