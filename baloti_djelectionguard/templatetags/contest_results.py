@@ -9,17 +9,20 @@ def displayBalotiResult(contest, user):
     votes = contest.candidate_set.aggregate(total=Sum('score'))
     yes = 0
     no = 0
+    yes_score = 0
+    no_score = 0
     for i, yes_candidate in enumerate(contest.candidate_set.filter(candidate_type='yes').order_by('-score')):
-        num = f'{i + 1}. '
-        if votes['total']:
-            yes = 100 * yes_candidate.score / votes['total']
-            yes = round(yes, 2)
+        yes_score = yes_candidate.score
 
     for i, no_candidate in enumerate(contest.candidate_set.filter(candidate_type='no').order_by('-score')):
-        num = f'{i + 1}. '
-        if votes['total']:
-            no = 100 * no_candidate.score / votes['total']
-            no = round(no, 2)
+        no_score = no_candidate.score
+
+    if (yes_score + no_score) > 0:
+        yes = 100 * yes_score / (yes_score + no_score)
+        yes = round(yes, 2)
+        no = 100 * no_score / (yes_score + no_score)
+        no = round(no, 2)
+
     if yes > no:
         baloti_result = yes_candidate
         result_label = 'yes'
