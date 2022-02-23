@@ -171,13 +171,13 @@ $(document).ready(function(){
     });
 
     $("#idCreateAccount").on("click", function(){
-        $(this).closest(".app-form").addClass("d-none");
-        $("#idSignup").closest(".app-form").removeClass("d-none");
+        $(this).closest("#appLogin").addClass("d-none");
+        $("#idSignup").removeClass("d-none");
 
     });
     $("#idButtonLogin").on("click", function(){
-        $(this).closest(".app-form").addClass("d-none");
-        $("#idLogin").closest(".app-form").removeClass("d-none");
+        $(this).closest("#idSignup").addClass("d-none");
+        $("#appLogin").removeClass("d-none");
 
     });
 
@@ -212,6 +212,7 @@ $(document).ready(function(){
                 mode: 'same-origin',
                 success: function(data, textStatus, jqXHR){
                     $("#appLogin").addClass("d-none");
+                    $("#idSignup").addClass("d-none");
                     $("#idsignupSuccess").removeClass("d-none");
                     $("#signup_error").addClass("d-none");
                     $("#signup_nofielderror").addClass("d-none");

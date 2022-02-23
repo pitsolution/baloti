@@ -18,7 +18,7 @@
                 {% displayBalotiResult contest user as result %}
                 {% displayGovtResult contest user as govt_result %}
                 <div class="app-progress__content">
-                    <p class="app-progress__title">Baloti</p>
+                    <!-- <p class="app-progress__title">Baloti</p> -->
                     {% if result.3 == 'yes' %}
                     <label class="label label-secondary">{{result.2}}</label>
                     {% else %}
@@ -34,14 +34,14 @@
                         </div>
                         <div class="app-progress__bar">
                             <div class="progress">
-                                <div class="progress-bar bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="NO {{result.1}}%" role="progressbar" style="width: {{result.1}}%" aria-valuenow="{{result.1}}" aria-valuemin="0" aria-valuemax="100">
-                                {% if result.1 >= 30 %}
-                                    <span>NO {{result.1}} %</span>
-                                {% endif %}
-                                </div>
                                 <div class="progress-bar" data-bs-toggle="tooltip" data-bs-placement="top" title="YES {{result.0}}%" role="progressbar" style="width: {{result.0}}%" aria-valuenow="{{result.0}}" aria-valuemin="0" aria-valuemax="100">
                                 {% if result.0 >= 30 %}
-                                    <span>YES {{result.0}}%</span>
+                                    <span>{{result.0}}%</span>
+                                {% endif %}
+                                </div>
+                                <div class="progress-bar bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="NO {{result.1}}%" role="progressbar" style="width: {{result.1}}%" aria-valuenow="{{result.1}}" aria-valuemin="0" aria-valuemax="100">
+                                {% if result.1 >= 30 %}
+                                    <span>{{result.1}} %</span>
                                 {% endif %}
                                 </div>
                             </div>
@@ -54,14 +54,14 @@
                     <div class="app-progress__right">
                         <div class="app-progress__bar">
                             <div class="progress">
-                                <div class="progress-bar bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="NO {{govt_result.1}}%" role="progressbar" style="width: {{govt_result.1}}%" aria-valuenow="{{govt_result.1}}" aria-valuemin="0" aria-valuemax="100">
-                                {% if govt_result.1 >= 30 %}
-                                    <span>NO {{govt_result.1}} %</span>
-                                {% endif %}
-                                </div>
                                 <div class="progress-bar" data-bs-toggle="tooltip" data-bs-placement="top" title="YES {{govt_result.0}}%" role="progressbar" style="width: {{govt_result.0}}%" aria-valuenow="{{govt_result.0}}" aria-valuemin="0" aria-valuemax="100">
                                 {% if govt_result.0 >= 30 %}
-                                    <span>YES {{govt_result.0}} %</span>
+                                    <span>{{govt_result.0}} %</span>
+                                {% endif %}
+                                </div>
+                                <div class="progress-bar bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="NO {{govt_result.1}}%" role="progressbar" style="width: {{govt_result.1}}%" aria-valuenow="{{govt_result.1}}" aria-valuemin="0" aria-valuemax="100">
+                                {% if govt_result.1 >= 30 %}
+                                    <span>{{govt_result.1}} %</span>
                                 {% endif %}
                                 </div>
                             </div>
@@ -79,7 +79,7 @@
                     </div>
                 </div>
                 <div class="app-progress__content">
-                    <p class="app-progress__title">Switzerland Government</p>
+                    <!-- <p class="app-progress__title">Switzerland Government</p> -->
                     {% if govt_result.2 == 'yes' %}
                     <label class="label label-secondary">{{govt_result.2}}</label>
                     {% else %}
