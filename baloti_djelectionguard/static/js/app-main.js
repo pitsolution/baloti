@@ -212,6 +212,7 @@ $(document).ready(function(){
                 mode: 'same-origin',
                 success: function(data, textStatus, jqXHR){
                     $("#appLogin").addClass("d-none");
+                    $("#idSignup").addClass("d-none");
                     $("#idsignupSuccess").removeClass("d-none");
                     $("#signup_error").addClass("d-none");
                     $("#signup_nofielderror").addClass("d-none");
