@@ -106,7 +106,7 @@ class ParentContestAccessible:
     def get_queryset(self):
         return ParentContest.objects.filter(
             Q(mediator=self.request.user)
-        ).distinct('uid')
+        ).order_by('-end')
 
 
 class ContestCreateView(generic.CreateView):
@@ -116,6 +116,9 @@ class ContestCreateView(generic.CreateView):
     def form_valid(self, form):
         form.instance.mediator = self.request.user
         form.instance.parent = ParentContest.objects.get(pk=self.kwargs['pk'])
+        form.instance.start = ParentContest.objects.get(pk=self.kwargs['pk']).start
+        form.instance.end = ParentContest.objects.get(pk=self.kwargs['pk']).end
+        form.instance.timezone = ParentContest.objects.get(pk=self.kwargs['pk']).timezone
         response = super().form_valid(form)
         form.instance.guardian_set.create(user=self.request.user)
         form.instance.candidate_set.create(name='Yes', candidate_type='yes')

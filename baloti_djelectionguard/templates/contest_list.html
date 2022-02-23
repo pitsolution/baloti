@@ -8,7 +8,7 @@
     <div class="app-elections__vote">
         <div class="container">
             <div class="app-header-flex">
-                <h3 class="app-title app-title--sm">Referendums & Vote</h3>
+                <h3 class="app-title app-title--sm">Referendum Votes</h3>
                 <ul class="app-newslist list-unstyled">
                     <li>
                         <a href="#" class="app-newslist__link">
@@ -39,10 +39,17 @@
                 {% for u in open_contests %}
                 
                 {% displayIssuesCount u.id user as issues %}
+                {% displayReferendumVotedFlag u.id user as voted %}
                 <div class="app-card app-card--bordered m-0 app-card--flex search" >
                     <h4 class="app-h4 app-card__title">{{u.name}}</h4>
-                    <h5 class="app-card__monthyear">{{u.month}} {{u.year}}</h5>
-                    <p class="app-card__date"><span>Date:</span> <span>{{u.date|date:"d.m.Y"}}</span></p>
+                    <!-- <h5 class="app-card__monthyear">{{u.month}} {{u.year}}</h5> -->
+                    <p class="app-card__date">
+                        <span>{{u.date|date:"d.m.Y"}} -  {{u.end_date|date:"d.m.Y"}}</span>
+                        {% if voted %}
+                            <label for="" class="label icon label-success label-success--light label-noradius label-flex"><span class="icon-tick-success"></span> <span>VOTED</span> 
+                            </label>
+                        {% endif %}
+                    </p>
 
                     <p class="app-h6 text-medium text-dark">Issues: {{issues}}</p>
                     <ul class="app-list list-unstyled app-sm-text">
@@ -53,9 +60,15 @@
                     <div class="app-card__footer">
                         {% checkReferendumVotingStatus u.id user as result %}
                         {% if result %}
-                            <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-outlined--primary  label-sm">open</label> <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a></div>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <!-- <label for="" class="label label-outlined label-outlined--primary  label-sm">open</label>  -->
+                                <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a>
+                            </div>
                         {% else %}
-                            <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-outlined--primary  label-sm">open</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>VIEW DETAIL</span> <span class="app-icon icon-arrow"></span></a></div>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <!-- <label for="" class="label label-outlined label-outlined--primary  label-sm">open</label>  -->
+                                <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>VIEW DETAIL</span> <span class="app-icon icon-arrow"></span></a>
+                            </div>
                         {% endif %}
                     </div>
                 </div>
@@ -70,10 +83,17 @@
             <div class="app-griditem app-griditem--onrow-three">
                 {% for u in closed_contests %}
                 {% displayIssuesCount u.id user as issues %}
+                {% displayReferendumVotedFlag u.id user as voted %}
                 <div class="app-card m-0 app-card--flex search">
                     <h4 class="app-h4 app-card__title">{{u.name}}</h4>
-                    <h5 class="app-card__monthyear">{{u.month}} {{u.year}}</h5>
-                    <p class="app-card__date"><span>Date:</span> <span>{{u.date|date:"d.m.Y"}}</span></p>
+                    <!-- <h5 class="app-card__monthyear">{{u.month}} {{u.year}}</h5> -->
+                    <p class="app-card__date">
+                        <span>{{u.date|date:"d.m.Y"}} -  {{u.end_date|date:"d.m.Y"}}</span>
+                        {% if voted %}
+                            <label for="" class="label icon label-success label-success--light label-noradius label-flex"><span class="icon-tick-success"></span> <span>VOTED</span> 
+                            </label>
+                        {% endif %}
+                    </p>
                     <p class="app-h6 text-medium text-dark">Issues: {{issues}}</p>
                     <ul class="app-list list-unstyled app-sm-text">
                         {% for i in u.id|getContestIssues %}

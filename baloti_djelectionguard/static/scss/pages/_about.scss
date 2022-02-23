@@ -52,6 +52,15 @@
             a{
                 margin-bottom: 35px;
                 display: inline-block;
+                text-decoration: underline !important;
+            }
+        }
+        .app{
+            &-list{
+                &__title{
+                    font-family: Outfit-SemiBold;
+                    font-weight: 600;
+                }
             }
         }
     }
@@ -101,5 +110,17 @@
                 grid-column-gap: 30px;
             }
         }
+    }
+    @media only screen and (min-width: 2000px) {
+       &-aboutus{
+        &__img{
+            height: calc(100% - 120px);
+            text-align: right;
+            img{
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+       }
     }
 }

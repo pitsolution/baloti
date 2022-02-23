@@ -15,8 +15,11 @@ $app-election-logo-border: #171742;
                     margin-bottom: 20px;
                     display: flex;
                     align-items: center;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
                     label{
-                        margin-left: 20px;
+                        margin-left: 0;
+                        margin-top: 5px;
                     }
                 }
                 &__footer{
@@ -26,11 +29,17 @@ $app-election-logo-border: #171742;
             }
             &-list{
                 margin-bottom: 24px;
-                
+                &__img{
+                    flex-basis: 40%;
+                }
+                &__content{
+                    flex-basis: 52%;
+                }
             }
         }
         &__result{
             padding: 45px 0 45px;
+            min-height: 500px;
         }
     }
     &-thirdhalf{
@@ -41,6 +50,15 @@ $app-election-logo-border: #171742;
             grid-column-gap: 16px;
             &__right{
                 width: 390px;
+                .btn-share{
+                    &:hover{
+                        .app-icon{
+                            &::before{
+                                color: $app-white;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -57,7 +75,7 @@ $app-election-logo-border: #171742;
             border-radius: 100%;
             position: relative;
             padding: 2px;
-            z-index: 1;
+            z-index: 2;
             &-inner{
                 width: 100%;
                 height: 100%;
@@ -109,6 +127,7 @@ $app-election-logo-border: #171742;
             border: 1px solid $app-election-logo-bg;
             border-radius: 18px;
             border-top-left-radius: 100px;
+            z-index: 1;
         }
         .progress{
             border-radius: 8px;
@@ -116,6 +135,8 @@ $app-election-logo-border: #171742;
             &-bar{
                 background-color: $app-election-logo-border;
                 font-size: 26px;
+                text-align: right;
+                padding: 0 10px;
             }
         }
         &__wrap{
@@ -145,6 +166,9 @@ $app-election-logo-border: #171742;
         }
         &__left{
             position: relative;
+            .app-election__logo img{
+                width: 50% !important;
+            }
         }
         &__content{
             flex-basis: 10%;
@@ -185,6 +209,7 @@ $app-election-logo-border: #171742;
             color: $app-black;
             position: relative;
         }
+        
         &__closeicon{
             display: none;
             &::before{
@@ -237,6 +262,9 @@ $app-election-logo-border: #171742;
         &__link{
             width: 24px;
             height: 28px;
+            &.show{
+                color: $app-primary;
+            }
         }
     }
    &-chart{
@@ -260,7 +288,7 @@ $app-election-logo-border: #171742;
         left: 50%;
         transform: translate(-50%, -50%);
         font-size: 30px;
-        font-family: Poppins-SemiBold;
+        font-family: Outfit-SemiBold;
        }
    }
    @media only screen and (max-width: 1200px) {
@@ -285,6 +313,7 @@ $app-election-logo-border: #171742;
     }
     &-viewall{
         margin-left: auto;
+        justify-content: end;
     }
     &-newslist{
         margin: 20px 0 0;
@@ -321,6 +350,9 @@ $app-election-logo-border: #171742;
         &__wrap{
             margin: 0;
         }
+        &__title{
+            line-height: 24px;
+        }
         &__status{
             display: flex;
             margin: 10px 0 0;
@@ -330,6 +362,7 @@ $app-election-logo-border: #171742;
                 }
                 padding-left: 22px;
                 position: relative;
+                font-size: $app-sm-text;
                 &::before{
                     content: "";
                     top: 5px;
@@ -396,9 +429,9 @@ $app-election-logo-border: #171742;
             + .app-progress__content{
                 right: auto;
                 left: 0;
-                text-align: right;
+                text-align: left;
                 top: auto;
-                bottom: 30px;
+                bottom: 18px;
             }
         }
     }
@@ -422,16 +455,64 @@ $app-election-logo-border: #171742;
         }
     }
    }
-   @media only screen and (min-width: 992px) {
-    &-progress{
-        &__status{
-            display: none;
-        }
-    }
-   }
    @media only screen and (min-width: 992px) and (max-width: 1199px) {
     &-thirdhalf-col__right{
         width: auto;
     }
    }
+   @media only screen and (max-width: 767px) {
+    &-elections{
+        &__vote{
+            min-height: 50vh;
+            .app-card--bordered{
+                border-radius: 0 !important;
+            }
+        }
+        
+        &__result{
+            .app-card{
+                border: 1px solid $app-border-color-card;
+            }
+        }
+    }
+    &-newslist{
+        justify-content: space-between;
+        li{
+            margin-left: 0;
+        }
+        &__searchinput:checked + .app-newslist__searchbox{
+            right: auto;
+            left: calc(100% + 15px);
+        }
+    }
+   }
+   @media only screen and (min-width: 1200px) {
+        &-thirdhalf-col__right{
+            margin-bottom: 50px;
+        } 
+        &-progress{
+            &__status{
+                display: none;
+            }
+        }
+   }
+   @media only screen and (min-height: 1200px) {
+        &-elections{
+            &__vote{
+                min-height: 50vh;
+            }
+        } 
+    }
+    @media only screen and (max-width: 400px) {
+        &-elections{
+            .app{
+                &-list{
+                    &__content{
+                        flex-basis: 100%;
+                        margin-top: 5px;
+                    }
+                }
+            }
+        } 
+    }
 }

@@ -1,4 +1,7 @@
 {% load static %}
+{% load static i18n %}
+{% load sass_tags %}
+{% get_current_language as LANGUAGE%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,24 +15,35 @@
 
     <div class="app">
          <!-- Header Section -->
-         <header class="app-header d-flex align-items-center">
-            <ul class="app-header-nav list-unstyled d-flex align-items-center ml-auto">
-                <li>
-                    <div class="dropdown">
-                        <a class=" dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                         EN
-                        </a>
-                      
-                        <ul class="dropdown-menu dropdown-menu--device dropdown-menu-end" aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-menu__header">
-                                <span class="dropdown-menu__title">Languages</span>
-                                <span class="app-icon icon-close-bold m-pointer"></span>
-                            </div>
-                          <li><a class="dropdown-item" href="#">AR</a></li>
-                        </ul>
-                      </div>
-                </li>
-            </ul>
+         <header class="app-header app-header-no-bg">
+             <div class="container d-flex align-items-center">
+                <a href="#" class="app-logo app-logo--login">
+                    <img src="/static/images/logo.svg" alt="">
+                </a>
+                <ul class="app-header-nav list-unstyled d-flex align-items-center ml-auto">
+                    <li>
+                        <div class="dropdown">
+                            <a style="text-transform:uppercase" class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{LANGUAGE}}</a>
+
+                            <ul class="dropdown-menu dropdown-menu--device dropdown-menu-end">
+                                <div class="dropdown-menu__header">
+                                    <span class="dropdown-menu__title">Languages</span>
+                                    <span class="app-icon icon-close-bold m-pointer"></span>
+                                </div>
+                                {% get_available_languages as LANGUAGES %}
+                                {% for lang_code, lang_name in LANGUAGES %}
+                                {% if LANGUAGE != lang_code %}
+                                <li>
+                                    <a id="{{lang_code}}" style="text-transform:uppercase" class="dropdown-item" href="/{{ lang_code }}{{ request.get_full_path|slice:'3:' }}">{{lang_name}}</a>
+                                </li>
+                                {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+             </div>
+           
         </header>
 
 
@@ -64,10 +78,11 @@
                                                    type="text" class="form-control" placeholder=" ">
                                         <label for="id_username" class="app-form__label">Email address</label>
                                     </div>
-                                    <div class="app-form__control">
+                                    <div class="app-form__control app-form__control--password">
                                         <input id="id_password" name="password" 
                                                    type="password" class="form-control" placeholder=" ">
                                         <label for="id_password" class="app-form__label">Password</label>
+                                        <span id="showHidePassword" class="app-icon icon-view show-hide-password"></span>
                                     </div>
                                     {% if form.errors %}
                                         <p class=" label label-danger">
@@ -78,13 +93,7 @@
 
 
                                     <button type="submit" class="btn btn-primary btn-block btn-md--small">CONTINUE</button>
-                                    <input type="hidden" name="choice" value={{choice}} />
-
-                                    {% if choice %}
-                                        <input type="hidden" name="next" value="/baloti/vote/{{choice}}" />
-                                    {% else %}
-                                        <input type="hidden" name="next" value="/en/baloti/contest/list/" />
-                                    {% endif %}
+                                    <input type="hidden" name="next" value="/en/baloti/" />
                                     <p class="app-login__createaccount"><span>Not registered yet?</span> <a href="/en/baloti/signup/" class="app-link">Create an account now!</a> </p>
                                 </div>
 

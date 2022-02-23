@@ -83,13 +83,22 @@ $app-modal-header-bg: #F1F2EE;
             }
             &-button{
                 font-size: $app-h5 - 2;
+                &::after{
+                    transition: none;
+                    content: "\e905";
+                    font-family: 'icomoon' !important;
+                    background-image: none;
+                    transform: rotate(90deg);
+                    width: auto;
+                    height: auto;
+                }
                 &:not(.collapsed){
                     background-color: $app-white;
                     color: $app-black;
                     box-shadow: none;
                     &::after{
                         content: "\e905";
-                        transform: rotate(90deg);
+                        transform: rotate(-90deg);
                         font-family: 'icomoon' !important;
                         background-image: none;
                         display: flex;
@@ -195,7 +204,7 @@ $app-modal-header-bg: #F1F2EE;
                     font-size: $app-h6;
                     text-transform: uppercase;
                     color: $app-black;
-                    font-family: Poppins-Medium;
+                    font-family: Outfit-Medium;
                     &.active{
                         color: $app-primary;
                         border-bottom: 2px solid $app-primary !important;
@@ -274,7 +283,7 @@ $app-modal-header-bg: #F1F2EE;
                     justify-content: center;
                     padding: 8px;
                     border-radius: 7px;
-                    font-family: Poppins-Medium;
+                    font-family: Outfit-Medium;
                 }
             }
         }
@@ -288,13 +297,16 @@ $app-modal-header-bg: #F1F2EE;
                 }
                 &-confirmbox{
                     &__title{
-                        font-family: Poppins-SemiBold;
+                        font-family: Outfit-SemiBold;
                         font-size: $app-h6 + 2;
                         line-height: 34px;
                         margin: 0;
                     }
                     .btn-inline-group{
                         padding-top: 40px;
+                        .btn{
+                            font-family: Outfit-Regular !important;
+                        }
                     }
                     &--step-2{
                         .btn-inline-group{
@@ -329,7 +341,7 @@ $app-modal-header-bg: #F1F2EE;
                     p{
                         margin:0;
                         font-size: $app-sm-text;
-                        font-family: Poppins-Medium;
+                        font-family: Outfit-Medium;
                     }
                 }
             }
@@ -387,6 +399,7 @@ $app-modal-header-bg: #F1F2EE;
                         &__wrap{
                             margin-bottom: 13px;
                             padding-right: 25px;
+                            width: 100%;
                         }
                         &__title{
                             line-height: 32px;

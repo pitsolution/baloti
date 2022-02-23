@@ -8,7 +8,7 @@
 body, html{
   line-height: 28px;
   color: $app-default-font;
-  font-family: Poppins-Regular;
+  font-family: Outfit-Regular;
   font-size: $app-p;
 }
 img{
@@ -74,7 +74,7 @@ img{
     font-size: $app-h5 - 2;
     line-height: 35px;
     letter-spacing: 2.4px;
-    font-family: Poppins-Medium;
+    font-family: Outfit-Medium;
     margin-bottom: 18.27px;
     &--md{
       font-size: $app-h5;
@@ -157,19 +157,19 @@ img{
     color: $app-success !important;
   }
   &-bold{
-    font-family: Poppins-SemiBold;
+    font-family: Outfit-SemiBold;
   }
   &-regular{
-    font-family: Poppins-Regular;
+    font-family: Outfit-Regular;
   }
   &-light{
-    font-family: Poppins-Light;
+    font-family: Outfit-Light;
   }
   &-dark{
     color: $app-black !important;
   }
   &-medium{
-    font-family: Poppins-Medium;
+    font-family: Outfit-Medium;
   }
   &-warning{
     color: $app-warning !important;

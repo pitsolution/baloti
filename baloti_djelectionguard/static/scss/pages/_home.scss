@@ -13,15 +13,15 @@
     &-social{
         &-follow{
             position: fixed;
-            top: 50%;
+            top: 339px;
             width: 23px;
-            transform: translateY(-50%);
+            // transform: translateY(-50%);
             left: 20.5px;
             display: flex;
             flex-direction: column;
             align-items: center;
             color: $app-light-font;
-            font-family: Poppins-Medium;
+            font-family: Outfit-Medium;
             .app{
                 &-icon{
                     margin-bottom: 12.5px;
@@ -98,7 +98,7 @@
                 }
                 
                 &-partner-list{
-                    filter: inherit;
+                    filter: grayscale(1);
                     
                     li{
                         &:first-child{
@@ -398,6 +398,15 @@
             .app{
                 &-showmore{
                     display: none;
+                }
+            }
+        }
+    }
+    @media only screen and (max-width: 767px) {
+        &-project-partner {
+            .app-partner-list{
+                img{
+                    width: 50%;
                 }
             }
         }

@@ -27,7 +27,7 @@ def displayBalotiResult(contest, user):
         baloti_result = no_candidate
         result_label = 'no'
     else:
-        baloti_result = None
+        baloti_result = 'no'
         result_label = ''
     return yes, no, baloti_result, result_label
 
@@ -36,12 +36,12 @@ def displayGovtResult(contest, user):
     votes = contest.candidate_set.aggregate(total=Sum('score'))
     yes = contest.govt_infavour_percent or 0
     no = contest.govt_against_percent or 0
-    result = None
+    result = 'no'
     if yes and no:
         if yes > no:
             result = 'yes'
         elif yes < no:
             result = 'no'
         else:
-            result = None
+            result = 'no'
     return yes, no, result

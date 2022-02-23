@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="app-banner__img">
-        <img src="/static/images/banner.png" alt="">
+        <img src="/static/images/banner-img.jpg" alt="">
     </div>
     <div class="app-social-follow">
         <a href="#" class="app-icon icon-facebook"></a>
@@ -52,8 +52,8 @@
                         <div class="col-sm-12 col-md-6 col-lg-12">
                             <div class="app-card  app-card--flex box-shadow">
                                 <h4 class="app-h4 app-card__title">{{u.name}}</h4>
-                                <h5 class="app-card__monthyear">{{u.month}} {{u.year}}</h5>
-                                <p class="app-card__date"><span>Date:</span> <span>{{u.date|date:"d.m.Y"}}</span></p>
+                                <!-- <h5 class="app-card__monthyear">{{u.month}} {{u.year}}</h5> -->
+                                <p class="app-card__date"><span>{{u.date|date:"d.m.Y"}} -  {{u.end_date|date:"d.m.Y"}}</span></p>
                                 <p class="app-h6 text-medium text-dark">Issues: {{issues}}</p>
                                 <ul class="app-list list-unstyled app-sm-text">
                                     {% for i in u.id|getContestIssues %}
@@ -62,7 +62,16 @@
                                 </ul>
                                 <div class="app-card__footer">
                                     {% if u.status == 'open' %}
-                                        <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-outlined--primary  label-sm">open</label> <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a></div>
+                                        {% checkReferendumVotingStatus u.id user as result %}
+                                        {% if result %}
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a>
+                                            </div>
+                                        {% else %}
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>VIEW DETAIL</span> <span class="app-icon icon-arrow"></span></a>
+                                            </div>
+                                        {% endif %}
                                     {% elif u.status == 'closed' %}
                                         {% checkReferendumResultPublished u.id user as result %}
                                         {% if result %}
@@ -96,11 +105,11 @@
             </li>
             <li>
                 <span class="number"><span>2</span></span>
-                <p>Register on the Baloti platform and vote, whether you already have Swiss voting rights or not</p>
+                <p>Register on the baloti platform and vote, whether you already have Swiss voting rights or not</p>
             </li>
             <li>
                 <span class="number"><span>3</span></span>
-                <p>Stay up to date with notifications and information from Baloti.</p>
+                <p>Stay up to date with notifications and information from baloti.</p>
             </li>
         </ul>
     </div>
@@ -109,23 +118,32 @@
 <!-- Our Impact Section -->
 <section class="app-impact">
     <div class="container">
-        <h6 class="app-subtitle text-center text-outfit-medium">OUR IMPACT</h6>
+        <h6 class="app-subtitle text-center text-outfit-medium">IMPACT</h6>
 
         <div class="app-griditem">
             <div class="app-card app-card--impact">
-                <img src="/static/images/favourite.png" alt="">
-                <h5 class="app-card__title sm dark">Democratic</h5>
-                <p class="app-txt">allow more people to participate in voting independently of time and space</p>
-            </div>
-            <div class="app-card app-card--impact">
-                <img src="/static/images/favourite.png" alt="">
+                <div class="img-box">
+                    <img src="/static/images/favourite.png" alt="">
+                 </div>
                 <h5 class="app-card__title sm dark">Safe, Secure & Open</h5>
                 <p class="app-txt">Our solution is fully open source and we use blockchain technology for saving and verifying votes</p>
             </div>
             <div class="app-card app-card--impact">
-                <img src="/static/images/favourite.png" alt="">
+                <div class="img-box">
+                    <img src="/static/images/favourite.png" alt="">
+                    <img src="/static/images/favourite.png" alt="">
+                 </div>
                 <h5 class="app-card__title sm dark">Multilingual</h5>
                 <p class="app-txt">making the voting experience more accessible, vote in your own language.</p>
+            </div>
+            <div class="app-card app-card--impact">
+                <div class="img-box">
+                    <img src="/static/images/favourite.png" alt="">
+                    <img src="/static/images/favourite.png" alt="">
+                    <img src="/static/images/favourite.png" alt="">
+                 </div>
+                <h5 class="app-card__title sm dark">Democratic</h5>
+                <p class="app-txt">allow more people to participate in voting independently of time and space</p>
             </div>
         </div>
     </div>
@@ -186,9 +204,9 @@
     <div class="container">
         <div class="d-flex align-items-center justify-content-between app-picture-dictionary__heading">
             <h6 class="app-subtitle">ILLUSTRATIONS</h6>
-            <button class="btn btn-link"><span class="app-icon icon-arrow m-0"></span></button>
+            <a href="https://uat.baloti.org/de/illustrations" class="btn btn-link"><span class="app-icon icon-arrow m-0"></span></a>
         </div>
-        <div class="app-griditem app-griditem--dictionary">
+        <div class="app-griditem app-griditem--dictionary" id="illustrationSlider">
             <div class="app-card app-card--dictionary">
                 <div class="app-card__img">
                     <img src="/static/images/tv+speech+couleur.jpg" alt="">
@@ -233,31 +251,37 @@
 </section>
 
 <!-- Project Partner Section -->
-<section class="app-project-support app-bg">
+<section class="app-project-partner">
     <div class="container">
-        <h6 class="app-subtitle text-outfit-medium">OUR PROJECT PARTNERS</h6>
-        <ul class="app-partner-list list-unstyled">
-            <li>
-                <a href="https://www.pitsolutions.ch/en/" target="_blank">
-                    <img src="/static/images/pits-logo.svg" width="111" alt="">
-                </a>
-            </li>
-            <li>
-                <a href="https://www.electis.io/" target="_blank">
-                    <img src="/static/images/Electis.png" width="270" alt="">
-                </a>
-            </li>
-            <li>
-                <a href="https://prototypefund.de/en/" target="_blank">
-                    <img src="/static/images/protoypefond_logo.png" width="93" alt="">
-                </a>
-            </li>
-            <li>
-                <a href="https://www.zdaarau.ch/" target="_blank">
-                    <img src="/static/images/zda-logo.png" width="206" alt="">
-                </a>
-            </li>
-        </ul>
+        <div class="row align-items-center">
+            <div class="col-sm-12 col-md-3">
+                <h6 class="app-subtitle text-outfit-medium">PROJECT PARTNERS</h6>
+            </div>
+            <div class="col-sm-12 col-md-9">
+                <ul class="app-partner-list list-unstyled">
+                    <li>
+                        <a href="https://www.pitsolutions.ch/en/" target="_blank">
+                            <img src="/static/images/pits-logo.svg" width="111" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.electis.io/" target="_blank">
+                            <img src="/static/images/Electis.png" width="270" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://prototypefund.de/en/" target="_blank">
+                            <img src="/static/images/protoypefond_logo.png" width="93" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.zdaarau.ch/" target="_blank">
+                            <img src="/static/images/zda-logo.png" width="206" alt="">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </section>
 

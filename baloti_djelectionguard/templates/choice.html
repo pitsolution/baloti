@@ -4,7 +4,7 @@
 
 <section class="app-choice app-body-bg">
     <div class="container">
-        <a class="btn btn-link btn-back" href="javascript:window.history.back()"> <span class="app-icon icon-arrow-right"></span> <span>BACK</span> </a>
+        <!-- <a class="btn btn-link btn-back" href="javascript:window.history.back()"> <span class="app-icon icon-arrow-right"></span> <span>BACK</span> </a> -->
         <div class="row">
             <div class="col-sm-12 col-lg-7 mx-auto">
                 <div class="app-card app-card--lg app-card--nopad">
@@ -62,13 +62,6 @@
             </div>
         </div>
 
-        <!-- <div class="modal-content app-bg d-none" id="success">
-            <div class="modal-body text-center">
-                <p class="app-h6">Your Choice Added</p>
-                <p class="app-h5 text-success text-bold">Successfully</p>
-                <button class="btn btn-default mx-auto"><a href="/baloti/contest/list/">BACK TO REFERENDUMS</a></button>
-            </div>
-        </div> -->
         <div class="modal-content d-none" id="success">
             <div class="modal-body text-center">
                 <div class="app-bg app-result-wrap app-modal--success">
@@ -81,7 +74,7 @@
                     <p class="app-h6 text-danger">The results will be announced on</p>
                     <p class="app-resultdate">{{contest.end|date:"d.m.Y"}}</p>
                     <p class="app-p">and you will be notified via email.</p>
-                    <a href="/baloti/contest/list/" class="btn btn-default mx-auto btn-flex--inline">BACK TO REFERENDUMS</a>
+                    <a href="/baloti/contest/{{contest.parent.uid}}" class="btn btn-default mx-auto btn-flex--inline">BACK TO REFERENDUM</a>
                 </div>
             </div>
         </div>

@@ -1,5 +1,8 @@
 .app{
     &-login{
+        display: flex;
+        align-items: center;
+        height: 100%;
         &__img{
             position: fixed;
             top:0;
@@ -15,7 +18,7 @@
             }
         }
         &__box{
-            height: calc(100vh - 145px);
+            max-height: calc(100vh - 145px);
             padding: 30px 50px;
             background-color: $app-white;
             overflow: auto;
@@ -40,7 +43,7 @@
                 position: relative;
                 min-height: 40px;
                 letter-spacing: 0.3px;
-                font-family: Poppins-Regular;
+                font-family: Outfit-Regular;
                 color: $app-white;
                 display: flex;
                 align-items: center;
@@ -90,16 +93,46 @@
             z-index: -1;
         }
     }
-    @media only screen and (max-width: 1199px) {
+    @media only screen and (max-width: 991px) {
         &-login{
+            background-color: $app-white;
+            display: block;
+            height: 100vh;
             &__box{
-                height: auto;
+                max-height: inherit;
                 padding: 15px;
                 overflow: inherit;
             }
             &__img{
                 display: none;
             }
+            &__logo{
+                display: none;
+            }
+            &__createaccount{
+                .app-link{
+                    display: block;
+                }
+            }
+        }
+    }
+    @media only screen and (max-width: 767px) {
+        &-login{
+            &__heading{
+               font-size: $app-h5 + 2;
+               line-height: 49px;
+               margin-bottom: 9px;
+            }
+            &__subhead{
+                font-size: $app-h6;
+                line-height: 49px;
+                margin-bottom: 20px;
+            }
+        }
+    }
+    @media only screen and (min-width: 992px) {
+        &-logo--login{
+            display: none;
         }
     }
 }
