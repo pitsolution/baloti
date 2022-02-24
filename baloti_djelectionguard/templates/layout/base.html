@@ -11,7 +11,8 @@
     <title>baloti</title>
     <meta property='og:title' content='Baloti Homepage'/>
     <meta name="twitter:image" content="https://uat.baloti.org/static/images/logo.jpg" />
-    <meta property="og:image" content='https://uat.baloti.org/static/images/logo.jpg'/>
+    <meta property="og:image:secure_url" itemprop="image" content='https://uat.baloti.org/static/images/logo.jpg'/>
+    <link itemprop="thumbnailUrl" href="https://uat.baloti.org/static/images/logo.jpg">
     <meta property="og:image:type" content="image/jpeg">
     <meta property='og:description' content='Baloti Voting webiste'/>
     <meta property='og:url' content='https://uat.baloti.org/'/>
@@ -32,6 +33,9 @@
 
 <body>
     <div class="app">
+        <span itemprop="image" itemscope itemtype="image/jpeg"> 
+            <link itemprop="url" href="https://uat.baloti.org/static/images/logo.jpg"> 
+        </span>
         <!-- Topbar -->
         {% include 'layout/header.html' %}
         <!-- End of Topbar -->
