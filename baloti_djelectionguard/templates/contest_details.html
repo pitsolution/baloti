@@ -245,8 +245,9 @@
 <script>
     $(document).ready(function(){
         App.countDownFunc('{{date}}');
-        
-        App.voteDetailFunc({{votedData.2}}, {{votedData.3}})
+
+        App.voteDetailFunc({{votedData.2}}, {{votedData.3}});
+        App.socialShareUrl(".share-facebook", ".share-twitter", ".share-whatsapp", ".share-email", ".share-linkedin");
     });
 </script>
 {% endblock body %}

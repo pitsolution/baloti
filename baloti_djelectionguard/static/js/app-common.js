@@ -11,8 +11,6 @@ $(window).scroll(function(){
 
 
 $(document).ready(function(){
-    App.socialShareUrl(".share-facebook", ".share-twitter", ".share-whatsapp", ".share-email", ".share-linkedin");
-
     $(".copytoclipboard").click(function (event) {
         event.preventDefault();
         App.copyToClipboard(App.currentUrl, true, "URL copied");
