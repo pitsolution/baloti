@@ -46,6 +46,13 @@ $_label-outlined-color:#707070;
             color: $app-success;
         }
     }
+    &-danger{
+        background: $app-danger;
+        &--light{
+            background: rgba($app-danger, 0.3);
+            color: $app-danger;
+        }
+    }
     &-icon{
         position: relative;
         padding: 4px 15px 4px 40px;
