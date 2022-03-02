@@ -219,20 +219,30 @@
         margin:0;
         justify-content: center;
         li{
-            margin: 0 5px;
+            margin: 0 9px;
+            &:first-child{
+                margin-left: 0;
+            }
+            &:last-child{
+                margin-right: 0;
+            }
         }
         &__count{
             display: inline-flex;
             margin-bottom: 6px;
             grid-column-gap: 4px;
             span{
-                background: $app-black;
+                background: rgb(54,54,54);
+                background: linear-gradient(180deg, rgba(54,54,54,1) 50%, rgba(0,0,0,1) 100%);
                 color: $app-white;
                 padding: 6px 10px;
                 border-radius: 6px;
                 font-size: 20px;
                 font-family: Outfit-Medium;
                 display: inline-block;
+                position: relative;
+                width: 33px;
+                height: 40px;
             }
         }
         &__txt{
