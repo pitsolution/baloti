@@ -7,7 +7,7 @@ urlpatterns = [
     path('imprint', BalotiImprintView.as_view(), name="imprint"),
     path('data-privacy', BalotiDataPrivacyView.as_view(), name="data-privacy"),
     path('disclaimer', BalotiDisclaimerView.as_view()),
-    path('about-us', BalotiAboutUsView.as_view()),
+    # path('about-us', BalotiAboutUsView.as_view()),
     path('info/', BalotiInfoView.as_view()),
     path('info/submit', BalotiInfoView.as_view(), name='info'),
 ]
