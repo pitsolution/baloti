@@ -1,15 +1,4 @@
 
-// Header Position fixed on scroll
-$(window).scroll(function(){
-    var sticky = $('.app-header'),
-        scroll = $(window).scrollTop();
-  
-    if (scroll >= 100) sticky.addClass('fixed');
-    else sticky.removeClass('fixed');
-});
-
-
-
 $(document).ready(function(){
     $(".copytoclipboard").click(function (event) {
         event.preventDefault();

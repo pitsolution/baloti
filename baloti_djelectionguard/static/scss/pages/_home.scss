@@ -196,7 +196,7 @@
             }
         }
     }
-    @media only screen and (min-width: 1024px) and (max-width: 1400px) {
+    @media only screen and (min-width: 991px) and (max-width: 1400px) {
         &-social{
             &-follow{
                 left: 10.5px;
@@ -211,6 +211,13 @@
             
         }
         
+     }
+     @media only screen and (min-width: 991px) and (max-width: 1024px) {
+        &-social{
+            &-follow{
+               top: 525px;
+            } 
+        }
      }
      @media only screen and (min-width: 1024px) {
         &-our{

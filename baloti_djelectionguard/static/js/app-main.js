@@ -186,3 +186,12 @@ var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggl
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl);
 });
+
+// Header Position fixed on scroll
+$(window).scroll(function(){
+    var sticky = $('.app-header'),
+        scroll = $(window).scrollTop();
+  
+    if (scroll >= 100) sticky.addClass('fixed');
+    else sticky.removeClass('fixed');
+});
