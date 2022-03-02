@@ -205,7 +205,10 @@
         &-impact{
             .app{
                 &-griditem{
-                    grid-column-gap: 35px;
+                    grid-column-gap: 25px;
+                    .app-card--impact{
+                        padding: 25px 30px;
+                    }
                 }
             }
             
