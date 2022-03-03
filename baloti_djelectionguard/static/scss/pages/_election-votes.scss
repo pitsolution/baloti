@@ -278,12 +278,12 @@ $app-election-logo-border: #171742;
        background-image: url('../images/chart-bg.png');
        background-repeat: no-repeat;
        background-size: contain;
-       padding: 0 30px;
        display: flex;
        align-items: center;
+       justify-content: center;
        canvas{
-           height: 150px;
-           
+           height: 150px !important;
+           width: 150px  !important;
        }
        &__count{
         position: absolute;
