@@ -196,7 +196,7 @@
             }
         }
     }
-    @media only screen and (min-width: 1024px) and (max-width: 1400px) {
+    @media only screen and (min-width: 991px) and (max-width: 1400px) {
         &-social{
             &-follow{
                 left: 10.5px;
@@ -205,12 +205,22 @@
         &-impact{
             .app{
                 &-griditem{
-                    grid-column-gap: 35px;
+                    grid-column-gap: 25px;
+                    .app-card--impact{
+                        padding: 25px 30px;
+                    }
                 }
             }
             
         }
         
+     }
+     @media only screen and (min-width: 991px) and (max-width: 1024px) {
+        &-social{
+            &-follow{
+               top: 525px;
+            } 
+        }
      }
      @media only screen and (min-width: 1024px) {
         &-our{
