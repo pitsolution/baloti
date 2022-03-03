@@ -78,19 +78,19 @@ var App = {
         var daychars = Math.floor(distance / (day));
         var dayArr = Array.from(daychars.toString()).map(Number);
         var dayres = dayArr.map(function(el, i) {
-          return `<span>${el}</span>`;
+          return `<div class="app-timerlist__num"><span>${el}</span></div>`;
         }).join('');
 
         var hourschars = Math.floor((distance % (day)) / (hour));
         var hoursArr = Array.from(hourschars.toString()).map(Number);
         var hoursres = hoursArr.map(function(el, i) {
-          return `<span>${el}</span>`;
+          return `<div class="app-timerlist__num"><span>${el}</span></div>`;
         }).join('');
 
         var minutechars = Math.floor((distance % (hour)) / (minute));
         var minuteArr = Array.from(minutechars.toString()).map(Number);
         var minuteres = minuteArr.map(function(el, i) {
-          return `<span>${el}</span>`;
+          return `<div class="app-timerlist__num"><span>${el}</span></div>`;
         }).join('');
 
         // var secondchars = Math.floor((distance % (minute)) / second);
@@ -119,19 +119,19 @@ var App = {
         var ctx = canvas.getContext('2d');
         var gradientColors = [
         {
-          start: '#CE2323',
-          end: '#121567'
+        start: '#CE2323',
+        end: '#121567'
         },
         {
-          start: '#F3F3F3',
-          end: '#C8C8C8'
+        start: '#F3F3F3',
+        end: '#C8C8C8'
         }
         ];
         
         var gradients = [];
         
         gradientColors.forEach( function( item ){
-            var gradient = ctx.createLinearGradient(150,0, 0,100);
+            var gradient = ctx.createLinearGradient(0, 0, 0, 150);
             gradient.addColorStop(0, item.start);
             gradient.addColorStop(1, item.end);
             gradients.push(gradient);
@@ -151,12 +151,12 @@ var App = {
             }]
         },
         options: {
+            cutout:58,
             plugins: {
               tooltip: {
                 enabled: false
               },
               aspectRatio: 1,
-            cutoutPercentage: 90,
             responsive: true,
             startAngle: 0,
               legend: {
