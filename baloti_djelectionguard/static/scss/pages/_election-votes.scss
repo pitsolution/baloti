@@ -51,7 +51,7 @@ $app-election-logo-border: #171742;
             &__right{
                 width: 390px;
                 .btn-share{
-                    &:hover{
+                    &:hover, &:focus{
                         .app-icon{
                             &::before{
                                 color: $app-white;
@@ -293,6 +293,13 @@ $app-election-logo-border: #171742;
         font-size: 30px;
         font-family: Outfit-SemiBold;
        }
+   }
+   &-nodata{
+       color: $app-dark-grey;
+       display: none;
+     img{
+         margin-right: 15px;
+     }
    }
    @media only screen and (max-width: 1200px) {
     &-elections{

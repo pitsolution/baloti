@@ -37,6 +37,11 @@
                 margin-bottom: 58px;
             }
         }
+        &--nodata{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     }
     &-partner-list{
         margin: 0;

@@ -19,11 +19,17 @@ $(document).ready(function(){
         $('.search').each(function() {
             if ($(this).text().search(new RegExp(filter, "i")) < 0) {
                 $(this).hide();
-            } else {
+            } 
+            else if($(this).length === 0){
+                $(this).parent().find('.app-nodata').show();
+                $(this).parent().addClass("app-griditem--nodata");
+            }
+            else {
                 $(this).show();
                 count++;
             }
         });
+        
     });
 
     $(".app-newslist__searchinput").on("click", function(){
