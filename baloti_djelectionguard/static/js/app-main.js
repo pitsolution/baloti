@@ -68,50 +68,55 @@ var App = {
         voteday = dayMonth + nextYear;
         }
         //end
-
-        var countDown = new Date(voteday).getTime(),
-        x = setInterval(function() {    
-
-        var now = new Date().getTime(),
-        distance = countDown - now;
-
-        var daychars = Math.floor(distance / (day));
-        var dayArr = Array.from(daychars.toString()).map(Number);
-        var dayres = dayArr.map(function(el, i) {
-          return `<div class="app-timerlist__num"><span>${el}</span></div>`;
-        }).join('');
-
-        var hourschars = Math.floor((distance % (day)) / (hour));
-        var hoursArr = Array.from(hourschars.toString()).map(Number);
-        var hoursres = hoursArr.map(function(el, i) {
-          return `<div class="app-timerlist__num"><span>${el}</span></div>`;
-        }).join('');
-
-        var minutechars = Math.floor((distance % (hour)) / (minute));
-        var minuteArr = Array.from(minutechars.toString()).map(Number);
-        var minuteres = minuteArr.map(function(el, i) {
-          return `<div class="app-timerlist__num"><span>${el}</span></div>`;
-        }).join('');
-
-        // var secondchars = Math.floor((distance % (minute)) / second);
-        // var secondArr = Array.from(secondchars.toString()).map(Number);
-        // var secondres = secondArr.map(function(el, i) {
-        //   return `<span>${el}</span>`;
-        // }).join('');
-
-        document.getElementById("days").innerHTML = dayres,
-        document.getElementById("hours").innerHTML = hoursres,
-        document.getElementById("minutes").innerHTML = minuteres;
-        // document.getElementById("seconds").innerHTML = secondres;
-
-        //do something later when date is reached
-        if (distance < 0) {
-            document.getElementById("headline").innerText = "Voting Closed!";
-            document.getElementById("countdown").style.display = "none";
-            clearInterval(x);
+        if( typeof endDAte === 'undefined' || endDAte === null ){
+           throw new Error('No value passed');
         }
-        //seconds
-        }, 0);
+        else{
+            var countDown = new Date(voteday).getTime(),
+            x = setInterval(function() {    
+    
+            var now = new Date().getTime(),
+            distance = countDown - now;
+    
+            var daychars = Math.floor(distance / (day));
+            var dayArr = Array.from(daychars.toString()).map(Number);
+            var dayres = dayArr.map(function(el, i) {
+              return `<div class="app-timerlist__num"><span>${el}</span></div>`;
+            }).join('');
+    
+            var hourschars = Math.floor((distance % (day)) / (hour));
+            var hoursArr = Array.from(hourschars.toString()).map(Number);
+            var hoursres = hoursArr.map(function(el, i) {
+              return `<div class="app-timerlist__num"><span>${el}</span></div>`;
+            }).join('');
+    
+            var minutechars = Math.floor((distance % (hour)) / (minute));
+            var minuteArr = Array.from(minutechars.toString()).map(Number);
+            var minuteres = minuteArr.map(function(el, i) {
+              return `<div class="app-timerlist__num"><span>${el}</span></div>`;
+            }).join('');
+    
+            // var secondchars = Math.floor((distance % (minute)) / second);
+            // var secondArr = Array.from(secondchars.toString()).map(Number);
+            // var secondres = secondArr.map(function(el, i) {
+            //   return `<span>${el}</span>`;
+            // }).join('');
+    
+            document.getElementById("days").innerHTML = dayres,
+            document.getElementById("hours").innerHTML = hoursres,
+            document.getElementById("minutes").innerHTML = minuteres;
+            // document.getElementById("seconds").innerHTML = secondres;
+    
+            //do something later when date is reached
+            if (distance < 0) {
+                document.getElementById("headline").innerText = "Voting Closed!";
+                document.getElementById("countdown").style.display = "none";
+                clearInterval(x);
+            }
+            //seconds
+            }, 0);
+        }
+        
     },
 
     voteDetailFunc: function(voted, nonVoted){
@@ -182,10 +187,7 @@ var App = {
 }
 
 
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl);
-});
+
 
 // Header Position fixed on scroll
 $(window).scroll(function(){
@@ -194,4 +196,11 @@ $(window).scroll(function(){
   
     if (scroll >= 100) sticky.addClass('fixed');
     else sticky.removeClass('fixed');
+});
+
+$(document).ready(function(){
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
 });
