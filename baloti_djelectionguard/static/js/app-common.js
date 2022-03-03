@@ -18,7 +18,7 @@ $(document).ready(function(){
 
         $('.search').each(function() {
             if ($(this).text().search(new RegExp(filter, "i")) < 0) {
-                $(this).hide();
+                $(this).remove();
             } 
             else if($(this).length === 0){
                 $(this).parent().find('.app-nodata').show();
