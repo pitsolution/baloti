@@ -36,16 +36,24 @@
                         </div>
                         <div class="app-progress__bar">
                             <div class="progress">
-                                <div class="progress-bar" data-bs-toggle="tooltip" data-bs-placement="top" title="YES {{result.0|unlocalize}}%" role="progressbar" style="width: {{result.0|unlocalize}}%" aria-valuenow="{{result.0|unlocalize}}" aria-valuemin="0" aria-valuemax="100">
-                                {% if result.0 >= 30 %}
+                                {% if result.0 >= 35 %}
+                                <div class="progress-bar" role="progressbar" style="width: {{result.0|unlocalize}}%" aria-valuenow="{{result.0|unlocalize}}" aria-valuemin="0" aria-valuemax="100">
                                     <span>{{result.0|unlocalize}}%</span>
-                                {% endif %}
                                 </div>
-                                <div class="progress-bar bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="NO {{result.1|unlocalize}}%" role="progressbar" style="width: {{result.1|unlocalize}}%" aria-valuenow="{{result.1|unlocalize}}" aria-valuemin="0" aria-valuemax="100">
-                                {% if result.1 >= 30 %}
-                                    <span>{{result.1|unlocalize}} %</span>
+                                {% else %}
+                                <div class="progress-bar"  data-bs-toggle="tooltip" data-bs-placement="top" title="YES {{result.0|unlocalize}}%" role="progressbar" style="width: {{result.0|unlocalize}}%" aria-valuenow="{{result.0|unlocalize}}" aria-valuemin="0" aria-valuemax="100"></div>
                                 {% endif %}
-                                </div>
+
+
+                                {% if result.1 >= 35 %}
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: {{result.1|unlocalize}}%" aria-valuenow="{{result.1|unlocalize}}" aria-valuemin="0" aria-valuemax="100">
+                                        <span>{{result.1|unlocalize}} %</span>
+                                        </div>
+                                {% else %}
+                                    <div class="progress-bar bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="NO {{result.1|unlocalize}}%" role="progressbar" style="width: {{result.1|unlocalize}}%" aria-valuenow="{{result.1|unlocalize}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                {% endif %}
+
+                                
                             </div>
                             <ul class="list-unstyled app-progress__status">
                                 <li class="no">NO {{result.1|unlocalize}}%</li>
@@ -56,16 +64,23 @@
                     <div class="app-progress__right">
                         <div class="app-progress__bar">
                             <div class="progress">
-                                <div class="progress-bar" data-bs-toggle="tooltip" data-bs-placement="top" title="YES {{govt_result.0|unlocalize}}%" role="progressbar" style="width: {{govt_result.0|unlocalize}}%" aria-valuenow="{{govt_result.0|unlocalize}}" aria-valuemin="0" aria-valuemax="100">
-                                {% if govt_result.0 >= 30 %}
+                                {% if govt_result.0 >= 35 %}
+                                <div class="progress-bar"  role="progressbar" style="width: {{govt_result.0|unlocalize}}%" aria-valuenow="{{govt_result.0|unlocalize}}" aria-valuemin="0" aria-valuemax="100">
                                     <span>{{govt_result.0|unlocalize}} %</span>
+                                    </div>
+                                {% else %}
+                                <div class="progress-bar" data-bs-toggle="tooltip" data-bs-placement="top" title="YES {{govt_result.0|unlocalize}}%" role="progressbar" style="width: {{govt_result.0|unlocalize}}%" aria-valuenow="{{govt_result.0|unlocalize}}" aria-valuemin="0" aria-valuemax="100"> </div>
                                 {% endif %}
-                                </div>
-                                <div class="progress-bar bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="NO {{govt_result.1|unlocalize}}%" role="progressbar" style="width: {{govt_result.1|unlocalize}}%" aria-valuenow="{{govt_result.1|unlocalize}}" aria-valuemin="0" aria-valuemax="100">
-                                {% if govt_result.1 >= 30 %}
+                                
+
+                                {% if govt_result.1 >= 35 %}
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: {{govt_result.1|unlocalize}}%" aria-valuenow="{{govt_result.1|unlocalize}}" aria-valuemin="0" aria-valuemax="100">
                                     <span>{{govt_result.1|unlocalize}} %</span>
+                                    </div>
+                                {% else %}
+                                <div class="progress-bar bg-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="NO {{govt_result.1|unlocalize}}%" role="progressbar" style="width: {{govt_result.1|unlocalize}}%" aria-valuenow="{{govt_result.1|unlocalize}}" aria-valuemin="0" aria-valuemax="100"></div>
                                 {% endif %}
-                                </div>
+                               
                             </div>
                             <ul class="list-unstyled app-progress__status">
                                 <li class="no">NO {{govt_result.1|unlocalize}}%</li>
