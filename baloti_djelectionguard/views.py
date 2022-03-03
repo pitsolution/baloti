@@ -36,7 +36,7 @@ class BalotiIndexView(TemplateView):
     Index view.
     """
 
-    def get(self, request):
+    def get(self, request, process=None):
         """
         Args:
             request (Request): Http request object
@@ -49,7 +49,15 @@ class BalotiIndexView(TemplateView):
         contests.append(getParentDetails(open_contests[0])) if open_contests else None
         closed_contests = ParentContest.objects.filter(status="closed").order_by('-end')
         contests.append(getParentDetails(closed_contests[0])) if closed_contests else None
-        return render(request, 'index.html',{"contests": contests})
+        if process == 'changepasswordsuccess':
+            return render(request, 'index.html',{"contests": contests, "changepasswordsuccess":True})
+        elif process == 'logoutsuccess':
+            return render(request, 'index.html',{"contests": contests, "logoutsuccess":True})
+        elif process == 'loginsuccess':
+            return render(request, 'index.html',{"contests": contests, "loginsuccess":True})
+        else:
+            return render(request, 'index.html',{"contests": contests})
+
 
 class BalotiNewsView(TemplateView):
     """
