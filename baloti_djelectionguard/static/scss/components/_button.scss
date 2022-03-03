@@ -14,7 +14,15 @@
     font-weight: 500;
     font-family: Outfit-Medium;
     position: relative;
-    transition: all $app-global-duration $app-cubic-bez;
+    transition: .5s all;
+    .app-icon{
+        transition: .5s all;
+    }
+    &:hover{
+        .app-icon{
+            transform: translateX(3px);
+        }
+    }
     &:focus{
         box-shadow: unset;
         outline: none;
