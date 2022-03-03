@@ -49,14 +49,15 @@ class BalotiIndexView(TemplateView):
         contests.append(getParentDetails(open_contests[0])) if open_contests else None
         closed_contests = ParentContest.objects.filter(status="closed").order_by('-end')
         contests.append(getParentDetails(closed_contests[0])) if closed_contests else None
-        if process == 'changepasswordsuccess':
-            return render(request, 'index.html',{"contests": contests, "changepasswordsuccess":True})
-        elif process == 'logoutsuccess':
-            return render(request, 'index.html',{"contests": contests, "logoutsuccess":True})
-        elif process == 'loginsuccess':
-            return render(request, 'index.html',{"contests": contests, "loginsuccess":True})
-        else:
+        if process == 'changepassword':
+            return render(request, 'index.html',{"contests": contests, "changepassword":True})
+        elif process == 'logout':
+            return render(request, 'index.html',{"contests": contests, "logout":True})
+        elif process == 'login':
+            return render(request, 'index.html',{"contests": contests, "login":True})
+        elif process == None:
             return render(request, 'index.html',{"contests": contests})
+        return render(request, 'index.html',{"contests": contests})
 
 
 class BalotiNewsView(TemplateView):

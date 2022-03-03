@@ -293,7 +293,7 @@
         <span class="app-icon app-toast__close icon-close-bold m-pointer m-l-15"></span>
     </div>
 </div> -->
-{% if changepasswordsuccess == True %}
+{% if changepassword == True %}
 <div class="app-toast">
     <div class="app-toast__msg">
         <span class="app-icon app-toast__tick icon-tick-success"></span>
@@ -303,7 +303,7 @@
 </div>
 {% endif %}
 
-{% if logoutsuccess == True %}
+{% if logout == True %}
 <div class="app-toast">
     <div class="app-toast__msg">
         <span class="app-icon app-toast__tick icon-tick-success"></span>
@@ -313,7 +313,7 @@
 </div>
 {% endif %}
 
-{% if loginsuccess == True %}
+{% if login == True %}
 <div class="app-toast">
     <div class="app-toast__msg">
         <span class="app-icon app-toast__tick icon-tick-success"></span>
@@ -327,11 +327,11 @@
 
 <script>
     $(document).ready(function(){
-       var changepasswordsuccess = '{{changepasswordsuccess}}';
-       var loginsuccess = '{{loginsuccess}}';
-       var logoutsuccess = '{{logoutsuccess}}';
+       var changepassword = '{{changepassword}}';
+       var login = '{{login}}';
+       var logout = '{{logout}}';
 
-        if (changepasswordsuccess === 'True' || loginsuccess === 'True' || logoutsuccess === 'True'){
+        if (changepassword === 'True' || login === 'True' || logout === 'True'){
             $("div.app-toast").fadeIn("slow", function () {
                 setTimeout(function () {
                     $("div.app-toast").fadeOut("slow", function () {

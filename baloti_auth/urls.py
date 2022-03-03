@@ -20,7 +20,7 @@ urlpatterns = [
         'change-password/',
         PasswordChangeView.as_view(
             template_name='change_password.html',
-            success_url = '/baloti/changepasswordsuccess'
+            success_url = '/baloti/success/changepassword'
         ),
         name='change-password'
     )
