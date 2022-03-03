@@ -145,6 +145,11 @@
             transform: rotate(180deg);
             font-size: $app-p - 4 !important;
         }
+        &:hover{
+            .app-icon{
+                transform: rotate(180deg) translateX(3px);
+            }
+        }
     }
     
     &.disabled{
