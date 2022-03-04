@@ -3018,6 +3018,12 @@ class ParentContestSettingsCard(Div):
                     ParentBasicSettingsAction(parentcontest),
                     AddIssuesAction(parentcontest)
                 ]
+        delete_btn = MDCTextButton(
+            _('delete'),
+            'delete',
+            tag='a',
+            href=reverse('parentcontest_delete', args=[parentcontest.uid])
+            )
 
         super().__init__(
             H4(parentcontest.name, style='word-break: break-all;'),
@@ -3029,6 +3035,9 @@ class ParentContestSettingsCard(Div):
             Ul(
                 *list_content,
                 cls='mdc-list action-list'
+            ),
+            Div(
+                    Div(delete_btn, cls='red-button-container')
             ),
             cls='setting-section main-setting-section'
         )

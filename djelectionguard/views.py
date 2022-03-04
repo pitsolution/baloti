@@ -1609,6 +1609,28 @@ class ParentContestListView(ParentContestAccessible, generic.ListView):
             name='parentcontest_list'
         )
 
+class ParentContestDeleteView(ParentContestAccessible, generic.DeleteView):
+    def dispatch(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return ParentContest.objects.filter()
+
+    def get_success_url(self):
+        messages.success(
+            self.request,
+            _('You have removed referendum') + ' ' + f'{self.object.name}',
+        )
+        return reverse('parentcontest_list')
+
+    @classmethod
+    def as_url(cls):
+        return path(
+            'referendum/<uuid:pk>/delete/',
+            login_required(cls.as_view()),
+            name='parentcontest_delete'
+        )
+
 
 class ParentContestDetailView(ParentContestAccessible, generic.DetailView):
     model = ParentContest
