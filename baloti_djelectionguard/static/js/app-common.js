@@ -15,27 +15,34 @@ $(document).ready(function(){
     $("#filter").keyup(function() {
         var filter = $(this).val(),
         count = 0;
-
+        var cardlength = $('.app-card--search').length;
         $('.search').each(function() {
             if ($(this).text().search(new RegExp(filter, "i")) < 0) {
-                $(this).hide();
+                $(this).addClass('d-none');
             } 
-            else if($(this).length === 0){
-                $(this).parent().find('.app-nodata').show();
-                $(this).parent().addClass("app-griditem--nodata");
-            }
             else {
-                $(this).show();
+                $(this).removeClass('d-none');
                 count++;
             }
         });
-        
+        displayNoResult(cardlength, '.search');
     });
 
     $(".app-newslist__searchinput").on("click", function(){
         $('.app-newslist__searchbox input').val("");
         $('#filter').trigger("keyup");
     });
+
+    function displayNoResult(cardCount, card) {
+        var hiddenLILength = $(card).parent().find('.d-none');
+        if (cardCount === hiddenLILength.length) {
+          $('.app-nodata').show();
+          $(card).parent().addClass('app-griditem--nodata');
+        } else {
+            $('.app-nodata').hide();
+            $(card).parent().removeClass('app-griditem--nodata');
+        }
+    }
 
     $("#showBalletModal").on("click", function(){
         var choice_name = $("input[type='radio']:checked").attr("dataname");
