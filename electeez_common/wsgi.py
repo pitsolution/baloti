@@ -25,5 +25,4 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'electeez.settings')
 
 application = get_wsgi_application()
 
-from baloti_djelectionguard.cron_jobs import initialize_cron
-initialize_cron()
+

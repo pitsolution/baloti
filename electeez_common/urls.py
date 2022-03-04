@@ -55,7 +55,7 @@ urlpatterns += i18n_patterns(
     path('tezos/', include('djelectionguard_tezos.views')),
     path('track/', include('djelectionguard_tracker.views')),
     path('lang/', include('djlang.views')),
-    # path('', HomeView.as_view(), name='home'),
+    path('electis/', HomeView.as_view(), name='home'),
     path('baloti/', include(('baloti_auth.urls', 'baloti'), namespace="baloti"), name='baloti'),
     path('baloti/', include(('baloti_djelectionguard.urls.urls', 'baloti_djelectionguard'), namespace="baloti_djelectionguard"), name='baloti_djelectionguard'),
     path('', include(('baloti_djelectionguard.urls.general_urls', 'general_djelectionguard'), namespace="general_djelectionguard"), name='general_djelectionguard'),

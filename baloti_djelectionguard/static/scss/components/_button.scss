@@ -14,7 +14,15 @@
     font-weight: 500;
     font-family: Outfit-Medium;
     position: relative;
-    transition: all $app-global-duration $app-cubic-bez;
+    transition: .5s all;
+    .app-icon{
+        transition: .5s all;
+    }
+    &:hover{
+        .app-icon{
+            transform: translateX(3px);
+        }
+    }
     &:focus{
         box-shadow: unset;
         outline: none;
@@ -136,6 +144,11 @@
             margin: -1px 5px 0 0 !important;
             transform: rotate(180deg);
             font-size: $app-p - 4 !important;
+        }
+        &:hover{
+            .app-icon{
+                transform: rotate(180deg) translateX(3px);
+            }
         }
     }
     

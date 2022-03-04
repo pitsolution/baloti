@@ -9,10 +9,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/>
-   <title>baloti landingpage</title>
+    <title>baloti landingpage</title>
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <link rel="stylesheet" href="{% static 'css/main.min.css'%}">
-    <link href="{% sass_src 'scss/main.scss' %}" rel="stylesheet" type="text/css" />
+    <!-- <link rel="stylesheet" href="{% static 'css/main.min.css'%}">
+    <link href="{% sass_src 'scss/main.scss' %}" rel="stylesheet" type="text/css" /> -->
 </head>
 <body>
     <div class="app">
@@ -52,13 +52,13 @@
         <section class="app-banner app-banner--landing">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-7">
+                    <div class="col-sm-12 col-lg-7">
                         <div class="app-banner__content">
 
                             <h1 class="app-h1 text-outfit-semibold">{% trans "the baloti project" %}</h1>
                             <h3 class="app-h3 text-outfit-regular">{% trans "an online voting platform for all languages is our vision" %}</h3>
                             <div class="btn-inline-group d-flex align-items-center">
-                                <a class="btn btn-primary btn-md  btn-flex" href="https://uat.baloti.org/baloti/"><span>{% trans "go to the baloti portal" %}</span> <span class="app-icon icon-arrow"></span> </a>
+                                <a class="btn btn-primary btn-md  btn-flex" href="/baloti"><span>{% trans "go to the baloti portal" %}</span> <span class="app-icon icon-arrow"></span> </a>
                             </div>
                         </div>
                     </div>
@@ -209,7 +209,7 @@
                         <a href="#" class="app-footer__logo">
                             <img src="/static/images/logo-footer.svg" alt="">
                         </a>
-                        <a target="_blank" class="app-email">Copyright ©baloti</a>
+                        <a class="app-email">copyright@baloti.org</a>
                        </div>
                        <div class="col-md-6 app-footer--landing__right">
                            <ul class="app-footer-link list-unstyled">
