@@ -79,19 +79,22 @@ var App = {
             distance = countDown - now;
     
             var daychars = Math.floor(distance / (day));
-            var dayArr = Array.from(daychars.toString()).map(Number);
+            var formatDaysChar = daychars < 10 ? "0" + daychars : daychars;
+            var dayArr = Array.from(formatDaysChar.toString()).map(Number);
             var dayres = dayArr.map(function(el, i) {
               return `<div class="app-timerlist__num"><span>${el}</span></div>`;
             }).join('');
     
             var hourschars = Math.floor((distance % (day)) / (hour));
-            var hoursArr = Array.from(hourschars.toString()).map(Number);
+            var formatHoursChar = hourschars < 10 ? "0" + hourschars : hourschars;
+            var hoursArr = Array.from(formatHoursChar.toString()).map(Number);
             var hoursres = hoursArr.map(function(el, i) {
               return `<div class="app-timerlist__num"><span>${el}</span></div>`;
             }).join('');
     
             var minutechars = Math.floor((distance % (hour)) / (minute));
-            var minuteArr = Array.from(minutechars.toString()).map(Number);
+            var formatMinuteChar = minutechars < 10 ? "0" + minutechars : minutechars;
+            var minuteArr = Array.from(formatMinuteChar.toString()).map(Number);
             var minuteres = minuteArr.map(function(el, i) {
               return `<div class="app-timerlist__num"><span>${el}</span></div>`;
             }).join('');
