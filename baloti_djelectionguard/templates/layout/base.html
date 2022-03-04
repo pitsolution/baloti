@@ -13,9 +13,12 @@
     <title>baloti</title>
     <meta property="og:type" content="website">
     <meta property="og:description" content="Baloti Voting webiste">
-    <meta property='og:url' content='https://uat.baloti.org/'/>
+    <meta property='og:url' content='https://uat.baloti.org/en/baloti/'/>
     <meta property='og:title' content='Baloti'/>
-    <meta property="og:image" content="https://uat.baloti.org/static/images/thumbnail.jpg"/>
+    <meta property="og:image" itemprop="image" content="https://uat.baloti.org/static/images/thumbnail.JPG"/>
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="fr_CH" />
+    
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <!-- <link href="{% sass_src 'scss/main.scss' %}" rel="stylesheet" type="text/css" /> -->
     <script src="/static/js/jquery-3.5.1.min.js"></script>
@@ -28,6 +31,10 @@
 
 <body>
     <div class="app">
+        <link itemprop="thumbnailUrl" href="https://uat.baloti.org/static/images/thumbnail.JPG"> 
+        <span itemprop="thumbnail" itemscope itemtype="http://schema.org/ImageObject"> 
+        <link itemprop="url" href="https://uat.baloti.org/static/images/thumbnail.JPG"> 
+        </span>
         <!-- Topbar -->
         {% include 'layout/header.html' %}
         <!-- End of Topbar -->
