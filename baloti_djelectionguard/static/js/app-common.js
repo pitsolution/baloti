@@ -15,7 +15,7 @@ $(document).ready(function(){
     $("#filter").keyup(function() {
         var filter = $(this).val(),
         count = 0;
-        var cardlength = $('.app-card--search').length;
+        var cardlength = $('.search').length;
         $('.search').each(function() {
             if ($(this).text().search(new RegExp(filter, "i")) < 0) {
                 $(this).addClass('d-none');
