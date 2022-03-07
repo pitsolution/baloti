@@ -15,7 +15,7 @@ $(document).ready(function(){
     $("#filter").keyup(function() {
         var filter = $(this).val(),
         count = 0;
-        var cardlength = $('.app-card--search').length;
+        var cardlength = $('.search').length;
         $('.search').each(function() {
             if ($(this).text().search(new RegExp(filter, "i")) < 0) {
                 $(this).addClass('d-none');
@@ -35,15 +35,17 @@ $(document).ready(function(){
 
     function displayNoResult(cardCount, card) {
         var hiddenLILength = $(card).parent().find('.d-none');
-        if (cardCount === hiddenLILength.length) {
+        if (cardCount === hiddenLILength.length || card.length === 0) {
           $('.app-nodata').show();
-          $(card).parent().addClass('app-griditem--nodata');
+          $('.app-nodata').parent().addClass('app-griditem--nodata');
         } else {
             $('.app-nodata').hide();
-            $(card).parent().removeClass('app-griditem--nodata');
+            $('.app-nodata').parent().removeClass('app-griditem--nodata');
         }
     }
-
+    displayNoResult($(".app-elections__vote .search").length, '.search');
+    displayNoResult($(".app-elections__result .search").length, '.search');
+    
     $("#showBalletModal").on("click", function(){
         var choice_name = $("input[type='radio']:checked").attr("dataname");
         $('#choice_input').text(choice_name);
