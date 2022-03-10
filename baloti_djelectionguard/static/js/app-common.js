@@ -44,7 +44,6 @@ $(document).ready(function(){
         }
     }
     displayNoResult($(".app-elections__vote .search").length, '.search');
-    displayNoResult($(".app-elections__result .search").length, '.search');
     
     $("#showBalletModal").on("click", function(){
         var choice_name = $("input[type='radio']:checked").attr("dataname");
