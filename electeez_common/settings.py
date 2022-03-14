@@ -20,13 +20,14 @@ BASE_URL = '://'.join([PROTO, HOST])
 DEBUG = ENVIRONMENT == 'localhost'
 DEBUG = os.getenv('DEBUG', DEBUG)
 
-if SECURE:
-    if not HOST.startswith('www'):
-        HOST = 'www.' + HOST
-    DEBUG = False
-    ALLOWED_HOSTS = [HOST]
-else:
-    ALLOWED_HOSTS = ['*']
+# if SECURE:
+#     if not HOST.startswith('www'):
+#         HOST = 'www.' + HOST
+#     DEBUG = False
+#     ALLOWED_HOSTS = [HOST]
+# else:
+#     ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*']
 
 
 if DEBUG:
