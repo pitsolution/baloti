@@ -1,4 +1,5 @@
 {% extends 'layout/base.html' %}
+{% load l10n %}
 {% load static %}
 {% load referendum %}
 {% load issues %}
@@ -245,8 +246,7 @@
 <script>
     $(document).ready(function(){
         App.countDownFunc('{{date}}');
-
-        App.voteDetailFunc({{votedData.2}}, {{votedData.3}});
+        App.voteDetailFunc({{votedData.2|unlocalize}}, {{votedData.3|unlocalize}});
         App.socialShareUrl(".share-facebook", ".share-twitter", ".share-whatsapp", ".share-email", ".share-linkedin");
     });
 </script>
