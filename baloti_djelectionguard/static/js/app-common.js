@@ -19,9 +19,11 @@ $(document).ready(function(){
         $('.search').each(function() {
             if ($(this).text().search(new RegExp(filter, "i")) < 0) {
                 $(this).addClass('d-none');
+                $(this).closest('.app-elections__result').addClass('d-none');
             } 
             else {
                 $(this).removeClass('d-none');
+                $(this).closest('.app-elections__result').removeClass('d-none');
                 count++;
             }
         });
@@ -38,9 +40,11 @@ $(document).ready(function(){
         if (cardCount === hiddenLILength.length || card.length === 0) {
           $('.app-nodata').show();
           $('.app-nodata').parent().addClass('app-griditem--nodata');
+          $(hiddenLILength).closest('.app-elections__result').addClass('d-none');
         } else {
             $('.app-nodata').hide();
             $('.app-nodata').parent().removeClass('app-griditem--nodata');
+            $(hiddenLILength).closest('.app-elections__result').removeClass('d-none');
         }
     }
     displayNoResult($(".app-elections__vote .search").length, '.search');
