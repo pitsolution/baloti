@@ -15,7 +15,7 @@ $(document).ready(function(){
     $("#filter").keyup(function() {
         var filter = $(this).val(),
         count = 0;
-        var cardlength = $('.search').length;
+        var cardlength = $('.app-elections__vote .search').length;
         $('.search').each(function() {
             if ($(this).text().search(new RegExp(filter, "i")) < 0) {
                 $(this).addClass('d-none');
@@ -27,7 +27,7 @@ $(document).ready(function(){
                 count++;
             }
         });
-        displayNoResult(cardlength, '.search');
+        displayNoResult(cardlength, '.app-elections__vote .search');
     });
 
     $(".app-newslist__searchinput").on("click", function(){
