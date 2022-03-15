@@ -27,6 +27,9 @@
                     margin-bottom: 12.5px;
                     color: $app-light-font;
                     font-size: $app-p - 3;
+                    &:hover{
+                        color: darken($app-light-font, 25%);
+                    }
                 }
             }
             &__txt{
