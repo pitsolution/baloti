@@ -211,6 +211,12 @@ $app-election-logo-border: #171742;
             font-size: 24px;
             color: $app-black;
             position: relative;
+            &:hover{
+                .app-icon{
+                    color: $app-primary;
+                    font-weight: 600;
+                }
+            }
         }
         
         &__closeicon{
@@ -240,6 +246,14 @@ $app-election-logo-border: #171742;
                 }
                 ~ .app-newslist__searchicon{
                     display: none;
+                }
+            }
+            &:hover{
+                ~ .app-icon{
+                    &::before{
+                        color: $app-primary;
+                        font-weight: 600;
+                    }
                 }
             }
         }
@@ -295,10 +309,23 @@ $app-election-logo-border: #171742;
        }
    }
    &-nodata{
-       color: $app-dark-grey;
+       color: $app-black;
        display: none;
      img{
          margin-right: 15px;
+     }
+     svg{
+         width: 300px;
+     }
+     &__title{
+         text-align: center;
+         font-family: Outfit-Bold;
+         letter-spacing: 2px;
+         margin-top: -35px!important;
+         
+     }
+     &__subtitle{
+        letter-spacing: 2px;
      }
    }
    @media only screen and (max-width: 1200px) {
