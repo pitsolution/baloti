@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-17 14:32+0530\n"
+"POT-Creation-Date: 2022-03-17 14:53+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -216,6 +216,7 @@ msgstr ""
 "praktizieren"
 
 #: baloti_djelectionguard/templates/index.html:17
+#: baloti_djelectionguard/templates/index.html:69
 msgid "VOTE NOW"
 msgstr "JETZT ABSTIMMEN"
 
@@ -249,17 +250,23 @@ msgstr ""
 msgid "LATEST REFERENDUMS & VOTE"
 msgstr "AKTUELLE REFERENDUMS & ABSTIMMUNGEN"
 
-#: baloti_djelectionguard/templates/index.html:79
+#: baloti_djelectionguard/templates/index.html:58
+msgid "Issues:"
+msgstr "Themen:"
+
+#: baloti_djelectionguard/templates/index.html:73
 #, fuzzy
-#| msgid "VIEW ALL"
+#| msgid "VIEW DETAILS"
+msgid "VIEW DETAIL"
+msgstr "DETAIL ANSEHEN"
+
+#: baloti_djelectionguard/templates/index.html:79
 msgid "VIEW RESULT"
-msgstr "ALLE ANZEIGEN"
+msgstr "RESULTAT ANSEHEN"
 
 #: baloti_djelectionguard/templates/index.html:81
-#, fuzzy
-#| msgid "VIEW ALL"
 msgid "VIEW DETAILS"
-msgstr "ALLE ANZEIGEN"
+msgstr "DETAIL ANSEHEN"
 
 #: baloti_djelectionguard/templates/index.html:90
 msgid "VIEW ALL"
@@ -286,8 +293,8 @@ msgid ""
 "Register on the baloti platform and vote, whether you already have Swiss "
 "voting rights or not"
 msgstr ""
-"Registrieren Sie sich auf der baloti Plattform und stimmen Sie ab,"
-"unabhängig davon, ob Sie bereits das Schweizer Stimmrecht besitzen oder nicht"
+"Registrieren Sie sich auf der baloti Plattform und stimmen Sie ab,unabhängig "
+"davon, ob Sie bereits das Schweizer Stimmrecht besitzen oder nicht"
 
 #: baloti_djelectionguard/templates/index.html:113
 msgid "Stay up to date with notifications and information from baloti."
@@ -319,7 +326,6 @@ msgid "multilingual"
 msgstr "mehrsprachig"
 
 #: baloti_djelectionguard/templates/index.html:138
-
 msgid ""
 "making the voting experience more accessible, vote in your own language."
 msgstr ""
@@ -353,7 +359,10 @@ msgid ""
 "Selectio Helvetica light to safeguard ballot secrecy. The secret ballot "
 "protects the voter in a vote or election, so that his or her choice remains "
 "confidential. Securing ballot secrecy is a central..."
-msgstr "Selectio Helvetica light zur Wahrung des Wahlgeheimnisses. Die geheime Wahl schützt den Wähler bei einer Abstimmung oder Wahl, sodass seine Wahl vertraulich bleibt. Die Sicherung des Wahlgeheimnisses ist ein zentrales..."
+msgstr ""
+"Selectio Helvetica light zur Wahrung des Wahlgeheimnisses. Die geheime Wahl "
+"schützt den Wähler bei einer Abstimmung oder Wahl, sodass seine Wahl "
+"vertraulich bleibt. Die Sicherung des Wahlgeheimnisses ist ein zentrales..."
 
 #: baloti_djelectionguard/templates/index.html:220
 #: baloti_djelectionguard/templates/index.html:233
@@ -375,7 +384,6 @@ msgid "PROJECT PARTNERS"
 msgstr "PROJEKT PARTNER"
 
 #: baloti_djelectionguard/templates/index.html:295
-
 msgid "Registration successful"
 msgstr "Registrierung erfolgreich"
 
@@ -384,12 +392,10 @@ msgid "Password successfully changed"
 msgstr "Passwort erfolgreich geändert"
 
 #: baloti_djelectionguard/templates/index.html:315
-
 msgid "Logged out successfully"
 msgstr "Erfolgreich abgemeldet"
 
 #: baloti_djelectionguard/templates/index.html:325
-
 msgid "Logged in successfully"
 msgstr "Erfolgreich eingeloggt"
 

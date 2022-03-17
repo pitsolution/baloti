@@ -55,7 +55,7 @@
                                 <h4 class="app-h4 app-card__title">{{u.name}}</h4>
                                 <!-- <h5 class="app-card__monthyear">{{u.month}} {{u.year}}</h5> -->
                                 <p class="app-card__date"><span>{{u.date|date:"d.m.Y"}} -  {{u.end_date|date:"d.m.Y"}}</span></p>
-                                <p class="app-h6 text-medium text-dark">Issues: {{issues}}</p>
+                                <p class="app-h6 text-medium text-dark">{%trans "Issues:" %} {{issues}}</p>
                                 <ul class="app-list list-unstyled app-sm-text">
                                     {% for i in u.id|getContestIssues %}
                                         <li>{{forloop.counter}} - {{i.name}}</li>
@@ -66,11 +66,11 @@
                                         {% checkReferendumVotingStatus u.id user as result %}
                                         {% if result %}
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a>
+                                                <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>{%trans "VOTE NOW" %}</span> <span class="app-icon icon-arrow"></span></a>
                                             </div>
                                         {% else %}
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>VIEW DETAIL</span> <span class="app-icon icon-arrow"></span></a>
+                                                <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>{%trans "VIEW DETAIL" %}</span> <span class="app-icon icon-arrow"></span></a>
                                             </div>
                                         {% endif %}
                                     {% elif u.status == 'closed' %}
