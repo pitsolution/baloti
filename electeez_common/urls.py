@@ -13,12 +13,13 @@ from django.templatetags.static import static as static_url
 from django.contrib.auth import views as auth_views
 
 from djlang.utils import gettext as _
-
+from baloti_djelectionguard import cron_jobs
 
 urlpatterns = [
     url(r'^favicon\.ico$', generic.RedirectView.as_view(url='/static/images/favicon.ico')),
 ]
 
+cron_jobs.initialize_cron()
 
 @method_decorator(csrf_exempt, name='dispatch')
 class HomeView(generic.TemplateView):
