@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-17 14:53+0530\n"
+"POT-Creation-Date: 2022-03-17 20:07+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -179,6 +179,51 @@ msgstr "Impressum"
 msgid "FOLLOW US ON"
 msgstr ""
 
+#: baloti_djelectionguard/templates/disclaimer.html:11
+#: baloti_djelectionguard/templates/layout/footer.html:21
+msgid "Disclaimer"
+msgstr "Disclaimer"
+
+#: baloti_djelectionguard/templates/disclaimer.html:12
+msgid ""
+"Please note that the vote you are casting on the baloti website is not "
+"official.."
+msgstr "Bitte beachten Sie, dass die Stimme, die Sie auf der Baloti-Website abgeben, nicht offiziell ist."
+
+#: baloti_djelectionguard/templates/disclaimer.html:13
+msgid "On the website"
+msgstr "auf der Website"
+
+#: baloti_djelectionguard/templates/disclaimer.html:13
+msgid "various user data are saved"
+msgstr "verschiedene Benutzerdaten gespeichert werden"
+
+#: baloti_djelectionguard/templates/disclaimer.html:14
+msgid ""
+"In a cookie we store the language preference of the user only. When the "
+"website is accessed login data are saved in a so-called log file on the "
+"server. This mainly concerns: IP address, date and time of access, name of "
+"accessed page, web-browser used, operating system used etc."
+msgstr "In einem Cookie speichern wir lediglich die Spracheinstellung des Nutzers. Beim Zugriff auf die Website werden Logindaten in einer sogenannten Logdatei auf dem Server gespeichert. Dabei handelt es sich im Wesentlichen um: IP-Adresse, Datum und Uhrzeit des Zugriffs, Name der aufgerufenen Seite, verwendeter Webbrowser, verwendetes Betriebssystem usw."
+
+#: baloti_djelectionguard/templates/disclaimer.html:15
+msgid ""
+"All these data are protected against unauthorised persons and are only "
+"evaluated in the form of anonymous access statistics."
+msgstr "Alle diese Daten sind vor Unbefugten geschützt und werden nur in Form von anonymen Zugriffsstatistiken ausgewertet."
+
+#: baloti_djelectionguard/templates/disclaimer.html:16
+msgid ""
+"E-mail addresses are used only for direct communication with the user and "
+"will under no circumstances be passed on to a third party."
+msgstr "E-Mail-Adressen werden nur für die direkte Kommunikation mit dem Nutzer verwendet und unter keinen Umstünden an Dritte weitergegeben."
+
+#: baloti_djelectionguard/templates/disclaimer.html:17
+msgid ""
+"The data about the vote and the user (status, age, gender, canton, etc.) are "
+"used for analyses and statistics only in anonymised and aggregated form."
+msgstr "Die Daten über die Abstimmung und den Benutzer (Status, Alter, Geschlecht, Kanton usw.) werden für Analysen und Statistiken nur in anonymisierter und aggregierter Form verwendet."
+
 #: baloti_djelectionguard/templates/imprint.html:66
 msgid "Represented by"
 msgstr "Vertreten durch"
@@ -248,7 +293,7 @@ msgstr ""
 
 #: baloti_djelectionguard/templates/index.html:48
 msgid "LATEST REFERENDUMS & VOTE"
-msgstr "AKTUELLE REFERENDUMS & ABSTIMMUNGEN"
+msgstr "AKTUELLE REFERENDEN & ABSTIMMUNGEN"
 
 #: baloti_djelectionguard/templates/index.html:58
 msgid "Issues:"
@@ -259,6 +304,11 @@ msgstr "Themen:"
 #| msgid "VIEW DETAILS"
 msgid "VIEW DETAIL"
 msgstr "DETAIL ANSEHEN"
+
+#: baloti_djelectionguard/templates/index.html:79
+#: baloti_djelectionguard/templates/index.html:81
+msgid "closed"
+msgstr "Beendet"
 
 #: baloti_djelectionguard/templates/index.html:79
 msgid "VIEW RESULT"
@@ -476,6 +526,18 @@ msgstr "SENDEN"
 #: baloti_djelectionguard/templates/landing-en.html:234
 msgid "Mail sent successfully"
 msgstr "E-Mail erfolgreich versendet"
+
+#: baloti_djelectionguard/templates/layout/footer.html:15
+msgid "Referendum Votes"
+msgstr "Referenden & Abstimmungen"
+
+#: baloti_djelectionguard/templates/layout/footer.html:16
+msgid "Illustrations"
+msgstr "Illustrationen"
+
+#: baloti_djelectionguard/templates/layout/footer.html:22
+msgid "User Manual"
+msgstr "Benutzerhandbuch"
 
 #: baloti_djelectionguard/views.py:162
 msgid "dcfxv sent by email"

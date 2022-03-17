@@ -76,9 +76,9 @@
                                     {% elif u.status == 'closed' %}
                                         {% checkReferendumResultPublished u.id user as result %}
                                         {% if result %}
-                                            <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>{% trans "VIEW RESULT" %}</span> <span class="app-icon icon-arrow"></span></a></div>
+                                            <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">{%trans "closed" %}</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>{% trans "VIEW RESULT" %}</span> <span class="app-icon icon-arrow"></span></a></div>
                                         {% else %}
-                                            <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>{% trans "VIEW DETAILS" %}</span> <span class="app-icon icon-arrow"></span></a></div>
+                                            <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">{%trans "closed" %}</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>{% trans "VIEW DETAILS" %}</span> <span class="app-icon icon-arrow"></span></a></div>
                                         {% endif %}
                                     {% endif %}
                                 </div>

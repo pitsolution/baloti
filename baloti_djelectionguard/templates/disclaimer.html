@@ -1,5 +1,6 @@
 {% extends 'layout/base.html' %}
 {% load static %}
+{% load static i18n %}
 {% block body %}  
 
 <section class="app-disclaimer app-body-bg">
@@ -7,13 +8,13 @@
         <div class="row">
             <div class="col-sm-7 mx-auto">
                 <div class="app-card app-card--lg  app-rad-top--right">
-                    <h3 class="app-h3 app-title app-title--sm">Disclaimer</h3>
-                     <p class="app-txt app-txt--md"> Please note that the vote you are casting on the baloti website is not official.. </p>
-                    <p class="app-txt app-txt--md"> On the website <a class="app-customlink" href="https://www.baloti.ch" target="_blank"> www.baloti.ch</a> various user data are saved</p>
-                    <p class="app-txt app-txt--md"> In a cookie we store the language preference of the user only. When the website is accessed login data are saved in a so-called log file on the server. This mainly concerns: IP address, date and time of access, name of accessed page, web-browser used, operating system used etc.</p>
-                    <p class="app-txt app-txt--md"> All these data are protected against unauthorised persons and are only evaluated in the form of anonymous access statistics.</p>
-                    <p class="app-txt app-txt--md"> E-mail addresses are used only for direct communication with the user and will under no circumstances be passed on to a third party.</p>
-                    <p class="app-txt app-txt--md">  The data about the vote and the user (status, age, gender, canton, etc.) are used for analyses and statistics only in anonymised and aggregated form.</p>
+                    <h3 class="app-h3 app-title app-title--sm">{% trans "Disclaimer" %}</h3>
+                     <p class="app-txt app-txt--md"> {% trans "Please note that the vote you are casting on the baloti website is not official.." %} </p>
+                    <p class="app-txt app-txt--md"> {% trans "On the website" %} <a class="app-customlink" href="https://www.baloti.ch" target="_blank"> www.baloti.ch</a> {% trans "various user data are saved" %}</p>
+                    <p class="app-txt app-txt--md"> {% trans "In a cookie we store the language preference of the user only. When the website is accessed login data are saved in a so-called log file on the server. This mainly concerns: IP address, date and time of access, name of accessed page, web-browser used, operating system used etc." %}</p>
+                    <p class="app-txt app-txt--md"> {% trans "All these data are protected against unauthorised persons and are only evaluated in the form of anonymous access statistics." %}</p>
+                    <p class="app-txt app-txt--md"> {% trans "E-mail addresses are used only for direct communication with the user and will under no circumstances be passed on to a third party." %}</p>
+                    <p class="app-txt app-txt--md">  {% trans "The data about the vote and the user (status, age, gender, canton, etc.) are used for analyses and statistics only in anonymised and aggregated form." %}</p>
                       
                 </div>
             </div>
