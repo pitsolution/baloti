@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-18 17:26+0530\n"
+"POT-Creation-Date: 2022-03-17 14:32+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -164,13 +164,13 @@ msgstr ""
 
 #: baloti_djelectionguard/templates/data_privacy.html:106
 #: baloti_djelectionguard/templates/imprint.html:112
-#: baloti_djelectionguard/templates/landing-en.html:219
+#: baloti_djelectionguard/templates/landing-en.html:220
 msgid "Data Privacy"
 msgstr "Datenschutz"
 
 #: baloti_djelectionguard/templates/data_privacy.html:107
 #: baloti_djelectionguard/templates/imprint.html:113
-#: baloti_djelectionguard/templates/landing-en.html:220
+#: baloti_djelectionguard/templates/landing-en.html:221
 msgid "Imprint"
 msgstr "Impressum"
 
@@ -203,6 +203,196 @@ msgstr "Telefon"
 msgid "Fax"
 msgstr "Fax"
 
+#: baloti_djelectionguard/templates/index.html:14
+msgid "baloti Voting system"
+msgstr "baloti Voting Projekt"
+
+#: baloti_djelectionguard/templates/index.html:15
+msgid ""
+"On our platform you can <br> practice direct democracy in <br> several "
+"languages"
+msgstr ""
+"Auf unserer Plattform können Sie direkte Demokratie in mehreren Sprachen "
+"praktizieren"
+
+#: baloti_djelectionguard/templates/index.html:17
+msgid "VOTE NOW"
+msgstr "JETZT ABSTIMMEN"
+
+#: baloti_djelectionguard/templates/index.html:18
+msgid "HOW IT WORKS"
+msgstr "WIE FUNKTIONIERT ES"
+
+#: baloti_djelectionguard/templates/index.html:41
+msgid "ABOUT US"
+msgstr "ÜBER UNS"
+
+#: baloti_djelectionguard/templates/index.html:42
+msgid "On our platform you can practice direct democracy in several languages"
+msgstr ""
+"Auf unserer Plattform können Sie direkte Demokratie in mehreren Sprachen "
+"praktizieren"
+
+#: baloti_djelectionguard/templates/index.html:43
+msgid ""
+"The baloti.ch. project is carried out by an interdisciplinary team at the "
+"Zentrum für Demokratie Aarau in cooperation with the University of "
+"Neuchatel. Diversified project partnerships ensure that the project will be "
+"made public all over the country."
+msgstr ""
+"Das Projekt baloti.ch. wird von einem interdisziplinären Team am Zentrum für "
+"Demokratie Aarau in Zusammenarbeit mit der Universität Neuenburg "
+"durchgeführt. Diverse Projektpartnerschaften sorgen dafür, dass das Projekt "
+"landesweit statisch gemacht wird."
+
+#: baloti_djelectionguard/templates/index.html:48
+msgid "LATEST REFERENDUMS & VOTE"
+msgstr "AKTUELLE REFERENDUMS & ABSTIMMUNGEN"
+
+#: baloti_djelectionguard/templates/index.html:79
+#, fuzzy
+#| msgid "VIEW ALL"
+msgid "VIEW RESULT"
+msgstr "ALLE ANZEIGEN"
+
+#: baloti_djelectionguard/templates/index.html:81
+#, fuzzy
+#| msgid "VIEW ALL"
+msgid "VIEW DETAILS"
+msgstr "ALLE ANZEIGEN"
+
+#: baloti_djelectionguard/templates/index.html:90
+msgid "VIEW ALL"
+msgstr "ALLE ANZEIGEN"
+
+#: baloti_djelectionguard/templates/index.html:99
+msgid "LETS DIVE IN"
+msgstr "TAUCHEN WIR EIN"
+
+#: baloti_djelectionguard/templates/index.html:100
+msgid "How it works"
+msgstr "Wie funktioniert es"
+
+#: baloti_djelectionguard/templates/index.html:105
+msgid ""
+"Inform yourself about the latest votes in Switzerland and learn new facts "
+"about Swiss politics."
+msgstr ""
+"Informieren Sie sich über die aktuellen Abstimmungen in der Schweiz und "
+"erfahren Sie Neues über die Schweizer Politik"
+
+#: baloti_djelectionguard/templates/index.html:109
+msgid ""
+"Register on the baloti platform and vote, whether you already have Swiss "
+"voting rights or not"
+msgstr ""
+"Registrieren Sie sich auf der baloti Plattform und stimmen Sie ab,"
+"unabhängig davon, ob Sie bereits das Schweizer Stimmrecht besitzen oder nicht"
+
+#: baloti_djelectionguard/templates/index.html:113
+msgid "Stay up to date with notifications and information from baloti."
+msgstr ""
+"Bleiben Sie auf dem Laufenden mit Benachrichtigungen und Informationen von "
+"baloti."
+
+#: baloti_djelectionguard/templates/index.html:122
+#: baloti_djelectionguard/templates/landing-en.html:94
+msgid "IMPACT"
+msgstr "WIR BIETEN"
+
+#: baloti_djelectionguard/templates/index.html:129
+#: baloti_djelectionguard/templates/landing-en.html:102
+msgid "safe, secure & open"
+msgstr "sicher und offen"
+
+#: baloti_djelectionguard/templates/index.html:130
+msgid ""
+"Our solution is fully open source and we use blockchain technology for "
+"saving and verifying votes"
+msgstr ""
+"Unsere lösung ist vollständig Open Source und wir verwenden die Blockchain-"
+"Technologie zur Speicherung und Verifizierung von Stimmen."
+
+#: baloti_djelectionguard/templates/index.html:137
+#: baloti_djelectionguard/templates/landing-en.html:113
+msgid "multilingual"
+msgstr "mehrsprachig"
+
+#: baloti_djelectionguard/templates/index.html:138
+
+msgid ""
+"making the voting experience more accessible, vote in your own language."
+msgstr ""
+"wir machen die abstimmung zugänglicher, stimme in der eigenen Sprache ab"
+
+#: baloti_djelectionguard/templates/index.html:146
+#: baloti_djelectionguard/templates/landing-en.html:123
+msgid "democratic"
+msgstr "demokratisch"
+
+#: baloti_djelectionguard/templates/index.html:147
+#: baloti_djelectionguard/templates/landing-en.html:124
+msgid ""
+"allow more people to participate in voting independently of time and space"
+msgstr ""
+"ermöglicht mehr menschen die teilnahme an abstimmungen, unabhängig von zeit "
+"und ort"
+
+#: baloti_djelectionguard/templates/index.html:207
+msgid "ILLUSTRATIONS"
+msgstr "ILLUSTRATIONEN"
+
+#: baloti_djelectionguard/templates/index.html:216
+msgid "Sources of Information"
+msgstr "Informationsquellen"
+
+#: baloti_djelectionguard/templates/index.html:217
+#: baloti_djelectionguard/templates/index.html:230
+#: baloti_djelectionguard/templates/index.html:243
+msgid ""
+"Selectio Helvetica light to safeguard ballot secrecy. The secret ballot "
+"protects the voter in a vote or election, so that his or her choice remains "
+"confidential. Securing ballot secrecy is a central..."
+msgstr "Selectio Helvetica light zur Wahrung des Wahlgeheimnisses. Die geheime Wahl schützt den Wähler bei einer Abstimmung oder Wahl, sodass seine Wahl vertraulich bleibt. Die Sicherung des Wahlgeheimnisses ist ein zentrales..."
+
+#: baloti_djelectionguard/templates/index.html:220
+#: baloti_djelectionguard/templates/index.html:233
+#: baloti_djelectionguard/templates/index.html:246
+msgid "Read"
+msgstr "Lesen"
+
+#: baloti_djelectionguard/templates/index.html:229
+msgid "Television debates"
+msgstr "Fernsehdebatten"
+
+#: baloti_djelectionguard/templates/index.html:242
+msgid "Postal voting"
+msgstr "Abstimmung per Post"
+
+#: baloti_djelectionguard/templates/index.html:259
+#: baloti_djelectionguard/templates/landing-en.html:134
+msgid "PROJECT PARTNERS"
+msgstr "PROJEKT PARTNER"
+
+#: baloti_djelectionguard/templates/index.html:295
+
+msgid "Registration successful"
+msgstr "Registrierung erfolgreich"
+
+#: baloti_djelectionguard/templates/index.html:305
+msgid "Password successfully changed"
+msgstr "Passwort erfolgreich geändert"
+
+#: baloti_djelectionguard/templates/index.html:315
+
+msgid "Logged out successfully"
+msgstr "Erfolgreich abgemeldet"
+
+#: baloti_djelectionguard/templates/index.html:325
+
+msgid "Logged in successfully"
+msgstr "Erfolgreich eingeloggt"
+
 #: baloti_djelectionguard/templates/landing-en.html:61
 msgid "the baloti project"
 msgstr "das baloti projekt"
@@ -212,14 +402,15 @@ msgid "an online voting platform for all languages is our vision"
 msgstr "eine online voting plattform in allen sprachen ist unsere vision"
 
 #: baloti_djelectionguard/templates/landing-en.html:64
+#: baloti_djelectionguard/templates/landing-en.html:65
 msgid "go to the baloti portal"
 msgstr "baloti plattform öffnen"
 
-#: baloti_djelectionguard/templates/landing-en.html:81
+#: baloti_djelectionguard/templates/landing-en.html:82
 msgid "ABOUT THE PROJECT"
 msgstr "ÜBER UNSER PROJEKT"
 
-#: baloti_djelectionguard/templates/landing-en.html:82
+#: baloti_djelectionguard/templates/landing-en.html:83
 msgid ""
 "baloti is a technical solution allowing you to cast your vote online in "
 "several languages in a safe and secure way"
@@ -227,20 +418,11 @@ msgstr ""
 "baloti ist eine online lösung, um auf sichere art und weise in mehreren "
 "sprachen abzustimmen"
 
-#: baloti_djelectionguard/templates/landing-en.html:83
+#: baloti_djelectionguard/templates/landing-en.html:84
 msgid "experience Swiss referendum voting online"
 msgstr "Schweizer abstimmungen online erleben"
 
-#: baloti_djelectionguard/templates/landing-en.html:93
-msgid "IMPACT"
-msgstr "WIR BIETEN"
-
-#: baloti_djelectionguard/templates/landing-en.html:101
-
-msgid "safe, secure & open"
-msgstr "sicher und offen"
-
-#: baloti_djelectionguard/templates/landing-en.html:102
+#: baloti_djelectionguard/templates/landing-en.html:103
 msgid ""
 "baloti is fully open source and uses blockchain technology for saving and "
 "verifying votes"
@@ -248,85 +430,55 @@ msgstr ""
 "baloti ist vollständig open source und verwendet die blockchain-technologie "
 "zur speicherung und verifizierung von stimmen"
 
-#: baloti_djelectionguard/templates/landing-en.html:112
-
-msgid "multilingual"
-msgstr "mehrsprachig"
-
-#: baloti_djelectionguard/templates/landing-en.html:113
+#: baloti_djelectionguard/templates/landing-en.html:114
 msgid "making the voting experience more accessible, vote in your own language"
 msgstr ""
 "wir machen die abstimmung zugänglicher, stimme in der eigenen Sprache ab"
 
-#: baloti_djelectionguard/templates/landing-en.html:122
-
-msgid "democratic"
-msgstr "demokratisch"
-
-#: baloti_djelectionguard/templates/landing-en.html:123
-msgid ""
-"allow more people to participate in voting independently of time and space"
-msgstr ""
-"ermöglicht mehr menschen die teilnahme an abstimmungen, unabhängig von zeit "
-"und ort"
-
-#: baloti_djelectionguard/templates/landing-en.html:133
-msgid "PROJECT PARTNERS"
-msgstr "PROJEKT PARTNER"
-
-#: baloti_djelectionguard/templates/landing-en.html:164
+#: baloti_djelectionguard/templates/landing-en.html:165
 msgid "CONTACT US"
 msgstr "KONTAKT"
 
-#: baloti_djelectionguard/templates/landing-en.html:165
+#: baloti_djelectionguard/templates/landing-en.html:166
 msgid "Feel free to <br> contact us"
 msgstr "Wir freuen uns <br> auf Ihre Nachricht!"
 
-#: baloti_djelectionguard/templates/landing-en.html:173
+#: baloti_djelectionguard/templates/landing-en.html:174
 msgid "Firstname*"
 msgstr "Vorname*"
 
-#: baloti_djelectionguard/templates/landing-en.html:177
+#: baloti_djelectionguard/templates/landing-en.html:178
 msgid "Lastname*"
 msgstr "Nachname*"
 
-#: baloti_djelectionguard/templates/landing-en.html:183
+#: baloti_djelectionguard/templates/landing-en.html:184
 msgid "Email*"
 msgstr "E-Mail*"
 
-#: baloti_djelectionguard/templates/landing-en.html:187
+#: baloti_djelectionguard/templates/landing-en.html:188
 msgid "Subject*"
 msgstr "Betreff*"
 
-#: baloti_djelectionguard/templates/landing-en.html:192
+#: baloti_djelectionguard/templates/landing-en.html:193
 msgid "Message*"
 msgstr "Nachricht*"
 
-#: baloti_djelectionguard/templates/landing-en.html:198
+#: baloti_djelectionguard/templates/landing-en.html:199
 msgid "SEND"
 msgstr "SENDEN"
 
-#: baloti_djelectionguard/templates/landing-en.html:233
+#: baloti_djelectionguard/templates/landing-en.html:234
 msgid "Mail sent successfully"
 msgstr "E-Mail erfolgreich versendet"
 
-#: baloti_djelectionguard/views.py:152
+#: baloti_djelectionguard/views.py:162
 msgid "dcfxv sent by email"
 msgstr ""
 
-#: baloti_djelectionguard/views.py:348 baloti_djelectionguard/views.py:420
+#: baloti_djelectionguard/views.py:358 baloti_djelectionguard/views.py:430
 #, python-format
 msgid "You casted your ballot for %(obj)s"
 msgstr ""
-
-#~ msgid "ABOUT US"
-#~ msgstr "ÜBER UNS"
-
-#~ msgid ""
-#~ "On our platform you can practice direct democracy in several languages"
-#~ msgstr ""
-#~ "Auf unserer Plattform können Sie direkte Demokratie in mehreren Sprachen "
-#~ "praktizieren"
 
 #~ msgid ""
 #~ "The baloti.ch. project is carried out by an interdisciplinary team at the "
@@ -443,47 +595,8 @@ msgstr ""
 #~ msgid "Email:"
 #~ msgstr "E-Mail*"
 
-#, fuzzy
-#~| msgid "baloti Voting Project"
-#~ msgid "baloti Voting system"
-#~ msgstr "baloti Voting Projekt"
-
-#, fuzzy
-#~| msgid ""
-#~| "On our platform you can practice direct democracy in several languages"
-#~ msgid ""
-#~ "On our platform you can <br> practice direct democracy in <br> several "
-#~ "languages"
-#~ msgstr ""
-#~ "Auf unserer Plattform können Sie direkte Demokratie in mehreren Sprachen "
-#~ "praktizieren"
-
-#, fuzzy
-#~| msgid ""
-#~| "The baloti.ch. project is carried out by an interdisciplinary team at "
-#~| "the Zentrum für Demokratie Aarau in cooperation with the University of "
-#~| "Neuchatel. Diversified project partnerships ensure that the project will "
-#~| "be made static all over the country."
-#~ msgid ""
-#~ "The baloti.ch. project is carried out by an interdisciplinary team at the "
-#~ "Zentrum für Demokratie Aarau in cooperation with the University of "
-#~ "Neuchatel. Diversified project partnerships ensure that the project will "
-#~ "be made public all over the country."
-#~ msgstr ""
-#~ "Das Projekt baloti.ch. wird von einem interdisziplinären Team am Zentrum "
-#~ "für Demokratie Aarau in Zusammenarbeit mit der Universität Neuenburg "
-#~ "durchgeführt. Diverse Projektpartnerschaften sorgen dafür, dass das "
-#~ "Projekt landesweit statisch gemacht wird."
-
 #~ msgid "OUR IMPACT"
 #~ msgstr "WIR BIETEN"
-
-#~ msgid ""
-#~ "Our solution is fully open source and we use blockchain technology for "
-#~ "saving and verifying votes"
-#~ msgstr ""
-#~ "Unsere lösung ist vollständig Open Source und wir verwenden die "
-#~ "Blockchain-Technologie zur Speicherung und Verifizierung von Stimmen."
 
 #~ msgid "OUR PROJECT PARTNERS"
 #~ msgstr "Unsere Projektpartner"
