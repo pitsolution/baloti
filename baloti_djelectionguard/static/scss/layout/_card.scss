@@ -331,6 +331,10 @@ background: linear-gradient(356deg, rgba(18,21,103,1) 0%, rgba(206,35,35,1) 100%
                     &-txt{
                         font-size: $app-sm-text;
                         margin-bottom: 32px;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 5;
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
                     }
                     
                 }
