@@ -8,7 +8,7 @@
     <div class="app-elections__vote">
         <div class="container">
             <div class="app-header-flex">
-                <h3 class="app-title app-title--sm">Referendum Votes</h3>
+                <h3 class="app-title app-title--sm">{% trans "Referendum Votes" %}</h3>
                 <ul class="app-newslist list-unstyled">
                     <li>
                         <a href="#" class="app-newslist__link">
@@ -26,10 +26,10 @@
                         <a href="#" class="app-newslist__link" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"><span class="app-icon icon-sort"></span></a>
                         <div class="dropdown-menu dropdown-menu-right app-dropdown" aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-menu__header">
-                                <p><span>Sort by</span></p>
+                                <p><span>{% trans "Sort by" %}</span></p>
                             </div>
-                            <a class="dropdown-item" href={% url 'baloti_djelectionguard:ContestSortedList' sort='asc' %}>Old to new</a>
-                            <a class="dropdown-item" href={% url 'baloti_djelectionguard:ContestSortedList' sort='desc' %}>New to old</a>
+                            <a class="dropdown-item" href={% url 'baloti_djelectionguard:ContestSortedList' sort='asc' %}>{% trans "Old to new" %}</a>
+                            <a class="dropdown-item" href={% url 'baloti_djelectionguard:ContestSortedList' sort='desc' %}>{% trans "New to old" %}</a>
                         </div>
                     </li>
                 </ul>
@@ -51,7 +51,7 @@
                         {% endif %}
                     </p>
 
-                    <p class="app-h6 text-medium text-dark">Issues: {{issues}}</p>
+                    <p class="app-h6 text-medium text-dark">{%trans "Issues:" %} {{issues}}</p>
                     <ul class="app-list list-unstyled app-sm-text">
                         {% for i in u.id|getContestIssues %}
                             <li>{{forloop.counter}} - {{i.name}}</li>
@@ -62,12 +62,12 @@
                         {% if result %}
                             <div class="d-flex align-items-center justify-content-between">
                                 <!-- <label for="" class="label label-outlined label-outlined--primary  label-sm">open</label>  -->
-                                <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a>
+                                <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>{%trans "VOTE NOW" %}</span> <span class="app-icon icon-arrow"></span></a>
                             </div>
                         {% else %}
                             <div class="d-flex align-items-center justify-content-between">
                                 <!-- <label for="" class="label label-outlined label-outlined--primary  label-sm">open</label>  -->
-                                <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>VIEW DETAIL</span> <span class="app-icon icon-arrow"></span></a>
+                                <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>{%trans "VIEW DETAIL" %}</span> <span class="app-icon icon-arrow"></span></a>
                             </div>
                         {% endif %}
                     </div>
@@ -85,7 +85,7 @@
     
     <div class="app-elections__result app-bg">
         <div class="container">
-            <h5 class="app-title app-title--xs">Results</h5>
+            <h5 class="app-title app-title--xs">{% trans "Results" %}</h5>
             <div class="app-griditem app-griditem--onrow-three">
                 {% for u in closed_contests %}
                 {% displayIssuesCount u.id user as issues %}
@@ -100,7 +100,7 @@
                             </label>
                         {% endif %}
                     </p>
-                    <p class="app-h6 text-medium text-dark">Issues: {{issues}}</p>
+                    <p class="app-h6 text-medium text-dark">{%trans "Issues:" %} {{issues}}</p>
                     <ul class="app-list list-unstyled app-sm-text">
                         {% for i in u.id|getContestIssues %}
                             <li>{{forloop.counter}} - {{i.name}}</li>
@@ -109,10 +109,10 @@
                     <div class="app-card__footer">
                         {% checkReferendumResultPublished u.id user as result %}
                         {% if result %}
-                            <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>VIEW RESULT</span> <span class="app-icon icon-arrow"></span></a></div>
+                            <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">{%trans "closed" %}</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>{%trans "VIEW RESULT" %}</span> <span class="app-icon icon-arrow"></span></a></div>
                             <!-- <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestResult' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>VIEW RESULT</span> <span class="app-icon icon-arrow"></span></a></div> -->
                         {% else %}
-                            <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>VIEW DETAILS</span> <span class="app-icon icon-arrow"></span></a></div>
+                            <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">{%trans "closed" %}</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>{%trans "VIEW DETAILS" %}</span> <span class="app-icon icon-arrow"></span></a></div>
                         {% endif %}
                     </div>
                 </div>
