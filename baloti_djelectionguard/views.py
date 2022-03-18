@@ -432,3 +432,26 @@ class VoteSuccessView(TemplateView):
                 return render(request, 'vote_success.html',{"contest": contest, "candidates":candidates, "choice": candidate.first()})
         else:
             return HttpResponseBadRequest()
+
+class BalotiDeleteProfileView(TemplateView):
+    """
+    Contest Anonymous Vote
+    """
+
+    def post(self, request):
+        """
+        Args:
+            request (Request): Http request object
+
+        Returns:
+            html : returns login.html html file
+        """
+        password = request.POST.get('password', None)
+        username = request.POST.get('username')
+        user = request.user
+        if not user.check_password(password):
+            return HttpResponse({'invalid_password':True}, status=200)
+        user.is_active = False
+        user.save()
+        responseData = {}
+        return HttpResponse(json.dumps(responseData), content_type="application/json")

@@ -10,6 +10,43 @@ $(document).ready(function(){
         $(this).closest('.modal-body').find('.modal-confirmbox--step-2').removeClass("d-none");
     });
 
+    $("#deleteProfileConfirm").on("click", function(){
+        var password = document.getElementById('idPassword').value;
+        var username = document.getElementById('idusername').value;
+        function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            const csrftoken = getCookie('csrftoken');
+        $.ajax({
+            type: "POST",
+            url: '/en/baloti/delete/profile',
+            data: {'password': password, 'username': username},
+            headers: {'X-CSRFToken': csrftoken},
+            mode: 'same-origin',
+            success: function(data){
+                if(data=='invalid_password') {
+                    $("#userpassword_error").removeClass("d-none");
+                }
+                else {
+                    $('#deleteProfile').modal('hide');
+                    window.location.reload();
+                }
+            }
+        });
+    });
+
     App.showHideInputPassword('.show-hide-password');
     
     $("#filter").keyup(function() {
