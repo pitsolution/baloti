@@ -1,4 +1,6 @@
 {% load static %}
+{% load static i18n %}
+
 <footer class="app-footer">
     <div class="container">
       <div class="row">
@@ -10,14 +12,14 @@
           <div class="col-sm-9">
               <ul class="app-footer-link list-unstyled">
                   <li><a href="/baloti">Home</a></li>
-                  <li><a href="/baloti/contest/list/">Referendum Votes</a></li>
-                  <li><a href="/illustrations">Illustrations</a></li>
+                  <li><a href="/baloti/contest/list/">{% trans "Referendum Votes" %}</a></li>
+                  <li><a href="/illustrations">{% trans "Illustrations" %}</a></li>
                  <!--  <li><a href="#">Survey</a></li>
                   <li><a href="#">Results</a></li>
                   <li><a href="#">Picture dictionary</a></li> -->
                   <!-- <li><a href="/about-us">About Us</a></li> -->
-                  <li><a href="/disclaimer">Disclaimer</a></li>
-                  <li><a target = "_blank" href="/static/pdf/baloti_User_Manual.pdf">User Manual</a></li>
+                  <li><a href="/disclaimer">{% trans "Disclaimer" %}</a></li>
+                  <li><a target = "_blank" href="/static/pdf/baloti_User_Manual.pdf">{% trans "User Manual" %}</a></li>
               </ul>
           </div>
       </div>
