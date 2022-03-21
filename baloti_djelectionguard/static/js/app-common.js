@@ -85,6 +85,9 @@ $(document).ready(function(){
         }
     }
     displayNoResult($(".app-elections__vote .search").length, '.search');
+    if($('.app-elections__result .search').length === 0){
+        $('.app-elections__result').addClass('d-none');
+    }
     
     $("#showBalletModal").on("click", function(){
         var choice_name = $("input[type='radio']:checked").attr("dataname");
