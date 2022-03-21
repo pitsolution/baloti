@@ -70,7 +70,7 @@
                                             </div>
                                         {% else %}
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>{%trans "VIEW DETAIL" %}</span> <span class="app-icon icon-arrow"></span></a>
+                                                <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>{%trans "VIEW DETAIL" %}</span> <span class="app-icon icon-arrow"></span></a>
                                             </div>
                                         {% endif %}
                                     {% elif u.status == 'closed' %}
