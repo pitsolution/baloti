@@ -539,6 +539,11 @@ $app-election-logo-border: #171742;
                 min-height: 50vh;
             }
         } 
+        &-news{
+            .app-elections__vote{
+                min-height: auto;
+            }
+        }
     }
     @media only screen and (max-width: 400px) {
         &-elections{
