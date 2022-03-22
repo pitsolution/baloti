@@ -84,10 +84,9 @@
                                         <label for="id_password" class="app-form__label">Password</label>
                                         <span id="showHidePassword" class="app-icon icon-view show-hide-password"></span>
                                     </div>
-                                    {% if form.errors %}
+                                    {% if error %}
                                         <p class=" label label-danger label-danger--light">
-                                            Your username and password didn't match. 
-                                            Please try again.
+                                            {{error}}
                                         </p>
                                     {% endif %}
 
