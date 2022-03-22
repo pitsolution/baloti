@@ -139,7 +139,7 @@ $(document).ready(function(){
         var self = this;
         $.ajax({
                 type: "POST",
-                url: '/en/accounts/login/',
+                url: '/en/baloti/login/',
                 data: {'username': username, 'password': password, 'csrfmiddlewaretoken': csrftoken},
                 headers: {'X-CSRFToken': csrftoken},
                 mode: 'same-origin',
@@ -229,10 +229,10 @@ $(document).ready(function(){
         else{
 
 
-        var self = this;
-        var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            var self = this;
+            var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-        $.ajax({
+            $.ajax({
                 type: "POST",
                 url: '/en/baloti/modalsignup/mailsent/',
                 data: {'email': email, 'csrfmiddlewaretoken': csrftoken},
