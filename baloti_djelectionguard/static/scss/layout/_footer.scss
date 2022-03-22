@@ -3,6 +3,10 @@
         background-color: $app-black;
         padding: 28.2px 0 12.2px;
         margin-top: auto;
+        &__row{
+            display: flex;
+            align-items: center;
+        }
         &-link{
             margin: 0;
             display: flex;
@@ -41,12 +45,18 @@
                     font-size: $app-p - 2;
                     margin-left: 40px;
                     font-family: Outfit-Regular;
+                    line-height: 31px;
+                    display: inline-flex;
                 }
+               &-footer__logo{
+                display: inline-block;
+               }
             }
             &__right{
                 display: flex;
                 align-items: center;
                 justify-content: flex-end;
+                margin-left: auto;
             }
         }
     }
@@ -139,9 +149,12 @@
                 }
             }
            &--landing {
+            padding-bottom: 27px;
             .app{
                 &-email{
                     margin-left:0;
+                    position: relative;
+                    bottom: 0;
                 }
                
                 &-footer-link{
@@ -152,6 +165,7 @@
                         }
                         &:not(:first-child){
                             margin-left: 0;
+                            margin-bottom: 0;
                         }
                         margin-left: 0;
                     }
@@ -177,6 +191,73 @@
                 }
                 li:not(:first-child){
                     margin-left: 20px;
+                }
+            }
+        }
+    }
+    @media only screen and (min-width: 550px) and (max-width: 767px) {
+        &-footer {
+            &--landing{
+                &__right{
+                    display: block;
+                    flex-basis: 45%;
+                }
+                .app{
+                    &-footer{
+                        &-link{
+                            margin: 0;
+                            justify-content: flex-end;
+                            li{
+                                flex-basis: auto;
+                                margin-left: 30px !important;
+                                &:first-child{
+                                    margin-left: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @media only screen and (max-width: 549px) {
+        &-footer{
+            &__row{
+                flex-direction: column-reverse;
+            }
+            &--landing{
+                &__left, &__right{
+                    width: 100%;
+                }
+                .app-email{
+                    display: none;
+                }
+                .app-footer-link{
+                    li{
+                       flex-basis: auto; 
+                    }
+                    a{
+                         font-size: 16px !important;
+                    }
+                    
+                   
+                }
+            }
+        }
+    }
+    @media only screen and (min-width: 550px) {
+        &-footer {
+            &--landing{
+                .app{
+                    &-footer{
+                        &-link{
+                            li{
+                                &:last-child{
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
