@@ -11,7 +11,6 @@ import string
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from django.http import *
-from baloti_auth.models import BalotiUser
 from django.contrib.auth import login, authenticate
 
 class BalotiLoginView(LoginView):
@@ -35,25 +34,17 @@ class BalotiLoginView(LoginView):
                 except Exception as err:
                     error = "Your username and password didn't match. Please try again."
             else:
-                baloti_user = BalotiUser.objects.filter(username=username, password=password, status='draft')
-                if baloti_user:
-                    baloti_user = baloti_user.first()
-                    user = User.objects.filter(email=username, is_active=False)
-                    if user:
-                        user = user.first()
-                        user.is_active = True
-                        user.set_password(password)
-                        user.save()
-                    else:
-                        user = User.objects.create_user(username, password)
-                    baloti_user.status = 'done'
-                    baloti_user.save()
-                    try:
-                        user = authenticate(username=username, password=password)
-                        login(request, user)
-                        return HttpResponseRedirect('/baloti/success/registration')
-                    except Exception as err:
-                        error = "Your username and password didn't match. Please try again."
+                user = User.objects.filter(email=username, is_active=False)
+                if user:
+                    user = user.first()
+                    user.is_active = True
+                    user.save()
+                try:
+                    user = authenticate(username=username, password=password)
+                    login(request, user)
+                    return HttpResponseRedirect('/baloti/success/registration')
+                except Exception as err:
+                    error = "Your username and password didn't match. Please try again."
                 else:
                     error = "Login failed!"
         return render(request, 'login.html', {"error":error})
@@ -84,6 +75,7 @@ def signupMailSent(self, email, password):
                 'password': password,
                 'login_url': login_url
                 }
+    print('merge_data=================', merge_data)
     html_body = render_to_string("signup_mail.html", merge_data)
 
     message = EmailMultiAlternatives(
@@ -112,11 +104,9 @@ class BalotiSignupMailView(TemplateView):
         email = request.POST.get('email')
         password = ''.join(random.choices(string.ascii_uppercase + string.digits, k=7))
         try:
-            # user = User.objects.create_user(email, password)
-            user = User.objects.filter(email=email, is_active=True)
-            baloti_user = BalotiUser.objects.filter(username=email, status='draft')
-            if not user and not baloti_user:
-                BalotiUser.objects.create(username=email,password=password)
+            user = User.objects.create_user(email, password)
+            user.is_active = False
+            user.save()
         except Exception as err:
             return render(request, 'signup.html', {"email": email, "error":err})
         signupMailSent(self, email, password)
@@ -139,10 +129,9 @@ class BalotiModalSignupMailView(TemplateView):
         email = request.POST.get('email')
         password = ''.join(random.choices(string.ascii_uppercase + string.digits, k=7))
         try:
-            user = User.objects.filter(email=email, is_active=True)
-            baloti_user = BalotiUser.objects.filter(username=email, status='draft')
-            if not user and not baloti_user:
-                BalotiUser.objects.create(username=email,password=password)
+            user = User.objects.create_user(email, password)
+            user.is_active = False
+            user.save()
         except Exception as err:
             return HttpResponseBadRequest()
         signupMailSent(self, email, password)
