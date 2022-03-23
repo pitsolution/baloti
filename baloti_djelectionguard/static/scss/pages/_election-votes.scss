@@ -311,6 +311,7 @@ $app-election-logo-border: #171742;
    &-nodata{
        color: $app-black;
        display: none;
+       text-align: center;
      img{
          margin-right: 15px;
      }
@@ -522,6 +523,11 @@ $app-election-logo-border: #171742;
             left: calc(100% + 15px);
         }
     }
+    &-nodata{
+      svg{
+          width: 150px;
+      }
+    }
    }
    @media only screen and (min-width: 1200px) {
         &-thirdhalf-col__right{
@@ -557,4 +563,5 @@ $app-election-logo-border: #171742;
             }
         } 
     }
+    
 }

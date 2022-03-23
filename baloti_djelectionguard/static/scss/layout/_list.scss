@@ -468,7 +468,8 @@ background: linear-gradient(40deg, rgba(19,87,126,1) 31%, rgba(77,193,217,1) 100
             grid-column-gap: 30px;
         }
         &-list li:not(:last-child){
-            margin-bottom: 23px;
+            margin-bottom: 0px;
+            line-height: 27px;
         }
     }
     @media only screen and (min-width: 768px) and (max-width: 991px){
