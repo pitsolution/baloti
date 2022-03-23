@@ -454,6 +454,9 @@ class BalotiDeleteProfileView(TemplateView):
         if not user.check_password(password):
             return HttpResponse({'invalid_password':True}, status=200)
         user.is_active = False
+        # hashed_email = ''.join(random.choices(string.ascii_uppercase + string.digits, k=7))
+        hashed_email = 'balotiUser' + str(user.id)
+        user.email = hashed_email
         user.save()
         responseData = {}
         return HttpResponse(json.dumps(responseData), content_type="application/json")
