@@ -18,11 +18,16 @@
             }
         }
         &__box{
-            max-height: calc(100vh - 145px);
+            height: calc(100vh - 145px);
             padding: 30px 50px;
             background-color: $app-white;
             overflow: auto;
             margin-top: 85px;
+            display: flex;
+            flex-direction: column;
+            .btn-link{
+                margin-top: auto;
+            }
         }
         &__logo{
             margin-bottom: 26.75px;

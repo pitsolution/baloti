@@ -105,7 +105,7 @@
     }
     @media only screen and (max-width: 767px) {
         &-footer{
-            padding: 27px 0 10px;
+            padding: 27px 0;
             &-link {
                 margin-bottom: 31px;
                 flex-wrap: wrap;
@@ -128,7 +128,7 @@
                 }
             }
             &__bottom{
-                padding-top: 30px;
+                //padding-top: 30px;
                 position: relative;
             }
             .row{
@@ -152,7 +152,7 @@
             padding-bottom: 27px;
             .app{
                 &-email{
-                    margin-left:0;
+                    margin-left:15px;
                     position: relative;
                     bottom: 0;
                 }
