@@ -343,15 +343,13 @@
                     $("div.app-toast").fadeOut("slow", function () {
                         $("div.app-toast").remove();
                     });
-                }, 2000);
-            });
-            setTimeout(function () {
-                    // window.location.replace(window.location.origin + '/baloti')
+                    window.location.replace(window.location.origin + '/baloti')
                     changepassword = 'False';
                     login = 'False';
                     logout = 'False';
                     registration = 'False';
-                }, 2500);
+                }, 2000);
+            });
         }
     });
 

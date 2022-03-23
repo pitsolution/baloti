@@ -1,13 +1,8 @@
 from django.urls import path
 from .views import *
-from baloti_auth.forms import UserLoginForm
 from django.contrib.auth.views import LogoutView, PasswordChangeView, PasswordChangeDoneView
 
 urlpatterns = [
-    path('login/', BalotiLoginView.as_view(
-                    template_name="login.html",
-                    authentication_form=UserLoginForm
-                    ), name='login'),
     path('logout/', LogoutView.as_view(
                     ), name='logout'),
     path('signup/', BalotiSignupView.as_view(
@@ -23,5 +18,8 @@ urlpatterns = [
             success_url = '/baloti/success/changepassword'
         ),
         name='change-password'
-    )
+    ),
+    path('login/', BalotiLoginView.as_view(
+        ), name="login"),
+
 ]
