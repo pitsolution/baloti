@@ -470,7 +470,7 @@ $_app-menu-title-mobile: #060504;
     }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
         &-header{
-            padding: 35px;
+            padding: 35px 35px 0;
         }
         &-menu{
             &-list {
