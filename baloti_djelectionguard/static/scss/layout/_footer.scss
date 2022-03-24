@@ -128,7 +128,7 @@
                 }
             }
             &__bottom{
-                //padding-top: 30px;
+                padding-top: 0;
                 position: relative;
             }
             .row{
@@ -139,7 +139,7 @@
                     display: block;
                     text-align: center;
                     position: absolute;
-                    bottom: 33px;
+                    bottom: 5px;
                     right: 0;
                 }
                 &-social-link{
