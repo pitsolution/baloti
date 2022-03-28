@@ -25,6 +25,7 @@ urlpatterns = [
          auth_views.PasswordResetView.as_view(
              template_name='password_reset.html',
              email_template_name='password_reset_email.html',
+             html_email_template_name="password_reset_email.html",
              success_url='/baloti/password-reset/done/'
          ),
          name='password_reset'),
@@ -44,4 +45,5 @@ urlpatterns = [
              template_name='password_reset_complete.html'
          ),
          name='password_reset_complete'),
+    path('delete/profile', BalotiDeleteProfileView.as_view(), name='deleteProfile'),
 ]
