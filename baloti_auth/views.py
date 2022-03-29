@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render
 from django.contrib.auth.views import LoginView
 from baloti_auth.forms import LoginForm
@@ -34,10 +35,11 @@ class BalotiLoginView(LoginView):
                 except Exception as err:
                     error = "Your username and password didn't match. Please try again."
             else:
-                user = User.objects.filter(email=username, is_active=False)
+                user = User.objects.filter(email=username, first_login=False)
                 if user:
                     user = user.first()
                     user.is_active = True
+                    user.first_login = True
                     user.save()
                 try:
                     user = authenticate(username=username, password=password)
@@ -104,9 +106,17 @@ class BalotiSignupMailView(TemplateView):
         email = request.POST.get('email')
         password = ''.join(random.choices(string.ascii_uppercase + string.digits, k=7))
         try:
-            user = User.objects.create_user(email, password)
-            user.is_active = False
-            user.save()
+            user = User.objects.filter(email=email, is_active=False)
+            if user:
+                user = user.first()
+                user.set_password(password)
+                user.first_login = False
+                user.save()
+            else:
+                user = User.objects.create_user(email, password)
+                user.is_active = False
+                user.first_login = False
+                user.save()
         except Exception as err:
             return render(request, 'signup.html', {"email": email, "error":err})
         signupMailSent(self, email, password)
@@ -129,10 +139,42 @@ class BalotiModalSignupMailView(TemplateView):
         email = request.POST.get('email')
         password = ''.join(random.choices(string.ascii_uppercase + string.digits, k=7))
         try:
-            user = User.objects.create_user(email, password)
-            user.is_active = False
-            user.save()
+            user = User.objects.filter(email=email, is_active=False)
+            if user:
+                user = user.first()
+                user.set_password(password)
+                user.first_login = False
+                user.save()
+            else:
+                user = User.objects.create_user(email, password)
+                user.is_active = False
+                user.first_login = False
+                user.save()
         except Exception as err:
             return HttpResponseBadRequest()
         signupMailSent(self, email, password)
         return render(request, 'signup_success.html')
+
+
+class BalotiDeleteProfileView(TemplateView):
+    """
+    Contest Anonymous Vote
+    """
+
+    def post(self, request):
+        """
+        Args:
+            request (Request): Http request object
+
+        Returns:
+            html : returns login.html html file
+        """
+        password = request.POST.get('password', None)
+        username = request.POST.get('username')
+        user = request.user
+        if not user.check_password(password):
+            return HttpResponse({'invalid_password':True}, status=200)
+        user.is_active = False
+        user.save()
+        responseData = {}
+        return HttpResponse(json.dumps(responseData), content_type="application/json")

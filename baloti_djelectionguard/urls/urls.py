@@ -13,5 +13,4 @@ urlpatterns = [
     path('contest/result/<str:id>', BalotiContestResultView.as_view(), name='viewContestResult'),
     path('anonymous/vote/', BalotiAnonymousVoteView.as_view(), name='anonymousVote'),
     path('contest/vote/success/<str:id>', VoteSuccessView.as_view(), name='VoteSuccess'),
-    path('delete/profile', BalotiDeleteProfileView.as_view(), name='deleteProfile'),
 ]
