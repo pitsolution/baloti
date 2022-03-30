@@ -1,7 +1,7 @@
 $_app-menu-title-mobile: #060504;
 .app{
     &-header{
-        padding: 34px 73.85px 0  73.85px ;
+        padding: 34px 73.85px ;
         position: fixed;
         top: 0;
         left: 0;
@@ -328,9 +328,10 @@ $_app-menu-title-mobile: #060504;
 
                         .dropdown{
                             &-item{
-                                font-size: $app-h5 + 2;
+                                font-size: $app-h5 -  4;
                                 font-family: Outfit-SemiBold;
                                 text-transform: capitalize;
+                                padding: 0 15px 24px;
                                 &:hover{
                                     background-color: transparent !important;
                                 }
@@ -344,7 +345,7 @@ $_app-menu-title-mobile: #060504;
                                 display: flex;
                                 align-items: center;
                                 justify-content: space-between;
-                                padding: 20px 15px;
+                                padding: 20px 15px 40px 15px;
                             }
                            }
                         }
