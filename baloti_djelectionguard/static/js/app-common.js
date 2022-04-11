@@ -231,10 +231,10 @@ $(document).ready(function(){
 
             var self = this;
             var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
+            var language = localStorage.getItem('languageObject').replaceAll('"', '');
             $.ajax({
                 type: "POST",
-                url: '/en/baloti/modalsignup/mailsent/',
+                url: '/'+ language + '/baloti/modalsignup/mailsent/',
                 data: {'email': email, 'csrfmiddlewaretoken': csrftoken},
                 headers: {'X-CSRFToken': csrftoken},
                 dataType: "text",

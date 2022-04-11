@@ -1,4 +1,5 @@
 import json
+from django.utils.translation import get_language
 from django.shortcuts import render
 from django.contrib.auth.views import LoginView
 from baloti_auth.forms import LoginForm
@@ -71,7 +72,7 @@ class BalotiSignupView(TemplateView):
 def signupMailSent(self, email, password):
     subject = 'Baloti Registration Information'
     email_from = settings.DEFAULT_FROM_EMAIL
-    login_url = settings.BASE_URL + '/en/baloti/login/'
+    login_url = settings.BASE_URL + '/' + get_language() + '/baloti/login/'
     merge_data = {
                 'username': email,
                 'password': password,
