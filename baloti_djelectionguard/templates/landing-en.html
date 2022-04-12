@@ -240,5 +240,11 @@
     <script src="/static/js/bootstrap.bundle.min.js"></script>
     <script src="/static/js/app-main.js"></script>
     <script src="/static/js/app-common.js"></script>
+    <script>
+    $(document).ready(function(){
+        var languageObject = '{{LANGUAGE}}';
+        localStorage.setItem('languageObject', JSON.stringify(languageObject));
+    });
+</script>
 </body>
 </html>
