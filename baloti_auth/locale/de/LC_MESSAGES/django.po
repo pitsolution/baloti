@@ -74,11 +74,11 @@ msgstr "Erstellen Sie jetzt ein Konto!"
 
 #: baloti_auth/templates/signup.html:64
 msgid "Create account!"
-msgstr ""
+msgstr "Benutzerkonto anlegen!"
 
 #: baloti_auth/templates/signup.html:66
 msgid "You can register with your social login or email address."
-msgstr ""
+msgstr "Sie können sich mit Ihrem Social Login oder Ihrer E-Mail-Adresse registrieren"
 
 #: baloti_auth/templates/signup.html:89
 msgid "SEND"
