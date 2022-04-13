@@ -1,0 +1,98 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-24 14:11+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: baloti_auth/templates/change_password.html:64
+msgid "Change Password"
+msgstr "Passwort Šndern"
+
+#: baloti_auth/templates/change_password.html:71
+msgid "Old Password"
+msgstr "Altes Passwort"
+
+#: baloti_auth/templates/change_password.html:77
+msgid "New Password"
+msgstr "Neues Passwort"
+
+#: baloti_auth/templates/change_password.html:83
+msgid "New Password Confirmation"
+msgstr "Neues Passwort bestŠtigen"
+
+#: baloti_auth/templates/change_password.html:97
+#: baloti_auth/templates/login.html:95
+msgid "CONTINUE"
+msgstr "WEITER"
+
+#: baloti_auth/templates/change_password.html:101
+#: baloti_auth/templates/login.html:100 baloti_auth/templates/signup.html:93
+msgid "Back"
+msgstr "ZurŸck"
+
+#: baloti_auth/templates/login.html:64
+msgid "Welcome to baloti!"
+msgstr "Willkommen bei baloti!"
+
+#: baloti_auth/templates/login.html:66
+msgid "Login to your account"
+msgstr "In Ihr Konto einloggen"
+
+#: baloti_auth/templates/login.html:69 baloti_auth/templates/signup.html:68
+msgid "Continue with Facebook"
+msgstr "Mit Facebook fortfahren"
+
+#: baloti_auth/templates/login.html:79
+msgid "Email address"
+msgstr "E-Mail Adresse"
+
+#: baloti_auth/templates/login.html:84
+msgid "Password"
+msgstr "Passwort"
+
+#: baloti_auth/templates/login.html:97
+msgid "Not registered yet?"
+msgstr "Noch nicht registriert?"
+
+#: baloti_auth/templates/login.html:97
+msgid "Create an account now!"
+msgstr "Erstellen Sie jetzt ein Konto!"
+
+#: baloti_auth/templates/signup.html:64
+msgid "Create account!"
+msgstr ""
+
+#: baloti_auth/templates/signup.html:66
+msgid "You can register with your social login or email address."
+msgstr ""
+
+#: baloti_auth/templates/signup.html:89
+msgid "SEND"
+msgstr "SENDEN"
+
+#: baloti_auth/templates/signup.html:91
+msgid "Already have an account?"
+msgstr "Sie haben bereits ein Konto?"
+
+#: baloti_auth/templates/signup.html:91
+msgid "Login here!"
+msgstr "Hier einloggen!"
+
+
+#: baloti_auth/views.py:59
+msgid "Registration information sent by email"
+msgstr ""
