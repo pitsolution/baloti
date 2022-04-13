@@ -55,6 +55,8 @@ class BalotiIndexView(TemplateView):
             return render(request, 'index.html',{"contests": contests, "logout":True})
         elif process == 'login':
             return render(request, 'index.html',{"contests": contests, "login":True})
+        elif process == 'registration':
+            return render(request, 'index.html',{"contests": contests, "registration":True})
         elif process == None:
             return render(request, 'index.html',{"contests": contests})
         return render(request, 'index.html',{"contests": contests})

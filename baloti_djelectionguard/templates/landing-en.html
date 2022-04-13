@@ -17,7 +17,7 @@
 <body>
     <div class="app">
         <!-- Header Section -->
-        <header class="app-header d-flex align-items-center">
+        <header class="app-header app-header--landing d-flex align-items-center">
             <a href="#" class="app-logo">
                 <img src="/static/images/logo.svg" alt="">
             </a>
@@ -39,7 +39,7 @@
                         {% for lang_code, lang_name in LANGUAGES %}
                              {% if LANGUAGE != lang_code %}
                              <li>
-                                 <a id="{{lang_code}}" style="text-transform:uppercase" class="dropdown-item" href="/{{ lang_code }}{{ request.get_full_path|slice:'3:' }}">{{lang_name}}</a>
+                                 <a id="{{lang_code}}" class="dropdown-item" href="/{{ lang_code }}{{ request.get_full_path|slice:'3:' }}">{{lang_name}}</a>
 <!--                                 <a class="dropdown-item" data-target="/{{ lang_code }}{{ request.get_full_path|slice:'3:' }}"  data-bs-toggle="dropdown" aria-expanded="false">{{lang_code}}</a>-->
                              </li>
                              {% endif %}
@@ -61,7 +61,6 @@
                             <h1 class="app-h1 text-outfit-semibold">{% trans "the baloti project" %}</h1>
                             <h3 class="app-h3 text-outfit-regular">{% trans "an online voting platform for all languages is our vision" %}</h3>
                             <div class="btn-inline-group d-flex align-items-center">
-                                <!-- <a class="btn btn-primary btn-md  btn-flex" href="https://uat.baloti.org/en/baloti/"><span>{% trans "go to the baloti portal" %}</span> <span class="app-icon icon-arrow"></span> </a> -->
                                 <a class="btn btn-primary btn-md  btn-flex" href="/baloti"><span>{% trans "go to the baloti portal" %}</span> <span class="app-icon icon-arrow"></span> </a>
                             </div>
                         </div>
@@ -195,7 +194,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12 col-lg-6">
                                     <button type="button" class="btn btn-outline btn-contact" id="infomailSubmit">{% trans "SEND" %}</button>
                                   </div>
                                 </div>
@@ -208,17 +207,18 @@
            <!-- Footer Section -->
            <footer class="app-footer app-footer--landing">
                <div class="container">
-                   <div class="row">
-                    <div class="col-md-6 app-footer--landing__left">
+                   <div class="app-footer__row">
+                    <div class="app-footer--landing__left">
                         <a href="#" class="app-footer__logo">
-                            <img src="/static/images/logo-footer.svg" alt="">
+                            <img src="/static/images/logo-footer.png" width="120" alt="">
                         </a>
                         <a class="app-email">copyright@baloti.org</a>
                        </div>
-                       <div class="col-md-6 app-footer--landing__right">
+                       <div class="app-footer--landing__right">
                            <ul class="app-footer-link list-unstyled">
                                <li><a href="{% url 'baloti_djelectionguard:data-privacy' %}">{% trans "Data Privacy" %}</a></li>
                                <li><a href="{% url 'baloti_djelectionguard:imprint' %}">{% trans "Imprint" %}</a></li>
+                               <li><a href="#">copyright@baloti.com</a></li>
                            </ul>
                        </div>
                    </div>
@@ -240,5 +240,11 @@
     <script src="/static/js/bootstrap.bundle.min.js"></script>
     <script src="/static/js/app-main.js"></script>
     <script src="/static/js/app-common.js"></script>
+    <script>
+    $(document).ready(function(){
+        var languageObject = '{{LANGUAGE}}';
+        localStorage.setItem('languageObject', JSON.stringify(languageObject));
+    });
+</script>
 </body>
 </html>

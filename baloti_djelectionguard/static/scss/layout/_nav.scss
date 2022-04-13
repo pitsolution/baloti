@@ -1,13 +1,17 @@
 $_app-menu-title-mobile: #060504;
 .app{
     &-header{
-        padding: 34px 73.85px;
+        padding: 34px 73.85px ;
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         z-index: 9;
         transition: all 0.5s ease-in-out;
+        background-color: $app-white;
+        &--landing{
+            background-color: transparent;
+        }
         &__wrapper{
             max-width: 1900px;
             margin: 0 auto;
@@ -28,6 +32,9 @@ $_app-menu-title-mobile: #060504;
                         font-family: 'icomoon' !important;
                         border: 0;
                         font-size: $app-p - 9;
+                    }
+                    &:hover{
+                        color: $app-primary;
                     }
                 }
                 &-lang{
@@ -52,6 +59,12 @@ $_app-menu-title-mobile: #060504;
     }
     &-loginbtn{
         margin-left: 36px;
+        &:hover{
+            .btn{
+                border-color: $app-primary;
+                color: $app-primary;
+            }
+        }
     }
     &-loggedin{
         margin-left: 57.93px;
@@ -315,9 +328,10 @@ $_app-menu-title-mobile: #060504;
 
                         .dropdown{
                             &-item{
-                                font-size: $app-h5 + 2;
+                                font-size: $app-h5 -  4;
                                 font-family: Outfit-SemiBold;
                                 text-transform: capitalize;
+                                padding: 0 15px 24px;
                                 &:hover{
                                     background-color: transparent !important;
                                 }
@@ -331,7 +345,7 @@ $_app-menu-title-mobile: #060504;
                                 display: flex;
                                 align-items: center;
                                 justify-content: space-between;
-                                padding: 20px 15px;
+                                padding: 20px 15px 40px 15px;
                             }
                            }
                         }
@@ -457,7 +471,7 @@ $_app-menu-title-mobile: #060504;
     }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
         &-header{
-            padding: 35px;
+            padding: 35px 35px 0;
         }
         &-menu{
             &-list {
@@ -479,6 +493,11 @@ $_app-menu-title-mobile: #060504;
                     }
                 }
             } 
+        }
+        &-header{
+            &--login{
+                background-color: transparent;
+            }
         }
     }
     @media only screen and (min-width: 991px) and (max-width: 1550px){
@@ -512,6 +531,15 @@ $_app-menu-title-mobile: #060504;
                     ~ .app-menu-drawer .app-menu-list:before{
                         height: 700px;
                     }
+                }
+            }
+        }
+    }
+    @media only screen and (max-width: 767px){
+        &-header{
+            &--landing{
+                .app-logo{
+                    width: 100px;
                 }
             }
         }

@@ -41,7 +41,7 @@
                         {% for lang_code, lang_name in LANGUAGES %}
                              {% if LANGUAGE != lang_code %}
                              <li>
-                                 <a style="text-transform:uppercase" class="dropdown-item" href="/{{ lang_code }}{{ request.get_full_path|slice:'3:' }}">{{lang_name}}</a>
+                                 <a  class="dropdown-item" href="/{{ lang_code }}{{ request.get_full_path|slice:'3:' }}">{{lang_name}}</a>
 <!--                                 <a class="dropdown-item" data-target="/{{ lang_code }}{{ request.get_full_path|slice:'3:' }}"  data-bs-toggle="dropdown" aria-expanded="false">{{lang_code}}</a>-->
                              </li>
                              {% endif %}
@@ -94,17 +94,18 @@
           <!-- Footer Section -->
           <footer class="app-footer app-footer--landing">
             <div class="container">
-                <div class="row">
-                 <div class="col-md-6 app-footer--landing__left">
+                <div class="app-footer__row">
+                 <div class="app-footer--landing__left">
                       <a href="/info" class="app-footer__logo">
-                            <img src="/static/images/logo-footer.svg" alt="">
+                            <img src="/static/images/logo-footer.png" width="120" alt="">
                         </a>
                         <a target="_blank" class="app-email">copyright@baloti.org</a>
                     </div>
-                    <div class="col-md-6 app-footer--landing__right">
+                    <div class="app-footer--landing__right">
                         <ul class="app-footer-link list-unstyled">
                                <li><a href="{% url 'baloti_djelectionguard:data-privacy' %}">{% trans "Data Privacy" %}</a></li>
                                <li><a href="{% url 'baloti_djelectionguard:imprint' %}">{% trans "Imprint" %}</a></li>
+                               <li><a href="#">copyright@baloti.com</a></li>
                         </ul>
                     </div>
                 </div>

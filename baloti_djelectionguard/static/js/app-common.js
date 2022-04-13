@@ -1,5 +1,6 @@
 
 $(document).ready(function(){
+    var language = localStorage.getItem('languageObject').replaceAll('"', '');
     $(".copytoclipboard").click(function (event) {
         event.preventDefault();
         App.copyToClipboard(App.currentUrl, true, "URL copied");
@@ -8,6 +9,44 @@ $(document).ready(function(){
     $("#deleteProfileStep2").on("click", function(){
         $(this).closest('.modal-confirmbox').addClass("d-none");
         $(this).closest('.modal-body').find('.modal-confirmbox--step-2').removeClass("d-none");
+    });
+
+    $("#deleteProfileConfirm").on("click", function(){
+        var password = document.getElementById('idPassword').value;
+        var username = document.getElementById('idusername').value;
+        function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+        const csrftoken = getCookie('csrftoken');
+
+        $.ajax({
+            type: "POST",
+            url: '/' + language + '/baloti/delete/profile',
+            data: {'password': password, 'username': username},
+            headers: {'X-CSRFToken': csrftoken},
+            mode: 'same-origin',
+            success: function(data){
+                if(data=='invalid_password') {
+                    $("#userpassword_error").removeClass("d-none");
+                }
+                else {
+                    $('#deleteProfile').modal('hide');
+                    window.location.reload();
+                }
+            }
+        });
     });
 
     App.showHideInputPassword('.show-hide-password');
@@ -48,6 +87,9 @@ $(document).ready(function(){
         }
     }
     displayNoResult($(".app-elections__vote .search").length, '.search');
+    if($('.app-elections__result .search').length === 0){
+        $('.app-elections__result').addClass('d-none');
+    }
     
     $("#showBalletModal").on("click", function(){
         var choice_name = $("input[type='radio']:checked").attr("dataname");
@@ -77,7 +119,7 @@ $(document).ready(function(){
             var choice = $(".form-check-input:checked").val();
             $.ajax({
                 type: "POST",
-                url: '/en/baloti/anonymous/vote/',
+                url: '/'+ language + '/baloti/anonymous/vote/',
                 data: {'choice': choice},
                 headers: {'X-CSRFToken': csrftoken},
                 mode: 'same-origin',
@@ -99,7 +141,7 @@ $(document).ready(function(){
         var self = this;
         $.ajax({
                 type: "POST",
-                url: '/en/accounts/login/',
+                url: '/'+ language + '/baloti/login/',
                 data: {'username': username, 'password': password, 'csrfmiddlewaretoken': csrftoken},
                 headers: {'X-CSRFToken': csrftoken},
                 mode: 'same-origin',
@@ -107,7 +149,7 @@ $(document).ready(function(){
                         // setTimeout(() => {
                         $(this).closest(".app-modal").find("#success").removeClass("d-none");
                         var choice = $(".form-check-input:checked").val();
-                        var vote_url = '/en/baloti/contest/vote/success/' + choice
+                        var vote_url = '/'+ language + '/baloti/contest/vote/success/' + choice
 
                         function getCookie(name) {
                         var cookieValue = null;
@@ -127,7 +169,7 @@ $(document).ready(function(){
                         $.ajax({
                             headers: {'X-CSRFToken': logincsrftoken},
                             type: "POST",
-                            url: '/en/baloti/anonymous/vote/',
+                            url: '/'+ language + '/baloti/anonymous/vote/',
                             data: {'choice': choice, 'username': username},
                             credentials: 'include',
                             mode: 'same-origin',
@@ -189,12 +231,11 @@ $(document).ready(function(){
         else{
 
 
-        var self = this;
-        var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
-        $.ajax({
+            var self = this;
+            var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            $.ajax({
                 type: "POST",
-                url: '/en/baloti/modalsignup/mailsent/',
+                url: '/'+ language + '/baloti/modalsignup/mailsent/',
                 data: {'email': email, 'csrfmiddlewaretoken': csrftoken},
                 headers: {'X-CSRFToken': csrftoken},
                 dataType: "text",
@@ -282,7 +323,7 @@ $(document).ready(function(){
         else{
             $.ajax({
                 type: "POST",
-                url: '/en/info/submit',
+                url: '/'+ language + '/info/submit',
                 data: {'firstname': firstname, 'lastname': lastname, 'email': email, 'subject': subject, 'message': message},
                 headers: {'X-CSRFToken': csrftoken},
                 mode: 'same-origin',

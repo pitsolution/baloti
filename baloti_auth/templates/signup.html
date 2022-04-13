@@ -15,7 +15,7 @@
 
     <div class="app">
          <!-- Header Section -->
-         <header class="app-header app-header-no-bg">
+         <header class="app-header app-header--login">
              <div class="container d-flex align-items-center">
                 <a href="#" class="app-logo app-logo--login">
                     <img src="/static/images/logo.svg" alt="">
@@ -34,7 +34,7 @@
                                 {% for lang_code, lang_name in LANGUAGES %}
                                 {% if LANGUAGE != lang_code %}
                                 <li>
-                                    <a id="{{lang_code}}" style="text-transform:uppercase" class="dropdown-item" href="/{{ lang_code }}{{ request.get_full_path|slice:'3:' }}">{{lang_name}}</a>
+                                    <a id="{{lang_code}}" class="dropdown-item" href="/{{ lang_code }}{{ request.get_full_path|slice:'3:' }}">{{lang_name}}</a>
                                 </li>
                                 {% endif %}
                                 {% endfor %}
@@ -62,6 +62,7 @@
                             </div>
                             <h3 class="app-login__heading">
                                 {%trans "Create account!" %}
+
                             </h3>
                             <p class="app-login__subhead">{%trans "You can register with your social login or email address." %}</p>
                             <div class="app-login__btn-group">
@@ -81,7 +82,7 @@
                                         {% endif %}
                                         <label for="exampleInputEmail1" class="app-form__label">Email address</label>
                                         <div class="app-form__msg">
-                                            <p class="text-danger">{{error}}</p>
+                                            <p class="text-danger m-0">{{error}}</p>
                                             <p>We will send you the registration link to the email address you entered.</p>
                                         </div>
                                     </div>
@@ -89,6 +90,7 @@
                                     <button type="submit" class="btn btn-primary btn-block btn-md--small">{%trans "SEND" %}</button>
                                 </form>
                                 <p class="app-login__createaccount"><span>{%trans "Already have an account?" %}</span> <a href="/en/baloti/login/" class="app-link">{%trans "Login here!" %}</a> </p>
+
                             </div>
                             <a class="btn btn-link btn-flex btn-back" href="javascript:window.history.back()"><span class="app-icon icon-arrow"></span> <span>{%trans "Back" %}</span></a>
                         </form>

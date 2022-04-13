@@ -38,12 +38,12 @@ class RegistrationFormViewComponent(Html):
                 form['email'],
                 form['password1'],
                 H6(_('Your password needs to follow these criteria:')),
-                Ul(
-                    Li(_('Contains at least 8 characters')),
-                    Li(_('Not too similar to your other personal information')),
-                    Li(_('Not entirely numeric')),
-                    Li(_('Not a commonly used password')),
-                    cls='body-2'),
+                # Ul(
+                #     Li(_('Contains at least 8 characters')),
+                #     Li(_('Not too similar to your other personal information')),
+                #     Li(_('Not entirely numeric')),
+                #     Li(_('Not a commonly used password')),
+                #     cls='body-2'),
                 form['password2'],
                 MDCButton(_('Register')),
                 method='POST',

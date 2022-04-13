@@ -21,6 +21,7 @@ from electeez_sites.models import Site
 from .models import Contest, Candidate, ParentContest, Recommender, ContestType, Initiator
 from ckeditor.widgets import CKEditorWidget
 from django.contrib.admin import widgets
+from django.core.exceptions import ValidationError
 
 
 @widget_template('django/forms/widgets/splitdatetime.html')
@@ -257,8 +258,8 @@ class ContestFormComponent(CList):
                     H6(_('Initiator:')),
                     form['contest_initiator'],
                     Div(initiator_create_btn, icon='person_add_alt_1'),
-                    H6(_('Voting settings:')),
-                    form['votes_allowed'],
+                    # H6(_('Voting settings:')),
+                    # form['votes_allowed'],
                     # H6(_('Referendum starts:')),
                     # form['start'],
                     # H6(_('Referendum ends:')),
@@ -2740,6 +2741,13 @@ class RecommenderCreateCard(Div):
 
 
 class ParentContestForm(forms.ModelForm):
+
+    error_messages = {
+        'start_date_mismatch': _('Start date should be a date in future'),
+        'end_date_mismatch': _('End date should be a date in future'),
+        'date_mismatch': _('End date should be greater than start date'),
+    }
+
     def now():
         now = datetime.now()
         return now.replace(second=0, microsecond=0)
@@ -2766,6 +2774,23 @@ class ParentContestForm(forms.ModelForm):
             time_attrs={'type': 'time'},
         )
     )
+    def clean(self):
+        print('self.instance.start===>>>>', self.instance.start)
+        if self.cleaned_data.get('start') < timezone.now():
+            raise ValidationError(
+                    self.error_messages['start_date_mismatch'],
+                    code='start_date_mismatch',
+                )
+        if self.cleaned_data.get('end') < timezone.now():
+            raise ValidationError(
+                    self.error_messages['end_date_mismatch'],
+                    code='end_date_mismatch',
+                )
+        if self.cleaned_data.get('start') > self.cleaned_data.get('end'):
+            raise ValidationError(
+                    self.error_messages['date_mismatch'],
+                    code='date_mismatch',
+                )
 
     class Meta:
         model = ParentContest
@@ -2800,6 +2825,8 @@ class ParentContestFormComponent(CList):
                 H6(_('Referendum ends:')),
                 form['end'],
                 form['timezone'],
+                Div(form.non_field_errors(),
+                cls='error'),
                 CSRFInput(view.request),
                 MDCButton(_('update referendum') if edit else _('create referendum')),
                 method='POST',
