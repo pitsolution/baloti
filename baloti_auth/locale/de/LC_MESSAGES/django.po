@@ -73,11 +73,11 @@ msgstr "Erstellen Sie jetzt ein Konto!"
 
 #: templates/signup.html:64
 msgid "Create account!"
-msgstr ""
+msgstr "Benutzerkonto anlegen!"
 
 #: templates/signup.html:67
 msgid "You can register with your social login or email address."
-msgstr ""
+msgstr "Sie können sich mit Ihrem Social Login oder Ihrer E-Mail-Adresse registrieren"
 
 #: templates/signup.html:90
 msgid "SEND"
