@@ -4,7 +4,7 @@
 {% get_current_language as LANGUAGE%}
 <header class="app-header">
     <div class="app-header__wrapper d-flex align-items-center">
-        <a href="/baloti" class="app-logo">
+        <a href={% url 'baloti_djelectionguard:Index' %} class="app-logo">
             <img src="/static/images/logo.svg" alt="">
         </a>
         <ul class="app-header-nav main list-unstyled d-flex align-items-center ml-auto">
@@ -36,24 +36,24 @@
                 <div class="app-menu-drawer">
                     <ul class="app-menu-list list-unstyled">
                         <li>
-                            <a href="/baloti">Home</a>
+                            <a href={% url 'baloti_djelectionguard:Index' %}>Home</a>
                         </li>
                         <li>
-                            <a href="/baloti/contest/list/">Referendum Votes</a>
+                            <a href={% url 'baloti_djelectionguard:ContestList' %}>Referendum Votes</a>
                         </li>
                         <li>
-                            <a href="/illustrations">Illustrations</a>
+                            <a href={% url 'balotidjelectionguard:Illustration' %}>Illustrations</a>
                         </li>
                         <!-- <li>
                             <a href="/about-us">About Us</a>
                         </li> -->
                         <li>
-                            <a href="/disclaimer">Disclaimer</a>
+                            <a href={% url 'balotidjelectionguard:Disclaimer' %}>Disclaimer</a>
                         </li>
                     </ul>
                     <div class="app-menu-drawer__mobile">
                         {% if user.is_anonymous %}
-                        <a href="/baloti/login/" class="app-link">Login</a>
+                        <a href={% url 'baloti_auth:login' %} class="app-link">Login</a>
                         {% else %}
                         <details class="app-menu-drawer__profile">
                             <summary>
@@ -65,7 +65,7 @@
                             </summary>
                             <ul class="list-unstyled app-loggedin__menulist">
                                 <li>
-                                    <a class="dropdown-item" href="/baloti/change-password/"> <span class="app-icon icon-Security-Safes"></span> <span>Change Password?</span></a>
+                                    <a class="dropdown-item" href={% url 'baloti_auth:change-password' %}> <span class="app-icon icon-Security-Safes"></span> <span>Change Password?</span></a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#deleteProfile"> <span class="app-icon icon-delete"></span> <span>Delete profile</span></a>
@@ -80,7 +80,7 @@
             </li>
             {% if user.is_anonymous %}
                 <li class="app-loginbtn">
-                    <a href="/baloti/login/" class="btn btn-outline">Login</a>
+                    <a href={% url 'baloti_auth:login' %} class="btn btn-outline">Login</a>
                 </li>
     
             {% else %}
@@ -96,7 +96,7 @@
                             </div>
                             <ul class="list-unstyled app-loggedin__menulist">
                                 <li>
-                                    <a class="dropdown-item" href="/baloti/change-password/"> <span class="app-icon icon-Security-Safes"></span> <span>Change Password</span></a>
+                                    <a class="dropdown-item" href={% url 'baloti_auth:change-password' %}> <span class="app-icon icon-Security-Safes"></span> <span>Change Password</span></a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#deleteProfile"> <span class="app-icon icon-delete"></span> <span>Delete profile</span></a>

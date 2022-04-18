@@ -2,6 +2,7 @@ from django.urls import path
 from .views import *
 from django.contrib.auth import views as auth_views
 
+app_name = "baloti_auth"
 urlpatterns = [
     path('login/', BalotiLoginView.as_view(
         ), name="login"),
