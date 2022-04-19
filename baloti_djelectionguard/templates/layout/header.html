@@ -102,7 +102,7 @@
                                     <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#deleteProfile"> <span class="app-icon icon-delete"></span> <span>Delete profile</span></a>
                                 </li>
                                 <li>
-                                    <a href="/baloti/logout?next=/baloti/success/logout" class="btn btn-primary btn-primary--outlined btn-flex justify-content-center">Logout</a>
+                                    <a href="{% url 'baloti_auth:logout' %}?next={% url 'baloti_djelectionguard:ProcessSuccessIndex' 'logout' %}" class="btn btn-primary btn-primary--outlined btn-flex justify-content-center">Logout</a>
                                 </li>
                             </ul>
                         </div>

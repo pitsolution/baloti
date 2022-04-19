@@ -336,6 +336,7 @@
        var login = '{{login}}';
        var logout = '{{logout}}';
        var registration = '{{registration}}';
+       var language = localStorage.getItem('languageObject').replaceAll('"', '');
 
         if (changepassword === 'True' || login === 'True' || logout === 'True' || registration === 'True'){
             $("div.app-toast").fadeIn("slow", function () {
@@ -343,7 +344,7 @@
                     $("div.app-toast").fadeOut("slow", function () {
                         $("div.app-toast").remove();
                     });
-                    window.location.replace(window.location.origin + '/baloti')
+                    window.location.replace(window.location.origin + '/' + language + '/baloti')
                     changepassword = 'False';
                     login = 'False';
                     logout = 'False';
