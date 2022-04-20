@@ -14,6 +14,9 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from django.http import *
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import views as auth_views
+from django.urls import reverse_lazy
 
 class BalotiLoginView(LoginView):
 
@@ -31,7 +34,7 @@ class BalotiLoginView(LoginView):
             if user is not None:
                 try:
                     login(request, user)
-                    return HttpResponseRedirect('/baloti/success/login')
+                    return HttpResponseRedirect('/' + get_language() + '/baloti/success/login')
                     # return render(request, 'index.html',{"contests": contests, "login":True})
                 except Exception as err:
                     error = "Your username and password didn't match. Please try again."
@@ -45,7 +48,7 @@ class BalotiLoginView(LoginView):
                 try:
                     user = authenticate(username=username, password=password)
                     login(request, user)
-                    return HttpResponseRedirect('/baloti/success/registration')
+                    return HttpResponseRedirect('/' + get_language() + '/baloti/success/registration')
                 except Exception as err:
                     error = "Your username and password didn't match. Please try again."
                 else:
@@ -179,3 +182,7 @@ class BalotiDeleteProfileView(TemplateView):
         user.save()
         responseData = {}
         return HttpResponse(json.dumps(responseData), content_type="application/json")
+
+
+class BalotiPasswordChangeView(LoginRequiredMixin, auth_views.PasswordChangeView):
+    success_url = reverse_lazy('baloti_djelectionguard:ProcessSuccessIndex', kwargs={'process': 'changepassword'})

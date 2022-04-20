@@ -16,9 +16,8 @@ urlpatterns = [
         ), name="modalsignup_mail"),
     path(
         'change-password/',
-        auth_views.PasswordChangeView.as_view(
+        BalotiPasswordChangeView.as_view(
             template_name='change_password.html',
-            success_url = '/baloti/success/changepassword'
         ),
         name='change-password'
     ),
