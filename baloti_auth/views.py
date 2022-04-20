@@ -186,3 +186,9 @@ class BalotiDeleteProfileView(TemplateView):
 
 class BalotiPasswordChangeView(LoginRequiredMixin, auth_views.PasswordChangeView):
     success_url = reverse_lazy('baloti_djelectionguard:ProcessSuccessIndex', kwargs={'process': 'changepassword'})
+
+class BalotiPasswordResetView(auth_views.PasswordResetView):
+    success_url = reverse_lazy('baloti_auth:password_reset_done')
+
+class BalotiPasswordResetConfirmView(auth_views.PasswordResetConfirmView):
+    success_url = reverse_lazy('baloti_auth:password_reset_complete')

@@ -22,11 +22,10 @@ urlpatterns = [
         name='change-password'
     ),
     path('password-reset/',
-         auth_views.PasswordResetView.as_view(
+         BalotiPasswordResetView.as_view(
              template_name='password_reset.html',
              email_template_name='password_reset_email.html',
              html_email_template_name="password_reset_email.html",
-             success_url='/baloti/password-reset/done/'
          ),
          name='password_reset'),
     path('password-reset/done/',
@@ -35,9 +34,8 @@ urlpatterns = [
          ),
          name='password_reset_done'),
     path('password-reset-confirm/<uidb64>/<token>/',
-         auth_views.PasswordResetConfirmView.as_view(
+         BalotiPasswordResetConfirmView.as_view(
              template_name='password_reset_confirm.html',
-             success_url='/baloti/password-reset/complete/'
          ),
          name='password_reset_confirm'),
     path('password-reset/complete/',
