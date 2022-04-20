@@ -73,7 +73,7 @@
                             </ul>
                         </details>
                         
-                          <a class="app-link" href="/baloti/logout?next=/baloti/success/logout">Logout</a>
+                          <a class="app-link" href="{% url 'baloti_auth:logout' %}?next={% url 'baloti_djelectionguard:ProcessSuccessIndex' 'logout' %}">Logout</a>
                         {% endif %}
                     </div>
                 </div>
