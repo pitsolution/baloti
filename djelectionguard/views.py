@@ -9,6 +9,7 @@ import subprocess
 import textwrap
 import json
 
+import requests
 from django import forms
 from django import http
 from django.apps import apps
@@ -1559,6 +1560,18 @@ class ParentContestCreateView(generic.CreateView):
     def form_valid(self, form):
         form.instance.mediator = self.request.user
         response = super().form_valid(form)
+        from deep_translator import GoogleTranslator
+        from djlang.models import Language
+        from baloti_djelectionguard.models import ParentContesti18n
+        queryset = Language.objects.all()
+        form.save()
+        print(queryset,'qsettttt', form.instance.pk)
+        for each in queryset:
+            trans_content_name = GoogleTranslator('auto', each.iso).translate(form.cleaned_data['name'])
+            # trans_content_status = GoogleTranslator('auto', each.iso).translate(form.cleaned_data['status'])
+            print(trans_content_name,'tscon')
+            ParentContesti18n.objects.create(parent_contest_id=form.instance,language=each,name= trans_content_name)
+
         messages.success(
             self.request,
             _('You have created parentcontest %(obj)s', obj=form.instance)
