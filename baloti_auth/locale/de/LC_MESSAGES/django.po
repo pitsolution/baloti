@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-24 14:11+0530\n"
+"POT-Creation-Date: 2022-04-13 21:29+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,7 +40,7 @@ msgid "CONTINUE"
 msgstr "WEITER"
 
 #: baloti_auth/templates/change_password.html:101
-#: baloti_auth/templates/login.html:100 baloti_auth/templates/signup.html:93
+#: baloti_auth/templates/login.html:102 baloti_auth/templates/signup.html:95
 msgid "Back"
 msgstr "ZurŸck"
 
@@ -52,7 +52,7 @@ msgstr "Willkommen bei baloti!"
 msgid "Login to your account"
 msgstr "In Ihr Konto einloggen"
 
-#: baloti_auth/templates/login.html:69 baloti_auth/templates/signup.html:68
+#: baloti_auth/templates/login.html:69 baloti_auth/templates/signup.html:69
 msgid "Continue with Facebook"
 msgstr "Mit Facebook fortfahren"
 
@@ -76,23 +76,23 @@ msgstr "Erstellen Sie jetzt ein Konto!"
 msgid "Create account!"
 msgstr "Benutzerkonto anlegen!"
 
-#: baloti_auth/templates/signup.html:66
+#: baloti_auth/templates/signup.html:67
 msgid "You can register with your social login or email address."
-msgstr "Sie können sich mit Ihrem Social Login oder Ihrer E-Mail-Adresse registrieren"
+msgstr ""
+"Sie können sich mit Ihrem Social Login oder Ihrer E-Mail-Adresse registrieren"
 
-#: baloti_auth/templates/signup.html:89
+#: baloti_auth/templates/signup.html:90
 msgid "SEND"
 msgstr "SENDEN"
 
-#: baloti_auth/templates/signup.html:91
+#: baloti_auth/templates/signup.html:92
 msgid "Already have an account?"
 msgstr "Sie haben bereits ein Konto?"
 
-#: baloti_auth/templates/signup.html:91
+#: baloti_auth/templates/signup.html:92
 msgid "Login here!"
 msgstr "Hier einloggen!"
 
-
-#: baloti_auth/views.py:59
+#: baloti_auth/views.py:92
 msgid "Registration information sent by email"
 msgstr ""
