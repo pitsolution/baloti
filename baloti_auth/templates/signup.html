@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baloti</title>
+    <title>baloti</title>
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <body>
@@ -61,11 +61,12 @@
                                 <img src="/static/images/logo.svg" alt="">
                             </div>
                             <h3 class="app-login__heading">
-                                Create account
+                                {%trans "Create account!" %}
+
                             </h3>
-                            <p class="app-login__subhead">You can register with your social login or email address.</p>
+                            <p class="app-login__subhead">{%trans "You can register with your social login or email address." %}</p>
                             <div class="app-login__btn-group">
-                                <a class="btn btn-facebook btn-block" href="{% url 'social:begin' 'facebook' %}?next=/en/baloti/contest/list/"><span class="app-icon icon-facebook-box"></span> <span>Continue with Facebook</span></a>
+                                <a class="btn btn-facebook btn-block" href="{% url 'social:begin' 'facebook' %}?next={% url 'baloti_djelectionguard:ProcessSuccessIndex' 'login' %}"><span class="app-icon icon-facebook-box"></span> <span>{%trans "Continue with Facebook" %}</span></a>
                                <!--  <button class="btn btn-google btn-block"><span class="app-icon"><img src="/static/images/google.svg" alt=""></span> <span>Continue with Google</span></button>
                                 <button class="btn btn-apple btn-block"><span class="app-icon icon-apple"></span> <span>Continue with Apple</span></button> -->
                             </div>
@@ -86,11 +87,12 @@
                                         </div>
                                     </div>
                                     
-                                    <button type="submit" class="btn btn-primary btn-block btn-md--small">SEND</button>
+                                    <button type="submit" class="btn btn-primary btn-block btn-md--small">{%trans "SEND" %}</button>
                                 </form>
-                                <p class="app-login__createaccount"><span>Already have an account?</span> <a href="/baloti/login/" class="app-link">Login here!</a> </p>
+                                <p class="app-login__createaccount"><span>{%trans "Already have an account?" %}</span> <a href={% url 'baloti_auth:login' %} class="app-link">{%trans "Login here!" %}</a> </p>
+
                             </div>
-                            <a class="btn btn-link btn-flex btn-back" href="javascript:window.history.back()"><span class="app-icon icon-arrow"></span> <span>Back</span></a>
+                            <a class="btn btn-link btn-flex btn-back" href="javascript:window.history.back()"><span class="app-icon icon-arrow"></span> <span>{%trans "Back" %}</span></a>
                         </form>
                         </div>
                     </div>

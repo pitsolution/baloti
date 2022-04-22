@@ -1,10 +1,11 @@
 from django.urls import path
 from ..views import *
 
+app_name = "baloti_djelectionguard"
 urlpatterns = [
-    path('', BalotiIndexView.as_view()),
-    path('success/<str:process>', BalotiIndexView.as_view()),
-    path('contest/list/', BalotiContestListView.as_view()),
+    path('', BalotiIndexView.as_view(), name="Index"),
+    path('success/<str:process>', BalotiIndexView.as_view(), name="ProcessSuccessIndex"),
+    path('contest/list/', BalotiContestListView.as_view(), name='ContestList'),
     path('contest/list/<str:sort>', BalotiContestListSortView.as_view(), name='ContestSortedList'),
     path('contest/<str:id>', BalotiContestDetailView.as_view(), name='ContestDetails'),
     path('contest/vote/choices/<str:id>', BalotiContestChoicesView.as_view(), name='VoteChoices'),
