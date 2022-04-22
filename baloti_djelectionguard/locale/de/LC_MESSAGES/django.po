@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-22 16:33+0530\n"
+"POT-Creation-Date: 2022-04-22 16:54+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -965,10 +965,6 @@ msgstr "Illustrationen"
 #: templates/layout/footer.html:22
 msgid "User Manual"
 msgstr "Benutzerhandbuch"
-
-#: templates/layout/header.html:39
-msgid "Home"
-msgstr "Homezsdf"
 
 #: templates/layout/header.html:56 templates/layout/header.html:83
 msgid "Login"
