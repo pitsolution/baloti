@@ -59,7 +59,7 @@
                 <p class="app-login__subhead">{% trans "Please Login to your account to continue voting" %}</p>
 
                 <div class="app-login__btn-group">
-                    <a class="btn btn-facebook btn-block" id="fbloginBtn" href="{% url 'social:begin' 'facebook' %}?next=/baloti/contest/vote/success/"><span class="app-icon icon-facebook-box"></span> <span>{% trans "Continue with Facebook" %}</span></a>
+                    <a class="btn btn-facebook btn-block" id="fbloginBtn" href="{% url 'social:begin' 'facebook' %}?next="><span class="app-icon icon-facebook-box"></span> <span>{% trans "Continue with Facebook" %}</span></a>
                 </div>
                 
                 <p class="app-sepeartor"><span>or</span></p>
@@ -100,7 +100,7 @@
                 <p class="app-login__subhead">{% trans "You can register with your social login or email address." %}</p>
 
                 <div class="app-login__btn-group">
-                    <a class="btn btn-facebook btn-block" id="fbloginBtn" href="{% url 'social:begin' 'facebook' %}?next=/baloti/contest/vote/success/"><span class="app-icon icon-facebook-box"></span> <span>{% trans "Continue with Facebook" %}</span></a>
+                    <a class="btn btn-facebook btn-block" id="fbloginBtn" href="{% url 'social:begin' 'facebook' %}?next="><span class="app-icon icon-facebook-box"></span> <span>{% trans "Continue with Facebook" %}</span></a>
                 </div>
                 <p class="app-sepeartor"><span>or</span></p>
 
@@ -161,7 +161,7 @@
                     <p class="app-h6 text-danger">{% trans "The results will be announced on" %}</p>
                     <p class="app-resultdate">{{contest.end|date:"d.m.Y"}}</p>
                     <p class="app-p">{% trans "and you will be notified via email." %}</p>
-                    <button class="btn btn-default mx-auto"><a href="/baloti/contest/{{contest.parent.uid}}">{% trans "BACK TO REFERENDUM" %}</a></button>
+                    <button class="btn btn-default mx-auto"><a href={% url 'baloti_djelectionguard:ContestDetails' contest.parent.uid %}>{% trans "BACK TO REFERENDUM" %}</a></button>
                 </div>
             </div>
         </div>
@@ -178,7 +178,7 @@
                     <p class="app-h6 text-danger">{% trans "The results will be announced on" %}</p>
                     <p class="app-resultdate">{{contest.end|date:"d.m.Y"}}</p>
                     <p class="app-p">{% trans "and you will be notified via email." %}</p>
-                    <button class="btn btn-default mx-auto"><a href="/baloti/contest/{{contest.parent.uid}}">{% trans "BACK TO REFERENDUM" %}</a></button>
+                    <button class="btn btn-default mx-auto"><a href={% url 'baloti_djelectionguard:ContestDetails' contest.parent.uid %}>{% trans "BACK TO REFERENDUM" %}</a></button>
                 </div>
             </div>
         </div>

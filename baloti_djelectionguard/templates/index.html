@@ -14,7 +14,7 @@
                     <h1 class="app-h1">{%trans "baloti Voting system" %}</h1>
                     <h3 class="app-h3">{%trans "On our platform you can <br> practice direct democracy in <br> several languages" %}</h3>
                     <div class="btn-inline-group d-flex align-items-center">
-                        <a class="btn btn-primary btn-md text-uppercase btn-flex" href="/baloti/contest/list/"><span>{%trans "VOTE NOW" %}</span> <span class="app-icon icon-arrow"></span> </a>
+                        <a class="btn btn-primary btn-md text-uppercase btn-flex" href={% url 'baloti_djelectionguard:ContestList' %}><span>{%trans "VOTE NOW" %}</span> <span class="app-icon icon-arrow"></span> </a>
                         <button class="btn btn-default btn-md text-uppercase btn-flex" id="howitworksbtn">{%trans "HOW IT WORKS" %}</button>
                     </div>
                     
@@ -87,7 +87,7 @@
                     {% endfor %}
                 </div>
             </div>
-            <a href="/baloti/contest/list/" class="btn btn-link btn-link--primary btn-flex app-viewall"><span>{%trans "VIEW ALL" %}</span> <span class="app-icon icon-arrow"></span></a>
+            <a href={% url 'baloti_djelectionguard:ContestList' %} class="btn btn-link btn-link--primary btn-flex app-viewall"><span>{%trans "VIEW ALL" %}</span> <span class="app-icon icon-arrow"></span></a>
         </div>
        </div>
     </div>
@@ -336,6 +336,7 @@
        var login = '{{login}}';
        var logout = '{{logout}}';
        var registration = '{{registration}}';
+       var language = localStorage.getItem('languageObject').replaceAll('"', '');
 
         if (changepassword === 'True' || login === 'True' || logout === 'True' || registration === 'True'){
             $("div.app-toast").fadeIn("slow", function () {
@@ -343,7 +344,7 @@
                     $("div.app-toast").fadeOut("slow", function () {
                         $("div.app-toast").remove();
                     });
-                    window.location.replace(window.location.origin + '/baloti')
+                    window.location.replace(window.location.origin + '/' + language + '/baloti')
                     changepassword = 'False';
                     login = 'False';
                     logout = 'False';

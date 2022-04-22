@@ -76,7 +76,7 @@
                     <p class="app-h6 text-danger">{% trans "The results will be announced on" %}</p>
                     <p class="app-resultdate">{{contest.end|date:"d.m.Y"}}</p>
                     <p class="app-p">{% trans "and you will be notified via email." %}</p>
-                    <a href="/baloti/contest/{{contest.parent.uid}}" class="btn btn-default mx-auto btn-flex--inline">{% trans "BACK TO REFERENDUM" %}</a>
+                    <a href={% url 'baloti_djelectionguard:ContestDetails' contest.parent.uid %} class="btn btn-default mx-auto btn-flex--inline">{% trans "BACK TO REFERENDUM" %}</a>
                 </div>
             </div>
         </div>

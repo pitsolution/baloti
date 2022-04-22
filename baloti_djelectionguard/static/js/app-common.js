@@ -98,7 +98,7 @@ $(document).ready(function(){
         var choice = $(".form-check-input:checked").val();
 
         var href = document.getElementsByClassName("btn btn-facebook btn-block")[0].href;
-        var href = href + choice
+        var href = href + '/'+ language + '/baloti/contest/vote/success/' + choice
         $("#fbloginBtn").attr("href", href)
 
         // var vote_success_url = 'baloti/contest/vote/success/' + choice

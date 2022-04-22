@@ -10,7 +10,7 @@
 
 <section class="app-elections app-body-bg">
     <div class="container">
-        <a class="btn btn-link btn-back" href="/baloti/contest/list/"> <span class="app-icon icon-arrow-right"></span> {% trans "Referendum Votes" %}</a>
+        <a class="btn btn-link btn-back" href={% url 'baloti_djelectionguard:ContestList' %}> <span class="app-icon icon-arrow-right"></span>{% trans "Referendum Votes" %}</a>
         <div class="app-thirdhalf-col">
             <div class="app-thirdhalf-col__left">
                 <div class="accordion app-accordion app-accordion--basic" id="accordionExample">

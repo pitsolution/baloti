@@ -61,7 +61,7 @@
                             <h1 class="app-h1 text-outfit-semibold">{% trans "the baloti project" %}</h1>
                             <h3 class="app-h3 text-outfit-regular">{% trans "an online voting platform for all languages is our vision" %}</h3>
                             <div class="btn-inline-group d-flex align-items-center">
-                                <a class="btn btn-primary btn-md  btn-flex" href="/baloti"><span>{% trans "go to the baloti portal" %}</span> <span class="app-icon icon-arrow"></span> </a>
+                                <a class="btn btn-primary btn-md  btn-flex" href={% url 'baloti_djelectionguard:Index' %}><span>{% trans "go to the baloti portal" %}</span> <span class="app-icon icon-arrow"></span> </a>
                             </div>
                         </div>
                     </div>
@@ -216,8 +216,8 @@
                        </div>
                        <div class="app-footer--landing__right">
                            <ul class="app-footer-link list-unstyled">
-                               <li><a href="{% url 'baloti_djelectionguard:data-privacy' %}">{% trans "Data Privacy" %}</a></li>
-                               <li><a href="{% url 'baloti_djelectionguard:imprint' %}">{% trans "Imprint" %}</a></li>
+                               <li><a href="{% url 'balotidjelectionguard:data-privacy' %}">{% trans "Data Privacy" %}</a></li>
+                               <li><a href="{% url 'balotidjelectionguard:imprint' %}">{% trans "Imprint" %}</a></li>
                                <li><a href="#">copyright@baloti.com</a></li>
                            </ul>
                        </div>
