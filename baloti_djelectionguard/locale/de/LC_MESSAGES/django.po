@@ -56,7 +56,6 @@ msgstr ""
 "Abstimmungssystem wird von Selectio Helvetica bereitgestellt."
 
 #: templates/about-us.html:36
-
 msgid "Selectio Helvetica light"
 msgstr "Selectio Helvetica light"
 
@@ -160,8 +159,7 @@ msgstr "PROJEKT PARTNER"
 #: templates/already_voted.html:12 templates/choice-no-login.html:12
 #: templates/choice.html:12 templates/vote_success.html:12
 msgid "Make your choice"
-msgstr "Treffen Sie Ihre Wahl
-"
+msgstr "Treffen Sie Ihre Wahl"
 
 #: templates/already_voted.html:32 templates/choice-no-login.html:27
 #: templates/choice.html:28 templates/vote_success.html:32
@@ -174,58 +172,48 @@ msgstr "Stimmzettel erstellen"
 
 #: templates/already_voted.html:58 templates/choice-no-login.html:173
 msgid "You've already voted!!"
-msgstr "Sie haben bereits abgestimmt!!
-"
+msgstr "Sie haben bereits abgestimmt!!"
 
 #: templates/already_voted.html:61 templates/choice-no-login.html:176
 msgid "No problem, there are other referendums you can vote for."
-msgstr "Kein Problem, es gibt noch andere Volksabstimmungen, für die Sie stimmen können
-"
+msgstr "Kein Problem, es gibt noch andere Volksabstimmungen, für die Sie stimmen können"
 
 #: templates/already_voted.html:62 templates/choice-no-login.html:160
 #: templates/choice-no-login.html:177 templates/choice.html:74
 #: templates/vote_success.html:63
 msgid "The results will be announced on"
-msgstr "Die Ergebnisse werden am bekannt gegeben
-"
+msgstr "Die Ergebnisse werden am bekannt gegeben"
 
 #: templates/already_voted.html:64 templates/choice-no-login.html:162
 #: templates/choice-no-login.html:179 templates/choice.html:76
 #: templates/vote_success.html:65
 msgid "and you will be notified via email."
-msgstr "und Sie werden per E-Mail benachrichtigt
-"
+msgstr "und Sie werden per E-Mail benachrichtigt"
 
 #: templates/already_voted.html:65 templates/choice-no-login.html:163
 #: templates/choice-no-login.html:180 templates/choice.html:77
 #: templates/vote_success.html:66
-
 msgid "BACK TO REFERENDUM"
 msgstr "ZURÜCK ZUM REFERENDUM"
 
 #: templates/choice-no-login.html:28 templates/choice.html:29
 #: templates/vote_success.html:33
 msgid "CREATE BALLOT"
-msgstr "Stimmzettel erstellen
-"
+msgstr "Stimmzettel erstellen"
 
 #: templates/choice-no-login.html:56
 msgid "Login Required!"
-msgstr "Anmeldung erforderlich!
-"
+msgstr "Anmeldung erforderlich!"
 
 #: templates/choice-no-login.html:58
 msgid "Please Login to your account to continue voting"
-msgstr "Bitte melden Sie sich bei Ihrem Konto an, um mit der Abstimmung fortzufahren
-"
+msgstr "Bitte melden Sie sich bei Ihrem Konto an, um mit der Abstimmung fortzufahren"
 
 #: templates/choice-no-login.html:61 templates/choice-no-login.html:102
 msgid "Continue with Facebook"
-msgstr "Weiter mit Facebook
-"
+msgstr "Weiter mit Facebook"
 
 #: templates/choice-no-login.html:69 templates/choice-no-login.html:113
-
 msgid "Email address"
 msgstr " email Adresse"
 
@@ -239,8 +227,7 @@ msgstr "FORTSETZEN"
 
 #: templates/choice-no-login.html:84
 msgid "Create an account now"
-msgstr "Erstellen Sie jetzt ein Konto
-"
+msgstr "Erstellen Sie jetzt ein Konto"
 
 #: templates/choice-no-login.html:87 templates/choice-no-login.html:128
 msgid "CLOSE"
@@ -248,29 +235,24 @@ msgstr "SCHLIESSEN"
 
 #: templates/choice-no-login.html:97
 msgid "Create account!"
-msgstr "Benutzerkonto anlegen!
-"
+msgstr "Benutzerkonto anlegen!"
 
 #: templates/choice-no-login.html:99
 msgid "You can register with your social login or email address."
-msgstr "Sie können sich mit Ihrem Social Login oder Ihrer E-Mail-Adresse registrieren
-"
+msgstr "Sie können sich mit Ihrem Social Login oder Ihrer E-Mail-Adresse registrieren"
 
 #: templates/choice-no-login.html:116
 msgid ""
 "We will send you the registration link to the email address you entered."
-msgstr "Wir senden Ihnen den Registrierungslink an die von Ihnen eingegebene E-Mail-Adresse
-"
+msgstr "Wir senden Ihnen den Registrierungslink an die von Ihnen eingegebene E-Mail-Adresse"
 
 #: templates/choice-no-login.html:120
 msgid "This email has already been registered."
-msgstr "Diese E-Mail wurde bereits registriert
-"
+msgstr "Diese E-Mail wurde bereits registriert"
 
 #: templates/choice-no-login.html:123
 msgid "Users must have an email address."
-msgstr "Benutzer müssen über eine E-Mail-Adresse verfügen
-"
+msgstr "Benutzer müssen über eine E-Mail-Adresse verfügen"
 
 #: templates/choice-no-login.html:125 templates/landing-en.html:198
 msgid "SEND"
@@ -278,47 +260,39 @@ msgstr "SENDEN"
 
 #: templates/choice-no-login.html:126
 msgid "Already have an account?"
-msgstr "Sie haben bereits ein Konto?
-"
+msgstr "Sie haben bereits ein Konto?"
 
 #: templates/choice-no-login.html:126
 msgid "Login here!"
-msgstr "Hier anmelden!
-"
+msgstr "Hier anmelden!"
 
 #: templates/choice-no-login.html:138
 msgid "Mail sent!"
-msgstr "Mail verschickt!
-"
+msgstr "Mail verschickt!"
 
 #: templates/choice-no-login.html:140
 msgid ""
 "Please check your inbox to get the registration informations. Thank you."
-msgstr "Bitte überprüfen Sie Ihren Posteingang, um die Registrierungsinformationen zu erhalten. Danke
-"
+msgstr "Bitte überprüfen Sie Ihren Posteingang, um die Registrierungsinformationen zu erhalten. Danke"
 
 #: templates/choice-no-login.html:146
 msgid "LOGIN NOW"
-msgstr "JETZT EINLOGGEN
-"
+msgstr "JETZT EINLOGGEN"
 
 #: templates/choice-no-login.html:155 templates/choice.html:69
 #: templates/vote_success.html:58
 msgid "Success!"
-msgstr "Erfolg !
-"
+msgstr "Erfolg !"
 
 #: templates/choice-no-login.html:156 templates/choice.html:70
 #: templates/vote_success.html:59
 msgid "Your Choice Added Successfully"
-msgstr "Ihre Wahl wurde erfolgreich hinzugefügt
-"
+msgstr "Ihre Wahl wurde erfolgreich hinzugefügt"
 
 #: templates/choice-no-login.html:159 templates/choice.html:73
 #: templates/vote_success.html:62
 msgid "Thank for voting at the Referendum and be a part of Direct Democracy."
-msgstr "Danke für deine Stimme beim Referendum und sei ein Teil von Direct Democracy.
-"
+msgstr "Danke für deine Stimme beim Referendum und sei ein Teil von Direct Democracy."
 
 #: templates/choice-no-login.html:187 templates/choice.html:52
 msgid "Confirm your selection"
@@ -330,26 +304,21 @@ msgstr "ABBRECHEN"
 
 #: templates/choice-no-login.html:196 templates/choice.html:61
 msgid "CONFIRM"
-msgstr "BESTÄTIGEN SIE
-"
+msgstr "BESTÄTIGEN SIE"
 
 #: templates/contactinfo_mail.html:25
-
 msgid "Contact Information"
 msgstr "Informationsquellen"
 
 #: templates/contactinfo_mail.html:28
-
 msgid "First Name:"
 msgstr "Vorname"
 
 #: templates/contactinfo_mail.html:29
-
 msgid "Last Name: "
 msgstr "Nachname"
 
 #: templates/contactinfo_mail.html:30
-
 msgid "Email:"
 msgstr "E-Mail"
 
@@ -404,8 +373,7 @@ msgstr "Gegen"
 
 #: templates/contest_details.html:182
 msgid "VOTING END"
-msgstr "ABSTIMMUNG ENDE
-"
+msgstr "ABSTIMMUNG ENDE"
 
 #: templates/contest_details.html:186
 msgid "days"
@@ -421,8 +389,7 @@ msgstr "Protokoll"
 
 #: templates/contest_details.html:197
 msgid "YOUR VOTE"
-msgstr "IHRE STIMME
-"
+msgstr "IHRE STIMME"
 
 #: templates/contest_details.html:205
 msgid "Voted"
@@ -430,8 +397,7 @@ msgstr "Abgestimmt"
 
 #: templates/contest_details.html:209
 msgid "Not Voted"
-msgstr "Nicht gewählt
-"
+msgstr "Nicht gewählt"
 
 #: templates/contest_details.html:214 templates/contest_results.html:241
 msgid "Share"
@@ -660,8 +626,7 @@ msgstr "Impressum"
 
 #: templates/data_privacy.html:118 templates/imprint.html:124
 msgid "FOLLOW US ON"
-msgstr "FOLGE UNS AUF
-"
+msgstr "FOLGE UNS AUF"
 
 #: templates/disclaimer.html:11 templates/layout/footer.html:21
 msgid "Disclaimer"
