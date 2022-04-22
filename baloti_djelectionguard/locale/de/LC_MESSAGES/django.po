@@ -41,8 +41,7 @@ msgstr ""
 "landesweit statisch gemacht wird."
 
 #: templates/about-us.html:28
-#, fuzzy
-#| msgid "Operating system used"
+
 msgid "Voting system"
 msgstr "verwendetes Betriebssystem"
 
@@ -57,10 +56,9 @@ msgstr ""
 "Abstimmungssystem wird von Selectio Helvetica bereitgestellt."
 
 #: templates/about-us.html:36
-#, fuzzy
-#| msgid "How Selectio Helvetica light works"
+
 msgid "Selectio Helvetica light"
-msgstr "So funktioniert Selectio Helvetica light"
+msgstr "Selectio Helvetica light"
 
 #: templates/about-us.html:39
 #, fuzzy
@@ -148,11 +146,11 @@ msgstr "Text von Vimentis"
 
 #: templates/about-us.html:116
 msgid "Comics"
-msgstr ""
+msgstr "Comics"
 
 #: templates/about-us.html:117
 msgid "Bronco illustrations, KALONJI"
-msgstr ""
+msgstr "Bronco-Illustrationen"
 
 #: templates/about-us.html:130 templates/index.html:259
 #: templates/landing-en.html:133
@@ -162,104 +160,117 @@ msgstr "PROJEKT PARTNER"
 #: templates/already_voted.html:12 templates/choice-no-login.html:12
 #: templates/choice.html:12 templates/vote_success.html:12
 msgid "Make your choice"
-msgstr ""
+msgstr "Treffen Sie Ihre Wahl
+"
 
 #: templates/already_voted.html:32 templates/choice-no-login.html:27
 #: templates/choice.html:28 templates/vote_success.html:32
 msgid "BACK"
-msgstr ""
+msgstr "ZURÜCK"
 
 #: templates/already_voted.html:33
 msgid "CREAT BALLOT"
-msgstr ""
+msgstr "Stimmzettel erstellen"
 
 #: templates/already_voted.html:58 templates/choice-no-login.html:173
 msgid "You've already voted!!"
-msgstr ""
+msgstr "Sie haben bereits abgestimmt!!
+"
 
 #: templates/already_voted.html:61 templates/choice-no-login.html:176
 msgid "No problem, there are other referendums you can vote for."
-msgstr ""
+msgstr "Kein Problem, es gibt noch andere Volksabstimmungen, für die Sie stimmen können
+"
 
 #: templates/already_voted.html:62 templates/choice-no-login.html:160
 #: templates/choice-no-login.html:177 templates/choice.html:74
 #: templates/vote_success.html:63
 msgid "The results will be announced on"
-msgstr ""
+msgstr "Die Ergebnisse werden am bekannt gegeben
+"
 
 #: templates/already_voted.html:64 templates/choice-no-login.html:162
 #: templates/choice-no-login.html:179 templates/choice.html:76
 #: templates/vote_success.html:65
 msgid "and you will be notified via email."
-msgstr ""
+msgstr "und Sie werden per E-Mail benachrichtigt
+"
 
 #: templates/already_voted.html:65 templates/choice-no-login.html:163
 #: templates/choice-no-login.html:180 templates/choice.html:77
 #: templates/vote_success.html:66
-#, fuzzy
-#| msgid "LATEST REFERENDUMS & VOTE"
+
 msgid "BACK TO REFERENDUM"
-msgstr "AKTUELLE REFERENDEN & ABSTIMMUNGEN"
+msgstr "ZURÜCK ZUM REFERENDUM"
 
 #: templates/choice-no-login.html:28 templates/choice.html:29
 #: templates/vote_success.html:33
 msgid "CREATE BALLOT"
-msgstr ""
+msgstr "Stimmzettel erstellen
+"
 
 #: templates/choice-no-login.html:56
 msgid "Login Required!"
-msgstr ""
+msgstr "Anmeldung erforderlich!
+"
 
 #: templates/choice-no-login.html:58
 msgid "Please Login to your account to continue voting"
-msgstr ""
+msgstr "Bitte melden Sie sich bei Ihrem Konto an, um mit der Abstimmung fortzufahren
+"
 
 #: templates/choice-no-login.html:61 templates/choice-no-login.html:102
 msgid "Continue with Facebook"
-msgstr ""
+msgstr "Weiter mit Facebook
+"
 
 #: templates/choice-no-login.html:69 templates/choice-no-login.html:113
-#, fuzzy
-#| msgid "Address"
+
 msgid "Email address"
-msgstr "Adresse"
+msgstr " email Adresse"
 
 #: templates/choice-no-login.html:74
 msgid "Password"
-msgstr ""
+msgstr "Passwort"
 
 #: templates/choice-no-login.html:83
 msgid "CONTINUE"
-msgstr ""
+msgstr "FORTSETZEN"
 
 #: templates/choice-no-login.html:84
 msgid "Create an account now"
-msgstr ""
+msgstr "Erstellen Sie jetzt ein Konto
+"
 
 #: templates/choice-no-login.html:87 templates/choice-no-login.html:128
 msgid "CLOSE"
-msgstr ""
+msgstr "SCHLIESSEN"
 
 #: templates/choice-no-login.html:97
 msgid "Create account!"
-msgstr ""
+msgstr "Benutzerkonto anlegen!
+"
 
 #: templates/choice-no-login.html:99
 msgid "You can register with your social login or email address."
-msgstr ""
+msgstr "Sie können sich mit Ihrem Social Login oder Ihrer E-Mail-Adresse registrieren
+"
 
 #: templates/choice-no-login.html:116
 msgid ""
 "We will send you the registration link to the email address you entered."
-msgstr ""
+msgstr "Wir senden Ihnen den Registrierungslink an die von Ihnen eingegebene E-Mail-Adresse
+"
 
 #: templates/choice-no-login.html:120
 msgid "This email has already been registered."
-msgstr ""
+msgstr "Diese E-Mail wurde bereits registriert
+"
 
 #: templates/choice-no-login.html:123
 msgid "Users must have an email address."
-msgstr ""
+msgstr "Benutzer müssen über eine E-Mail-Adresse verfügen
+"
 
 #: templates/choice-no-login.html:125 templates/landing-en.html:198
 msgid "SEND"
@@ -267,20 +278,24 @@ msgstr "SENDEN"
 
 #: templates/choice-no-login.html:126
 msgid "Already have an account?"
-msgstr ""
+msgstr "Sie haben bereits ein Konto?
+"
 
 #: templates/choice-no-login.html:126
 msgid "Login here!"
-msgstr ""
+msgstr "Hier anmelden!
+"
 
 #: templates/choice-no-login.html:138
 msgid "Mail sent!"
-msgstr ""
+msgstr "Mail verschickt!
+"
 
 #: templates/choice-no-login.html:140
 msgid ""
 "Please check your inbox to get the registration informations. Thank you."
-msgstr ""
+msgstr "Bitte überprüfen Sie Ihren Posteingang, um die Registrierungsinformationen zu erhalten. Danke
+"
 
 #: templates/choice-no-login.html:146
 msgid "LOGIN NOW"
@@ -324,22 +339,19 @@ msgid "Contact Information"
 msgstr "Informationsquellen"
 
 #: templates/contactinfo_mail.html:28
-#, fuzzy
-#| msgid "Firstname*"
+
 msgid "First Name:"
-msgstr "Vorname*"
+msgstr "Vorname"
 
 #: templates/contactinfo_mail.html:29
-#, fuzzy
-#| msgid "Lastname*"
+
 msgid "Last Name: "
-msgstr "Nachname*"
+msgstr "Nachname"
 
 #: templates/contactinfo_mail.html:30
-#, fuzzy
-#| msgid "Email*"
+
 msgid "Email:"
-msgstr "E-Mail*"
+msgstr "E-Mail"
 
 #: templates/contest_details.html:11 templates/contest_list.html:13
 #: templates/contest_results.html:12 templates/layout/footer.html:15
@@ -351,10 +363,9 @@ msgid "Vote now"
 msgstr "Wähle nun"
 
 #: templates/contest_details.html:32
-#, fuzzy
-#| msgid "VOTE NOW"
+
 msgid "VOTED"
-msgstr "JETZT ABSTIMMEN"
+msgstr "ABSTIMMEN"
 
 #: templates/contest_details.html:36 templates/contest_list.html:114
 #: templates/index.html:79
