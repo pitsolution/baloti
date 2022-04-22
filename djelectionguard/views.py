@@ -1565,11 +1565,8 @@ class ParentContestCreateView(generic.CreateView):
         from baloti_djelectionguard.models import ParentContesti18n
         queryset = Language.objects.all()
         form.save()
-        print(queryset,'qsettttt', form.instance.pk)
         for each in queryset:
             trans_content_name = GoogleTranslator('auto', each.iso).translate(form.cleaned_data['name'])
-            # trans_content_status = GoogleTranslator('auto', each.iso).translate(form.cleaned_data['status'])
-            print(trans_content_name,'tscon')
             ParentContesti18n.objects.create(parent_contest_id=form.instance,language=each,name= trans_content_name)
 
         messages.success(
