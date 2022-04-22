@@ -9,7 +9,7 @@
             <div class="col-sm-12 col-lg-7 mx-auto">
                 <div class="app-card app-card--lg app-card--nopad">
                     <div class="app-card__header border-btm">
-                        <p class="app-card__header-title">Make your choice</p>
+                        <p class="app-card__header-title">{% trans "Make your choice" %}</p>
                         <p class="app-sm-text text-medium">{{contest.name}}</p>
                     </div>
                     {% csrf_token %}
@@ -24,8 +24,8 @@
                             {{i.id}}
                         </ul>
                         <div class="app-card__btngroup d-flex align-items-center justify-content-between">
-                            <a class="btn btn-default" href="javascript:window.history.back()">BACK</a>
-                            <button class="btn btn-primary" id="showBalletModal">CREATE BALLOT</button>
+                            <a class="btn btn-default" href="javascript:window.history.back()">{% trans "BACK" %}</a>
+                            <button class="btn btn-primary" id="showBalletModal">{% trans "CREATE BALLOT" %}</button>
                         </div>
                     </div>
                 </div>
@@ -53,12 +53,12 @@
                     <img src="/static/images/logo.svg" alt="">
                 </div> -->
                 <h3 class="app-login__heading text-bold">
-                    Login Required!
+                    {% trans "Login Required!" %}
                 </h3>
-                <p class="app-login__subhead">Please Login to your account to continue voting</p>
+                <p class="app-login__subhead">{% trans "Please Login to your account to continue voting" %}</p>
 
                 <div class="app-login__btn-group">
-                    <a class="btn btn-facebook btn-block" id="fbloginBtn" href="{% url 'social:begin' 'facebook' %}?next="><span class="app-icon icon-facebook-box"></span> <span>Continue with Facebook</span></a>
+                    <a class="btn btn-facebook btn-block" id="fbloginBtn" href="{% url 'social:begin' 'facebook' %}?next="><span class="app-icon icon-facebook-box"></span> <span>{% trans "Continue with Facebook" %}</span></a>
                 </div>
                 
                 <p class="app-sepeartor"><span>or</span></p>
@@ -66,25 +66,25 @@
                     <div class="app-form__control">
                         <input id="id_username" name="username" 
                                    type="text" class="form-control" placeholder=" " required>
-                        <label for="id_username" class="app-form__label">Email address</label>
+                        <label for="id_username" class="app-form__label">{% trans "Email address" %}</label>
                     </div>
                     <div class="app-form__control app-form__control--password">
                         <input id="id_password" name="password" 
                                    type="password" class="form-control" placeholder=" " required>
-                        <label for="id_password" class="app-form__label">Password</label>
+                        <label for="id_password" class="app-form__label">{% trans "Password" %}</label>
                         <span id="showHidePassword" class="app-icon icon-view show-hide-password"></span>
                     </div>
 
                     <p class="label label-danger d-none" id="login_error">
-                        Your username and password didn't match. 
-                        Please try again.
+                        {% trans "Your username and password didn't match.
+                        Please try again." %}
                     </p>
 
-                    <button type="button" isloggedIn="false" id="loginBtn" class="btn btn-primary btn-block btn-md--small">CONTINUE</button>
-                    <p class="app-login__createaccount"><span>Not registered yet?</span> <a id="idCreateAccount"  href="#" class="app-link" signup="true">Create an account now</a> </p>
+                    <button type="button" isloggedIn="false" id="loginBtn" class="btn btn-primary btn-block btn-md--small">{% trans "CONTINUE" %}</button>
+                    <p class="app-login__createaccount"><span>Not registered yet?</span> <a id="idCreateAccount"  href="#" class="app-link" signup="true">{% trans "Create an account now" %}</a> </p>
                 </div>
 
-                <button type="button" id="logincloseBtn" class="btn btn-default mx-auto" data-dismiss="modal">CLOSE</button>
+                <button type="button" id="logincloseBtn" class="btn btn-default mx-auto" data-dismiss="modal">{% trans "CLOSE" %}</button>
             </div>
         </div>
 
@@ -94,12 +94,12 @@
                 {% csrf_token %}
 
                 <h3 class="app-login__heading text-bold">
-                    Create account!
+                    {% trans "Create account!" %}
                 </h3>
-                <p class="app-login__subhead">You can register with your social login or email address.</p>
+                <p class="app-login__subhead">{% trans "You can register with your social login or email address." %}</p>
 
                 <div class="app-login__btn-group">
-                    <a class="btn btn-facebook btn-block" id="fbloginBtn" href="{% url 'social:begin' 'facebook' %}?next="><span class="app-icon icon-facebook-box"></span> <span>Continue with Facebook</span></a>
+                    <a class="btn btn-facebook btn-block" id="fbloginBtn" href="{% url 'social:begin' 'facebook' %}?next="><span class="app-icon icon-facebook-box"></span> <span>{% trans "Continue with Facebook" %}</span></a>
                 </div>
                 <p class="app-sepeartor"><span>or</span></p>
 
@@ -110,22 +110,22 @@
                         {% else %}
                         <input type="email" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder=" "/>
                         {% endif %}
-                        <label for="exampleInputEmail1" class="app-form__label">Email address</label>
+                        <label for="exampleInputEmail1" class="app-form__label">{% trans "Email address" %}</label>
                         <div class="app-form__msg">
                             <p class="text-danger m-0">{{error}}</p>
-                            <p>We will send you the registration link to the email address you entered.</p>
+                            <p>{% trans "We will send you the registration link to the email address you entered." %}</p>
                         </div>
                     </div>
                     <p class="label label-danger d-none" id="signup_error">
-                        This email has already been registered.
+                        {% trans "This email has already been registered." %}
                     </p>
                      <p class="label label-danger d-none" id="signup_nofielderror">
-                        Users must have an email address.
+                        {% trans "Users must have an email address." %}
                     </p>
-                    <button id="signupBtn" class="btn btn-primary btn-block btn-md--small">SEND</button>
-                    <p class="app-login__createaccount"><span>Already have an account?</span> <a id="idButtonLogin" href="#" class="app-link">Login here!</a> </p>
+                    <button id="signupBtn" class="btn btn-primary btn-block btn-md--small">{% trans "SEND" %}</button>
+                    <p class="app-login__createaccount"><span>{% trans "Already have an account?" %}</span> <a id="idButtonLogin" href="#" class="app-link">{% trans "Login here!" %}</a> </p>
                 </div>
-                <button type="button" id="logincloseBtn" class="btn btn-default mx-auto" data-dismiss="modal">CLOSE</button>
+                <button type="button" id="logincloseBtn" class="btn btn-default mx-auto" data-dismiss="modal">{% trans "CLOSE" %}</button>
             </div>
         </div>
 
@@ -135,15 +135,15 @@
                     <img src="/static/images/logo.svg" alt="">
                 </div>
                 <h3 class="app-login__heading">
-                    Mail sent!
+                    {% trans "Mail sent!" %}
                 </h3>
-                <p class="app-login__subhead">Please check your inbox to get the registration informations. Thank you.</p>
+                <p class="app-login__subhead">{% trans "Please check your inbox to get the registration informations. Thank you." %}</p>
 
                 <div class="text-center">
                     <div class="img-block">
                         <img src="/static/images/login-complete.svg" alt="">
                     </div>
-                    <a class="btn btn-primary btn-md--small" id="idButtonLoginAfterSuccess" href="#!">LOGIN NOW</a>
+                    <a class="btn btn-primary btn-md--small" id="idButtonLoginAfterSuccess" href="#!">{% trans "LOGIN NOW" %}</a>
                 </div>
             </div>
         </div>
@@ -152,15 +152,15 @@
             <div class="modal-body text-center">
                 <div class="app-bg app-result-wrap app-modal--success">
                     <img src="/static/images/vote-success.png" alt="">
-                    <p class="app-h5 text-success text-bold">Success!</p>
-                    <p class="app-h6 m-0">Your Choice Added Successfully</p>
+                    <p class="app-h5 text-success text-bold">{% trans "Success!" %}</p>
+                    <p class="app-h6 m-0">{% trans "Your Choice Added Successfully" %}</p>
                 </div>
                 <div class="modal-result app-result-wrap">
-                    <p class="app-p">Thank for voting at the Referendum and be a part of Direct Democracy.</p>
-                    <p class="app-h6 text-danger">The results will be announced on</p>
+                    <p class="app-p">{% trans "Thank for voting at the Referendum and be a part of Direct Democracy." %}</p>
+                    <p class="app-h6 text-danger">{% trans "The results will be announced on" %}</p>
                     <p class="app-resultdate">{{contest.end|date:"d.m.Y"}}</p>
-                    <p class="app-p">and you will be notified via email.</p>
-                    <button class="btn btn-default mx-auto"><a href={% url 'baloti_djelectionguard:ContestDetails' contest.parent.uid %}>BACK TO REFERENDUM</a></button>
+                    <p class="app-p">{% trans "and you will be notified via email." %}</p>
+                    <button class="btn btn-default mx-auto"><a href={% url 'baloti_djelectionguard:ContestDetails' contest.parent.uid %}>{% trans "BACK TO REFERENDUM" %}</a></button>
                 </div>
             </div>
         </div>
@@ -170,21 +170,21 @@
             <div class="modal-body text-center">
                 <div class="app-bg app-result-wrap">
                     <img src="/static/images/vote-completed.png" alt="">
-                    <p class="app-h5 text-warning text-bold">You've already voted!!</p>
+                    <p class="app-h5 text-warning text-bold">{% trans "You've already voted!!" %}</p>
                 </div>
                 <div class="modal-result app-result-wrap">
-                    <p class="app-p">No problem, there are other referendums you can vote for.</p>
-                    <p class="app-h6 text-danger">The results will be announced on</p>
+                    <p class="app-p">{% trans "No problem, there are other referendums you can vote for." %}</p>
+                    <p class="app-h6 text-danger">{% trans "The results will be announced on" %}</p>
                     <p class="app-resultdate">{{contest.end|date:"d.m.Y"}}</p>
-                    <p class="app-p">and you will be notified via email.</p>
-                    <button class="btn btn-default mx-auto"><a href={% url 'baloti_djelectionguard:ContestDetails' contest.parent.uid %}>BACK TO REFERENDUM</a></button>
+                    <p class="app-p">{% trans "and you will be notified via email." %}</p>
+                    <button class="btn btn-default mx-auto"><a href={% url 'baloti_djelectionguard:ContestDetails' contest.parent.uid %}>{% trans "BACK TO REFERENDUM" %}</a></button>
                 </div>
             </div>
         </div>
 
         <div class="modal-content app-bg" id="confirmVote">
             <div class="modal-header">
-                <h5 class="modal-title text-bold" id="exampleModalLongTitle">Confirm your selection </h5>
+                <h5 class="modal-title text-bold" id="exampleModalLongTitle">{% trans "Confirm your selection" %} </h5>
             </div>
             <div class="modal-body text-center">
                 <div class="app-modal__msgbox text-bold text-uppercase">
@@ -192,8 +192,8 @@
                 </div>
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" id="closeBtn" class="btn btn-default" data-dismiss="modal">CANCEL</button>
-                <button type="button" isloggedIn="false" id="confirmBtn" class="btn btn-primary">CONFIRM</button>
+                <button type="button" id="closeBtn" class="btn btn-default" data-dismiss="modal">{% trans "CANCEL" %}</button>
+                <button type="button" isloggedIn="false" id="confirmBtn" class="btn btn-primary">{% trans "CONFIRM" %}</button>
             </div>
         </div>
     </div>
