@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-22 16:54+0530\n"
+"POT-Creation-Date: 2022-04-25 15:53+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,6 +35,7 @@ msgid "New Password Confirmation"
 msgstr "Neues Passwort bestŠtigen"
 
 #: templates/change_password.html:97 templates/login.html:95
+#: templates/signup_mail.html:236
 msgid "CONTINUE"
 msgstr "WEITER"
 
@@ -81,7 +82,7 @@ msgstr "Erstellen Sie jetzt ein Konto!"
 msgid "Forgot Password?"
 msgstr "Passwort vergessen?"
 
-#: templates/password_reset.html:64
+#: templates/password_reset.html:64 templates/signup.html:86
 msgid ""
 "We will send you the registration link to the email address you entered."
 msgstr ""
@@ -108,7 +109,7 @@ msgstr "Passwort geändert!"
 msgid "Your password has changed successfully."
 msgstr "Ihr Passwort wurde erfolgreich geändert."
 
-#: templates/password_reset_complete.html:65
+#: templates/password_reset_complete.html:65 templates/signup_success.html:71
 msgid "LOGIN NOW"
 msgstr ""
 
@@ -127,7 +128,7 @@ msgstr "Neues Passwort"
 msgid "Confirm password"
 msgstr "Passwort bestätigen"
 
-#: templates/password_reset_done.html:55
+#: templates/password_reset_done.html:55 templates/signup_success.html:62
 msgid "Mail sent!"
 msgstr "E-Mail versendet!"
 
@@ -137,6 +138,36 @@ msgid ""
 msgstr ""
 "Bitte prüfen Sie Ihren Posteingang, um den Link zum Zurücksetzen des "
 "Passworts zu erhalten. Vielen Dank!"
+
+#: templates/password_reset_email.html:201
+msgid "Hello,"
+msgstr "Guten Tag"
+
+#: templates/password_reset_email.html:207
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at baloti."
+msgstr "Sie erhalten diese E-Mail, weil Sie ein neues Passwort für Ihr Benutzerkonto bei baloti beantragt haben."
+
+#: templates/password_reset_email.html:213
+msgid "Please go to the following page and choose a new password"
+msgstr "Bitte gehen Sie auf die folgende Seite und wählen Sie ein neues Passwort."
+
+#: templates/password_reset_email.html:214
+msgid "Click here"
+msgstr "Hier klicken"
+
+#: templates/password_reset_email.html:220
+msgid "Your username, in case you've forgotten is"
+msgstr "Ihr Benutzername, falls Sie ihn vergessen haben, lautet:"
+
+#: templates/password_reset_email.html:237
+msgid "Thanks for using our platform!"
+msgstr "Vielen Dank für das Interesse an unserer Plattform!"
+
+#: templates/password_reset_email.html:241
+msgid "The baloti team"
+msgstr ""
 
 #: templates/signup.html:64
 msgid "Create account!"
@@ -158,6 +189,39 @@ msgstr "Sie haben bereits ein Konto?"
 #: templates/signup.html:92
 msgid "Login here!"
 msgstr "Hier einloggen!"
+
+#: templates/signup_mail.html:210
+msgid "Registration information"
+msgstr "Information zur Registrierung"
+
+#: templates/signup_mail.html:216
+msgid "Thank you for registering at our site."
+msgstr ""
+"Vielen Dank, dass Sie sich auf unserer baloti Plattform registriert haben."
+
+#: templates/signup_mail.html:217
+msgid "You can find your credentials below."
+msgstr "Sie finden Ihre Anmeldedaten unten."
+
+#: templates/signup_mail.html:224
+msgid "Username:"
+msgstr "Benutzername:"
+
+#: templates/signup_mail.html:230
+#, fuzzy
+#| msgid "Password"
+msgid "Password:"
+msgstr "Passwort"
+
+#: templates/signup_success.html:64
+#, fuzzy
+#| msgid ""
+#| "Please check your inbox to get the link of your recovery email. Thank you."
+msgid ""
+"Please check your inbox to get the registration informations. Thank you."
+msgstr ""
+"Bitte prüfen Sie Ihren Posteingang, um den Link zum Zurücksetzen des "
+"Passworts zu erhalten. Vielen Dank!"
 
 #: views.py:95
 msgid "Registration information sent by email"
