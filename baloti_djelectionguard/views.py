@@ -1,12 +1,14 @@
 import json
 from django.shortcuts import render
 from djelectionguard.models import Contest, Candidate, ParentContest
+from .models import ParentContesti18n
 from django.db.models import ObjectDoesNotExist, Q
 from django.http import *
 from django.views.generic import TemplateView
 from djlang.utils import gettext as _
 from electeez_common.components import *
 import hashlib
+from django.utils.translation import get_language
 from django.views.decorators.csrf import csrf_exempt,csrf_protect
 from electeez_auth.models import User
 from django.template.loader import render_to_string
@@ -22,12 +24,13 @@ def getParentDetails(parent):
         """
         data = {
             'name': parent.name,
-            'id': parent.uid,
-            'date': parent.start.date(),
-            'end_date': parent.end.date(),
-            'month': parent.start.strftime('%B'),
-            'year': parent.start.strftime('%Y'),
-            'status': parent.status,
+            'id': parent.parent_contest_id.uid,
+            'iso':parent.language.iso,
+            'date': parent.parent_contest_id.start.date(),
+            'end_date': parent.parent_contest_id.end.date(),
+            'month': parent.parent_contest_id.start.strftime('%B'),
+            'year': parent.parent_contest_id.start.strftime('%Y'),
+            'status': parent.parent_contest_id.status,
             }
         return data
 
@@ -183,10 +186,13 @@ class BalotiContestListView(TemplateView):
         """
         open_list = []
         closed_list = []
-        open_contests = ParentContest.objects.filter(status="open").order_by('-start')
+        current_language = get_language()
+        print('cur', current_language)
+        # open_contests = ParentContest.objects.filter(status="open").order_by('-start')
+        open_contests = ParentContesti18n.objects.filter(parent_contest_id__status="open")
         for open_contest in open_contests:
             open_list.append(getParentDetails(open_contest))
-        closed_contests = ParentContest.objects.filter(status="closed").order_by('-end')
+        closed_contests = ParentContesti18n.objects.filter(parent_contest_id__status="closed")
         for closed_contest in closed_contests:
             closed_list.append(getParentDetails(closed_contest))
         return render(request, 'contest_list.html',{"open_contests": open_list, "closed_contests": closed_list})
@@ -206,12 +212,13 @@ class BalotiContestListSortView(TemplateView):
         """
         open_list = []
         closed_list = []
+        current_language = get_language()
         if sort == 'asc':
-            open_contests = ParentContest.objects.filter(status="open").order_by('actual_start')
-            closed_contests = ParentContest.objects.filter(status="closed").order_by('actual_end')
+            open_contests = ParentContesti18n.objects.filter(parent_contest_id__status="open",language__iso=current_language)
+            closed_contests = ParentContesti18n.objects.filter(parent_contest_id__status="closed",language__iso=current_language)
         else:
-            open_contests = ParentContest.objects.filter(status="open").order_by('-actual_start')
-            closed_contests = ParentContest.objects.filter(status="closed").order_by('-actual_end')
+            open_contests = ParentContesti18n.objects.filter(parent_contest_id__status="open", language__iso=current_language)
+            closed_contests = ParentContesti18n.objects.filter(parent_contest_id__status="closed", language__iso=current_language)
         for open_contest in open_contests:
             open_list.append(getParentDetails(open_contest))
         for closed_contest in closed_contests:
