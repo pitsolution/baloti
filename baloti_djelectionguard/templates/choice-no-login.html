@@ -1,6 +1,7 @@
 {% extends 'layout/base.html' %}
 {% load static %}
 {% block body %}  
+{% load static i18n %}
 
 <section class="app-choice app-body-bg">
     <div class="container">
@@ -81,7 +82,7 @@
                     </p>
 
                     <button type="button" isloggedIn="false" id="loginBtn" class="btn btn-primary btn-block btn-md--small">{% trans "CONTINUE" %}</button>
-                    <p class="app-login__createaccount"><span>Not registered yet?</span> <a id="idCreateAccount"  href="#" class="app-link" signup="true">{% trans "Create an account now" %}</a> </p>
+                    <p class="app-login__createaccount"><span>{% trans "Not registered yet?" %}</span> <a id="idCreateAccount"  href="#" class="app-link" signup="true">{% trans "Create an account now" %}</a> </p>
                 </div>
 
                 <button type="button" id="logincloseBtn" class="btn btn-default mx-auto" data-dismiss="modal">{% trans "CLOSE" %}</button>
