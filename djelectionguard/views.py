@@ -76,7 +76,7 @@ from .components import (
 from djlang.utils import gettext as _
 from deep_translator import GoogleTranslator
 from djlang.models import Language
-from baloti_djelectionguard.models import Initiatori18n, ContestTypei18n
+from baloti_djelectionguard.models import Initiatori18n, ContestTypei18n, Recommenderi18n
 
 
 class ContestMediator:
@@ -1530,8 +1530,12 @@ class RecommenderCreateView(generic.CreateView):
     template_name = 'djelectionguard/recommender_form.html'
 
     def form_valid(self, form):
-        # form.instance.mediator = self.request.user
         response = super().form_valid(form)
+        form.save()
+        for lang in Language.objects.all():
+            translated_name = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['name'])
+            translated_type = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['recommender_type'])
+            Recommenderi18n.objects.create(recommender_id=form.instance,language=lang,name= translated_name, recommender_type=translated_type)
         messages.success(
             self.request,
             _('You have created recommender %(obj)s', obj=form.instance)
