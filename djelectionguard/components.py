@@ -52,11 +52,11 @@ class ContestForm(forms.ModelForm):
         required=False
     )
 
-    votes_allowed = forms.IntegerField(
-        label=_('FORM_VOTES_ALLOWED_ELECTION_CREATE'),
-        initial=1,
-        help_text=_('The maximum number of choice a voter can make for this election')
-    )
+    # votes_allowed = forms.IntegerField(
+    #     label=_('FORM_VOTES_ALLOWED_ELECTION_CREATE'),
+    #     initial=1,
+    #     help_text=_('The maximum number of choice a voter can make for this election')
+    # )
 
     # start = forms.SplitDateTimeField(
     #     label='',
@@ -93,7 +93,7 @@ class ContestForm(forms.ModelForm):
             self.fields['infavour_arguments'].widget = forms.HiddenInput()
             self.fields['against_arguments'].widget = forms.HiddenInput()
             self.fields['about'].widget = forms.HiddenInput()
-            self.fields['votes_allowed'].widget = forms.HiddenInput()
+            # self.fields['votes_allowed'].widget = forms.HiddenInput()
         #     self.fields['timezone'].widget = forms.HiddenInput()
         #     self.fields['start'].disabled = True
         #     self.fields['end'].disabled = True
@@ -136,12 +136,12 @@ class ContestForm(forms.ModelForm):
         else:
             return self.cleaned_data['against_arguments']
 
-    def clean_votes_allowed(self):
-        instance = getattr(self, 'instance', None)
-        if instance and instance.pk and instance.actual_end:
-            return instance.votes_allowed
-        else:
-            return self.cleaned_data['votes_allowed']
+    # def clean_votes_allowed(self):
+    #     instance = getattr(self, 'instance', None)
+    #     if instance and instance.pk and instance.actual_end:
+    #         return instance.votes_allowed
+    #     else:
+    #         return self.cleaned_data['votes_allowed']
 
     def clean_about(self):
         instance = getattr(self, 'instance', None)
@@ -168,7 +168,7 @@ class ContestForm(forms.ModelForm):
             'infavour_arguments',
             'against_arguments',
             'about',
-            'votes_allowed',
+            # 'votes_allowed',
             # 'start',
             # 'end',
             # 'timezone',
@@ -182,7 +182,7 @@ class ContestForm(forms.ModelForm):
             'infavour_arguments': _('FORM_TITLE_INFAVOUR_ARGUMENTS'),
             'against_arguments': _('FORM_TITLE_AGAINST_ARGUMENTS'),
             'about': _('FORM_ABOUT_ELECTION_CREATE'),
-            'votes_allowed': _('FORM_VOTES_ALLOWED_ELECTION_CREATE'),
+            # 'votes_allowed': _('FORM_VOTES_ALLOWED_ELECTION_CREATE'),
             # 'start': _('FORM_START_ELECTION_CREATE'),
             # 'end': _('FORM_END_ELECTION_CREATE'),
             # 'timezone': _('FORM_TIMEZONE_ELECTION_CREATE'),
@@ -234,7 +234,7 @@ class ContestFormComponent(CList):
                     form['govt_against_percent'],
                     form['contest_type'],
                     form['contest_initiator'],
-                    form['votes_allowed'],
+                    # form['votes_allowed'],
                     # form['start'],
                     # form['end'],
                     # form['timezone'],
