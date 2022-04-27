@@ -74,6 +74,9 @@ from .components import (
 )
 
 from djlang.utils import gettext as _
+from deep_translator import GoogleTranslator
+from djlang.models import Language
+from baloti_djelectionguard.models import Initiatori18n, ContestTypei18n
 
 
 class ContestMediator:
@@ -1679,6 +1682,18 @@ class InitiatorCreateView(generic.CreateView):
     form_class = InitiatorForm
     template_name = 'djelectionguard/initiator_form.html'
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        form.save()
+        for lang in Language.objects.all():
+            translated_name = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['name'])
+            Initiatori18n.objects.create(initiator_id=form.instance,language=lang,name= translated_name)
+        messages.success(
+            self.request,
+            _('You have created initiator %(obj)s', obj=form.instance)
+        )
+        return response
+
     @classmethod
     def as_url(cls):
         return path(
@@ -1720,6 +1735,18 @@ class IssueTypeCreateView(generic.CreateView):
     model = ContestType
     form_class = IssueTypeForm
     template_name = 'djelectionguard/issue_type_form.html'
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        form.save()
+        for lang in Language.objects.all():
+            translated_name = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['name'])
+            ContestTypei18n.objects.create(contest_type_id=form.instance,language=lang,name= translated_name)
+        messages.success(
+            self.request,
+            _('You have created contest type %(obj)s', obj=form.instance)
+        )
+        return response
 
     @classmethod
     def as_url(cls):
