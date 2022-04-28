@@ -102,7 +102,7 @@ class Contesti18n(models.Model):
     name = models.CharField(max_length=255)
     contest_id = models.ForeignKey(
         Contest,
-        related_name='contest',
+        related_name='contest_data',
         on_delete=models.CASCADE,
         null=True
     )
@@ -118,7 +118,7 @@ class Contesti18n(models.Model):
 
     parent = models.ForeignKey(
         ParentContest,
-        related_name='parent',
+        related_name='parent_con',
         on_delete=models.CASCADE,
         null=True
     )
