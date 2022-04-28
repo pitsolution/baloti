@@ -8,9 +8,11 @@ $_app-menu-title-mobile: #060504;
         width: 100%;
         z-index: 9;
         transition: all 0.5s ease-in-out;
-        background-color: $app-white;
         &--landing{
             background-color: transparent;
+        }
+        &--login{
+            background-color: $app-white;
         }
         &__wrapper{
             max-width: 1900px;
