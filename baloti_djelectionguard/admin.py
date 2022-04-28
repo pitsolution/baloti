@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ParentContesti18n, Initiatori18n, ContestTypei18n, Recommenderi18n
+from .models import ParentContesti18n, Initiatori18n, ContestTypei18n, Recommenderi18n, Contesti18n
 
 # Register your models here.
 
@@ -29,7 +29,17 @@ class Recommenderi18nAdmin(admin.ModelAdmin):
         'language'
     )
 
+class Contesti18Admin(admin.ModelAdmin):
+    list_display = (
+        'name',
+        'language',
+        'type',
+        'artifacts_sha1',
+        'artifacts_ipfs'
+    )
+
 admin.site.register(ParentContesti18n, ParentContesti18nAdmin)
 admin.site.register(Initiatori18n, Initiatori18nAdmin)
 admin.site.register(ContestTypei18n, ContestTypei18nAdmin)
 admin.site.register(Recommenderi18n, Recommenderi18nAdmin)
+admin.site.register(Contesti18n, Contesti18Admin)
