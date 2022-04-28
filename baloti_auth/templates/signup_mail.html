@@ -1,4 +1,6 @@
 {% load static %}
+{% load static i18n %}
+{% load sass_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -204,33 +206,33 @@
                             <tr>
                                 <td align="center valign="top" class="block-100 padd-btm-15"
                                     style="border-collapse: collapse; border-spacing: 0; margin: 0; text-align: center; padding-bottom: 14px;">
-                                    <p style="margin: 0; font-size: 44px; line-height: 65px; font-weight: 400;">Registration information</p>
+                                    <p style="margin: 0; font-size: 44px; line-height: 65px; font-weight: 400;">{%trans "Registration information" %}</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td align="center" valign="top" class="block-100 padd-btm-15"
                                     style="border-collapse: collapse; border-spacing: 0; margin: 0; text-align: center; padding-bottom: 22px; line-height: 38px">
-                                    <p style="margin: 0; font-size: 24px; font-weight: 400;">Thank you for registering at our site.</p>
-                                    <p style="margin: 0; font-size: 24px; font-weight: 400;">You can find your credentials below.</p>
+                                    <p style="margin: 0; font-size: 24px; font-weight: 400;">{%trans "Thank you for registering at our site." %}</p>
+                                    <p style="margin: 0; font-size: 24px; font-weight: 400;">{%trans "You can find your credentials below." %}</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td align="left" valign="top" class="block-100 padd-btm-15"
                                     style="border-collapse: collapse; border-spacing: 0; margin: 0; text-align: left;  padding-bottom: 15px;">
                                     <p style="font-size: 18px; line-height: 27px; font-weight: 400; max-width: 45%;
-                                    margin: 0 auto;"><span>Username:</span> <span>{{username}}</span> </p>
+                                    margin: 0 auto;"><span>{%trans "Username:" %}</span> <span>{{username}}</span> </p>
                                 </td>
                             </tr>
                             <tr>
                                 <td align="left" valign="top" class="block-100 padd-btm-15"
                                     style="border-collapse: collapse; border-spacing: 0; margin: 0; text-align: left;  padding-bottom: 44px;">
-                                    <p style="max-width: 45%; margin: 0 auto; font-size: 18px; line-height: 27px; font-weight: 400;"><span>Password:</span> <span>{{password}}</span> </p>
+                                    <p style="max-width: 45%; margin: 0 auto; font-size: 18px; line-height: 27px; font-weight: 400;"><span>{%trans "Password:" %}</span> <span>{{password}}</span> </p>
                                 </td>
                             </tr>
                             <tr>
                                 <td align="center" valign="top" class="block-100 padd-btm-15"
                                     style="border-collapse: collapse; border-spacing: 0; margin: 0; text-align: center;">
-                                    <a href="{{login_url}}" style="padding-top: 9px; padding-bottom:9px; padding-left: 42px; padding-right: 42px; height: 42px; color: #ffffff; border-color: #CE2323;border-style: solid; border-width: 1px; background-color: #CE2323; font-size: 20px;">CONTINUE</a>
+                                    <a href="{{login_url}}" style="padding-top: 9px; padding-bottom:9px; padding-left: 42px; padding-right: 42px; height: 42px; color: #ffffff; border-color: #CE2323;border-style: solid; border-width: 1px; background-color: #CE2323; font-size: 20px;">{%trans "CONTINUE" %}</a>
                                 </td>
                             </tr>
                             <!-- End of WRAPPER -->

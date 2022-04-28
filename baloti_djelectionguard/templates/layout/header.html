@@ -4,7 +4,7 @@
 {% get_current_language as LANGUAGE%}
 <header class="app-header">
     <div class="app-header__wrapper d-flex align-items-center">
-        <a href="/baloti" class="app-logo">
+        <a href={% url 'baloti_djelectionguard:Index' %} class="app-logo">
             <img src="/static/images/logo.svg" alt="">
         </a>
         <ul class="app-header-nav main list-unstyled d-flex align-items-center ml-auto">
@@ -36,51 +36,51 @@
                 <div class="app-menu-drawer">
                     <ul class="app-menu-list list-unstyled">
                         <li>
-                            <a href="/baloti">Home</a>
+                            <a href={% url 'baloti_djelectionguard:Index' %}>Home</a>
                         </li>
                         <li>
-                            <a href="/baloti/contest/list/">Referendum Votes</a>
+                            <a href={% url 'baloti_djelectionguard:ContestList' %}>{% trans "Referendum Votes" %}</a>
                         </li>
                         <li>
-                            <a href="/illustrations">Illustrations</a>
+                            <a href={% url 'balotidjelectionguard:Illustration' %}>{% trans "Illustrations" %}</a>
                         </li>
                         <!-- <li>
                             <a href="/about-us">About Us</a>
                         </li> -->
                         <li>
-                            <a href="/disclaimer">Disclaimer</a>
+                            <a href={% url 'balotidjelectionguard:Disclaimer' %}>{% trans "Disclaimer" %}</a>
                         </li>
                     </ul>
                     <div class="app-menu-drawer__mobile">
                         {% if user.is_anonymous %}
-                        <a href="/baloti/login/" class="app-link">Login</a>
+                        <a href={% url 'baloti_auth:login' %} class="app-link">{% trans "Login" %}</a>
                         {% else %}
                         <details class="app-menu-drawer__profile">
                             <summary>
                                 <span class="app-icon icon-profile"></span>
                                 <div class="app-menu-drawer__profiletitle">
                                     <p class="m-0">{{user.email}}</p>
-                                    <span class="app-menu-drawer__profilesetting">Profile settings</span>
+                                    <span class="app-menu-drawer__profilesetting">{% trans "Profile settings" %}</span>
                                 </div>
                             </summary>
                             <ul class="list-unstyled app-loggedin__menulist">
                                 <li>
-                                    <a class="dropdown-item" href="/baloti/change-password/"> <span class="app-icon icon-Security-Safes"></span> <span>Change Password?</span></a>
+                                    <a class="dropdown-item" href={% url 'baloti_auth:change-password' %}> <span class="app-icon icon-Security-Safes"></span> <span>{% trans "Change Password?" %}</span></a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#deleteProfile"> <span class="app-icon icon-delete"></span> <span>Delete profile</span></a>
+                                    <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#deleteProfile"> <span class="app-icon icon-delete"></span> <span>{% trans "Delete profile" %}</span></a>
                                 </li>
                             </ul>
                         </details>
                         
-                          <a class="app-link" href="/baloti/logout?next=/baloti/success/logout">Logout</a>
+                          <a class="app-link" href="{% url 'baloti_auth:logout' %}?next={% url 'baloti_djelectionguard:ProcessSuccessIndex' 'logout' %}">{% trans "Logout" %}</a>
                         {% endif %}
                     </div>
                 </div>
             </li>
             {% if user.is_anonymous %}
                 <li class="app-loginbtn">
-                    <a href="/baloti/login/" class="btn btn-outline">Login</a>
+                    <a href={% url 'baloti_auth:login' %} class="btn btn-outline">{% trans "Login" %}</a>
                 </li>
     
             {% else %}
@@ -96,13 +96,13 @@
                             </div>
                             <ul class="list-unstyled app-loggedin__menulist">
                                 <li>
-                                    <a class="dropdown-item" href="/baloti/change-password/"> <span class="app-icon icon-Security-Safes"></span> <span>Change Password</span></a>
+                                    <a class="dropdown-item" href={% url 'baloti_auth:change-password' %}> <span class="app-icon icon-Security-Safes"></span> <span>{% trans "Change Password" %}</span></a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#deleteProfile"> <span class="app-icon icon-delete"></span> <span>Delete profile</span></a>
+                                    <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#deleteProfile"> <span class="app-icon icon-delete"></span> <span>{% trans "Delete profile" %}</span></a>
                                 </li>
                                 <li>
-                                    <a href="/baloti/logout?next=/baloti/success/logout" class="btn btn-primary btn-primary--outlined btn-flex justify-content-center">Logout</a>
+                                    <a href="{% url 'baloti_auth:logout' %}?next={% url 'baloti_djelectionguard:ProcessSuccessIndex' 'logout' %}" class="btn btn-primary btn-primary--outlined btn-flex justify-content-center">{% trans "Logout" %}</a>
                                 </li>
                             </ul>
                         </div>
@@ -123,28 +123,35 @@
                <div class="app-circle app-circle--primary app-circle--lg border-white">
                     <span class="app-icon icon-delete"></span>
                </div>
-                <h6 class="app-h6 modal-confirmbox__title">Are you sure you want to delete your baloti account?</h6>
+                <h6 class="app-h6 modal-confirmbox__title">{% trans "Are you sure you want to delete your baloti account?" %}</h6>
                 <div class="btn-inline-group">
-                    <button class="btn btn-default btn-flex--inline btn-lg" data-bs-dismiss="modal">NO</button>
-                    <button class="btn btn-primary btn-lg" id="deleteProfileStep2">YES</button>
+                    <button class="btn btn-default btn-flex--inline btn-lg" data-bs-dismiss="modal">{% trans "NO" %}</button>
+                    <button class="btn btn-primary btn-lg" id="deleteProfileStep2">{% trans "YES" %}</button>
                 </div>
            </div>
            <div class="modal-confirmbox modal-confirmbox--step-2 d-none">
                 <div class="app-circle app-circle--primary app-circle--lg border-white">
                     <span class="app-icon icon-delete"></span>
                 </div>
-                <h6 class="app-h6 modal-confirmbox__title">Enter your password to confirm</h6>
+                <h6 class="app-h6 modal-confirmbox__title">{% trans "Enter your password to confirm" %}</h6>
                 <input id="idPassword" class="form-control" type="password">
                 <input id="idusername" class="form-control" type="hidden" value="{{user}}">
                 <p class="label label-danger d-none" id="userpassword_error">
-                    Invalid password
+                    {% trans "Invalid password" %}
                 </p>
                 <div class="btn-inline-group">
-                    <button class="btn btn-default btn-flex--inline" data-bs-dismiss="modal">CANCEL</button>
-                    <button class="btn btn-primary" id="deleteProfileConfirm">CONFIRM</button>
+                    <button class="btn btn-default btn-flex--inline" data-bs-dismiss="modal">{% trans "CANCEL" %}</button>
+                    <button class="btn btn-primary" id="deleteProfileConfirm">{% trans "CONFIRM" %}</button>
                 </div>
             </div>
         </div>
       </div>
     </div>
   </div>
+
+<script>
+    $(document).ready(function(){
+        var languageObject = '{{LANGUAGE}}';
+        localStorage.setItem('languageObject', JSON.stringify(languageObject));
+    });
+</script>

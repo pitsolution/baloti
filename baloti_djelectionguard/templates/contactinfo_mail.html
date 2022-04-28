@@ -1,4 +1,6 @@
 {% load static %}
+{% load static i18n %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,12 +24,12 @@
                                 <img src="/static/images/logo.svg" alt="">
                             </div>
                             <h3 class="app-login__heading">
-                                Contact Information
+                                {% trans "Contact Information" %}
                             </h3>
                             <p class="app-sepeartor text-center"><span>{{message}}</span></p>
-                            <p class="app-sepeartor text-center"><span>First Name: {{firstname}}</span></p>
-                            <p class="app-sepeartor text-center"><span>Last Name: {{lastname}}</span></p>
-                            <p class="app-sepeartor text-center"><span>Email: {{email}}</span></p>
+                            <p class="app-sepeartor text-center"><span>{% trans "First Name:" %} {{firstname}}</span></p>
+                            <p class="app-sepeartor text-center"><span>{% trans "Last Name: " %} {{lastname}}</span></p>
+                            <p class="app-sepeartor text-center"><span>{% trans "Email:" %} {{email}}</span></p>
                         </div>
                     </div>
                 </div>

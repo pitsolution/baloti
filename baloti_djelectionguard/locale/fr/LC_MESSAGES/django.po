@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-04 05:18+0000\n"
+"POT-Creation-Date: 2022-03-18 14:30+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,69 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: templates/data_privacy.html:64
+#: baloti_djelectionguard/templates/contest_list.html:13
+#: baloti_djelectionguard/templates/layout/footer.html:15
+msgid "Referendum Votes"
+msgstr ""
+
+#: baloti_djelectionguard/templates/contest_list.html:31
+#: baloti_djelectionguard/templates/news.html:21
+msgid "Sort by"
+msgstr ""
+
+#: baloti_djelectionguard/templates/contest_list.html:33
+#: baloti_djelectionguard/templates/news.html:23
+msgid "Old to new"
+msgstr ""
+
+#: baloti_djelectionguard/templates/contest_list.html:34
+#: baloti_djelectionguard/templates/news.html:24
+msgid "New to old"
+msgstr ""
+
+#: baloti_djelectionguard/templates/contest_list.html:56
+#: baloti_djelectionguard/templates/contest_list.html:105
+#: baloti_djelectionguard/templates/index.html:58
+msgid "Issues:"
+msgstr ""
+
+#: baloti_djelectionguard/templates/contest_list.html:67
+#: baloti_djelectionguard/templates/index.html:17
+#: baloti_djelectionguard/templates/index.html:69
+msgid "VOTE NOW"
+msgstr ""
+
+#: baloti_djelectionguard/templates/contest_list.html:72
+#: baloti_djelectionguard/templates/index.html:73
+msgid "VIEW DETAIL"
+msgstr ""
+
+#: baloti_djelectionguard/templates/contest_list.html:90
+msgid "Results"
+msgstr ""
+
+#: baloti_djelectionguard/templates/contest_list.html:114
+#: baloti_djelectionguard/templates/contest_list.html:117
+#: baloti_djelectionguard/templates/index.html:79
+#: baloti_djelectionguard/templates/index.html:81
+msgid "closed"
+msgstr ""
+
+#: baloti_djelectionguard/templates/contest_list.html:114
+#: baloti_djelectionguard/templates/index.html:79
+msgid "VIEW RESULT"
+msgstr ""
+
+#: baloti_djelectionguard/templates/contest_list.html:117
+#: baloti_djelectionguard/templates/index.html:81
+msgid "VIEW DETAILS"
+msgstr ""
+
+#: baloti_djelectionguard/templates/data_privacy.html:64
 msgid "Data Protection"
 msgstr "protection des données"
 
-#: templates/data_privacy.html:65
+#: baloti_djelectionguard/templates/data_privacy.html:65
 msgid ""
 "We take the protection of your personal data very seriously and strictly "
 "adhere to the rules of the data protection laws. Personal data is collected "
@@ -36,7 +94,7 @@ msgstr ""
 "mesure techniquement nécessaire. En aucune circonstances les données "
 "collectées seront vendues ou transmises à des tiers pour toute autre raison."
 
-#: templates/data_privacy.html:66
+#: baloti_djelectionguard/templates/data_privacy.html:66
 msgid ""
 "The following declaration gives you an overview of how we guarantee this "
 "protection and what kind of data is collected for what purpose."
@@ -45,7 +103,7 @@ msgstr ""
 "garantissons cela la protection et quel type de données sont collectées dans "
 "quel but."
 
-#: templates/data_privacy.html:67
+#: baloti_djelectionguard/templates/data_privacy.html:67
 msgid ""
 "We automatically collect and store information that your browser transmits "
 "to us in the server log files. These are:"
@@ -54,27 +112,27 @@ msgstr ""
 "navigateur transmet pour nous dans les fichiers journaux du serveur. Ceux-ci "
 "sont :"
 
-#: templates/data_privacy.html:70
+#: baloti_djelectionguard/templates/data_privacy.html:70
 msgid "Browser type/ version"
 msgstr "Type/version de navigateur"
 
-#: templates/data_privacy.html:71
+#: baloti_djelectionguard/templates/data_privacy.html:71
 msgid "Operating system used"
 msgstr "Système d'exploitation utilisé"
 
-#: templates/data_privacy.html:72
+#: baloti_djelectionguard/templates/data_privacy.html:72
 msgid "Referrer URL (the previously visited page)"
 msgstr "URL de référence (la page visitée précédemment)"
 
-#: templates/data_privacy.html:73
+#: baloti_djelectionguard/templates/data_privacy.html:73
 msgid "Host name of the accessing computer (IP address)"
 msgstr "Nom d'hôte de l'ordinateur accédant (adresse IP)"
 
-#: templates/data_privacy.html:74
+#: baloti_djelectionguard/templates/data_privacy.html:74
 msgid "Date and time of the server request"
 msgstr "Date et heure de la requête du serveur"
 
-#: templates/data_privacy.html:76
+#: baloti_djelectionguard/templates/data_privacy.html:76
 msgid ""
 "These data cannot be assigned to specific persons. These data are not "
 "combined with other data sources. The data will also be deleted after a "
@@ -84,11 +142,11 @@ msgstr ""
 "données ne sont pas combinés avec d'autres sources de données. Les données "
 "seront également supprimées après évaluation statistique."
 
-#: templates/data_privacy.html:79
+#: baloti_djelectionguard/templates/data_privacy.html:79
 msgid "Cookies"
 msgstr "cookies"
 
-#: templates/data_privacy.html:80
+#: baloti_djelectionguard/templates/data_privacy.html:80
 msgid ""
 "On some of our pages we use cookies to make visiting our website attractive "
 "and to enable the use of certain functions. „Cookies“ are small text files "
@@ -100,11 +158,11 @@ msgid ""
 "website may not be available."
 msgstr ""
 
-#: templates/data_privacy.html:83
+#: baloti_djelectionguard/templates/data_privacy.html:83
 msgid "Use of Google Analytics"
 msgstr "Utilisation de Google Analytics"
 
-#: templates/data_privacy.html:84
+#: baloti_djelectionguard/templates/data_privacy.html:84
 msgid ""
 "This website uses Google Analytics, a web analysis service of Google Inc. "
 "(„Google“) Google Analytics uses cookies, which are text files placed on "
@@ -127,62 +185,316 @@ msgid ""
 "with future effect by installing a deactivation add-on for your browser."
 msgstr ""
 
-#: templates/data_privacy.html:106 templates/imprint.html:112
-#: templates/landing-en.html:219
+#: baloti_djelectionguard/templates/data_privacy.html:106
+#: baloti_djelectionguard/templates/imprint.html:112
+#: baloti_djelectionguard/templates/landing-en.html:220
 msgid "Data Privacy"
 msgstr "La confidentialité des données"
 
-#: templates/data_privacy.html:107 templates/imprint.html:113
-#: templates/landing-en.html:220
+#: baloti_djelectionguard/templates/data_privacy.html:107
+#: baloti_djelectionguard/templates/imprint.html:113
+#: baloti_djelectionguard/templates/landing-en.html:221
 msgid "Imprint"
 msgstr "Imprimer"
 
-#: templates/data_privacy.html:117 templates/imprint.html:123
+#: baloti_djelectionguard/templates/data_privacy.html:117
+#: baloti_djelectionguard/templates/imprint.html:123
 msgid "FOLLOW US ON"
 msgstr "SUIVEZ-NOUS SUR"
 
-#: templates/imprint.html:66
+#: baloti_djelectionguard/templates/disclaimer.html:11
+#: baloti_djelectionguard/templates/layout/footer.html:21
+msgid "Disclaimer"
+msgstr ""
+
+#: baloti_djelectionguard/templates/disclaimer.html:12
+msgid ""
+"Please note that the vote you are casting on the baloti website is not "
+"official.."
+msgstr ""
+
+#: baloti_djelectionguard/templates/disclaimer.html:13
+msgid "On the website"
+msgstr ""
+
+#: baloti_djelectionguard/templates/disclaimer.html:13
+msgid "various user data are saved"
+msgstr ""
+
+#: baloti_djelectionguard/templates/disclaimer.html:14
+msgid ""
+"In a cookie we store the language preference of the user only. When the "
+"website is accessed login data are saved in a so-called log file on the "
+"server. This mainly concerns: IP address, date and time of access, name of "
+"accessed page, web-browser used, operating system used etc."
+msgstr ""
+
+#: baloti_djelectionguard/templates/disclaimer.html:15
+msgid ""
+"All these data are protected against unauthorised persons and are only "
+"evaluated in the form of anonymous access statistics."
+msgstr ""
+
+#: baloti_djelectionguard/templates/disclaimer.html:16
+msgid ""
+"E-mail addresses are used only for direct communication with the user and "
+"will under no circumstances be passed on to a third party."
+msgstr ""
+
+#: baloti_djelectionguard/templates/disclaimer.html:17
+msgid ""
+"The data about the vote and the user (status, age, gender, canton, etc.) are "
+"used for analyses and statistics only in anonymised and aggregated form."
+msgstr ""
+
+#: baloti_djelectionguard/templates/imprint.html:66
 msgid "Represented by"
 msgstr "Représenté par"
 
-#: templates/imprint.html:70
+#: baloti_djelectionguard/templates/imprint.html:70
 msgid "Address"
 msgstr "Adresse"
 
-#: templates/imprint.html:74
+#: baloti_djelectionguard/templates/imprint.html:74
 msgid "Firm Number"
 msgstr "Numéro d'entreprise"
 
-#: templates/imprint.html:78
+#: baloti_djelectionguard/templates/imprint.html:78
 msgid "VAT Number"
 msgstr "Numéro de TVA"
 
-#: templates/imprint.html:82
+#: baloti_djelectionguard/templates/imprint.html:82
 msgid "Phone"
 msgstr "Téléphone"
 
-#: templates/imprint.html:86
+#: baloti_djelectionguard/templates/imprint.html:86
 msgid "Fax"
 msgstr "Fax"
 
-#: templates/landing-en.html:61
+#: baloti_djelectionguard/templates/index.html:14
+msgid "baloti Voting system"
+msgstr ""
+
+#: baloti_djelectionguard/templates/index.html:15
+msgid ""
+"On our platform you can <br> practice direct democracy in <br> several "
+"languages"
+msgstr ""
+
+#: baloti_djelectionguard/templates/index.html:18
+msgid "HOW IT WORKS"
+msgstr ""
+
+#: baloti_djelectionguard/templates/index.html:41
+msgid "ABOUT US"
+msgstr ""
+
+#: baloti_djelectionguard/templates/index.html:42
+msgid "On our platform you can practice direct democracy in several languages"
+msgstr ""
+
+#: baloti_djelectionguard/templates/index.html:43
+msgid ""
+"The baloti.ch. project is carried out by an interdisciplinary team at the "
+"Zentrum für Demokratie Aarau in cooperation with the University of "
+"Neuchatel. Diversified project partnerships ensure that the project will be "
+"made public all over the country."
+msgstr ""
+
+#: baloti_djelectionguard/templates/index.html:48
+msgid "LATEST REFERENDUMS & VOTE"
+msgstr ""
+
+#: baloti_djelectionguard/templates/index.html:90
+msgid "VIEW ALL"
+msgstr ""
+
+#: baloti_djelectionguard/templates/index.html:99
+msgid "LETS DIVE IN"
+msgstr ""
+
+#: baloti_djelectionguard/templates/index.html:100
+msgid "How it works"
+msgstr ""
+
+#: baloti_djelectionguard/templates/index.html:105
+msgid ""
+"Inform yourself about the latest votes in Switzerland and learn new facts "
+"about Swiss politics."
+msgstr ""
+
+#: baloti_djelectionguard/templates/index.html:109
+msgid ""
+"Register on the baloti platform and vote, whether you already have Swiss "
+"voting rights or not"
+msgstr ""
+
+#: baloti_djelectionguard/templates/index.html:113
+msgid "Stay up to date with notifications and information from baloti."
+msgstr ""
+
+#: baloti_djelectionguard/templates/index.html:122
+#: baloti_djelectionguard/templates/landing-en.html:94
+msgid "IMPACT"
+msgstr "IMPACT"
+
+#: baloti_djelectionguard/templates/index.html:129
+#: baloti_djelectionguard/templates/landing-en.html:102
+msgid "safe, secure & open"
+msgstr "sûr, sécurisé et ouvert"
+
+#: baloti_djelectionguard/templates/index.html:130
+#, fuzzy
+#| msgid ""
+#| "baloti is fully open source and uses blockchain technology for saving and "
+#| "verifying votes"
+msgid ""
+"Our solution is fully open source and we use blockchain technology for "
+"saving and verifying votes"
+msgstr ""
+"baloti est entièrement open source et utilise la technologie blockchain pour "
+"enregistrer etvérification des votes"
+
+#: baloti_djelectionguard/templates/index.html:137
+#: baloti_djelectionguard/templates/landing-en.html:113
+msgid "multilingual"
+msgstr "multilingue"
+
+#: baloti_djelectionguard/templates/index.html:138
+#, fuzzy
+#| msgid ""
+#| "making the voting experience more accessible, vote in your own language"
+msgid ""
+"making the voting experience more accessible, vote in your own language."
+msgstr ""
+"rendre l'expérience de vote plus accessible, votez dans votre propre langue"
+
+#: baloti_djelectionguard/templates/index.html:146
+#: baloti_djelectionguard/templates/landing-en.html:123
+msgid "democratic"
+msgstr "démocratique"
+
+#: baloti_djelectionguard/templates/index.html:147
+#: baloti_djelectionguard/templates/landing-en.html:124
+msgid ""
+"allow more people to participate in voting independently of time and space"
+msgstr ""
+"permettre à plus de personnes de participer au vote indépendamment du temps "
+"et de l'espace"
+
+#: baloti_djelectionguard/templates/index.html:207
+msgid "ILLUSTRATIONS"
+msgstr ""
+
+#: baloti_djelectionguard/templates/index.html:216
+#: baloti_djelectionguard/templates/news.html:39
+#: baloti_djelectionguard/templates/news.html:78
+msgid "Sources of Information"
+msgstr ""
+
+#: baloti_djelectionguard/templates/index.html:217
+#: baloti_djelectionguard/templates/index.html:230
+#: baloti_djelectionguard/templates/index.html:243
+#: baloti_djelectionguard/templates/news.html:40
+#: baloti_djelectionguard/templates/news.html:53
+#: baloti_djelectionguard/templates/news.html:66
+#: baloti_djelectionguard/templates/news.html:79
+#: baloti_djelectionguard/templates/news.html:92
+#: baloti_djelectionguard/templates/news.html:105
+#: baloti_djelectionguard/templates/news.html:120
+#: baloti_djelectionguard/templates/news.html:133
+#: baloti_djelectionguard/templates/news.html:146
+#: baloti_djelectionguard/templates/news.html:159
+#: baloti_djelectionguard/templates/news.html:172
+#: baloti_djelectionguard/templates/news.html:185
+msgid ""
+"Selectio Helvetica light to safeguard ballot secrecy. The secret ballot "
+"protects the voter in a vote or election, so that his or her choice remains "
+"confidential. Securing ballot secrecy is a central..."
+msgstr ""
+
+#: baloti_djelectionguard/templates/index.html:220
+#: baloti_djelectionguard/templates/index.html:233
+#: baloti_djelectionguard/templates/index.html:246
+#: baloti_djelectionguard/templates/news.html:43
+#: baloti_djelectionguard/templates/news.html:56
+#: baloti_djelectionguard/templates/news.html:69
+#: baloti_djelectionguard/templates/news.html:82
+#: baloti_djelectionguard/templates/news.html:95
+#: baloti_djelectionguard/templates/news.html:108
+#: baloti_djelectionguard/templates/news.html:123
+#: baloti_djelectionguard/templates/news.html:136
+#: baloti_djelectionguard/templates/news.html:149
+#: baloti_djelectionguard/templates/news.html:162
+#: baloti_djelectionguard/templates/news.html:175
+#: baloti_djelectionguard/templates/news.html:188
+msgid "Read"
+msgstr ""
+
+#: baloti_djelectionguard/templates/index.html:229
+#: baloti_djelectionguard/templates/news.html:52
+#: baloti_djelectionguard/templates/news.html:91
+msgid "Television debates"
+msgstr ""
+
+#: baloti_djelectionguard/templates/index.html:242
+#: baloti_djelectionguard/templates/news.html:65
+#: baloti_djelectionguard/templates/news.html:104
+#: baloti_djelectionguard/templates/news.html:119
+#: baloti_djelectionguard/templates/news.html:132
+#: baloti_djelectionguard/templates/news.html:145
+#: baloti_djelectionguard/templates/news.html:158
+#: baloti_djelectionguard/templates/news.html:171
+#: baloti_djelectionguard/templates/news.html:184
+msgid "Postal voting"
+msgstr ""
+
+#: baloti_djelectionguard/templates/index.html:259
+#: baloti_djelectionguard/templates/landing-en.html:134
+msgid "PROJECT PARTNERS"
+msgstr "PARTENAIRES DE PROJET"
+
+#: baloti_djelectionguard/templates/index.html:295
+#, fuzzy
+#| msgid "Mail sent successfully"
+msgid "Registration successful"
+msgstr "E-Mail envoyé avec succès"
+
+#: baloti_djelectionguard/templates/index.html:305
+msgid "Password successfully changed"
+msgstr ""
+
+#: baloti_djelectionguard/templates/index.html:315
+#, fuzzy
+#| msgid "Mail sent successfully"
+msgid "Logged out successfully"
+msgstr "E-Mail envoyé avec succès"
+
+#: baloti_djelectionguard/templates/index.html:325
+#, fuzzy
+#| msgid "Mail sent successfully"
+msgid "Logged in successfully"
+msgstr "E-Mail envoyé avec succès"
+
+#: baloti_djelectionguard/templates/landing-en.html:61
 msgid "the baloti project"
 msgstr "le projet baloti"
 
-#: templates/landing-en.html:62
+#: baloti_djelectionguard/templates/landing-en.html:62
 msgid "an online voting platform for all languages is our vision"
 msgstr ""
 "une plateforme de vote en ligne pour toutes les langues est notre vision"
 
-#: templates/landing-en.html:64
+#: baloti_djelectionguard/templates/landing-en.html:64
+#: baloti_djelectionguard/templates/landing-en.html:65
 msgid "go to the baloti portal"
 msgstr "aller sur le portail baloti"
 
-#: templates/landing-en.html:81
+#: baloti_djelectionguard/templates/landing-en.html:82
 msgid "ABOUT THE PROJECT"
 msgstr "À PROPOS DU PROJET"
 
-#: templates/landing-en.html:82
+#: baloti_djelectionguard/templates/landing-en.html:83
 msgid ""
 "baloti is a technical solution allowing you to cast your vote online in "
 "several languages in a safe and secure way"
@@ -190,19 +502,11 @@ msgstr ""
 "baloti est une solution technique permettant de voter en ligne enplusieurs "
 "langues de manière sûre et sécurisée"
 
-#: templates/landing-en.html:83
+#: baloti_djelectionguard/templates/landing-en.html:84
 msgid "experience Swiss referendum voting online"
 msgstr "expérience du vote référendaire suisse en ligne"
 
-#: templates/landing-en.html:93
-msgid "IMPACT"
-msgstr "IMPACT"
-
-#: templates/landing-en.html:101
-msgid "safe, secure & open"
-msgstr "sûr, sécurisé et ouvert"
-
-#: templates/landing-en.html:102
+#: baloti_djelectionguard/templates/landing-en.html:103
 msgid ""
 "baloti is fully open source and uses blockchain technology for saving and "
 "verifying votes"
@@ -210,71 +514,61 @@ msgstr ""
 "baloti est entièrement open source et utilise la technologie blockchain pour "
 "enregistrer etvérification des votes"
 
-#: templates/landing-en.html:112
-msgid "multilingual"
-msgstr "multilingue"
-
-#: templates/landing-en.html:113
+#: baloti_djelectionguard/templates/landing-en.html:114
 msgid "making the voting experience more accessible, vote in your own language"
 msgstr ""
 "rendre l'expérience de vote plus accessible, votez dans votre propre langue"
 
-#: templates/landing-en.html:122
-msgid "democratic"
-msgstr "démocratique"
-
-#: templates/landing-en.html:123
-msgid ""
-"allow more people to participate in voting independently of time and space"
-msgstr ""
-"permettre à plus de personnes de participer au vote indépendamment du temps "
-"et de l'espace"
-
-#: templates/landing-en.html:133
-msgid "PROJECT PARTNERS"
-msgstr "PARTENAIRES DE PROJET"
-
-#: templates/landing-en.html:164
+#: baloti_djelectionguard/templates/landing-en.html:165
 msgid "CONTACT US"
 msgstr "NOUS CONTACTER"
 
-#: templates/landing-en.html:165
+#: baloti_djelectionguard/templates/landing-en.html:166
 msgid "Feel free to <br> contact us"
 msgstr "N'hésitez pas à <br> nous contacter"
 
-#: templates/landing-en.html:173
+#: baloti_djelectionguard/templates/landing-en.html:174
 msgid "Firstname*"
 msgstr "Prénom*"
 
-#: templates/landing-en.html:177
+#: baloti_djelectionguard/templates/landing-en.html:178
 msgid "Lastname*"
 msgstr "Nom de famille*"
 
-#: templates/landing-en.html:183
+#: baloti_djelectionguard/templates/landing-en.html:184
 msgid "Email*"
 msgstr "E-mail*"
 
-#: templates/landing-en.html:187
+#: baloti_djelectionguard/templates/landing-en.html:188
 msgid "Subject*"
 msgstr "Objet*"
 
-#: templates/landing-en.html:192
+#: baloti_djelectionguard/templates/landing-en.html:193
 msgid "Message*"
 msgstr "Message*"
 
-#: templates/landing-en.html:198
+#: baloti_djelectionguard/templates/landing-en.html:199
 msgid "SEND"
 msgstr "ENVOYER"
 
-#: templates/landing-en.html:233
+#: baloti_djelectionguard/templates/landing-en.html:234
 msgid "Mail sent successfully"
 msgstr "E-Mail envoyé avec succès"
 
-#: views.py:162
+#: baloti_djelectionguard/templates/layout/footer.html:16
+#: baloti_djelectionguard/templates/news.html:11
+msgid "Illustrations"
+msgstr ""
+
+#: baloti_djelectionguard/templates/layout/footer.html:22
+msgid "User Manual"
+msgstr ""
+
+#: baloti_djelectionguard/views.py:162
 msgid "dcfxv sent by email"
 msgstr ""
 
-#: views.py:358 views.py:430
+#: baloti_djelectionguard/views.py:358 baloti_djelectionguard/views.py:430
 #, python-format
 msgid "You casted your ballot for %(obj)s"
 msgstr ""

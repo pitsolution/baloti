@@ -1,6 +1,8 @@
 {% extends 'layout/base.html' %}
 {% load static %}
-{% block body %}  
+{% block body %}
+{% load static i18n %}
+
 
 <section class="app-choice app-body-bg">
     <div class="container">
@@ -9,7 +11,7 @@
             <div class="col-sm-12 col-lg-7 mx-auto">
                 <div class="app-card app-card--lg app-card--nopad">
                     <div class="app-card__header border-btm">
-                        <p class="app-card__header-title">Make your choice</p>
+                        <p class="app-card__header-title">{% trans "Make your choice" %}</p>
                         <p class="app-sm-text text-medium">{{contest.name}}</p>
                     </div>
                     {% csrf_token %}
@@ -25,8 +27,8 @@
                             {{i.id}}
                         </ul>
                         <div class="app-card__btngroup d-flex align-items-center justify-content-between">
-                            <a class="btn btn-default" href="javascript:window.history.back()">BACK</a>
-                            <button class="btn btn-primary" id="showBalletModal">CREATE BALLOT</button>
+                            <a class="btn btn-default" href="javascript:window.history.back()">{% trans "BACK" %}</a>
+                            <button class="btn btn-primary" id="showBalletModal">{% trans "CREATE BALLOT" %}</button>
                         </div>
                     </div>
                 </div>
@@ -49,7 +51,7 @@
 
         <div class="modal-content" id="confirmVote">
             <div class="modal-header">
-                <h5 class="modal-title text-bold" id="exampleModalLongTitle">Confirm your selection </h5>
+                <h5 class="modal-title text-bold" id="exampleModalLongTitle">{% trans "Confirm your selection" %} </h5>
             </div>
             <div class="modal-body text-center">
                 <div class="app-modal__msgbox text-bold text-uppercase">
@@ -57,8 +59,8 @@
                 </div>
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" id="closeBtn" class="btn btn-default" data-dismiss="modal">CANCEL</button>
-                <button type="button" isloggedIn="true" id="confirmBtn" class="btn btn-primary">CONFIRM</button>
+                <button type="button" id="closeBtn" class="btn btn-default" data-dismiss="modal">{% trans "CANCEL" %}</button>
+                <button type="button" isloggedIn="true" id="confirmBtn" class="btn btn-primary">{% trans "CONFIRM" %}</button>
             </div>
         </div>
 
@@ -66,15 +68,15 @@
             <div class="modal-body text-center">
                 <div class="app-bg app-result-wrap app-modal--success">
                     <img src="/static/images/vote-success.png" alt="">
-                    <p class="app-h5 text-success text-bold">Success!</p>
-                    <p class="app-h6 m-0">Your Choice Added Successfully</p>
+                    <p class="app-h5 text-success text-bold">{% trans "Success!" %}</p>
+                    <p class="app-h6 m-0">{% trans "Your Choice Added Successfully" %}</p>
                 </div>
                 <div class="modal-result app-result-wrap">
-                    <p class="app-p">Thank for voting at the Referendum and be a part of Direct Democracy.</p>
-                    <p class="app-h6 text-danger">The results will be announced on</p>
+                    <p class="app-p">{% trans "Thank for voting at the Referendum and be a part of Direct Democracy." %}</p>
+                    <p class="app-h6 text-danger">{% trans "The results will be announced on" %}</p>
                     <p class="app-resultdate">{{contest.end|date:"d.m.Y"}}</p>
-                    <p class="app-p">and you will be notified via email.</p>
-                    <a href="/baloti/contest/{{contest.parent.uid}}" class="btn btn-default mx-auto btn-flex--inline">BACK TO REFERENDUM</a>
+                    <p class="app-p">{% trans "and you will be notified via email." %}</p>
+                    <a href={% url 'baloti_djelectionguard:ContestDetails' contest.parent.uid %} class="btn btn-default mx-auto btn-flex--inline">{% trans "BACK TO REFERENDUM" %}</a>
                 </div>
             </div>
         </div>

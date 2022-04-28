@@ -8,9 +8,9 @@
             <div class="row">
                 <div class="col-sm-7">
                     <div class="app-aboutus__bannercontent">
-                        <h6 class="app-subtitle">ABOUT US</h6>
-                        <h2 class="app-title app-h2">On our platform you can practice direct democracy in several languages</h2>
-                        <p class="app-p">The baloti.ch. project is carried out by an interdisciplinary team at the Zentrum für Demokratie Aarau in cooperation with the University of Neuchatel. Diversified project partnerships ensure that the project will be made static all over the country.</p>
+                        <h6 class="app-subtitle">{% trans "ABOUT US" %}</h6>
+                        <h2 class="app-title app-h2">{% trans "On our platform you can practice direct democracy in several languages" %}</h2>
+                        <p class="app-p">{% trans "The baloti.ch. project is carried out by an interdisciplinary team at the Zentrum für Demokratie Aarau in cooperation with the University of Neuchatel. Diversified project partnerships ensure that the project will be made static all over the country." %}</p>
                     </div>
                     
                 </div>
@@ -25,33 +25,33 @@
             <div class="app-aboutus__col left app-radius-right">
                 <div class="app-aboutus__heading">
                     <h3 class="app-title app-title--sm">
-                        Voting system
+                        {% trans "Voting system" %}
                     </h3>
                     <p class="app-p app-p--md">
-                        baloti uses a sophisticated voting system to guarantee the security and the transparency of the vote processes. This voting system is provided by Selectio Helvetica.
+                        {% trans "baloti uses a sophisticated voting system to guarantee the security and the transparency of the vote processes. This voting system is provided by Selectio Helvetica." %}
                     </p>
                 </div>
                 
                 <h3 class="app-title app-title--xsm">
-                    Selectio Helvetica light
+                    {% trans "Selectio Helvetica light" %}
                 </h3>
                 <p class="app-p app-p--md m-0">
-                    Selectio Helvetica light to safeguard ballot secrecy
+                    {% trans "Selectio Helvetica light to safeguard ballot secrecy" %}
                 </p>
                 <p class="app-p app-p--md">
-                    The secret ballot protects the voter in a vote or election, so that his or her choice remains confidential. Securing ballot secrecy is a central principle of democratic voting rights. The voting platform baloti.ch uses Selectio Helvetica light (SH light) to meet all the requirements of ballot secrecy. The fact that not even the organizer of the vote is informed of the decision of individual voters is of particular importance.
-                </p>
-                <h3 class="app-title app-title--xsm">
-                    How Selectio Helvetica light works
-                </h3>
-                <p class="app-p app-p--md">
-                    Eligible users receive a voting code by email. They then have to enter this code in order for their vote to be counted. The user's Internet browser calculates an encryption of the vote and uses the voting code for an anonymous electronic signature. The encryption and the signature are sent to the electronic ballot. When the polls have closed the correctly signed encryptions are decrypted and sent to the vote organizer. The organizer counts the votes and determines the result of the vote. Ballot secrecy is maintained, as the anonymous signatures provide no clues as to the identity of the individual voter.
+                    {% trans "The secret ballot protects the voter in a vote or election, so that his or her choice remains confidential. Securing ballot secrecy is a central principle of democratic voting rights. The voting platform baloti.ch uses Selectio Helvetica light (SH light) to meet all the requirements of ballot secrecy. The fact that not even the organizer of the vote is informed of the decision of individual voters is of particular importance." %}
                 </p>
                 <h3 class="app-title app-title--xsm">
-                    The Selectio Helvetica Project
+                    {% trans "How Selectio Helvetica light works" %}
                 </h3>
                 <p class="app-p app-p--md">
-                    SH light was developed by the Berne University of Applied Sciences, in cooperation with the University of Fribourg, and the Swiss E-voting Competence Center. Use the following link to find out more about SH light and the Selectio Helvetica project.
+                    {% trans "Eligible users receive a voting code by email. They then have to enter this code in order for their vote to be counted. The user's Internet browser calculates an encryption of the vote and uses the voting code for an anonymous electronic signature. The encryption and the signature are sent to the electronic ballot. When the polls have closed the correctly signed encryptions are decrypted and sent to the vote organizer. The organizer counts the votes and determines the result of the vote. Ballot secrecy is maintained, as the anonymous signatures provide no clues as to the identity of the individual voter." %}
+                </p>
+                <h3 class="app-title app-title--xsm">
+                    {% trans "The Selectio Helvetica Project" %}
+                </h3>
+                <p class="app-p app-p--md">
+                    {% trans "SH light was developed by the Berne University of Applied Sciences, in cooperation with the University of Fribourg, and the Swiss E-voting Competence Center. Use the following link to find out more about SH light and the Selectio Helvetica project." %}
                 </p>
             </div>
             <div class="app-aboutus__col">
@@ -59,7 +59,7 @@
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="headingOne">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Translators
+                            {% trans "Translators" %}
                         </button>
                       </h2>
                       <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
@@ -111,10 +111,10 @@
                     </div>
                 </div>
                 <div class="app-aboutus__links">
-                    <p class="app-h6 app-text-black">Text by Vimentis</p>
+                    <p class="app-h6 app-text-black">{% trans "Text by Vimentis" %}</p>
                     <a href="http://www.vimentis.ch" class="app-link text-underline">www.vimentis.ch</a>
-                    <p class="app-h6 app-text-black">Comics</p>
-                    <p class="app-link text-underline">Bronco illustrations, KALONJI</p>
+                    <p class="app-h6 app-text-black">{% trans "Comics" %}</p>
+                    <p class="app-link text-underline">{% trans "Bronco illustrations, KALONJI" %}</p>
                 </div>
                
             </div>
@@ -127,7 +127,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-sm-12 col-md-3">
-                <h6 class="app-subtitle text-outfit-medium">PROJECT PARTNERS</h6>
+                <h6 class="app-subtitle text-outfit-medium">{% trans "PROJECT PARTNERS" %}</h6>
             </div>
             <div class="col-sm-12 col-md-9">
                 <ul class="app-partner-list list-unstyled">

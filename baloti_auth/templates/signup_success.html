@@ -59,16 +59,16 @@
                                 <img src="/static/images/logo.svg" alt="">
                             </div>
                             <h3 class="app-login__heading">
-                                Mail sent!
+                                {%trans "Mail sent!" %}
                             </h3>
-                            <p class="app-login__subhead">Please check your inbox to get the registration informations. Thank you.</p>
+                            <p class="app-login__subhead">{%trans "Please check your inbox to get the registration informations. Thank you." %}</p>
                             
                             <div class="text-center">
                                 <div class="img-block">
                                     <img src="/static/images/login-complete.svg" alt="">
                                 </div>
                                 
-                                <a class="btn btn-primary btn-md--small" href="/baloti/login/">LOGIN NOW</a>
+                                <a class="btn btn-primary btn-md--small" href={% url 'baloti_auth:login' %}>{%trans "LOGIN NOW" %}</a>
                             </div>
                             
                         </div>

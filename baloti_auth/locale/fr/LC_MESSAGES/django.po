@@ -1,0 +1,96 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-04-21 20:21+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: templates/change_password.html:64
+msgid "Change Password"
+msgstr ""
+
+#: templates/change_password.html:71
+msgid "Old Password"
+msgstr ""
+
+#: templates/change_password.html:77
+msgid "New Password"
+msgstr ""
+
+#: templates/change_password.html:83
+msgid "New Password Confirmation"
+msgstr ""
+
+#: templates/change_password.html:97 templates/login.html:95
+msgid "CONTINUE"
+msgstr ""
+
+#: templates/change_password.html:101 templates/login.html:102
+#: templates/signup.html:95
+msgid "Back"
+msgstr ""
+
+#: templates/login.html:64
+msgid "Welcome to baloti!"
+msgstr ""
+
+#: templates/login.html:66
+msgid "Login to your account"
+msgstr ""
+
+#: templates/login.html:69 templates/signup.html:69
+msgid "Continue with Facebook"
+msgstr ""
+
+#: templates/login.html:79
+msgid "Email address"
+msgstr ""
+
+#: templates/login.html:84
+msgid "Password"
+msgstr ""
+
+#: templates/login.html:97
+msgid "Not registered yet?"
+msgstr ""
+
+#: templates/login.html:97
+msgid "Create an account now!"
+msgstr ""
+
+#: templates/signup.html:64
+msgid "Create account!"
+msgstr ""
+
+#: templates/signup.html:67
+msgid "You can register with your social login or email address."
+msgstr ""
+
+#: templates/signup.html:90
+msgid "SEND"
+msgstr ""
+
+#: templates/signup.html:92
+msgid "Already have an account?"
+msgstr ""
+
+#: templates/signup.html:92
+msgid "Login here!"
+msgstr ""
+
+#: views.py:92
+msgid "Registration information sent by email"
+msgstr ""

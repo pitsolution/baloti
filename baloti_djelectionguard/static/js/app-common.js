@@ -1,5 +1,6 @@
 
 $(document).ready(function(){
+    var language = localStorage.getItem('languageObject').replaceAll('"', '');
     $(".copytoclipboard").click(function (event) {
         event.preventDefault();
         App.copyToClipboard(App.currentUrl, true, "URL copied");
@@ -28,10 +29,11 @@ $(document).ready(function(){
                 }
                 return cookieValue;
             }
-            const csrftoken = getCookie('csrftoken');
+        const csrftoken = getCookie('csrftoken');
+
         $.ajax({
             type: "POST",
-            url: '/en/baloti/delete/profile',
+            url: '/' + language + '/baloti/delete/profile',
             data: {'password': password, 'username': username},
             headers: {'X-CSRFToken': csrftoken},
             mode: 'same-origin',
@@ -95,8 +97,8 @@ $(document).ready(function(){
         $('#createballet').modal("show");
         var choice = $(".form-check-input:checked").val();
 
-        var href = document.getElementsByClassName("btn btn-facebook btn-block")[0].href;
-        var href = href + choice
+        var fbhref = $('.btn-facebook').attr("href");
+        var href = fbhref + '/'+ language + '/baloti/contest/vote/success/' + choice
         $("#fbloginBtn").attr("href", href)
 
         // var vote_success_url = 'baloti/contest/vote/success/' + choice
@@ -117,7 +119,7 @@ $(document).ready(function(){
             var choice = $(".form-check-input:checked").val();
             $.ajax({
                 type: "POST",
-                url: '/en/baloti/anonymous/vote/',
+                url: '/'+ language + '/baloti/anonymous/vote/',
                 data: {'choice': choice},
                 headers: {'X-CSRFToken': csrftoken},
                 mode: 'same-origin',
@@ -139,7 +141,7 @@ $(document).ready(function(){
         var self = this;
         $.ajax({
                 type: "POST",
-                url: '/en/baloti/login/',
+                url: '/'+ language + '/baloti/login/',
                 data: {'username': username, 'password': password, 'csrfmiddlewaretoken': csrftoken},
                 headers: {'X-CSRFToken': csrftoken},
                 mode: 'same-origin',
@@ -147,7 +149,7 @@ $(document).ready(function(){
                         // setTimeout(() => {
                         $(this).closest(".app-modal").find("#success").removeClass("d-none");
                         var choice = $(".form-check-input:checked").val();
-                        var vote_url = '/en/baloti/contest/vote/success/' + choice
+                        var vote_url = '/'+ language + '/baloti/contest/vote/success/' + choice
 
                         function getCookie(name) {
                         var cookieValue = null;
@@ -167,7 +169,7 @@ $(document).ready(function(){
                         $.ajax({
                             headers: {'X-CSRFToken': logincsrftoken},
                             type: "POST",
-                            url: '/en/baloti/anonymous/vote/',
+                            url: '/'+ language + '/baloti/anonymous/vote/',
                             data: {'choice': choice, 'username': username},
                             credentials: 'include',
                             mode: 'same-origin',
@@ -231,10 +233,9 @@ $(document).ready(function(){
 
             var self = this;
             var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
             $.ajax({
                 type: "POST",
-                url: '/en/baloti/modalsignup/mailsent/',
+                url: '/'+ language + '/baloti/modalsignup/mailsent/',
                 data: {'email': email, 'csrfmiddlewaretoken': csrftoken},
                 headers: {'X-CSRFToken': csrftoken},
                 dataType: "text",
@@ -322,7 +323,7 @@ $(document).ready(function(){
         else{
             $.ajax({
                 type: "POST",
-                url: '/en/info/submit',
+                url: '/'+ language + '/info/submit',
                 data: {'firstname': firstname, 'lastname': lastname, 'email': email, 'subject': subject, 'message': message},
                 headers: {'X-CSRFToken': csrftoken},
                 mode: 'same-origin',
