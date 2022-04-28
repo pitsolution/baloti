@@ -97,8 +97,8 @@ $(document).ready(function(){
         $('#createballet').modal("show");
         var choice = $(".form-check-input:checked").val();
 
-        var href = document.getElementsByClassName("btn btn-facebook btn-block")[0].href;
-        var href = href + '/'+ language + '/baloti/contest/vote/success/' + choice
+        var fbhref = $('.btn-facebook').attr("href");
+        var href = fbhref + '/'+ language + '/baloti/contest/vote/success/' + choice
         $("#fbloginBtn").attr("href", href)
 
         // var vote_success_url = 'baloti/contest/vote/success/' + choice
