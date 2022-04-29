@@ -76,7 +76,7 @@ from .components import (
 from djlang.utils import gettext as _
 from deep_translator import GoogleTranslator
 from djlang.models import Language
-from baloti_djelectionguard.models import Initiatori18n, ContestTypei18n, Recommenderi18n
+from baloti_djelectionguard.models import Initiatori18n, ContestTypei18n, Recommenderi18n, ParentContesti18n, Contesti18n
 
 
 class ContestMediator:
@@ -119,15 +119,29 @@ class ContestCreateView(generic.CreateView):
 
     def form_valid(self, form):
         form.instance.mediator = self.request.user
+        print(form.cleaned_data['contest_type'], 'testins')
+        # form.instance.contest_type = ContestType.objects.get(pk=self.kwargs['pk'])
         form.instance.parent = ParentContest.objects.get(pk=self.kwargs['pk'])
         form.instance.start = ParentContest.objects.get(pk=self.kwargs['pk']).start
         form.instance.end = ParentContest.objects.get(pk=self.kwargs['pk']).end
         form.instance.timezone = ParentContest.objects.get(pk=self.kwargs['pk']).timezone
         response = super().form_valid(form)
+
         form.instance.guardian_set.create(user=self.request.user)
         form.instance.candidate_set.create(name='Yes', candidate_type='yes')
         form.instance.candidate_set.create(name='No', candidate_type='no')
         form.instance.candidate_set.create(name='Abstain', candidate_type='others')
+        for lang in Language.objects.all():
+            translated_name = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['name'])
+            # translated_type = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['type'])
+            translated_about = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['about'])
+            translated_against = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['against_arguments'])
+            translated_infavour = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['infavour_arguments'])
+            # translated_sha1 = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['artifacts_sha1'])
+            # translated_ipfs = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['artifacts_ipfs'])
+
+            Contesti18n.objects.create(contest_id=form.instance,parent=form.instance.parent,language=lang,name= translated_name, against_arguments=translated_against,
+                                       about=translated_about,infavour_arguments=translated_infavour)
         messages.success(
             self.request,
             _('You have created contest %(obj)s', obj=form.instance)
@@ -165,6 +179,32 @@ class ContestUpdateView(generic.UpdateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
+        contest = Contesti18n.objects.filter(contest_id=form.instance)
+        if 'name' in form.changed_data:
+            for each in contest:
+                for lang in Language.objects.all():
+                    trans_content_name = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['name'])
+                    each.name=trans_content_name
+                    each.save()
+        if 'about' in form.changed_data:
+            for each in contest:
+                for lang in Language.objects.all():
+                    trans_content_about = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['about'])
+                    each.about=trans_content_about
+                    each.save()
+        if 'against_arguments' in form.changed_data:
+            for each in contest:
+                for lang in Language.objects.all():
+                    trans_content_against_arguments = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['against_arguments'])
+                    each.against_arguments=trans_content_against_arguments
+                    each.save()
+        if 'infavour_arguments' in form.changed_data:
+            for each in contest:
+                for lang in Language.objects.all():
+                    trans_content_infavour_arguments = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['infavour_arguments'])
+                    each.infavour_arguments=trans_content_infavour_arguments
+                    each.save()
+
         messages.success(
             self.request,
             _('You have updated contest %(obj)s', obj=form.instance)
@@ -1567,9 +1607,6 @@ class ParentContestCreateView(generic.CreateView):
     def form_valid(self, form):
         form.instance.mediator = self.request.user
         response = super().form_valid(form)
-        from deep_translator import GoogleTranslator
-        from djlang.models import Language
-        from baloti_djelectionguard.models import ParentContesti18n
         queryset = Language.objects.all()
         form.save()
         for each in queryset:
@@ -1600,6 +1637,16 @@ class ParentContestUpdateView(generic.UpdateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
+        queryset = Language.objects.all()
+        parent_contests = ParentContesti18n.objects.filter(parent_contest_id=form.instance)
+        if 'name' in form.changed_data:
+            for lang in queryset:
+                for each in parent_contests:
+                    trans_content_name = GoogleTranslator('auto', lang.iso).translate(form.instance.name)
+                    print(each.name,'eachhhh', trans_content_name)
+                    each.name=trans_content_name
+                    each.save()
+
         messages.success(
             self.request,
             _('You have updated parentcontest %(obj)s', obj=form.instance)
@@ -1634,6 +1681,9 @@ class ParentContestDeleteView(ParentContestAccessible, generic.DeleteView):
         return ParentContest.objects.filter()
 
     def get_success_url(self):
+        queryset = ParentContesti18n.objects.filter(parent_contest_id=self.object.pk)
+        for each in queryset:
+            each.delete()
         messages.success(
             self.request,
             _('You have removed referendum') + ' ' + f'{self.object.name}',
