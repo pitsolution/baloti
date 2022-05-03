@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-29 11:12+0530\n"
+"POT-Creation-Date: 2022-05-03 13:15+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,12 +21,14 @@ msgstr ""
 #: baloti_djelectionguard/templates/about-us.html:11
 #: baloti_djelectionguard/templates/index.html:41
 msgid "ABOUT US"
-msgstr ""
+msgstr "A PROPOS DE NOUS"
 
 #: baloti_djelectionguard/templates/about-us.html:12
 #: baloti_djelectionguard/templates/index.html:42
 msgid "On our platform you can practice direct democracy in several languages"
 msgstr ""
+"Sur notre plateforme, vous pouvez pratiquer la démocratie directe en "
+"plusieurs langues"
 
 #: baloti_djelectionguard/templates/about-us.html:13
 msgid ""
@@ -37,10 +39,8 @@ msgid ""
 msgstr ""
 
 #: baloti_djelectionguard/templates/about-us.html:28
-#, fuzzy
-#| msgid "Operating system used"
 msgid "Voting system"
-msgstr "Système d'exploitation utilisé"
+msgstr "Système de vote"
 
 #: baloti_djelectionguard/templates/about-us.html:31
 msgid ""
@@ -123,28 +123,32 @@ msgstr "PARTENAIRES DE PROJET"
 #: baloti_djelectionguard/templates/choice.html:14
 #: baloti_djelectionguard/templates/vote_success.html:13
 msgid "Make your choice"
-msgstr ""
+msgstr "Faites votre choix"
 
 #: baloti_djelectionguard/templates/already_voted.html:34
 #: baloti_djelectionguard/templates/choice-no-login.html:28
 #: baloti_djelectionguard/templates/choice.html:30
 #: baloti_djelectionguard/templates/vote_success.html:33
 msgid "BACK"
-msgstr ""
+msgstr "RETOUR"
 
 #: baloti_djelectionguard/templates/already_voted.html:35
-msgid "CREAT BALLOT"
-msgstr ""
+#: baloti_djelectionguard/templates/choice-no-login.html:29
+#: baloti_djelectionguard/templates/choice.html:31
+#: baloti_djelectionguard/templates/vote_success.html:34
+msgid "CREATE BALLOT"
+msgstr "CREER UN BULLETIN DE VOTE"
 
 #: baloti_djelectionguard/templates/already_voted.html:60
 #: baloti_djelectionguard/templates/choice-no-login.html:174
 msgid "You've already voted!!"
-msgstr ""
+msgstr "Vous avez déjà voté!"
 
 #: baloti_djelectionguard/templates/already_voted.html:63
 #: baloti_djelectionguard/templates/choice-no-login.html:177
 msgid "No problem, there are other referendums you can vote for."
 msgstr ""
+"Pas de problème, il y a d'autres référendums pour lesquels vous pouvez voter."
 
 #: baloti_djelectionguard/templates/already_voted.html:64
 #: baloti_djelectionguard/templates/choice-no-login.html:161
@@ -152,7 +156,7 @@ msgstr ""
 #: baloti_djelectionguard/templates/choice.html:76
 #: baloti_djelectionguard/templates/vote_success.html:64
 msgid "The results will be announced on"
-msgstr ""
+msgstr "Les résultats seront annoncés le"
 
 #: baloti_djelectionguard/templates/already_voted.html:66
 #: baloti_djelectionguard/templates/choice-no-login.html:163
@@ -160,7 +164,7 @@ msgstr ""
 #: baloti_djelectionguard/templates/choice.html:78
 #: baloti_djelectionguard/templates/vote_success.html:66
 msgid "and you will be notified via email."
-msgstr ""
+msgstr "et vous serez informé par e-mail."
 
 #: baloti_djelectionguard/templates/already_voted.html:67
 #: baloti_djelectionguard/templates/choice-no-login.html:164
@@ -168,75 +172,71 @@ msgstr ""
 #: baloti_djelectionguard/templates/choice.html:79
 #: baloti_djelectionguard/templates/vote_success.html:67
 msgid "BACK TO REFERENDUM"
-msgstr ""
-
-#: baloti_djelectionguard/templates/choice-no-login.html:29
-#: baloti_djelectionguard/templates/choice.html:31
-#: baloti_djelectionguard/templates/vote_success.html:34
-msgid "CREATE BALLOT"
-msgstr ""
+msgstr "RETOUR AU RÉFÉRENDUM"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:57
 msgid "Login Required!"
-msgstr ""
+msgstr "Connexion requise!"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:59
 msgid "Please Login to your account to continue voting"
-msgstr ""
+msgstr "Veuillez vous connecter à votre compte pour continuer à voter."
 
 #: baloti_djelectionguard/templates/choice-no-login.html:62
 #: baloti_djelectionguard/templates/choice-no-login.html:103
 msgid "Continue with Facebook"
-msgstr ""
+msgstr "Continuer avec Facebook"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:70
 #: baloti_djelectionguard/templates/choice-no-login.html:114
-#, fuzzy
-#| msgid "Address"
 msgid "Email address"
-msgstr "Adresse"
+msgstr "Adresse e-mail"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:75
 msgid "Password"
-msgstr ""
+msgstr "Mot de passe"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:84
 msgid "CONTINUE"
-msgstr ""
+msgstr "CONTINUER"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:85
 msgid "Not registered yet?"
-msgstr ""
+msgstr "Pas encore enregistré?"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:85
 msgid "Create an account now"
-msgstr ""
+msgstr "Créer un compte maintenant"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:88
 #: baloti_djelectionguard/templates/choice-no-login.html:129
 msgid "CLOSE"
-msgstr ""
+msgstr "FERMER"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:98
 msgid "Create account!"
-msgstr ""
+msgstr "Créez un compte!"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:100
 msgid "You can register with your social login or email address."
 msgstr ""
+"Vous pouvez vous inscrire avec votre identifiant social ou votre adresse e-"
+"mail."
 
 #: baloti_djelectionguard/templates/choice-no-login.html:117
 msgid ""
 "We will send you the registration link to the email address you entered."
 msgstr ""
+"Nous vous enverrons le lien d'enregistrement à l'adresse e-mail que vous "
+"avez saisie."
 
 #: baloti_djelectionguard/templates/choice-no-login.html:121
 msgid "This email has already been registered."
-msgstr ""
+msgstr "Cet e-mail a déjà été enregistré."
 
 #: baloti_djelectionguard/templates/choice-no-login.html:124
 msgid "Users must have an email address."
-msgstr ""
+msgstr "Les utilisateurs doivent avoir une adresse électronique."
 
 #: baloti_djelectionguard/templates/choice-no-login.html:126
 #: baloti_djelectionguard/templates/landing-en.html:198
@@ -245,81 +245,78 @@ msgstr "ENVOYER"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:127
 msgid "Already have an account?"
-msgstr ""
+msgstr "Vous avez déjà un compte?"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:127
 msgid "Login here!"
-msgstr ""
+msgstr "Connectez-vous ici!"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:139
 msgid "Mail sent!"
-msgstr ""
+msgstr "Courrier envoyé!"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:141
 msgid ""
 "Please check your inbox to get the registration informations. Thank you."
 msgstr ""
+"Veuillez vérifier votre boîte de réception pour obtenir les informations "
+"d'enregistrement. Merci."
 
 #: baloti_djelectionguard/templates/choice-no-login.html:147
 msgid "LOGIN NOW"
-msgstr ""
+msgstr "CONNECTEZ MAINTENANT"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:156
 #: baloti_djelectionguard/templates/choice.html:71
 #: baloti_djelectionguard/templates/vote_success.html:59
 msgid "Success!"
-msgstr ""
+msgstr "Succès!"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:157
 #: baloti_djelectionguard/templates/choice.html:72
 #: baloti_djelectionguard/templates/vote_success.html:60
 msgid "Your Choice Added Successfully"
-msgstr ""
+msgstr "Votre choix a été ajouté avec succès."
 
 #: baloti_djelectionguard/templates/choice-no-login.html:160
 #: baloti_djelectionguard/templates/choice.html:75
 #: baloti_djelectionguard/templates/vote_success.html:63
 msgid "Thank for voting at the Referendum and be a part of Direct Democracy."
 msgstr ""
+"Merci d'avoir voté au référendum et de faire partie de la démocratie directe."
 
 #: baloti_djelectionguard/templates/choice-no-login.html:188
 #: baloti_djelectionguard/templates/choice.html:54
 msgid "Confirm your selection"
-msgstr ""
+msgstr "Confirmez votre choix"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:196
 #: baloti_djelectionguard/templates/choice.html:62
 #: baloti_djelectionguard/templates/layout/header.html:143
 msgid "CANCEL"
-msgstr ""
+msgstr "ANNULER"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:197
 #: baloti_djelectionguard/templates/choice.html:63
 #: baloti_djelectionguard/templates/layout/header.html:144
 msgid "CONFIRM"
-msgstr ""
+msgstr "CONFIRMER"
 
 #: baloti_djelectionguard/templates/contactinfo_mail.html:27
 msgid "Contact Information"
-msgstr ""
+msgstr "Informations de contact"
 
 #: baloti_djelectionguard/templates/contactinfo_mail.html:30
-#, fuzzy
-#| msgid "Firstname*"
 msgid "First Name:"
-msgstr "Prénom*"
+msgstr "Prénom:"
 
 #: baloti_djelectionguard/templates/contactinfo_mail.html:31
-#, fuzzy
-#| msgid "Lastname*"
 msgid "Last Name: "
-msgstr "Nom de famille*"
+msgstr "Nom de famille:"
 
 #: baloti_djelectionguard/templates/contactinfo_mail.html:32
-#, fuzzy
-#| msgid "Email*"
 msgid "Email:"
-msgstr "E-mail*"
+msgstr "E-mail:"
 
 #: baloti_djelectionguard/templates/contest_details.html:13
 #: baloti_djelectionguard/templates/contest_list.html:13
@@ -331,101 +328,99 @@ msgstr "Référendums"
 
 #: baloti_djelectionguard/templates/contest_details.html:31
 msgid "Vote now"
-msgstr ""
+msgstr "Votez maintenant"
 
 #: baloti_djelectionguard/templates/contest_details.html:34
-#, fuzzy
-#| msgid "VOTE NOW"
 msgid "VOTED"
-msgstr "VOTEZ MAINTENANT"
+msgstr "Voté"
 
 #: baloti_djelectionguard/templates/contest_details.html:38
 #: baloti_djelectionguard/templates/contest_list.html:114
 #: baloti_djelectionguard/templates/index.html:79
 msgid "VIEW RESULT"
-msgstr ""
+msgstr "AFFICHER LE RÉSULTAT"
 
 #: baloti_djelectionguard/templates/contest_details.html:51
 #: baloti_djelectionguard/templates/contest_results.html:117
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #: baloti_djelectionguard/templates/contest_details.html:54
 #: baloti_djelectionguard/templates/contest_results.html:120
 msgid "Arguments"
-msgstr ""
+msgstr "Arguments"
 
 #: baloti_djelectionguard/templates/contest_details.html:57
 #: baloti_djelectionguard/templates/contest_results.html:123
 msgid "Recommendations"
-msgstr ""
+msgstr "Recommandations"
 
 #: baloti_djelectionguard/templates/contest_details.html:65
 #: baloti_djelectionguard/templates/contest_results.html:131
 msgid "Type:"
-msgstr ""
+msgstr "Type:"
 
 #: baloti_djelectionguard/templates/contest_details.html:69
 #: baloti_djelectionguard/templates/contest_results.html:135
 msgid "Initiator:"
-msgstr ""
+msgstr "Initiateur:"
 
 #: baloti_djelectionguard/templates/contest_details.html:86
 #: baloti_djelectionguard/templates/contest_details.html:126
 #: baloti_djelectionguard/templates/contest_results.html:151
 #: baloti_djelectionguard/templates/contest_results.html:189
 msgid "In favour"
-msgstr ""
+msgstr "En faveur"
 
 #: baloti_djelectionguard/templates/contest_details.html:103
 #: baloti_djelectionguard/templates/contest_details.html:151
 #: baloti_djelectionguard/templates/contest_results.html:168
 #: baloti_djelectionguard/templates/contest_results.html:214
 msgid "Against"
-msgstr ""
+msgstr "Contre"
 
 #: baloti_djelectionguard/templates/contest_details.html:184
 msgid "VOTING END"
-msgstr ""
+msgstr "FIN DU VOTE"
 
 #: baloti_djelectionguard/templates/contest_details.html:188
 msgid "days"
-msgstr ""
+msgstr "jours"
 
 #: baloti_djelectionguard/templates/contest_details.html:189
 msgid "Hours"
-msgstr ""
+msgstr "heures"
 
 #: baloti_djelectionguard/templates/contest_details.html:190
 msgid "Minutes"
-msgstr ""
+msgstr "Minutes"
 
 #: baloti_djelectionguard/templates/contest_details.html:199
 msgid "YOUR VOTE"
-msgstr ""
+msgstr "VOTRE VOTE"
 
 #: baloti_djelectionguard/templates/contest_details.html:207
 msgid "Voted"
-msgstr ""
+msgstr "Voté"
 
 #: baloti_djelectionguard/templates/contest_details.html:211
 msgid "Not Voted"
-msgstr ""
+msgstr "Non voté"
 
 #: baloti_djelectionguard/templates/contest_details.html:216
 #: baloti_djelectionguard/templates/contest_results.html:242
 msgid "Share"
-msgstr ""
+msgstr "Partager"
 
 #: baloti_djelectionguard/templates/contest_details.html:224
 #: baloti_djelectionguard/templates/contest_results.html:250
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #: baloti_djelectionguard/templates/contest_details.html:229
 #: baloti_djelectionguard/templates/contest_results.html:255
 msgid "E-Mail"
-msgstr ""
+msgstr "E-Mail"
 
 #: baloti_djelectionguard/templates/contest_list.html:31
 #: baloti_djelectionguard/templates/news.html:21
@@ -461,11 +456,11 @@ msgstr "VOIR LES DÉTAILS"
 
 #: baloti_djelectionguard/templates/contest_list.html:81
 msgid "Sorry"
-msgstr ""
+msgstr "Désolé"
 
 #: baloti_djelectionguard/templates/contest_list.html:82
 msgid "we couldn't find any matches for that"
-msgstr ""
+msgstr "Nous n'avons pas trouvé de correspondance pour ce message."
 
 #: baloti_djelectionguard/templates/contest_list.html:90
 msgid "Results"
@@ -486,16 +481,16 @@ msgstr "VOIR LES DÉTAILS"
 #: baloti_djelectionguard/templates/contest_results.html:60
 #: baloti_djelectionguard/templates/layout/header.html:128
 msgid "NO"
-msgstr ""
+msgstr "NO"
 
 #: baloti_djelectionguard/templates/contest_results.html:61
 #: baloti_djelectionguard/templates/layout/header.html:129
 msgid "YES"
-msgstr ""
+msgstr "OUI"
 
 #: baloti_djelectionguard/templates/contest_results.html:246
 msgid "Copy link"
-msgstr ""
+msgstr "Copier le lien"
 
 #: baloti_djelectionguard/templates/data_privacy.html:64
 msgid "Data Protection"
@@ -666,14 +661,16 @@ msgid ""
 "Please note that the vote you are casting on the baloti website is not "
 "official.."
 msgstr ""
+"Veuillez noter que le vote que vous effectuez sur le site baloti n'est pas "
+"officiel."
 
 #: baloti_djelectionguard/templates/disclaimer.html:13
 msgid "On the website"
-msgstr ""
+msgstr "Sur le site web"
 
 #: baloti_djelectionguard/templates/disclaimer.html:13
 msgid "various user data are saved"
-msgstr ""
+msgstr "diverses données de l'utilisateur sont enregistrées"
 
 #: baloti_djelectionguard/templates/disclaimer.html:14
 msgid ""
@@ -682,24 +679,37 @@ msgid ""
 "server. This mainly concerns: IP address, date and time of access, name of "
 "accessed page, web-browser used, operating system used etc."
 msgstr ""
+"Dans un cookie, nous enregistrons uniquement la préférence linguistique de "
+"l'utilisateur. Lorsque le site est consulté, les données de connexion sont "
+"enregistrées dans un fichier journal sur le serveur. Il s'agit "
+"principalement de: L'adresse IP, la date et l'heure de l'accès, le nom de la "
+"page consultée, le navigateur web utilisé, le système d'exploitation "
+"utilisé, etc."
 
 #: baloti_djelectionguard/templates/disclaimer.html:15
 msgid ""
 "All these data are protected against unauthorised persons and are only "
 "evaluated in the form of anonymous access statistics."
 msgstr ""
+"Toutes ces données sont protégées contre les personnes non autorisées et ne "
+"sont évaluées sous la forme de statistiques d'accès anonymes."
 
 #: baloti_djelectionguard/templates/disclaimer.html:16
 msgid ""
 "E-mail addresses are used only for direct communication with the user and "
 "will under no circumstances be passed on to a third party."
 msgstr ""
+"Les adresses e-mail ne sont utilisées que pour la communication directe avec "
+"l'utilisateur et ne seront en aucun cas transmises à un tiers."
 
 #: baloti_djelectionguard/templates/disclaimer.html:17
 msgid ""
 "The data about the vote and the user (status, age, gender, canton, etc.) are "
 "used for analyses and statistics only in anonymised and aggregated form."
 msgstr ""
+"Les données concernant le vote et l'utilisateur (statut, âge, sexe, canton, "
+"etc.) sont used for analyses and statistics only in anonymised and "
+"aggregated form."
 
 #: baloti_djelectionguard/templates/imprint.html:66
 msgid "Represented by"
@@ -727,17 +737,19 @@ msgstr "Fax"
 
 #: baloti_djelectionguard/templates/index.html:14
 msgid "baloti Voting system"
-msgstr ""
+msgstr "Système de vote baloti"
 
 #: baloti_djelectionguard/templates/index.html:15
 msgid ""
 "On our platform you can <br> practice direct democracy in <br> several "
 "languages"
 msgstr ""
+"Sur notre plateforme, vous pouvez <br> pratiquer la démocratie directe dans "
+"<br> plusieurs langues"
 
 #: baloti_djelectionguard/templates/index.html:18
 msgid "HOW IT WORKS"
-msgstr ""
+msgstr "COMMENT ÇA FONCTIONNE"
 
 #: baloti_djelectionguard/templates/index.html:43
 msgid ""
@@ -746,38 +758,46 @@ msgid ""
 "Neuchatel. Diversified project partnerships ensure that the project will be "
 "made public all over the country."
 msgstr ""
+"Le projet baloti.ch. est porté par une équipe interdisciplinaire au Zentrum "
+"für Demokratie Aarau en coopération avec l'Université de Neuchâtel. Des "
+"partenariats de projet diversifiés garantissent que le projet sera rendu "
+"public dans tout le pays"
 
 #: baloti_djelectionguard/templates/index.html:48
 msgid "LATEST REFERENDUMS & VOTE"
-msgstr ""
+msgstr "DERNIERS RÉFÉRENDUMS ET VOTE"
 
 #: baloti_djelectionguard/templates/index.html:90
 msgid "VIEW ALL"
-msgstr ""
+msgstr "VOIR TOUT"
 
 #: baloti_djelectionguard/templates/index.html:99
 msgid "LETS DIVE IN"
-msgstr ""
+msgstr "PLONGEONS-NOUS"
 
 #: baloti_djelectionguard/templates/index.html:100
 msgid "How it works"
-msgstr ""
+msgstr "Comment ça marche"
 
 #: baloti_djelectionguard/templates/index.html:105
 msgid ""
 "Inform yourself about the latest votes in Switzerland and learn new facts "
 "about Swiss politics."
 msgstr ""
+"Informez-vous sur les derniers votes en Suisse et apprenez de nouveaux faits "
+"sur la politique suisse."
 
 #: baloti_djelectionguard/templates/index.html:109
 msgid ""
 "Register on the baloti platform and vote, whether you already have Swiss "
 "voting rights or not"
 msgstr ""
+"Inscrivez-vous sur la plateforme baloti et votez, que vous ayez déjà le "
+"droit de vote suisse droit de vote suisse ou non"
 
 #: baloti_djelectionguard/templates/index.html:113
 msgid "Stay up to date with notifications and information from baloti."
-msgstr ""
+msgstr "Restez à jour avec les notifications et les informations de la baloti."
 
 #: baloti_djelectionguard/templates/index.html:122
 #: baloti_djelectionguard/templates/landing-en.html:93
@@ -790,16 +810,12 @@ msgid "safe, secure & open"
 msgstr "sûr, sécurisé et ouvert"
 
 #: baloti_djelectionguard/templates/index.html:130
-#, fuzzy
-#| msgid ""
-#| "baloti is fully open source and uses blockchain technology for saving and "
-#| "verifying votes"
 msgid ""
 "Our solution is fully open source and we use blockchain technology for "
 "saving and verifying votes"
 msgstr ""
-"baloti est entièrement open source et utilise la technologie blockchain pour "
-"enregistrer etvérification des votes"
+"Notre solution est entièrement open source et nous utilisons la technologie "
+"blockchain pour l'enregistrement et la vérification des votes"
 
 #: baloti_djelectionguard/templates/index.html:137
 #: baloti_djelectionguard/templates/landing-en.html:112
@@ -807,9 +823,6 @@ msgid "multilingual"
 msgstr "multilingue"
 
 #: baloti_djelectionguard/templates/index.html:138
-#, fuzzy
-#| msgid ""
-#| "making the voting experience more accessible, vote in your own language"
 msgid ""
 "making the voting experience more accessible, vote in your own language."
 msgstr ""
@@ -836,7 +849,7 @@ msgstr "Illustrations"
 #: baloti_djelectionguard/templates/news.html:39
 #: baloti_djelectionguard/templates/news.html:78
 msgid "Sources of Information"
-msgstr ""
+msgstr "Sources d'information"
 
 #: baloti_djelectionguard/templates/index.html:217
 #: baloti_djelectionguard/templates/index.html:230
@@ -858,6 +871,9 @@ msgid ""
 "protects the voter in a vote or election, so that his or her choice remains "
 "confidential. Securing ballot secrecy is a central..."
 msgstr ""
+"Selectio Helvetica light pour préserver le secret du vote. Le vote secret "
+"protège l'électeur lors d'un vote ou d'une élection, afin que son choix "
+"reste confidentiel. Garantir le secret du vote est un élément central."
 
 #: baloti_djelectionguard/templates/index.html:220
 #: baloti_djelectionguard/templates/index.html:233
@@ -875,13 +891,13 @@ msgstr ""
 #: baloti_djelectionguard/templates/news.html:175
 #: baloti_djelectionguard/templates/news.html:188
 msgid "Read"
-msgstr ""
+msgstr "Lire"
 
 #: baloti_djelectionguard/templates/index.html:229
 #: baloti_djelectionguard/templates/news.html:52
 #: baloti_djelectionguard/templates/news.html:91
 msgid "Television debates"
-msgstr ""
+msgstr "Débats télévisés"
 
 #: baloti_djelectionguard/templates/index.html:242
 #: baloti_djelectionguard/templates/news.html:65
@@ -893,29 +909,23 @@ msgstr ""
 #: baloti_djelectionguard/templates/news.html:171
 #: baloti_djelectionguard/templates/news.html:184
 msgid "Postal voting"
-msgstr ""
+msgstr "Vote par correspondance"
 
 #: baloti_djelectionguard/templates/index.html:295
-#, fuzzy
-#| msgid "Mail sent successfully"
 msgid "Registration successful"
-msgstr "E-Mail envoyé avec succès"
+msgstr "enregistrement réussi"
 
 #: baloti_djelectionguard/templates/index.html:305
 msgid "Password successfully changed"
-msgstr ""
+msgstr "Modification réussie du mot de passe"
 
 #: baloti_djelectionguard/templates/index.html:315
-#, fuzzy
-#| msgid "Mail sent successfully"
 msgid "Logged out successfully"
-msgstr "E-Mail envoyé avec succès"
+msgstr "Déconnexion réussie"
 
 #: baloti_djelectionguard/templates/index.html:325
-#, fuzzy
-#| msgid "Mail sent successfully"
 msgid "Logged in successfully"
-msgstr "E-Mail envoyé avec succès"
+msgstr "Connexion réussie"
 
 #: baloti_djelectionguard/templates/landing-en.html:61
 msgid "the baloti project"
@@ -1004,41 +1014,41 @@ msgstr "Manuel de l'utilisateur"
 #: baloti_djelectionguard/templates/layout/header.html:56
 #: baloti_djelectionguard/templates/layout/header.html:83
 msgid "Login"
-msgstr ""
+msgstr "Connexion"
 
 #: baloti_djelectionguard/templates/layout/header.html:63
 msgid "Profile settings"
-msgstr ""
+msgstr "Paramètres du profil"
 
 #: baloti_djelectionguard/templates/layout/header.html:68
 msgid "Change Password?"
-msgstr ""
+msgstr "Changer le mot de passe?"
 
 #: baloti_djelectionguard/templates/layout/header.html:71
 #: baloti_djelectionguard/templates/layout/header.html:102
 msgid "Delete profile"
-msgstr ""
+msgstr "Effacer le profil"
 
 #: baloti_djelectionguard/templates/layout/header.html:76
 #: baloti_djelectionguard/templates/layout/header.html:105
 msgid "Logout"
-msgstr ""
+msgstr "Déconnexion"
 
 #: baloti_djelectionguard/templates/layout/header.html:99
 msgid "Change Password"
-msgstr ""
+msgstr "Modifier le mot de passe"
 
 #: baloti_djelectionguard/templates/layout/header.html:126
 msgid "Are you sure you want to delete your baloti account?"
-msgstr ""
+msgstr "Etes-vous sûr de vouloir supprimer votre compte baloti?"
 
 #: baloti_djelectionguard/templates/layout/header.html:136
 msgid "Enter your password to confirm"
-msgstr ""
+msgstr "Saisissez votre mot de passe pour confirmer"
 
 #: baloti_djelectionguard/templates/layout/header.html:140
 msgid "Invalid password"
-msgstr ""
+msgstr "Mot de passe invalide"
 
 #: baloti_djelectionguard/views.py:164
 msgid "dcfxv sent by email"
@@ -1048,3 +1058,6 @@ msgstr ""
 #, python-format
 msgid "You casted your ballot for %(obj)s"
 msgstr ""
+
+#~ msgid "CREAT BALLOT"
+#~ msgstr "CREER UN BULLETIN DE VOTE"
