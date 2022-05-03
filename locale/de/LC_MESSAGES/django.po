@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-22 13:51+0530\n"
+"POT-Creation-Date: 2022-05-03 12:07+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,14 +28,6 @@ msgstr ""
 
 #: djelectionguard/components.py:50 djelectionguard/components.py:184
 msgid "FORM_ABOUT_ELECTION_CREATE"
-msgstr ""
-
-#: djelectionguard/components.py:56 djelectionguard/components.py:185
-msgid "FORM_VOTES_ALLOWED_ELECTION_CREATE"
-msgstr ""
-
-#: djelectionguard/components.py:58
-msgid "The maximum number of choice a voter can make for this election"
 msgstr ""
 
 #: djelectionguard/components.py:179 djelectionguard/components.py:2804
