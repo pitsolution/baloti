@@ -190,7 +190,7 @@
                                             </div>
                                             <div class="app-card__body">
                                                 <ul class="app-list list-unstyled app-list--md">
-                                                    {% for i in contest|getInfavourRecommenders %}
+                                                    {% for i in contest.contest_id.id|getInfavourRecommenders %}
                                                     <li class="d-flex flex-wrap">
                                                         <div class="app-list__img">
                                                             <img src="{{i.recommender.picture.url}}" alt="">
@@ -215,7 +215,7 @@
                                             </div>
                                             <div class="app-card__body">
                                                 <ul class="app-list list-unstyled app-list--md">
-                                                    {% for i in contest|getAgainstRecommenders %}
+                                                    {% for i in contest.contest_id.id|getAgainstRecommenders %}
                                                     <li class="d-flex flex-wrap">
                                                         <div class="app-list__img">
                                                             <img src="{{i.recommender.picture.url}}" alt="">

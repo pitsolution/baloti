@@ -6,6 +6,7 @@ register = template.Library()
 
 @register.simple_tag
 def displayBalotiResult(contest, user):
+    contest = contest.contest_id
     votes = contest.candidate_set.aggregate(total=Sum('score'))
     yes = 0
     no = 0
@@ -36,6 +37,7 @@ def displayBalotiResult(contest, user):
 
 @register.simple_tag
 def displayGovtResult(contest, user):
+    contest = contest.contest_id
     votes = contest.candidate_set.aggregate(total=Sum('score'))
     yes = contest.govt_infavour_percent or 0
     no = contest.govt_against_percent or 0

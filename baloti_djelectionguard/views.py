@@ -1,7 +1,7 @@
 import json
 from django.shortcuts import render
 from djelectionguard.models import Contest, Candidate, ParentContest
-from .models import ParentContesti18n
+from .models import ParentContesti18n, Contesti18n
 from django.db.models import ObjectDoesNotExist, Q
 from django.http import *
 from django.views.generic import TemplateView
@@ -13,6 +13,7 @@ from django.views.decorators.csrf import csrf_exempt,csrf_protect
 from electeez_auth.models import User
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
+from deep_translator import GoogleTranslator
 
 def getParentDetails(parent):
         """
@@ -48,9 +49,9 @@ class BalotiIndexView(TemplateView):
             html : returns index.html html file
         """
         contests = []
-        open_contests = ParentContest.objects.filter(status="open").order_by('-start')
+        open_contests = ParentContesti18n.objects.filter(parent_contest_id__status="open").order_by('-parent_contest_id__start')
         contests.append(getParentDetails(open_contests[0])) if open_contests else None
-        closed_contests = ParentContest.objects.filter(status="closed").order_by('-end')
+        closed_contests = ParentContesti18n.objects.filter(parent_contest_id__status="closed").order_by('-parent_contest_id__end')
         contests.append(getParentDetails(closed_contests[0])) if closed_contests else None
         if process == 'changepassword':
             return render(request, 'index.html',{"contests": contests, "changepassword":True})
@@ -187,12 +188,10 @@ class BalotiContestListView(TemplateView):
         open_list = []
         closed_list = []
         current_language = get_language()
-        print('cur', current_language)
-        # open_contests = ParentContest.objects.filter(status="open").order_by('-start')
-        open_contests = ParentContesti18n.objects.filter(parent_contest_id__status="open")
+        open_contests = ParentContesti18n.objects.filter(parent_contest_id__status="open",language__iso=current_language).order_by('-parent_contest_id__start')
         for open_contest in open_contests:
             open_list.append(getParentDetails(open_contest))
-        closed_contests = ParentContesti18n.objects.filter(parent_contest_id__status="closed")
+        closed_contests = ParentContesti18n.objects.filter(parent_contest_id__status="closed",language__iso=current_language).order_by('-parent_contest_id__end')
         for closed_contest in closed_contests:
             closed_list.append(getParentDetails(closed_contest))
         return render(request, 'contest_list.html',{"open_contests": open_list, "closed_contests": closed_list})
@@ -214,11 +213,11 @@ class BalotiContestListSortView(TemplateView):
         closed_list = []
         current_language = get_language()
         if sort == 'asc':
-            open_contests = ParentContesti18n.objects.filter(parent_contest_id__status="open",language__iso=current_language)
-            closed_contests = ParentContesti18n.objects.filter(parent_contest_id__status="closed",language__iso=current_language)
+            open_contests = ParentContesti18n.objects.filter(parent_contest_id__status="open",language__iso=current_language).order_by('parent_contest_id__actual_start')
+            closed_contests = ParentContesti18n.objects.filter(parent_contest_id__status="closed",language__iso=current_language).order_by('parent_contest_id__actual_end')
         else:
-            open_contests = ParentContesti18n.objects.filter(parent_contest_id__status="open", language__iso=current_language)
-            closed_contests = ParentContesti18n.objects.filter(parent_contest_id__status="closed", language__iso=current_language)
+            open_contests = ParentContesti18n.objects.filter(parent_contest_id__status="open", language__iso=current_language).order_by('-parent_contest_id__actual_start')
+            closed_contests = ParentContesti18n.objects.filter(parent_contest_id__status="closed", language__iso=current_language).order_by('-parent_contest_id__actual_end')
         for open_contest in open_contests:
             open_list.append(getParentDetails(open_contest))
         for closed_contest in closed_contests:
@@ -240,11 +239,13 @@ class BalotiContestDetailView(TemplateView):
         Returns:
             html : returns contest_details.html html file
         """
-        contest = ParentContest.objects.filter(uid=id)
-        child_contests = Contest.objects.filter(
-                parent=contest.first()
+        current_language = get_language()
+        contest = ParentContesti18n.objects.filter(parent_contest_id__uid=id, language__iso=current_language)
+        child_contests = Contesti18n.objects.filter(
+                parent=contest.first().parent_contest_id,
+                language__iso=current_language
                 ).distinct('id')
-        date_string = contest.first().end.strftime("%m/%d/")
+        date_string = contest.first().parent_contest_id.end.strftime("%m/%d/")
         return render(request, 'contest_details.html',{"contest": contest.first(), "date": str(date_string), "child_contests": child_contests})
 
 
@@ -262,7 +263,7 @@ class BalotiContestResultView(TemplateView):
         Returns:
             html : returns contest_results.html html file
         """
-        contest = Contest.objects.filter(pk=id).first()
+        contest = Contesti18n.objects.filter(pk=id).first()
         return render(request, 'contest_results.html',{"contest": contest})
 
 
@@ -280,14 +281,23 @@ class BalotiContestChoicesView(TemplateView):
         Returns:
             html : returns contest_vote_choices.html html file
         """
-        contest = Contest.objects.get(pk=id)
-        candidates = Candidate.objects.filter(contest=id).order_by('-name')
+        data = []
+        current_language = get_language()
+        contest = Contesti18n.objects.filter(contest_id=id, language__iso=current_language)
+        if contest:
+            contest = contest.first()
+            candidates = Candidate.objects.filter(contest=contest.contest_id.id).order_by('-name')
+            for candidate in candidates:
+                data.append({
+                    'name': GoogleTranslator('auto', current_language).translate(candidate.name),
+                    'id': candidate.id
+                    })
         # return render(request, 'contest_vote_choices.html',{"candidates":candidates})
         if request.user.is_anonymous:
-            return render(request, 'choice-no-login.html',{"contest": contest, "candidates":candidates})
+            return render(request, 'choice-no-login.html',{"contest": contest, "candidates":data})
         else:
             choice = request.GET.get('choice')
-            return render(request, 'choice.html',{"contest": contest, "candidates":candidates})
+            return render(request, 'choice.html',{"contest": contest, "candidates":data})
 
     def post(self, request):
         """
