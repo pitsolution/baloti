@@ -1213,8 +1213,9 @@ class GuardiansSettingsCard(Div):
 class CandidatesSettingsCard(Div):
     def __init__(self, view, **context):
         contest = view.get_object()
-        editable = (view.request.user == contest.mediator
-                    and not contest.actual_start)
+        # editable = (view.request.user == contest.mediator
+        #             and not contest.actual_start)
+        editable = None
         super().__init__(
             H5(_('Candidates')),
             CandidateListComp(contest, editable),
