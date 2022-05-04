@@ -1,6 +1,6 @@
 from django import template
 from djelectionguard.models import Contest, Voter
-from ..models import Contesti18n
+from ..models import Contesti18n, ContestTypei18n, Initiatori18n
 from django.db.models import Sum
 from django.utils.translation import get_language
 
@@ -57,3 +57,14 @@ def displayIssueViewResult(contest, user):
     if contest.candidate_set.aggregate(total=Sum('score'))['total'] == None:
         return False
     return True
+
+@register.simple_tag
+def displayTypeInitiator(contest, user):
+    current_language = get_language()
+    contest_type = ContestTypei18n.objects.filter(contest_type_id = contest.contest_id.contest_type.id, language__iso=current_language)
+    if contest_type:
+        contest_type = contest_type.first().name
+    initiator = Initiatori18n.objects.filter(initiator_id = contest.contest_id.contest_initiator.id, language__iso=current_language)
+    if initiator:
+        initiator = initiator.first().name
+    return contest_type, initiator

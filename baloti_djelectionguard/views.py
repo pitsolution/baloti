@@ -263,7 +263,8 @@ class BalotiContestResultView(TemplateView):
         Returns:
             html : returns contest_results.html html file
         """
-        contest = Contesti18n.objects.filter(pk=id).first()
+        current_language = get_language()
+        contest = Contesti18n.objects.filter(contest_id=id, language__iso=current_language).first()
         return render(request, 'contest_results.html',{"contest": contest})
 
 

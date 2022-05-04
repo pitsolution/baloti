@@ -104,7 +104,7 @@
                     </p>
                     <p class="app-h6 text-medium text-dark">{%trans "Issues:" %} {{issues}}</p>
                     <ul class="app-list list-unstyled app-sm-text">
-                        {% for i in u.parent_contest_id.id|getContestIssues %}
+                        {% for i in u.id|getContestIssues %}
                             <li>{{forloop.counter}} - {{i.name}}</li>
                         {% endfor %}
                     </ul>

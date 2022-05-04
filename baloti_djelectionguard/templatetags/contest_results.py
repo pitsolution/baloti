@@ -1,11 +1,14 @@
 from django import template
 from djelectionguard.models import Contest, Voter
 from django.db.models import Sum
+from deep_translator import GoogleTranslator
+from django.utils.translation import get_language
 
 register = template.Library()
 
 @register.simple_tag
 def displayBalotiResult(contest, user):
+    current_language = get_language()
     contest = contest.contest_id
     votes = contest.candidate_set.aggregate(total=Sum('score'))
     yes = 0
@@ -33,20 +36,24 @@ def displayBalotiResult(contest, user):
     else:
         baloti_result = 'no'
         result_label = ''
+    baloti_result = GoogleTranslator('auto', current_language).translate(str(baloti_result))
     return yes, no, baloti_result, result_label
 
 @register.simple_tag
 def displayGovtResult(contest, user):
+    current_language = get_language()
     contest = contest.contest_id
     votes = contest.candidate_set.aggregate(total=Sum('score'))
     yes = contest.govt_infavour_percent or 0
     no = contest.govt_against_percent or 0
     result = 'no'
+    result_label = ''
     if yes and no:
         if yes > no:
             result = 'yes'
+            result_label = 'yes'
         elif yes < no:
             result = 'no'
-        else:
-            result = 'no'
-    return yes, no, result
+            result_label = 'no'
+    result = GoogleTranslator('auto', current_language).translate(str(result))
+    return yes, no, result, result_label

@@ -58,16 +58,17 @@
                                         </li>
                                     </ul>
                                 </div>
+                                {% displayTypeInitiator u user as result %}
                                 <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade show active" id="home{{u.contest_id.id}}" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <p class="app-p app-text--black app-p--md m-0 text-medium">{% trans "Type:" %}</p>
-                                                <p class="app-p app-p--md app-text--black text-medium">{{u.contest_type.name}}</p>
+                                                <p class="app-p app-p--md app-text--black text-medium">{{result.0}}</p>
                                             </div>
                                             <div class="col-sm-6">
                                                 <p class="app-p app-p--md app-text--black m-0 text-medium">{% trans "Initiator:" %}</p>
-                                                <p class="app-p app-p--md app-text--black text-medium"> {{u.contest_initiator.name}}</p>
+                                                <p class="app-p app-p--md app-text--black text-medium">{{result.1}}</p>
                                             </div>
                                         </div>
                                         <p class="app-txt app-txt--md text-dark">
@@ -130,11 +131,11 @@
                                                             {% for i in u.contest_id.id|getInfavourRecommenders %}
                                                                 <li class="d-flex flex-wrap">
                                                                     <div class="app-list__img">
-                                                                        <img src="{{i.recommender.picture.url}}" alt="">
+                                                                        <img src="{{i.recommender_id.picture.url}}" alt="">
                                                                     </div>
                                                                     <div class="app-list__content">
-                                                                    <p class="app-sm-text ">{{i.recommender.recommender_type}}</p>
-                                                                        <p class="app-list__title text-medium">{{i.recommender.name}}</p>
+                                                                    <p class="app-sm-text ">{{i.recommender_type}}</p>
+                                                                        <p class="app-list__title text-medium">{{i.name}}</p>
                                                                     </div>
                                                                 </li>
                                                             {% endfor %}
@@ -155,11 +156,11 @@
                                                             {% for i in u.contest_id.id|getAgainstRecommenders %}
                                                             <li class="d-flex flex-wrap">
                                                                 <div class="app-list__img">
-                                                                    <img src="{{i.recommender.picture.url}}" alt="">
+                                                                    <img src="{{i.recommender_id.picture.url}}" alt="">
                                                                 </div>
                                                                 <div class="app-list__content">
-                                                                    <p class="app-sm-text ">{{i.recommender.recommender_type}}</p>
-                                                                    <p class="app-list__title text-medium">{{i.recommender.name}}</p>
+                                                                    <p class="app-sm-text ">{{i.recommender_type}}</p>
+                                                                    <p class="app-list__title text-medium">{{i.name}}</p>
                                                                 </div>
                                                             </li>
                                                             {% endfor %}
