@@ -180,7 +180,7 @@
 
             {% getUserVotedData contest user as votedData %}
             <div class="app-thirdhalf-col__right">
-                {% if contest.status == 'open' %}
+                {% if contest.parent_contest_id.status == 'open' %}
                 <div class="app-card app-card--countdown box-shadow">
                     <h1 id="headline" class="app-card--countdown__title">{% trans "VOTING END" %}</h1>
                     <div id="countdown">
