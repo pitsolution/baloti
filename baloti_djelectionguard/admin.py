@@ -33,7 +33,6 @@ class Contesti18Admin(admin.ModelAdmin):
     list_display = (
         'name',
         'language',
-        'type'
     )
 
 admin.site.register(ParentContesti18n, ParentContesti18nAdmin)

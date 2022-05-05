@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-03 12:07+0530\n"
+"POT-Creation-Date: 2022-05-05 17:35+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -118,7 +118,7 @@ msgstr "Ihr Passwort wurde erfolgreich geändert."
 #: baloti_auth/templates/password_reset_complete.html:65
 #: baloti_auth/templates/signup_success.html:71
 msgid "LOGIN NOW"
-msgstr ""
+msgstr "JETZT ANMELDEN"
 
 #: baloti_auth/templates/password_reset_confirm.html:56
 #: baloti_auth/templates/password_reset_confirm.html:86
@@ -221,15 +221,22 @@ msgid "Password:"
 msgstr "Passwort:"
 
 #: baloti_auth/templates/signup_success.html:64
-#, fuzzy
-#| msgid ""
-#| "Please check your inbox to get the link of your recovery email. Thank you."
 msgid ""
 "Please check your inbox to get the registration informations. Thank you."
 msgstr ""
-"Bitte prüfen Sie Ihren Posteingang, um den Link zum Zurücksetzen des "
-"Passworts zu erhalten. Vielen Dank!"
+"Bitte prüfen Sie Ihren Posteingang, um die Anmeldeinformationen zu erhalten. "
+"Vielen Dank!"
 
-#: baloti_auth/views.py:95
-msgid "Registration information sent by email"
+#: baloti_auth/views.py:40 baloti_auth/views.py:53
+msgid "Your username and password didn't match. Please try again."
 msgstr ""
+"Ihr Benutzername und Ihr Passwort stimmen nicht überein. Bitte versuchen Sie "
+"es erneut."
+
+#: baloti_auth/views.py:55
+msgid "Login failed!"
+msgstr "Anmeldung fehlgeschlagen!"
+
+#: baloti_auth/views.py:76
+msgid "Baloti Registration Information"
+msgstr "Baloti Information zur Registrierung"

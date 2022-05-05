@@ -296,8 +296,6 @@ $(document).ready(function(){
         //     $("#info_mailsent").addClass("d-none");
         // }
         if(!firstname || !lastname || !email || !subject || !message){
-            console.log('hgghjghghjg')
-            // alert('ddsdsd errorrnknnlk')
             $("#info_mailsent").removeClass("d-none");
             if($("html").attr("lang") == "de" ){
             $("#message_text").text(' Füllen Sie alle Felder aus');}

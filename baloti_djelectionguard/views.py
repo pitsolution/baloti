@@ -373,10 +373,6 @@ def casteVote(self, request, id):
                 ),
             )
             contest.save()
-            messages.success(
-                    request,
-                    _('You casted your ballot for %(obj)s', obj=contest)
-                )
             return render(request, 'vote_success.html',{"contest": contest, "candidates":candidates, "choice": candidate.first()})
     else:
         return HttpResponseBadRequest()
@@ -445,10 +441,6 @@ class VoteSuccessView(TemplateView):
                     ),
                 )
                 contest.save()
-                messages.success(
-                        request,
-                        _('You casted your ballot for %(obj)s', obj=contest)
-                    )
                 return render(request, 'vote_success.html',{"contest": contest, "candidates":candidates, "choice": candidate.first()})
         else:
             return HttpResponseBadRequest()

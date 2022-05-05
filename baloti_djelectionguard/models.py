@@ -114,8 +114,6 @@ class Contesti18n(models.Model):
         blank=True,
         null=True
     )
-    type = models.CharField(default='school', max_length=100)
-    decrypting = models.BooleanField(default=False)
     parent = models.ForeignKey(
         ParentContest,
         related_name='parent_con',

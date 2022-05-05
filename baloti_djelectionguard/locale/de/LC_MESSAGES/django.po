@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-03 12:07+0530\n"
+"POT-Creation-Date: 2022-05-05 17:35+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -173,7 +173,10 @@ msgid "BACK"
 msgstr "ZURÜCK"
 
 #: baloti_djelectionguard/templates/already_voted.html:35
-msgid "CREAT BALLOT"
+#: baloti_djelectionguard/templates/choice-no-login.html:29
+#: baloti_djelectionguard/templates/choice.html:31
+#: baloti_djelectionguard/templates/vote_success.html:34
+msgid "CREATE BALLOT"
 msgstr "Stimmzettel erstellen"
 
 #: baloti_djelectionguard/templates/already_voted.html:60
@@ -211,12 +214,6 @@ msgstr "und Sie werden per E-Mail benachrichtigt"
 #: baloti_djelectionguard/templates/vote_success.html:67
 msgid "BACK TO REFERENDUM"
 msgstr "ZURÜCK ZUM REFERENDUM"
-
-#: baloti_djelectionguard/templates/choice-no-login.html:29
-#: baloti_djelectionguard/templates/choice.html:31
-#: baloti_djelectionguard/templates/vote_success.html:34
-msgid "CREATE BALLOT"
-msgstr "Stimmzettel erstellen"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:57
 msgid "Login Required!"
@@ -375,6 +372,7 @@ msgid "Vote now"
 msgstr "Wähle nun"
 
 #: baloti_djelectionguard/templates/contest_details.html:34
+#: baloti_djelectionguard/templates/contest_list.html:51
 msgid "VOTED"
 msgstr "ABSTIMMEN"
 
@@ -399,70 +397,70 @@ msgstr "Argumente"
 msgid "Recommendations"
 msgstr "Empfehlungen"
 
-#: baloti_djelectionguard/templates/contest_details.html:65
-#: baloti_djelectionguard/templates/contest_results.html:131
+#: baloti_djelectionguard/templates/contest_details.html:66
+#: baloti_djelectionguard/templates/contest_results.html:132
 msgid "Type:"
 msgstr "Typ:"
 
-#: baloti_djelectionguard/templates/contest_details.html:69
-#: baloti_djelectionguard/templates/contest_results.html:135
+#: baloti_djelectionguard/templates/contest_details.html:70
+#: baloti_djelectionguard/templates/contest_results.html:136
 msgid "Initiator:"
 msgstr "Initiator"
 
-#: baloti_djelectionguard/templates/contest_details.html:86
-#: baloti_djelectionguard/templates/contest_details.html:126
-#: baloti_djelectionguard/templates/contest_results.html:151
-#: baloti_djelectionguard/templates/contest_results.html:189
+#: baloti_djelectionguard/templates/contest_details.html:87
+#: baloti_djelectionguard/templates/contest_details.html:127
+#: baloti_djelectionguard/templates/contest_results.html:152
+#: baloti_djelectionguard/templates/contest_results.html:190
 msgid "In favour"
 msgstr "Zugunsten"
 
-#: baloti_djelectionguard/templates/contest_details.html:103
-#: baloti_djelectionguard/templates/contest_details.html:151
-#: baloti_djelectionguard/templates/contest_results.html:168
-#: baloti_djelectionguard/templates/contest_results.html:214
+#: baloti_djelectionguard/templates/contest_details.html:104
+#: baloti_djelectionguard/templates/contest_details.html:152
+#: baloti_djelectionguard/templates/contest_results.html:169
+#: baloti_djelectionguard/templates/contest_results.html:215
 msgid "Against"
 msgstr "Gegen"
 
-#: baloti_djelectionguard/templates/contest_details.html:184
+#: baloti_djelectionguard/templates/contest_details.html:185
 msgid "VOTING END"
 msgstr "ABSTIMMUNG ENDE"
 
-#: baloti_djelectionguard/templates/contest_details.html:188
+#: baloti_djelectionguard/templates/contest_details.html:189
 msgid "days"
 msgstr "Tage"
 
-#: baloti_djelectionguard/templates/contest_details.html:189
+#: baloti_djelectionguard/templates/contest_details.html:190
 msgid "Hours"
 msgstr "Std"
 
-#: baloti_djelectionguard/templates/contest_details.html:190
+#: baloti_djelectionguard/templates/contest_details.html:191
 msgid "Minutes"
 msgstr "Protokoll"
 
-#: baloti_djelectionguard/templates/contest_details.html:199
+#: baloti_djelectionguard/templates/contest_details.html:200
 msgid "YOUR VOTE"
 msgstr "IHRE STIMME"
 
-#: baloti_djelectionguard/templates/contest_details.html:207
+#: baloti_djelectionguard/templates/contest_details.html:208
 msgid "Voted"
 msgstr "Abgestimmt"
 
-#: baloti_djelectionguard/templates/contest_details.html:211
+#: baloti_djelectionguard/templates/contest_details.html:212
 msgid "Not Voted"
 msgstr "Nicht gewählt"
 
-#: baloti_djelectionguard/templates/contest_details.html:216
-#: baloti_djelectionguard/templates/contest_results.html:242
+#: baloti_djelectionguard/templates/contest_details.html:217
+#: baloti_djelectionguard/templates/contest_results.html:243
 msgid "Share"
 msgstr "Teilen"
 
-#: baloti_djelectionguard/templates/contest_details.html:224
-#: baloti_djelectionguard/templates/contest_results.html:250
+#: baloti_djelectionguard/templates/contest_details.html:225
+#: baloti_djelectionguard/templates/contest_results.html:251
 msgid "Twitter"
 msgstr ""
 
-#: baloti_djelectionguard/templates/contest_details.html:229
-#: baloti_djelectionguard/templates/contest_results.html:255
+#: baloti_djelectionguard/templates/contest_details.html:230
+#: baloti_djelectionguard/templates/contest_results.html:256
 msgid "E-Mail"
 msgstr "Email"
 
@@ -532,7 +530,7 @@ msgstr "NEIN"
 msgid "YES"
 msgstr "JA"
 
-#: baloti_djelectionguard/templates/contest_results.html:246
+#: baloti_djelectionguard/templates/contest_results.html:247
 msgid "Copy link"
 msgstr "Link kopieren"
 
@@ -1097,14 +1095,12 @@ msgstr "Geben Sie Ihr Passwort zur Bestätigung ein"
 msgid "Invalid password"
 msgstr "Ungültiges Passwort"
 
-#: baloti_djelectionguard/views.py:164
+#: baloti_djelectionguard/views.py:168
 msgid "dcfxv sent by email"
 msgstr ""
 
-#: baloti_djelectionguard/views.py:360 baloti_djelectionguard/views.py:432
-#, python-format
-msgid "You casted your ballot for %(obj)s"
-msgstr ""
+#~ msgid "CREAT BALLOT"
+#~ msgstr "Stimmzettel erstellen"
 
 #~ msgid "OUR IMPACT"
 #~ msgstr "WIR BIETEN"
