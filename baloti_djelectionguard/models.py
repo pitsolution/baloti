@@ -36,6 +36,9 @@ class ParentContesti18n(models.Model):
         null=True
     )
 
+    def __str__(self):
+        return self.name
+
 class Initiatori18n(models.Model):
     name = models.CharField(max_length=255)
     initiator_id = models.ForeignKey(
@@ -113,24 +116,10 @@ class Contesti18n(models.Model):
     )
     type = models.CharField(default='school', max_length=100)
     decrypting = models.BooleanField(default=False)
-    artifacts_sha1 = models.CharField(max_length=255, null=True, blank=True)
-    artifacts_ipfs = models.CharField(max_length=255, null=True, blank=True)
-
     parent = models.ForeignKey(
         ParentContest,
         related_name='parent_con',
         on_delete=models.CASCADE,
-        null=True
-    )
-    contest_type  = models.ForeignKey(
-        ContestType,
-        on_delete=models.CASCADE,
-        null=True
-    )
-    contest_initiator = models.ForeignKey(
-        Initiator,
-        on_delete=models.CASCADE,
-        blank=True,
         null=True
     )
     infavour_arguments = RichTextField(

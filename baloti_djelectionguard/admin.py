@@ -33,9 +33,7 @@ class Contesti18Admin(admin.ModelAdmin):
     list_display = (
         'name',
         'language',
-        'type',
-        'artifacts_sha1',
-        'artifacts_ipfs'
+        'type'
     )
 
 admin.site.register(ParentContesti18n, ParentContesti18nAdmin)
