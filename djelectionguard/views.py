@@ -1643,7 +1643,6 @@ class ParentContestUpdateView(generic.UpdateView):
             for lang in queryset:
                 for each in parent_contests:
                     trans_content_name = GoogleTranslator('auto', lang.iso).translate(form.instance.name)
-                    print(each.name,'eachhhh', trans_content_name)
                     each.name=trans_content_name
                     each.save()
 
