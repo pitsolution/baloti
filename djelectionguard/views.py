@@ -182,28 +182,24 @@ class ContestUpdateView(generic.UpdateView):
         contest = Contesti18n.objects.filter(contest_id=form.instance)
         if 'name' in form.changed_data:
             for each in contest:
-                for lang in Language.objects.all():
-                    trans_content_name = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['name'])
-                    each.name=trans_content_name
-                    each.save()
+                trans_content_name = GoogleTranslator('auto', each.language.iso).translate(form.cleaned_data['name'])
+                each.name=trans_content_name
+                each.save()
         if 'about' in form.changed_data:
             for each in contest:
-                for lang in Language.objects.all():
-                    trans_content_about = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['about'])
-                    each.about=trans_content_about
-                    each.save()
+                trans_content_about = GoogleTranslator('auto', each.language.iso).translate(form.cleaned_data['about'])
+                each.about=trans_content_about
+                each.save()
         if 'against_arguments' in form.changed_data:
             for each in contest:
-                for lang in Language.objects.all():
-                    trans_content_against_arguments = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['against_arguments'])
-                    each.against_arguments=trans_content_against_arguments
-                    each.save()
+                trans_content_against_arguments = GoogleTranslator('auto', each.language.iso).translate(form.cleaned_data['against_arguments'])
+                each.against_arguments=trans_content_against_arguments
+                each.save()
         if 'infavour_arguments' in form.changed_data:
             for each in contest:
-                for lang in Language.objects.all():
-                    trans_content_infavour_arguments = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['infavour_arguments'])
-                    each.infavour_arguments=trans_content_infavour_arguments
-                    each.save()
+                trans_content_infavour_arguments = GoogleTranslator('auto', each.language.iso).translate(form.cleaned_data['infavour_arguments'])
+                each.infavour_arguments=trans_content_infavour_arguments
+                each.save()
 
         messages.success(
             self.request,
@@ -1637,14 +1633,13 @@ class ParentContestUpdateView(generic.UpdateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        queryset = Language.objects.all()
         parent_contests = ParentContesti18n.objects.filter(parent_contest_id=form.instance)
         if 'name' in form.changed_data:
-            for lang in queryset:
-                for each in parent_contests:
-                    trans_content_name = GoogleTranslator('auto', lang.iso).translate(form.instance.name)
-                    each.name=trans_content_name
-                    each.save()
+
+            for each in parent_contests:
+                trans_content_name = GoogleTranslator('auto', each.language.iso).translate(form.instance.name)
+                each.name = trans_content_name
+                each.save()
 
         messages.success(
             self.request,
