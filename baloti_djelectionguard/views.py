@@ -49,9 +49,10 @@ class BalotiIndexView(TemplateView):
             html : returns index.html html file
         """
         contests = []
-        open_contests = ParentContesti18n.objects.filter(parent_contest_id__status="open").order_by('-parent_contest_id__start')
+        current_language = get_language()
+        open_contests = ParentContesti18n.objects.filter(parent_contest_id__status="open", language__iso=current_language).order_by('-parent_contest_id__start')
         contests.append(getParentDetails(open_contests[0])) if open_contests else None
-        closed_contests = ParentContesti18n.objects.filter(parent_contest_id__status="closed").order_by('-parent_contest_id__end')
+        closed_contests = ParentContesti18n.objects.filter(parent_contest_id__status="closed", language__iso=current_language).order_by('-parent_contest_id__end')
         contests.append(getParentDetails(closed_contests[0])) if closed_contests else None
         if process == 'changepassword':
             return render(request, 'index.html',{"contests": contests, "changepassword":True})
@@ -165,7 +166,6 @@ class BalotiInfoView(TemplateView):
             )
             message.attach_alternative(html_body, "text/html")
             message.send()
-            messages.success(self.request, _('dcfxv sent by email'))
             responseData = {}
             return HttpResponse(json.dumps(responseData), content_type="application/json")
         else:
