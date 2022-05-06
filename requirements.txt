@@ -32,6 +32,7 @@ daphne==3.0.2
 dateutils==0.6.12
 decorator==5.0.9
 defusedxml==0.7.1
+deep-translator==1.8.3
 deprecation==2.1.0
 Django==3.2.7
 django-appconf==1.0.4
