@@ -133,12 +133,9 @@ class ContestCreateView(generic.CreateView):
         form.instance.candidate_set.create(name='Abstain', candidate_type='others')
         for lang in Language.objects.all():
             translated_name = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['name'])
-            # translated_type = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['type'])
             translated_about = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['about'])
             translated_against = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['against_arguments'])
             translated_infavour = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['infavour_arguments'])
-            # translated_sha1 = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['artifacts_sha1'])
-            # translated_ipfs = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['artifacts_ipfs'])
 
             Contesti18n.objects.create(contest_id=form.instance,parent=form.instance.parent,language=lang,name= translated_name, against_arguments=translated_against,
                                        about=translated_about,infavour_arguments=translated_infavour)
