@@ -83,25 +83,33 @@ def ContestTypeautotranslate():
 def Initiatorautotranslate():
 
     queryset = Initiator.objects.all()
+    languages = Language.objects.all()
     from .models import Initiatori18n
+    print('queryset==============================', queryset)
     for each in queryset:
-        for language in Language.objects.all():
+        print('languages============================', languages)
+        for language in languages:
             initiator = Initiatori18n.objects.filter(initiator_id=each.pk, language=language)
+            print('initiator=============================', initiator)
             if not initiator:
+                print('test--------------------------------------------')
                 translated_name = GoogleTranslator('auto', language.iso).translate(each.name)
                 Initiatori18n.objects.create(initiator_id=each, language=language, name= translated_name)
 
     return True
 
 def daily_cron():
+    # parent_contest_autotranslate()
+    # contest_autotranslate()
+    # Recommenderautotranslate()
+    # ContestTypeautotranslate()
+    Initiatorautotranslate()
+
+def minute_cron():
     close_votes()
 
 def initialize_cron():
     """Initializes daily crons
     """
-    parent_contest_autotranslate()
-    contest_autotranslate()
-    Recommenderautotranslate()
-    ContestTypeautotranslate()
-    Initiatorautotranslate()
-    sched.add_job(daily_cron, trigger='cron', start_date='2022-03-29', day_of_week='mon-sun', minute='*')
+    sched.add_job(minute_cron, trigger='cron', start_date='2022-03-29', day_of_week='mon-sun', minute='*')
+    sched.add_job(daily_cron, trigger='cron', start_date='2022-05-09', day_of_week='mon-sun', hour=3, minute=20)
