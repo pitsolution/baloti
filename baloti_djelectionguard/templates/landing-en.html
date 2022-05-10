@@ -21,32 +21,26 @@
             <a href={% url 'baloti_djelectionguard:Index' %} class="app-logo">
                 <img src="/static/images/logo.svg" alt="">
             </a>
-                        <ul class="app-header-nav list-unstyled d-flex align-items-center ml-auto">
-
-
-
-<li>
-
+            <ul class="app-header-nav list-unstyled d-flex align-items-center ml-auto">
+                <li>
                     <div class="dropdown">
-                         <a style="text-transform:uppercase" class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{LANGUAGE}}</a>
-
-                         <ul class="dropdown-menu dropdown-menu--device dropdown-menu-end">
+                        <a style="text-transform:uppercase" class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{LANGUAGE}}</a>
+                        <ul class="dropdown-menu dropdown-menu--device dropdown-menu-end">
                             <div class="dropdown-menu__header">
                                 <span class="dropdown-menu__title">Languages</span>
                                 <span class="app-icon icon-close-bold m-pointer"></span>
                             </div>
-                       {% get_available_languages as LANGUAGES %}
-                        {% for lang_code, lang_name in LANGUAGES %}
-                             {% if LANGUAGE != lang_code %}
-                             <li>
-                                 <a id="{{lang_code}}" class="dropdown-item" href="/{{ lang_code }}{{ request.get_full_path|slice:'3:' }}">{{lang_name}}</a>
-<!--                                 <a class="dropdown-item" data-target="/{{ lang_code }}{{ request.get_full_path|slice:'3:' }}"  data-bs-toggle="dropdown" aria-expanded="false">{{lang_code}}</a>-->
-                             </li>
-                             {% endif %}
-                             {% endfor %}
-                         </ul>
+                            {% get_available_languages as LANGUAGES %}
+                            {% for lang_code, lang_name in LANGUAGES %}
+                            {% if LANGUAGE != lang_code %}
+                            <li>
+                                <a id="{{lang_code}}" class="dropdown-item" href="/{{ lang_code }}{{ request.get_full_path|slice:'3:' }}">{{lang_name}}</a>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
 
-                      </div>
+                    </div>
                 </li>
             </ul>
         </header>
