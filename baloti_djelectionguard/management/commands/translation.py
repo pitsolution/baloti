@@ -8,7 +8,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         print('test----------------------------')
         parent_contest_autotranslate()
-        # contest_autotranslate()
+        contest_autotranslate()
         Recommenderautotranslate()
         ContestTypeautotranslate()
         Initiatorautotranslate()
