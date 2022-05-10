@@ -121,9 +121,11 @@ class Contesti18n(models.Model):
         null=True
     )
     infavour_arguments = RichTextField(
+        max_length=2048,
         null=True
     )
     against_arguments = RichTextField(
+        max_length=2048,
         null=True
     )
     language = models.ForeignKey(
