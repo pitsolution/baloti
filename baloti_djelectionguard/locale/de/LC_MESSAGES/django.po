@@ -938,7 +938,7 @@ msgstr "Anmeldung"
 
 #: baloti_djelectionguard/templates/layout/header.html:63
 msgid "Profile settings"
-msgstr ""
+msgstr "Profil Einstellungen"
 
 #: baloti_djelectionguard/templates/layout/header.html:68
 msgid "Change Password?"

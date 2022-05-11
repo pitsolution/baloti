@@ -19,12 +19,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: baloti_auth/forms.py:21
-#, fuzzy
-#| msgid "Your username and password didn't match. Please try again."
 msgid "Your old password was entered incorrectly. Please enter it again."
 msgstr ""
-"Ihr Benutzername und Ihr Passwort stimmen nicht überein. Bitte versuchen Sie "
-"es erneut."
+"Ihr altes Passwort wurde falsch eingegeben. Bitte geben Sie es erneut ein."
 
 #: baloti_auth/templates/change_password.html:64
 msgid "Change Password"

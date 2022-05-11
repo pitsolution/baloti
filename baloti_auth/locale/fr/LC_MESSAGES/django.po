@@ -242,10 +242,8 @@ msgid "Login failed!"
 msgstr "Connectez-vous ici!"
 
 #: baloti_auth/views.py:76
-#, fuzzy
-#| msgid "Registration information"
 msgid "Baloti Registration Information"
-msgstr "Informations d'inscription"
+msgstr "Baloti Informations d'inscription"
 
 #~ msgid "Registration information sent by email"
 #~ msgstr "Informations d'inscription envoyées par email"
