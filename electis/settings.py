@@ -14,6 +14,7 @@ LANGUAGES = (
     ('en', _('English')),
     ('de', _('Deutsch')),
     ('fr', _('French')),
+    ('es', _('Spanish')),
 
 )
 
