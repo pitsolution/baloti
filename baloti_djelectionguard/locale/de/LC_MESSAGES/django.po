@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-05 17:35+0530\n"
+"POT-Creation-Date: 2022-05-11 16:38+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,146 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: baloti_djelectionguard/templates/about-us.html:11
-#: baloti_djelectionguard/templates/index.html:41
-msgid "ABOUT US"
-msgstr "ÜBER UNS"
-
-#: baloti_djelectionguard/templates/about-us.html:12
-#: baloti_djelectionguard/templates/index.html:42
-msgid "On our platform you can practice direct democracy in several languages"
-msgstr ""
-"Auf unserer Plattform können Sie direkte Demokratie in mehreren Sprachen "
-"praktizieren"
-
-#: baloti_djelectionguard/templates/about-us.html:13
-msgid ""
-"The baloti.ch. project is carried out by an interdisciplinary team at the "
-"Zentrum für Demokratie Aarau in cooperation with the University of "
-"Neuchatel. Diversified project partnerships ensure that the project will be "
-"made static all over the country."
-msgstr ""
-"Das Projekt baloti.ch. wird von einem interdisziplinären Team am Zentrum für "
-"Demokratie Aarau in Zusammenarbeit mit der Universität Neuenburg "
-"durchgeführt. Diverse Projektpartnerschaften sorgen dafür, dass das Projekt "
-"landesweit statisch gemacht wird."
-
-#: baloti_djelectionguard/templates/about-us.html:28
-msgid "Voting system"
-msgstr "verwendetes Betriebssystem"
-
-#: baloti_djelectionguard/templates/about-us.html:31
-msgid ""
-"baloti uses a sophisticated voting system to guarantee the security and the "
-"transparency of the vote processes. This voting system is provided by "
-"Selectio Helvetica."
-msgstr ""
-"baloti verwendet ein ausgeklügeltes Abstimmungssystem, um die Sicherheit und "
-"die Transparenz der Abstimmungsprozesse zu gewährleisten. Dieses "
-"Abstimmungssystem wird von Selectio Helvetica bereitgestellt."
-
-#: baloti_djelectionguard/templates/about-us.html:36
-msgid "Selectio Helvetica light"
-msgstr "Selectio Helvetica light"
-
-#: baloti_djelectionguard/templates/about-us.html:39
-#, fuzzy
-#| msgid "How Selectio Helvetica light works"
-msgid "Selectio Helvetica light to safeguard ballot secrecy"
-msgstr "So funktioniert Selectio Helvetica light"
-
-#: baloti_djelectionguard/templates/about-us.html:42
-#, fuzzy
-#| msgid ""
-#| "Selectio Helvetica light to safeguard ballot secrecy The secret ballot "
-#| "protects the voter in a vote or election, so that his or her choice "
-#| "remains confidential. Securing ballot secrecy is a central principle of "
-#| "democratic voting rights. The voting platform baloti.ch uses Selectio "
-#| "Helvetica light (SH light) to meet all the requirements of ballot "
-#| "secrecy. The fact that not even the organizer of the vote is informed of "
-#| "the decision of individual voters is of particular importance."
-msgid ""
-"The secret ballot protects the voter in a vote or election, so that his or "
-"her choice remains confidential. Securing ballot secrecy is a central "
-"principle of democratic voting rights. The voting platform baloti.ch uses "
-"Selectio Helvetica light (SH light) to meet all the requirements of ballot "
-"secrecy. The fact that not even the organizer of the vote is informed of the "
-"decision of individual voters is of particular importance."
-msgstr ""
-"Selectio Helvetica light ist für die Gewährleistung  des Wahlgeheimnisses. "
-"Das Wahlgeheimnis schützt die Wählerin oder den Wähler bei einer Abstimmung "
-"oder Wahl, damit ihre oder seine Wahl geheim bleibt. Die Wahrung des "
-"Stimmgeheimnisses ist ein zentraler Grundsatz des demokratischen Wahlrechts. "
-"Die Wahlplattform baloti.ch erfüllt mit Selectio Helvetica light (SH light) "
-"alle Anforderungen an das Wahlgeheimnis. Von besonderer Bedeutung ist die "
-"Tatsache, dass nicht einmal der Organisator der Abstimmung über den "
-"Entscheid der einzelnen Stimmberechtigten informiert wird."
-
-#: baloti_djelectionguard/templates/about-us.html:45
-msgid "How Selectio Helvetica light works"
-msgstr "So funktioniert Selectio Helvetica light"
-
-#: baloti_djelectionguard/templates/about-us.html:48
-msgid ""
-"Eligible users receive a voting code by email. They then have to enter this "
-"code in order for their vote to be counted. The user's Internet browser "
-"calculates an encryption of the vote and uses the voting code for an "
-"anonymous electronic signature. The encryption and the signature are sent to "
-"the electronic ballot. When the polls have closed the correctly signed "
-"encryptions are decrypted and sent to the vote organizer. The organizer "
-"counts the votes and determines the result of the vote. Ballot secrecy is "
-"maintained, as the anonymous signatures provide no clues as to the identity "
-"of the individual voter."
-msgstr ""
-"Die teilnahmeberechtigten Nutzer erhalten per E-Mail einen Abstimmungscode. "
-"Diesen Code müssen sie dann eingeben, damit ihre Stimme gezählt wird. Der "
-"Internetbrowser des Nutzers berechnet eine Verschlüsselung der Stimme und "
-"verwendet den Abstimmungscode für eine anonyme elektronische Signatur. Die "
-"Verschlüsselung und die Signatur werden an den elektronischen Stimmzettel "
-"gesendet. Wenn die Wahllokale geschlossen sind, werden die korrekt "
-"signierten Verschlüsselungen entschlüsselt und an den Wahlorganisator "
-"geschickt. Der Organisator zählt die Stimmen und ermittelt das Wahlergebnis. "
-"Das Wahlgeheimnis bleibt gewahrt, da die anonymen Signaturen keine "
-"Rückschlüsse auf die Identität des einzelnen Wählers zulassen"
-
-#: baloti_djelectionguard/templates/about-us.html:51
-msgid "The Selectio Helvetica Project"
-msgstr "Das Projekt Selectio Helvetica"
-
-#: baloti_djelectionguard/templates/about-us.html:54
-msgid ""
-"SH light was developed by the Berne University of Applied Sciences, in "
-"cooperation with the University of Fribourg, and the Swiss E-voting "
-"Competence Center. Use the following link to find out more about SH light "
-"and the Selectio Helvetica project."
-msgstr ""
-"SH light wurde von der Berner Fachhochschule in Zusammenarbeit mit der "
-"Universität Fribourg und dem Kompetenzzentrum E-Voting Schweiz entwickelt. "
-"Unter dem folgenden Link erfahren Sie mehr über SH light und das Projekt "
-"Selectio Helvetica."
-
-#: baloti_djelectionguard/templates/about-us.html:62
-msgid "Translators"
-msgstr "Übersetzungen"
-
-#: baloti_djelectionguard/templates/about-us.html:114
-msgid "Text by Vimentis"
-msgstr "Text von Vimentis"
-
-#: baloti_djelectionguard/templates/about-us.html:116
-msgid "Comics"
-msgstr "Comics"
-
-#: baloti_djelectionguard/templates/about-us.html:117
-msgid "Bronco illustrations, KALONJI"
-msgstr "Bronco-Illustrationen"
-
-#: baloti_djelectionguard/templates/about-us.html:130
-#: baloti_djelectionguard/templates/index.html:259
-#: baloti_djelectionguard/templates/landing-en.html:133
-msgid "PROJECT PARTNERS"
-msgstr "PROJEKT PARTNER"
 
 #: baloti_djelectionguard/templates/already_voted.html:14
 #: baloti_djelectionguard/templates/choice-no-login.html:13
@@ -244,7 +104,7 @@ msgstr "FORTSETZEN"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:85
 msgid "Not registered yet?"
-msgstr ""
+msgstr "Noch nicht registriert?"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:85
 msgid "Create an account now"
@@ -280,7 +140,7 @@ msgid "Users must have an email address."
 msgstr "Benutzer müssen über eine E-Mail-Adresse verfügen"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:126
-#: baloti_djelectionguard/templates/landing-en.html:198
+#: baloti_djelectionguard/templates/landing-en.html:192
 msgid "SEND"
 msgstr "SENDEN"
 
@@ -457,7 +317,7 @@ msgstr "Teilen"
 #: baloti_djelectionguard/templates/contest_details.html:225
 #: baloti_djelectionguard/templates/contest_results.html:251
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #: baloti_djelectionguard/templates/contest_details.html:230
 #: baloti_djelectionguard/templates/contest_results.html:256
@@ -534,11 +394,11 @@ msgstr "JA"
 msgid "Copy link"
 msgstr "Link kopieren"
 
-#: baloti_djelectionguard/templates/data_privacy.html:64
+#: baloti_djelectionguard/templates/data_privacy.html:55
 msgid "Data Protection"
 msgstr "Datenschutz"
 
-#: baloti_djelectionguard/templates/data_privacy.html:65
+#: baloti_djelectionguard/templates/data_privacy.html:56
 msgid ""
 "We take the protection of your personal data very seriously and strictly "
 "adhere to the rules of the data protection laws. Personal data is collected "
@@ -552,7 +412,7 @@ msgstr ""
 "Fall werden die erhobenen Daten verkauft oder aus anderen Gründen an Dritte "
 "weitergegeben"
 
-#: baloti_djelectionguard/templates/data_privacy.html:66
+#: baloti_djelectionguard/templates/data_privacy.html:57
 msgid ""
 "The following declaration gives you an overview of how we guarantee this "
 "protection and what kind of data is collected for what purpose."
@@ -561,7 +421,7 @@ msgstr ""
 "diesen Schutz gewährleisten und welche Art von Daten zu welchem Zweck "
 "erhoben werden"
 
-#: baloti_djelectionguard/templates/data_privacy.html:67
+#: baloti_djelectionguard/templates/data_privacy.html:58
 msgid ""
 "We automatically collect and store information that your browser transmits "
 "to us in the server log files. These are:"
@@ -569,27 +429,27 @@ msgstr ""
 "Wir erheben und speichern automatisch in den Server Log Files Informationen, "
 "die Ihr Browser an uns übermittelt. Dies sind:"
 
-#: baloti_djelectionguard/templates/data_privacy.html:70
+#: baloti_djelectionguard/templates/data_privacy.html:61
 msgid "Browser type/ version"
 msgstr "Browsertyp/ -version"
 
-#: baloti_djelectionguard/templates/data_privacy.html:71
+#: baloti_djelectionguard/templates/data_privacy.html:62
 msgid "Operating system used"
 msgstr "verwendetes Betriebssystem"
 
-#: baloti_djelectionguard/templates/data_privacy.html:72
+#: baloti_djelectionguard/templates/data_privacy.html:63
 msgid "Referrer URL (the previously visited page)"
 msgstr "Referrer URL (die zuvor besuchte Seite)"
 
-#: baloti_djelectionguard/templates/data_privacy.html:73
+#: baloti_djelectionguard/templates/data_privacy.html:64
 msgid "Host name of the accessing computer (IP address)"
 msgstr "Hostname des zugreifenden Rechners (IP Adresse)"
 
-#: baloti_djelectionguard/templates/data_privacy.html:74
+#: baloti_djelectionguard/templates/data_privacy.html:65
 msgid "Date and time of the server request"
 msgstr "Datum und Uhrzeit der Serveranfrage"
 
-#: baloti_djelectionguard/templates/data_privacy.html:76
+#: baloti_djelectionguard/templates/data_privacy.html:67
 msgid ""
 "These data cannot be assigned to specific persons. These data are not "
 "combined with other data sources. The data will also be deleted after a "
@@ -600,11 +460,11 @@ msgstr ""
 "vorgenommen. Die Daten werden zudem nach einer statistischen Auswertung "
 "gelöscht."
 
-#: baloti_djelectionguard/templates/data_privacy.html:79
+#: baloti_djelectionguard/templates/data_privacy.html:70
 msgid "Cookies"
 msgstr "Cookies"
 
-#: baloti_djelectionguard/templates/data_privacy.html:80
+#: baloti_djelectionguard/templates/data_privacy.html:71
 msgid ""
 "On some of our pages we use cookies to make visiting our website attractive "
 "and to enable the use of certain functions. „Cookies“ are small text files "
@@ -626,11 +486,11 @@ msgstr ""
 "Ihnen unter Umständen bestimmte Funktionen unserer Website nicht zur "
 "Verfügung."
 
-#: baloti_djelectionguard/templates/data_privacy.html:83
+#: baloti_djelectionguard/templates/data_privacy.html:74
 msgid "Use of Google Analytics"
 msgstr "Use of Google Analytics"
 
-#: baloti_djelectionguard/templates/data_privacy.html:84
+#: baloti_djelectionguard/templates/data_privacy.html:75
 msgid ""
 "This website uses Google Analytics, a web analysis service of Google Inc. "
 "(„Google“) Google Analytics uses cookies, which are text files placed on "
@@ -678,20 +538,20 @@ msgstr ""
 "Zukunft widersprechen, indem Sie ein Deaktivierungs-Add-on für Ihren Browser "
 "installieren."
 
-#: baloti_djelectionguard/templates/data_privacy.html:106
-#: baloti_djelectionguard/templates/imprint.html:112
-#: baloti_djelectionguard/templates/landing-en.html:219
+#: baloti_djelectionguard/templates/data_privacy.html:97
+#: baloti_djelectionguard/templates/imprint.html:103
+#: baloti_djelectionguard/templates/landing-en.html:213
 msgid "Data Privacy"
 msgstr "Datenschutz"
 
-#: baloti_djelectionguard/templates/data_privacy.html:107
-#: baloti_djelectionguard/templates/imprint.html:113
-#: baloti_djelectionguard/templates/landing-en.html:220
+#: baloti_djelectionguard/templates/data_privacy.html:98
+#: baloti_djelectionguard/templates/imprint.html:104
+#: baloti_djelectionguard/templates/landing-en.html:214
 msgid "Imprint"
 msgstr "Impressum"
 
-#: baloti_djelectionguard/templates/data_privacy.html:118
-#: baloti_djelectionguard/templates/imprint.html:124
+#: baloti_djelectionguard/templates/data_privacy.html:109
+#: baloti_djelectionguard/templates/imprint.html:115
 msgid "FOLLOW US ON"
 msgstr "FOLGE UNS AUF"
 
@@ -755,27 +615,27 @@ msgstr ""
 "Kanton usw.) werden für Analysen und Statistiken nur in anonymisierter und "
 "aggregierter Form verwendet."
 
-#: baloti_djelectionguard/templates/imprint.html:66
+#: baloti_djelectionguard/templates/imprint.html:57
 msgid "Represented by"
 msgstr "Vertreten durch"
 
-#: baloti_djelectionguard/templates/imprint.html:70
+#: baloti_djelectionguard/templates/imprint.html:61
 msgid "Address"
 msgstr "Adresse"
 
-#: baloti_djelectionguard/templates/imprint.html:74
+#: baloti_djelectionguard/templates/imprint.html:65
 msgid "Firm Number"
 msgstr "Firmennummer"
 
-#: baloti_djelectionguard/templates/imprint.html:78
+#: baloti_djelectionguard/templates/imprint.html:69
 msgid "VAT Number"
 msgstr "Umsatzsteuer-Identifikationsnummer"
 
-#: baloti_djelectionguard/templates/imprint.html:82
+#: baloti_djelectionguard/templates/imprint.html:73
 msgid "Phone"
 msgstr "Telefon"
 
-#: baloti_djelectionguard/templates/imprint.html:86
+#: baloti_djelectionguard/templates/imprint.html:77
 msgid "Fax"
 msgstr "Fax"
 
@@ -794,6 +654,16 @@ msgstr ""
 #: baloti_djelectionguard/templates/index.html:18
 msgid "HOW IT WORKS"
 msgstr "WIE FUNKTIONIERT ES"
+
+#: baloti_djelectionguard/templates/index.html:41
+msgid "ABOUT US"
+msgstr "ÜBER UNS"
+
+#: baloti_djelectionguard/templates/index.html:42
+msgid "On our platform you can practice direct democracy in several languages"
+msgstr ""
+"Auf unserer Plattform können Sie direkte Demokratie in mehreren Sprachen "
+"praktizieren"
 
 #: baloti_djelectionguard/templates/index.html:43
 msgid ""
@@ -846,12 +716,12 @@ msgstr ""
 "baloti."
 
 #: baloti_djelectionguard/templates/index.html:122
-#: baloti_djelectionguard/templates/landing-en.html:93
+#: baloti_djelectionguard/templates/landing-en.html:87
 msgid "IMPACT"
 msgstr "WIR BIETEN"
 
 #: baloti_djelectionguard/templates/index.html:129
-#: baloti_djelectionguard/templates/landing-en.html:101
+#: baloti_djelectionguard/templates/landing-en.html:95
 msgid "safe, secure & open"
 msgstr "sicher und offen"
 
@@ -864,7 +734,7 @@ msgstr ""
 "Technologie zur Speicherung und Verifizierung von Stimmen."
 
 #: baloti_djelectionguard/templates/index.html:137
-#: baloti_djelectionguard/templates/landing-en.html:112
+#: baloti_djelectionguard/templates/landing-en.html:106
 msgid "multilingual"
 msgstr "mehrsprachig"
 
@@ -875,12 +745,12 @@ msgstr ""
 "wir machen die abstimmung zugänglicher, stimme in der eigenen Sprache ab"
 
 #: baloti_djelectionguard/templates/index.html:146
-#: baloti_djelectionguard/templates/landing-en.html:122
+#: baloti_djelectionguard/templates/landing-en.html:116
 msgid "democratic"
 msgstr "demokratisch"
 
 #: baloti_djelectionguard/templates/index.html:147
-#: baloti_djelectionguard/templates/landing-en.html:123
+#: baloti_djelectionguard/templates/landing-en.html:117
 msgid ""
 "allow more people to participate in voting independently of time and space"
 msgstr ""
@@ -957,6 +827,11 @@ msgstr "Fernsehdebatten"
 msgid "Postal voting"
 msgstr "Abstimmung per Post"
 
+#: baloti_djelectionguard/templates/index.html:259
+#: baloti_djelectionguard/templates/landing-en.html:127
+msgid "PROJECT PARTNERS"
+msgstr "PROJEKT PARTNER"
+
 #: baloti_djelectionguard/templates/index.html:295
 msgid "Registration successful"
 msgstr "Registrierung erfolgreich"
@@ -973,23 +848,23 @@ msgstr "Erfolgreich abgemeldet"
 msgid "Logged in successfully"
 msgstr "Erfolgreich eingeloggt"
 
-#: baloti_djelectionguard/templates/landing-en.html:61
+#: baloti_djelectionguard/templates/landing-en.html:55
 msgid "the baloti project"
 msgstr "das baloti projekt"
 
-#: baloti_djelectionguard/templates/landing-en.html:62
+#: baloti_djelectionguard/templates/landing-en.html:56
 msgid "an online voting platform for all languages is our vision"
 msgstr "eine online voting plattform in allen sprachen ist unsere vision"
 
-#: baloti_djelectionguard/templates/landing-en.html:64
+#: baloti_djelectionguard/templates/landing-en.html:58
 msgid "go to the baloti portal"
 msgstr "baloti plattform öffnen"
 
-#: baloti_djelectionguard/templates/landing-en.html:81
+#: baloti_djelectionguard/templates/landing-en.html:75
 msgid "ABOUT THE PROJECT"
 msgstr "ÜBER UNSER PROJEKT"
 
-#: baloti_djelectionguard/templates/landing-en.html:82
+#: baloti_djelectionguard/templates/landing-en.html:76
 msgid ""
 "baloti is a technical solution allowing you to cast your vote online in "
 "several languages in a safe and secure way"
@@ -997,11 +872,11 @@ msgstr ""
 "baloti ist eine online lösung, um auf sichere art und weise in mehreren "
 "sprachen abzustimmen"
 
-#: baloti_djelectionguard/templates/landing-en.html:83
+#: baloti_djelectionguard/templates/landing-en.html:77
 msgid "experience Swiss referendum voting online"
 msgstr "Schweizer abstimmungen online erleben"
 
-#: baloti_djelectionguard/templates/landing-en.html:102
+#: baloti_djelectionguard/templates/landing-en.html:96
 msgid ""
 "baloti is fully open source and uses blockchain technology for saving and "
 "verifying votes"
@@ -1009,40 +884,40 @@ msgstr ""
 "baloti ist vollständig open source und verwendet die blockchain-technologie "
 "zur speicherung und verifizierung von stimmen"
 
-#: baloti_djelectionguard/templates/landing-en.html:113
+#: baloti_djelectionguard/templates/landing-en.html:107
 msgid "making the voting experience more accessible, vote in your own language"
 msgstr ""
 "wir machen die abstimmung zugänglicher, stimme in der eigenen Sprache ab"
 
-#: baloti_djelectionguard/templates/landing-en.html:164
+#: baloti_djelectionguard/templates/landing-en.html:158
 msgid "CONTACT US"
 msgstr "KONTAKT"
 
-#: baloti_djelectionguard/templates/landing-en.html:165
+#: baloti_djelectionguard/templates/landing-en.html:159
 msgid "Feel free to <br> contact us"
 msgstr "Wir freuen uns <br> auf Ihre Nachricht!"
 
-#: baloti_djelectionguard/templates/landing-en.html:173
+#: baloti_djelectionguard/templates/landing-en.html:167
 msgid "Firstname*"
 msgstr "Vorname*"
 
-#: baloti_djelectionguard/templates/landing-en.html:177
+#: baloti_djelectionguard/templates/landing-en.html:171
 msgid "Lastname*"
 msgstr "Nachname*"
 
-#: baloti_djelectionguard/templates/landing-en.html:183
+#: baloti_djelectionguard/templates/landing-en.html:177
 msgid "Email*"
 msgstr "E-Mail*"
 
-#: baloti_djelectionguard/templates/landing-en.html:187
+#: baloti_djelectionguard/templates/landing-en.html:181
 msgid "Subject*"
 msgstr "Betreff*"
 
-#: baloti_djelectionguard/templates/landing-en.html:192
+#: baloti_djelectionguard/templates/landing-en.html:186
 msgid "Message*"
 msgstr "Nachricht*"
 
-#: baloti_djelectionguard/templates/landing-en.html:234
+#: baloti_djelectionguard/templates/landing-en.html:228
 msgid "Mail sent successfully"
 msgstr "E-Mail erfolgreich versendet"
 
@@ -1095,9 +970,115 @@ msgstr "Geben Sie Ihr Passwort zur Bestätigung ein"
 msgid "Invalid password"
 msgstr "Ungültiges Passwort"
 
-#: baloti_djelectionguard/views.py:168
-msgid "dcfxv sent by email"
-msgstr ""
+#~ msgid ""
+#~ "The baloti.ch. project is carried out by an interdisciplinary team at the "
+#~ "Zentrum für Demokratie Aarau in cooperation with the University of "
+#~ "Neuchatel. Diversified project partnerships ensure that the project will "
+#~ "be made static all over the country."
+#~ msgstr ""
+#~ "Das Projekt baloti.ch. wird von einem interdisziplinären Team am Zentrum "
+#~ "für Demokratie Aarau in Zusammenarbeit mit der Universität Neuenburg "
+#~ "durchgeführt. Diverse Projektpartnerschaften sorgen dafür, dass das "
+#~ "Projekt landesweit statisch gemacht wird."
+
+#~ msgid "Voting system"
+#~ msgstr "verwendetes Betriebssystem"
+
+#~ msgid ""
+#~ "baloti uses a sophisticated voting system to guarantee the security and "
+#~ "the transparency of the vote processes. This voting system is provided by "
+#~ "Selectio Helvetica."
+#~ msgstr ""
+#~ "baloti verwendet ein ausgeklügeltes Abstimmungssystem, um die Sicherheit "
+#~ "und die Transparenz der Abstimmungsprozesse zu gewährleisten. Dieses "
+#~ "Abstimmungssystem wird von Selectio Helvetica bereitgestellt."
+
+#~ msgid "Selectio Helvetica light"
+#~ msgstr "Selectio Helvetica light"
+
+#, fuzzy
+#~| msgid "How Selectio Helvetica light works"
+#~ msgid "Selectio Helvetica light to safeguard ballot secrecy"
+#~ msgstr "So funktioniert Selectio Helvetica light"
+
+#, fuzzy
+#~| msgid ""
+#~| "Selectio Helvetica light to safeguard ballot secrecy The secret ballot "
+#~| "protects the voter in a vote or election, so that his or her choice "
+#~| "remains confidential. Securing ballot secrecy is a central principle of "
+#~| "democratic voting rights. The voting platform baloti.ch uses Selectio "
+#~| "Helvetica light (SH light) to meet all the requirements of ballot "
+#~| "secrecy. The fact that not even the organizer of the vote is informed of "
+#~| "the decision of individual voters is of particular importance."
+#~ msgid ""
+#~ "The secret ballot protects the voter in a vote or election, so that his "
+#~ "or her choice remains confidential. Securing ballot secrecy is a central "
+#~ "principle of democratic voting rights. The voting platform baloti.ch uses "
+#~ "Selectio Helvetica light (SH light) to meet all the requirements of "
+#~ "ballot secrecy. The fact that not even the organizer of the vote is "
+#~ "informed of the decision of individual voters is of particular importance."
+#~ msgstr ""
+#~ "Selectio Helvetica light ist für die Gewährleistung  des "
+#~ "Wahlgeheimnisses. Das Wahlgeheimnis schützt die Wählerin oder den Wähler "
+#~ "bei einer Abstimmung oder Wahl, damit ihre oder seine Wahl geheim bleibt. "
+#~ "Die Wahrung des Stimmgeheimnisses ist ein zentraler Grundsatz des "
+#~ "demokratischen Wahlrechts. Die Wahlplattform baloti.ch erfüllt mit "
+#~ "Selectio Helvetica light (SH light) alle Anforderungen an das "
+#~ "Wahlgeheimnis. Von besonderer Bedeutung ist die Tatsache, dass nicht "
+#~ "einmal der Organisator der Abstimmung über den Entscheid der einzelnen "
+#~ "Stimmberechtigten informiert wird."
+
+#~ msgid "How Selectio Helvetica light works"
+#~ msgstr "So funktioniert Selectio Helvetica light"
+
+#~ msgid ""
+#~ "Eligible users receive a voting code by email. They then have to enter "
+#~ "this code in order for their vote to be counted. The user's Internet "
+#~ "browser calculates an encryption of the vote and uses the voting code for "
+#~ "an anonymous electronic signature. The encryption and the signature are "
+#~ "sent to the electronic ballot. When the polls have closed the correctly "
+#~ "signed encryptions are decrypted and sent to the vote organizer. The "
+#~ "organizer counts the votes and determines the result of the vote. Ballot "
+#~ "secrecy is maintained, as the anonymous signatures provide no clues as to "
+#~ "the identity of the individual voter."
+#~ msgstr ""
+#~ "Die teilnahmeberechtigten Nutzer erhalten per E-Mail einen "
+#~ "Abstimmungscode. Diesen Code müssen sie dann eingeben, damit ihre Stimme "
+#~ "gezählt wird. Der Internetbrowser des Nutzers berechnet eine "
+#~ "Verschlüsselung der Stimme und verwendet den Abstimmungscode für eine "
+#~ "anonyme elektronische Signatur. Die Verschlüsselung und die Signatur "
+#~ "werden an den elektronischen Stimmzettel gesendet. Wenn die Wahllokale "
+#~ "geschlossen sind, werden die korrekt signierten Verschlüsselungen "
+#~ "entschlüsselt und an den Wahlorganisator geschickt. Der Organisator zählt "
+#~ "die Stimmen und ermittelt das Wahlergebnis. Das Wahlgeheimnis bleibt "
+#~ "gewahrt, da die anonymen Signaturen keine Rückschlüsse auf die Identität "
+#~ "des einzelnen Wählers zulassen"
+
+#~ msgid "The Selectio Helvetica Project"
+#~ msgstr "Das Projekt Selectio Helvetica"
+
+#~ msgid ""
+#~ "SH light was developed by the Berne University of Applied Sciences, in "
+#~ "cooperation with the University of Fribourg, and the Swiss E-voting "
+#~ "Competence Center. Use the following link to find out more about SH light "
+#~ "and the Selectio Helvetica project."
+#~ msgstr ""
+#~ "SH light wurde von der Berner Fachhochschule in Zusammenarbeit mit der "
+#~ "Universität Fribourg und dem Kompetenzzentrum E-Voting Schweiz "
+#~ "entwickelt. Unter dem folgenden Link erfahren Sie mehr über SH light und "
+#~ "das Projekt Selectio Helvetica."
+
+#~ msgid "Translators"
+#~ msgstr "Übersetzungen"
+
+#~ msgid "Text by Vimentis"
+#~ msgstr "Text von Vimentis"
+
+#~ msgid "Comics"
+#~ msgstr "Comics"
+
+#~ msgid "Bronco illustrations, KALONJI"
+#~ msgstr "Bronco-Illustrationen"
 
 #~ msgid "CREAT BALLOT"
 #~ msgstr "Stimmzettel erstellen"

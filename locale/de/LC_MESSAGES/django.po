@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-05 17:35+0530\n"
+"POT-Creation-Date: 2022-05-11 16:38+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -900,332 +900,332 @@ msgstr ""
 msgid "Must be above 0, you have choosen:"
 msgstr ""
 
-#: djelectionguard/models.py:647
+#: djelectionguard/models.py:649
 #, python-format
 msgid "The contest %(contest)s has been tallied"
 msgstr ""
 
-#: djelectionguard/models.py:650
+#: djelectionguard/models.py:652
 msgid "The contest you wanted to decrypt was not found"
 msgstr ""
 
-#: djelectionguard/models.py:653
+#: djelectionguard/models.py:655
 #, python-format
 msgid "The decryption raised the exception %(exception)s"
 msgstr ""
 
-#: djelectionguard/models.py:661
+#: djelectionguard/models.py:663
 msgid "unknown"
 msgstr ""
 
-#: djelectionguard/models.py:660
+#: djelectionguard/models.py:662
 #, python-format
 msgid "Contest %(contest)s decryption"
 msgstr ""
 
-#: djelectionguard/views.py:147
+#: djelectionguard/views.py:144
 #, python-format
 msgid "You have created contest %(obj)s"
 msgstr ""
 
-#: djelectionguard/views.py:210 djelectionguard/views.py:1841
+#: djelectionguard/views.py:203 djelectionguard/views.py:1832
 #, python-format
 msgid "You have updated contest %(obj)s"
 msgstr ""
 
-#: djelectionguard/views.py:315 djelectionguard/views.py:486
+#: djelectionguard/views.py:308 djelectionguard/views.py:479
 msgid "Email title"
 msgstr ""
 
-#: djelectionguard/views.py:316 djelectionguard/views.py:485
+#: djelectionguard/views.py:309 djelectionguard/views.py:478
 msgid "Title of the email that will be sent to each voter"
 msgstr ""
 
-#: djelectionguard/views.py:320 djelectionguard/views.py:490
+#: djelectionguard/views.py:313 djelectionguard/views.py:483
 msgid "Email message"
 msgstr ""
 
-#: djelectionguard/views.py:321
+#: djelectionguard/views.py:314
 msgid ""
 "Body of the email that will be sent, LINK will be replaced by the voting link"
 msgstr ""
 
-#: djelectionguard/views.py:331
+#: djelectionguard/views.py:324
 #, python-format
 msgid ""
 "Hello, Referendum %(obj)s is open for voting, you may use the link belox: "
 "LINK Happy voting!"
 msgstr ""
 
-#: djelectionguard/views.py:339
+#: djelectionguard/views.py:332
 #, python-format
 msgid "Referendum %(obj)s is open for voting"
 msgstr ""
 
-#: djelectionguard/views.py:373
+#: djelectionguard/views.py:366
 msgid "Send invite"
 msgstr ""
 
-#: djelectionguard/views.py:395
+#: djelectionguard/views.py:388
 msgid "Open votes"
 msgstr ""
 
-#: djelectionguard/views.py:396
+#: djelectionguard/views.py:389
 msgid "Create the Encrypter and BallotBox and open contest for voting"
 msgstr ""
 
-#: djelectionguard/views.py:401
+#: djelectionguard/views.py:394
 msgid "Must have more candidates than number elected"
 msgstr ""
 
-#: djelectionguard/views.py:424
+#: djelectionguard/views.py:417
 #, python-format
 msgid "You have open contest %(obj)s"
 msgstr ""
 
-#: djelectionguard/views.py:470
+#: djelectionguard/views.py:463
 #, python-format
 msgid "You have closed contest %(obj)s"
 msgstr ""
 
-#: djelectionguard/views.py:491
+#: djelectionguard/views.py:484
 msgid ""
 "Body of the email that will be sent, LINK will be replaced by the result link"
 msgstr ""
 
-#: djelectionguard/views.py:498
+#: djelectionguard/views.py:491
 #, python-format
 msgid ""
 "Hello, Referendum %(obj)s has been tallied, you may use this link below to "
 "check the results: LINK Thank you for voting on %(obj)s"
 msgstr ""
 
-#: djelectionguard/views.py:506
+#: djelectionguard/views.py:499
 #, python-format
 msgid "Referendum %(obj)s is has been tallied"
 msgstr ""
 
-#: djelectionguard/views.py:542
+#: djelectionguard/views.py:535
 #, python-format
 msgid "You have started tallying for %(obj)s"
 msgstr ""
 
-#: djelectionguard/views.py:565
+#: djelectionguard/views.py:558
 msgid "IPFS not initialized on this node"
 msgstr ""
 
-#: djelectionguard/views.py:584
+#: djelectionguard/views.py:577
 #, python-format
 msgid "You have published artifacts for %(obj)s on IPFS"
 msgstr ""
 
-#: djelectionguard/views.py:673
+#: djelectionguard/views.py:666
 msgid "You have completed the ceremony for"
 msgstr ""
 
-#: djelectionguard/views.py:677
+#: djelectionguard/views.py:670
 msgid "Guardian keypairs have been deleted from our memory"
 msgstr ""
 
-#: djelectionguard/views.py:693
+#: djelectionguard/views.py:686
 msgid "Please get a magic link to proceed to secure vote"
 msgstr ""
 
-#: djelectionguard/views.py:706
+#: djelectionguard/views.py:699
 #, python-format
 msgid "You are not registered to vote on %(obj)s"
 msgstr ""
 
-#: djelectionguard/views.py:710
+#: djelectionguard/views.py:703
 #, python-format
 msgid "%(obj)s vote is closed"
 msgstr ""
 
-#: djelectionguard/views.py:713
+#: djelectionguard/views.py:706
 #, python-format
 msgid "%(obj)s vote is not yet open"
 msgstr ""
 
-#: djelectionguard/views.py:718
+#: djelectionguard/views.py:711
 #, python-format
 msgid "You have already casted your vote for %(obj)s"
 msgstr ""
 
-#: djelectionguard/views.py:729
+#: djelectionguard/views.py:722
 msgid "Create ballot"
 msgstr ""
 
-#: djelectionguard/views.py:739
+#: djelectionguard/views.py:732
 msgid "; you have:"
 msgstr ""
 
-#: djelectionguard/views.py:788
+#: djelectionguard/views.py:781
 #, python-format
 msgid "You spoiled your ballot for %(obj)s you can make another ballot"
 msgstr ""
 
-#: djelectionguard/views.py:798
+#: djelectionguard/views.py:791
 #, python-format
 msgid "You casted your ballot for %(obj)s"
 msgstr ""
 
-#: djelectionguard/views.py:861
+#: djelectionguard/views.py:854
 msgid "Sous-texte"
 msgstr ""
 
-#: djelectionguard/views.py:865 djelectionguard/views.py:892
+#: djelectionguard/views.py:858 djelectionguard/views.py:885
 msgid "CANDIDATE_PICTURE"
 msgstr ""
 
-#: djelectionguard/views.py:890
+#: djelectionguard/views.py:883
 msgid "CANDIDATE_NAME"
 msgstr ""
 
-#: djelectionguard/views.py:891
+#: djelectionguard/views.py:884
 msgid "CANDIDATE_DESCRIPTION"
 msgstr ""
 
-#: djelectionguard/views.py:922
+#: djelectionguard/views.py:915
 msgid "You have added candidate"
 msgstr ""
 
-#: djelectionguard/views.py:956
+#: djelectionguard/views.py:949
 msgid "You have updated candidate"
 msgstr ""
 
-#: djelectionguard/views.py:982
+#: djelectionguard/views.py:975
 msgid "You have removed candidate"
 msgstr ""
 
-#: djelectionguard/views.py:1003
+#: djelectionguard/views.py:996
 msgid "Minimum guardians needed to unlock the ballot box"
 msgstr ""
 
-#: djelectionguard/views.py:1014
+#: djelectionguard/views.py:1007
 msgid "User not found"
 msgstr ""
 
-#: djelectionguard/views.py:1018
+#: djelectionguard/views.py:1011
 msgid "already added!"
 msgstr ""
 
-#: djelectionguard/views.py:1028
+#: djelectionguard/views.py:1021
 msgid "Cannot be higher than the number of guardians"
 msgstr ""
 
-#: djelectionguard/views.py:1075
+#: djelectionguard/views.py:1068
 #, python-format
 msgid "You have invited %(obj)s as guardian"
 msgstr ""
 
-#: djelectionguard/views.py:1080
+#: djelectionguard/views.py:1073
 #, python-format
 msgid "Quorum set to %(quorum)s"
 msgstr ""
 
-#: djelectionguard/views.py:1110
+#: djelectionguard/views.py:1103
 #, python-format
 msgid "Quorum set to %(quorum)s to match the number of guardians"
 msgstr ""
 
-#: djelectionguard/views.py:1116
+#: djelectionguard/views.py:1109
 #, python-format
 msgid "You have removed guardian %(guardian)s"
 msgstr ""
 
-#: djelectionguard/views.py:1147
+#: djelectionguard/views.py:1140
 msgid "Verify integrity"
 msgstr ""
 
-#: djelectionguard/views.py:1158
+#: djelectionguard/views.py:1151
 msgid "File corrupted, please try downloading again"
 msgstr ""
 
-#: djelectionguard/views.py:1169
+#: djelectionguard/views.py:1162
 #, python-format
 msgid "You have verified your guardian key for %(obj)s"
 msgstr ""
 
-#: djelectionguard/views.py:1203
+#: djelectionguard/views.py:1196
 msgid "The provided guardian key is invalid"
 msgstr ""
 
-#: djelectionguard/views.py:1214
+#: djelectionguard/views.py:1207
 #, python-format
 msgid "You have uploaded your guardian key for %(obj)s"
 msgstr ""
 
-#: djelectionguard/views.py:1309
+#: djelectionguard/views.py:1302
 msgid "Please remove lines containing invalid emails: "
 msgstr ""
 
-#: djelectionguard/views.py:1316
+#: djelectionguard/views.py:1309
 msgid "Update voters"
 msgstr ""
 
-#: djelectionguard/views.py:1318
+#: djelectionguard/views.py:1311
 msgid "Voters emails"
 msgstr ""
 
-#: djelectionguard/views.py:1319
+#: djelectionguard/views.py:1312
 msgid "The list of allowed voters with one email per line"
 msgstr ""
 
-#: djelectionguard/views.py:1392
+#: djelectionguard/views.py:1385
 #, python-format
 msgid "You have updated voters for contest %(obj)s"
 msgstr ""
 
-#: djelectionguard/views.py:1462
+#: djelectionguard/views.py:1455
 msgid "RECOMMENDER_NAME"
 msgstr ""
 
-#: djelectionguard/views.py:1463
+#: djelectionguard/views.py:1456
 msgid "RECOMMENDER_TYPE"
 msgstr ""
 
-#: djelectionguard/views.py:1498
+#: djelectionguard/views.py:1491
 msgid "You have added recommender"
 msgstr ""
 
-#: djelectionguard/views.py:1530
+#: djelectionguard/views.py:1523
 msgid "You have updated recommender"
 msgstr ""
 
-#: djelectionguard/views.py:1554
+#: djelectionguard/views.py:1547
 msgid "You have removed recommender"
 msgstr ""
 
-#: djelectionguard/views.py:1581
+#: djelectionguard/views.py:1574
 #, python-format
 msgid "You have created recommender %(obj)s"
 msgstr ""
 
-#: djelectionguard/views.py:1618
+#: djelectionguard/views.py:1611
 #, python-format
 msgid "You have created parentcontest %(obj)s"
 msgstr ""
 
-#: djelectionguard/views.py:1652
+#: djelectionguard/views.py:1643
 #, python-format
 msgid "You have updated parentcontest %(obj)s"
 msgstr ""
 
-#: djelectionguard/views.py:1689
+#: djelectionguard/views.py:1680
 msgid "You have removed referendum"
 msgstr ""
 
-#: djelectionguard/views.py:1747
+#: djelectionguard/views.py:1738
 #, python-format
 msgid "You have created initiator %(obj)s"
 msgstr ""
 
-#: djelectionguard/views.py:1801
+#: djelectionguard/views.py:1792
 #, python-format
 msgid "You have created contest type %(obj)s"
 msgstr ""
 
-#: djelectionguard/views.py:1835
+#: djelectionguard/views.py:1826
 msgid "The total percentage of results is not allowed to exceed 100"
 msgstr ""
 
@@ -1605,6 +1605,10 @@ msgstr ""
 
 #: electis/settings.py:16 neuilly/settings.py:13
 msgid "French"
+msgstr ""
+
+#: electis/settings.py:17
+msgid "Spanish"
 msgstr ""
 
 #: neuilly/html.py:36

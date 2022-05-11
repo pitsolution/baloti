@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-03 13:24+0530\n"
+"POT-Creation-Date: 2022-05-11 16:42+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,197 +18,234 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: templates/change_password.html:64
+#: baloti_auth/forms.py:21
+msgid "Your old password was entered incorrectly. Please enter it again."
+msgstr ""
+
+#: baloti_auth/templates/change_password.html:64
 msgid "Change Password"
 msgstr "Changer le mot de passe"
 
-#: templates/change_password.html:71
+#: baloti_auth/templates/change_password.html:71
 msgid "Old Password"
 msgstr "ancien mot de passe"
 
-#: templates/change_password.html:77
+#: baloti_auth/templates/change_password.html:77
 msgid "New Password"
 msgstr "nouveau mot de passe"
 
-#: templates/change_password.html:83
+#: baloti_auth/templates/change_password.html:83
 msgid "New Password Confirmation"
 msgstr "Confirmation du nouveau mot de passe"
 
-#: templates/change_password.html:97 templates/login.html:95
-#: templates/signup_mail.html:235
+#: baloti_auth/templates/change_password.html:97
+#: baloti_auth/templates/login.html:95
+#: baloti_auth/templates/signup_mail.html:235
 msgid "CONTINUE"
 msgstr "CONTINUEZ"
 
-#: templates/change_password.html:101 templates/login.html:101
-#: templates/password_reset.html:81 templates/password_reset_done.html:64
-#: templates/signup.html:95
+#: baloti_auth/templates/change_password.html:101
+#: baloti_auth/templates/login.html:101
+#: baloti_auth/templates/password_reset.html:81
+#: baloti_auth/templates/password_reset_done.html:64
+#: baloti_auth/templates/signup.html:95
 msgid "Back"
 msgstr "Retour"
 
-#: templates/login.html:64
+#: baloti_auth/templates/login.html:64
 msgid "Welcome to baloti!"
 msgstr "Bienvenue sur baloti"
 
-#: templates/login.html:66
+#: baloti_auth/templates/login.html:66
 msgid "Login to your account"
 msgstr "Connectez-vous à votre compte"
 
-#: templates/login.html:69 templates/signup.html:69
+#: baloti_auth/templates/login.html:69 baloti_auth/templates/signup.html:69
 msgid "Continue with Facebook"
 msgstr "Continuez avec Facebook"
 
-#: templates/login.html:79 templates/password_reset.html:71
-#: templates/password_reset_confirm.html:64 templates/signup.html:83
+#: baloti_auth/templates/login.html:79
+#: baloti_auth/templates/password_reset.html:71
+#: baloti_auth/templates/password_reset_confirm.html:64
+#: baloti_auth/templates/signup.html:83
 msgid "Email address"
 msgstr "Adresse e-mail"
 
-#: templates/login.html:84
+#: baloti_auth/templates/login.html:84
 msgid "Password"
 msgstr "Mot de passe"
 
-#: templates/login.html:94
+#: baloti_auth/templates/login.html:94
 msgid "Forgot password?"
 msgstr "Mot de passe oublié?"
 
-#: templates/login.html:96
+#: baloti_auth/templates/login.html:96
 msgid "Not registered yet?"
 msgstr "Pas encore inscrit?"
 
-#: templates/login.html:96
+#: baloti_auth/templates/login.html:96
 msgid "Create an account now!"
 msgstr "Créez un compte maintenant!"
 
-#: templates/password_reset.html:62
+#: baloti_auth/templates/password_reset.html:62
 msgid "Forgot Password?"
 msgstr "Mot de passe"
 
-#: templates/password_reset.html:64 templates/signup.html:86
+#: baloti_auth/templates/password_reset.html:64
+#: baloti_auth/templates/signup.html:86
 msgid ""
 "We will send you the registration link to the email address you entered."
-msgstr "Nous vous enverrons le lien d'enregistrement à l'adresse e-mail que vous avez saisie."
+msgstr ""
+"Nous vous enverrons le lien d'enregistrement à l'adresse e-mail que vous "
+"avez saisie."
 
-#: templates/password_reset.html:74
+#: baloti_auth/templates/password_reset.html:74
 msgid "Send Recovery Email"
 msgstr "Envoyer un e-mail de récupération"
 
-#: templates/password_reset.html:76
+#: baloti_auth/templates/password_reset.html:76
 msgid "Just Remembered?"
 msgstr "Vous venez de vous souvenir?"
 
-#: templates/password_reset.html:77
+#: baloti_auth/templates/password_reset.html:77
 msgid "Signin here!"
 msgstr "S'inscrire ici!"
 
-#: templates/password_reset_complete.html:55
+#: baloti_auth/templates/password_reset_complete.html:55
 msgid "Password changed!"
 msgstr "Mot de passe modifié!"
 
-#: templates/password_reset_complete.html:57
+#: baloti_auth/templates/password_reset_complete.html:57
 msgid "Your password has changed successfully."
 msgstr "Votre mot de passe a été modifié avec succès."
 
-#: templates/password_reset_complete.html:65 templates/signup_success.html:71
+#: baloti_auth/templates/password_reset_complete.html:65
+#: baloti_auth/templates/signup_success.html:71
 msgid "LOGIN NOW"
 msgstr "Connectez-vous maintenant"
 
-#: templates/password_reset_confirm.html:56
-#: templates/password_reset_confirm.html:86
+#: baloti_auth/templates/password_reset_confirm.html:56
+#: baloti_auth/templates/password_reset_confirm.html:86
 msgid "Reset Password"
 msgstr "Réinitialiser le mot de passe"
 
-#: templates/password_reset_confirm.html:68
+#: baloti_auth/templates/password_reset_confirm.html:68
 msgid "New password"
 msgstr "nouveau mot de passe"
 
-#: templates/password_reset_confirm.html:74
+#: baloti_auth/templates/password_reset_confirm.html:74
 msgid "Confirm password"
 msgstr "Confirmer le mot de passe"
 
-#: templates/password_reset_done.html:55 templates/signup_success.html:62
+#: baloti_auth/templates/password_reset_done.html:55
+#: baloti_auth/templates/signup_success.html:62
 msgid "Mail sent!"
 msgstr "Courrier envoyé!"
 
-#: templates/password_reset_done.html:57
+#: baloti_auth/templates/password_reset_done.html:57
 msgid ""
 "Please check your inbox to get the link of your recovery email. Thank you."
-msgstr "Veuillez vérifier votre boîte de réception pour obtenir le lien de votre courriel de récupération. Merci."
+msgstr ""
+"Veuillez vérifier votre boîte de réception pour obtenir le lien de votre "
+"courriel de récupération. Merci."
 
-#: templates/password_reset_email.html:202
+#: baloti_auth/templates/password_reset_email.html:202
 msgid "Hello,"
 msgstr "Bonjour,"
 
-#: templates/password_reset_email.html:208
+#: baloti_auth/templates/password_reset_email.html:208
 msgid ""
 "You're receiving this email because you requested a password reset for your "
 "user account at baloti."
-msgstr "Vous recevez cet e-mail car vous avez demandé une réinitialisation du mot de passe de votre "
-"compte utilisateur chez baloti."
+msgstr ""
+"Vous recevez cet e-mail car vous avez demandé une réinitialisation du mot de "
+"passe de votre compte utilisateur chez baloti."
 
-#: templates/password_reset_email.html:214
+#: baloti_auth/templates/password_reset_email.html:214
 msgid "Please go to the following page and choose a new password"
-msgstr "Veuillez vous rendre sur la page suivante et choisir un nouveau mot de passe."
+msgstr ""
+"Veuillez vous rendre sur la page suivante et choisir un nouveau mot de passe."
 
-#: templates/password_reset_email.html:215
+#: baloti_auth/templates/password_reset_email.html:215
 msgid "Click here"
 msgstr "Cliquez ici"
 
-#: templates/password_reset_email.html:221
+#: baloti_auth/templates/password_reset_email.html:221
 msgid "Your username, in case you've forgotten is"
 msgstr "Votre nom d'utilisateur, au cas où vous l'auriez oublié"
 
-#: templates/password_reset_email.html:238
+#: baloti_auth/templates/password_reset_email.html:238
 msgid "Thanks for using our platform!"
 msgstr "Merci d'utiliser notre plateforme !"
 
-#: templates/password_reset_email.html:242
+#: baloti_auth/templates/password_reset_email.html:242
 msgid "The baloti team"
 msgstr "L'équipe baloti"
 
-#: templates/signup.html:64
+#: baloti_auth/templates/signup.html:64
 msgid "Create account!"
 msgstr "Créez compte"
 
-#: templates/signup.html:67
+#: baloti_auth/templates/signup.html:67
 msgid "You can register with your social login or email address."
-msgstr "Vous pouvez vous inscrire avec votre identifiant social ou votre adresse email."
+msgstr ""
+"Vous pouvez vous inscrire avec votre identifiant social ou votre adresse "
+"email."
 
-#: templates/signup.html:90
+#: baloti_auth/templates/signup.html:90
 msgid "SEND"
 msgstr "ENVOYER"
 
-#: templates/signup.html:92
+#: baloti_auth/templates/signup.html:92
 msgid "Already have an account?"
 msgstr "Vous avez déjà un compte?"
 
-#: templates/signup.html:92
+#: baloti_auth/templates/signup.html:92
 msgid "Login here!"
 msgstr "Connectez-vous ici!"
 
-#: templates/signup_mail.html:209
+#: baloti_auth/templates/signup_mail.html:209
 msgid "Registration information"
 msgstr "Informations d'inscription"
 
-#: templates/signup_mail.html:215
+#: baloti_auth/templates/signup_mail.html:215
 msgid "Thank you for registering at our site."
 msgstr "Merci de vous être inscrit sur notre site."
 
-#: templates/signup_mail.html:216
+#: baloti_auth/templates/signup_mail.html:216
 msgid "You can find your credentials below."
 msgstr "Vous pouvez trouver vos informations d'identification ci-dessous."
 
-#: templates/signup_mail.html:223
+#: baloti_auth/templates/signup_mail.html:223
 msgid "Username:"
 msgstr "Nom d'utilisateur:"
 
-#: templates/signup_mail.html:229
+#: baloti_auth/templates/signup_mail.html:229
 msgid "Password:"
 msgstr "Mot de passe"
 
-#: templates/signup_success.html:64
+#: baloti_auth/templates/signup_success.html:64
 msgid ""
 "Please check your inbox to get the registration informations. Thank you."
-msgstr "Veuillez vérifier votre boîte de réception pour obtenir les informations d'enregistrement. Merci."
+msgstr ""
+"Veuillez vérifier votre boîte de réception pour obtenir les informations "
+"d'enregistrement. Merci."
 
-#: views.py:95
-msgid "Registration information sent by email"
-msgstr "Informations d'inscription envoyées par email"
+#: baloti_auth/views.py:40 baloti_auth/views.py:53
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+
+#: baloti_auth/views.py:55
+#, fuzzy
+#| msgid "Login here!"
+msgid "Login failed!"
+msgstr "Connectez-vous ici!"
+
+#: baloti_auth/views.py:76
+#, fuzzy
+#| msgid "Registration information"
+msgid "Baloti Registration Information"
+msgstr "Informations d'inscription"
+
+#~ msgid "Registration information sent by email"
+#~ msgstr "Informations d'inscription envoyées par email"

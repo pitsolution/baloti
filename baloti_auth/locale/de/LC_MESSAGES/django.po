@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-05 17:35+0530\n"
+"POT-Creation-Date: 2022-05-11 16:38+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: baloti_auth/forms.py:21
+#, fuzzy
+#| msgid "Your username and password didn't match. Please try again."
+msgid "Your old password was entered incorrectly. Please enter it again."
+msgstr ""
+"Ihr Benutzername und Ihr Passwort stimmen nicht überein. Bitte versuchen Sie "
+"es erneut."
 
 #: baloti_auth/templates/change_password.html:64
 msgid "Change Password"
@@ -176,7 +184,7 @@ msgstr "Vielen Dank für das Interesse an unserer Plattform!"
 
 #: baloti_auth/templates/password_reset_email.html:242
 msgid "The baloti team"
-msgstr ""
+msgstr "The baloti team"
 
 #: baloti_auth/templates/signup.html:64
 msgid "Create account!"
