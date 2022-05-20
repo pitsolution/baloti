@@ -54,19 +54,17 @@ $(document).ready(function(){
     $("#filter").keyup(function() {
         var filter = $(this).val(),
         count = 0;
-        var cardlength = $('.app-elections__vote .search').length;
+        var cardlength = $('.search').length;
         $('.search').each(function() {
             if ($(this).text().search(new RegExp(filter, "i")) < 0) {
                 $(this).addClass('d-none');
-                $(this).closest('.app-elections__result').addClass('d-none');
             } 
             else {
                 $(this).removeClass('d-none');
-                $(this).closest('.app-elections__result').removeClass('d-none');
                 count++;
             }
         });
-        displayNoResult(cardlength, '.app-elections__vote .search');
+        displayNoResult(cardlength, '.search');
     });
 
     $(".app-newslist__searchinput").on("click", function(){
@@ -79,16 +77,20 @@ $(document).ready(function(){
         if (cardCount === hiddenLILength.length || card.length === 0) {
           $('.app-nodata').show();
           $('.app-nodata').parent().addClass('app-griditem--nodata');
-          $(hiddenLILength).closest('.app-elections__result').addClass('d-none');
+          $('.app-elections__result').addClass('d-none');
         } else {
             $('.app-nodata').hide();
             $('.app-nodata').parent().removeClass('app-griditem--nodata');
-            $(hiddenLILength).closest('.app-elections__result').removeClass('d-none');
+            $('.app-elections__result').removeClass('d-none');
         }
     }
-    displayNoResult($(".app-elections__vote .search").length, '.search');
     if($('.app-elections__result .search').length === 0){
         $('.app-elections__result').addClass('d-none');
+    }
+    if($('.search').length === 0){
+        $('.app-elections__result').addClass('d-none');
+        $('.app-nodata').show();
+        $('.app-nodata').parent().addClass('app-griditem--nodata');
     }
     
     $("#showBalletModal").on("click", function(){
