@@ -1,0 +1,26 @@
+{
+  "text_a": [
+    {
+      "en": "Mail sent successfully",
+      "de": "E-Mail erfolgreich versendet"
+    }
+  ],
+  "text_b": [
+    {
+      "en": "Fill all the fields",
+      "de": "Füllen Sie alle Felder aus"
+    }
+  ],
+  "text_c": [
+    {
+      "en": "Service not available",
+      "de": "Dienst nicht verfügbar"
+    }
+  ],
+   "text_d": [
+    {
+      "en": "Invalid Email Address",
+      "de": "Ungültige E-Mail"
+    }
+  ]
+}
