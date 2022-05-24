@@ -20,83 +20,83 @@ msgstr ""
 
 #: djelectionguard/components.py:29
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: djelectionguard/components.py:31
 msgid "Time"
-msgstr ""
+msgstr "Zeit"
 
 #: djelectionguard/components.py:50 djelectionguard/components.py:184
 msgid "FORM_ABOUT_ELECTION_CREATE"
-msgstr ""
+msgstr "FORMULAR_WAHL_BESCHREIBUNG_ERSTELLEN"
 
 #: djelectionguard/components.py:179 djelectionguard/components.py:2805
 msgid "FORM_TITLE_ELECTION_CREATE"
-msgstr ""
+msgstr "FORMULAR_WAHL_TITEL_ERSTELLEN"
 
 #: djelectionguard/components.py:180
 msgid "FORM_TITLE_REFERENDUM_TYPE"
-msgstr ""
+msgstr "FORMULAR_REFERENDUM_TITEL_ERSTELLEN"
 
 #: djelectionguard/components.py:181
 msgid "FORM_TITLE_INITIATOR"
-msgstr ""
+msgstr "FORMULAR_INTITIATOR_TITEL"
 
 #: djelectionguard/components.py:182
 msgid "FORM_TITLE_INFAVOUR_ARGUMENTS"
-msgstr ""
+msgstr "FORMULAR_TITEL_PRO_ARGUMENTE"
 
 #: djelectionguard/components.py:183
 msgid "FORM_TITLE_AGAINST_ARGUMENTS"
-msgstr ""
+msgstr "FORMULAR_TITEL_CONTRA_ARGUMENTE"
 
 #: djelectionguard/components.py:189
 msgid "GOVT_INFAVOUR_RESULTS"
-msgstr ""
+msgstr "REGIERUNG_PRO_RESULTATE"
 
 #: djelectionguard/components.py:190
 msgid "GOVT_AGAINST_RESULTS"
-msgstr ""
+msgstr "REGIERUNG_CONTRA_RESULTATE"
 
 #: djelectionguard/components.py:203 djelectionguard/components.py:216
 msgid "create a new initiator"
-msgstr ""
+msgstr "neuer Initiatoren erstellen"
 
 #: djelectionguard/components.py:209 djelectionguard/components.py:222
 msgid "create a new type"
-msgstr ""
+msgstr "neuer Typ erstellen"
 
 #: djelectionguard/components.py:229
 msgid "Update Government Results"
-msgstr ""
+msgstr "Aktualisierung der Regierungsergebnisse"
 
 #: djelectionguard/components.py:244 djelectionguard/components.py:272
 msgid "update issue"
-msgstr ""
+msgstr "Update Thema"
 
 #: djelectionguard/components.py:244 djelectionguard/components.py:272
 msgid "create issue"
-msgstr ""
+msgstr "Thema erstellen"
 
 #: djelectionguard/components.py:251
 msgid "Edit issue"
-msgstr ""
+msgstr "Thema bearbeiten"
 
 #: djelectionguard/components.py:251
 msgid "Create an issue"
-msgstr ""
+msgstr "Ein Thema erstellen"
 
 #: djelectionguard/components.py:255 djelectionguard/components.py:2721
 msgid "Type:"
-msgstr ""
+msgstr "Typ:"
 
 #: djelectionguard/components.py:258
 msgid "Initiator:"
-msgstr ""
+msgstr "Initiator:"
 
 #: djelectionguard/components.py:268
 msgid "Arguments:"
-msgstr ""
+msgstr "Argumente:"
 
 #: djelectionguard/components.py:283 djelectionguard/components.py:286
 #: djelectionguard/components.py:448 djelectionguard/components.py:1307
@@ -114,47 +114,47 @@ msgstr ""
 #: djelectionguard/components.py:3202 djelectionguard/components.py:3204
 #: djelectionguard_tezos/views.py:64
 msgid "back"
-msgstr ""
+"msgstr ""zurŸck"""
 
 #: djelectionguard/components.py:325 djelectionguard/components.py:2882
 msgid "all"
-msgstr ""
+msgstr "alle"
 
 #: djelectionguard/components.py:326 djelectionguard/components.py:2883
 msgid "created by me"
-msgstr ""
+msgstr "von mir erstellt"
 
 #: djelectionguard/components.py:327 djelectionguard/components.py:2884
 msgid "shared with me"
-msgstr ""
+msgstr "mit mir geteilt"
 
 #: djelectionguard/components.py:351 djelectionguard/components.py:2907
 msgid "voting ongoing"
-msgstr ""
+msgstr "Abstimmung lŠuft"
 
 #: djelectionguard/components.py:354 djelectionguard/components.py:2910
 msgid "voting closed"
-msgstr ""
+msgstr "Abstimmung geschlossen"
 
 #: djelectionguard/components.py:357
 msgid "result available"
-msgstr ""
+msgstr "Resultat verfŸgbar"
 
 #: djelectionguard/components.py:359
 msgid ", voted"
-msgstr ""
+msgstr "abgestimmt"
 
 #: djelectionguard/components.py:430
 msgid "Create new issue"
-msgstr ""
+msgstr "Neues Thema erstellen"
 
 #: djelectionguard/components.py:450
 msgid "Issues"
-msgstr ""
+msgstr "Themen"
 
 #: djelectionguard/components.py:461
 msgid "There are no issues yet"
-msgstr ""
+msgstr "Es bestehen noch keine Themen"
 
 #: djelectionguard/components.py:517 djelectionguard/components.py:535
 #: djelectionguard/components.py:562 djelectionguard/components.py:1370
@@ -163,489 +163,494 @@ msgstr ""
 #: djelectionguard/components.py:3007 djelectionguard/components.py:3026
 #: djelectionguard/components.py:3214
 msgid "edit"
-msgstr ""
+msgstr "bearbeiten"
 
 #: djelectionguard/components.py:522 djelectionguard/components.py:3014
 msgid "Basic settings"
-msgstr ""
+msgstr "Grundeinstellungen"
 
 #: djelectionguard/components.py:523
 msgid "Name, votes allowed, time and date, etc."
-msgstr ""
+msgstr "Name, zulŠssige Stimmen, Uhrzeit und Datum, usw."
 
 #: djelectionguard/components.py:538 djelectionguard/components.py:566
 #: djelectionguard/components.py:776 djelectionguard/components.py:1242
 #: djelectionguard/components.py:2436 djelectionguard/components.py:3029
 msgid "add"
-msgstr ""
+msgstr "hinzufŸgen"
 
 #: djelectionguard/components.py:542
 #, python-format
 msgid "%(candidates)d candidates, minimum: %(elected)d"
-msgstr ""
+msgstr "%(candidates)d Stimmen, Minimum: %(elected)d"
 
 #: djelectionguard/components.py:549
 msgid "Add candidates"
-msgstr ""
+msgstr "Wahlmšglichkeit hinzufŸgen"
 
 #: djelectionguard/components.py:564
 #, python-format
 msgid "%(num_voters)d voters"
-msgstr ""
+msgstr "%(num_voters)d Stimmen"
 
 #: djelectionguard/components.py:571
 msgid "Add voters"
-msgstr ""
+msgstr "WŠhler hinzufŸgen"
 
 #: djelectionguard/components.py:609
 msgid ""
 "All guardians must possess a private key so that the ballot box is secure "
 "and the referendum can be opened for voting."
 msgstr ""
+"Alle Verwalter, die das Referendum betreuen, mŸssen Ÿber einen ""private key"" verfŸgen, damit die Wahlurne sicher "
+"ist und das Referendum fŸr die Abstimmung gešffnet werden kann."
 
 #: djelectionguard/components.py:616
 msgid "Download my private key"
-msgstr ""
+msgstr "Meinen ""private key"" herunterladen"
 
 #: djelectionguard/components.py:623 djelectionguard/components.py:1734
 msgid "Confirm possession of an uncompromised private key"
-msgstr ""
+msgstr "BestŠtigung des Besitzes eines unversehrten ""private key"
 
 #: djelectionguard/components.py:635
 msgid "All guardians confirm possession of uncompromised private keys"
-msgstr ""
+msgstr "Alle Verwalter bestŠtigen den Besitz unversehrter ""private keys"
 
 #: djelectionguard/components.py:637
 #, python-format
 msgid "%(confirmed)d/%(gardiens)d confirmed"
-msgstr ""
+msgstr "%(confirmed)d/%(gardiens)d bestŠtigt"
 
 #: djelectionguard/components.py:649
 msgid "Lock the ballot box / erase private keys from server memory"
-msgstr ""
+msgstr "Sperren Sie die Wahlliste / lšschen Sie die ""private keys"" vom Datenspeicher des Servers"
 
 #: djelectionguard/components.py:654 djelectionguard/components.py:1818
 msgid "Open the referendum for voting"
-msgstr ""
+msgstr "…ffnen Sie das Referendum fŸr die Abstimmung"
 
 #: djelectionguard/components.py:656
 msgid ""
 "Guardians must NOT loose their PRIVATE keys and they must keep them SECRET."
-msgstr ""
+msgstr "Die Verwalter dŸrfen ihre ""PRIVATE KEYS"" NICHT verlieren und mŸssen sie GEHEIM halten."
 
 #: djelectionguard/components.py:661
 msgid "download private key"
-msgstr ""
+msgstr "private key"" herunterladen"
 
 #: djelectionguard/components.py:669
 msgid "confirm key integrity"
-msgstr ""
+msgstr "BestŠtigen der IntegritŠt des ""private key"
 
 #: djelectionguard/components.py:676 djelectionguard/components.py:1770
 msgid "Lock the ballot box"
-msgstr ""
+msgstr "Wahlliste sperren"
 
 #: djelectionguard/components.py:682
 msgid "Open for voting"
-msgstr ""
+msgstr "Offen fŸr die Abstimmung"
 
 #: djelectionguard/components.py:697
 msgid "Secure the referendum"
-msgstr ""
+msgstr "Sichern Sie das Referendum"
 
 #: djelectionguard/components.py:701
 msgid "Ballot box securely locked. Referendum can be open for voting."
-msgstr ""
+msgstr "Die Abstimmung ist sicher verschlŸsselt. Das Referendum kann zur Abstimmung gešffnet werden."
 
 #: djelectionguard/components.py:725 djelectionguard_tracker/views.py:181
 msgid "Voted"
-msgstr ""
+msgstr "Abgestimmt"
 
 #: djelectionguard/components.py:728
 msgid ""
 "You casted your vote! The results will be published after the referendum is "
 "closed."
-msgstr ""
+msgstr "Sie haben Ihre Stimme abgegeben! Die Ergebnisse werden nach Abschluss des Referendum veršffentlicht."
 
 #: djelectionguard/components.py:732
 msgid "Track my vote"
-msgstr ""
+msgstr "Abstimmung verfolgen"
 
 #: djelectionguard/components.py:737
 msgid "Cast my vote"
-msgstr ""
+msgstr "Meine Stimme abgeben"
 
 #: djelectionguard/components.py:741
 msgid "vote"
-msgstr ""
+msgstr "abstimmen"
 
 #: djelectionguard/components.py:743
 msgid "You did not vote"
-msgstr ""
+msgstr "Sie haben nicht abgestimmt"
 
 #: djelectionguard/components.py:744
 msgid "The vote is closed, sorry you missed it."
-msgstr ""
+msgstr "Die Abstimmung ist abgeschlossen, leider haben Sie diese verpasst."
 
 #: djelectionguard/components.py:764
 msgid ""
 "Choose the blockchain you want to deploy your referendum smart contract to"
-msgstr ""
+msgstr "WŠhlen Sie die Blockchain, auf der Sie Ihren Refendum ""Smart Contract"" einsetzen mšchten"
 
 #: djelectionguard/components.py:773
 msgid "Add the referendum smart contract"
-msgstr ""
+msgstr "HinzufŸgen des Referendums ""Smart Contract"""
 
 #: djelectionguard/components.py:789
 msgid "close"
-msgstr ""
+msgstr "schliessen"
 
 #: djelectionguard/components.py:794
 msgid "Voting closed"
-msgstr ""
+msgstr "Abstimmung beendet"
 
 #: djelectionguard/components.py:795
 #, python-format
 msgid ""
 "The voting started on %(start)s and was open till %(end)s. Timezone: "
 "%(timezone)s."
-msgstr ""
+msgstr "Die Abstimmung begann am %(start)s und war gešffnet bis %(end)s. Zeitzone: "
+"%(timezone)s."
 
 #: djelectionguard/components.py:807
 msgid "The voting process is currently ongoing"
-msgstr ""
+msgstr "Der Abstimmungsprozess ist zurzeit aktiv"
 
 #: djelectionguard/components.py:808
 #, python-format
 msgid ""
 "The voting started on %(time_start)s and will be closed at %(time_end)s. "
 "Timezone: %(timezone)s"
-msgstr ""
+msgstr "Die Abstimmung begann am %(time_start)s und endet um %(time_end)s. "
+"Zeitzone: %(timezone)s"
 
 #: djelectionguard/components.py:815
 #, python-format
 msgid "Vote link: %(link)s"
-msgstr ""
+msgstr "Link Abstimmung: %(link)s"
 
 #: djelectionguard/components.py:849
 msgid "Upload my private key"
-msgstr ""
+msgstr "Meinen ""private key"" hochladen"
 
 #: djelectionguard/components.py:852 djelectionguard/components.py:903
 msgid ""
 "All guardians need to upload their private keys so that the ballot box can "
 "be opened to reveal the results."
-msgstr ""
+msgstr "Alle Verwalter mŸssen ihre ""private keys"" hochladen, damit die Abstimmung gešffnet werden kann, um die Ergebnisse zu ermitteln."
 
 #: djelectionguard/components.py:857
 msgid "upload my private key"
-msgstr ""
+msgstr "meinen ""private key"" hochladen"
 
 #: djelectionguard/components.py:886
 #, python-format
 msgid "All guardians upload their keys %(uploaded)s/%(guardian)s uploaded"
-msgstr ""
+msgstr "Alle Verwalter laden ihre ""private keys"" hoch %(uploaded)s/%(guardian)s hochgeladen"
 
 #: djelectionguard/components.py:898
 msgid "Unlock the ballot box with encrypted ballots and reveal the results"
-msgstr ""
+msgstr "Entsperren Sie die Abstimmung mit verschlŸsselten Stimmzetteln und geben Sie die Ergebnisse bekannt"
 
 #: djelectionguard/components.py:910
 msgid ""
 "When the referendum is over the guardians use their keys to open the ballot "
 "box and count the results."
-msgstr ""
+msgstr "Nach Abschluss des Referendums šffnen die Verwalter mit ihrem ""key"" die Abstimmung und zŠhlen die Ergebnisse aus."
 
 #: djelectionguard/components.py:914
 msgid "Unlocking the ballot box and revealing the results"
-msgstr ""
+msgstr "Entsperren der Abstimmung und Anzeige der Resultate"
 
 #: djelectionguard/components.py:921
 msgid "reveal results"
-msgstr ""
+msgstr "Resultate anzeigen"
 
 #: djelectionguard/components.py:941
 msgid "Once the ballots are counted you will be notified by email"
-msgstr ""
+msgstr "Sobald die Stimmen ausgezŠhlt sind, werden Sie per E-Mail benachrichtigt"
 
 #: djelectionguard/components.py:952
 msgid "Tallying in progress"
-msgstr ""
+msgstr "Die AuszŠhlung lŠuft derzeit"
 
 #: djelectionguard/components.py:955
 msgid "An email will be sent when finished"
-msgstr ""
+msgstr "Sie erhalten eine E-Mail, wenn der Vorgang abgeschlossen ist."
 
 #: djelectionguard/components.py:959
 msgid "Results available"
-msgstr ""
+msgstr "Resultate sind verfŸgbar"
 
 #: djelectionguard/components.py:962
 msgid "Congratulations! You have been the mediator of a secure referendum."
-msgstr ""
+msgstr "Herzlichen GlŸckwunsch! Sie waren der Verwalter eines sicheren Referendums."
 
 #: djelectionguard/components.py:965
 msgid "view result table"
-msgstr ""
+msgstr "Resultat Tabelle anzeigen"
 
 #: djelectionguard/components.py:1095
 msgid "Secured and decentralised with Tezos"
-msgstr ""
+msgstr "Gesichert und dezentralisiert mit Tezos"
 
 #: djelectionguard/components.py:1097
 #, python-format
 msgid ""
 "Your referendum data and results will be published on Tezos’ %(blockchain)s "
 "blockchain."
-msgstr ""
+msgstr "
+"Ihre Referendumsdaten und -resultate werden auf der Blockchain von Tezos veršffentlichtâ€™ %(blockchain)s.""
 
 #: djelectionguard/components.py:1102
 msgid "Election contract created"
-msgstr ""
+msgstr "Wahlvertrag erstellt"
 
 #: djelectionguard/components.py:1103
 msgid "Election opened"
-msgstr ""
+msgstr "Wahl gešffnet"
 
 #: djelectionguard/components.py:1104
 msgid "Election closed"
-msgstr ""
+msgstr "Wahl beendet"
 
 #: djelectionguard/components.py:1105
 msgid "Election Results available"
-msgstr ""
+msgstr "Wahlresultate verfŸgbar"
 
 #: djelectionguard/components.py:1106
 msgid "Election contract updated"
-msgstr ""
+msgstr "Wahlvertrag aktualisiert"
 
 #: djelectionguard/components.py:1129
 msgid "Download"
-msgstr ""
+msgstr "Download"
 
 #: djelectionguard/components.py:1136
 msgid "Upload"
-msgstr ""
+msgstr "Hochladen"
 
 #: djelectionguard/components.py:1144
 msgid "email"
-msgstr ""
+msgstr "E-Mail"
 
 #: djelectionguard/components.py:1144
 msgid "key downloaded"
-msgstr ""
+msgstr """key"" heruntergeladen"
 
 #: djelectionguard/components.py:1144
 msgid "key verified"
-msgstr ""
+msgstr """key"" verifiziert"
 
 #: djelectionguard/components.py:1207
 msgid "Guardians"
-msgstr ""
+msgstr "Verwalter"
 
 #: djelectionguard/components.py:1220 djelectionguard/components.py:1469
 msgid "Candidates"
-msgstr ""
+msgstr "Wahlmšglichkeiten"
 
 #: djelectionguard/components.py:1237
 msgid "view all"
-msgstr ""
+msgstr "alle anzeigen"
 
 #: djelectionguard/components.py:1239
 msgid "view all/edit"
-msgstr ""
+msgstr "alle anzeigen/bearbeiten"
 
 #: djelectionguard/components.py:1245 djelectionguard/components.py:2388
 msgid "Voters"
-msgstr ""
+msgstr "WŠhler"
 
 #: djelectionguard/components.py:1246
 #, python-format
 msgid "%(voters)s voters added"
-msgstr ""
+msgstr "%(voters)s WŠhler hinzugefŸgt"
 
 #: djelectionguard/components.py:1411 djelectionguard/components.py:1435
 msgid "No candidate yet."
-msgstr ""
+msgstr "Noch kein Wahlmšglichkeiten."
 
 #: djelectionguard/components.py:1451
 msgid "No voter yet."
-msgstr ""
+msgstr "Noch kein WŠhler vorhanden."
 
 #: djelectionguard/components.py:1519
 msgid "Copy link"
-msgstr ""
+msgstr "Link kopieren"
 
 #: djelectionguard/components.py:1575
 msgid "edit voters"
-msgstr ""
+msgstr "WŠhler bearbeiten"
 
 #: djelectionguard/components.py:1582
 msgid "invite new voters"
-msgstr ""
+msgstr "neue WŠhler einladen"
 
 #: djelectionguard/components.py:1597 djelectionguard/components.py:1708
 #, python-format
 msgid "%(count)s Voters"
-msgstr ""
+msgstr "%(count)s WŠhler"
 
 #: djelectionguard/components.py:1648
 msgid "Add candidate"
-msgstr ""
+msgstr "Wahlmšglichkeit hinzufŸgen"
 
 #: djelectionguard/components.py:1654
 #, python-format
 msgid "%(count)s Candidates"
-msgstr ""
+msgstr "%(count)s Wahlmšglichkeiten"
 
 #: djelectionguard/components.py:1658
 msgid "Add a candidate"
-msgstr ""
+msgstr "Einen Wahlmšglichkeiten hinzufŸgen"
 
 #: djelectionguard/components.py:1674 djelectionguard/components.py:2519
 #: djelectionguard/components.py:3050
 msgid "delete"
-msgstr ""
+msgstr "lšschen"
 
 #: djelectionguard/components.py:1681
 msgid "Edit candidate"
-msgstr ""
+msgstr "Wahlmšglichkeiten bearbeiten"
 
 #: djelectionguard/components.py:1689 djelectionguard/components.py:1713
 #: djelectionguard/components.py:2413 djelectionguard/components.py:2534
 msgid "Save"
-msgstr ""
+msgstr "Speichern"
 
 #: djelectionguard/components.py:1709
 msgid ""
 "The list of allowed voters with one email per line (sparated by Enter/Return "
 "⏎)"
-msgstr ""
+msgstr "Die Liste der zugelassenen WŠhler mit einer E-Mail pro Zeile (durch Enter/Return âŽ)"
 
 #: djelectionguard/components.py:1730 djelectionguard/components.py:1854
 #: djelectionguard/components.py:2080 electeez_auth/components.py:123
 msgid "confirm"
-msgstr ""
+msgstr "bestŠtigen"
 
 #: djelectionguard/components.py:1735
 msgid ""
 "You need to upload your private key to confirm that you posses a valid key "
 "that hasn’t been temepered with."
-msgstr ""
+msgstr "Sie mŸssen Ihren ""private key"" hochladen, um zu bestŠtigen, dass Sie im Besitz eines gŸltigen ""keys"" sind, der nichtâ€™t manipuliert wurde."""
 
 #: djelectionguard/components.py:1739 djelectionguard/components.py:2089
 msgid "Choose file"
-msgstr ""
+msgstr "Datei auswŠhlen"
 
 #: djelectionguard/components.py:1740 djelectionguard/components.py:2090
 msgid "Your privacy key is a file with '.pkl' extension."
-msgstr ""
+msgstr "Ihr ""privacy key"" ist eine Datei mit der Dateiendung "".pkl""."
 
 #: djelectionguard/components.py:1772
 msgid "This will remove all guardians’ private keys from the server memory."
-msgstr ""
+msgstr "Dadurch werden alle ""private keys"" der Verwalter aus dem Speicher des Servers entfernt."
 
 #: djelectionguard/components.py:1773
 msgid ""
 "When the voting is over the ballot box can only be opened when all guardians "
 "upload their private keys."
-msgstr ""
+msgstr "Nach Abschluss der Abstimmung kann diese nur gešffnet werden, wenn alle Verwalter ihre ""private keys"" hochgeladen haben."
 
 #: djelectionguard/components.py:1774
 msgid "This is what makes the governing of the election decentralised."
-msgstr ""
+msgstr "Dadurch wird die Verwaltung der Wahl dezentralisiert."
 
 #: djelectionguard/components.py:1779
 msgid "create"
-msgstr ""
+msgstr "erstellen"
 
 #: djelectionguard/components.py:1797
 msgid "Send an invite to the newly added voters"
-msgstr ""
+msgstr "Senden Sie eine Einladung an die neu hinzugefŸgten WŠhler"
 
 #: djelectionguard/components.py:1820
 msgid "Once you open the referendum for voting you can’t make changes to it."
-msgstr ""
+msgstr "Sobald Sie das Referendum zur Abstimmung freigegeben habenâ€™t kšnnen Sie es nicht mehr Šndern."
 
 #: djelectionguard/components.py:1828 djelectionguard/components.py:2130
 msgid "Do not alert voters by email"
-msgstr ""
+msgstr "Keine Benachrichtigung an WŠhler per E-Mail"
 
 #: djelectionguard/components.py:1832
 msgid "open"
-msgstr ""
+msgstr "offen"
 
 #: djelectionguard/components.py:1852
 msgid "modify"
-msgstr ""
+msgstr "anpassen"
 
 #: djelectionguard/components.py:1863
 msgid "If you want it, you have"
-msgstr ""
+msgstr "Wenn Sie es wollen, mŸssen Sie"
 
 #: djelectionguard/components.py:1864
 msgid "choice left"
-msgstr ""
+msgstr "Auswahl links"
 
 #: djelectionguard/components.py:1865
 msgid "choices left"
-msgstr ""
+msgstr "Auswahlen links"
 
 #: djelectionguard/components.py:1870
 msgid "Confirm your selection"
-msgstr ""
+msgstr "BestŠtigen Sie Ihre Auswahl"
 
 #: djelectionguard/components.py:1872
 msgid ""
 "Be careful, once confirmed, your choice is definitive and cannot be changed"
-msgstr ""
+msgstr "Achtung: Einmal bestŠtigt, ist Ihre Wahl endgŸltig und kann nicht mehr geŠndert werden."
 
 #: djelectionguard/components.py:1972
 #, python-format
 msgid "You have up to a total of %(vote_allowed)s choice"
-msgstr ""
+msgstr "Sie haben insgesamt %(vote_allowed)s der Stimmen"
 
 #: djelectionguard/components.py:1988
 msgid "create ballot"
-msgstr ""
+msgstr "Stimme abgeben"
 
 #: djelectionguard/components.py:2012
 msgid "Your vote has been validated!"
-msgstr ""
+msgstr "Ihre Stimme wurde fŸr gŸltig erklŠrt!"
 
 #: djelectionguard/components.py:2016
 msgid ""
 "Thank you for your participation. Your secret vote has been taken in "
 "account. You can, if you want, close this page."
-msgstr ""
+msgstr "Ihre Stimme wurde berŸcksichtigt, wir danken Ihnen fŸr Ihre Teilnahme. Sie kšnnen, wenn Sie mšchten, diese Seite schliessen."""
 
 #: djelectionguard/components.py:2025
 msgid "How does electronic voting work?"
-msgstr ""
+msgstr "Wie funktioniert die elektronische Stimmabgabe?"
 
 #: djelectionguard/components.py:2032
 msgid "ELECTRONIC_VOTE_EXPLAINATION"
-msgstr ""
+msgstr "ELEKTRONISCHE_STIMMABGABE_ERKL€RUNG"
 
 #: djelectionguard/components.py:2034
 msgid "here"
-msgstr ""
+msgstr "hier"
 
 #: djelectionguard/components.py:2055
 msgid "Manual closing of the referendum"
-msgstr ""
+msgstr "Manuelle Schliessung des Referendums"
 
 #: djelectionguard/components.py:2057
 msgid "This will stop the voting process and it can't be undone."
-msgstr ""
+msgstr "Dadurch wird der Abstimmungsprozess gestoppt und kann nicht mehr rŸckgŠngig gemacht werden."
 
 #: djelectionguard/components.py:2062
 msgid "close the referendum now"
-msgstr ""
+msgstr "das Referendum jetzt beenden"
 
 #: djelectionguard/components.py:2084
 msgid "Verify your private key"
-msgstr ""
+msgstr "Verifizieren Sie Ihren ""private key"""
 
 #: djelectionguard/components.py:2085
 msgid ""
@@ -654,432 +659,446 @@ msgstr ""
 
 #: djelectionguard/components.py:2121
 msgid "Open ballot box"
-msgstr ""
+msgstr "Abstimmung šffnen"
 
 #: djelectionguard/components.py:2123
 msgid "This process will erase all guardian keys from server memory."
-msgstr ""
+msgstr "Dieser Vorgang lšscht alle Verwalter ""keys"" aus dem Speicher des Servers."
 
 #: djelectionguard/components.py:2134
 msgid "open and view results"
-msgstr ""
+msgstr "šffnen und Resultate anzeigen"
 
 #: djelectionguard/components.py:2145
 msgid "Publish your referendum results"
-msgstr ""
+msgstr "Veršffentlichen Sie Ihre Referendums Resultat"
 
 #: djelectionguard/components.py:2147
 msgid "This will decentralize your referendum results."
-msgstr ""
+msgstr "Dadurch werden die Resultate Ihres Referendums dezentralisiert."
 
 #: djelectionguard/components.py:2152 djelectionguard/components.py:2314
 msgid "publish results"
-msgstr ""
+msgstr "Resultate veršffentlichen"
 
 #: djelectionguard/components.py:2224
 msgid "Referendum report"
-msgstr ""
+msgstr "Referendumsbericht"
 
 #: djelectionguard/components.py:2226
 msgid "On Tezos' blockchain"
-msgstr ""
+msgstr "Auf der Blockchain von Tezos"
 
 #: djelectionguard/components.py:2234 djelectionguard/components.py:2244
 msgid "Referendum datas"
-msgstr ""
+msgstr "Daten zum Referendum"
 
 #: djelectionguard/components.py:2236
 msgid "Local data"
-msgstr ""
+msgstr "Lokale Daten"
 
 #: djelectionguard/components.py:2246
 msgid "On IPFS, decentralized"
-msgstr ""
+msgstr "Auf IPFS, dezentralisiert"
 
 #: djelectionguard/components.py:2324
 msgid "Results"
-msgstr ""
+msgstr "Resultate"
 
 #: djelectionguard/components.py:2393
 msgid "Add guardians"
-msgstr ""
+msgstr "Verwalter hinzufŸgen"
 
 #: djelectionguard/components.py:2395
 msgid ""
 "Guardians are responsible for locking and unlocking of the ballot box with "
 "their private keys."
-msgstr ""
+msgstr "Die Verwalter sind fŸr das Ver- und Entriegeln der Abstimmung mit ihren ""private keys"" zustŠndig."
 
 #: djelectionguard/components.py:2399
 msgid "No guardians for speed and simplicity (default)."
-msgstr ""
+msgstr "Keine Verwalter fŸr Geschwindigkeit und Einfachheit (Standard)."
 
 #: djelectionguard/components.py:2400
 msgid ""
 " Electis App will technically be your guardian and can secure your ballot "
 "box."
-msgstr ""
+msgstr "Electis App wird Ihre Abstimmung schŸtzen."
 
 #: djelectionguard/components.py:2403
 msgid "GUARDIAN_HELP_TEXT"
-msgstr ""
+msgstr "VERWALTER_HILFE_TEXT"
 
 #: djelectionguard/components.py:2408
 msgid "add guardian"
-msgstr ""
+msgstr " Verwalter hinzufŸgen"
 
 #: djelectionguard/components.py:2441
 #, python-format
 msgid " %(infavour_recommender)s Infavour, %(against_recommender)s Against"
-msgstr ""
+msgstr " %(infavour_recommender)s Pro, %(against_recommender)s Contra"
 
 #: djelectionguard/components.py:2447 djelectionguard/components.py:2493
 msgid "Add recommender"
-msgstr ""
+msgstr "BefŸrworter hinzufŸgen"
 
 #: djelectionguard/components.py:2486
 msgid "create a new recommender"
-msgstr ""
+msgstr "einen neuen BefŸrworter erstellen"
 
 #: djelectionguard/components.py:2500
 #, python-format
 msgid "%(count)s Recommenders"
-msgstr ""
+msgstr "%(count)s BefŸrworter"
 
 #: djelectionguard/components.py:2504
 msgid "Add a recommender"
-msgstr ""
+msgstr "Ein BefŸrworter hinzufŸgen"
 
 #: djelectionguard/components.py:2526
 msgid "Edit recommender"
-msgstr ""
+msgstr "BefŸrworter bearbeiten"
 
 #: djelectionguard/components.py:2634 djelectionguard/components.py:2657
 msgid "No recommender yet."
-msgstr ""
+msgstr "Bislang kein BefŸrworter"
 
 #: djelectionguard/components.py:2703
 msgid "FORM_TITLE_RECOMMENDER_CREATE"
-msgstr ""
+msgstr "FORMULAR_BEF†RWORTER_TITEL_ERSTELLEN"
 
 #: djelectionguard/components.py:2704
 msgid "FORM_RECOMMENDER_TYPE_CREATE"
-msgstr ""
+msgstr "FORMULAR_BEF†RWORTER_TYP_ERSTELLEN"
 
 #: djelectionguard/components.py:2705
 msgid "FORM_RECOMMENDER_PICTURE_CREATE"
-msgstr ""
+msgstr "FORMULAR_BEF†RWORTER_BILD_ERSTELLEN"
 
 #: djelectionguard/components.py:2717
 msgid "Create a new recommender"
-msgstr ""
+msgstr "Einen neuen BefŸrworter erstellen"
 
 #: djelectionguard/components.py:2719 djelectionguard/components.py:3142
 #: djelectionguard/components.py:3187
 msgid "Name:"
-msgstr ""
+msgstr "Name:"
 
 #: djelectionguard/components.py:2723
 msgid "Picture:"
-msgstr ""
+msgstr "Bild:"
 
 #: djelectionguard/components.py:2726
 msgid "create recommender"
-msgstr ""
+msgstr "BefŸrworter erstellen"
 
 #: djelectionguard/components.py:2747
 msgid "Start date should be a date in future"
-msgstr ""
+msgstr "Startdatum sollte ein Datum in der Zukunft sein"
 
 #: djelectionguard/components.py:2748
 msgid "End date should be a date in future"
-msgstr ""
+msgstr "Enddatum sollte ein Datum in der Zukunft sein"
 
 #: djelectionguard/components.py:2749
 msgid "End date should be greater than start date"
-msgstr ""
+msgstr "Das Enddatum sollte gršsser sein als das Startdatum"
 
 #: djelectionguard/components.py:2806
 msgid "FORM_START_ELECTION_CREATE"
-msgstr ""
+msgstr "FORMULAR_WAHL_START_ERSTELLEN"
 
 #: djelectionguard/components.py:2807
 msgid "FORM_END_ELECTION_CREATE"
-msgstr ""
+msgstr "FORMULAR_WAHL_ENDE_ERSTELLEN"
 
 #: djelectionguard/components.py:2808
 msgid "FORM_TIMEZONE_ELECTION_CREATE"
-msgstr ""
+msgstr "FORMULAR_WAHL_ZEITZONE_ERSTELLEN"
 
 #: djelectionguard/components.py:2821
 msgid "Edit referendum"
-msgstr ""
+msgstr "Referendum bearbeiten"
 
 #: djelectionguard/components.py:2821
 msgid "Create a referendum"
-msgstr ""
+msgstr "Ein Referendum erstellen"
 
 #: djelectionguard/components.py:2824
 msgid "Referendum starts:"
-msgstr ""
+msgstr "Referendum beginnt:"
 
 #: djelectionguard/components.py:2826
 msgid "Referendum ends:"
-msgstr ""
+msgstr "Referendum endet:"
 
 #: djelectionguard/components.py:2832
 msgid "update referendum"
-msgstr ""
+msgstr "Update Referendum"
 
 #: djelectionguard/components.py:2832
 msgid "create referendum"
-msgstr ""
+msgstr "Referendum erstellen"
 
 #: djelectionguard/components.py:2966
 msgid "Create new referendum"
-msgstr ""
+msgstr "Neues Referendum erstellen"
 
 #: djelectionguard/components.py:2982
 msgid "Referendums"
-msgstr ""
+msgstr "Referenden"
 
 #: djelectionguard/components.py:2993
 msgid "There are no referendums yet"
-msgstr ""
+msgstr "Es gibt noch keine Referenden"
 
 #: djelectionguard/components.py:3015
 msgid "Name, time and date, etc."
-msgstr ""
+msgstr "Name, Uhrzeit und Datum, etc."
 
 #: djelectionguard/components.py:3031
 #, python-format
 msgid " %(issue)s Issues"
-msgstr ""
+msgstr " %(issue)s Themen"
 
 #: djelectionguard/components.py:3035
 msgid "Add Issues"
-msgstr ""
+msgstr "Themen hinzufŸgen"
 
 #: djelectionguard/components.py:3110 electeez_auth/components.py:61
 msgid "my referendums"
-msgstr ""
+msgstr "meine Referenden"
 
 #: djelectionguard/components.py:3128
 msgid "FORM_TITLE_INITIATOR_CREATE"
-msgstr ""
+msgstr "FORMULAR_TITEL_INITIATOR_ERSTELLEN"
 
 #: djelectionguard/components.py:3140
 msgid "Create a new initiator"
-msgstr ""
+msgstr "Einen neuen Initiator erstellen"
 
 #: djelectionguard/components.py:3145
 msgid "create initiator"
-msgstr ""
+msgstr "Initiator erstellen"
 
 #: djelectionguard/components.py:3173
 msgid "FORM_TITLE_ISSUE_TYPE_CREATE"
-msgstr ""
+msgstr "FORMULAR_TITEL_THEMEN_TYP_ERSTELLEN"
 
 #: djelectionguard/components.py:3185
 msgid "Create a new issue type"
-msgstr ""
+msgstr "Erstellen Sie ein neuer Themen Typ"
 
 #: djelectionguard/components.py:3190
 msgid "create issue type"
-msgstr ""
+msgstr "neuer Themen Typ erstellen"
 
 #: djelectionguard/components.py:3220
 msgid "Switzerland Government Results"
-msgstr ""
+msgstr "Schweiz Regierung Resultate"
 
 #: djelectionguard/components.py:3221
 msgid "Infavour/Against Percentages"
-msgstr ""
+msgstr "Prozentualer Anteil der BefŸrworter/Gegner"
 
 #: djelectionguard/models.py:36
 msgid "Must be above 0, you have choosen:"
-msgstr ""
+msgstr "Muss Ÿber 0 sein, Sie haben gewŠhlt:"
 
 #: djelectionguard/models.py:649
 #, python-format
 msgid "The contest %(contest)s has been tallied"
-msgstr ""
+msgstr "Die Abstimmung %(contest)s wurde ausgezŠhlt"
 
 #: djelectionguard/models.py:652
 msgid "The contest you wanted to decrypt was not found"
-msgstr ""
+msgstr "Die Abstimmung, die Sie entschlŸsseln wollten, wurde nicht gefunden"
 
 #: djelectionguard/models.py:655
 #, python-format
 msgid "The decryption raised the exception %(exception)s"
-msgstr ""
+msgstr "Die Dekodierung lšste die Ausnahme %(exception)s aus"
 
 #: djelectionguard/models.py:663
 msgid "unknown"
-msgstr ""
+msgstr "unbekannt"
 
 #: djelectionguard/models.py:662
 #, python-format
 msgid "Contest %(contest)s decryption"
-msgstr ""
+msgstr "Referendum %(contest)s EntschlŸsselung"
 
 #: djelectionguard/views.py:144
 #, python-format
 msgid "You have created contest %(obj)s"
-msgstr ""
+msgstr "Sie haben Referendum %(obj)s erstellt"
 
 #: djelectionguard/views.py:203 djelectionguard/views.py:1832
 #, python-format
 msgid "You have updated contest %(obj)s"
-msgstr ""
+msgstr "Sie haben das Referendum %(obj)s aktualisiert"
 
 #: djelectionguard/views.py:308 djelectionguard/views.py:479
 msgid "Email title"
-msgstr ""
+msgstr "E-Mail Titel"
 
 #: djelectionguard/views.py:309 djelectionguard/views.py:478
 msgid "Title of the email that will be sent to each voter"
-msgstr ""
+msgstr "Titel der E-Mail, die an jeden WŠhler gesendet wird"
 
 #: djelectionguard/views.py:313 djelectionguard/views.py:483
 msgid "Email message"
-msgstr ""
+msgstr "E-Mail Nachricht"
 
 #: djelectionguard/views.py:314
 msgid ""
 "Body of the email that will be sent, LINK will be replaced by the voting link"
-msgstr ""
+msgstr "Text der E-Mail, die versendet wird, LINK wird durch den Abstimmungslink ersetzt"
 
 #: djelectionguard/views.py:324
 #, python-format
 msgid ""
 "Hello, Referendum %(obj)s is open for voting, you may use the link belox: "
 "LINK Happy voting!"
-msgstr ""
+msgstr "Hallo, das Referendum %(obj)s ist offen fŸr die Abstimmung, Sie kšnnen den untenstehenden Link benutzen: LINK Viel Spass bei der Abstimmung!"
 
 #: djelectionguard/views.py:332
 #, python-format
 msgid "Referendum %(obj)s is open for voting"
-msgstr ""
+msgstr "Referendum %(obj)s ist eršffnet fŸr die Abstimmung"
 
 #: djelectionguard/views.py:366
 msgid "Send invite"
-msgstr ""
+msgstr "Einladung verschicken"
 
 #: djelectionguard/views.py:388
 msgid "Open votes"
-msgstr ""
+msgstr "Offene Abstimmungen"
 
 #: djelectionguard/views.py:389
 msgid "Create the Encrypter and BallotBox and open contest for voting"
-msgstr ""
+msgstr "Erstellen Sie den Encrypter und die Abstimmung und starten Sie die Abstimmung"
 
 #: djelectionguard/views.py:394
 msgid "Must have more candidates than number elected"
-msgstr ""
+msgstr "Es mŸssen mehr Kandidaten aufgestellt werden als gewŠhlt werden"
 
 #: djelectionguard/views.py:417
 #, python-format
 msgid "You have open contest %(obj)s"
-msgstr ""
+msgstr "Sie haben das Referendum %(obj)s gešffnet"
 
 #: djelectionguard/views.py:463
 #, python-format
 msgid "You have closed contest %(obj)s"
-msgstr ""
+msgstr "Sie haben das Referendum %(obj)s geschlossen"
 
 #: djelectionguard/views.py:484
 msgid ""
 "Body of the email that will be sent, LINK will be replaced by the result link"
-msgstr ""
+msgstr "Text der E-Mail, die versendet wird, LINK wird durch den Resultat-Link ersetzt"
 
 #: djelectionguard/views.py:491
 #, python-format
 msgid ""
 "Hello, Referendum %(obj)s has been tallied, you may use this link below to "
 "check the results: LINK Thank you for voting on %(obj)s"
-msgstr ""
+msgstr "Hallo, das Referendum %(obj)s wurde ausgezŠhlt, Sie kšnnen diesen Link unten benutzen, um die Resultate einzusehen: LINK Danke fŸr die Abstimmung Ÿber %(obj)s"
 
 #: djelectionguard/views.py:499
 #, python-format
 msgid "Referendum %(obj)s is has been tallied"
-msgstr ""
+msgstr "Das Referendum %(obj)s wurde ausgezŠhlt"
 
 #: djelectionguard/views.py:535
 #, python-format
 msgid "You have started tallying for %(obj)s"
-msgstr ""
+msgstr "Sie haben mit der ZŠhlung fŸr %(obj)s begonnen"
 
 #: djelectionguard/views.py:558
 msgid "IPFS not initialized on this node"
-msgstr ""
+msgstr "IPFS auf diesem Netzwerk nicht initialisiert"
 
 #: djelectionguard/views.py:577
 #, python-format
 msgid "You have published artifacts for %(obj)s on IPFS"
-msgstr ""
+msgstr "Sie haben Artefakte fŸr %(obj)s auf IPFS veršffentlicht"
 
 #: djelectionguard/views.py:666
 msgid "You have completed the ceremony for"
-msgstr ""
+msgstr "Sie haben die Wahl abgeschlossen fŸr"
 
 #: djelectionguard/views.py:670
 msgid "Guardian keypairs have been deleted from our memory"
-msgstr ""
+msgstr "Verwalter ""keypairs""wurden aus unserem Speicher gelšscht"
 
 #: djelectionguard/views.py:686
 msgid "Please get a magic link to proceed to secure vote"
-msgstr ""
+msgstr "Bitte erhalten Sie einen ""magic link"", um die Abstimmung zu sichern"
 
 #: djelectionguard/views.py:699
 #, python-format
 msgid "You are not registered to vote on %(obj)s"
-msgstr ""
+msgstr "Sie sind nicht registriert, um am %(obj)s zu wŠhlen"
 
 #: djelectionguard/views.py:703
 #, python-format
 msgid "%(obj)s vote is closed"
-msgstr ""
+msgstr ""%obj)s Abstimmung ist beendet"
 
 #: djelectionguard/views.py:706
 #, python-format
 msgid "%(obj)s vote is not yet open"
-msgstr ""
+msgstr ""%obj)s Abstimmung ist noch nicht offen"
 
 #: djelectionguard/views.py:711
 #, python-format
 msgid "You have already casted your vote for %(obj)s"
-msgstr ""
+msgstr "Sie haben bereits Ihre Stimme fŸr %(obj)s abgegeben"
 
 #: djelectionguard/views.py:722
 msgid "Create ballot"
-msgstr ""
+msgstr "Stimmzettel erstellen"
 
 #: djelectionguard/views.py:732
 msgid "; you have:"
-msgstr ""
+msgstr "; Sie haben:"
 
 #: djelectionguard/views.py:781
 #, python-format
 msgid "You spoiled your ballot for %(obj)s you can make another ballot"
-msgstr ""
+msgstr "Sie haben Ihren Stimmzettel fŸr %(obj)s verworfen, Sie kšnnen einen neuen Stimmzettel abgeben"
 
 #: djelectionguard/views.py:791
 #, python-format
 msgid "You casted your ballot for %(obj)s"
-msgstr ""
+msgstr "Sie haben Ihre Stimme fŸr %(obj)s abgegeben"
 
 #: djelectionguard/views.py:854
 msgid "Sous-texte"
-msgstr ""
+msgstr "Beschreibung"
 
 #: djelectionguard/views.py:858 djelectionguard/views.py:885
 msgid "CANDIDATE_PICTURE"
-msgstr ""
+msgstr "KANDIDAT_BILD"
 
 #: djelectionguard/views.py:883
 msgid "CANDIDATE_NAME"
-msgstr ""
+msgstr "KANDIDAT_NAME"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #: djelectionguard/views.py:884
 msgid "CANDIDATE_DESCRIPTION"
@@ -1087,168 +1106,168 @@ msgstr ""
 
 #: djelectionguard/views.py:915
 msgid "You have added candidate"
-msgstr ""
+msgstr "Sie haben einen Kandidaten hinzugefŸgt"
 
 #: djelectionguard/views.py:949
 msgid "You have updated candidate"
-msgstr ""
+msgstr "Sie haben den Kandidaten aktualisiert"
 
 #: djelectionguard/views.py:975
 msgid "You have removed candidate"
-msgstr ""
+msgstr "Sie haben den Kandidaten entfernt"
 
 #: djelectionguard/views.py:996
 msgid "Minimum guardians needed to unlock the ballot box"
-msgstr ""
+msgstr "Erforderliche Mindestanzahl von Verwalter zum …ffnen der Abstimmung"
 
 #: djelectionguard/views.py:1007
 msgid "User not found"
-msgstr ""
+msgstr "Benutzer wurde nicht gefunden"
 
 #: djelectionguard/views.py:1011
 msgid "already added!"
-msgstr ""
+msgstr "bereits hinzugefŸgt!"
 
 #: djelectionguard/views.py:1021
 msgid "Cannot be higher than the number of guardians"
-msgstr ""
+msgstr "Kann nicht hšher sein als die Anzahl der Verwalter"
 
 #: djelectionguard/views.py:1068
 #, python-format
 msgid "You have invited %(obj)s as guardian"
-msgstr ""
+msgstr "Sie haben %(obj)s als Verwalter eingeladen"
 
 #: djelectionguard/views.py:1073
 #, python-format
 msgid "Quorum set to %(quorum)s"
-msgstr ""
+msgstr "Quote auf %(quorum)s gesetzt"
 
 #: djelectionguard/views.py:1103
 #, python-format
 msgid "Quorum set to %(quorum)s to match the number of guardians"
-msgstr ""
+msgstr "Quote auf %(quorum)s gesetzt, um der Anzahl der Verwalter zu entsprechen"
 
 #: djelectionguard/views.py:1109
 #, python-format
 msgid "You have removed guardian %(guardian)s"
-msgstr ""
+msgstr "Sie haben den Verwalter %(guardian)s entfernt"
 
 #: djelectionguard/views.py:1140
 msgid "Verify integrity"
-msgstr ""
+msgstr "IntegritŠt prŸfen"
 
 #: djelectionguard/views.py:1151
 msgid "File corrupted, please try downloading again"
-msgstr ""
+msgstr "Datei beschŠdigt, bitte versuchen Sie erneut herunterzuladen"
 
 #: djelectionguard/views.py:1162
 #, python-format
 msgid "You have verified your guardian key for %(obj)s"
-msgstr ""
+msgstr "Sie haben Ihren Verwalter ""key"" fŸr %(obj)s ŸberprŸft"
 
 #: djelectionguard/views.py:1196
 msgid "The provided guardian key is invalid"
-msgstr ""
+msgstr "Der angegebene Verwalter ""key"" ist ungŸltig"
 
 #: djelectionguard/views.py:1207
 #, python-format
 msgid "You have uploaded your guardian key for %(obj)s"
-msgstr ""
+msgstr "Sie haben Ihren Verwalter ""key"" fŸr %(obj)s hochgeladen"
 
 #: djelectionguard/views.py:1302
 msgid "Please remove lines containing invalid emails: "
-msgstr ""
+msgstr "Bitte entfernen Sie Zeilen mit ungŸltigen E-Mail Adressen: "
 
 #: djelectionguard/views.py:1309
 msgid "Update voters"
-msgstr ""
+msgstr "WŠhler aktualisieren"
 
 #: djelectionguard/views.py:1311
 msgid "Voters emails"
-msgstr ""
+msgstr "WŠhler E-Mails"
 
 #: djelectionguard/views.py:1312
 msgid "The list of allowed voters with one email per line"
-msgstr ""
+msgstr "Die Liste der zugelassenen WŠhler mit einer E-Mail pro Zeile"
 
 #: djelectionguard/views.py:1385
 #, python-format
 msgid "You have updated voters for contest %(obj)s"
-msgstr ""
+msgstr "Sie haben WŠhler fŸr Abstimmung %(obj)s aktualisiert"
 
 #: djelectionguard/views.py:1455
 msgid "RECOMMENDER_NAME"
-msgstr ""
+msgstr "BEF†RWORTER_NAME"
 
 #: djelectionguard/views.py:1456
 msgid "RECOMMENDER_TYPE"
-msgstr ""
+msgstr "BEF†RWORTER_TYP"
 
 #: djelectionguard/views.py:1491
 msgid "You have added recommender"
-msgstr ""
+msgstr "Sie haben ein BefŸrworter hinzugefŸgt"
 
 #: djelectionguard/views.py:1523
 msgid "You have updated recommender"
-msgstr ""
+msgstr "Sie haben ein BefŸrworter upgedated"
 
 #: djelectionguard/views.py:1547
 msgid "You have removed recommender"
-msgstr ""
+msgstr "Sie haben ein BefŸrworter entfernt"
 
 #: djelectionguard/views.py:1574
 #, python-format
 msgid "You have created recommender %(obj)s"
-msgstr ""
+msgstr "Sie haben BefŸrworter %(obj)s erstellt"
 
 #: djelectionguard/views.py:1611
 #, python-format
 msgid "You have created parentcontest %(obj)s"
-msgstr ""
+msgstr "Sie haben eine Referendum %(obj)s erstellt"
 
 #: djelectionguard/views.py:1643
 #, python-format
 msgid "You have updated parentcontest %(obj)s"
-msgstr ""
+msgstr "Sie haben eine Referendum %(obj)s aktualisiert"
 
 #: djelectionguard/views.py:1680
 msgid "You have removed referendum"
-msgstr ""
+msgstr "Sie haben eine Referendum %(obj)s entfernt"
 
 #: djelectionguard/views.py:1738
 #, python-format
 msgid "You have created initiator %(obj)s"
-msgstr ""
+msgstr "Sie haben den Initiator %(obj)s erstellt"
 
 #: djelectionguard/views.py:1792
 #, python-format
 msgid "You have created contest type %(obj)s"
-msgstr ""
+msgstr "Sie haben die Abstimmungsart %(obj)s erstellt"
 
 #: djelectionguard/views.py:1826
 msgid "The total percentage of results is not allowed to exceed 100"
-msgstr ""
+msgstr "Der Gesamtprozentsatz der Resultate darf 100 % nicht Ÿberschreiten."
 
 #: djelectionguard_tezos/views.py:39
 #, python-format
 msgid "Smart contract on %(obj)s"
-msgstr ""
+msgstr "Smart Contract"" Ÿber %(obj)s"
 
 #: djelectionguard_tezos/views.py:41
 msgid "Wallet address:"
-msgstr ""
+msgstr "Wallet-Adresse"
 
 #: djelectionguard_tezos/views.py:47
 msgid "Balance needed:"
-msgstr ""
+msgstr "Guthaben erforderlich:"
 
 #: djelectionguard_tezos/views.py:51
 msgid "Current balance:"
-msgstr ""
+msgstr "Aktueller Kontostand:"
 
 #: djelectionguard_tezos/views.py:69
 msgid "Choose the blockchain you want to deploy your election results to"
-msgstr ""
+msgstr "WŠhlen Sie die Blockchain, auf der Sie Ihre Abstimmungsresultate bereitstellen mšchten"
 
 #: djelectionguard_tezos/views.py:73
 msgid ""
@@ -1259,23 +1278,23 @@ msgid ""
 "fee / just send the needed Tez fees to the Wallet address) version that can "
 "be used for official election as the equivalent of a legal proof of the "
 "election parameters and its results."
-msgstr ""
+msgstr "Um Vertrauen zu schaffen, werden die Abstimmungsresultate und Parameter Ÿber einen Tezos Smart Contract und einen IPFS Link geteilt und gespeichert. Um es einfach zu halten, haben Sie zwei Mšglichkeiten: Sie kšnnen den kostenlosen / Testnet-Vertrag ( fŸr nicht offizielle Wahlen) oder den Hauptnetz-Vertrag ( fŸr den Sie eine kleine GebŸhr zahlen mŸssen / senden Sie einfach die erforderlichen Tez-GebŸhren an die Wallet-Adresse) wŠhlen, der fŸr offizielle Wahlen als €quivalent eines rechtlichen Nachweises der Wahlparameter und -ergebnisse verwendet werden kann."
 
 #: djelectionguard_tezos/views.py:86
 msgid "This choice cannot be changed, please choose carefully"
-msgstr ""
+msgstr "Diese Auswahl kann nicht geŠndert werden, bitte wŠhlen Sie sorgfŠltig"
 
 #: djelectionguard_tezos/views.py:91
 msgid "refresh balances"
-msgstr ""
+msgstr "Guthaben aktualisieren"
 
 #: djelectionguard_tezos/views.py:111
 msgid "Confirm Smart Contract"
-msgstr ""
+msgstr "Smart Contract"" bestŠtigen"
 
 #: djelectionguard_tezos/views.py:116
 msgid "Election not found"
-msgstr ""
+msgstr "Abstimmung nicht gefunden"
 
 #: djelectionguard_tezos/views.py:118
 msgid "Contract already created"
@@ -1283,102 +1302,102 @@ msgstr ""
 
 #: djelectionguard_tezos/views.py:150
 msgid "Blockchain contract created! Deployment in progress..."
-msgstr ""
+msgstr "Vertrag bereits erstellt"
 
 #: djelectionguard_tracker/views.py:24
 msgid "track"
-msgstr ""
+msgstr "verfolgen"
 
 #: djelectionguard_tracker/views.py:26
 msgid "Email"
-msgstr ""
+msgstr "E-Mail"
 
 #: djelectionguard_tracker/views.py:52
 msgid "Track a ballot"
-msgstr ""
+msgstr "Abstimmung verfolgen"
 
 #: djelectionguard_tracker/views.py:68
 msgid "Back"
-msgstr ""
+msgstr "ZurŸck"
 
 #: djelectionguard_tracker/views.py:71
 msgid "Election name"
-msgstr ""
+msgstr "Name der Abstimmung"
 
 #: djelectionguard_tracker/views.py:72
 msgid "Election ID"
-msgstr ""
+msgstr "Abstimmung ID"
 
 #: djelectionguard_tracker/views.py:73
 msgid "Ballot ID"
-msgstr ""
+msgstr "Stimmzettel ID"
 
 #: djelectionguard_tracker/views.py:74
 msgid "Ballot Hash"
-msgstr ""
+msgstr "Stimmzettel Hash"
 
 #: djelectionguard_tracker/views.py:81
 msgid "Tracking informations"
-msgstr ""
+msgstr "Tracking Informationen"
 
 #: djelectionguard_tracker/views.py:85
 msgid "TRACKING_MSG"
-msgstr ""
+msgstr "TRACKING_MSG"
 
 #: djelectionguard_tracker/views.py:114
 msgid "Learn more"
-msgstr ""
+msgstr "Mehr erfahren"
 
 #: djelectionguard_tracker/views.py:120
 msgid "TRACKING_MORE_INFO"
-msgstr ""
+msgstr "TRACKING_MEHR_INFO"
 
 #: djelectionguard_tracker/views.py:156
 msgid "An email have been sent to your address"
-msgstr ""
+msgstr "Es wurde eine E-Mail an Sie gesendet"
 
 #: djelectionguard_tracker/views.py:180
 msgid "Your elections"
-msgstr ""
+msgstr "Ihre Abstimmungen"
 
 #: djelectionguard_tracker/views.py:192
 #, python-format
 msgid "Contest %(name)s"
-msgstr ""
+msgstr "Abstimmung %(Name)s"
 
 #: djlang/templates/admin/djlang_load_form.html:7
 msgid "Load"
-msgstr ""
+msgstr "Laden"
 
 #: djlang/templates/admin/edit_inline/tabular_paginated.html:14
 #: djlang/templates/admin/edit_inline/tabular_paginated.html:145
 msgid "previous"
-msgstr ""
+msgstr "zurŸck"
 
 #: djlang/templates/admin/edit_inline/tabular_paginated.html:44
 #: djlang/templates/admin/edit_inline/tabular_paginated.html:175
 msgid "next"
-msgstr ""
+msgstr "weiter"
 
 #: djlang/templates/admin/edit_inline/tabular_paginated.html:60
 msgid "Delete?"
-msgstr ""
+msgstr "Lšschen?"
 
 #: djlang/templates/admin/edit_inline/tabular_paginated.html:74
 msgid "Change"
-msgstr ""
+msgstr "€ndern"
 
 #: djlang/templates/admin/edit_inline/tabular_paginated.html:74
 msgid "View"
-msgstr ""
+msgstr "ansehen"
 
 #: djlang/templates/admin/edit_inline/tabular_paginated.html:76
 msgid "View on site"
-msgstr ""
+msgstr "Ansicht auf der Seite"
 
 #: electeez_auth/components.py:21
 msgid "Repeat password"
-msgstr ""
+msgstr "Passwort wiederholen"
 
 #: electeez_auth/components.py:35
 msgid "Looks like you need to register"
@@ -1386,150 +1405,150 @@ msgstr ""
 
 #: electeez_auth/components.py:40
 msgid "Your password needs to follow these criteria:"
-msgstr ""
+msgstr "Sieht aus, als mŸssten Sie sich registrieren"
 
 #: electeez_auth/components.py:48
 msgid "Register"
-msgstr ""
+msgstr "Registrieren"
 
 #: electeez_auth/components.py:65
 msgid "Welcome to Electis.app"
-msgstr ""
+msgstr "Willkommen bei Electis.app"
 
 #: electeez_auth/components.py:68
 msgid "Enter email and password:"
-msgstr ""
+msgstr "E-Mail und Passwort eingeben:"
 
 #: electeez_auth/components.py:73
 msgid "forgot password"
-msgstr ""
+msgstr "Passwort vergessen"
 
 #: electeez_auth/components.py:76
 msgid "Continue"
-msgstr ""
+msgstr "Weiter"
 
 #: electeez_auth/components.py:87
 msgid "You have been logged out"
-msgstr ""
+msgstr "Sie wurden abgemeldet"
 
 #: electeez_auth/components.py:89
 msgid "Thank you for spending time on our site today."
-msgstr ""
+msgstr "Vielen Dank, dass Sie sich heute Zeit fŸr unsere Website genommen haben."
 
 #: electeez_auth/components.py:93
 msgid "Login again"
-msgstr ""
+msgstr "Erneut anmelden"
 
 #: electeez_auth/components.py:105 electeez_auth/components.py:119
 msgid "Reset your password"
-msgstr ""
+msgstr "Ihr Passwort zurŸcksetzen"
 
 #: electeez_auth/components.py:109
 msgid "Reset password"
-msgstr ""
+msgstr "Passwort zurŸcksetzen"
 
 #: electeez_auth/components.py:133
 msgid "Your password have been reset"
-msgstr ""
+msgstr "Ihr Passwort wurde zurŸckgesetzt"
 
 #: electeez_auth/components.py:135
 msgid "You may go ahead and "
-msgstr ""
+msgstr "Sie kšnnen fortfahren und "
 
 #: electeez_auth/components.py:136 electeez_auth/components.py:179
 msgid "login "
-msgstr ""
+msgstr "Anmeldung "
 
 #: electeez_auth/components.py:137
 msgid "now"
-msgstr ""
+msgstr "jetzt"
 
 #: electeez_auth/components.py:146
 msgid "A link has been sent to your email address"
-msgstr ""
+msgstr "Ein Link wurde an Ihre E-Mail gesendet"
 
 #: electeez_auth/components.py:147
 msgid "Go to login page"
-msgstr ""
+msgstr "Zur Anmeldungsseite gehen"
 
 #: electeez_auth/components.py:157
 msgid "Check your emails to finish !"
-msgstr ""
+msgstr "PrŸfen Sie Ihre E-Mails zur Fertigstellung!"
 
 #: electeez_auth/components.py:159
 msgid ""
 "An activation link has been sent to your email address, please open it to "
 "finish the signup process."
-msgstr ""
+msgstr "Ein Aktivierungslink wurde an Ihre E-Mail gesendet. Bitte šffnen Sie diesn, um den Anmeldevorgang abzuschliessen."
 
 #: electeez_auth/components.py:164
 msgid "Then, come back and login to participate to your election."
-msgstr ""
+msgstr "Dann kommen Sie zurŸck und melden sich an, um an Ihrer Wahl teilzunehmen."
 
 #: electeez_auth/components.py:176
 msgid "Your account has been activated !"
-msgstr ""
+msgstr "Ihr Konto wurde aktiviert!"
 
 #: electeez_auth/components.py:178
 msgid "You may now "
-msgstr ""
+msgstr "Sie kšnnen nun "
 
 #: electeez_auth/components.py:180
 msgid "and particiapte to an election"
-msgstr ""
+msgstr "und an einer Wahl teilzunehmen"
 
 #: electeez_auth/components.py:192
 msgid "Account activation failure"
-msgstr ""
+msgstr "Kontoaktivierung fehlgeschlagen"
 
 #: electeez_auth/components.py:194
 msgid "Most likely your account has already been activated."
-msgstr ""
+msgstr "Hšchstwahrscheinlich ist Ihr Konto bereits aktiviert worden."
 
 #: electeez_auth/components.py:206
 msgid "Proceed to automatic authentification"
-msgstr ""
+msgstr "Fortfahren mit der automatischen Authentifizierung"
 
 #: electeez_auth/components.py:209
 msgid "Click here to continue"
-msgstr ""
+msgstr "Zum Fortfahren hier klicken"
 
 #: electeez_auth/components.py:222
 msgid "Receive a magic link by email"
-msgstr ""
+msgstr "Erhalten Sie einen ""Magic Link"" per E-Mail"
 
 #: electeez_auth/components.py:233
 msgid "To proceed to your "
-msgstr ""
+msgstr "Zum Fortfahren mit Ihrem"
 
 #: electeez_auth/components.py:234
 msgid "secure link"
-msgstr ""
+msgstr "sicherer Link"
 
 #: electeez_auth/components.py:244
 msgid "Email sent with success"
-msgstr ""
+msgstr "E-Mail erfolgreich versendet"
 
 #: electeez_auth/components.py:264
 msgid "ACTIVATION_EMAIL_BODY"
-msgstr ""
+msgstr "AKTIVIERUNG_EMAIL_BODY"
 
 #: electeez_auth/models.py:49
 msgid "email address"
-msgstr ""
+msgstr "E-Mail"
 
 #: electeez_auth/views.py:27
 msgid "Send magic link"
-msgstr ""
+msgstr "Magic Link"" senden"
 
 #: electeez_auth/views.py:36
 #, python-format
 msgid "Could not find registration with email: %(email)s"
-msgstr ""
+msgstr "Die Registrierung mit E-Mail konnte nicht gefunden werden: %(email)s"
 
 #: electeez_auth/views.py:56
 msgid "Your magic link"
-msgstr ""
+msgstr "Dein ""Magic Link"""
 
 #: electeez_auth/views.py:57
 #, python-format
@@ -1540,6 +1559,11 @@ msgid ""
 "                This is the magic link you have requested: %(link)s\n"
 "                "
 msgstr ""
+"\n"
+"                Hallo,\n"
+"\n"
+"                Dies ist der ""Magic Link"", den Sie angefordert haben: %(link)s\n"
+"                "
 
 #: electeez_auth/views.py:67
 msgid "Link sent by email"
@@ -1547,148 +1571,148 @@ msgstr ""
 
 #: electeez_auth/views.py:86
 msgid "Invalid magic link."
-msgstr ""
+msgstr "UngŸltiger ""Magic Link""."
 
 #: electeez_auth/views.py:92
 msgid "Magic link already used."
-msgstr ""
+msgstr """Magic Link"" wurde bereits verwendet."
 
 #: electeez_auth/views.py:95
 msgid "Expired magic link."
-msgstr ""
+msgstr "Abgelaufener ""Magic Link"""
 
 #: electeez_auth/views.py:101
 msgid "You have been authenticated."
-msgstr ""
+msgstr "Sie wurden authentifiziert."
 
 #: electeez_common/components.py:97
 #, python-format
 msgid "Hello, %(user)s"
-msgstr ""
+msgstr "Hallo, %(user)s"
 
 #: electeez_common/components.py:98
 msgid "log out"
-msgstr ""
+msgstr "abmelden"
 
 #: electeez_common/components.py:103
 msgid "sign up"
-msgstr ""
+msgstr "registrieren"
 
 #: electeez_common/components.py:105 neuilly/html.py:55
 msgid "log in"
-msgstr ""
+msgstr "anmelden"
 
 #: electeez_common/components.py:140
 msgid "Made by"
-msgstr ""
+msgstr "Erstellt von"
 
 #: electeez_common/components.py:208
 msgid "Secure elections with homomorphic encryption"
-msgstr ""
+msgstr "Sichere Wahlen mit homomorpher VerschlŸsselung"
 
 #: electeez_common/urls.py:46
 msgid "Neuilly Vote"
-msgstr ""
+msgstr "Neuilly Vote"
 
 #: electeez_common/urls.py:45
 #, python-format
 msgid "You have successfully subscribed to %(app)s mailing list"
-msgstr ""
+msgstr "Sie haben sich erfolgreich bei der Mailingliste von %(app) angemeldet."
 
 #: electis/settings.py:14 neuilly/settings.py:14
 msgid "English"
-msgstr ""
+msgstr "Englisch"
 
 #: electis/settings.py:15
 msgid "Deutsch"
-msgstr ""
+msgstr "Deutsch"
 
 #: electis/settings.py:16 neuilly/settings.py:13
 msgid "French"
-msgstr ""
+msgstr "Franzšsisch"
 
 #: electis/settings.py:17
 msgid "Spanish"
-msgstr ""
+msgstr "Spanisch"
 
 #: neuilly/html.py:36
 msgid "NeuillyVote"
-msgstr ""
+msgstr "NeuillyVote"
 
 #: neuilly/html.py:35
 #, python-format
 msgid "Welcome to %(app)s"
-msgstr ""
+msgstr "Willkommen bei %(app)s"
 
 #: neuilly/html.py:112
 msgid "Electis.io"
-msgstr ""
+msgstr "Electis.io"
 
 #: neuilly/html.py:112
 #, python-format
 msgid "Made by %(electis)s"
-msgstr ""
+msgstr "Erstellt von %(electis)s"
 
 #: neuilly/html.py:121 neuilly/html.py:263
 msgid "Legal notices"
-msgstr ""
+msgstr "Impressum"
 
 #: neuilly/html.py:122 neuilly/html.py:287
 msgid "Data privacy policy"
-msgstr ""
+msgstr "Datenschutzbestimmungen"
 
 #: neuilly/html.py:123 neuilly/html.py:338
 msgid "FAQ"
-msgstr ""
+msgstr "FAQ"
 
 #: neuilly/html.py:187
 msgid "LANDING_INFO_PANEL_MSG"
-msgstr ""
+msgstr "LANDING_INFO_PANEL_MSG"
 
 #: neuilly/html.py:192
 msgid "Take part to an upcoming vote"
-msgstr ""
+msgstr "Nehmen Sie an einer bevorstehenden Abstimmung teil"
 
 #: neuilly/html.py:211
 msgid "I consent to the use of my email address"
-msgstr ""
+msgstr "Ich bin mit der Nutzung meiner E-Mail einverstanden"
 
 #: neuilly/html.py:223
 msgid "Email address"
-msgstr ""
+msgstr "E-Mail"
 
 #: neuilly/html.py:224
 msgid "Type your email to register to this service"
-msgstr ""
+msgstr "Geben Sie Ihre E-Mail ein, um sich fŸr diesen Dienst zu registrieren"
 
 #: neuilly/html.py:233
 msgid "I take part"
-msgstr ""
+msgstr "Ich nehme teil"
 
 #: neuilly/html.py:268
 msgid "Edition"
-msgstr ""
+msgstr "Edition"
 
 #: neuilly/html.py:270
 msgid "LEGAL_EDITION_TEXT"
-msgstr ""
+msgstr "LEGAL_EDITION_TEXT"
 
 #: neuilly/html.py:272
 msgid "Author rights"
-msgstr ""
+msgstr "Rechte des Autors"
 
 #: neuilly/html.py:274
 msgid "AUTHOR_RIGHTS_TEXT"
-msgstr ""
+msgstr "AUTOR_RECHTE_TEXT"
 
 #: neuilly/html.py:321
 msgid "Cookies"
-msgstr ""
+msgstr "Cookies"
 
 #: neuilly/html.py:326
 msgid "COOKIES_TEXT"
-msgstr ""
+msgstr "COOKIES_TEXT"
 
 #: neuilly/html.py:345
 msgid "FAQ_TEXT"
-msgstr ""
+msgstr "FAQ_TEXT"
