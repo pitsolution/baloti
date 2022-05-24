@@ -1,6 +1,16 @@
-
 $(document).ready(function(){
+var myJson = {}
+get_something()
+function get_something(){
+    $.getJSON("/static/translations.json", function(json){
+        myJson = json;
+        console.log(myJson,'jgdgrsfjh')
+
+    });
+}
+
     var language = localStorage.getItem('languageObject').replaceAll('"', '');
+    console.log(myJson,'jsonnnnnnn')
     $(".copytoclipboard").click(function (event) {
         event.preventDefault();
         App.copyToClipboard(App.currentUrl, true, "URL copied");
@@ -300,10 +310,10 @@ $(document).ready(function(){
         if(!firstname || !lastname || !email || !subject || !message){
             $("#info_mailsent").removeClass("d-none");
             if($("html").attr("lang") == "de" ){
-            $("#message_text").text(' Füllen Sie alle Felder aus');}
+            $("#message_text").text(myJson['text_b'][0]['de']);}
             else
             {
-            $("#message_text").text('Fill all the fields');
+            $("#message_text").text(myJson['text_b'][0]['en']);
             }
 
             $("#info_mailsent").addClass("error");
@@ -312,10 +322,10 @@ $(document).ready(function(){
         else if(!pattern.test(email)){
             $("#info_mailsent").removeClass("d-none");
             if($("html").attr("lang") == "de" ){
-            $("#message_text").text('Ungültige E-Mail');}
+            $("#message_text").text(myJson['text_d'][0]['de']);}
             else
             {
-            $("#message_text").text('Invalid Email Address');
+            $("#message_text").text(myJson['text_d'][0]['en']);
             }
             $("#info_mailsent").addClass("error");
             $(".app-toast__tick").addClass("d-none");
@@ -333,17 +343,21 @@ $(document).ready(function(){
                             complete: function(){
                                 $('.app-loaderwrap').remove();                       
                             },
+
+
                 success: function(data){
+
                         document.getElementById('id_firstname').value = "";
                         document.getElementById('id_lastname').value = "";
                         document.getElementById('id_email').value = "";
                         document.getElementById('id_subject').value = "";
                         document.getElementById('id_message').value = "";
                         if($("html").attr("lang") == "de" ){
-                          $("#message_text").text('E-Mail erfolgreich versendet');
+
+                          $("#message_text").text(myJson['text_a'][0]['de']);
                         }
                         else {
-                         $("#message_text").text('Mail sent successfully');
+                         $("#message_text").text(myJson['text_a'][0]['en']);
                         }
 
                         $("#info_mailsent").removeClass("d-none");
@@ -353,10 +367,10 @@ $(document).ready(function(){
                 error:function (xhr, ajaxOptions, thrownError){
                     if(xhr.status==400) {
                         if($("html").attr("lang") == "de" ){
-                        $("#message_text").text('Dienst nicht verfügbar');}
+                        $("#message_text").text(myJson['text_c'][0]['de']);}
                         else
                         {
-                        $("#message_text").text('Service not available');
+                        $("#message_text").text(myJson['text_c'][0]['en']);
                         }
                         $("#info_mailsent").removeClass("d-none")
                         $("#info_mailsent").addClass("error");
