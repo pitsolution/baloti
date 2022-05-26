@@ -309,24 +309,18 @@ function get_something(){
         // }
         if(!firstname || !lastname || !email || !subject || !message){
             $("#info_mailsent").removeClass("d-none");
-            if($("html").attr("lang") == "de" ){
-            $("#message_text").text(myJson['text_b'][0]['de']);}
-            else
-            {
-            $("#message_text").text(myJson['text_b'][0]['en']);
-            }
+            var trans_text = $("html").attr("lang")
+            $("#message_text").text(myJson['text_b'][0][trans_text]);
+
 
             $("#info_mailsent").addClass("error");
             $(".app-toast__tick").addClass("d-none");
         }
         else if(!pattern.test(email)){
             $("#info_mailsent").removeClass("d-none");
-            if($("html").attr("lang") == "de" ){
-            $("#message_text").text(myJson['text_d'][0]['de']);}
-            else
-            {
-            $("#message_text").text(myJson['text_d'][0]['en']);
-            }
+            var trans_text = $("html").attr("lang")
+            $("#message_text").text(myJson['text_d'][0][trans_text]);
+
             $("#info_mailsent").addClass("error");
             $(".app-toast__tick").addClass("d-none");
         }
@@ -352,13 +346,11 @@ function get_something(){
                         document.getElementById('id_email').value = "";
                         document.getElementById('id_subject').value = "";
                         document.getElementById('id_message').value = "";
-                        if($("html").attr("lang") == "de" ){
+                        var trans_text = $("html").attr("lang")
+                          $("#message_text").text(myJson['text_a'][0][trans_text]);
 
-                          $("#message_text").text(myJson['text_a'][0]['de']);
-                        }
-                        else {
-                         $("#message_text").text(myJson['text_a'][0]['en']);
-                        }
+
+
 
                         $("#info_mailsent").removeClass("d-none");
                         $("#info_mailsent").removeClass("error");
@@ -366,12 +358,9 @@ function get_something(){
                 },
                 error:function (xhr, ajaxOptions, thrownError){
                     if(xhr.status==400) {
-                        if($("html").attr("lang") == "de" ){
-                        $("#message_text").text(myJson['text_c'][0]['de']);}
-                        else
-                        {
-                        $("#message_text").text(myJson['text_c'][0]['en']);
-                        }
+                        var trans_text = $("html").attr("lang")
+                        $("#message_text").text(myJson['text_c'][0][trans_text]);
+
                         $("#info_mailsent").removeClass("d-none")
                         $("#info_mailsent").addClass("error");
                         $(".app-toast__tick").addClass("d-none");
