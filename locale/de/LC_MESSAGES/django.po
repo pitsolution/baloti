@@ -114,7 +114,7 @@ msgstr "Argumente:"
 #: djelectionguard/components.py:3202 djelectionguard/components.py:3204
 #: djelectionguard_tezos/views.py:64
 msgid "back"
-"msgstr ""zurŸck"""
+msgstr "zurŸck"
 
 #: djelectionguard/components.py:325 djelectionguard/components.py:2882
 msgid "all"
