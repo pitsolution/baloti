@@ -501,7 +501,7 @@ $app-election-logo-border: #171742;
    @media only screen and (max-width: 767px) {
     &-elections{
         &__vote{
-            min-height: 50vh;
+            // min-height: 50vh;
             .app-card--bordered{
                 border-radius: 0 !important;
             }
