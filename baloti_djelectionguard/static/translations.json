@@ -2,25 +2,29 @@
   "text_a": [
     {
       "en": "Mail sent successfully",
-      "de": "E-Mail erfolgreich versendet"
+      "de": "E-Mail erfolgreich versendet",
+      "fr": "Mail envoyé avec succès"
     }
   ],
   "text_b": [
     {
       "en": "Fill all the fields",
-      "de": "Füllen Sie alle Felder aus"
+      "de": "Füllen Sie alle Felder aus",
+      "fr": "Remplissez tous les champs"
     }
   ],
   "text_c": [
     {
       "en": "Service not available",
-      "de": "Dienst nicht verfügbar"
+      "de": "Dienst nicht verfügbar",
+      "fr": "Service non disponible"
     }
   ],
    "text_d": [
     {
       "en": "Invalid Email Address",
-      "de": "Ungültige E-Mail"
+      "de": "Ungültige E-Mail",
+      "fr": "Adresse e-mail invalide"
     }
   ]
 }

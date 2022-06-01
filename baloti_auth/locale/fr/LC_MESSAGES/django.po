@@ -20,7 +20,7 @@ msgstr ""
 
 #: baloti_auth/forms.py:21
 msgid "Your old password was entered incorrectly. Please enter it again."
-msgstr ""
+msgstr "Votre ancient mot de passe a été mal sainsi. Veuillez le saisir à nouveau."
 
 #: baloti_auth/templates/change_password.html:64
 msgid "Change Password"
@@ -236,10 +236,8 @@ msgid "Your username and password didn't match. Please try again."
 msgstr ""
 
 #: baloti_auth/views.py:55
-#, fuzzy
-#| msgid "Login here!"
 msgid "Login failed!"
-msgstr "Connectez-vous ici!"
+msgstr "La connexion a échoué!"
 
 #: baloti_auth/views.py:76
 msgid "Baloti Registration Information"
