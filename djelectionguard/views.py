@@ -77,6 +77,7 @@ from djlang.utils import gettext as _
 from deep_translator import GoogleTranslator
 from djlang.models import Language
 from baloti_djelectionguard.models import Initiatori18n, ContestTypei18n, Recommenderi18n, ParentContesti18n, Contesti18n
+from django.utils.translation import ugettext_lazy
 
 
 class ContestMediator:
@@ -139,9 +140,10 @@ class ContestCreateView(generic.CreateView):
 
             Contesti18n.objects.create(contest_id=form.instance,parent=form.instance.parent,language=lang,name= translated_name, against_arguments=translated_against,
                                        about=translated_about,infavour_arguments=translated_infavour)
+        text = ugettext_lazy('You have created issue') + ' ' + f"{form.instance}"
         messages.success(
             self.request,
-            _('You have created contest %(obj)s', obj=form.instance)
+            text
         )
         return response
 
@@ -198,9 +200,10 @@ class ContestUpdateView(generic.UpdateView):
                 each.infavour_arguments=trans_content_infavour_arguments
                 each.save()
 
+        text = ugettext_lazy('You have updated issue') + ' ' + f"{form.instance}"
         messages.success(
             self.request,
-            _('You have updated contest %(obj)s', obj=form.instance)
+            text
         )
         return response
 
@@ -412,9 +415,10 @@ class ContestOpenView(ContestMediator, EmailBaseView):
         else:
             contract.open()
 
+        text = ugettext_lazy('You have open issue') + ' ' + f"{self.object}"
         messages.success(
             self.request,
-            _('You have open contest %(obj)s', obj=self.object)
+            text
         )
 
         return super().form_valid(form)
@@ -458,9 +462,10 @@ class ContestCloseView(ContestMediator, generic.UpdateView):
             pass
         else:
             contract.close()
+        text = ugettext_lazy('You have closed issue') + ' ' + f"{self.object}"
         messages.success(
             self.request,
-            _('You have closed contest %(obj)s', obj=self.object)
+            text
         )
         return super().form_valid(form)
 
@@ -530,9 +535,10 @@ class ContestDecryptView(ContestMediator, generic.UpdateView):
         return http.HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
+        text = ugettext_lazy('You have started tallying for') + ' ' + f"{self.object}"
         messages.success(
             self.request,
-            _('You have started tallying for %(obj)s', obj=self.object)
+            text
         )
         return self.object.get_absolute_url()
 
@@ -575,6 +581,11 @@ class ContestPublishView(ContestDecentralized, generic.UpdateView):
             messages.success(
                 self.request,
                 _('You have published artifacts for %(obj)s on IPFS', obj=self.object)
+            )
+            text = ugettext_lazy('You have published artifacts for') + ' ' + f"{self.object}" + ' ' + ugettext_lazy('on IPFS')
+            messages.success(
+                self.request,
+                text
             )
         return self.object.get_absolute_url()
 
@@ -1157,11 +1168,10 @@ class GuardianVerifyView(generic.UpdateView):
             return super().save(self, *args, **kwargs)
 
     def get_success_url(self):
+        text = ugettext_lazy('You have verified your guardian key for') + ' ' + f"{self.object.contest}"
         messages.success(
             self.request,
-            _('You have verified your guardian key for %(obj)s',
-                obj=self.object.contest
-            )
+            text
         )
         return self.object.contest.get_absolute_url()
 
@@ -1202,11 +1212,10 @@ class GuardianUploadView(generic.UpdateView):
             return self.instance
 
     def get_success_url(self):
+        text = ugettext_lazy('You have uploaded your guardian key for') + ' ' + f"{self.object.contest}"
         messages.success(
             self.request,
-            _('You have uploaded your guardian key for %(obj)s',
-                obj=self.object.contest
-            )
+            text
         )
         return self.object.contest.get_absolute_url()
 
@@ -1417,9 +1426,11 @@ class ContestRecommenderForm(forms.ModelForm):
     recommender = forms.ModelChoiceField(
         queryset=Recommender.objects.filter(),
         empty_label="(Recommender)",
+        label=ugettext_lazy('Recommender')
         )
     recommender_type = forms.ChoiceField(
-        choices=RECOMMENDER_TYPE
+        choices=RECOMMENDER_TYPE,
+        label=ugettext_lazy('Type')
         )
 
     def __init__(self, *args, **kwargs):
@@ -1451,12 +1462,6 @@ class ContestRecommenderForm(forms.ModelForm):
             'recommender_type'
         ]
 
-        labels = {
-            'recommender': _('RECOMMENDER_NAME'),
-            'recommender_type': _('RECOMMENDER_TYPE')
-        }
-
-
 class ContestRecommenderCreateView(ContestMediator, FormMixin, generic.DetailView):
     template_name = 'djelectionguard/contestrecommender_form.html'
     form_class = ContestRecommenderForm
@@ -1486,9 +1491,10 @@ class ContestRecommenderCreateView(ContestMediator, FormMixin, generic.DetailVie
 
     def form_valid(self, form):
         form.save()
+        text = ugettext_lazy('You have added recommender') + ' ' + f"{form.instance.recommender}"
         messages.success(
             self.request,
-            _('You have added recommender') + f' {form.instance.recommender}',
+            text
         )
         return super().form_valid(form)
 
@@ -1518,9 +1524,10 @@ class ContestRecommenderUpdateView(generic.UpdateView):
 
     def get_success_url(self):
         contest = self.get_object().contest
+        text = ugettext_lazy('You have updated recommender') + ' ' + f"{self.object.recommender.name}"
         messages.success(
             self.request,
-            _('You have updated recommender') + ' ' + f'{self.object.recommender.name}',
+            text
         )
         return reverse('contest_recommender_create', args=(contest.id,))
 
@@ -1542,9 +1549,10 @@ class ContestRecommenderDeleteView(ContestMediator, generic.DeleteView):
 
     def get_success_url(self):
         contest = self.get_object().contest
+        text = ugettext_lazy('You have removed recommender') + ' ' + f"{self.object.recommender}"
         messages.success(
             self.request,
-            _('You have removed recommender') + ' ' + f'{self.object.recommender}',
+            text
         )
         return reverse('contest_recommender_create', args=(contest.id,))
 
@@ -1569,9 +1577,10 @@ class RecommenderCreateView(generic.CreateView):
             translated_name = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['name'])
             translated_type = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['recommender_type'])
             Recommenderi18n.objects.create(recommender_id=form.instance,language=lang,name= translated_name, recommender_type=translated_type)
+        text = ugettext_lazy('You have created recommender') + ' ' + f"{form.instance}"
         messages.success(
             self.request,
-            _('You have created recommender %(obj)s', obj=form.instance)
+            text
         )
         return response
 
@@ -1605,10 +1614,10 @@ class ParentContestCreateView(generic.CreateView):
         for each in queryset:
             trans_content_name = GoogleTranslator('auto', each.iso).translate(form.cleaned_data['name'])
             ParentContesti18n.objects.create(parent_contest_id=form.instance,language=each,name= trans_content_name)
-
+        text = ugettext_lazy('You have created referendum') + ' ' + f"{form.instance}"
         messages.success(
             self.request,
-            _('You have created parentcontest %(obj)s', obj=form.instance)
+            text
         )
         return response
 
@@ -1637,11 +1646,12 @@ class ParentContestUpdateView(generic.UpdateView):
                 trans_content_name = GoogleTranslator('auto', each.language.iso).translate(form.instance.name)
                 each.name = trans_content_name
                 each.save()
-
+        text = ugettext_lazy('You have updated referendum') + ' ' + f"{form.instance}"
         messages.success(
             self.request,
-            _('You have updated parentcontest %(obj)s', obj=form.instance)
+            text
         )
+
         return response
 
     @classmethod
@@ -1675,9 +1685,10 @@ class ParentContestDeleteView(ParentContestAccessible, generic.DeleteView):
         queryset = ParentContesti18n.objects.filter(parent_contest_id=self.object.pk)
         for each in queryset:
             each.delete()
+        text = ugettext_lazy('You have removed referendum') + ' ' + f"{self.object.name}"
         messages.success(
             self.request,
-            _('You have removed referendum') + ' ' + f'{self.object.name}',
+            text
         )
         return reverse('parentcontest_list')
 
@@ -1733,9 +1744,10 @@ class InitiatorCreateView(generic.CreateView):
         for lang in Language.objects.all():
             translated_name = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['name'])
             Initiatori18n.objects.create(initiator_id=form.instance,language=lang,name= translated_name)
+        text = ugettext_lazy('You have created initiator') + ' ' + f"{form.instance}"
         messages.success(
             self.request,
-            _('You have created initiator %(obj)s', obj=form.instance)
+            text
         )
         return response
 
@@ -1787,9 +1799,10 @@ class IssueTypeCreateView(generic.CreateView):
         for lang in Language.objects.all():
             translated_name = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['name'])
             ContestTypei18n.objects.create(contest_type_id=form.instance,language=lang,name= translated_name)
+        text = ugettext_lazy('You have created referendum type') + ' ' + f"{form.instance}"
         messages.success(
             self.request,
-            _('You have created contest type %(obj)s', obj=form.instance)
+            text
         )
         return response
 
@@ -1827,9 +1840,10 @@ class GovtResultsUpdateView(generic.UpdateView):
                 )
 
         else:
+            text = ugettext_lazy('You have updated issue') + ' ' + f"{form.instance}"
             messages.success(
                 self.request,
-                _('You have updated contest %(obj)s', obj=form.instance)
+                text
             )
         return response
 
