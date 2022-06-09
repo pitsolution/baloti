@@ -1,6 +1,16 @@
-
 $(document).ready(function(){
+var myJson = {}
+get_something()
+function get_something(){
+    $.getJSON("/static/translations.json", function(json){
+        myJson = json;
+        console.log(myJson,'jgdgrsfjh')
+
+    });
+}
+
     var language = localStorage.getItem('languageObject').replaceAll('"', '');
+    console.log(myJson,'jsonnnnnnn')
     $(".copytoclipboard").click(function (event) {
         event.preventDefault();
         App.copyToClipboard(App.currentUrl, true, "URL copied");
@@ -54,19 +64,17 @@ $(document).ready(function(){
     $("#filter").keyup(function() {
         var filter = $(this).val(),
         count = 0;
-        var cardlength = $('.app-elections__vote .search').length;
+        var cardlength = $('.search').length;
         $('.search').each(function() {
             if ($(this).text().search(new RegExp(filter, "i")) < 0) {
                 $(this).addClass('d-none');
-                $(this).closest('.app-elections__result').addClass('d-none');
             } 
             else {
                 $(this).removeClass('d-none');
-                $(this).closest('.app-elections__result').removeClass('d-none');
                 count++;
             }
         });
-        displayNoResult(cardlength, '.app-elections__vote .search');
+        displayNoResult(cardlength, '.search');
     });
 
     $(".app-newslist__searchinput").on("click", function(){
@@ -79,16 +87,20 @@ $(document).ready(function(){
         if (cardCount === hiddenLILength.length || card.length === 0) {
           $('.app-nodata').show();
           $('.app-nodata').parent().addClass('app-griditem--nodata');
-          $(hiddenLILength).closest('.app-elections__result').addClass('d-none');
+          $('.app-elections__result').addClass('d-none');
         } else {
             $('.app-nodata').hide();
             $('.app-nodata').parent().removeClass('app-griditem--nodata');
-            $(hiddenLILength).closest('.app-elections__result').removeClass('d-none');
+            $('.app-elections__result').removeClass('d-none');
         }
     }
-    displayNoResult($(".app-elections__vote .search").length, '.search');
     if($('.app-elections__result .search').length === 0){
         $('.app-elections__result').addClass('d-none');
+    }
+    if($('.search').length === 0){
+        $('.app-elections__result').addClass('d-none');
+        $('.app-nodata').show();
+        $('.app-nodata').parent().addClass('app-griditem--nodata');
     }
     
     $("#showBalletModal").on("click", function(){
@@ -296,27 +308,19 @@ $(document).ready(function(){
         //     $("#info_mailsent").addClass("d-none");
         // }
         if(!firstname || !lastname || !email || !subject || !message){
-            console.log('hgghjghghjg')
-            // alert('ddsdsd errorrnknnlk')
             $("#info_mailsent").removeClass("d-none");
-            if($("html").attr("lang") == "de" ){
-            $("#message_text").text(' Füllen Sie alle Felder aus');}
-            else
-            {
-            $("#message_text").text('Fill all the fields');
-            }
+            var trans_text = $("html").attr("lang")
+            $("#message_text").text(myJson['text_b'][0][trans_text]);
+
 
             $("#info_mailsent").addClass("error");
             $(".app-toast__tick").addClass("d-none");
         }
         else if(!pattern.test(email)){
             $("#info_mailsent").removeClass("d-none");
-            if($("html").attr("lang") == "de" ){
-            $("#message_text").text('Ungültige E-Mail');}
-            else
-            {
-            $("#message_text").text('Invalid Email Address');
-            }
+            var trans_text = $("html").attr("lang")
+            $("#message_text").text(myJson['text_d'][0][trans_text]);
+
             $("#info_mailsent").addClass("error");
             $(".app-toast__tick").addClass("d-none");
         }
@@ -333,18 +337,20 @@ $(document).ready(function(){
                             complete: function(){
                                 $('.app-loaderwrap').remove();                       
                             },
+
+
                 success: function(data){
+
                         document.getElementById('id_firstname').value = "";
                         document.getElementById('id_lastname').value = "";
                         document.getElementById('id_email').value = "";
                         document.getElementById('id_subject').value = "";
                         document.getElementById('id_message').value = "";
-                        if($("html").attr("lang") == "de" ){
-                          $("#message_text").text('E-Mail erfolgreich versendet');
-                        }
-                        else {
-                         $("#message_text").text('Mail sent successfully');
-                        }
+                        var trans_text = $("html").attr("lang")
+                          $("#message_text").text(myJson['text_a'][0][trans_text]);
+
+
+
 
                         $("#info_mailsent").removeClass("d-none");
                         $("#info_mailsent").removeClass("error");
@@ -352,12 +358,9 @@ $(document).ready(function(){
                 },
                 error:function (xhr, ajaxOptions, thrownError){
                     if(xhr.status==400) {
-                        if($("html").attr("lang") == "de" ){
-                        $("#message_text").text('Dienst nicht verfügbar');}
-                        else
-                        {
-                        $("#message_text").text('Service not available');
-                        }
+                        var trans_text = $("html").attr("lang")
+                        $("#message_text").text(myJson['text_c'][0][trans_text]);
+
                         $("#info_mailsent").removeClass("d-none")
                         $("#info_mailsent").addClass("error");
                         $(".app-toast__tick").addClass("d-none");

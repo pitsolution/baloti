@@ -48,7 +48,7 @@
                     <p class="app-card__date">
                         <span>{{u.date|date:"d.m.Y"}} -  {{u.end_date|date:"d.m.Y"}}</span>
                         {% if voted %}
-                            <label for="" class="label icon label-success label-success--light label-noradius label-flex"><span class="icon-tick-success"></span> <span>VOTED</span> 
+                            <label for="" class="label icon label-success label-success--light label-noradius label-flex"><span class="icon-tick-success"></span> <span>{%trans "VOTED" %}</span>
                             </label>
                         {% endif %}
                     </p>

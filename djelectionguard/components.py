@@ -22,13 +22,13 @@ from .models import Contest, Candidate, ParentContest, Recommender, ContestType,
 from ckeditor.widgets import CKEditorWidget
 from django.contrib.admin import widgets
 from django.core.exceptions import ValidationError
-
+from django.utils.translation import ugettext_lazy
 
 @widget_template('django/forms/widgets/splitdatetime.html')
 class SplitDateTimeWidget(SplitDateTimeWidget):
-    date_label = _('Date')
+    date_label = ugettext_lazy('Date')
     date_style = 'margin-top: 0; margin-bottom: 32px;'
-    time_label = _('Time')
+    time_label = ugettext_lazy('Time')
     time_style = 'margin: 0;'
 
 
@@ -41,45 +41,21 @@ class ContestForm(forms.ModelForm):
         tomorow = datetime.now() + timedelta(days=1)
         return tomorow.replace(second=0, microsecond=0)
 
-    contest_type = forms.ModelChoiceField(queryset=ContestType.objects.filter(), empty_label="(Type)")
-    contest_initiator = forms.ModelChoiceField(queryset=Initiator.objects.filter(), empty_label="(Initiator)")
-    infavour_arguments = forms.CharField(widget=CKEditorWidget())
-    against_arguments = forms.CharField(widget=CKEditorWidget())
-
+    contest_type = forms.ModelChoiceField(queryset=ContestType.objects.filter(), label=ugettext_lazy('Type'))
+    contest_initiator = forms.ModelChoiceField(queryset=Initiator.objects.filter(), label=ugettext_lazy('Initiator'))
+    infavour_arguments = forms.CharField(widget=CKEditorWidget(), label=ugettext_lazy('Infavour Arguments'))
+    against_arguments = forms.CharField(widget=CKEditorWidget(), label=ugettext_lazy('Against Arguments'))
     about = forms.CharField(
-        label=_('FORM_ABOUT_ELECTION_CREATE'),
+        label=ugettext_lazy('Description'),
         widget=forms.Textarea,
         required=False
     )
-
-    # votes_allowed = forms.IntegerField(
-    #     label=_('FORM_VOTES_ALLOWED_ELECTION_CREATE'),
-    #     initial=1,
-    #     help_text=_('The maximum number of choice a voter can make for this election')
-    # )
-
-    # start = forms.SplitDateTimeField(
-    #     label='',
-    #     initial=now,
-    #     widget=forms.SplitDateTimeWidget(
-    #         date_format='%Y-%m-%d',
-    #         date_attrs={'type': 'date', 'label': 'date'},
-    #         time_attrs={'type': 'time', 'label': 'heure'},
-    #     ),
-    # )
-    # end = forms.SplitDateTimeField(
-    #     label='',
-    #     initial=tomorow,
-    #     widget=forms.SplitDateTimeWidget(
-    #         date_format='%Y-%m-%d',
-    #         date_attrs={'type': 'date'},
-    #         time_attrs={'type': 'time'},
-    #     )
-    # )
     govt_infavour_percent = forms.FloatField(required=False,
+        label=ugettext_lazy('Government Infavour Percentage'),
         max_value=100,
         min_value=0)
     govt_against_percent = forms.FloatField(required=False,
+        label=ugettext_lazy('Government Against Percentage'),
         max_value=100,
         min_value=0)
 
@@ -93,13 +69,6 @@ class ContestForm(forms.ModelForm):
             self.fields['infavour_arguments'].widget = forms.HiddenInput()
             self.fields['against_arguments'].widget = forms.HiddenInput()
             self.fields['about'].widget = forms.HiddenInput()
-            # self.fields['votes_allowed'].widget = forms.HiddenInput()
-        #     self.fields['timezone'].widget = forms.HiddenInput()
-        #     self.fields['start'].disabled = True
-        #     self.fields['end'].disabled = True
-        # else:
-        #     self.fields['start'].disabled = False
-        #     self.fields['end'].disabled = False
 
     def clean_name(self):
         instance = getattr(self, 'instance', None)
@@ -136,28 +105,12 @@ class ContestForm(forms.ModelForm):
         else:
             return self.cleaned_data['against_arguments']
 
-    # def clean_votes_allowed(self):
-    #     instance = getattr(self, 'instance', None)
-    #     if instance and instance.pk and instance.actual_end:
-    #         return instance.votes_allowed
-    #     else:
-    #         return self.cleaned_data['votes_allowed']
-
     def clean_about(self):
         instance = getattr(self, 'instance', None)
         if instance and instance.pk and instance.actual_end:
             return instance.about
         else:
             return self.cleaned_data['about']
-
-    # def clean_timezone(self):
-    #     instance = getattr(self, 'instance', None)
-    #     if instance and instance.pk and instance.actual_end:
-    #         return instance.timezone
-    #     else:
-    #         return self.cleaned_data['timezone']
-
-
    
     class Meta:
         model = Contest
@@ -168,26 +121,18 @@ class ContestForm(forms.ModelForm):
             'infavour_arguments',
             'against_arguments',
             'about',
-            # 'votes_allowed',
-            # 'start',
-            # 'end',
-            # 'timezone',
             'govt_infavour_percent',
             'govt_against_percent'
         ]
         labels = {
-            'name': _('FORM_TITLE_ELECTION_CREATE'),
-            'contest_type': _('FORM_TITLE_REFERENDUM_TYPE'),
-            'contest_initiator': _('FORM_TITLE_INITIATOR'),
-            'infavour_arguments': _('FORM_TITLE_INFAVOUR_ARGUMENTS'),
-            'against_arguments': _('FORM_TITLE_AGAINST_ARGUMENTS'),
-            'about': _('FORM_ABOUT_ELECTION_CREATE'),
-            # 'votes_allowed': _('FORM_VOTES_ALLOWED_ELECTION_CREATE'),
-            # 'start': _('FORM_START_ELECTION_CREATE'),
-            # 'end': _('FORM_END_ELECTION_CREATE'),
-            # 'timezone': _('FORM_TIMEZONE_ELECTION_CREATE'),
-            'govt_infavour_percent': _('GOVT_INFAVOUR_RESULTS'),
-            'govt_against_percent': _('GOVT_AGAINST_RESULTS')
+            'name': ugettext_lazy('Name'),
+            'contest_type': ugettext_lazy('Type'),
+            'contest_initiator': ugettext_lazy('Initiator'),
+            'infavour_arguments': ugettext_lazy('Infavour Arguments'),
+            'against_arguments': ugettext_lazy('Against Arguments'),
+            'about': ugettext_lazy('Description'),
+            'govt_infavour_percent': ugettext_lazy('Government Infavour Percentage'),
+            'govt_against_percent': ugettext_lazy('Government Against Percentage')
         }
 
 
@@ -234,10 +179,6 @@ class ContestFormComponent(CList):
                     form['govt_against_percent'],
                     form['contest_type'],
                     form['contest_initiator'],
-                    # form['votes_allowed'],
-                    # form['start'],
-                    # form['end'],
-                    # form['timezone'],
                     form['infavour_arguments'],
                     form['against_arguments'],
                     CSRFInput(view.request),
@@ -258,13 +199,6 @@ class ContestFormComponent(CList):
                     H6(_('Initiator:')),
                     form['contest_initiator'],
                     Div(initiator_create_btn, icon='person_add_alt_1'),
-                    # H6(_('Voting settings:')),
-                    # form['votes_allowed'],
-                    # H6(_('Referendum starts:')),
-                    # form['start'],
-                    # H6(_('Referendum ends:')),
-                    # form['end'],
-                    # form['timezone'],
                     H6(_('Arguments:')),
                     form['infavour_arguments'],
                     form['against_arguments'],
@@ -514,7 +448,7 @@ class WorldIcon(CircleIcon):
 class BasicSettingsAction(ListAction):
     def __init__(self, obj):
         btn_comp = MDCButtonOutlined(
-            _('edit'),
+            ugettext_lazy('edit'),
             False,
             tag='a',
             href=reverse('contest_update', args=[obj.parent.pk, obj.id]))
@@ -791,26 +725,28 @@ class OnGoingElectionAction(ListAction):
         sub_txt = None
         if contest.actual_end:
             end_time = '<b>' + _date(contest.actual_end, 'd F, G\hi') + '</b>'
-            title = _('Voting closed')
-            txt = _('The voting started on %(start)s and was open till %(end)s. '
-                    'Timezone: %(timezone)s.',
-                        start=start_time,
-                        end=end_time,
-                        timezone=str(contest.timezone)
-                    )
+            title = ugettext_lazy('Voting closed')
+            txt = ugettext_lazy('The voting started on') + ' ' + f"{start_time}" + ' ' +  ugettext_lazy('and was open till')  + ' ' + f"{end_time}" + ' ' +  ugettext_lazy('Timezone') + ' ' + f"{str(contest.timezone)}"
+            # txt = ugettext_lazy('The voting started on %(start)s and was open till %(end)s. '
+            #         'Timezone: %(timezone)s.',
+            #             start=start_time,
+            #             end=end_time,
+            #             timezone=str(contest.timezone)
+            #         )
             txt = mark_safe(txt)
             icon = SimpleCheckIcon()
         else:
             vote_link = reverse('otp_send') + f'?redirect=' + reverse('contest_vote', args=[contest.id])
             vote_link = view.request.build_absolute_uri(vote_link)
             end_time = '<b>' + _date(contest.end, 'd F, G\hi') + '</b>'
-            title = _('The voting process is currently ongoing')
-            txt = _('The voting started on %(time_start)s and will be closed at %(time_end)s. '
-                    'Timezone: %(timezone)s',
-                        time_start=start_time,
-                        time_end=end_time,
-                        timezone=str(contest.timezone)
-                    )
+            title = ugettext_lazy('The voting process is currently ongoing')
+            txt = ugettext_lazy('The voting started on') + ' ' + f"{start_time}" + ' ' +  ugettext_lazy('and will be closed at')  + ' ' + f"{end_time}" + ' ' +  ugettext_lazy('Timezone') + ' ' + f"{str(contest.timezone)}"
+            # txt = ugettext_lazy('The voting started on %(time_start)s and will be closed at %(time_end)s. '
+            #         'Timezone: %(timezone)s',
+            #             time_start=start_time,
+            #             time_end=end_time,
+            #             timezone=str(contest.timezone)
+            #         )
             if contest.mediator == user:
                 sub_txt = _('Vote link: %(link)s',
                     link=f'<a href={vote_link}>{vote_link}</a>'
@@ -1089,15 +1025,13 @@ class TezosSecuredCard(Section):
                 style='display: flex; flex-flow: column wrap'
             )
 
+        text = ugettext_lazy('Your referendum data and results will be published on Tezos blockchain') + ' ' + f"{blockchain}"
         super().__init__(
             Ul(
                 ListAction(
                     _('Secured and decentralised with Tezos'),
                     Span(
-                        _('Your referendum data and results will be published'
-                          ' on Tezos’ %(blockchain)s blockchain.',
-                            blockchain=blockchain
-                        ),
+                        text,
                         PublishProgressBar([
                             step(_('Election contract created')),
                             step(_('Election opened')),
@@ -1213,10 +1147,11 @@ class GuardiansSettingsCard(Div):
 class CandidatesSettingsCard(Div):
     def __init__(self, view, **context):
         contest = view.get_object()
-        editable = (view.request.user == contest.mediator
-                    and not contest.actual_start)
+        # editable = (view.request.user == contest.mediator
+        #             and not contest.actual_start)
+        editable = None
         super().__init__(
-            H5(_('Candidates')),
+            H5(ugettext_lazy('Choices')),
             CandidateListComp(contest, editable),
             None,
             cls='setting-section'
@@ -2078,10 +2013,10 @@ class GuardianUploadKeyCard(Div):
 
         self.submit_btn = MDCButton(_('confirm'), True, disabled=True)
         self.submit_btn_id = self.submit_btn.id
-
+        text = ugettext_lazy('All guardians’ must upload their valid private keys to unlock the ballot box.')
         return super().to_html(
             H4(_('Verify your private key'), cls='center-text'),
-            Div(_('All guardians’ must upload their valid private keys to unlock the ballot box.'), cls='center-text'),
+            Div(text, cls='center-text'),
             Form(
                 MDCFileField(
                     Input(id='file_input', type='file', name='pkl_file'),
@@ -2266,7 +2201,7 @@ class ContestResultCard(Div):
             scope='col',
             cls='mdc-data-table__header-cell overline'
         )
-        table_head_row.addchild(Th('candidate', **kwargs))
+        table_head_row.addchild(Th('choices', **kwargs))
 
         kwargs['style'] = 'text-align: right;'
         table_head_row.addchild(Th('votes', **kwargs))
@@ -2429,7 +2364,7 @@ class AddRecommenderAction(ListAction):
             tag='a',
             href=reverse('contest_recommender_create', args=[obj.id]))
         if num_recommender:
-            btn_comp = MDCButtonOutlined(_('edit'), False, **kwargs)
+            btn_comp = MDCButtonOutlined(ugettext_lazy('edit'), False, **kwargs)
             icon = DoneIcon()
         else:
             btn_comp = MDCButtonOutlined(_('add'), False, 'add', **kwargs)
@@ -2437,10 +2372,7 @@ class AddRecommenderAction(ListAction):
 
         infavour_recommender = obj.contestrecommender_set.filter(recommender_type='infavour').count()
         against_recommender = obj.contestrecommender_set.filter(recommender_type='against').count()
-        txt = _(' %(infavour_recommender)s Infavour, %(against_recommender)s Against',
-                infavour_recommender=infavour_recommender,
-                against_recommender=against_recommender,
-            )
+        txt =  f"{infavour_recommender}" + ' ' + ugettext_lazy('Infavour') + ', ' + f"{against_recommender}" + ' ' + ugettext_lazy('Against')
 
         super().__init__(
             _('Add recommender'), txt, icon, btn_comp,
@@ -2494,9 +2426,10 @@ class ContestRecommenderCreateCard(Div):
                 method='POST',
                 cls='form')
         count = contest.contestrecommender_set.count()
+        text = f"{count}" + ' ' + ugettext_lazy('Recommenders')
         return super().to_html(
             H4(
-                _('%(count)s Recommenders', n=count, count=count),
+                text,
                 cls='center-text'
             ),
             RecommenderAccordion(contest, editable),
@@ -2515,7 +2448,7 @@ class ContestRecommenderUpdateCard(Div):
             _('back'),
             reverse('contest_recommender_create', args=[contest.id]))
         delete_btn = MDCTextButton(
-            _('delete'),
+            ugettext_lazy('delete'),
             'delete',
             tag='a',
             href=reverse('contest_recommender_delete', args=[recommender.id]))
@@ -2530,7 +2463,7 @@ class ContestRecommenderUpdateCard(Div):
                 ContestRecommenderForm(form),
                 Div(
                     Div(delete_btn, cls='red-button-container'),
-                    MDCButton(_('Save'), True),
+                    MDCButton(ugettext_lazy('Save'), True),
                     style='display: flex; justify-content: space-between'),
                 method='POST',
                 cls='form'),
@@ -2590,11 +2523,11 @@ class RecommenderDetail(Div):
 
         if editable and not recommender.recommender:
             content.append(
-                MDCButtonOutlined(_('edit'), False, 'edit', **kwargs)
+                MDCButtonOutlined(ugettext_lazy('edit'), False, 'edit', **kwargs)
             )
         elif editable:
             subcontent.addchild(
-                MDCButtonOutlined(_('edit'), False, 'edit', **kwargs)
+                MDCButtonOutlined(ugettext_lazy('edit'), False, 'edit', **kwargs)
             )
 
         if 'style' not in kwargs:
@@ -2685,10 +2618,11 @@ class RecommenderListComp(MDCList):
 
 
 class RecommenderForm(forms.ModelForm):
-    recommender_type  = forms.CharField()
+    recommender_type  = forms.CharField(label=ugettext_lazy('Type'))
     picture = forms.ImageField(
         widget=forms.FileInput,
-        required=True
+        required=True,
+        label=''
     )
 
     class Meta:
@@ -2699,9 +2633,8 @@ class RecommenderForm(forms.ModelForm):
             'picture',
         ]
         labels = {
-            'name': _('FORM_TITLE_RECOMMENDER_CREATE'),
-            'recommender_type': _('FORM_RECOMMENDER_TYPE_CREATE'),
-            'picture': _('FORM_RECOMMENDER_PICTURE_CREATE'),
+            'name': ugettext_lazy('Name'),
+            'recommender_type': ugettext_lazy('Type'),
         }
 
 
@@ -2757,7 +2690,7 @@ class ParentContestForm(forms.ModelForm):
         return tomorow.replace(second=0, microsecond=0)
 
     start = forms.SplitDateTimeField(
-        label='',
+        label= '',
         initial=now,
         widget=forms.SplitDateTimeWidget(
             date_format='%Y-%m-%d',
@@ -2766,7 +2699,7 @@ class ParentContestForm(forms.ModelForm):
         ),
     )
     end = forms.SplitDateTimeField(
-        label='',
+        label= '',
         initial=tomorow,
         widget=forms.SplitDateTimeWidget(
             date_format='%Y-%m-%d',
@@ -2801,10 +2734,8 @@ class ParentContestForm(forms.ModelForm):
             'timezone',
         ]
         labels = {
-            'name': _('FORM_TITLE_ELECTION_CREATE'),
-            'start': _('FORM_START_ELECTION_CREATE'),
-            'end': _('FORM_END_ELECTION_CREATE'),
-            'timezone': _('FORM_TIMEZONE_ELECTION_CREATE')
+            'name': ugettext_lazy('Name'),
+            'timezone': ugettext_lazy('Timezone')
         }
 
 
@@ -3003,7 +2934,7 @@ class ParentBasicSettingsAction(ListAction):
     def __init__(self, obj):
         if obj.status == 'draft':
             btn_comp = MDCButtonOutlined(
-                _('edit'),
+                ugettext_lazy('edit'),
                 False,
                 tag='a',
                 href=reverse('parentcontest_update', args=[obj.uid]))
@@ -3022,14 +2953,12 @@ class AddIssuesAction(ListAction):
             tag='a',
             href=reverse('contest_list', args=[obj.uid]))
         if num_issues:
-            btn_comp = MDCButtonOutlined(_('edit'), False, **kwargs)
+            btn_comp = MDCButtonOutlined(ugettext_lazy('edit'), False, **kwargs)
             icon = DoneIcon()
         else:
             btn_comp = MDCButtonOutlined(_('add'), False, 'add', **kwargs)
             icon = TodoIcon()
-        txt = _(' %(issue)s Issues',
-                issue=num_issues,
-            )
+        txt =  f"{num_issues}" + _("Issues")
         super().__init__(
             _('Add Issues'), txt, icon, btn_comp,
         )
@@ -3045,8 +2974,9 @@ class ParentContestSettingsCard(Div):
                     ParentBasicSettingsAction(parentcontest),
                     AddIssuesAction(parentcontest)
                 ]
+        text = ugettext_lazy('delete')
         delete_btn = MDCTextButton(
-            _('delete'),
+            text,
             'delete',
             tag='a',
             href=reverse('parentcontest_delete', args=[parentcontest.uid])
@@ -3124,7 +3054,7 @@ class InitiatorForm(forms.ModelForm):
             'name',
         ]
         labels = {
-            'name': _('FORM_TITLE_INITIATOR_CREATE'),
+            'name': ugettext_lazy('Name'),
         }
 
 
@@ -3169,7 +3099,7 @@ class IssueTypeForm(forms.ModelForm):
             'name',
         ]
         labels = {
-            'name': _('FORM_TITLE_ISSUE_TYPE_CREATE'),
+            'name': ugettext_lazy('Name'),
         }
 
 
@@ -3210,7 +3140,7 @@ class IssueTypeCreateCard(Div):
 class GovtResultAction(ListAction):
     def __init__(self, contest, user):
         btn_comp = MDCButtonOutlined(
-            _('edit'),
+            ugettext_lazy('edit'),
             False,
             tag='a',
             # href=reverse('contest_update', args=[contest.parent.pk, contest.id]))

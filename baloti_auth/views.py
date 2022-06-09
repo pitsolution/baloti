@@ -37,7 +37,7 @@ class BalotiLoginView(LoginView):
                     return HttpResponseRedirect('/' + get_language() + '/baloti/success/login')
                     # return render(request, 'index.html',{"contests": contests, "login":True})
                 except Exception as err:
-                    error = "Your username and password didn't match. Please try again."
+                    error = _("Your username and password didn't match. Please try again.")
             else:
                 user = User.objects.filter(email=username, first_login=False)
                 if user:
@@ -50,9 +50,9 @@ class BalotiLoginView(LoginView):
                     login(request, user)
                     return HttpResponseRedirect('/' + get_language() + '/baloti/success/registration')
                 except Exception as err:
-                    error = "Your username and password didn't match. Please try again."
+                    error = _("Your username and password didn't match. Please try again.")
                 else:
-                    error = "Login failed!"
+                    error = _("Login failed!")
         return render(request, 'login.html', {"error":error})
 
 def home(request):
@@ -73,7 +73,7 @@ class BalotiSignupView(TemplateView):
 
 
 def signupMailSent(self, email, password):
-    subject = 'Baloti Registration Information'
+    subject = _('Baloti Registration Information')
     email_from = settings.DEFAULT_FROM_EMAIL
     login_url = settings.BASE_URL + '/' + get_language() + '/baloti/login/'
     merge_data = {
@@ -92,7 +92,6 @@ def signupMailSent(self, email, password):
     )
     message.attach_alternative(html_body, "text/html")
     message.send()
-    messages.success(self.request, _('Registration information sent by email'))
 
 class BalotiSignupMailView(TemplateView):
     """

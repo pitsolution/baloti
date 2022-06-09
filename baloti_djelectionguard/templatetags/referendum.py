@@ -45,7 +45,7 @@ def getUserVotedData(contest, user):
         non_voted_percent = 0
     else:
         child_contests = Contest.objects.filter(
-                parent=contest
+                parent=contest.parent_contest_id
                 ).distinct('id')
         voted_count =  Voter.objects.filter(contest__in=child_contests, user=user, casted=True).count()
         non_voted_count = child_contests.count() - voted_count

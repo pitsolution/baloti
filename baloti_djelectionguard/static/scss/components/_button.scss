@@ -129,6 +129,18 @@
                 transform: rotate(90deg);
             }
         }
+        &.howitworks{
+            border-color: #f8f8f8;
+            background: #f8f8f8;
+            color: #a4a4a4;
+            &:hover{
+                border-color: #e1e1e1;
+                background: #e1e1e1;
+                .app-icon{
+                    transform: rotate(90deg);
+                }
+            }
+        }
         .app{
             &-icon{
                 display: inline-block;

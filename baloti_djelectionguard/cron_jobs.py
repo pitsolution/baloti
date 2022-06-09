@@ -20,10 +20,10 @@ def close_votes():
 
     return True
 
-def daily_cron():
+def minute_cron():
     close_votes()
 
 def initialize_cron():
     """Initializes daily crons
     """
-    sched.add_job(daily_cron, trigger='cron', start_date='2022-03-29', day_of_week='mon-sun', minute='*')
+    sched.add_job(minute_cron, trigger='cron', start_date='2022-03-29', day_of_week='mon-sun', minute='*')

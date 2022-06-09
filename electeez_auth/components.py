@@ -260,9 +260,14 @@ class EmailBody(Text):
             )
         ])
         site = context['site']
-        return _(
-            'ACTIVATION_EMAIL_BODY',
-            allow_unsecure=True,
-            site_name=site.name,
-            activation_url=url
-        )
+        email_body = "Welcome on baloti." + '\n' + '\n' + "You are one step away from joining a safe election." \
+                    + '\n'+ '\n' + "Click below to verify your email." + '\n'+ url + '\n' + "Then login and vote !" \
+                    + '\n'+ '\n'+ "This email as been sended automatically. Please don't respond at this mail." \
+                    + '\n'+'\n'+ "Thanks." + '\n'+ "Team Baloti."
+        # return _(
+        #     'ACTIVATION_EMAIL_BODY',
+        #     allow_unsecure=True,
+        #     site_name=site.name,
+        #     activation_url=url
+        # )
+        return email_body
