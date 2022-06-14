@@ -62,7 +62,7 @@
                 <div class="modal-result app-result-wrap">
                     <p class="app-p">{% trans "No problem, there are other referendums you can vote for." %}</p>
                     <p class="app-h6 text-danger">{% trans "The results will be announced on" %}</p>
-                    <p class="app-resultdate">{{contest.end|date:"d.m.Y"}}</p>
+                    <p class="app-resultdate">{{contest.contest_id.end|date:"d.m.Y"}}</p>
                     <p class="app-p">{% trans "and you will be notified via email." %}</p>
                     <button class="btn btn-default mx-auto"><a href={% url 'baloti_djelectionguard:ContestDetails' contest.parent.uid %}>{% trans "BACK TO REFERENDUM" %}</a></button>
                 </div>
