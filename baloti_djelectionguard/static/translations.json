@@ -3,28 +3,32 @@
     {
       "en": "Mail sent successfully",
       "de": "E-Mail erfolgreich versendet",
-      "fr": "Mail envoyé avec succès"
+      "fr": "Mail envoyé avec succès",
+      "zh": "邮件已成功发送"
     }
   ],
   "text_b": [
     {
       "en": "Fill all the fields",
       "de": "Füllen Sie alle Felder aus",
-      "fr": "Remplissez tous les champs"
+      "fr": "Remplissez tous les champs",
+      "zh": "填写所有栏目"
     }
   ],
   "text_c": [
     {
       "en": "Service not available",
       "de": "Dienst nicht verfügbar",
-      "fr": "Service non disponible"
+      "fr": "Service non disponible",
+      "zh": "暂时无法提供使用"
     }
   ],
    "text_d": [
     {
       "en": "Invalid Email Address",
       "de": "Ungültige E-Mail",
-      "fr": "Adresse e-mail invalide"
+      "fr": "Adresse e-mail invalide",
+      "zh": "电子邮件地址无效"
     }
   ]
 }

@@ -1,0 +1,910 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-22 17:48+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: baloti_djelectionguard/templates/already_voted.html:14
+#: baloti_djelectionguard/templates/choice-no-login.html:13
+#: baloti_djelectionguard/templates/choice.html:14
+#: baloti_djelectionguard/templates/vote_success.html:13
+msgid "Make your choice"
+msgstr "做出您的选择"
+
+#: baloti_djelectionguard/templates/already_voted.html:34
+#: baloti_djelectionguard/templates/choice-no-login.html:28
+#: baloti_djelectionguard/templates/choice.html:30
+#: baloti_djelectionguard/templates/vote_success.html:33
+msgid "BACK"
+msgstr "返回"
+
+#: baloti_djelectionguard/templates/already_voted.html:35
+#: baloti_djelectionguard/templates/choice-no-login.html:29
+#: baloti_djelectionguard/templates/choice.html:31
+#: baloti_djelectionguard/templates/vote_success.html:34
+msgid "CREATE BALLOT"
+msgstr "创建选票"
+
+#: baloti_djelectionguard/templates/already_voted.html:60
+#: baloti_djelectionguard/templates/choice-no-login.html:173
+msgid "You've already voted!!"
+msgstr "您已经投过票了!"
+
+#: baloti_djelectionguard/templates/already_voted.html:63
+#: baloti_djelectionguard/templates/choice-no-login.html:176
+msgid "No problem, there are other referendums you can vote for."
+msgstr "没问题，您还有其他公投可以投票。"
+
+#: baloti_djelectionguard/templates/already_voted.html:64
+#: baloti_djelectionguard/templates/choice-no-login.html:160
+#: baloti_djelectionguard/templates/choice-no-login.html:177
+#: baloti_djelectionguard/templates/choice.html:76
+#: baloti_djelectionguard/templates/vote_success.html:64
+msgid "The results will be announced on"
+msgstr "结果将在以下时间公布："
+
+#: baloti_djelectionguard/templates/already_voted.html:66
+#: baloti_djelectionguard/templates/choice-no-login.html:162
+#: baloti_djelectionguard/templates/choice-no-login.html:179
+#: baloti_djelectionguard/templates/choice.html:78
+#: baloti_djelectionguard/templates/vote_success.html:66
+msgid "and you will be notified via email."
+msgstr "并将通过电子邮件通知您。"
+
+#: baloti_djelectionguard/templates/already_voted.html:67
+#: baloti_djelectionguard/templates/choice-no-login.html:163
+#: baloti_djelectionguard/templates/choice-no-login.html:180
+#: baloti_djelectionguard/templates/choice.html:79
+#: baloti_djelectionguard/templates/vote_success.html:67
+msgid "BACK TO REFERENDUM"
+msgstr "返回投票介面"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:57
+msgid "Login Required!"
+msgstr "请先登录"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:59
+msgid "Please Login to your account to continue voting"
+msgstr "请登录您的账户以方便继续进行投票"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:62
+#: baloti_djelectionguard/templates/choice-no-login.html:102
+msgid "Continue with Facebook"
+msgstr "使用Facebook继续"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:70
+#: baloti_djelectionguard/templates/choice-no-login.html:113
+msgid "Email address"
+msgstr "电子邮箱"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:75
+msgid "Password"
+msgstr "密码"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:80
+msgid "Your username and password didn't match. Please try again."
+msgstr "您的用户名和密码不匹配。请再试一次。"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:83
+msgid "CONTINUE"
+msgstr "继续"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:84
+msgid "Not registered yet?"
+msgstr "还没有注册吗？"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:84
+msgid "Create an account now"
+msgstr "现在创建账户"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:87
+#: baloti_djelectionguard/templates/choice-no-login.html:128
+msgid "CLOSE"
+msgstr "关闭"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:97
+msgid "Create account!"
+msgstr "创建账户!"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:99
+msgid "You can register with your social login or email address."
+msgstr "您可以使用您的社交平台登录或电子邮件注册。"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:116
+msgid ""
+"We will send you the registration link to the email address you entered."
+msgstr "我们将向您输入的电子邮件信箱发送注册链接。"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:120
+msgid "This email has already been registered."
+msgstr "这个电子邮件已被使用。"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:123
+msgid "Users must have an email address."
+msgstr "用户必须有一个电子邮箱地址。"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:125
+#: baloti_djelectionguard/templates/landing-en.html:192
+msgid "SEND"
+msgstr "发送"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:126
+msgid "Already have an account?"
+msgstr "已经有一个账户了吗？"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:126
+msgid "Login here!"
+msgstr "请在此登录！"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:138
+msgid "Mail sent!"
+msgstr "邮件已发送!"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:140
+msgid ""
+"Please check your inbox to get the registration informations. Thank you."
+msgstr "请检查您的收件箱以获得注册信息。谢谢。"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:146
+msgid "LOGIN NOW"
+msgstr "登录到账户"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:155
+#: baloti_djelectionguard/templates/choice.html:71
+#: baloti_djelectionguard/templates/vote_success.html:59
+msgid "Success!"
+msgstr "成功!"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:156
+#: baloti_djelectionguard/templates/choice.html:72
+#: baloti_djelectionguard/templates/vote_success.html:60
+msgid "Your Choice Added Successfully"
+msgstr "您的选择已添加成功"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:159
+#: baloti_djelectionguard/templates/choice.html:75
+#: baloti_djelectionguard/templates/vote_success.html:63
+msgid "Thank for voting at the Referendum and be a part of Direct Democracy."
+msgstr "感谢您在公投中投票，成为民主的一分子。"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:187
+#: baloti_djelectionguard/templates/choice.html:54
+msgid "Confirm your selection"
+msgstr "确认您的选择"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:195
+#: baloti_djelectionguard/templates/choice.html:62
+#: baloti_djelectionguard/templates/layout/header.html:143
+msgid "CANCEL"
+msgstr "取消"
+
+#: baloti_djelectionguard/templates/choice-no-login.html:196
+#: baloti_djelectionguard/templates/choice.html:63
+#: baloti_djelectionguard/templates/layout/header.html:144
+msgid "CONFIRM"
+msgstr "确认"
+
+#: baloti_djelectionguard/templates/contactinfo_mail.html:27
+msgid "Contact Information"
+msgstr "联系资料"
+
+#: baloti_djelectionguard/templates/contactinfo_mail.html:30
+msgid "First Name:"
+msgstr "姓氏"
+
+#: baloti_djelectionguard/templates/contactinfo_mail.html:31
+msgid "Last Name: "
+msgstr "名字"
+
+#: baloti_djelectionguard/templates/contactinfo_mail.html:32
+msgid "Email:"
+msgstr "电子邮件"
+
+#: baloti_djelectionguard/templates/contest_details.html:13
+#: baloti_djelectionguard/templates/contest_list.html:13
+#: baloti_djelectionguard/templates/contest_results.html:14
+#: baloti_djelectionguard/templates/layout/footer.html:15
+#: baloti_djelectionguard/templates/layout/header.html:42
+msgid "Referendum Votes"
+msgstr "公投投票"
+
+#: baloti_djelectionguard/templates/contest_details.html:31
+msgid "Vote now"
+msgstr "立即投票"
+
+#: baloti_djelectionguard/templates/contest_details.html:34
+#: baloti_djelectionguard/templates/contest_list.html:51
+msgid "VOTED"
+msgstr "已投票"
+
+#: baloti_djelectionguard/templates/contest_details.html:38
+#: baloti_djelectionguard/templates/contest_list.html:114
+#: baloti_djelectionguard/templates/index.html:79
+msgid "VIEW RESULT"
+msgstr "查看结果"
+
+#: baloti_djelectionguard/templates/contest_details.html:51
+#: baloti_djelectionguard/templates/contest_results.html:117
+msgid "Description"
+msgstr "说明"
+
+#: baloti_djelectionguard/templates/contest_details.html:54
+#: baloti_djelectionguard/templates/contest_results.html:120
+msgid "Arguments"
+msgstr "论点"
+
+#: baloti_djelectionguard/templates/contest_details.html:57
+#: baloti_djelectionguard/templates/contest_results.html:123
+msgid "Recommendations"
+msgstr "推荐"
+
+#: baloti_djelectionguard/templates/contest_details.html:66
+#: baloti_djelectionguard/templates/contest_results.html:132
+msgid "Type:"
+msgstr "种类"
+
+#: baloti_djelectionguard/templates/contest_details.html:70
+#: baloti_djelectionguard/templates/contest_results.html:136
+msgid "Initiator:"
+msgstr "发起者"
+
+#: baloti_djelectionguard/templates/contest_details.html:87
+#: baloti_djelectionguard/templates/contest_details.html:127
+#: baloti_djelectionguard/templates/contest_results.html:152
+#: baloti_djelectionguard/templates/contest_results.html:190
+msgid "In favour"
+msgstr "赞成"
+
+#: baloti_djelectionguard/templates/contest_details.html:104
+#: baloti_djelectionguard/templates/contest_details.html:152
+#: baloti_djelectionguard/templates/contest_results.html:169
+#: baloti_djelectionguard/templates/contest_results.html:215
+msgid "Against"
+msgstr "反对"
+
+#: baloti_djelectionguard/templates/contest_details.html:185
+msgid "VOTING END"
+msgstr "投票结束"
+
+#: baloti_djelectionguard/templates/contest_details.html:189
+msgid "days"
+msgstr "天数"
+
+#: baloti_djelectionguard/templates/contest_details.html:190
+msgid "Hours"
+msgstr "小时"
+
+#: baloti_djelectionguard/templates/contest_details.html:191
+msgid "Minutes"
+msgstr "分钟"
+
+#: baloti_djelectionguard/templates/contest_details.html:200
+msgid "YOUR VOTE"
+msgstr "您的选票"
+
+#: baloti_djelectionguard/templates/contest_details.html:208
+msgid "Voted"
+msgstr "已投票"
+
+#: baloti_djelectionguard/templates/contest_details.html:212
+msgid "Not Voted"
+msgstr "尚未投票"
+
+#: baloti_djelectionguard/templates/contest_details.html:217
+#: baloti_djelectionguard/templates/contest_results.html:243
+msgid "Share"
+msgstr "分享"
+
+#: baloti_djelectionguard/templates/contest_details.html:225
+#: baloti_djelectionguard/templates/contest_results.html:251
+msgid "Twitter"
+msgstr "推特"
+
+#: baloti_djelectionguard/templates/contest_details.html:230
+#: baloti_djelectionguard/templates/contest_results.html:256
+msgid "E-Mail"
+msgstr "电子邮件"
+
+#: baloti_djelectionguard/templates/contest_list.html:31
+#: baloti_djelectionguard/templates/news.html:21
+msgid "Sort by"
+msgstr "分类"
+
+#: baloti_djelectionguard/templates/contest_list.html:33
+#: baloti_djelectionguard/templates/news.html:23
+msgid "Old to new"
+msgstr "从旧到新"
+
+#: baloti_djelectionguard/templates/contest_list.html:34
+#: baloti_djelectionguard/templates/news.html:24
+msgid "New to old"
+msgstr "从新到旧"
+
+#: baloti_djelectionguard/templates/contest_list.html:56
+#: baloti_djelectionguard/templates/contest_list.html:105
+#: baloti_djelectionguard/templates/index.html:58
+msgid "Issues:"
+msgstr "问题"
+
+#: baloti_djelectionguard/templates/contest_list.html:67
+#: baloti_djelectionguard/templates/index.html:17
+#: baloti_djelectionguard/templates/index.html:69
+msgid "VOTE NOW"
+msgstr "立即投票"
+
+#: baloti_djelectionguard/templates/contest_list.html:72
+#: baloti_djelectionguard/templates/index.html:73
+msgid "VIEW DETAIL"
+msgstr "查看详细内容"
+
+#: baloti_djelectionguard/templates/contest_list.html:81
+msgid "Sorry"
+msgstr "抱歉"
+
+#: baloti_djelectionguard/templates/contest_list.html:82
+msgid "we couldn't find any matches for that"
+msgstr "我们找不到任何与之匹配的内容"
+
+#: baloti_djelectionguard/templates/contest_list.html:90
+msgid "Results"
+msgstr "结果"
+
+#: baloti_djelectionguard/templates/contest_list.html:114
+#: baloti_djelectionguard/templates/contest_list.html:117
+#: baloti_djelectionguard/templates/index.html:79
+#: baloti_djelectionguard/templates/index.html:81
+msgid "closed"
+msgstr "已关闭"
+
+#: baloti_djelectionguard/templates/contest_list.html:117
+#: baloti_djelectionguard/templates/index.html:81
+msgid "VIEW DETAILS"
+msgstr "查看详细内容"
+
+#: baloti_djelectionguard/templates/contest_results.html:60
+#: baloti_djelectionguard/templates/layout/header.html:128
+msgid "NO"
+msgstr "否"
+
+#: baloti_djelectionguard/templates/contest_results.html:61
+#: baloti_djelectionguard/templates/layout/header.html:129
+msgid "YES"
+msgstr "是"
+
+#: baloti_djelectionguard/templates/contest_results.html:247
+msgid "Copy link"
+msgstr "复制链接"
+
+#: baloti_djelectionguard/templates/data_privacy.html:55
+msgid "Data Protection"
+msgstr "数据保护"
+
+#: baloti_djelectionguard/templates/data_privacy.html:56
+msgid ""
+"We take the protection of your personal data very seriously and strictly "
+"adhere to the rules of the data protection laws. Personal data is collected "
+"on this website only to the technically necessary extent. Under no "
+"circumstances will the data collected be sold or passed on to third parties "
+"for any other reason."
+msgstr ""
+"我们遵守数据保护法的规定，並严格重视对您个人数据的保护本网站只在技术必要的范"
+"围内收集个人数据。在任何情况下，所收集的数据都不会因任何其他原因被出售或传递"
+"给第三方"
+
+#: baloti_djelectionguard/templates/data_privacy.html:57
+msgid ""
+"The following declaration gives you an overview of how we guarantee this "
+"protection and what kind of data is collected for what purpose."
+msgstr ""
+"下面的声明向您概述了我们如何保证个人资料的保护，以及为何种目的收集哪些数据。"
+
+#: baloti_djelectionguard/templates/data_privacy.html:58
+msgid ""
+"We automatically collect and store information that your browser transmits "
+"to us in the server log files. These are:"
+msgstr ""
+"我们会自动收集并储存您的浏览器传输给我们的信息，并将这些信息保存在服务器文件"
+"中。这些信息是："
+
+#: baloti_djelectionguard/templates/data_privacy.html:61
+msgid "Browser type/ version"
+msgstr "浏览器类型/版本"
+
+#: baloti_djelectionguard/templates/data_privacy.html:62
+msgid "Operating system used"
+msgstr "所使用的操作系统"
+
+#: baloti_djelectionguard/templates/data_privacy.html:63
+msgid "Referrer URL (the previously visited page)"
+msgstr "推荐者URL（以前访问过的页面）。"
+
+#: baloti_djelectionguard/templates/data_privacy.html:64
+msgid "Host name of the accessing computer (IP address)"
+msgstr "主机名称（IP地址）"
+
+#: baloti_djelectionguard/templates/data_privacy.html:65
+msgid "Date and time of the server request"
+msgstr "服务器请求的日期和时间"
+
+#: baloti_djelectionguard/templates/data_privacy.html:67
+msgid ""
+"These data cannot be assigned to specific persons. These data are not "
+"combined with other data sources. The data will also be deleted after a "
+"statistical evaluation."
+msgstr ""
+"这些数据不能分配给特定的人。这些数据不会与其他数据源结合。这些数据也将在统计"
+"评估后被删除。"
+
+#: baloti_djelectionguard/templates/data_privacy.html:70
+msgid "Cookies"
+msgstr "Cookies"
+
+#: baloti_djelectionguard/templates/data_privacy.html:71
+msgid ""
+"On some of our pages we use cookies to make visiting our website attractive "
+"and to enable the use of certain functions. „Cookies“ are small text files "
+"that your browser can store on your computer. These cookies are deleted from "
+"your hard disk at the end of the browser session („session cookies“). You "
+"can set your browser to inform you about the setting of cookies, to decide "
+"on acceptance on a case-by-case basis or to generally accept or exclude the "
+"acceptance of cookies. If you deactivate cookies, certain functions of our "
+"website may not be available."
+msgstr ""
+"在一些网页上，我们使用cookies来使网站具有吸引力，并添加某些功能。Cookies是浏"
+"览器存储在您计算机上的小的文字文件。在浏览器会话结束时，这些cookies会从您的硬"
+"盘上删除。您可以将浏览器设置为通知设置cookies，根据具体情况决定是否接受，或者"
+"设置为一般接受或排除接受cookies。如果您停用cookies，我们网站的某些功能将可能"
+"无法使用。"
+
+#: baloti_djelectionguard/templates/data_privacy.html:74
+msgid "Use of Google Analytics"
+msgstr "使用Google分析器"
+
+#: baloti_djelectionguard/templates/data_privacy.html:75
+msgid ""
+"This website uses Google Analytics, a web analysis service of Google Inc. "
+"(„Google“) Google Analytics uses cookies, which are text files placed on "
+"your computer, to help the website analyze how users use the site. The "
+"information generated by the cookie about your use of this website "
+"(including your IP address, which is anonymised using the _anonymizeIp() "
+"method so that you can no longer be assigned to a connection) is transmitted "
+"to a Google server in the USA and stored there. Google will use this "
+"information for the purpose of evaluating your use of the website, compiling "
+"reports on website activity for website operators and providing other "
+"services relating to website activity and internet usage. Google may also "
+"transfer this information to third parties if this is required by law or if "
+"third parties process this data on behalf of Google. Google will not "
+"associate your IP address with any other data held by Google. You may refuse "
+"the use of cookies by selecting the appropriate settings on your browser, "
+"however please note that if you do this you may not be able to use the full "
+"functionality of this website. By using this website, you consent to the "
+"processing of data about you by Google in the manner and for the purposes "
+"set out above. You can object to the collection of data by Google Analytics "
+"with future effect by installing a deactivation add-on for your browser."
+msgstr ""
+"本网站使用Google分析，这是Google公司的一项网络分析服务。Google分析使用"
+"cookies，即放置在您计算机上的文字文件，以帮助网站分析用户如何使用该网站。由"
+"cookie产生的关于您使用本网站的信息（包括您的IP地址，该地址使用_anonymizeIp ()"
+"方法都进行了匿名化处理）被传输到Google在美国的服务器上并储存在那里。Google将"
+"利用这些信息来评估您对网站的使用情况，为网站运营商编制网站活动报告，并提供与"
+"网站活动和互联网使用有关的其他服务。如果法律要求或第三方代表Google处理这些数"
+"据，Google也可能将这些信息转移给第三方。Google不会将您的IP地址与Google持有的"
+"任何其他数据联系起来。你可以通过在浏览器上选择适当的设置来拒绝使用cookies，但"
+"是请注意，如果您这样做，您可能无法使用本网站的全部功能。通过使用本网站，您同"
+"意Google以上述方式和目的对您的数据进行处理。您可以通过为您的浏览器安装一个停"
+"用插件来反对Google分析的数据收集，并在未来生效。"
+
+#: baloti_djelectionguard/templates/data_privacy.html:97
+#: baloti_djelectionguard/templates/imprint.html:103
+#: baloti_djelectionguard/templates/landing-en.html:213
+msgid "Data Privacy"
+msgstr "数据隐私"
+
+#: baloti_djelectionguard/templates/data_privacy.html:98
+#: baloti_djelectionguard/templates/imprint.html:104
+#: baloti_djelectionguard/templates/landing-en.html:214
+msgid "Imprint"
+msgstr "版本说明"
+
+#: baloti_djelectionguard/templates/data_privacy.html:109
+#: baloti_djelectionguard/templates/imprint.html:115
+msgid "FOLLOW US ON"
+msgstr "追踪我们"
+
+#: baloti_djelectionguard/templates/disclaimer.html:11
+#: baloti_djelectionguard/templates/layout/footer.html:21
+#: baloti_djelectionguard/templates/layout/header.html:51
+msgid "Disclaimer"
+msgstr "免责声明"
+
+#: baloti_djelectionguard/templates/disclaimer.html:12
+msgid ""
+"Please note that the vote you are casting on the baloti website is not "
+"official.."
+msgstr "请注意，您在baloti网站上投的票不是官方的。"
+
+#: baloti_djelectionguard/templates/disclaimer.html:13
+msgid "On the website"
+msgstr "在网页上"
+
+#: baloti_djelectionguard/templates/disclaimer.html:13
+msgid "various user data are saved"
+msgstr "保存了各种用户数据"
+
+#: baloti_djelectionguard/templates/disclaimer.html:14
+msgid ""
+"In a cookie we store the language preference of the user only. When the "
+"website is accessed login data are saved in a so-called log file on the "
+"server. This mainly concerns: IP address, date and time of access, name of "
+"accessed page, web-browser used, operating system used etc."
+msgstr ""
+"在一个cookie中，我们只存储用户的语言偏好。当网站被访问时，登录数据被保存在服"
+"务器上一个所谓的文件中。这主要涉及 IP地址、访问日期和时间、访问页面的名称、使"
+"用的网络浏览器、使用的操作系统等。"
+
+#: baloti_djelectionguard/templates/disclaimer.html:15
+msgid ""
+"All these data are protected against unauthorised persons and are only "
+"evaluated in the form of anonymous access statistics."
+msgstr ""
+"所有这些数据都受到保护，防止未经授权的人使用，并且只以匿名访问统计的形式进行"
+"评估。"
+
+#: baloti_djelectionguard/templates/disclaimer.html:16
+msgid ""
+"E-mail addresses are used only for direct communication with the user and "
+"will under no circumstances be passed on to a third party."
+msgstr "电子邮件地址仅用于与用户的直接沟通，在任何情况下都不会被转给第三方。"
+
+#: baloti_djelectionguard/templates/disclaimer.html:17
+msgid ""
+"The data about the vote and the user (status, age, gender, canton, etc.) are "
+"used for analyses and statistics only in anonymised and aggregated form."
+msgstr ""
+"有关投票和用户的数据（状态、年龄、性别、州等）仅以匿名和汇总的形式用于分析和"
+"统计。"
+
+#: baloti_djelectionguard/templates/imprint.html:57
+msgid "Represented by"
+msgstr "代表者："
+
+#: baloti_djelectionguard/templates/imprint.html:61
+msgid "Address"
+msgstr "地址"
+
+#: baloti_djelectionguard/templates/imprint.html:65
+msgid "Firm Number"
+msgstr "公司编号"
+
+#: baloti_djelectionguard/templates/imprint.html:69
+msgid "VAT Number"
+msgstr "增值税号"
+
+#: baloti_djelectionguard/templates/imprint.html:73
+msgid "Phone"
+msgstr "电话号码"
+
+#: baloti_djelectionguard/templates/imprint.html:77
+msgid "Fax"
+msgstr "传真号码"
+
+#: baloti_djelectionguard/templates/index.html:14
+msgid "baloti Voting system"
+msgstr "Baloti 投票系统"
+
+#: baloti_djelectionguard/templates/index.html:15
+msgid ""
+"On our platform you can <br> practice direct democracy in <br> several "
+"languages"
+msgstr "在我们的平台上，你可以用不同语言实践民主"
+
+#: baloti_djelectionguard/templates/index.html:18
+msgid "HOW IT WORKS"
+msgstr "如何运作"
+
+#: baloti_djelectionguard/templates/index.html:41
+msgid "ABOUT US"
+msgstr "关于我们"
+
+#: baloti_djelectionguard/templates/index.html:42
+msgid "On our platform you can practice direct democracy in several languages"
+msgstr "在我们的平台上，你可以用不同语言实践民主"
+
+#: baloti_djelectionguard/templates/index.html:43
+msgid ""
+"The baloti.ch. project is carried out by an interdisciplinary team at the "
+"Zentrum für Demokratie Aarau in cooperation with the University of "
+"Neuchatel. Diversified project partnerships ensure that the project will be "
+"made public all over the country."
+msgstr ""
+"baloti.ch.项目是由阿劳民主中心的一个跨学科团队与纳沙泰尔大学合作开展的。多样"
+"化的项目合作关系确保该项目将在全国范围内公开。"
+
+#: baloti_djelectionguard/templates/index.html:48
+msgid "LATEST REFERENDUMS & VOTE"
+msgstr "最新的公民投票和表决"
+
+#: baloti_djelectionguard/templates/index.html:90
+msgid "VIEW ALL"
+msgstr "查看全部"
+
+#: baloti_djelectionguard/templates/index.html:99
+msgid "LETS DIVE IN"
+msgstr "让我们潜入其中"
+
+#: baloti_djelectionguard/templates/index.html:100
+msgid "How it works"
+msgstr "如何运作"
+
+#: baloti_djelectionguard/templates/index.html:105
+msgid ""
+"Inform yourself about the latest votes in Switzerland and learn new facts "
+"about Swiss politics."
+msgstr "了解瑞士的最新投票情况，并学习有关瑞士政治的新知识。"
+
+#: baloti_djelectionguard/templates/index.html:109
+msgid ""
+"Register on the baloti platform and vote, whether you already have Swiss "
+"voting rights or not"
+msgstr "无论您是否拥有瑞士投票权，都可以在baloti平台注册并投票"
+
+#: baloti_djelectionguard/templates/index.html:113
+msgid "Stay up to date with notifications and information from baloti."
+msgstr "了解来自baloti的最新通知和信息。"
+
+#: baloti_djelectionguard/templates/index.html:122
+#: baloti_djelectionguard/templates/landing-en.html:87
+msgid "IMPACT"
+msgstr "影响力"
+
+#: baloti_djelectionguard/templates/index.html:129
+#: baloti_djelectionguard/templates/landing-en.html:95
+msgid "safe, secure & open"
+msgstr "安全、可靠和开放"
+
+#: baloti_djelectionguard/templates/index.html:130
+msgid ""
+"Our solution is fully open source and we use blockchain technology for "
+"saving and verifying votes"
+msgstr "我们的解决方案是完全开源的，我们使用区块链技术来保存和验证投票。"
+
+#: baloti_djelectionguard/templates/index.html:137
+#: baloti_djelectionguard/templates/landing-en.html:106
+msgid "multilingual"
+msgstr "多语言"
+
+#: baloti_djelectionguard/templates/index.html:138
+msgid ""
+"making the voting experience more accessible, vote in your own language."
+msgstr "使投票体验更加方便，用您的母语投票。"
+
+#: baloti_djelectionguard/templates/index.html:146
+#: baloti_djelectionguard/templates/landing-en.html:116
+msgid "democratic"
+msgstr "民主"
+
+#: baloti_djelectionguard/templates/index.html:147
+#: baloti_djelectionguard/templates/landing-en.html:117
+msgid ""
+"allow more people to participate in voting independently of time and space"
+msgstr "允许更多的人不受时间和空间的限制参与投票。"
+
+#: baloti_djelectionguard/templates/index.html:207
+msgid "ILLUSTRATIONS"
+msgstr "图解"
+
+#: baloti_djelectionguard/templates/index.html:216
+#: baloti_djelectionguard/templates/news.html:39
+#: baloti_djelectionguard/templates/news.html:78
+msgid "Sources of Information"
+msgstr "信息来源"
+
+#: baloti_djelectionguard/templates/index.html:217
+#: baloti_djelectionguard/templates/index.html:230
+#: baloti_djelectionguard/templates/index.html:243
+#: baloti_djelectionguard/templates/news.html:40
+#: baloti_djelectionguard/templates/news.html:53
+#: baloti_djelectionguard/templates/news.html:66
+#: baloti_djelectionguard/templates/news.html:79
+#: baloti_djelectionguard/templates/news.html:92
+#: baloti_djelectionguard/templates/news.html:105
+#: baloti_djelectionguard/templates/news.html:120
+#: baloti_djelectionguard/templates/news.html:133
+#: baloti_djelectionguard/templates/news.html:146
+#: baloti_djelectionguard/templates/news.html:159
+#: baloti_djelectionguard/templates/news.html:172
+#: baloti_djelectionguard/templates/news.html:185
+msgid ""
+"Selectio Helvetica light to safeguard ballot secrecy. The secret ballot "
+"protects the voter in a vote or election, so that his or her choice remains "
+"confidential. Securing ballot secrecy is a central..."
+msgstr ""
+"在投票或选举中，无记名投票可以保护选民，使其选择得以保密。确保选票的保密性是"
+"一个核心问题。"
+
+#: baloti_djelectionguard/templates/index.html:220
+#: baloti_djelectionguard/templates/index.html:233
+#: baloti_djelectionguard/templates/index.html:246
+#: baloti_djelectionguard/templates/news.html:43
+#: baloti_djelectionguard/templates/news.html:56
+#: baloti_djelectionguard/templates/news.html:69
+#: baloti_djelectionguard/templates/news.html:82
+#: baloti_djelectionguard/templates/news.html:95
+#: baloti_djelectionguard/templates/news.html:108
+#: baloti_djelectionguard/templates/news.html:123
+#: baloti_djelectionguard/templates/news.html:136
+#: baloti_djelectionguard/templates/news.html:149
+#: baloti_djelectionguard/templates/news.html:162
+#: baloti_djelectionguard/templates/news.html:175
+#: baloti_djelectionguard/templates/news.html:188
+msgid "Read"
+msgstr "阅覧"
+
+#: baloti_djelectionguard/templates/index.html:229
+#: baloti_djelectionguard/templates/news.html:52
+#: baloti_djelectionguard/templates/news.html:91
+msgid "Television debates"
+msgstr "电视辩论"
+
+#: baloti_djelectionguard/templates/index.html:242
+#: baloti_djelectionguard/templates/news.html:65
+#: baloti_djelectionguard/templates/news.html:104
+#: baloti_djelectionguard/templates/news.html:119
+#: baloti_djelectionguard/templates/news.html:132
+#: baloti_djelectionguard/templates/news.html:145
+#: baloti_djelectionguard/templates/news.html:158
+#: baloti_djelectionguard/templates/news.html:171
+#: baloti_djelectionguard/templates/news.html:184
+msgid "Postal voting"
+msgstr "邮政投票"
+
+#: baloti_djelectionguard/templates/index.html:259
+#: baloti_djelectionguard/templates/landing-en.html:127
+msgid "PROJECT PARTNERS"
+msgstr "项目伙伴"
+
+#: baloti_djelectionguard/templates/index.html:295
+msgid "Registration successful"
+msgstr "注册成功"
+
+#: baloti_djelectionguard/templates/index.html:305
+msgid "Password successfully changed"
+msgstr "密码修改成功"
+
+#: baloti_djelectionguard/templates/index.html:315
+msgid "Logged out successfully"
+msgstr "已成功登出"
+
+#: baloti_djelectionguard/templates/index.html:325
+msgid "Logged in successfully"
+msgstr "已成功登入"
+
+#: baloti_djelectionguard/templates/landing-en.html:55
+msgid "the baloti project"
+msgstr "Baloti项目"
+
+#: baloti_djelectionguard/templates/landing-en.html:56
+msgid "an online voting platform for all languages is our vision"
+msgstr "我们的愿景是建立一个适用于所有语言的在线投票平台"
+
+#: baloti_djelectionguard/templates/landing-en.html:58
+msgid "go to the baloti portal"
+msgstr "前往Baloti门户网站"
+
+#: baloti_djelectionguard/templates/landing-en.html:75
+msgid "ABOUT THE PROJECT"
+msgstr "关于该项目"
+
+#: baloti_djelectionguard/templates/landing-en.html:76
+msgid ""
+"baloti is a technical solution allowing you to cast your vote online in "
+"several languages in a safe and secure way"
+msgstr "baloti是一个技术解决方案，允许您以安全可靠的方式在网上用多种语言投票。"
+
+#: baloti_djelectionguard/templates/landing-en.html:77
+msgid "experience Swiss referendum voting online"
+msgstr "体验瑞士公投在线投票"
+
+#: baloti_djelectionguard/templates/landing-en.html:96
+msgid ""
+"baloti is fully open source and uses blockchain technology for saving and "
+"verifying votes"
+msgstr "baloti是完全开源的，并使用区块链技术来保存和验证投票。"
+
+#: baloti_djelectionguard/templates/landing-en.html:107
+msgid "making the voting experience more accessible, vote in your own language"
+msgstr "用母语投票，让投票体验更方便。"
+
+#: baloti_djelectionguard/templates/landing-en.html:158
+msgid "CONTACT US"
+msgstr "联系我们"
+
+#: baloti_djelectionguard/templates/landing-en.html:159
+msgid "Feel free to <br> contact us"
+msgstr "欢迎与我们联系"
+
+#: baloti_djelectionguard/templates/landing-en.html:167
+msgid "Firstname*"
+msgstr "姓氏"
+
+#: baloti_djelectionguard/templates/landing-en.html:171
+msgid "Lastname*"
+msgstr "名字"
+
+#: baloti_djelectionguard/templates/landing-en.html:177
+msgid "Email*"
+msgstr "电子邮件"
+
+#: baloti_djelectionguard/templates/landing-en.html:181
+msgid "Subject*"
+msgstr "主题"
+
+#: baloti_djelectionguard/templates/landing-en.html:186
+msgid "Message*"
+msgstr "信息"
+
+#: baloti_djelectionguard/templates/landing-en.html:228
+msgid "Mail sent successfully"
+msgstr "邮件已成功发送"
+
+#: baloti_djelectionguard/templates/layout/footer.html:16
+#: baloti_djelectionguard/templates/layout/header.html:45
+#: baloti_djelectionguard/templates/news.html:11
+msgid "Illustrations"
+msgstr "图解"
+
+#: baloti_djelectionguard/templates/layout/footer.html:22
+msgid "User Manual"
+msgstr "用户手册"
+
+#: baloti_djelectionguard/templates/layout/header.html:56
+#: baloti_djelectionguard/templates/layout/header.html:83
+msgid "Login"
+msgstr "登录"
+
+#: baloti_djelectionguard/templates/layout/header.html:63
+msgid "Profile settings"
+msgstr "个人档案设置"
+
+#: baloti_djelectionguard/templates/layout/header.html:68
+msgid "Change Password?"
+msgstr "更改密码？"
+
+#: baloti_djelectionguard/templates/layout/header.html:71
+#: baloti_djelectionguard/templates/layout/header.html:102
+msgid "Delete profile"
+msgstr "删除账号"
+
+#: baloti_djelectionguard/templates/layout/header.html:76
+#: baloti_djelectionguard/templates/layout/header.html:105
+msgid "Logout"
+msgstr "登出"
+
+#: baloti_djelectionguard/templates/layout/header.html:99
+msgid "Change Password"
+msgstr "更改密码"
+
+#: baloti_djelectionguard/templates/layout/header.html:126
+msgid "Are you sure you want to delete your baloti account?"
+msgstr "确定要删除您的baloti账户吗？"
+
+#: baloti_djelectionguard/templates/layout/header.html:136
+msgid "Enter your password to confirm"
+msgstr "输入你的密码以确认"
+
+#: baloti_djelectionguard/templates/layout/header.html:140
+msgid "Invalid password"
+msgstr "无效密码"
