@@ -72,7 +72,7 @@ class LanguageAdmin(admin.ModelAdmin):
     model = Language
     inlines = [TextAdmin]
     list_display = ('name', 'site')
-    fields = ('name', 'iso', 'site')
+    fields = ('name', 'iso', 'site', 'dynamic_iso')
     readonly_fields = ('site',)
     change_list_template = 'admin/djlang_load_form.html'
 
