@@ -19,6 +19,7 @@ LANGUAGES = (
     ('uk', _('Ukrainian')),
     ('ja', _('Japanese')),
     ('ru', _('Russian')),
+    ('id', _('Indonesian')),
 
 )
 

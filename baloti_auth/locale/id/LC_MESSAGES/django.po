@@ -1,0 +1,237 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-22 16:45+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+#: baloti_auth/forms.py:21
+msgid "Your old password was entered incorrectly. Please enter it again."
+msgstr "Sandi yang lama salah. Silakan masukkan lagi."
+
+#: baloti_auth/templates/change_password.html:64
+msgid "Change Password"
+msgstr "Ubah sandi"
+
+#: baloti_auth/templates/change_password.html:71
+msgid "Old Password"
+msgstr "Sandi lama"
+
+#: baloti_auth/templates/change_password.html:77
+msgid "New Password"
+msgstr "Sandi baru"
+
+#: baloti_auth/templates/change_password.html:83
+msgid "New Password Confirmation"
+msgstr "Konfirmasi sandi baru"
+
+#: baloti_auth/templates/change_password.html:97
+#: baloti_auth/templates/login.html:95
+#: baloti_auth/templates/signup_mail.html:235
+msgid "CONTINUE"
+msgstr "Lanjutkan"
+
+#: baloti_auth/templates/change_password.html:101
+#: baloti_auth/templates/login.html:101
+#: baloti_auth/templates/password_reset.html:81
+#: baloti_auth/templates/password_reset_done.html:64
+#: baloti_auth/templates/signup.html:95
+msgid "Back"
+msgstr "Kembali"
+
+#: baloti_auth/templates/login.html:64
+msgid "Welcome to baloti!"
+msgstr "Selamat datang di baloti!"
+
+#: baloti_auth/templates/login.html:66
+msgid "Login to your account"
+msgstr "Masuk ke akun anda"
+
+#: baloti_auth/templates/login.html:69 baloti_auth/templates/signup.html:69
+msgid "Continue with Facebook"
+msgstr "Masuk dengan Facebook"
+
+#: baloti_auth/templates/login.html:79
+#: baloti_auth/templates/password_reset.html:71
+#: baloti_auth/templates/password_reset_confirm.html:64
+#: baloti_auth/templates/signup.html:83
+msgid "Email address"
+msgstr "Alamat email"
+
+#: baloti_auth/templates/login.html:84
+msgid "Password"
+msgstr "Sandi"
+
+#: baloti_auth/templates/login.html:94
+msgid "Forgot password?"
+msgstr "Lupa sandi?"
+
+#: baloti_auth/templates/login.html:96
+msgid "Not registered yet?"
+msgstr "Belum punya akun?"
+
+#: baloti_auth/templates/login.html:96
+msgid "Create an account now!"
+msgstr "Buat akun baru sekarang!"
+
+#: baloti_auth/templates/password_reset.html:62
+msgid "Forgot Password?"
+msgstr "Lupa sandi?"
+
+#: baloti_auth/templates/password_reset.html:64
+#: baloti_auth/templates/signup.html:86
+msgid ""
+"We will send you the registration link to the email address you entered."
+msgstr ""
+"Kami akan mengirimkan link pendaftaran ke alamat email yang didaftarkan."
+
+#: baloti_auth/templates/password_reset.html:74
+msgid "Send Recovery Email"
+msgstr "Kirim email pemulihan"
+
+#: baloti_auth/templates/password_reset.html:76
+msgid "Just Remembered?"
+msgstr "Sudah ingat?"
+
+#: baloti_auth/templates/password_reset.html:77
+msgid "Signin here!"
+msgstr "Masuk lewat sini!"
+
+#: baloti_auth/templates/password_reset_complete.html:55
+msgid "Password changed!"
+msgstr "Sandi telah diubah!"
+
+#: baloti_auth/templates/password_reset_complete.html:57
+msgid "Your password has changed successfully."
+msgstr "Sandi telah sukses diubah"
+
+#: baloti_auth/templates/password_reset_complete.html:65
+#: baloti_auth/templates/signup_success.html:71
+msgid "LOGIN NOW"
+msgstr "MASUK SEKARANG"
+
+#: baloti_auth/templates/password_reset_confirm.html:56
+#: baloti_auth/templates/password_reset_confirm.html:86
+msgid "Reset Password"
+msgstr "Setel ulang sandi"
+
+#: baloti_auth/templates/password_reset_confirm.html:68
+msgid "New password"
+msgstr "Sandi baru"
+
+#: baloti_auth/templates/password_reset_confirm.html:74
+msgid "Confirm password"
+msgstr "Konfirmasi sandi"
+
+#: baloti_auth/templates/password_reset_done.html:55
+#: baloti_auth/templates/signup_success.html:62
+msgid "Mail sent!"
+msgstr "Email telah terkirim!"
+
+#: baloti_auth/templates/password_reset_done.html:57
+msgid ""
+"Please check your inbox to get the link of your recovery email. Thank you."
+msgstr ""
+"Mohon cek kotak masuk untuk mendapatkan link email pemulihan. Terima kasih."
+
+#: baloti_auth/templates/password_reset_email.html:202
+msgid "Hello,"
+msgstr "Halo,"
+
+#: baloti_auth/templates/password_reset_email.html:208
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at baloti."
+msgstr ""
+"Anda menerima email ini karena anda telah meminta sandi anda disetel"
+"ulang untuk akun anda di baloti."
+
+#: baloti_auth/templates/password_reset_email.html:214
+msgid "Please go to the following page and choose a new password"
+msgstr "Mohon ke halaman selanjutnya untuk memilih sandi baru"
+
+#: baloti_auth/templates/password_reset_email.html:215
+msgid "Click here"
+msgstr "Klik disini"
+
+#: baloti_auth/templates/password_reset_email.html:221
+msgid "Your username, in case you've forgotten is"
+msgstr "Nama akun anda, jika anda lupa"
+
+#: baloti_auth/templates/password_reset_email.html:238
+msgid "Thanks for using our platform!"
+msgstr "Terima kasih telah menggunakan platform kami!"
+
+#: baloti_auth/templates/password_reset_email.html:242
+msgid "The baloti team"
+msgstr "Tim baloti"
+
+#: baloti_auth/templates/signup.html:64
+msgid "Create account!"
+msgstr "Buat akun!"
+
+#: baloti_auth/templates/signup.html:67
+msgid "You can register with your social login or email address."
+msgstr "Anda bisa daftar dengan media sosial atau alamat email."
+
+#: baloti_auth/templates/signup.html:90
+msgid "SEND"
+msgstr "KIRIM"
+
+#: baloti_auth/templates/signup.html:92
+msgid "Already have an account?"
+msgstr "Sudah punya akun?"
+
+#: baloti_auth/templates/signup.html:92
+msgid "Login here!"
+msgstr "Masuk ke akun!"
+
+#: baloti_auth/templates/signup_mail.html:209
+msgid "Registration information"
+msgstr "Informasi pendaftaran"
+
+#: baloti_auth/templates/signup_mail.html:215
+msgid "Thank you for registering at our site."
+msgstr "Terima kasih telah mendaftar di situs kami."
+
+#: baloti_auth/templates/signup_mail.html:216
+msgid "You can find your credentials below."
+msgstr "Informasi akun ada ada di bawah ini."
+
+#: baloti_auth/templates/signup_mail.html:223
+msgid "Username:"
+msgstr "Nama akun:"
+
+#: baloti_auth/templates/signup_mail.html:229
+msgid "Password:"
+msgstr "Sandi:"
+
+#: baloti_auth/templates/signup_success.html:64
+msgid ""
+"Please check your inbox to get the registration informations. Thank you."
+msgstr ""
+"Mohon cek kotak masuk untuk mendapatkan informasi pendaftaran anda. Terima kasih."
+
+#: baloti_auth/views.py:40 baloti_auth/views.py:53
+msgid "Your username and password didn't match. Please try again."
+msgstr "Nama akun dan sandi tidak cocok. Mohon coba lagi."
+
+#: baloti_auth/views.py:55
+msgid "Login failed!"
+msgstr "Gagal masuk!"
+
+#: baloti_auth/views.py:76
+msgid "Baloti Registration Information"
+msgstr "Informasi pendaftaran baloti"
