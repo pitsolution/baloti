@@ -22,31 +22,31 @@ msgstr ""
 #: baloti_djelectionguard/templates/choice.html:14
 #: baloti_djelectionguard/templates/vote_success.html:13
 msgid "Make your choice"
-msgstr ""
+msgstr "Silahkan masukkan pilihan anda"
 
 #: baloti_djelectionguard/templates/already_voted.html:34
 #: baloti_djelectionguard/templates/choice-no-login.html:28
 #: baloti_djelectionguard/templates/choice.html:30
 #: baloti_djelectionguard/templates/vote_success.html:33
 msgid "BACK"
-msgstr ""
+msgstr "KEMBALI"
 
 #: baloti_djelectionguard/templates/already_voted.html:35
 #: baloti_djelectionguard/templates/choice-no-login.html:29
 #: baloti_djelectionguard/templates/choice.html:31
 #: baloti_djelectionguard/templates/vote_success.html:34
 msgid "CREATE BALLOT"
-msgstr ""
+msgstr "BUAT SURAT SUARA"
 
 #: baloti_djelectionguard/templates/already_voted.html:60
 #: baloti_djelectionguard/templates/choice-no-login.html:173
 msgid "You've already voted!!"
-msgstr ""
+msgstr "Anda sudah memilih!!"
 
 #: baloti_djelectionguard/templates/already_voted.html:63
 #: baloti_djelectionguard/templates/choice-no-login.html:176
 msgid "No problem, there are other referendums you can vote for."
-msgstr ""
+msgstr "Tidak masalah, ada referendum lain yang anda bisa pilih."
 
 #: baloti_djelectionguard/templates/already_voted.html:64
 #: baloti_djelectionguard/templates/choice-no-login.html:160
@@ -54,7 +54,7 @@ msgstr ""
 #: baloti_djelectionguard/templates/choice.html:76
 #: baloti_djelectionguard/templates/vote_success.html:64
 msgid "The results will be announced on"
-msgstr ""
+msgstr "Hasil pemilihan akan diumumkan pada"
 
 #: baloti_djelectionguard/templates/already_voted.html:66
 #: baloti_djelectionguard/templates/choice-no-login.html:162
@@ -62,7 +62,7 @@ msgstr ""
 #: baloti_djelectionguard/templates/choice.html:78
 #: baloti_djelectionguard/templates/vote_success.html:66
 msgid "and you will be notified via email."
-msgstr ""
+msgstr "dan anda akan dihubungi melalui email."
 
 #: baloti_djelectionguard/templates/already_voted.html:67
 #: baloti_djelectionguard/templates/choice-no-login.html:163
@@ -70,29 +70,29 @@ msgstr ""
 #: baloti_djelectionguard/templates/choice.html:79
 #: baloti_djelectionguard/templates/vote_success.html:67
 msgid "BACK TO REFERENDUM"
-msgstr ""
+msgstr "KEMBALI KE DAFTAR REFERENDUM"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:57
 msgid "Login Required!"
-msgstr ""
+msgstr "Diperlukan masuk ke akun"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:59
 msgid "Please Login to your account to continue voting"
-msgstr ""
+msgstr "Masuk ke akun anda untuk melanjutkan pemilihan"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:62
 #: baloti_djelectionguard/templates/choice-no-login.html:102
 msgid "Continue with Facebook"
-msgstr ""
+msgstr "Masuk dengan Facebook"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:70
 #: baloti_djelectionguard/templates/choice-no-login.html:113
 msgid "Email address"
-msgstr ""
+msgstr "Alamat email"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:75
 msgid "Password"
-msgstr ""
+msgstr "Sandi"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:80
 msgid "Your username and password didn't match. Please try again."
@@ -100,118 +100,120 @@ msgstr ""
 
 #: baloti_djelectionguard/templates/choice-no-login.html:83
 msgid "CONTINUE"
-msgstr ""
+msgstr "LANJUTKAN"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:84
 msgid "Not registered yet?"
-msgstr ""
+msgstr "Belum mendaftar?"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:84
 msgid "Create an account now"
-msgstr ""
+msgstr "Buat akun sekarang"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:87
 #: baloti_djelectionguard/templates/choice-no-login.html:128
 msgid "CLOSE"
-msgstr ""
+msgstr "TUTUP"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:97
 msgid "Create account!"
-msgstr ""
+msgstr "Buat akun!"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:99
 msgid "You can register with your social login or email address."
-msgstr ""
+msgstr "Anda bisa mendaftar dengan akun sosial atau alamat email"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:116
 msgid ""
 "We will send you the registration link to the email address you entered."
 msgstr ""
+"Kami akan mengirimkan link pendaftaran ke alamat email yang didaftarkan"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:120
 msgid "This email has already been registered."
-msgstr ""
+msgstr "Email ini sudah terdaftar"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:123
 msgid "Users must have an email address."
-msgstr ""
+msgstr "Akun harus memiliki alamat email"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:125
 #: baloti_djelectionguard/templates/landing-en.html:192
 msgid "SEND"
-msgstr ""
+msgstr "KIRIM"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:126
 msgid "Already have an account?"
-msgstr ""
+msgstr "Sudah memiliki akun?"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:126
 msgid "Login here!"
-msgstr ""
+msgstr "Masuk ke akun!"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:138
 msgid "Mail sent!"
-msgstr ""
+msgstr "Email telah terkirim!"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:140
 msgid ""
 "Please check your inbox to get the registration informations. Thank you."
 msgstr ""
+"Mohon cek kotak masuk untuk mendapatkan informasi pendaftaran. Terima kasih."
 
 #: baloti_djelectionguard/templates/choice-no-login.html:146
 msgid "LOGIN NOW"
-msgstr ""
+msgstr "MASUK SEKARANG"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:155
 #: baloti_djelectionguard/templates/choice.html:71
 #: baloti_djelectionguard/templates/vote_success.html:59
 msgid "Success!"
-msgstr ""
+msgstr "Berhasil!"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:156
 #: baloti_djelectionguard/templates/choice.html:72
 #: baloti_djelectionguard/templates/vote_success.html:60
 msgid "Your Choice Added Successfully"
-msgstr ""
+msgstr "Pilihan Anda berhasil ditambahkan"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:159
 #: baloti_djelectionguard/templates/choice.html:75
 #: baloti_djelectionguard/templates/vote_success.html:63
 msgid "Thank for voting at the Referendum and be a part of Direct Democracy."
-msgstr ""
+msgstr "Terima kasih telah memilih Referendum dan menjadi bagian dari Demokrasi Langsung."
 
 #: baloti_djelectionguard/templates/choice-no-login.html:187
 #: baloti_djelectionguard/templates/choice.html:54
 msgid "Confirm your selection"
-msgstr ""
+msgstr "Konfirmasi pilihan anda"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:195
 #: baloti_djelectionguard/templates/choice.html:62
 #: baloti_djelectionguard/templates/layout/header.html:143
 msgid "CANCEL"
-msgstr ""
+msgstr "BATALKAN"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:196
 #: baloti_djelectionguard/templates/choice.html:63
 #: baloti_djelectionguard/templates/layout/header.html:144
 msgid "CONFIRM"
-msgstr ""
+msgstr "KONFIRMASI"
 
 #: baloti_djelectionguard/templates/contactinfo_mail.html:27
 msgid "Contact Information"
-msgstr ""
+msgstr "Informasi pengguna"
 
 #: baloti_djelectionguard/templates/contactinfo_mail.html:30
 msgid "First Name:"
-msgstr ""
+msgstr "Nama depan:"
 
 #: baloti_djelectionguard/templates/contactinfo_mail.html:31
 msgid "Last Name: "
-msgstr ""
+msgstr "Nama belakang:"
 
 #: baloti_djelectionguard/templates/contactinfo_mail.html:32
 msgid "Email:"
-msgstr ""
+msgstr "Email:"
 
 #: baloti_djelectionguard/templates/contest_details.html:13
 #: baloti_djelectionguard/templates/contest_list.html:13
@@ -219,178 +221,178 @@ msgstr ""
 #: baloti_djelectionguard/templates/layout/footer.html:15
 #: baloti_djelectionguard/templates/layout/header.html:42
 msgid "Referendum Votes"
-msgstr ""
+msgstr "Suara Referendum"
 
 #: baloti_djelectionguard/templates/contest_details.html:31
 msgid "Vote now"
-msgstr ""
+msgstr "Pilih sekarang"
 
 #: baloti_djelectionguard/templates/contest_details.html:34
 #: baloti_djelectionguard/templates/contest_list.html:51
 msgid "VOTED"
-msgstr ""
+msgstr "SUDAH TERPILIH"
 
 #: baloti_djelectionguard/templates/contest_details.html:38
 #: baloti_djelectionguard/templates/contest_list.html:114
 #: baloti_djelectionguard/templates/index.html:79
 msgid "VIEW RESULT"
-msgstr ""
+msgstr "LIHAT HASIL"
 
 #: baloti_djelectionguard/templates/contest_details.html:51
 #: baloti_djelectionguard/templates/contest_results.html:117
 msgid "Description"
-msgstr ""
+msgstr "Deskripsi"
 
 #: baloti_djelectionguard/templates/contest_details.html:54
 #: baloti_djelectionguard/templates/contest_results.html:120
 msgid "Arguments"
-msgstr ""
+msgstr "Argumen"
 
 #: baloti_djelectionguard/templates/contest_details.html:57
 #: baloti_djelectionguard/templates/contest_results.html:123
 msgid "Recommendations"
-msgstr ""
+msgstr "Rekomendasi"
 
 #: baloti_djelectionguard/templates/contest_details.html:66
 #: baloti_djelectionguard/templates/contest_results.html:132
 msgid "Type:"
-msgstr ""
+msgstr "Tipe:"
 
 #: baloti_djelectionguard/templates/contest_details.html:70
 #: baloti_djelectionguard/templates/contest_results.html:136
 msgid "Initiator:"
-msgstr ""
+msgstr "Pemrakarsa:"
 
 #: baloti_djelectionguard/templates/contest_details.html:87
 #: baloti_djelectionguard/templates/contest_details.html:127
 #: baloti_djelectionguard/templates/contest_results.html:152
 #: baloti_djelectionguard/templates/contest_results.html:190
 msgid "In favour"
-msgstr ""
+msgstr "Setuju"
 
 #: baloti_djelectionguard/templates/contest_details.html:104
 #: baloti_djelectionguard/templates/contest_details.html:152
 #: baloti_djelectionguard/templates/contest_results.html:169
 #: baloti_djelectionguard/templates/contest_results.html:215
 msgid "Against"
-msgstr ""
+msgstr "Tidak setuju"
 
 #: baloti_djelectionguard/templates/contest_details.html:185
 msgid "VOTING END"
-msgstr ""
+msgstr "VOTING SELESAI"
 
 #: baloti_djelectionguard/templates/contest_details.html:189
 msgid "days"
-msgstr ""
+msgstr "hari"
 
 #: baloti_djelectionguard/templates/contest_details.html:190
 msgid "Hours"
-msgstr ""
+msgstr "Jam"
 
 #: baloti_djelectionguard/templates/contest_details.html:191
 msgid "Minutes"
-msgstr ""
+msgstr "Menit"
 
 #: baloti_djelectionguard/templates/contest_details.html:200
 msgid "YOUR VOTE"
-msgstr ""
+msgstr "PILIHAN ANDA"
 
 #: baloti_djelectionguard/templates/contest_details.html:208
 msgid "Voted"
-msgstr ""
+msgstr "Sudah terpilih"
 
 #: baloti_djelectionguard/templates/contest_details.html:212
 msgid "Not Voted"
-msgstr ""
+msgstr "Tidak terpilih"
 
 #: baloti_djelectionguard/templates/contest_details.html:217
 #: baloti_djelectionguard/templates/contest_results.html:243
 msgid "Share"
-msgstr ""
+msgstr "Bagikan"
 
 #: baloti_djelectionguard/templates/contest_details.html:225
 #: baloti_djelectionguard/templates/contest_results.html:251
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #: baloti_djelectionguard/templates/contest_details.html:230
 #: baloti_djelectionguard/templates/contest_results.html:256
 msgid "E-Mail"
-msgstr ""
+msgstr "Email"
 
 #: baloti_djelectionguard/templates/contest_list.html:31
 #: baloti_djelectionguard/templates/news.html:21
 msgid "Sort by"
-msgstr ""
+msgstr "Urutkan dengan"
 
 #: baloti_djelectionguard/templates/contest_list.html:33
 #: baloti_djelectionguard/templates/news.html:23
 msgid "Old to new"
-msgstr ""
+msgstr "Lama ke baru"
 
 #: baloti_djelectionguard/templates/contest_list.html:34
 #: baloti_djelectionguard/templates/news.html:24
 msgid "New to old"
-msgstr ""
+msgstr "Baru ke lama"
 
 #: baloti_djelectionguard/templates/contest_list.html:56
 #: baloti_djelectionguard/templates/contest_list.html:105
 #: baloti_djelectionguard/templates/index.html:58
 msgid "Issues:"
-msgstr ""
+msgstr "Isu:"
 
 #: baloti_djelectionguard/templates/contest_list.html:67
 #: baloti_djelectionguard/templates/index.html:17
 #: baloti_djelectionguard/templates/index.html:69
 msgid "VOTE NOW"
-msgstr ""
+msgstr "PILIH SEKARANG"
 
 #: baloti_djelectionguard/templates/contest_list.html:72
 #: baloti_djelectionguard/templates/index.html:73
 msgid "VIEW DETAIL"
-msgstr ""
+msgstr "LIHAT DETAIL"
 
 #: baloti_djelectionguard/templates/contest_list.html:81
 msgid "Sorry"
-msgstr ""
+msgstr "Maaf"
 
 #: baloti_djelectionguard/templates/contest_list.html:82
 msgid "we couldn't find any matches for that"
-msgstr ""
+msgstr "kami tidak menemukan yang anda cari"
 
 #: baloti_djelectionguard/templates/contest_list.html:90
 msgid "Results"
-msgstr ""
+msgstr "Hasil"
 
 #: baloti_djelectionguard/templates/contest_list.html:114
 #: baloti_djelectionguard/templates/contest_list.html:117
 #: baloti_djelectionguard/templates/index.html:79
 #: baloti_djelectionguard/templates/index.html:81
 msgid "closed"
-msgstr ""
+msgstr "telah ditutup"
 
 #: baloti_djelectionguard/templates/contest_list.html:117
 #: baloti_djelectionguard/templates/index.html:81
 msgid "VIEW DETAILS"
-msgstr ""
+msgstr "LIHAT DETAIL"
 
 #: baloti_djelectionguard/templates/contest_results.html:60
 #: baloti_djelectionguard/templates/layout/header.html:128
 msgid "NO"
-msgstr ""
+msgstr "TIDAK"
 
 #: baloti_djelectionguard/templates/contest_results.html:61
 #: baloti_djelectionguard/templates/layout/header.html:129
 msgid "YES"
-msgstr ""
+msgstr "YA"
 
 #: baloti_djelectionguard/templates/contest_results.html:247
 msgid "Copy link"
-msgstr ""
+msgstr "Salin link"
 
 #: baloti_djelectionguard/templates/data_privacy.html:55
 msgid "Data Protection"
-msgstr ""
+msgstr "Pengamanan Data"
 
 #: baloti_djelectionguard/templates/data_privacy.html:56
 msgid ""
@@ -400,38 +402,46 @@ msgid ""
 "circumstances will the data collected be sold or passed on to third parties "
 "for any other reason."
 msgstr ""
+"Kami menganggap pengamanan data personal anda dengan serius dan mengikuti "
+"aturan hukum pengamanan data secara ketat. Data personal akan dikumpulkan "
+"di situs ini hanya jika dibutuhkan. Data anda tidak akan dijual atau "
+"diberikan kepada pihak ketiga dalam kondisi apapun."
 
 #: baloti_djelectionguard/templates/data_privacy.html:57
 msgid ""
 "The following declaration gives you an overview of how we guarantee this "
 "protection and what kind of data is collected for what purpose."
 msgstr ""
+"Deklarasi berikut ini memberikan penjelasan bagaimana kami menjamin "
+"pengamanan data anda dan data apa saja yang akan dikumpulkan beserta tujuannya."
 
 #: baloti_djelectionguard/templates/data_privacy.html:58
 msgid ""
 "We automatically collect and store information that your browser transmits "
 "to us in the server log files. These are:"
 msgstr ""
+"Secara otomatis, kami mengumpulkan dan menyimpan informasi yang diberikan "
+"peramban anda di fail log server. Data-data itu adalah:"
 
 #: baloti_djelectionguard/templates/data_privacy.html:61
 msgid "Browser type/ version"
-msgstr ""
+msgstr "Tipe/versi peramban"
 
 #: baloti_djelectionguard/templates/data_privacy.html:62
 msgid "Operating system used"
-msgstr ""
+msgstr "Sistem operasi yang digunakan"
 
 #: baloti_djelectionguard/templates/data_privacy.html:63
 msgid "Referrer URL (the previously visited page)"
-msgstr ""
+msgstr "URL perunjuk (laman yang dikunjungi sebelumnya)"
 
 #: baloti_djelectionguard/templates/data_privacy.html:64
 msgid "Host name of the accessing computer (IP address)"
-msgstr ""
+msgstr "Nama komputer pengguna (alamat IP)"
 
 #: baloti_djelectionguard/templates/data_privacy.html:65
 msgid "Date and time of the server request"
-msgstr ""
+msgstr "Tanggal dan waktu request server"
 
 #: baloti_djelectionguard/templates/data_privacy.html:67
 msgid ""
@@ -439,10 +449,13 @@ msgid ""
 "combined with other data sources. The data will also be deleted after a "
 "statistical evaluation."
 msgstr ""
+"Data ini tidak bisa diberikan ke orang secara spesifik. Data ini tidak "
+"digabung dengan sumber data lain. Data ini juga akan dihapus setelah "
+"evaluasi secara statistik."
 
 #: baloti_djelectionguard/templates/data_privacy.html:70
 msgid "Cookies"
-msgstr ""
+msgstr "Cookies"
 
 #: baloti_djelectionguard/templates/data_privacy.html:71
 msgid ""
@@ -455,10 +468,18 @@ msgid ""
 "acceptance of cookies. If you deactivate cookies, certain functions of our "
 "website may not be available."
 msgstr ""
+"Kami menggunakan cookies di beberapa laman situs kami untuk membuat laman "
+"kami lebih menarik dan sanggup menjalani fungsi tertentu. „Cookies“ adalah "
+"fail text kecil yang akan disimpan oleh peramban dalam komputer anda. Cookies "
+"ini akan terhapus dari hard disk anda pada akhir sesi pengunaan peramban. Anda "
+"bisa mengatur peramban anda untuk memberikan informasi tentang pengaturan cookies. "
+"Anda bisa memilih untuk menerima cookies pada kasus-kasus tertentu, atau menerima "
+"secara keseluruhan, atau menolak untuk menerima cookies. Jika anda me-nonaktifkan "
+"cookies, beberapa fungsi dari website kami mungkin tidak tersedia untuk digunakan."
 
 #: baloti_djelectionguard/templates/data_privacy.html:74
 msgid "Use of Google Analytics"
-msgstr ""
+msgstr "Penggunaan Google Analytics"
 
 #: baloti_djelectionguard/templates/data_privacy.html:75
 msgid ""
@@ -482,43 +503,61 @@ msgid ""
 "set out above. You can object to the collection of data by Google Analytics "
 "with future effect by installing a deactivation add-on for your browser."
 msgstr ""
+"Situs ini menggunakan Google Analytics, situs layanan yang diberikan oleh "
+"Google Inc. („Google“) Google Analytics menggunakan cookies, kumpulan informasi "
+"yang ada di dalam komputer anda, untuk membantu situs menganalisis bagaimana "
+"pengguna menggunakan situs. Informasi yang dibuat oleh cookies mengenai "
+"penggunaan anda di situs ini (termasuk alamat IP, yang akan dianonimisasi "
+"dengan metode _anonymizelp() supaya anda tidak lagi memiliki koneksi) dikirim dan "
+"disimpan ke server Google di Amerika Serikat. Google akan menggunakan informasi "
+"ini untuk mengevaluasi penggunaan anda di situs ini, membuat laporan aktivitas "
+"situs untuk operator situs dan memberikan situs lain yang terhubung mengenai "
+"aktivitas situs dan penggunaan internet. Google juga mungkin akan mengirim informasi "
+"ini ke pihak ketiga jika diharuskan oleh hukum atau jika pihak ketiga memproses data "
+"ini atas nama Google. Google tidak akan menghubungkan alamat IP anda dengan data lain "
+"yang dimiliki Google. Anda bisa menolah penggunaan cookies dengan memilih aturan yang "
+"tepat di peramba anda, hanya mohon diingan jika anda melakukan hal ini maka anda "
+"mungkin tidak bisa menggunakan fungsi situs ini secara penuh. Dengan menggunakan situs "
+"ini, maka anda setuju dengan pemrosesan data tentang anda oleh Google dalam situasi dan "
+"tujuan yang sudah dijabarkan. Anda bisa mendapatkan data yang sudah dikumpulkan oleh "
+"Google Analytics dengan future efek dengan mengunduh tambahan deaktivasi di peramban anda."
 
 #: baloti_djelectionguard/templates/data_privacy.html:97
 #: baloti_djelectionguard/templates/imprint.html:103
 #: baloti_djelectionguard/templates/landing-en.html:213
 msgid "Data Privacy"
-msgstr ""
+msgstr "Privasi Data"
 
 #: baloti_djelectionguard/templates/data_privacy.html:98
 #: baloti_djelectionguard/templates/imprint.html:104
 #: baloti_djelectionguard/templates/landing-en.html:214
 msgid "Imprint"
-msgstr ""
+msgstr "Jejak"
 
 #: baloti_djelectionguard/templates/data_privacy.html:109
 #: baloti_djelectionguard/templates/imprint.html:115
 msgid "FOLLOW US ON"
-msgstr ""
+msgstr "IKUTI KAMI DI"
 
 #: baloti_djelectionguard/templates/disclaimer.html:11
 #: baloti_djelectionguard/templates/layout/footer.html:21
 #: baloti_djelectionguard/templates/layout/header.html:51
 msgid "Disclaimer"
-msgstr ""
+msgstr "Pernyataan penolakan"
 
 #: baloti_djelectionguard/templates/disclaimer.html:12
 msgid ""
 "Please note that the vote you are casting on the baloti website is not "
 "official.."
-msgstr ""
+msgstr "Mohon diingat jika pemilihan yang anda lakukan di situs baloti tidak resmi."
 
 #: baloti_djelectionguard/templates/disclaimer.html:13
 msgid "On the website"
-msgstr ""
+msgstr "Di situs web"
 
 #: baloti_djelectionguard/templates/disclaimer.html:13
 msgid "various user data are saved"
-msgstr ""
+msgstr "berbagai macam data user disimpan"
 
 #: baloti_djelectionguard/templates/disclaimer.html:14
 msgid ""
@@ -526,71 +565,84 @@ msgid ""
 "website is accessed login data are saved in a so-called log file on the "
 "server. This mainly concerns: IP address, date and time of access, name of "
 "accessed page, web-browser used, operating system used etc."
-msgstr ""
+msgstr "" 
+"Kami hanya menyimpan preferensi bahasa pengguna dalam cookie. Saat "
+"website diakses, data akun disimpan di dalam fail log dalam server website. "
+"Utamanya tentang alamat IP, tanggal dan waktu akses, nama lama yang diakses, "
+"peramban yang digunakan, sistem operasi yang digunakan, dan sebagainya."
 
 #: baloti_djelectionguard/templates/disclaimer.html:15
 msgid ""
 "All these data are protected against unauthorised persons and are only "
 "evaluated in the form of anonymous access statistics."
 msgstr ""
+"Seluruh data dilindungi dari orang tidak sah dan hanya akan dievaluasi "
+"dalam bentuk statistik yang dianonimisasi."
 
 #: baloti_djelectionguard/templates/disclaimer.html:16
 msgid ""
 "E-mail addresses are used only for direct communication with the user and "
 "will under no circumstances be passed on to a third party."
 msgstr ""
+"Alamat email hanya digunakan untuk berkomunikasi dengan pengguna dan "
+"tidak akan diberikan ke pihak ketiga."
 
 #: baloti_djelectionguard/templates/disclaimer.html:17
 msgid ""
 "The data about the vote and the user (status, age, gender, canton, etc.) are "
 "used for analyses and statistics only in anonymised and aggregated form."
 msgstr ""
+"Data tentang suara dan pengguna (status, umur, jenis kelamin, wilayah, dll.) "
+"digunakan untuk analisis dan statistik dengan anonimisasi dan bentuk gabungan."
 
 #: baloti_djelectionguard/templates/imprint.html:57
 msgid "Represented by"
-msgstr ""
+msgstr "Direpresentasikan oleh"
 
 #: baloti_djelectionguard/templates/imprint.html:61
 msgid "Address"
-msgstr ""
+msgstr "Alamat"
 
 #: baloti_djelectionguard/templates/imprint.html:65
 msgid "Firm Number"
-msgstr ""
+msgstr "Nomor firma"
 
 #: baloti_djelectionguard/templates/imprint.html:69
 msgid "VAT Number"
-msgstr ""
+msgstr "Nomor VAT"
 
 #: baloti_djelectionguard/templates/imprint.html:73
 msgid "Phone"
-msgstr ""
+msgstr "Telepon"
 
 #: baloti_djelectionguard/templates/imprint.html:77
 msgid "Fax"
-msgstr ""
+msgstr "Fax"
 
 #: baloti_djelectionguard/templates/index.html:14
 msgid "baloti Voting system"
-msgstr ""
+msgstr "sistem pemilihan baloti"
 
 #: baloti_djelectionguard/templates/index.html:15
 msgid ""
 "On our platform you can <br> practice direct democracy in <br> several "
 "languages"
 msgstr ""
+"Di platform kami, anda bisa <br> melaksanakan demokrasi langsung <br> "
+"di berbagai bahasa"
 
 #: baloti_djelectionguard/templates/index.html:18
 msgid "HOW IT WORKS"
-msgstr ""
+msgstr "CARA KERJA"
 
 #: baloti_djelectionguard/templates/index.html:41
 msgid "ABOUT US"
-msgstr ""
+msgstr "TENTANG KAMI"
 
 #: baloti_djelectionguard/templates/index.html:42
 msgid "On our platform you can practice direct democracy in several languages"
 msgstr ""
+"Di platform kami, anda bisa melaksanakan demokrasi langsung di berbagai bahasa"
 
 #: baloti_djelectionguard/templates/index.html:43
 msgid ""
@@ -599,85 +651,97 @@ msgid ""
 "Neuchatel. Diversified project partnerships ensure that the project will be "
 "made public all over the country."
 msgstr ""
+"Proyek baloti.ch. bisa dilaksanakan karena tim di Zentrum für Demokratie "
+"Aarau dengan bantuan University of Neuchatel. Hubungan partnership yang "
+"beragam membuat proyek ini bisa diakses secara publik di seluruh negara."
 
 #: baloti_djelectionguard/templates/index.html:48
 msgid "LATEST REFERENDUMS & VOTE"
-msgstr ""
+msgstr "REFERENDUM DAN PILIHAN TERAKHIR"
 
 #: baloti_djelectionguard/templates/index.html:90
 msgid "VIEW ALL"
-msgstr ""
+msgstr "LIHAT SEMUA"
 
 #: baloti_djelectionguard/templates/index.html:99
 msgid "LETS DIVE IN"
-msgstr ""
+msgstr "MARI KITA MULAI"
 
 #: baloti_djelectionguard/templates/index.html:100
 msgid "How it works"
-msgstr ""
+msgstr "Cara kerja"
 
 #: baloti_djelectionguard/templates/index.html:105
 msgid ""
 "Inform yourself about the latest votes in Switzerland and learn new facts "
 "about Swiss politics."
 msgstr ""
+"Buat anda lebih terinformasi dengan situasi pemilihan terakhir di Swiss "
+"dan belajar fakta baru tentang politik Swiss"
 
 #: baloti_djelectionguard/templates/index.html:109
 msgid ""
 "Register on the baloti platform and vote, whether you already have Swiss "
 "voting rights or not"
 msgstr ""
+"Mendaftar di situs baloti dan buatlah pilihan, tidak tergantung dengan "
+"hak memilih Swiss."
 
 #: baloti_djelectionguard/templates/index.html:113
 msgid "Stay up to date with notifications and information from baloti."
-msgstr ""
+msgstr "Terus terinformasi dengan notifikasi dan informasi dari baloti."
 
 #: baloti_djelectionguard/templates/index.html:122
 #: baloti_djelectionguard/templates/landing-en.html:87
 msgid "IMPACT"
-msgstr ""
+msgstr "DAMPAK"
 
 #: baloti_djelectionguard/templates/index.html:129
 #: baloti_djelectionguard/templates/landing-en.html:95
 msgid "safe, secure & open"
-msgstr ""
+msgstr "aman, terjamin, & terbuka"
 
 #: baloti_djelectionguard/templates/index.html:130
 msgid ""
 "Our solution is fully open source and we use blockchain technology for "
 "saving and verifying votes"
 msgstr ""
+"Solusi kami adalah untuk menggunakan open source dan teknologi blockchain "
+"untuk menyimpan dan memverifikasi suara"
 
 #: baloti_djelectionguard/templates/index.html:137
 #: baloti_djelectionguard/templates/landing-en.html:106
 msgid "multilingual"
-msgstr ""
+msgstr "berbagai bahasa"
 
 #: baloti_djelectionguard/templates/index.html:138
 msgid ""
 "making the voting experience more accessible, vote in your own language."
 msgstr ""
+"membuat pengalaman pemilihan lebih mudah diakses, pilih dengan bahasa anda."
 
 #: baloti_djelectionguard/templates/index.html:146
 #: baloti_djelectionguard/templates/landing-en.html:116
 msgid "democratic"
-msgstr ""
+msgstr "demokratis"
 
 #: baloti_djelectionguard/templates/index.html:147
 #: baloti_djelectionguard/templates/landing-en.html:117
 msgid ""
 "allow more people to participate in voting independently of time and space"
 msgstr ""
+"bisa membuat lebih banyak orang berpartisipasi dalam pemilihan yang independen "
+"secara waktu dan tempat"
 
 #: baloti_djelectionguard/templates/index.html:207
 msgid "ILLUSTRATIONS"
-msgstr ""
+msgstr "ILUSTRASI"
 
 #: baloti_djelectionguard/templates/index.html:216
 #: baloti_djelectionguard/templates/news.html:39
 #: baloti_djelectionguard/templates/news.html:78
 msgid "Sources of Information"
-msgstr ""
+msgstr "Sumber informasi"
 
 #: baloti_djelectionguard/templates/index.html:217
 #: baloti_djelectionguard/templates/index.html:230
@@ -699,6 +763,10 @@ msgid ""
 "protects the voter in a vote or election, so that his or her choice remains "
 "confidential. Securing ballot secrecy is a central..."
 msgstr ""
+"Selectio Helvetica light untuk mengamankan kerahasiaan kotak suara. Kotak "
+"suara yang dirahasiakan melindungi pemilih di pemilihan atau eleksi, sehingga "
+"pilihannya akan tetap konfidensial. Mengamankan kerahasiaan kotak suara adalah "
+"hal yang penting…"
 
 #: baloti_djelectionguard/templates/index.html:220
 #: baloti_djelectionguard/templates/index.html:233
@@ -716,13 +784,13 @@ msgstr ""
 #: baloti_djelectionguard/templates/news.html:175
 #: baloti_djelectionguard/templates/news.html:188
 msgid "Read"
-msgstr ""
+msgstr "Baca"
 
 #: baloti_djelectionguard/templates/index.html:229
 #: baloti_djelectionguard/templates/news.html:52
 #: baloti_djelectionguard/templates/news.html:91
 msgid "Television debates"
-msgstr ""
+msgstr "Debat televisi"
 
 #: baloti_djelectionguard/templates/index.html:242
 #: baloti_djelectionguard/templates/news.html:65
@@ -734,142 +802,146 @@ msgstr ""
 #: baloti_djelectionguard/templates/news.html:171
 #: baloti_djelectionguard/templates/news.html:184
 msgid "Postal voting"
-msgstr ""
+msgstr "Pemilihan secara pos"
 
 #: baloti_djelectionguard/templates/index.html:259
 #: baloti_djelectionguard/templates/landing-en.html:127
 msgid "PROJECT PARTNERS"
-msgstr ""
+msgstr "PARTNER KAMI"
 
 #: baloti_djelectionguard/templates/index.html:295
 msgid "Registration successful"
-msgstr ""
+msgstr "Pendaftaran berhasil"
 
 #: baloti_djelectionguard/templates/index.html:305
 msgid "Password successfully changed"
-msgstr ""
+msgstr "Sandi berhasil diubah"
 
 #: baloti_djelectionguard/templates/index.html:315
 msgid "Logged out successfully"
-msgstr ""
+msgstr "Berhasil keluar dari akun"
 
 #: baloti_djelectionguard/templates/index.html:325
 msgid "Logged in successfully"
-msgstr ""
+msgstr "Berhasil masuk ke akun"
 
 #: baloti_djelectionguard/templates/landing-en.html:55
 msgid "the baloti project"
-msgstr ""
+msgstr "proyek baloti"
 
 #: baloti_djelectionguard/templates/landing-en.html:56
 msgid "an online voting platform for all languages is our vision"
-msgstr ""
+msgstr "visi kami adalah platform pemilihan secara online untuk semua bahasa"
 
 #: baloti_djelectionguard/templates/landing-en.html:58
 msgid "go to the baloti portal"
-msgstr ""
+msgstr "ke portal baloti"
 
 #: baloti_djelectionguard/templates/landing-en.html:75
 msgid "ABOUT THE PROJECT"
-msgstr ""
+msgstr "TENTANG PROYEK INI"
 
 #: baloti_djelectionguard/templates/landing-en.html:76
 msgid ""
 "baloti is a technical solution allowing you to cast your vote online in "
 "several languages in a safe and secure way"
-msgstr ""
+msgstr "baloti adalah solusi teknologi untuk membuat pemilihan suara secara "
+"daring dalam berbagai bahasa dengan cara yang aman dan terjamin"
 
 #: baloti_djelectionguard/templates/landing-en.html:77
 msgid "experience Swiss referendum voting online"
-msgstr ""
+msgstr "alami pemilihan referendum secara online seperti Swiss"
 
 #: baloti_djelectionguard/templates/landing-en.html:96
 msgid ""
 "baloti is fully open source and uses blockchain technology for saving and "
 "verifying votes"
 msgstr ""
+"baloti adalah situs open source dan menggunakan teknologi blockchain untuk "
+"menyimpan dan memverifikasi suara"
 
 #: baloti_djelectionguard/templates/landing-en.html:107
 msgid "making the voting experience more accessible, vote in your own language"
-msgstr ""
+msgstr "membuat pengalaman pengambilan suara lebih mudah diakses, lakukan "
+"pemilihan dengan bahasa anda"
 
 #: baloti_djelectionguard/templates/landing-en.html:158
 msgid "CONTACT US"
-msgstr ""
+msgstr "HUBUNGI KAMI"
 
 #: baloti_djelectionguard/templates/landing-en.html:159
 msgid "Feel free to <br> contact us"
-msgstr ""
+msgstr "Hubungi kami <br>"
 
 #: baloti_djelectionguard/templates/landing-en.html:167
 msgid "Firstname*"
-msgstr ""
+msgstr "Nama depan*"
 
 #: baloti_djelectionguard/templates/landing-en.html:171
 msgid "Lastname*"
-msgstr ""
+msgstr "Nama belakang*"
 
 #: baloti_djelectionguard/templates/landing-en.html:177
 msgid "Email*"
-msgstr ""
+msgstr "Email*"
 
 #: baloti_djelectionguard/templates/landing-en.html:181
 msgid "Subject*"
-msgstr ""
+msgstr "Subjek"
 
 #: baloti_djelectionguard/templates/landing-en.html:186
 msgid "Message*"
-msgstr ""
+msgstr "Pesan"
 
 #: baloti_djelectionguard/templates/landing-en.html:228
 msgid "Mail sent successfully"
-msgstr ""
+msgstr "Email berhasil dikirim"
 
 #: baloti_djelectionguard/templates/layout/footer.html:16
 #: baloti_djelectionguard/templates/layout/header.html:45
 #: baloti_djelectionguard/templates/news.html:11
 msgid "Illustrations"
-msgstr ""
+msgstr "Ilustrasi"
 
 #: baloti_djelectionguard/templates/layout/footer.html:22
 msgid "User Manual"
-msgstr ""
+msgstr "Panduan pengguna"
 
 #: baloti_djelectionguard/templates/layout/header.html:56
 #: baloti_djelectionguard/templates/layout/header.html:83
 msgid "Login"
-msgstr ""
+msgstr "Masuk"
 
 #: baloti_djelectionguard/templates/layout/header.html:63
 msgid "Profile settings"
-msgstr ""
+msgstr "Pengaturan profil"
 
 #: baloti_djelectionguard/templates/layout/header.html:68
 msgid "Change Password?"
-msgstr ""
+msgstr "Ubah sandi?"
 
 #: baloti_djelectionguard/templates/layout/header.html:71
 #: baloti_djelectionguard/templates/layout/header.html:102
 msgid "Delete profile"
-msgstr ""
+msgstr "Hapus profil"
 
 #: baloti_djelectionguard/templates/layout/header.html:76
 #: baloti_djelectionguard/templates/layout/header.html:105
 msgid "Logout"
-msgstr ""
+msgstr "Keluar"
 
 #: baloti_djelectionguard/templates/layout/header.html:99
 msgid "Change Password"
-msgstr ""
+msgstr "Ubah sandi"
 
 #: baloti_djelectionguard/templates/layout/header.html:126
 msgid "Are you sure you want to delete your baloti account?"
-msgstr ""
+msgstr "Apakah anda yakin untuk menghapus akun baloti?"
 
 #: baloti_djelectionguard/templates/layout/header.html:136
 msgid "Enter your password to confirm"
-msgstr ""
+msgstr "Masukkan sandi anda untuk konfirmasi"
 
 #: baloti_djelectionguard/templates/layout/header.html:140
 msgid "Invalid password"
-msgstr ""
+msgstr "Sandi tidak sah"
