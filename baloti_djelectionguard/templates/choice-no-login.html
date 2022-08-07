@@ -79,7 +79,7 @@
                     <p class="label label-danger d-none" id="login_error">
                         {% trans "Your username and password didn't match. Please try again." %}
                     </p>
-
+                    <a href={% url 'baloti_auth:password_reset' %} class="app-link app-link--forget-password">{%trans "Forgot password?" %}</a>
                     <button type="button" isloggedIn="false" id="loginBtn" class="btn btn-primary btn-block btn-md--small">{% trans "CONTINUE" %}</button>
                     <p class="app-login__createaccount"><span>{% trans "Not registered yet?" %}</span> <a id="idCreateAccount"  href="#" class="app-link" signup="true">{% trans "Create an account now" %}</a> </p>
                 </div>

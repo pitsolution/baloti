@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-21 14:08+0530\n"
+"POT-Creation-Date: 2022-07-21 13:01+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,38 +16,41 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
 #: baloti_djelectionguard/templates/already_voted.html:14
 #: baloti_djelectionguard/templates/choice-no-login.html:13
 #: baloti_djelectionguard/templates/choice.html:14
 #: baloti_djelectionguard/templates/vote_success.html:13
 msgid "Make your choice"
-msgstr "Haz tu elección"
+msgstr "Зроби свій вибір"
 
 #: baloti_djelectionguard/templates/already_voted.html:34
 #: baloti_djelectionguard/templates/choice-no-login.html:28
 #: baloti_djelectionguard/templates/choice.html:30
 #: baloti_djelectionguard/templates/vote_success.html:33
 msgid "BACK"
-msgstr "Apóyanos"
+msgstr "Повернутися"
 
 #: baloti_djelectionguard/templates/already_voted.html:35
 #: baloti_djelectionguard/templates/choice-no-login.html:29
 #: baloti_djelectionguard/templates/choice.html:31
 #: baloti_djelectionguard/templates/vote_success.html:34
 msgid "CREATE BALLOT"
-msgstr "CREAR BOLETA"
+msgstr "СТВОРИТИ БЮЛЕТЕНЬ"
 
 #: baloti_djelectionguard/templates/already_voted.html:60
 #: baloti_djelectionguard/templates/choice-no-login.html:173
 msgid "You've already voted!!"
-msgstr "¡¡Ya has votado!!"
+msgstr "Ви вже проголосували!"
 
 #: baloti_djelectionguard/templates/already_voted.html:63
 #: baloti_djelectionguard/templates/choice-no-login.html:176
 msgid "No problem, there are other referendums you can vote for."
-msgstr "No hay problema, hay otros referéndums por los que puedes votar."
+msgstr "Не проблема, є й інші референдуми, за які ви можете голосувати."
 
 #: baloti_djelectionguard/templates/already_voted.html:64
 #: baloti_djelectionguard/templates/choice-no-login.html:160
@@ -55,7 +58,7 @@ msgstr "No hay problema, hay otros referéndums por los que puedes votar."
 #: baloti_djelectionguard/templates/choice.html:76
 #: baloti_djelectionguard/templates/vote_success.html:64
 msgid "The results will be announced on"
-msgstr "Los resultados serán anunciados el"
+msgstr "Результати будуть оголошені"
 
 #: baloti_djelectionguard/templates/already_voted.html:66
 #: baloti_djelectionguard/templates/choice-no-login.html:162
@@ -63,7 +66,7 @@ msgstr "Los resultados serán anunciados el"
 #: baloti_djelectionguard/templates/choice.html:78
 #: baloti_djelectionguard/templates/vote_success.html:66
 msgid "and you will be notified via email."
-msgstr "y se le notificará por correo electrónico."
+msgstr "і ви отримаєте сповіщення на електронну пошту"
 
 #: baloti_djelectionguard/templates/already_voted.html:67
 #: baloti_djelectionguard/templates/choice-no-login.html:163
@@ -71,29 +74,30 @@ msgstr "y se le notificará por correo electrónico."
 #: baloti_djelectionguard/templates/choice.html:79
 #: baloti_djelectionguard/templates/vote_success.html:67
 msgid "BACK TO REFERENDUM"
-msgstr "VOLVER A REFERENDUMS"
+msgstr "НАЗАД ДО РЕФЕРЕНДУМУ"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:57
 msgid "Login Required!"
-msgstr "Se requiere nombre de usuario"
+msgstr "Необхідний вхід!"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:59
 msgid "Please Login to your account to continue voting"
-msgstr "Por favor ingrese a su cuenta para continuar la votación "
+msgstr ""
+"Будь ласка, увійдіть у свій обліковий запис, щоб продовжити голосування"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:62
 #: baloti_djelectionguard/templates/choice-no-login.html:102
 msgid "Continue with Facebook"
-msgstr "Continuar con Facebook"
+msgstr "Продовжити з Facebook"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:70
 #: baloti_djelectionguard/templates/choice-no-login.html:113
 msgid "Email address"
-msgstr "Dirección de correo electrónico"
+msgstr "Електронна пошта"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:75
 msgid "Password"
-msgstr "Contraseña"
+msgstr "Пароль"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:80
 msgid "Your username and password didn't match. Please try again."
@@ -101,122 +105,125 @@ msgstr ""
 
 #: baloti_djelectionguard/templates/choice-no-login.html:83
 msgid "CONTINUE"
-msgstr "SEGUIR"
+msgstr "Продовжити"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:84
 msgid "Not registered yet?"
-msgstr "¿Todavía no estas registrado?"
+msgstr "Ще не зареєстровані?"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:84
 msgid "Create an account now"
-msgstr "¡Crea una cuenta ahora"
+msgstr "Створити особистий кабінет зараз"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:87
 #: baloti_djelectionguard/templates/choice-no-login.html:128
 msgid "CLOSE"
-msgstr "CERRAR"
+msgstr "Закрити"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:97
 msgid "Create account!"
-msgstr "¡Crear una cuenta!"
+msgstr "Створити особистий кабінет"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:99
 msgid "You can register with your social login or email address."
-msgstr "Puede registrarse con su inicio de sesión social o correo electrónico."
+msgstr ""
+"Ви можете зареєструватися, використовуючи свій логін у соцмережі або адресу "
+"електронної пошти"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:116
 msgid ""
 "We will send you the registration link to the email address you entered."
 msgstr ""
-"Le enviaremos el enlace de registro a la dirección de correo electrónico que "
-"ingresó."
+"Ми надішлемо вам посилання для реєстрації на введену вами адресу електронної "
+"пошти"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:120
 msgid "This email has already been registered."
-msgstr "Este correo electronico ya ha sido registrado."
+msgstr "Цю електронну пошту вже зареєстровано"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:123
 msgid "Users must have an email address."
-msgstr "Los usuarios deben de tener una dirección de correo electrónico."
+msgstr "Користувачі повинні мати адресу електронної пошти"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:125
 #: baloti_djelectionguard/templates/landing-en.html:192
 msgid "SEND"
-msgstr "ENVIAR"
+msgstr "Відправити"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:126
 msgid "Already have an account?"
-msgstr "¿Ya tienes una cuenta?"
+msgstr "Вже є особистий кабінет?"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:126
 msgid "Login here!"
-msgstr "¡Entre aquí!"
+msgstr "Логін"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:138
 msgid "Mail sent!"
-msgstr "¡Correo enviado!"
+msgstr "Лист відправлено!"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:140
 msgid ""
 "Please check your inbox to get the registration informations. Thank you."
 msgstr ""
-"Por favor revise su bandeja de entrada para obtener la información de "
-"registro. Gracias."
+"Будь ласка, перевірте свою електронну пошту, щоб отримати інформацію про "
+"реєстрацію. Дякую."
 
 #: baloti_djelectionguard/templates/choice-no-login.html:146
 msgid "LOGIN NOW"
-msgstr "INICIAR SESIÓN AHORA"
+msgstr "Увійти"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:155
 #: baloti_djelectionguard/templates/choice.html:71
 #: baloti_djelectionguard/templates/vote_success.html:59
 msgid "Success!"
-msgstr "¡Éxito!"
+msgstr "Успішно!"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:156
 #: baloti_djelectionguard/templates/choice.html:72
 #: baloti_djelectionguard/templates/vote_success.html:60
 msgid "Your Choice Added Successfully"
-msgstr "Su elección agregada con éxito"
+msgstr "Ваш вибір успішно додано"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:159
 #: baloti_djelectionguard/templates/choice.html:75
 #: baloti_djelectionguard/templates/vote_success.html:63
 msgid "Thank for voting at the Referendum and be a part of Direct Democracy."
-msgstr "Gracias por votar en el Referéndum y sé parte de Democracia Directa."
+msgstr ""
+"Дякуємо за голосування на референдумі та будьте частиною Прямої демократії."
 
 #: baloti_djelectionguard/templates/choice-no-login.html:187
 #: baloti_djelectionguard/templates/choice.html:54
 msgid "Confirm your selection"
-msgstr "Confirme su selección"
+msgstr "Підтвердьте свій вибір"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:195
 #: baloti_djelectionguard/templates/choice.html:62
 #: baloti_djelectionguard/templates/layout/header.html:143
 msgid "CANCEL"
-msgstr "CANCELAR"
+msgstr "Відмінити"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:196
 #: baloti_djelectionguard/templates/choice.html:63
 #: baloti_djelectionguard/templates/layout/header.html:144
 msgid "CONFIRM"
-msgstr "CONFIRMAR"
+msgstr "Підтвердити"
 
 #: baloti_djelectionguard/templates/contactinfo_mail.html:27
 msgid "Contact Information"
-msgstr "Información de contacto"
+msgstr "Контактна інформація"
 
 #: baloti_djelectionguard/templates/contactinfo_mail.html:30
 msgid "First Name:"
-msgstr "Nombre:"
+msgstr "Ім’я"
 
 #: baloti_djelectionguard/templates/contactinfo_mail.html:31
 msgid "Last Name: "
-msgstr "Apellido:"
+msgstr "Прiзвище"
 
 #: baloti_djelectionguard/templates/contactinfo_mail.html:32
 msgid "Email:"
-msgstr "Correo electrónico:"
+msgstr "Email"
 
 #: baloti_djelectionguard/templates/contest_details.html:13
 #: baloti_djelectionguard/templates/contest_list.html:13
@@ -224,94 +231,94 @@ msgstr "Correo electrónico:"
 #: baloti_djelectionguard/templates/layout/footer.html:15
 #: baloti_djelectionguard/templates/layout/header.html:42
 msgid "Referendum Votes"
-msgstr "Votos de referéndum"
+msgstr "Голосування на референдумі"
 
 #: baloti_djelectionguard/templates/contest_details.html:31
 msgid "Vote now"
-msgstr "vota ahora"
+msgstr "Проголосувати зараз"
 
 #: baloti_djelectionguard/templates/contest_details.html:34
 #: baloti_djelectionguard/templates/contest_list.html:51
 msgid "VOTED"
-msgstr "VOTADO"
+msgstr "Голосувати"
 
 #: baloti_djelectionguard/templates/contest_details.html:38
 #: baloti_djelectionguard/templates/contest_list.html:114
 #: baloti_djelectionguard/templates/index.html:79
 msgid "VIEW RESULT"
-msgstr "VER RESULTADO"
+msgstr "Подивитися результат"
 
 #: baloti_djelectionguard/templates/contest_details.html:51
 #: baloti_djelectionguard/templates/contest_results.html:117
 msgid "Description"
-msgstr "Descripción"
+msgstr "Опис"
 
 #: baloti_djelectionguard/templates/contest_details.html:54
 #: baloti_djelectionguard/templates/contest_results.html:120
 msgid "Arguments"
-msgstr "Argumentos"
+msgstr "Аргументи"
 
 #: baloti_djelectionguard/templates/contest_details.html:57
 #: baloti_djelectionguard/templates/contest_results.html:123
 msgid "Recommendations"
-msgstr "Recomendaciones"
+msgstr "Рекомендації"
 
 #: baloti_djelectionguard/templates/contest_details.html:66
 #: baloti_djelectionguard/templates/contest_results.html:132
 msgid "Type:"
-msgstr "Tipo:"
+msgstr "Тип"
 
 #: baloti_djelectionguard/templates/contest_details.html:70
 #: baloti_djelectionguard/templates/contest_results.html:136
 msgid "Initiator:"
-msgstr "Iniciador:"
+msgstr "Ініціатор:"
 
 #: baloti_djelectionguard/templates/contest_details.html:87
 #: baloti_djelectionguard/templates/contest_details.html:127
 #: baloti_djelectionguard/templates/contest_results.html:152
 #: baloti_djelectionguard/templates/contest_results.html:190
 msgid "In favour"
-msgstr "A favor"
+msgstr "На користь"
 
 #: baloti_djelectionguard/templates/contest_details.html:104
 #: baloti_djelectionguard/templates/contest_details.html:152
 #: baloti_djelectionguard/templates/contest_results.html:169
 #: baloti_djelectionguard/templates/contest_results.html:215
 msgid "Against"
-msgstr " En Contra"
+msgstr "Проти"
 
 #: baloti_djelectionguard/templates/contest_details.html:185
 msgid "VOTING END"
-msgstr "FIN DE LA VOTACIÓN"
+msgstr "Голосування закінчено"
 
 #: baloti_djelectionguard/templates/contest_details.html:189
 msgid "days"
-msgstr "dias"
+msgstr "дні"
 
 #: baloti_djelectionguard/templates/contest_details.html:190
 msgid "Hours"
-msgstr "Horas"
+msgstr "Години"
 
 #: baloti_djelectionguard/templates/contest_details.html:191
 msgid "Minutes"
-msgstr "Minutos"
+msgstr "Хвилини"
 
 #: baloti_djelectionguard/templates/contest_details.html:200
 msgid "YOUR VOTE"
-msgstr "TU VOTO"
+msgstr "ВАШ ГОЛОС"
 
 #: baloti_djelectionguard/templates/contest_details.html:208
 msgid "Voted"
-msgstr "Votado"
+msgstr "Голос ввідано"
 
 #: baloti_djelectionguard/templates/contest_details.html:212
 msgid "Not Voted"
-msgstr "No votado"
+msgstr "Голос не віддано"
 
 #: baloti_djelectionguard/templates/contest_details.html:217
 #: baloti_djelectionguard/templates/contest_results.html:243
 msgid "Share"
-msgstr "Cuota"
+msgstr "Поділитися"
 
 #: baloti_djelectionguard/templates/contest_details.html:225
 #: baloti_djelectionguard/templates/contest_results.html:251
@@ -321,81 +328,81 @@ msgstr "Twitter"
 #: baloti_djelectionguard/templates/contest_details.html:230
 #: baloti_djelectionguard/templates/contest_results.html:256
 msgid "E-Mail"
-msgstr "Email"
+msgstr "E-Mail"
 
 #: baloti_djelectionguard/templates/contest_list.html:31
 #: baloti_djelectionguard/templates/news.html:21
 msgid "Sort by"
-msgstr "Ordenar por"
+msgstr "Сортування"
 
 #: baloti_djelectionguard/templates/contest_list.html:33
 #: baloti_djelectionguard/templates/news.html:23
 msgid "Old to new"
-msgstr "de más antiguo a nuevo"
+msgstr "Від старого до нового"
 
 #: baloti_djelectionguard/templates/contest_list.html:34
 #: baloti_djelectionguard/templates/news.html:24
 msgid "New to old"
-msgstr "De nuevo a mas antiguo"
+msgstr "Від нового до старого"
 
 #: baloti_djelectionguard/templates/contest_list.html:56
 #: baloti_djelectionguard/templates/contest_list.html:105
 #: baloti_djelectionguard/templates/index.html:58
 msgid "Issues:"
-msgstr "Problemas:"
+msgstr "Проблеми"
 
 #: baloti_djelectionguard/templates/contest_list.html:67
 #: baloti_djelectionguard/templates/index.html:17
 #: baloti_djelectionguard/templates/index.html:69
 msgid "VOTE NOW"
-msgstr "VOTA AHORA"
+msgstr "Голосувати зараз"
 
 #: baloti_djelectionguard/templates/contest_list.html:72
 #: baloti_djelectionguard/templates/index.html:73
 msgid "VIEW DETAIL"
-msgstr "VER DETALLE"
+msgstr "Подивитися детальніше"
 
 #: baloti_djelectionguard/templates/contest_list.html:81
 msgid "Sorry"
-msgstr "Lo siento"
+msgstr "Вибачте"
 
 #: baloti_djelectionguard/templates/contest_list.html:82
 msgid "we couldn't find any matches for that"
-msgstr "no pudimos encontrar ninguna combinación para eso"
+msgstr "не вдалося знайти жодних співпадінь"
 
 #: baloti_djelectionguard/templates/contest_list.html:90
 msgid "Results"
-msgstr "Resultados"
+msgstr "Результати"
 
 #: baloti_djelectionguard/templates/contest_list.html:114
 #: baloti_djelectionguard/templates/contest_list.html:117
 #: baloti_djelectionguard/templates/index.html:79
 #: baloti_djelectionguard/templates/index.html:81
 msgid "closed"
-msgstr "cerrado"
+msgstr "закрито"
 
 #: baloti_djelectionguard/templates/contest_list.html:117
 #: baloti_djelectionguard/templates/index.html:81
 msgid "VIEW DETAILS"
-msgstr "VER DETALLES"
+msgstr "Переглянути деталі"
 
 #: baloti_djelectionguard/templates/contest_results.html:60
 #: baloti_djelectionguard/templates/layout/header.html:128
 msgid "NO"
-msgstr "NO"
+msgstr "Ні"
 
 #: baloti_djelectionguard/templates/contest_results.html:61
 #: baloti_djelectionguard/templates/layout/header.html:129
 msgid "YES"
-msgstr "SÍ"
+msgstr "Так"
 
 #: baloti_djelectionguard/templates/contest_results.html:247
 msgid "Copy link"
-msgstr "Copiar link"
+msgstr "Копіювати посилання"
 
 #: baloti_djelectionguard/templates/data_privacy.html:55
 msgid "Data Protection"
-msgstr "Protección de Datos"
+msgstr "Захист даних"
 
 #: baloti_djelectionguard/templates/data_privacy.html:56
 msgid ""
@@ -405,48 +412,46 @@ msgid ""
 "circumstances will the data collected be sold or passed on to third parties "
 "for any other reason."
 msgstr ""
-"Nos tomamos muy en serio y estrictamente la protección de sus datos "
-"personalescumplir con las leyes de protección de datos. Se recopilan datos "
-"personales en este sitio web solo en la medida imprescindible. Bajo ninguna "
-"circunstancias los datos recopilados serán vendidos o transmitidos a "
-"terceros por cualquier otra razón."
+"Ми дуже серйозно та суворо ставимося до захисту ваших персональних "
+"данихвідповідно до Закону про захист даних. На цьому сайті персональні дані "
+"збираютьсялише в технічно необхідному обсязі. Дані не передаються третім "
+"особам."
 
 #: baloti_djelectionguard/templates/data_privacy.html:57
 msgid ""
 "The following declaration gives you an overview of how we guarantee this "
 "protection and what kind of data is collected for what purpose."
 msgstr ""
-"La siguiente declaración le brinda una descripción general de cómo "
-"garantizamos estoprotección y qué tipo de datos se recopilan con qué "
-"propósito."
+"Наступна декларація дає вам огляд того, як ми це гарантуємо захист і які "
+"дані з якою метою збираються."
 
 #: baloti_djelectionguard/templates/data_privacy.html:58
 msgid ""
 "We automatically collect and store information that your browser transmits "
 "to us in the server log files. These are:"
 msgstr ""
-"Recopilamos y almacenamos automáticamente la información que transmite su "
-"navegadora nuestros  archivos de registro del servidor. Estos son:"
+"Ми автоматично збираємо та зберігаємо інформацію, яку передає ваш браузер,"
+"файли журналу сервера. Це:"
 
 #: baloti_djelectionguard/templates/data_privacy.html:61
 msgid "Browser type/ version"
-msgstr "Tipo/versión del navegador"
+msgstr "Тип/версія браузера"
 
 #: baloti_djelectionguard/templates/data_privacy.html:62
 msgid "Operating system used"
-msgstr "sistema operativo utilizado"
+msgstr "Використана операційна система"
 
 #: baloti_djelectionguard/templates/data_privacy.html:63
 msgid "Referrer URL (the previously visited page)"
-msgstr "URL de referencia (la página visitada anteriormente)"
+msgstr "URL-адреса переходу (раніше відвідана сторінка)"
 
 #: baloti_djelectionguard/templates/data_privacy.html:64
 msgid "Host name of the accessing computer (IP address)"
-msgstr "Nombre de host de la computadora que accede (dirección IP)"
+msgstr "Ім'я хоста комп'ютера, що здійснює доступ (IP-адреса)"
 
 #: baloti_djelectionguard/templates/data_privacy.html:65
 msgid "Date and time of the server request"
-msgstr "Fecha y hora de la solicitud del servidor"
+msgstr "Дата і час запиту сервера"
 
 #: baloti_djelectionguard/templates/data_privacy.html:67
 msgid ""
@@ -454,13 +459,13 @@ msgid ""
 "combined with other data sources. The data will also be deleted after a "
 "statistical evaluation."
 msgstr ""
-"Estos datos no pueden ser asignados a personas específicas. Estos datos no "
-"son combinado con otras fuentes de datos. Los datos también se eliminarán "
-"después de un evaluación estadística."
+"Ці дані не можуть бути призначені для окремих осіб. Ці дані не можутьбути "
+"поєднанні з іншими джерелами даних. Дані будуть видалені після статистичної "
+"оцінки."
 
 #: baloti_djelectionguard/templates/data_privacy.html:70
 msgid "Cookies"
-msgstr "Cookies"
+msgstr "Файли cookie"
 
 #: baloti_djelectionguard/templates/data_privacy.html:71
 msgid ""
@@ -473,19 +478,19 @@ msgid ""
 "acceptance of cookies. If you deactivate cookies, certain functions of our "
 "website may not be available."
 msgstr ""
-"En algunas de nuestras páginas utilizamos cookies para hacer atractiva la "
-"visita a nuestro sitio weby para permitir el uso de ciertas funciones. "
-"„Cookies“ son pequeños archivos de texto que su navegador puede almacenar en "
-"su computadora. Estas cookies se eliminan de su disco duro al final de la "
-"sesión del navegador (cookies de sesión“). Usted puede configurar su "
-"navegador para que le informe sobre la configuración de cookies, para "
-"decidirla aceptación caso por caso o para aceptar o excluir en general "
-"laaceptación de cookies. Si desactivas las cookies, ciertas funciones de "
-"nuestro sitio web pueden no estar disponible."
+"На деяких наших сторінках ми використовуємо файли cookie, щоб зробити "
+"відвідування нашого веб-сайту привабливимі дозволити використовувати певні "
+"функції. «Cookies» — це невеликі текстові файлиякі ваш браузер може "
+"зберігати на вашому комп’ютері. Файли cookie видаляються звашого жорсткого "
+"диску наприкінці сеансу браузера («сеансові файли cookie»). Виможете "
+"налаштувати ваш браузер, щоб отримувати інформацію про файли cookie для "
+"прийняття рішенняв кожному окремому випадку або про їх загальне прийняття чи "
+"виключення.Якщо ви деактивуєте файли cookie, деякі функції нашоговеб-сайту "
+"можуть бути недоступні."
 
 #: baloti_djelectionguard/templates/data_privacy.html:74
 msgid "Use of Google Analytics"
-msgstr "Uso de Google Analytics"
+msgstr "Використання Google Analytics"
 
 #: baloti_djelectionguard/templates/data_privacy.html:75
 msgid ""
@@ -509,66 +514,66 @@ msgid ""
 "set out above. You can object to the collection of data by Google Analytics "
 "with future effect by installing a deactivation add-on for your browser."
 msgstr ""
-"Este sitio web utiliza Google Analytics, un servicio de análisis web de "
-"Google Inc.(„Google“) Google Analytics utiliza cookies, que son archivos de "
-"texto ubicados en su computadora, para ayudar al sitio web a analizar cómo "
-"los usuarios usan el sitio. La información generada por la cookie acerca de "
-"su uso de este sitio web(incluida su dirección IP, que se anonimiza mediante "
-"_anonymizeIp() método para que ya no pueda ser asignado a una conexión) se "
-"transmitaa un servidor de Google en los EE. UU. y se almacena allí. Google "
-"usará esta información con el fin de evaluar su uso del sitio web, "
-"recopilandoinformes sobre la actividad del sitio web para operadores de "
-"sitios web y proporcionar otrosservicios relacionados con la actividad del "
-"sitio web y el uso de Internet. Google también puede transferir esta "
-"información a terceros si así lo exige la ley o siTerceros procesan estos "
-"datos en nombre de Google. Google no asociar su dirección IP con cualquier "
-"otro dato en poder de Google. Puede negarseel uso de cookies mediante la "
-"selección de la configuración adecuada en su navegador, Sin embargo, tenga "
-"en cuenta que, si hace esto, es posible que no pueda usar lafuncionalidad de "
-"este sitio web. Al usar este sitio web, usted acepta el procesamiento de "
-"datos sobre usted por parte de Google en la forma y para los "
-"finesestablecido anteriormente. Puede oponerse a la recopilación de datos "
-"por parte de Google Analyticscon efecto futuro mediante la instalación de un "
-"complemento de desactivación para su navegador."
+"Цей веб-сайт використовує Google Analytics, службу веб-аналізу Google Inc."
+"(„Google“) Google Analytics використовує файли cookie, які є текстовими "
+"файлами, розміщеними навашому комп'ютері, щоб допомогти веб-сайту "
+"проаналізувати, як користувачі використовують сайт. Інформація, згенерована "
+"файлами cookie про використання вами цього веб-сайту(включаючи вашу IP-"
+"адресу, яка анонімізована за допомогою _anonymizeIp() передається що ви "
+"більше не можете бути призначені для з'єднанняна сервер Google у США та "
+"зберігається там. Google використовуватиме цюінформацію з метою оцінки "
+"використання вами веб-сайту, складаннязвітів про діяльність веб-сайту для "
+"операторів веб-сайтів та надання іншихпослуг, пов'язаних з діяльністю на веб-"
+"сайті та використанням Інтернету. Google також може передати цю інформацію "
+"третім особам, якщо це вимагається законом або якщотреті сторони обробляють "
+"ці дані від імені Google. Google не буде пов'язувати свою IP-адресу з будь-"
+"якими іншими даними, якими володіє Google. Ви можете відмовитися "
+"відвикористання файлів cookie, вибравши відповідні налаштування у вашому "
+"браузері,проте, будь ласка, зверніть увагу, що якщо ви зробите це, ви, "
+"можливо, не зможете використовувати повнуфункціональність цього веб-сайту. "
+"Використовуючи цей веб-сайт, ви погоджуєтесь наобробку даних про вас "
+"компанією Google у спосіб і для цілейвикладених вище. Ви можете заперечити "
+"проти збору даних Google Analyticsз майбутнім ефектом, встановивши "
+"доповнення для дезактивації для вашого браузера."
 
 #: baloti_djelectionguard/templates/data_privacy.html:97
 #: baloti_djelectionguard/templates/imprint.html:103
 #: baloti_djelectionguard/templates/landing-en.html:213
 msgid "Data Privacy"
-msgstr "Privacidad de datos"
+msgstr "Конфіденційність даних"
 
 #: baloti_djelectionguard/templates/data_privacy.html:98
 #: baloti_djelectionguard/templates/imprint.html:104
 #: baloti_djelectionguard/templates/landing-en.html:214
 msgid "Imprint"
-msgstr "Imprimir"
+msgstr "Відбиток"
 
 #: baloti_djelectionguard/templates/data_privacy.html:109
 #: baloti_djelectionguard/templates/imprint.html:115
 msgid "FOLLOW US ON"
-msgstr "SIGA CON NOSOTROS"
+msgstr "СЛІДКУЙ ЗА НАМИ НА"
 
 #: baloti_djelectionguard/templates/disclaimer.html:11
 #: baloti_djelectionguard/templates/layout/footer.html:21
 #: baloti_djelectionguard/templates/layout/header.html:51
 msgid "Disclaimer"
-msgstr "Descargo de responsabilidad"
+msgstr "Відмова від відповідальності"
 
 #: baloti_djelectionguard/templates/disclaimer.html:12
 msgid ""
 "Please note that the vote you are casting on the baloti website is not "
 "official.."
 msgstr ""
-"Tenga en cuenta que el voto que está emitiendo en el sitio web de baloti no "
-"es oficial.."
+"Зверніть увагу, що голосування, яке ви здійснюєте на веб-сайті baloti, не є "
+"Офіційний.."
 
 #: baloti_djelectionguard/templates/disclaimer.html:13
 msgid "On the website"
-msgstr "En el sitio web"
+msgstr "На сайті"
 
 #: baloti_djelectionguard/templates/disclaimer.html:13
 msgid "various user data are saved"
-msgstr "se guardan varios datos de usuario"
+msgstr "зберігаються різні дані користувача"
 
 #: baloti_djelectionguard/templates/disclaimer.html:14
 msgid ""
@@ -577,86 +582,84 @@ msgid ""
 "server. This mainly concerns: IP address, date and time of access, name of "
 "accessed page, web-browser used, operating system used etc."
 msgstr ""
-"En una cookie almacenamos la preferencia de idioma del usuario únicamente. "
-"Cuando el  accede al sitio web, los datos de inicio de sesión se guardan en "
-"un llamado archivo de registro en el servidor. Esto se refiere "
-"principalmente a: dirección IP, fecha y hora de acceso, nombre de página "
-"visitada, navegador web utilizado, sistema operativo utilizado, etc."
+"У файлах cookie ми зберігаємо лише мовні налаштування користувача. Коли "
+"відбуваєтьсядоступ до веб-сайту, дані входу зберігаються насервер. В "
+"основному це стосується: IP-адреси, дати та часу доступу, іменісторінки "
+"доступу, використаного веб-браузера, використаної операційної системи тощо."
 
 #: baloti_djelectionguard/templates/disclaimer.html:15
 msgid ""
 "All these data are protected against unauthorised persons and are only "
 "evaluated in the form of anonymous access statistics."
 msgstr ""
-"Todos estos datos están protegidos contra personas no autorizadas y son sólo "
-"evaluado en forma de estadísticas de acceso anónimo."
+"Всі ці дані захищені від сторонніх осіб іоцінюються у вигляді статистики "
+"анонімного доступу."
 
 #: baloti_djelectionguard/templates/disclaimer.html:16
 msgid ""
 "E-mail addresses are used only for direct communication with the user and "
 "will under no circumstances be passed on to a third party."
 msgstr ""
-"Las direcciones de correo electrónico se utilizan únicamente para la "
-"comunicación directa con el usuario y en ningún caso serán cedidos a un "
-"tercero."
+"Адреси електронної пошти використовуються лише для прямого спілкування з "
+"користувачем іні за яких обставин не будуть передані третім сторонам."
 
 #: baloti_djelectionguard/templates/disclaimer.html:17
 msgid ""
 "The data about the vote and the user (status, age, gender, canton, etc.) are "
 "used for analyses and statistics only in anonymised and aggregated form."
 msgstr ""
-"Los datos sobre el voto y el usuario (estado, edad, género, región, etc.) "
-"sonutilizado para análisis y estadísticas solo en forma anónima y agregada."
+"Дані про голосування та користувача (статус, вік, стать, "
+"тощо)використовуються для аналізу та статистики лише в анонімізованій та "
+"зведеній формі."
 
 #: baloti_djelectionguard/templates/imprint.html:57
 msgid "Represented by"
-msgstr "Representado por"
+msgstr "Представлений"
 
 #: baloti_djelectionguard/templates/imprint.html:61
 msgid "Address"
-msgstr "Dirección"
+msgstr "Адреса"
 
 #: baloti_djelectionguard/templates/imprint.html:65
 msgid "Firm Number"
-msgstr "Número de empresa"
+msgstr "Номер фірми"
 
 #: baloti_djelectionguard/templates/imprint.html:69
 msgid "VAT Number"
-msgstr "Número de IVA"
+msgstr "ІПН"
 
 #: baloti_djelectionguard/templates/imprint.html:73
 msgid "Phone"
-msgstr "Teléfono"
+msgstr "Телефон"
 
 #: baloti_djelectionguard/templates/imprint.html:77
 msgid "Fax"
-msgstr "Fax"
+msgstr "факс"
 
 #: baloti_djelectionguard/templates/index.html:14
 msgid "baloti Voting system"
-msgstr "baloti sistema de votacion"
+msgstr "baloti Система голосування"
 
 #: baloti_djelectionguard/templates/index.html:15
 msgid ""
 "On our platform you can <br> practice direct democracy in <br> several "
 "languages"
 msgstr ""
-"En nuestra plataforma puedes <br> practicar la democracia directa en <br> "
-"varios idiomas"
+"На нашій платформі ви можете <br> практикувати пряму демократію на <br> "
+"різних мовах"
 
 #: baloti_djelectionguard/templates/index.html:18
 msgid "HOW IT WORKS"
-msgstr "CÓMO FUNCIONA"
+msgstr "ЯК ЦЕ ПРАЦЮЄ"
 
 #: baloti_djelectionguard/templates/index.html:41
 msgid "ABOUT US"
-msgstr "SOBRE NOSOTROS"
+msgstr "ПРО НАС"
 
 #: baloti_djelectionguard/templates/index.html:42
 msgid "On our platform you can practice direct democracy in several languages"
 msgstr ""
-"En nuestra plataforma puedes practicar la democracia directa en varios "
-"idiomas"
+"На нашій платформі ви можете практикувати пряму демократію кількома мовами"
 
 #: baloti_djelectionguard/templates/index.html:43
 msgid ""
@@ -665,99 +668,97 @@ msgid ""
 "Neuchatel. Diversified project partnerships ensure that the project will be "
 "made public all over the country."
 msgstr ""
-"El proyecto baloti.ch. es llevado a cabo por un equipo interdisciplinar en "
-"el Zentrum für Demokratie Aarau en cooperación con la Universidad "
-"deNeuchatel. Las diversas asociaciones del proyecto aseguran que el proyecto "
-"será hecho público en todo el país."
+"Проект baloti.ch. виконується міждисциплінарною командою в Центр демократії "
+"Aarau у співпраці з УніверситетомНевшатель. Диверсифіковані партнерські "
+"відносини в рамках проекту гарантують, що проект будеоприлюднено по всій "
+"країні."
 
 #: baloti_djelectionguard/templates/index.html:48
 msgid "LATEST REFERENDUMS & VOTE"
-msgstr "ÚLTIMOS REFERÉNDUMS & VOTO"
+msgstr "ОСНОВНІ РЕФЕРЕНДУМИ ТА ГОЛОСУВАННЯ"
 
 #: baloti_djelectionguard/templates/index.html:90
 msgid "VIEW ALL"
-msgstr "VER TODO"
+msgstr "ПОДИВИТИСЬ ВСЕ"
 
 #: baloti_djelectionguard/templates/index.html:99
 msgid "LETS DIVE IN"
-msgstr "VAMOS A SUMERGIRNOS"
+msgstr "ДАВАЙТЕ ЗАНУРИМОСЯ"
 
 #: baloti_djelectionguard/templates/index.html:100
 msgid "How it works"
-msgstr "Cómo funciona"
+msgstr "Як це працює"
 
 #: baloti_djelectionguard/templates/index.html:105
 msgid ""
 "Inform yourself about the latest votes in Switzerland and learn new facts "
 "about Swiss politics."
 msgstr ""
-"Infórmese sobre las últimas votaciones en Suiza y aprenda nuevos datossobre "
-"la política suiza."
+"Отримайте інформацію про останні голосування в Швейцарії та дізнайтеся нові "
+"фактипро швейцарську політику."
 
 #: baloti_djelectionguard/templates/index.html:109
 msgid ""
 "Register on the baloti platform and vote, whether you already have Swiss "
 "voting rights or not"
 msgstr ""
-"Regístrate en la plataforma baloti y vota, tanto si ya tienes suizoderecho "
-"de voto o no"
+"Зареєструйтеся на платформі baloti.org та проголосуйте, чи є у вас "
+"швейцарськеправо голосу чи ні"
 
 #: baloti_djelectionguard/templates/index.html:113
 msgid "Stay up to date with notifications and information from baloti."
-msgstr "Manténgase actualizado con las notificaciones e información de baloti."
+msgstr "Слідкуйте за сповіщеннями та інформацією від baloti."
 
 #: baloti_djelectionguard/templates/index.html:122
 #: baloti_djelectionguard/templates/landing-en.html:87
 msgid "IMPACT"
-msgstr "IMPACTO"
+msgstr "ВПЛИВ"
 
 #: baloti_djelectionguard/templates/index.html:129
 #: baloti_djelectionguard/templates/landing-en.html:95
 msgid "safe, secure & open"
-msgstr "seguro, seguro & abierto"
+msgstr "безпечний, захищенний і відкритий"
 
 #: baloti_djelectionguard/templates/index.html:130
 msgid ""
 "Our solution is fully open source and we use blockchain technology for "
 "saving and verifying votes"
 msgstr ""
-"Nuestra solución es totalmente de código abierto y utilizamos tecnología "
-"blockchain paraguardar y verificar votos"
+"Наше рішення є повністю відкритим вихідним кодом, і ми використовуємо "
+"технологію блокчейн длязбереження та перевірки голосів"
 
 #: baloti_djelectionguard/templates/index.html:137
 #: baloti_djelectionguard/templates/landing-en.html:106
 msgid "multilingual"
-msgstr "plurilingüe"
+msgstr "багатомовний"
 
 #: baloti_djelectionguard/templates/index.html:138
 msgid ""
 "making the voting experience more accessible, vote in your own language."
-msgstr ""
-"haciendo que la experiencia de votar sea más accesible, vota en tu propio "
-"idioma"
+msgstr "щоб зробити процес голосування доступнішим, голосуйте своєю мовою."
 
 #: baloti_djelectionguard/templates/index.html:146
 #: baloti_djelectionguard/templates/landing-en.html:116
 msgid "democratic"
-msgstr "Democrático"
+msgstr "демократичний"
 
 #: baloti_djelectionguard/templates/index.html:147
 #: baloti_djelectionguard/templates/landing-en.html:117
 msgid ""
 "allow more people to participate in voting independently of time and space"
 msgstr ""
-"permitir que más personas participen en la votación independientemente del "
-"tiempo y el espacio"
+"дозволити більшій кількості людей брати участь у голосуванні незалежно від "
+"часу та простору"
 
 #: baloti_djelectionguard/templates/index.html:207
 msgid "ILLUSTRATIONS"
-msgstr "ILUSTRACIONES"
+msgstr "ІЛЮСТРАЦІЇ"
 
 #: baloti_djelectionguard/templates/index.html:216
 #: baloti_djelectionguard/templates/news.html:39
 #: baloti_djelectionguard/templates/news.html:78
 msgid "Sources of Information"
-msgstr "Fuentes de información"
+msgstr "Джерела інформації"
 
 #: baloti_djelectionguard/templates/index.html:217
 #: baloti_djelectionguard/templates/index.html:230
@@ -779,9 +780,9 @@ msgid ""
 "protects the voter in a vote or election, so that his or her choice remains "
 "confidential. Securing ballot secrecy is a central..."
 msgstr ""
-"Selectio Helvetica light para salvaguardar el secreto del voto. El voto "
-"secretoprotege al votante en una votación o elección, para que su elección "
-"permanezcaconfidencial. Asegurar el secreto del voto es un ..."
+"Selectio Helvetica light для захисту таємниці голосування. Таємне "
+"голосуваннязахищає виборця під час голосування чи виборів, щоб його вибір "
+"залишавсяконфіденційним. Забезпечення таємниці голосування є центральним..."
 
 #: baloti_djelectionguard/templates/index.html:220
 #: baloti_djelectionguard/templates/index.html:233
@@ -799,13 +800,13 @@ msgstr ""
 #: baloti_djelectionguard/templates/news.html:175
 #: baloti_djelectionguard/templates/news.html:188
 msgid "Read"
-msgstr "Leer"
+msgstr "Прочитайте"
 
 #: baloti_djelectionguard/templates/index.html:229
 #: baloti_djelectionguard/templates/news.html:52
 #: baloti_djelectionguard/templates/news.html:91
 msgid "Television debates"
-msgstr "Debates televisivos"
+msgstr "Телевізійні дебати"
 
 #: baloti_djelectionguard/templates/index.html:242
 #: baloti_djelectionguard/templates/news.html:65
@@ -817,183 +818,146 @@ msgstr "Debates televisivos"
 #: baloti_djelectionguard/templates/news.html:171
 #: baloti_djelectionguard/templates/news.html:184
 msgid "Postal voting"
-msgstr "voto postal"
+msgstr "Голосування поштою"
 
 #: baloti_djelectionguard/templates/index.html:259
 #: baloti_djelectionguard/templates/landing-en.html:127
 msgid "PROJECT PARTNERS"
-msgstr "SOCIOS DE PROYECTO"
+msgstr "ПАРТНЕРИ ПРОЕКТУ"
 
 #: baloti_djelectionguard/templates/index.html:295
 msgid "Registration successful"
-msgstr "Registro exitoso"
+msgstr "Реєстрація успішна"
 
 #: baloti_djelectionguard/templates/index.html:305
 msgid "Password successfully changed"
-msgstr "cambio de contraseña exitoso"
+msgstr "Пароль успішно змінено"
 
 #: baloti_djelectionguard/templates/index.html:315
 msgid "Logged out successfully"
-msgstr "Cierre de sesión exitoso "
+msgstr "Вихід здійснено"
 
 #: baloti_djelectionguard/templates/index.html:325
 msgid "Logged in successfully"
-msgstr "Inicio de sesión exitosa"
+msgstr "Вхід успішний"
 
 #: baloti_djelectionguard/templates/landing-en.html:55
 msgid "the baloti project"
-msgstr "el proyecto baloti"
+msgstr "проект baloti.org"
 
 #: baloti_djelectionguard/templates/landing-en.html:56
 msgid "an online voting platform for all languages is our vision"
-msgstr "nuestra visión es una plataforma en línea para todos los idiomas"
+msgstr "наше бачення – платформа для онлайн-голосування всіма мовами"
 
 #: baloti_djelectionguard/templates/landing-en.html:58
 msgid "go to the baloti portal"
-msgstr "ir al portal baloti"
+msgstr "перейдіть на портал baloti.org"
 
 #: baloti_djelectionguard/templates/landing-en.html:75
 msgid "ABOUT THE PROJECT"
-msgstr "SOBRE EL PROYECTO"
+msgstr "ПРО ПРОЄКТ"
 
 #: baloti_djelectionguard/templates/landing-en.html:76
 msgid ""
 "baloti is a technical solution allowing you to cast your vote online in "
 "several languages in a safe and secure way"
 msgstr ""
-"baloti es una solución técnica que le permite emitir su voto en línea en "
-"varios idiomas de forma segura"
+"baloti - це технічне рішення, яке дозволяє віддати свій голос онлайнкількома "
+"мовами безпечним способом"
 
 #: baloti_djelectionguard/templates/landing-en.html:77
 msgid "experience Swiss referendum voting online"
-msgstr "experimente la votación del referéndum suizo en línea"
+msgstr "отримайте досвід онлайн-голосування на референдумі в Швейцарії"
 
 #: baloti_djelectionguard/templates/landing-en.html:96
 msgid ""
 "baloti is fully open source and uses blockchain technology for saving and "
 "verifying votes"
 msgstr ""
-"baloti es totalmente de código abierto y utiliza la tecnología blockchain "
-"para guardar yverificando votos"
+"baloti є повністю відкритим вихідним кодом і використовує технологію "
+"блокчейн для збереження таперевірки голосів"
 
 #: baloti_djelectionguard/templates/landing-en.html:107
 msgid "making the voting experience more accessible, vote in your own language"
-msgstr ""
-"haciendo que la experiencia de votar sea más accesible, vote en su propio "
-"idioma"
+msgstr "щоб зробити процес голосування доступнішим, голосуйте своєю мовою"
 
 #: baloti_djelectionguard/templates/landing-en.html:158
 msgid "CONTACT US"
-msgstr "CONTÁCTENOS"
+msgstr "Зв’яжіться з нами"
 
 #: baloti_djelectionguard/templates/landing-en.html:159
 msgid "Feel free to <br> contact us"
-msgstr "Siéntase libre de <br> contactarnos"
+msgstr "Будемо раді відповісти на будь-які ваші питання"
 
 #: baloti_djelectionguard/templates/landing-en.html:167
 msgid "Firstname*"
-msgstr "Nombre de pila*"
+msgstr "Ім’я"
 
 #: baloti_djelectionguard/templates/landing-en.html:171
 msgid "Lastname*"
-msgstr "Apellido*"
+msgstr "Прізвище"
 
 #: baloti_djelectionguard/templates/landing-en.html:177
 msgid "Email*"
-msgstr "Email*"
+msgstr "Email"
 
 #: baloti_djelectionguard/templates/landing-en.html:181
 msgid "Subject*"
-msgstr "Asunto*"
+msgstr "Тема"
 
 #: baloti_djelectionguard/templates/landing-en.html:186
 msgid "Message*"
-msgstr "Mensaje*"
+msgstr "Повідомлення"
 
 #: baloti_djelectionguard/templates/landing-en.html:228
 msgid "Mail sent successfully"
-msgstr "El correo enviado con éxito"
+msgstr "Лист успішно відправлено"
 
 #: baloti_djelectionguard/templates/layout/footer.html:16
 #: baloti_djelectionguard/templates/layout/header.html:45
 #: baloti_djelectionguard/templates/news.html:11
 msgid "Illustrations"
-msgstr "Ilustraciones"
+msgstr "Ілюстрації"
 
 #: baloti_djelectionguard/templates/layout/footer.html:22
 msgid "User Manual"
-msgstr "Manual de usuario"
+msgstr "Посібник користувача"
 
 #: baloti_djelectionguard/templates/layout/header.html:56
 #: baloti_djelectionguard/templates/layout/header.html:83
 msgid "Login"
-msgstr "Acceso"
+msgstr "Логін"
 
 #: baloti_djelectionguard/templates/layout/header.html:63
 msgid "Profile settings"
-msgstr "Configuración de perfil"
+msgstr "Налаштування профілю"
 
 #: baloti_djelectionguard/templates/layout/header.html:68
 msgid "Change Password?"
-msgstr "¿Cambie la contraseña?"
+msgstr "Змінити пароль?"
 
 #: baloti_djelectionguard/templates/layout/header.html:71
 #: baloti_djelectionguard/templates/layout/header.html:102
 msgid "Delete profile"
-msgstr "Borrar perfil"
+msgstr "Видалити профайл"
 
 #: baloti_djelectionguard/templates/layout/header.html:76
 #: baloti_djelectionguard/templates/layout/header.html:105
 msgid "Logout"
-msgstr "Cerrar sesión"
+msgstr "Вийти"
 
 #: baloti_djelectionguard/templates/layout/header.html:99
 msgid "Change Password"
-msgstr "Cambie la contraseña"
+msgstr "Змінити пароль"
 
 #: baloti_djelectionguard/templates/layout/header.html:126
 msgid "Are you sure you want to delete your baloti account?"
-msgstr "¿Está seguro de que desea eliminar su cuenta baloti?"
+msgstr "Ви впевнені, що хочете видалити свій обліковий запис?"
 
 #: baloti_djelectionguard/templates/layout/header.html:136
 msgid "Enter your password to confirm"
-msgstr "Ingrese su contraseña para confirmar"
+msgstr "Введіть свій пароль для підтвердження"
 
 #: baloti_djelectionguard/templates/layout/header.html:140
 msgid "Invalid password"
-msgstr "Contraseña invalida"
-
-#~ msgid ""
-#~ "The baloti.ch. project is carried out by an interdisciplinary team at the "
-#~ "Zentrum für Demokratie Aarau in cooperation with the University of "
-#~ "Neuchatel. Diversified project partnerships ensure that the project will "
-#~ "be made static all over the country."
-#~ msgstr ""
-#~ "El proyecto baloti.ch. es llevado a cabo por un equipo interdisciplinar "
-#~ "en el Zentrum für Demokratie Aarau en cooperación con la Universidad de "
-#~ "Neuchatel.Las asociaciones diversificadas del proyecto aseguran que el "
-#~ "proyecto será hizo estática en todo el país."
-
-#~ msgid "Voting system"
-#~ msgstr "Sistema de votación"
-
-#~ msgid ""
-#~ "baloti uses a sophisticated voting system to guarantee the security and "
-#~ "the transparency of the vote processes. This voting system is provided by "
-#~ "Selectio Helvetica."
-#~ msgstr ""
-#~ "baloti utiliza un sofisticado sistema de votación para garantizar la "
-#~ "seguridad y la transparencia de los procesos de votación. Este sistema de "
-#~ "votación lo proporciona Selectio Helvética."
-
-#~ msgid "Selectio Helvetica light"
-#~ msgstr "Selectio Helvetica light"
-
-#~ msgid "Text by Vimentis"
-#~ msgstr "Texto de Vimentis"
-
-#~ msgid "Comics"
-#~ msgstr "Historietas"
-
-#~ msgid "Bronco illustrations, KALONJI"
-#~ msgstr "Ilustraciones Bronco, KALONJI"
+msgstr "Невірний пароль"

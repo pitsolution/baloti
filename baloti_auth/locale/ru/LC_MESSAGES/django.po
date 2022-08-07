@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-21 14:08+0530\n"
+"POT-Creation-Date: 2022-07-21 13:02+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,35 +16,35 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: baloti_auth/forms.py:21
 msgid "Your old password was entered incorrectly. Please enter it again."
-msgstr ""
-"Su antigua contraseña fue ingresada incorrectamente. Por favor, introdúzcalo "
-"de nuevo."
+msgstr "Ваш старый пароль был введен неверно. Пожалуйста, введите его снова."
 
 #: baloti_auth/templates/change_password.html:64
 msgid "Change Password"
-msgstr "Cambiar la contraseña"
+msgstr "Сменить пароль"
 
 #: baloti_auth/templates/change_password.html:71
 msgid "Old Password"
-msgstr "Contraseña anterior"
+msgstr "Старый пароль"
 
 #: baloti_auth/templates/change_password.html:77
 msgid "New Password"
-msgstr "Nueva contraseña"
+msgstr "Новый пароль"
 
 #: baloti_auth/templates/change_password.html:83
 msgid "New Password Confirmation"
-msgstr "Confirmar nueva contraseña"
+msgstr "Подтверждение нового пароля"
 
 #: baloti_auth/templates/change_password.html:97
 #: baloti_auth/templates/login.html:95
 #: baloti_auth/templates/signup_mail.html:235
 msgid "CONTINUE"
-msgstr "SEGUIR"
+msgstr "Продолжить"
 
 #: baloti_auth/templates/change_password.html:101
 #: baloti_auth/templates/login.html:101
@@ -52,194 +52,195 @@ msgstr "SEGUIR"
 #: baloti_auth/templates/password_reset_done.html:64
 #: baloti_auth/templates/signup.html:95
 msgid "Back"
-msgstr "Atrás"
+msgstr "Вернуться"
 
 #: baloti_auth/templates/login.html:64
 msgid "Welcome to baloti!"
-msgstr "¡bienvenido a baloti!"
+msgstr "Добро пожаловать в baloti!"
 
 #: baloti_auth/templates/login.html:66
 msgid "Login to your account"
-msgstr "Ingrese a su cuenta"
+msgstr "Войти в свой аккаунт"
 
 #: baloti_auth/templates/login.html:69 baloti_auth/templates/signup.html:69
 msgid "Continue with Facebook"
-msgstr "Continuar con Facebook"
+msgstr "Продолжить с Facebook"
 
 #: baloti_auth/templates/login.html:79
 #: baloti_auth/templates/password_reset.html:71
 #: baloti_auth/templates/password_reset_confirm.html:64
 #: baloti_auth/templates/signup.html:83
 msgid "Email address"
-msgstr "Dirección de correo electrónico"
+msgstr "Адрес электронной почты"
 
 #: baloti_auth/templates/login.html:84
 msgid "Password"
-msgstr "Contraseña"
+msgstr "Пароль"
 
 #: baloti_auth/templates/login.html:94
 msgid "Forgot password?"
-msgstr "¿olvidó su contraseña?"
+msgstr "Забыли пароль?"
 
 #: baloti_auth/templates/login.html:96
 msgid "Not registered yet?"
-msgstr "¿Todavía no estas registrado?"
+msgstr "Еще не зарегестрированы?"
 
 #: baloti_auth/templates/login.html:96
 msgid "Create an account now!"
-msgstr "¡Crea una cuenta ahora!"
+msgstr "Создать новый аккаунт"
 
 #: baloti_auth/templates/password_reset.html:62
 msgid "Forgot Password?"
-msgstr "¿Olvido su contraseña?"
+msgstr "Забыли пароль"
 
 #: baloti_auth/templates/password_reset.html:64
 #: baloti_auth/templates/signup.html:86
 msgid ""
 "We will send you the registration link to the email address you entered."
 msgstr ""
-"Le enviaremos el enlace de registro a la dirección de correo electrónico que "
-"ingresó."
+"Мы вышлем вам ссылку для регистрации на указанный вами адрес электронной "
+"почты."
 
 #: baloti_auth/templates/password_reset.html:74
 msgid "Send Recovery Email"
-msgstr "Enviar correo electrónico de recuperación"
+msgstr "Отправить письмо для восстановления"
 
 #: baloti_auth/templates/password_reset.html:76
 msgid "Just Remembered?"
-msgstr "¿Recién recordado?"
+msgstr "Только что вспомнили?"
 
 #: baloti_auth/templates/password_reset.html:77
 msgid "Signin here!"
-msgstr "¡Registrarse aquí"
+msgstr "Войти здесь!"
 
 #: baloti_auth/templates/password_reset_complete.html:55
 msgid "Password changed!"
-msgstr "¡Contraseña cambiada!"
+msgstr "Пароль изменен"
 
 #: baloti_auth/templates/password_reset_complete.html:57
 msgid "Your password has changed successfully."
-msgstr "Su contraseña ha sido cambiada exitosamente ."
+msgstr "Ваш пароль изменен успешно"
 
 #: baloti_auth/templates/password_reset_complete.html:65
 #: baloti_auth/templates/signup_success.html:71
 msgid "LOGIN NOW"
-msgstr "INICIAR SESIÓN AHORA"
+msgstr "Ввойти сейчас"
 
 #: baloti_auth/templates/password_reset_confirm.html:56
 #: baloti_auth/templates/password_reset_confirm.html:86
 msgid "Reset Password"
-msgstr "Reiniciar  la contraseña"
+msgstr "Сброс пароля"
 
 #: baloti_auth/templates/password_reset_confirm.html:68
 msgid "New password"
-msgstr "Nueva contraseña"
+msgstr "Новый пароль"
 
 #: baloti_auth/templates/password_reset_confirm.html:74
 msgid "Confirm password"
-msgstr "Confirmar contraseña"
+msgstr "Подтвердить пароль"
 
 #: baloti_auth/templates/password_reset_done.html:55
 #: baloti_auth/templates/signup_success.html:62
 msgid "Mail sent!"
-msgstr "¡Correo enviado!"
+msgstr "Письмо отправлено"
 
 #: baloti_auth/templates/password_reset_done.html:57
 msgid ""
 "Please check your inbox to get the link of your recovery email. Thank you."
 msgstr ""
-"Verifique su bandeja de entrada para obtener la conexión de su correo "
-"electrónico de recuperación. Gracias."
+"Пожалуйста, проверьте свой почтовый ящик, чтобы получить ссылку на письмо "
+"для восстановления пароля. Спасибо"
 
 #: baloti_auth/templates/password_reset_email.html:202
 msgid "Hello,"
-msgstr "Hola,"
+msgstr "Приветствуем,"
 
 #: baloti_auth/templates/password_reset_email.html:208
 msgid ""
 "You're receiving this email because you requested a password reset for your "
 "user account at baloti."
 msgstr ""
-"Está recibiendo este correo electrónico porque solicitó un reinicio de "
-"contraseña para su cuenta de usuario en baloti."
+"Вы получили это письмо, потому что запросили сброс пароля для своегоаккаунта "
+"на baloti."
 
 #: baloti_auth/templates/password_reset_email.html:214
 msgid "Please go to the following page and choose a new password"
-msgstr "Vaya a la página siguiente y elija una nueva contraseña"
+msgstr "Пожалуйста, перейдите на следующую страницу и выберите новый пароль"
 
 #: baloti_auth/templates/password_reset_email.html:215
 msgid "Click here"
-msgstr "haga clic aquí"
+msgstr "Нажмите здесь"
 
 #: baloti_auth/templates/password_reset_email.html:221
 msgid "Your username, in case you've forgotten is"
-msgstr "Su nombre de usuario, en caso de que lo haya olvidado es"
+msgstr "Ваше имя пользователя, если вы забыли"
 
 #: baloti_auth/templates/password_reset_email.html:238
 msgid "Thanks for using our platform!"
-msgstr "¡Gracias por usar nuestra plataforma!"
+msgstr "Спасибо за использование нашей платформы!"
 
 #: baloti_auth/templates/password_reset_email.html:242
 msgid "The baloti team"
-msgstr "el equipo baloti"
+msgstr "Команда baloti"
 
 #: baloti_auth/templates/signup.html:64
 msgid "Create account!"
-msgstr "¡Crear una cuenta!"
+msgstr "Создать аккаунт"
 
 #: baloti_auth/templates/signup.html:67
 msgid "You can register with your social login or email address."
 msgstr ""
-"Puede registrarse con su inicio de sesión social o dirección de correo "
-"electrónico."
+"Вы можете зарегистрироваться, указав свой логин в социальной сети или адрес "
+"электронной почты."
 
 #: baloti_auth/templates/signup.html:90
 msgid "SEND"
-msgstr "ENVIAR"
+msgstr "Отправить"
 
 #: baloti_auth/templates/signup.html:92
 msgid "Already have an account?"
-msgstr "¿Ya tienes una cuenta?"
+msgstr "Уже есть аккаунт"
 
 #: baloti_auth/templates/signup.html:92
 msgid "Login here!"
-msgstr "¡Entre aquí!"
+msgstr "Войти здесь!"
 
 #: baloti_auth/templates/signup_mail.html:209
 msgid "Registration information"
-msgstr "Información de Registro"
+msgstr "Регистрационная информация"
 
 #: baloti_auth/templates/signup_mail.html:215
 msgid "Thank you for registering at our site."
-msgstr "Gracias por registrarse en nuestro sitio."
+msgstr "Благодарим за регистрацию на нашем сайте."
 
 #: baloti_auth/templates/signup_mail.html:216
 msgid "You can find your credentials below."
-msgstr "Puede encontrar sus credenciales a continuación."
+msgstr "Вы можете найти свои учетные данные ниже."
 
 #: baloti_auth/templates/signup_mail.html:223
 msgid "Username:"
-msgstr "Nombre de usuario:"
+msgstr "Имя пользователя:"
 
 #: baloti_auth/templates/signup_mail.html:229
 msgid "Password:"
-msgstr "Contraseña"
+msgstr "Пароль:"
 
 #: baloti_auth/templates/signup_success.html:64
 msgid ""
 "Please check your inbox to get the registration informations. Thank you."
 msgstr ""
-"Por favor revise su bandeja de entrada para obtener la información de "
-"registro. Gracias."
+"Пожалуйста, проверьте свой почтовый ящик, чтобы получить регистрационную "
+"информацию. Спасибо."
 
 #: baloti_auth/views.py:40 baloti_auth/views.py:53
 msgid "Your username and password didn't match. Please try again."
-msgstr "Su nombre de usuario y contraseña no coinciden. Inténtelo de nuevo."
+msgstr ""
+"Ваше имя пользователя и пароль не совпадают. Пожалуйста, попробуйте еще раз."
 
 #: baloti_auth/views.py:55
 msgid "Login failed!"
-msgstr "¡ inicio de sesión fallido!"
+msgstr "Неправильный пароль"
 
 #: baloti_auth/views.py:76
 msgid "Baloti Registration Information"
-msgstr "Información de registro de Baloti"
+msgstr "Baloti Регистрационная информация"

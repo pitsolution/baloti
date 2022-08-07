@@ -133,10 +133,10 @@ class ContestCreateView(generic.CreateView):
         form.instance.candidate_set.create(name='No', candidate_type='no')
         form.instance.candidate_set.create(name='Abstain', candidate_type='others')
         for lang in Language.objects.all():
-            translated_name = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['name'])
-            translated_about = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['about'])
-            translated_against = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['against_arguments'])
-            translated_infavour = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['infavour_arguments'])
+            translated_name = GoogleTranslator('auto', lang.dynamic_iso).translate(form.cleaned_data['name'])
+            translated_about = GoogleTranslator('auto', lang.dynamic_iso).translate(form.cleaned_data['about'])
+            translated_against = GoogleTranslator('auto', lang.dynamic_iso).translate(form.cleaned_data['against_arguments'])
+            translated_infavour = GoogleTranslator('auto', lang.dynamic_iso).translate(form.cleaned_data['infavour_arguments'])
 
             Contesti18n.objects.create(contest_id=form.instance,parent=form.instance.parent,language=lang,name= translated_name, against_arguments=translated_against,
                                        about=translated_about,infavour_arguments=translated_infavour)
@@ -181,22 +181,22 @@ class ContestUpdateView(generic.UpdateView):
         contest = Contesti18n.objects.filter(contest_id=form.instance)
         if 'name' in form.changed_data:
             for each in contest:
-                trans_content_name = GoogleTranslator('auto', each.language.iso).translate(form.cleaned_data['name'])
+                trans_content_name = GoogleTranslator('auto', each.language.dynamic_iso).translate(form.cleaned_data['name'])
                 each.name=trans_content_name
                 each.save()
         if 'about' in form.changed_data:
             for each in contest:
-                trans_content_about = GoogleTranslator('auto', each.language.iso).translate(form.cleaned_data['about'])
+                trans_content_about = GoogleTranslator('auto', each.language.dynamic_iso).translate(form.cleaned_data['about'])
                 each.about=trans_content_about
                 each.save()
         if 'against_arguments' in form.changed_data:
             for each in contest:
-                trans_content_against_arguments = GoogleTranslator('auto', each.language.iso).translate(form.cleaned_data['against_arguments'])
+                trans_content_against_arguments = GoogleTranslator('auto', each.language.dynamic_iso).translate(form.cleaned_data['against_arguments'])
                 each.against_arguments=trans_content_against_arguments
                 each.save()
         if 'infavour_arguments' in form.changed_data:
             for each in contest:
-                trans_content_infavour_arguments = GoogleTranslator('auto', each.language.iso).translate(form.cleaned_data['infavour_arguments'])
+                trans_content_infavour_arguments = GoogleTranslator('auto', each.language.dynamic_iso).translate(form.cleaned_data['infavour_arguments'])
                 each.infavour_arguments=trans_content_infavour_arguments
                 each.save()
 
@@ -1574,8 +1574,8 @@ class RecommenderCreateView(generic.CreateView):
         response = super().form_valid(form)
         form.save()
         for lang in Language.objects.all():
-            translated_name = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['name'])
-            translated_type = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['recommender_type'])
+            translated_name = GoogleTranslator('auto', lang.dynamic_iso).translate(form.cleaned_data['name'])
+            translated_type = GoogleTranslator('auto', lang.dynamic_iso).translate(form.cleaned_data['recommender_type'])
             Recommenderi18n.objects.create(recommender_id=form.instance,language=lang,name= translated_name, recommender_type=translated_type)
         text = ugettext_lazy('You have created recommender') + ' ' + f"{form.instance}"
         messages.success(
@@ -1612,7 +1612,7 @@ class ParentContestCreateView(generic.CreateView):
         queryset = Language.objects.all()
         form.save()
         for each in queryset:
-            trans_content_name = GoogleTranslator('auto', each.iso).translate(form.cleaned_data['name'])
+            trans_content_name = GoogleTranslator('auto', each.dynamic_iso).translate(form.cleaned_data['name'])
             ParentContesti18n.objects.create(parent_contest_id=form.instance,language=each,name= trans_content_name)
         text = ugettext_lazy('You have created referendum') + ' ' + f"{form.instance}"
         messages.success(
@@ -1643,7 +1643,7 @@ class ParentContestUpdateView(generic.UpdateView):
         if 'name' in form.changed_data:
 
             for each in parent_contests:
-                trans_content_name = GoogleTranslator('auto', each.language.iso).translate(form.instance.name)
+                trans_content_name = GoogleTranslator('auto', each.language.dynamic_iso).translate(form.instance.name)
                 each.name = trans_content_name
                 each.save()
         text = ugettext_lazy('You have updated referendum') + ' ' + f"{form.instance}"
@@ -1742,7 +1742,7 @@ class InitiatorCreateView(generic.CreateView):
         response = super().form_valid(form)
         form.save()
         for lang in Language.objects.all():
-            translated_name = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['name'])
+            translated_name = GoogleTranslator('auto', lang.dynamic_iso).translate(form.cleaned_data['name'])
             Initiatori18n.objects.create(initiator_id=form.instance,language=lang,name= translated_name)
         text = ugettext_lazy('You have created initiator') + ' ' + f"{form.instance}"
         messages.success(
@@ -1797,7 +1797,7 @@ class IssueTypeCreateView(generic.CreateView):
         response = super().form_valid(form)
         form.save()
         for lang in Language.objects.all():
-            translated_name = GoogleTranslator('auto', lang.iso).translate(form.cleaned_data['name'])
+            translated_name = GoogleTranslator('auto', lang.dynamic_iso).translate(form.cleaned_data['name'])
             ContestTypei18n.objects.create(contest_type_id=form.instance,language=lang,name= translated_name)
         text = ugettext_lazy('You have created referendum type') + ' ' + f"{form.instance}"
         messages.success(

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-21 14:08+0530\n"
+"POT-Creation-Date: 2022-07-21 13:47+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,35 +16,33 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: baloti_auth/forms.py:21
 msgid "Your old password was entered incorrectly. Please enter it again."
-msgstr ""
-"Su antigua contraseña fue ingresada incorrectamente. Por favor, introdúzcalo "
-"de nuevo."
+msgstr "以前のパスワードが正しく入力されていません。もう一度入力してください。"
 
 #: baloti_auth/templates/change_password.html:64
 msgid "Change Password"
-msgstr "Cambiar la contraseña"
+msgstr "パスワードの変更"
 
 #: baloti_auth/templates/change_password.html:71
 msgid "Old Password"
-msgstr "Contraseña anterior"
+msgstr "以前のパスワード"
 
 #: baloti_auth/templates/change_password.html:77
 msgid "New Password"
-msgstr "Nueva contraseña"
+msgstr "新しいパスワード"
 
 #: baloti_auth/templates/change_password.html:83
 msgid "New Password Confirmation"
-msgstr "Confirmar nueva contraseña"
+msgstr "新しいパスワードの確認"
 
 #: baloti_auth/templates/change_password.html:97
 #: baloti_auth/templates/login.html:95
 #: baloti_auth/templates/signup_mail.html:235
 msgid "CONTINUE"
-msgstr "SEGUIR"
+msgstr "続ける"
 
 #: baloti_auth/templates/change_password.html:101
 #: baloti_auth/templates/login.html:101
@@ -52,194 +50,184 @@ msgstr "SEGUIR"
 #: baloti_auth/templates/password_reset_done.html:64
 #: baloti_auth/templates/signup.html:95
 msgid "Back"
-msgstr "Atrás"
+msgstr "戻る"
 
 #: baloti_auth/templates/login.html:64
 msgid "Welcome to baloti!"
-msgstr "¡bienvenido a baloti!"
+msgstr "Balotiにようこそ！"
 
 #: baloti_auth/templates/login.html:66
 msgid "Login to your account"
-msgstr "Ingrese a su cuenta"
+msgstr "自分のアカウントにログイン"
 
 #: baloti_auth/templates/login.html:69 baloti_auth/templates/signup.html:69
 msgid "Continue with Facebook"
-msgstr "Continuar con Facebook"
+msgstr "Facebookで続ける"
 
 #: baloti_auth/templates/login.html:79
 #: baloti_auth/templates/password_reset.html:71
 #: baloti_auth/templates/password_reset_confirm.html:64
 #: baloti_auth/templates/signup.html:83
 msgid "Email address"
-msgstr "Dirección de correo electrónico"
+msgstr "Eメールアドレス"
 
 #: baloti_auth/templates/login.html:84
 msgid "Password"
-msgstr "Contraseña"
+msgstr "パスワード"
 
 #: baloti_auth/templates/login.html:94
 msgid "Forgot password?"
-msgstr "¿olvidó su contraseña?"
+msgstr "パスワードをお忘れですか?"
 
 #: baloti_auth/templates/login.html:96
 msgid "Not registered yet?"
-msgstr "¿Todavía no estas registrado?"
+msgstr "まだ登録していませんか?"
 
 #: baloti_auth/templates/login.html:96
 msgid "Create an account now!"
-msgstr "¡Crea una cuenta ahora!"
+msgstr "新しいアカウントを作成する"
 
 #: baloti_auth/templates/password_reset.html:62
 msgid "Forgot Password?"
-msgstr "¿Olvido su contraseña?"
+msgstr "パスワードをお忘れですか?"
 
 #: baloti_auth/templates/password_reset.html:64
 #: baloti_auth/templates/signup.html:86
 msgid ""
 "We will send you the registration link to the email address you entered."
-msgstr ""
-"Le enviaremos el enlace de registro a la dirección de correo electrónico que "
-"ingresó."
+msgstr "入力したメールアドレスに新規登録用のURLを送信します"
 
 #: baloti_auth/templates/password_reset.html:74
 msgid "Send Recovery Email"
-msgstr "Enviar correo electrónico de recuperación"
+msgstr "予備のメールアドレスに送信します"
 
 #: baloti_auth/templates/password_reset.html:76
 msgid "Just Remembered?"
-msgstr "¿Recién recordado?"
+msgstr "思い出した場合"
 
 #: baloti_auth/templates/password_reset.html:77
 msgid "Signin here!"
-msgstr "¡Registrarse aquí"
+msgstr "こちらからサインイン"
 
 #: baloti_auth/templates/password_reset_complete.html:55
 msgid "Password changed!"
-msgstr "¡Contraseña cambiada!"
+msgstr "パスワードが変更されました"
 
 #: baloti_auth/templates/password_reset_complete.html:57
 msgid "Your password has changed successfully."
-msgstr "Su contraseña ha sido cambiada exitosamente ."
+msgstr "パスワードの変更に成功しました"
 
 #: baloti_auth/templates/password_reset_complete.html:65
 #: baloti_auth/templates/signup_success.html:71
 msgid "LOGIN NOW"
-msgstr "INICIAR SESIÓN AHORA"
+msgstr "今すぐログイン"
 
 #: baloti_auth/templates/password_reset_confirm.html:56
 #: baloti_auth/templates/password_reset_confirm.html:86
 msgid "Reset Password"
-msgstr "Reiniciar  la contraseña"
+msgstr "パスワードをリセット"
 
 #: baloti_auth/templates/password_reset_confirm.html:68
 msgid "New password"
-msgstr "Nueva contraseña"
+msgstr "新しいパスワード"
 
 #: baloti_auth/templates/password_reset_confirm.html:74
 msgid "Confirm password"
-msgstr "Confirmar contraseña"
+msgstr "パスワードを認証"
 
 #: baloti_auth/templates/password_reset_done.html:55
 #: baloti_auth/templates/signup_success.html:62
 msgid "Mail sent!"
-msgstr "¡Correo enviado!"
+msgstr "メールが送信されました"
 
 #: baloti_auth/templates/password_reset_done.html:57
 msgid ""
 "Please check your inbox to get the link of your recovery email. Thank you."
-msgstr ""
-"Verifique su bandeja de entrada para obtener la conexión de su correo "
-"electrónico de recuperación. Gracias."
+msgstr "予備メールアドレスに送信したメールをご確認ください"
 
 #: baloti_auth/templates/password_reset_email.html:202
 msgid "Hello,"
-msgstr "Hola,"
+msgstr "こんにちは"
 
 #: baloti_auth/templates/password_reset_email.html:208
 msgid ""
 "You're receiving this email because you requested a password reset for your "
 "user account at baloti."
-msgstr ""
-"Está recibiendo este correo electrónico porque solicitó un reinicio de "
-"contraseña para su cuenta de usuario en baloti."
+msgstr "balotiよりパスワードのリセットを希望された方にお送りしています"
 
 #: baloti_auth/templates/password_reset_email.html:214
 msgid "Please go to the following page and choose a new password"
-msgstr "Vaya a la página siguiente y elija una nueva contraseña"
+msgstr "こちらのページにて新しいパスワードを設定してください"
 
 #: baloti_auth/templates/password_reset_email.html:215
 msgid "Click here"
-msgstr "haga clic aquí"
+msgstr "こちらをクリック"
 
 #: baloti_auth/templates/password_reset_email.html:221
 msgid "Your username, in case you've forgotten is"
-msgstr "Su nombre de usuario, en caso de que lo haya olvidado es"
+msgstr "ユーザーネームを忘れてしまった場合"
 
 #: baloti_auth/templates/password_reset_email.html:238
 msgid "Thanks for using our platform!"
-msgstr "¡Gracias por usar nuestra plataforma!"
+msgstr "ご利用いただきありがとうございます"
 
 #: baloti_auth/templates/password_reset_email.html:242
 msgid "The baloti team"
-msgstr "el equipo baloti"
+msgstr "チームbaloti"
 
 #: baloti_auth/templates/signup.html:64
 msgid "Create account!"
-msgstr "¡Crear una cuenta!"
+msgstr "アカウントを作成する"
 
 #: baloti_auth/templates/signup.html:67
 msgid "You can register with your social login or email address."
-msgstr ""
-"Puede registrarse con su inicio de sesión social o dirección de correo "
-"electrónico."
+msgstr "ソーシャルアカウントやemailアドレスでも登録できます"
 
 #: baloti_auth/templates/signup.html:90
 msgid "SEND"
-msgstr "ENVIAR"
+msgstr "送信"
 
 #: baloti_auth/templates/signup.html:92
 msgid "Already have an account?"
-msgstr "¿Ya tienes una cuenta?"
+msgstr "既にアカウントをお持ちですか?"
 
 #: baloti_auth/templates/signup.html:92
 msgid "Login here!"
-msgstr "¡Entre aquí!"
+msgstr "ここからログイン"
 
 #: baloti_auth/templates/signup_mail.html:209
 msgid "Registration information"
-msgstr "Información de Registro"
+msgstr "登録情報"
 
 #: baloti_auth/templates/signup_mail.html:215
 msgid "Thank you for registering at our site."
-msgstr "Gracias por registrarse en nuestro sitio."
+msgstr "ご登録ありがとうございます"
 
 #: baloti_auth/templates/signup_mail.html:216
 msgid "You can find your credentials below."
-msgstr "Puede encontrar sus credenciales a continuación."
+msgstr "自身の資格情報は下記よりご覧いただけます"
 
 #: baloti_auth/templates/signup_mail.html:223
 msgid "Username:"
-msgstr "Nombre de usuario:"
+msgstr "ユーザーネーム:"
 
 #: baloti_auth/templates/signup_mail.html:229
 msgid "Password:"
-msgstr "Contraseña"
+msgstr "パスワード:"
 
 #: baloti_auth/templates/signup_success.html:64
 msgid ""
 "Please check your inbox to get the registration informations. Thank you."
-msgstr ""
-"Por favor revise su bandeja de entrada para obtener la información de "
-"registro. Gracias."
+msgstr "インボックスにて自身の登録情報をご確認ください"
 
 #: baloti_auth/views.py:40 baloti_auth/views.py:53
 msgid "Your username and password didn't match. Please try again."
-msgstr "Su nombre de usuario y contraseña no coinciden. Inténtelo de nuevo."
+msgstr "ユーザーネームとパスワードが一致しません。もう１度お確かめください"
 
 #: baloti_auth/views.py:55
 msgid "Login failed!"
-msgstr "¡ inicio de sesión fallido!"
+msgstr "ログインに失敗しました"
 
 #: baloti_auth/views.py:76
 msgid "Baloti Registration Information"
-msgstr "Información de registro de Baloti"
+msgstr "Baloti登録情報"

@@ -14,6 +14,7 @@ from electeez_auth.models import User
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from deep_translator import GoogleTranslator
+from djlang.models import Language
 
 def getParentDetails(parent):
         """
@@ -284,13 +285,14 @@ class BalotiContestChoicesView(TemplateView):
         """
         data = []
         current_language = get_language()
+        language = Language.objects.filter(iso=current_language).first()
         contest = Contesti18n.objects.filter(contest_id=id, language__iso=current_language)
         if contest:
             contest = contest.first()
             candidates = Candidate.objects.filter(contest=contest.contest_id.id).order_by('-name')
             for candidate in candidates:
                 data.append({
-                    'name': GoogleTranslator('auto', current_language).translate(candidate.name),
+                    'name': GoogleTranslator('auto', language.dynamic_iso).translate(candidate.name),
                     'id': candidate.id
                     })
         # return render(request, 'contest_vote_choices.html',{"candidates":candidates})
