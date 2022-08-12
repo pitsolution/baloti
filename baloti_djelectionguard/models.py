@@ -4,8 +4,6 @@ from djlang.models import Language
 from ckeditor.fields import RichTextField
 
 
-# Create your models here.
-
 
 class ParentContesti18n(models.Model):
 
