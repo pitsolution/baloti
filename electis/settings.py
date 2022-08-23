@@ -11,15 +11,15 @@ INSTALLED_APPS += ['electis']
 LANGUAGE_CODE = 'en'
 
 LANGUAGES = (
-    ('en', _('English')),
-    ('de', _('German')),
-    ('fr', _('French')),
-    ('es', _('Spanish')),
-    ('zh', _('Chinese')),
-    ('uk', _('Ukrainian')),
-    ('ja', _('Japanese')),
-    ('ru', _('Russian')),
-    ('id', _('Indonesian')),
+    ('en', ('English')),
+    ('de', ('German')),
+    ('fr', ('French')),
+    ('es', ('Spanish')),
+    ('zh-cn', ('Chinese')),
+    ('uk', ('Ukrainian')),
+    ('ja', ('Japanese')),
+    ('ru', ('Russian')),
+    ('id', ('Indonesian')),
 
 )
 

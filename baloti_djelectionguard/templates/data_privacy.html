@@ -35,8 +35,13 @@
                             {% for lang_code, lang_name in LANGUAGES %}
                             {% if LANGUAGE != lang_code %}
                             <li>
-                                <a class="dropdown-item" href="/{{ lang_code }}{{ request.get_full_path|slice:'3:' }}">{{lang_name}}</a>
-                             </li>
+                                {% get_language_info for lang_code as lang_info %}
+                                {% if request.get_full_path|slice:'1:6' == 'zh-cn' %}
+                                <a id="{{lang_code}}" class="dropdown-item" href="/{{ lang_code }}{{ request.get_full_path|slice:'6:' }}">{{lang_info.name}}</a>
+                                {% else %}
+                                <a id="{{lang_code}}" class="dropdown-item" href="/{{ lang_code }}{{ request.get_full_path|slice:'3:' }}">{{lang_info.name}}</a>
+                                {% endif %}
+                            </li>
                             {% endif %}
                             {% endfor %}
                         </ul>
