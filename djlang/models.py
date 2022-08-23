@@ -13,7 +13,7 @@ from electeez_sites.models import Site
 # Create your models here.
 
 class Language(models.Model):
-    iso = models.CharField(max_length=3)
+    iso = models.CharField(max_length=10)
     dynamic_iso = models.CharField(max_length=5, blank=True, null=True)
     name = models.CharField(max_length=255)
     active = models.BooleanField(default=True, blank=True)
