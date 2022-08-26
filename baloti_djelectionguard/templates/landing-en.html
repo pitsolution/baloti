@@ -1,6 +1,7 @@
 {% load static i18n %}
 {% load static %}
 {% load sass_tags %}
+{% load base_tags %}
 {% get_current_language as LANGUAGE%}
 <!DOCTYPE html>
 <html lang="{{LANGUAGE}}">
@@ -24,7 +25,8 @@
             <ul class="app-header-nav list-unstyled d-flex align-items-center ml-auto">
                 <li>
                     <div class="dropdown">
-                        <a style="text-transform:uppercase" class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{LANGUAGE}}</a>
+                        {% displayLanguageCode LANGUAGE as code %}
+                        <a style="text-transform:uppercase" class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{code}}</a>
                         <ul class="dropdown-menu dropdown-menu--device dropdown-menu-end">
                             <div class="dropdown-menu__header">
                                 <span class="dropdown-menu__title">Languages</span>
@@ -33,8 +35,9 @@
                             {% get_available_languages as LANGUAGES %}
                             {% for lang_code, lang_name in LANGUAGES %}
                             {% if LANGUAGE != lang_code %}
+                            {% displayLanguageName lang_code lang_name as name %}
                             <li>
-                                <a id="{{lang_code}}" class="dropdown-item" href="/{{ lang_code }}{{ request.get_full_path|slice:'3:' }}">{{lang_name}}</a>
+                                <a id="{{lang_code}}" class="dropdown-item" href="/{{ lang_code }}{{ request.get_full_path|slice:'3:' }}">{{name}}</a>
                             </li>
                             {% endif %}
                             {% endfor %}
