@@ -9,6 +9,7 @@
       "uk": "Лист успішно відправлено",
       "ru": "E-mail успешно отправлен",
       "id": "Email berhasil dikirim",
+      "pl": "Mail został wysłany pomyślnie",
     }
   ],
   "text_b": [
@@ -21,6 +22,7 @@
       "uk": "Заповніть усі поля",
       "ru": "Заполните все поля",
       "id": "Isi semua bagian",
+      "pl": "Wypełnij wszystkie pola",
     }
   ],
   "text_c": [
@@ -33,6 +35,7 @@
       "uk": "Послуга недоступна",
       "ru": "Услуга недоступна",
       "id": "Layanan tidak tersedia",
+      "pl": "Usługa niedostępna",
     }
   ],
    "text_d": [
@@ -45,6 +48,7 @@
       "uk": "Невірна адреса електронної пошти",
       "ru": "Неверный адрес электронной почты",
       "id": "Alamat email tidak sah",
+      "pl": "Niepoprawny adres email",
     }
   ]
 }

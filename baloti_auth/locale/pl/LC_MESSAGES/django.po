@@ -1,0 +1,288 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-09-02 13:29+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+#: baloti_auth/forms.py:21
+msgid "Your old password was entered incorrectly. Please enter it again."
+msgstr "Twoje stare hasło zostało wprowadzone nieprawidłowo. Proszę wpisz go ponownie"
+
+
+#: baloti_auth/templates/change_password.html:23
+msgid "Change Password"
+msgstr "Zmień hasło"
+
+
+#: baloti_auth/templates/change_password.html:30
+msgid "Old Password"
+msgstr "Stare hasło"
+
+
+#: baloti_auth/templates/change_password.html:36
+msgid "New Password"
+msgstr "Nowe hasło"
+
+
+#: baloti_auth/templates/change_password.html:42
+msgid "New Password Confirmation"
+msgstr "Potwierdzenie nowego hasła"
+
+
+#: baloti_auth/templates/change_password.html:56
+#: baloti_auth/templates/login.html:98
+#: baloti_auth/templates/signup_mail.html:235
+msgid "CONTINUE"
+msgstr "KONTYNUUJ"
+
+
+#: baloti_auth/templates/change_password.html:60
+#: baloti_auth/templates/login.html:104
+#: baloti_auth/templates/password_reset.html:84
+#: baloti_auth/templates/password_reset_done.html:67
+#: baloti_auth/templates/signup.html:98
+msgid "Back"
+msgstr "Z powrotem"
+
+
+#: baloti_auth/templates/login.html:67
+msgid "Welcome to baloti!"
+msgstr "Witamy w baloti!"
+
+
+#: baloti_auth/templates/login.html:69
+msgid "Login to your account"
+msgstr "Zaloguj się na swoje konto"
+
+
+#: baloti_auth/templates/login.html:72 baloti_auth/templates/signup.html:72
+msgid "Continue with Facebook"
+msgstr "Kontynuuj za pomocą Facebooka"
+
+
+#: baloti_auth/templates/login.html:82
+#: baloti_auth/templates/password_reset.html:74
+#: baloti_auth/templates/password_reset_confirm.html:67
+#: baloti_auth/templates/signup.html:86
+msgid "Email address"
+msgstr "Adres e-mail"
+
+
+#: baloti_auth/templates/login.html:87
+msgid "Password"
+msgstr "Hasło"
+
+
+#: baloti_auth/templates/login.html:97
+msgid "Forgot password?"
+msgstr "Zapomniałeś hasło?"
+
+
+#: baloti_auth/templates/login.html:99
+msgid "Not registered yet?"
+msgstr "Jeszcze nie zarejestrowany?"
+
+
+#: baloti_auth/templates/login.html:99
+msgid "Create an account now!"
+msgstr "Załóż konto teraz!"
+
+
+#: baloti_auth/templates/password_reset.html:65
+msgid "Forgot Password?"
+msgstr "Zapomniałeś hasło?"
+
+
+#: baloti_auth/templates/password_reset.html:67
+#: baloti_auth/templates/signup.html:89
+msgid ""
+"We will send you the registration link to the email address you entered."
+msgstr ""
+"Link rejestracyjny zostanie wysłany na podany przez Ciebie adres e-mail."
+
+
+#: baloti_auth/templates/password_reset.html:77
+msgid "Send Recovery Email"
+msgstr "Wyślij e-mail odzyskiwania"
+
+
+#: baloti_auth/templates/password_reset.html:79
+msgid "Just Remembered?"
+msgstr "Przypomniałeś sobie?"
+
+
+#: baloti_auth/templates/password_reset.html:80
+msgid "Signin here!"
+msgstr "Zarejestruj się tutaj!"
+
+
+#: baloti_auth/templates/password_reset_complete.html:58
+msgid "Password changed!"
+msgstr "Hasło zostało zmienione!"
+
+
+#: baloti_auth/templates/password_reset_complete.html:60
+msgid "Your password has changed successfully."
+msgstr "Twoje hasło zostało pomyślnie zmienione."
+
+
+#: baloti_auth/templates/password_reset_complete.html:68
+#: baloti_auth/templates/signup_success.html:74
+msgid "LOGIN NOW"
+msgstr "ZALOGUJ SIĘ TERAZ"
+
+
+#: baloti_auth/templates/password_reset_confirm.html:59
+#: baloti_auth/templates/password_reset_confirm.html:89
+msgid "Reset Password"
+msgstr "Zresetuj hasło"
+
+
+#: baloti_auth/templates/password_reset_confirm.html:71
+msgid "New password"
+msgstr "Nowe hasło"
+
+
+#: baloti_auth/templates/password_reset_confirm.html:77
+msgid "Confirm password"
+msgstr "Potwierdź hasło"
+
+
+#: baloti_auth/templates/password_reset_done.html:58
+#: baloti_auth/templates/signup_success.html:65
+msgid "Mail sent!"
+msgstr "Mail został wysłany!"
+
+
+#: baloti_auth/templates/password_reset_done.html:60
+msgid ""
+"Please check your inbox to get the link of your recovery email. Thank you."
+msgstr ""
+"Sprawdź skrzynkę odbiorczą aby uzyskać link do adresu pomocniczego. Dziękujemy."
+
+
+#: baloti_auth/templates/password_reset_email.html:202
+msgid "Hello,"
+msgstr "Witamy,"
+
+
+#: baloti_auth/templates/password_reset_email.html:208
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at baloti."
+msgstr ""
+"Otrzymałeś tę wiadomość e-mail ponieważ wysłałeś prośbę o zresetowanie hasła swojego"
+"konta baloti".
+
+
+#: baloti_auth/templates/password_reset_email.html:214
+msgid "Please go to the following page and choose a new password"
+msgstr ""
+"Przejdź na następną stronę i wprowadź nowe hasło"
+
+
+#: baloti_auth/templates/password_reset_email.html:215
+msgid "Click here"
+msgstr "Kliknij tutaj"
+
+
+#: baloti_auth/templates/password_reset_email.html:221
+msgid "Your username, in case you've forgotten is"
+msgstr "Twoja nazwa użytkownika, w przypadku zapomnienia, to"
+
+
+#: baloti_auth/templates/password_reset_email.html:238
+msgid "Thanks for using our platform!"
+msgstr "Dziękujemy za korzystanie z naszej platformy!"
+
+
+#: baloti_auth/templates/password_reset_email.html:242
+msgid "The baloti team"
+msgstr "Drużyna baloti"
+
+
+#: baloti_auth/templates/signup.html:67
+msgid "Create account!"
+msgstr "Utwórz konto!"
+
+
+#: baloti_auth/templates/signup.html:70
+msgid "You can register with your social login or email address."
+msgstr "Możesz zarejestrować się za pomocą swojego loginu społecznościowego lub adresu e-mail."
+
+
+#: baloti_auth/templates/signup.html:93
+msgid "SEND"
+msgstr "WYSŁAĆ"
+
+
+#: baloti_auth/templates/signup.html:95
+msgid "Already have an account?"
+msgstr "Posiadasz już konto?"
+
+
+#: baloti_auth/templates/signup.html:95
+msgid "Login here!"
+msgstr "Zaloguj się tutaj!"
+
+
+#: baloti_auth/templates/signup_mail.html:209
+msgid "Registration information"
+msgstr "Rejestracja"
+
+
+#: baloti_auth/templates/signup_mail.html:215
+msgid "Thank you for registering at our site."
+msgstr "Dziękujemy za rejestrację na naszej stronie."
+
+
+#: baloti_auth/templates/signup_mail.html:216
+msgid "You can find your credentials below."
+msgstr "Poniżej możesz znaleźć swoje dane."
+
+
+#: baloti_auth/templates/signup_mail.html:223
+msgid "Username:"
+msgstr "Nazwa użytkownika:"
+
+
+#: baloti_auth/templates/signup_mail.html:229
+msgid "Password:"
+msgstr "Hasło:"
+
+
+#: baloti_auth/templates/signup_success.html:67
+msgid ""
+"Please check your inbox to get the registration informations. Thank you."
+msgstr ""
+"Sprawdź swoją skrzynkę odbiorczą, aby uzyskać informacje o rejestracji. Dziękujemy."
+
+
+#: baloti_auth/views.py:40 baloti_auth/views.py:53
+msgid "Your username and password didn't match. Please try again."
+msgstr "Twoja nazwa użytkownika i hasło nie pasują. Proszę spróbuj ponownie."
+
+
+#: baloti_auth/views.py:55
+msgid "Login failed!"
+msgstr "Logowanie nie powiodło się!"
+
+
+#: baloti_auth/views.py:76
+msgid "Baloti Registration Information"
+msgstr "Informacje rejestracyjne Baloti"

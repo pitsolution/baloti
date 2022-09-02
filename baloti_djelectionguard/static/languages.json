@@ -53,4 +53,10 @@
       "display_name": "Indonesian",
     },
   ],
+  "pl": [
+    {
+      "display_code": "PL",
+      "display_name": "Polish",
+    },
+  ],
 }

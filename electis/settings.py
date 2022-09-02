@@ -20,6 +20,7 @@ LANGUAGES = (
     ('ja', _('Japanese')),
     ('ru', _('Russian')),
     ('id', _('Indonesian')),
+    ('pl', _('Polish')),
 
 )
 
