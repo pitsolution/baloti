@@ -187,7 +187,7 @@ msgid ""
 "user account at baloti."
 msgstr ""
 "Otrzymałeś tę wiadomość e-mail ponieważ wysłałeś prośbę o zresetowanie hasła swojego"
-"konta baloti".
+"konta baloti."
 
 
 #: baloti_auth/templates/password_reset_email.html:214
