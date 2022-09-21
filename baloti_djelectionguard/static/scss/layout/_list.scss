@@ -42,6 +42,15 @@
             align-items: center;
             justify-content: center;
         }
+        &--team{
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-column-gap: 66px;
+            grid-row-gap: 66px;
+            img{
+                margin-bottom: 30px;
+                width: 100%;
+            }
+        }
     }
     &-partner-list{
         margin: 0;

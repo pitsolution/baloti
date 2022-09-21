@@ -199,6 +199,23 @@
             }
         }
     }
+    &-teams{
+        &-section{
+            padding: 94px 0 128px;
+            .app-subtitle{
+                margin-bottom: 118px;
+            }
+            @media screen and (max-width: 767px) {
+                padding: 30px 0;
+                .app-subtitle{
+                    margin-bottom: 40px;
+                }
+            }
+        }
+        &-title{
+            font-size: 21px;
+        }
+    }
     @media only screen and (min-width: 991px) and (max-width: 1400px) {
         &-social{
             &-follow{
