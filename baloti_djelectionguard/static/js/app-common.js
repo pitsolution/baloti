@@ -376,7 +376,7 @@ function get_something(){
     $("#howitworksbtn").click(function() {
         $('html, body').animate({
             scrollTop: $("#howItWorksSection").offset().top
-        }, 500);
+        }, 600);
     });
 
     if($(window).width() < 768){
