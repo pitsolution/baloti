@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-21 13:47+0530\n"
+"POT-Creation-Date: 2023-02-13 12:47+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,31 +23,31 @@ msgstr ""
 #: baloti_djelectionguard/templates/choice.html:14
 #: baloti_djelectionguard/templates/vote_success.html:13
 msgid "Make your choice"
-msgstr ""
+msgstr "選択する"
 
 #: baloti_djelectionguard/templates/already_voted.html:34
 #: baloti_djelectionguard/templates/choice-no-login.html:28
 #: baloti_djelectionguard/templates/choice.html:30
 #: baloti_djelectionguard/templates/vote_success.html:33
 msgid "BACK"
-msgstr ""
+msgstr "戻る"
 
 #: baloti_djelectionguard/templates/already_voted.html:35
 #: baloti_djelectionguard/templates/choice-no-login.html:29
 #: baloti_djelectionguard/templates/choice.html:31
 #: baloti_djelectionguard/templates/vote_success.html:34
 msgid "CREATE BALLOT"
-msgstr ""
+msgstr "投票用紙を作成する"
 
 #: baloti_djelectionguard/templates/already_voted.html:60
 #: baloti_djelectionguard/templates/choice-no-login.html:173
 msgid "You've already voted!!"
-msgstr ""
+msgstr "すでに投票済みです!!"
 
 #: baloti_djelectionguard/templates/already_voted.html:63
 #: baloti_djelectionguard/templates/choice-no-login.html:176
 msgid "No problem, there are other referendums you can vote for."
-msgstr ""
+msgstr "他にも投票できる国民投票があるので問題ありません。"
 
 #: baloti_djelectionguard/templates/already_voted.html:64
 #: baloti_djelectionguard/templates/choice-no-login.html:160
@@ -55,7 +55,7 @@ msgstr ""
 #: baloti_djelectionguard/templates/choice.html:76
 #: baloti_djelectionguard/templates/vote_success.html:64
 msgid "The results will be announced on"
-msgstr ""
+msgstr "結果は発表されます。"
 
 #: baloti_djelectionguard/templates/already_voted.html:66
 #: baloti_djelectionguard/templates/choice-no-login.html:162
@@ -63,7 +63,7 @@ msgstr ""
 #: baloti_djelectionguard/templates/choice.html:78
 #: baloti_djelectionguard/templates/vote_success.html:66
 msgid "and you will be notified via email."
-msgstr ""
+msgstr "メールにて通知されます"
 
 #: baloti_djelectionguard/templates/already_voted.html:67
 #: baloti_djelectionguard/templates/choice-no-login.html:163
@@ -71,329 +71,337 @@ msgstr ""
 #: baloti_djelectionguard/templates/choice.html:79
 #: baloti_djelectionguard/templates/vote_success.html:67
 msgid "BACK TO REFERENDUM"
-msgstr ""
+msgstr "国民投票に戻る"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:57
 msgid "Login Required!"
-msgstr ""
+msgstr "ログインしてください!"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:59
 msgid "Please Login to your account to continue voting"
-msgstr ""
+msgstr "投票を続けるには、アカウントにログインしてください"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:62
 #: baloti_djelectionguard/templates/choice-no-login.html:102
 msgid "Continue with Facebook"
-msgstr ""
+msgstr "Facebookで続ける"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:70
 #: baloti_djelectionguard/templates/choice-no-login.html:113
 msgid "Email address"
-msgstr ""
+msgstr "メールアドレス"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:75
 msgid "Password"
-msgstr ""
+msgstr "パスワード"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:80
 msgid "Your username and password didn't match. Please try again."
 msgstr ""
 
+#: baloti_djelectionguard/templates/choice-no-login.html:82
+#, fuzzy
+#| msgid "Change Password?"
+msgid "Forgot password?"
+msgstr "パスワードを変更しますか？"
+
 #: baloti_djelectionguard/templates/choice-no-login.html:83
 msgid "CONTINUE"
-msgstr ""
+msgstr "続ける"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:84
 msgid "Not registered yet?"
-msgstr ""
+msgstr "まだ登録されていませんか?"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:84
 msgid "Create an account now"
-msgstr ""
+msgstr "今すぐアカウントを作成する"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:87
 #: baloti_djelectionguard/templates/choice-no-login.html:128
 msgid "CLOSE"
-msgstr ""
+msgstr "閉じる"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:97
 msgid "Create account!"
-msgstr ""
+msgstr "アカウントを作成する!"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:99
 msgid "You can register with your social login or email address."
-msgstr ""
+msgstr "ソーシャルログインやメールアドレスでの登録が可能です"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:116
 msgid ""
 "We will send you the registration link to the email address you entered."
-msgstr ""
+msgstr "入力されたメールアドレスに登録用のリンクを送信します"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:120
 msgid "This email has already been registered."
-msgstr ""
+msgstr "このメールはすでに登録されています"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:123
 msgid "Users must have an email address."
-msgstr ""
+msgstr "ユーザーは必ずメールアドレスが必要です"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:125
-#: baloti_djelectionguard/templates/landing-en.html:192
+#: baloti_djelectionguard/templates/landing-en.html:195
 msgid "SEND"
-msgstr ""
+msgstr "送信"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:126
 msgid "Already have an account?"
-msgstr ""
+msgstr "既にアカウントをお持ちですか?"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:126
 msgid "Login here!"
-msgstr ""
+msgstr "ログインはこちら!"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:138
 msgid "Mail sent!"
-msgstr ""
+msgstr "メールを送信しました!"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:140
 msgid ""
 "Please check your inbox to get the registration informations. Thank you."
 msgstr ""
+"登録のご案内をお送りしますので、受信箱をご確認ください。ありがとうございまし"
+"た。"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:146
 msgid "LOGIN NOW"
-msgstr ""
+msgstr "今すぐログインする"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:155
 #: baloti_djelectionguard/templates/choice.html:71
 #: baloti_djelectionguard/templates/vote_success.html:59
 msgid "Success!"
-msgstr ""
+msgstr "成功!"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:156
 #: baloti_djelectionguard/templates/choice.html:72
 #: baloti_djelectionguard/templates/vote_success.html:60
 msgid "Your Choice Added Successfully"
-msgstr ""
+msgstr "選択した項目が正常に追加されました"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:159
 #: baloti_djelectionguard/templates/choice.html:75
 #: baloti_djelectionguard/templates/vote_success.html:63
 msgid "Thank for voting at the Referendum and be a part of Direct Democracy."
-msgstr ""
+msgstr "国民投票での投票に感謝し、直接民主主義の一員になりましょう。"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:187
 #: baloti_djelectionguard/templates/choice.html:54
 msgid "Confirm your selection"
-msgstr ""
+msgstr "選択した内容を確認する"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:195
 #: baloti_djelectionguard/templates/choice.html:62
-#: baloti_djelectionguard/templates/layout/header.html:143
+#: baloti_djelectionguard/templates/layout/header.html:146
 msgid "CANCEL"
-msgstr ""
+msgstr "取り消し"
 
 #: baloti_djelectionguard/templates/choice-no-login.html:196
 #: baloti_djelectionguard/templates/choice.html:63
-#: baloti_djelectionguard/templates/layout/header.html:144
+#: baloti_djelectionguard/templates/layout/header.html:147
 msgid "CONFIRM"
-msgstr ""
+msgstr "確認"
 
 #: baloti_djelectionguard/templates/contactinfo_mail.html:27
 msgid "Contact Information"
-msgstr ""
+msgstr "お問い合わせ先"
 
 #: baloti_djelectionguard/templates/contactinfo_mail.html:30
 msgid "First Name:"
-msgstr ""
+msgstr "名:"
 
 #: baloti_djelectionguard/templates/contactinfo_mail.html:31
 msgid "Last Name: "
-msgstr ""
+msgstr "姓:"
 
 #: baloti_djelectionguard/templates/contactinfo_mail.html:32
 msgid "Email:"
-msgstr ""
+msgstr "メールアドレス:"
 
 #: baloti_djelectionguard/templates/contest_details.html:13
 #: baloti_djelectionguard/templates/contest_list.html:13
 #: baloti_djelectionguard/templates/contest_results.html:14
 #: baloti_djelectionguard/templates/layout/footer.html:15
-#: baloti_djelectionguard/templates/layout/header.html:42
+#: baloti_djelectionguard/templates/layout/header.html:45
 msgid "Referendum Votes"
-msgstr ""
+msgstr "国民投票"
 
 #: baloti_djelectionguard/templates/contest_details.html:31
 msgid "Vote now"
-msgstr ""
+msgstr "今すぐ投票する"
 
 #: baloti_djelectionguard/templates/contest_details.html:34
 #: baloti_djelectionguard/templates/contest_list.html:51
 msgid "VOTED"
-msgstr ""
+msgstr "投票済み"
 
 #: baloti_djelectionguard/templates/contest_details.html:38
 #: baloti_djelectionguard/templates/contest_list.html:114
 #: baloti_djelectionguard/templates/index.html:79
 msgid "VIEW RESULT"
-msgstr ""
+msgstr "結果を見る"
 
 #: baloti_djelectionguard/templates/contest_details.html:51
 #: baloti_djelectionguard/templates/contest_results.html:117
 msgid "Description"
-msgstr ""
+msgstr "説明"
 
 #: baloti_djelectionguard/templates/contest_details.html:54
 #: baloti_djelectionguard/templates/contest_results.html:120
 msgid "Arguments"
-msgstr ""
+msgstr "議論"
 
 #: baloti_djelectionguard/templates/contest_details.html:57
 #: baloti_djelectionguard/templates/contest_results.html:123
 msgid "Recommendations"
-msgstr ""
+msgstr "おすすめ"
 
 #: baloti_djelectionguard/templates/contest_details.html:66
 #: baloti_djelectionguard/templates/contest_results.html:132
 msgid "Type:"
-msgstr ""
+msgstr "タイプ:"
 
 #: baloti_djelectionguard/templates/contest_details.html:70
 #: baloti_djelectionguard/templates/contest_results.html:136
 msgid "Initiator:"
-msgstr ""
+msgstr "発案者:"
 
 #: baloti_djelectionguard/templates/contest_details.html:87
 #: baloti_djelectionguard/templates/contest_details.html:127
 #: baloti_djelectionguard/templates/contest_results.html:152
 #: baloti_djelectionguard/templates/contest_results.html:190
 msgid "In favour"
-msgstr ""
+msgstr "賛成"
 
 #: baloti_djelectionguard/templates/contest_details.html:104
 #: baloti_djelectionguard/templates/contest_details.html:152
 #: baloti_djelectionguard/templates/contest_results.html:169
 #: baloti_djelectionguard/templates/contest_results.html:215
 msgid "Against"
-msgstr ""
+msgstr "反対"
 
 #: baloti_djelectionguard/templates/contest_details.html:185
 msgid "VOTING END"
-msgstr ""
+msgstr "投票終了"
 
 #: baloti_djelectionguard/templates/contest_details.html:189
 msgid "days"
-msgstr ""
+msgstr "日"
 
 #: baloti_djelectionguard/templates/contest_details.html:190
 msgid "Hours"
-msgstr ""
+msgstr "時間"
 
 #: baloti_djelectionguard/templates/contest_details.html:191
 msgid "Minutes"
-msgstr ""
+msgstr "分"
 
 #: baloti_djelectionguard/templates/contest_details.html:200
 msgid "YOUR VOTE"
-msgstr ""
+msgstr "あなたの投票"
 
 #: baloti_djelectionguard/templates/contest_details.html:208
 msgid "Voted"
-msgstr ""
+msgstr "投票済み"
 
 #: baloti_djelectionguard/templates/contest_details.html:212
 msgid "Not Voted"
-msgstr ""
+msgstr "未投票"
 
 #: baloti_djelectionguard/templates/contest_details.html:217
 #: baloti_djelectionguard/templates/contest_results.html:243
 msgid "Share"
-msgstr ""
+msgstr "共有"
 
 #: baloti_djelectionguard/templates/contest_details.html:225
 #: baloti_djelectionguard/templates/contest_results.html:251
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #: baloti_djelectionguard/templates/contest_details.html:230
 #: baloti_djelectionguard/templates/contest_results.html:256
 msgid "E-Mail"
-msgstr ""
+msgstr "メール"
 
 #: baloti_djelectionguard/templates/contest_list.html:31
 #: baloti_djelectionguard/templates/news.html:21
 msgid "Sort by"
-msgstr ""
+msgstr "並び替え"
 
 #: baloti_djelectionguard/templates/contest_list.html:33
 #: baloti_djelectionguard/templates/news.html:23
 msgid "Old to new"
-msgstr ""
+msgstr "古いものから新しいものへ"
 
 #: baloti_djelectionguard/templates/contest_list.html:34
 #: baloti_djelectionguard/templates/news.html:24
 msgid "New to old"
-msgstr ""
+msgstr "新しいものから古いものへ"
 
 #: baloti_djelectionguard/templates/contest_list.html:56
 #: baloti_djelectionguard/templates/contest_list.html:105
 #: baloti_djelectionguard/templates/index.html:58
 msgid "Issues:"
-msgstr ""
+msgstr "問題:"
 
 #: baloti_djelectionguard/templates/contest_list.html:67
 #: baloti_djelectionguard/templates/index.html:17
 #: baloti_djelectionguard/templates/index.html:69
 msgid "VOTE NOW"
-msgstr ""
+msgstr "今すぐ投票する"
 
 #: baloti_djelectionguard/templates/contest_list.html:72
 #: baloti_djelectionguard/templates/index.html:73
 msgid "VIEW DETAIL"
-msgstr ""
+msgstr "詳細を表示"
 
 #: baloti_djelectionguard/templates/contest_list.html:81
 msgid "Sorry"
-msgstr ""
+msgstr "申し訳ありません"
 
 #: baloti_djelectionguard/templates/contest_list.html:82
 msgid "we couldn't find any matches for that"
-msgstr ""
+msgstr "該当するものが見つかりませんでした"
 
 #: baloti_djelectionguard/templates/contest_list.html:90
 msgid "Results"
-msgstr ""
+msgstr "結果"
 
 #: baloti_djelectionguard/templates/contest_list.html:114
 #: baloti_djelectionguard/templates/contest_list.html:117
 #: baloti_djelectionguard/templates/index.html:79
 #: baloti_djelectionguard/templates/index.html:81
 msgid "closed"
-msgstr ""
+msgstr "終了した"
 
 #: baloti_djelectionguard/templates/contest_list.html:117
 #: baloti_djelectionguard/templates/index.html:81
 msgid "VIEW DETAILS"
-msgstr ""
+msgstr "詳細を表示"
 
 #: baloti_djelectionguard/templates/contest_results.html:60
-#: baloti_djelectionguard/templates/layout/header.html:128
+#: baloti_djelectionguard/templates/layout/header.html:131
 msgid "NO"
-msgstr ""
+msgstr "いいえ"
 
 #: baloti_djelectionguard/templates/contest_results.html:61
-#: baloti_djelectionguard/templates/layout/header.html:129
+#: baloti_djelectionguard/templates/layout/header.html:132
 msgid "YES"
-msgstr ""
+msgstr "はい"
 
 #: baloti_djelectionguard/templates/contest_results.html:247
 msgid "Copy link"
-msgstr ""
+msgstr "リンクをコピー"
 
-#: baloti_djelectionguard/templates/data_privacy.html:55
+#: baloti_djelectionguard/templates/data_privacy.html:58
 msgid "Data Protection"
-msgstr ""
+msgstr "データ保護"
 
-#: baloti_djelectionguard/templates/data_privacy.html:56
+#: baloti_djelectionguard/templates/data_privacy.html:59
 msgid ""
 "We take the protection of your personal data very seriously and strictly "
 "adhere to the rules of the data protection laws. Personal data is collected "
@@ -401,51 +409,62 @@ msgid ""
 "circumstances will the data collected be sold or passed on to third parties "
 "for any other reason."
 msgstr ""
+"当サービスは、お客様の個人情報の保護を非常に重要視し、データ保護法の規則を厳"
+"格に遵守しています。このウェブサイトでは、技術的に必要な範囲でのみ個人情報を"
+"収集します。いかなる場合においても、収集されたデータは、その他の理由で第三者"
+"に販売または譲渡されることはありません"
 
-#: baloti_djelectionguard/templates/data_privacy.html:57
+#: baloti_djelectionguard/templates/data_privacy.html:60
 msgid ""
 "The following declaration gives you an overview of how we guarantee this "
 "protection and what kind of data is collected for what purpose."
 msgstr ""
+"以下は、当社がどのようにこの保護を保証し、どのような種類のデータがどのような"
+"目的で収集されるのかについての概要を示すものです。"
 
-#: baloti_djelectionguard/templates/data_privacy.html:58
+#: baloti_djelectionguard/templates/data_privacy.html:61
 msgid ""
 "We automatically collect and store information that your browser transmits "
 "to us in the server log files. These are:"
 msgstr ""
-
-#: baloti_djelectionguard/templates/data_privacy.html:61
-msgid "Browser type/ version"
-msgstr ""
-
-#: baloti_djelectionguard/templates/data_privacy.html:62
-msgid "Operating system used"
-msgstr ""
-
-#: baloti_djelectionguard/templates/data_privacy.html:63
-msgid "Referrer URL (the previously visited page)"
-msgstr ""
+"当社は、お客様のブラウザが当社に送信する情報を自動的に収集し、サーバー・ロ"
+"グ・ファイルに保存します。これらは"
 
 #: baloti_djelectionguard/templates/data_privacy.html:64
-msgid "Host name of the accessing computer (IP address)"
-msgstr ""
+msgid "Browser type/ version"
+msgstr "ブラウザの種類/バージョン"
 
 #: baloti_djelectionguard/templates/data_privacy.html:65
-msgid "Date and time of the server request"
-msgstr ""
+msgid "Operating system used"
+msgstr "使用したオペレーティングシステム"
+
+#: baloti_djelectionguard/templates/data_privacy.html:66
+msgid "Referrer URL (the previously visited page)"
+msgstr "参照元URL（前回訪問したページ）"
 
 #: baloti_djelectionguard/templates/data_privacy.html:67
+msgid "Host name of the accessing computer (IP address)"
+msgstr "アクセスするコンピュータのホスト名（IPアドレス）"
+
+#: baloti_djelectionguard/templates/data_privacy.html:68
+msgid "Date and time of the server request"
+msgstr "サーバーへのリクエスト日時"
+
+#: baloti_djelectionguard/templates/data_privacy.html:70
 msgid ""
 "These data cannot be assigned to specific persons. These data are not "
 "combined with other data sources. The data will also be deleted after a "
 "statistical evaluation."
 msgstr ""
+"これらのデータは、特定の個人を識別することはできません。これらのデータは、他"
+"のデータソースと組み合わされることはありません。また、これらのデータは統計的"
+"に評価された後、削除されます。"
 
-#: baloti_djelectionguard/templates/data_privacy.html:70
+#: baloti_djelectionguard/templates/data_privacy.html:73
 msgid "Cookies"
-msgstr ""
+msgstr "Cookies"
 
-#: baloti_djelectionguard/templates/data_privacy.html:71
+#: baloti_djelectionguard/templates/data_privacy.html:74
 msgid ""
 "On some of our pages we use cookies to make visiting our website attractive "
 "and to enable the use of certain functions. „Cookies“ are small text files "
@@ -456,12 +475,20 @@ msgid ""
 "acceptance of cookies. If you deactivate cookies, certain functions of our "
 "website may not be available."
 msgstr ""
+"当社の一部のページでは、当社のウェブサイトをより魅力的に、より便利にご利用い"
+"ただくために、Cookiesを使用しています。「Cookies」とは、ブラウザがお客様のコ"
+"ンピュータに保存することができる小さなテキストファイルです。これらのクッキー"
+"は、ブラウザのセッションが終了すると、ハードディスクから削除されます"
+"（„session cookies“）。お客様は、ブラウザの設定により、クッキーの設定に関する"
+"情報を通知したり、クッキーの受け入れをその都度決定したり、クッキーの受け入れ"
+"を全般的に許可または拒否したりすることができます。クッキーを無効にした場合、"
+"当社ウェブサイトの一部の機能が使用できなくなることがあります。"
 
-#: baloti_djelectionguard/templates/data_privacy.html:74
+#: baloti_djelectionguard/templates/data_privacy.html:77
 msgid "Use of Google Analytics"
-msgstr ""
+msgstr "Googleアナリティクスの利用について"
 
-#: baloti_djelectionguard/templates/data_privacy.html:75
+#: baloti_djelectionguard/templates/data_privacy.html:78
 msgid ""
 "This website uses Google Analytics, a web analysis service of Google Inc. "
 "(„Google“) Google Analytics uses cookies, which are text files placed on "
@@ -483,43 +510,63 @@ msgid ""
 "set out above. You can object to the collection of data by Google Analytics "
 "with future effect by installing a deactivation add-on for your browser."
 msgstr ""
+"本サイトでは、Google Inc.のウェブ解析サービスであるGoogleアナリティクスを利用"
+"しています（以下、「Google」といいます）。Google アナリティクスは、ユーザーの"
+"コンピュータに置かれるテキストファイルであるCookieを使用して、ウェブサイトが"
+"ユーザーのサイト利用状況を分析するのに役立っています。クッキーによって生成さ"
+"れた、このウェブサイトの利用状況に関する情報（IPアドレスを含む。IPアドレス"
+"は、_anonymizeIp()メソッドを使用して匿名化され、接続先を特定できないようにし"
+"ます）は、米国内のGoogleサーバーに送信され、そこで保存されます。Googleは、お"
+"客様のウェブサイト利用を評価し、ウェブサイト運営者のためのウェブサイト活動に"
+"関するレポートを作成し、ウェブサイト活動およびインターネット利用に関するその"
+"他のサービスを提供する目的で、この情報を使用します。Googleはまた、法律で義務"
+"付けられている場合、または第三者がGoogleに代わってこのデータを処理する場合、"
+"この情報を第三者に転送することがあります。Googleは、お客様のIPアドレスを"
+"Googleが保有する他のデータと関連付けることはありません。お客様は、ブラウザの"
+"適切な設定を選択することにより、Cookiesの使用を拒否することができますが、その"
+"場合、このウェブサイトのすべての機能を使用することができない可能性があること"
+"に注意してください。このウェブサイトをご利用になることで、お客様は、上記の方"
+"法および目的でGoogleがお客様に関するデータを処理することに同意されたものとみ"
+"なされます。お客様は、お使いのブラウザに無効化アドオンをインストールすること"
+"により、将来にわたってGoogle アナリティクスによるデータ収集に異議を唱えること"
+"ができます。"
 
-#: baloti_djelectionguard/templates/data_privacy.html:97
-#: baloti_djelectionguard/templates/imprint.html:103
-#: baloti_djelectionguard/templates/landing-en.html:213
+#: baloti_djelectionguard/templates/data_privacy.html:100
+#: baloti_djelectionguard/templates/imprint.html:106
+#: baloti_djelectionguard/templates/landing-en.html:216
 msgid "Data Privacy"
-msgstr ""
+msgstr "個人情報保護方針"
 
-#: baloti_djelectionguard/templates/data_privacy.html:98
-#: baloti_djelectionguard/templates/imprint.html:104
-#: baloti_djelectionguard/templates/landing-en.html:214
+#: baloti_djelectionguard/templates/data_privacy.html:101
+#: baloti_djelectionguard/templates/imprint.html:107
+#: baloti_djelectionguard/templates/landing-en.html:217
 msgid "Imprint"
-msgstr ""
+msgstr "出版社名"
 
-#: baloti_djelectionguard/templates/data_privacy.html:109
-#: baloti_djelectionguard/templates/imprint.html:115
+#: baloti_djelectionguard/templates/data_privacy.html:112
+#: baloti_djelectionguard/templates/imprint.html:118
 msgid "FOLLOW US ON"
-msgstr ""
+msgstr "フォローする"
 
 #: baloti_djelectionguard/templates/disclaimer.html:11
 #: baloti_djelectionguard/templates/layout/footer.html:21
-#: baloti_djelectionguard/templates/layout/header.html:51
+#: baloti_djelectionguard/templates/layout/header.html:54
 msgid "Disclaimer"
-msgstr ""
+msgstr "免責事項"
 
 #: baloti_djelectionguard/templates/disclaimer.html:12
 msgid ""
 "Please note that the vote you are casting on the baloti website is not "
 "official.."
-msgstr ""
+msgstr "なお、balotiのウェブサイト上での投票は、公式のものではありません。"
 
 #: baloti_djelectionguard/templates/disclaimer.html:13
 msgid "On the website"
-msgstr ""
+msgstr "ウェブサイトにて"
 
 #: baloti_djelectionguard/templates/disclaimer.html:13
 msgid "various user data are saved"
-msgstr ""
+msgstr "各種ユーザーデータを保存"
 
 #: baloti_djelectionguard/templates/disclaimer.html:14
 msgid ""
@@ -528,70 +575,84 @@ msgid ""
 "server. This mainly concerns: IP address, date and time of access, name of "
 "accessed page, web-browser used, operating system used etc."
 msgstr ""
+"Cookieには、ユーザーの言語設定のみが保存されます。ウェブサイトがアクセスされ"
+"ると、ログインデータがサーバー上のいわゆるログファイルに保存されます。これは"
+"主に次のことに関係します。IPアドレス、アクセス日時、アクセスしたページ名、使"
+"用したウェブブラウザ、使用したオペレーティングシステムなど。"
 
 #: baloti_djelectionguard/templates/disclaimer.html:15
 msgid ""
 "All these data are protected against unauthorised persons and are only "
 "evaluated in the form of anonymous access statistics."
 msgstr ""
+"これらのデータはすべて、不正アクセスから保護され、匿名のアクセス統計の形での"
+"み評価されます。"
 
 #: baloti_djelectionguard/templates/disclaimer.html:16
 msgid ""
 "E-mail addresses are used only for direct communication with the user and "
 "will under no circumstances be passed on to a third party."
 msgstr ""
+"電子メールアドレスは、ユーザーとの直接のやり取りにのみ使用し、いかなる場合も"
+"第三者に譲渡することはありません。"
 
 #: baloti_djelectionguard/templates/disclaimer.html:17
 msgid ""
 "The data about the vote and the user (status, age, gender, canton, etc.) are "
 "used for analyses and statistics only in anonymised and aggregated form."
 msgstr ""
+"投票およびユーザーに関するデータ（ステータス、年齢、性別、都道府県など）は、"
+"匿名化および集計された形で、分析および統計のためにのみ使用されます。"
 
-#: baloti_djelectionguard/templates/imprint.html:57
+#: baloti_djelectionguard/templates/imprint.html:60
 msgid "Represented by"
-msgstr ""
+msgstr "代表者"
 
-#: baloti_djelectionguard/templates/imprint.html:61
+#: baloti_djelectionguard/templates/imprint.html:64
 msgid "Address"
-msgstr ""
+msgstr "住所"
 
-#: baloti_djelectionguard/templates/imprint.html:65
+#: baloti_djelectionguard/templates/imprint.html:68
 msgid "Firm Number"
-msgstr ""
+msgstr "会社番号"
 
-#: baloti_djelectionguard/templates/imprint.html:69
+#: baloti_djelectionguard/templates/imprint.html:72
 msgid "VAT Number"
-msgstr ""
+msgstr "VAT番号"
 
-#: baloti_djelectionguard/templates/imprint.html:73
+#: baloti_djelectionguard/templates/imprint.html:76
 msgid "Phone"
-msgstr ""
+msgstr "電話"
 
-#: baloti_djelectionguard/templates/imprint.html:77
+#: baloti_djelectionguard/templates/imprint.html:80
 msgid "Fax"
-msgstr ""
+msgstr "FAX"
 
 #: baloti_djelectionguard/templates/index.html:14
 msgid "baloti Voting system"
-msgstr ""
+msgstr "baloti投票システム"
 
 #: baloti_djelectionguard/templates/index.html:15
 msgid ""
 "On our platform you can <br> practice direct democracy in <br> several "
 "languages"
 msgstr ""
+"私たちのプラットフォームでは、<br> 直接民主主義を<br> 複数の言語で実践するこ"
+"とができます。"
 
 #: baloti_djelectionguard/templates/index.html:18
 msgid "HOW IT WORKS"
-msgstr ""
+msgstr "仕組みについて"
 
 #: baloti_djelectionguard/templates/index.html:41
 msgid "ABOUT US"
-msgstr ""
+msgstr "私たちについて"
 
 #: baloti_djelectionguard/templates/index.html:42
 msgid "On our platform you can practice direct democracy in several languages"
 msgstr ""
+"私たちのプラットフォームでは、複数の言語で直接民主主義を実践することができま"
+"す。"
 
 #: baloti_djelectionguard/templates/index.html:43
 msgid ""
@@ -600,85 +661,95 @@ msgid ""
 "Neuchatel. Diversified project partnerships ensure that the project will be "
 "made public all over the country."
 msgstr ""
+"baloti.ch.プロジェクトは、Zentrum für Demokratie Aarauの学際的なチームが、"
+"Neuchatel大学と協力して行っています。多様なプロジェクトパートナーシップによ"
+"り、このプロジェクトは全国で公開される予定です。"
 
 #: baloti_djelectionguard/templates/index.html:48
 msgid "LATEST REFERENDUMS & VOTE"
-msgstr ""
+msgstr "最新の国民投票と投票"
 
 #: baloti_djelectionguard/templates/index.html:90
 msgid "VIEW ALL"
-msgstr ""
+msgstr "すべて表示"
 
 #: baloti_djelectionguard/templates/index.html:99
 msgid "LETS DIVE IN"
-msgstr ""
+msgstr "では始めましょう"
 
 #: baloti_djelectionguard/templates/index.html:100
 msgid "How it works"
-msgstr ""
+msgstr "仕組み"
 
 #: baloti_djelectionguard/templates/index.html:105
 msgid ""
 "Inform yourself about the latest votes in Switzerland and learn new facts "
 "about Swiss politics."
 msgstr ""
+"スイスの最新の投票結果を知り、スイスの政治に関する新しい事実を知ることができ"
+"ます。"
 
 #: baloti_djelectionguard/templates/index.html:109
 msgid ""
 "Register on the baloti platform and vote, whether you already have Swiss "
 "voting rights or not"
 msgstr ""
+"スイスの投票権をすでにお持ちの方も、そうでない方も、balotiプラットフォームに"
+"登録して投票してください。"
 
 #: baloti_djelectionguard/templates/index.html:113
 msgid "Stay up to date with notifications and information from baloti."
-msgstr ""
+msgstr "balotiからのお知らせや情報をお届けします。"
 
 #: baloti_djelectionguard/templates/index.html:122
-#: baloti_djelectionguard/templates/landing-en.html:87
+#: baloti_djelectionguard/templates/landing-en.html:90
 msgid "IMPACT"
-msgstr ""
+msgstr "影響"
 
 #: baloti_djelectionguard/templates/index.html:129
-#: baloti_djelectionguard/templates/landing-en.html:95
+#: baloti_djelectionguard/templates/landing-en.html:98
 msgid "safe, secure & open"
-msgstr ""
+msgstr "安心・安全・オープン"
 
 #: baloti_djelectionguard/templates/index.html:130
 msgid ""
 "Our solution is fully open source and we use blockchain technology for "
 "saving and verifying votes"
 msgstr ""
+"私たちのソリューションは完全にオープンソースであり、票の保存と検証にはブロッ"
+"クチェーン技術を使用しています。"
 
 #: baloti_djelectionguard/templates/index.html:137
-#: baloti_djelectionguard/templates/landing-en.html:106
+#: baloti_djelectionguard/templates/landing-en.html:109
 msgid "multilingual"
-msgstr ""
+msgstr "マルチリンガル"
 
 #: baloti_djelectionguard/templates/index.html:138
 msgid ""
 "making the voting experience more accessible, vote in your own language."
 msgstr ""
+"投票体験をより身近なものにするために、自分の言語で投票することができます。"
 
 #: baloti_djelectionguard/templates/index.html:146
-#: baloti_djelectionguard/templates/landing-en.html:116
+#: baloti_djelectionguard/templates/landing-en.html:119
 msgid "democratic"
-msgstr ""
+msgstr "民主的"
 
 #: baloti_djelectionguard/templates/index.html:147
-#: baloti_djelectionguard/templates/landing-en.html:117
+#: baloti_djelectionguard/templates/landing-en.html:120
 msgid ""
 "allow more people to participate in voting independently of time and space"
-msgstr ""
+msgstr "より多くの人が時間や空間に関係なく投票に参加できるようになる"
 
 #: baloti_djelectionguard/templates/index.html:207
 msgid "ILLUSTRATIONS"
-msgstr ""
+msgstr "イラストレーション"
 
 #: baloti_djelectionguard/templates/index.html:216
 #: baloti_djelectionguard/templates/news.html:39
 #: baloti_djelectionguard/templates/news.html:78
 msgid "Sources of Information"
-msgstr ""
+msgstr "情報源"
 
 #: baloti_djelectionguard/templates/index.html:217
 #: baloti_djelectionguard/templates/index.html:230
@@ -700,6 +771,9 @@ msgid ""
 "protects the voter in a vote or election, so that his or her choice remains "
 "confidential. Securing ballot secrecy is a central..."
 msgstr ""
+"Selectio Helvetica lightは投票の秘密を守ります。無記名投票は、投票や選挙にお"
+"いて、有権者が自分の選択を秘密にできるように保護するものです。投票用紙の機密"
+"性を確保することは、投票所における重要な課題です。"
 
 #: baloti_djelectionguard/templates/index.html:220
 #: baloti_djelectionguard/templates/index.html:233
@@ -717,13 +791,13 @@ msgstr ""
 #: baloti_djelectionguard/templates/news.html:175
 #: baloti_djelectionguard/templates/news.html:188
 msgid "Read"
-msgstr ""
+msgstr "読む"
 
 #: baloti_djelectionguard/templates/index.html:229
 #: baloti_djelectionguard/templates/news.html:52
 #: baloti_djelectionguard/templates/news.html:91
 msgid "Television debates"
-msgstr ""
+msgstr "テレビ討論"
 
 #: baloti_djelectionguard/templates/index.html:242
 #: baloti_djelectionguard/templates/news.html:65
@@ -735,142 +809,147 @@ msgstr ""
 #: baloti_djelectionguard/templates/news.html:171
 #: baloti_djelectionguard/templates/news.html:184
 msgid "Postal voting"
-msgstr ""
+msgstr "郵便投票"
 
 #: baloti_djelectionguard/templates/index.html:259
-#: baloti_djelectionguard/templates/landing-en.html:127
+#: baloti_djelectionguard/templates/landing-en.html:130
 msgid "PROJECT PARTNERS"
-msgstr ""
+msgstr "プロジェクトパートナー"
 
 #: baloti_djelectionguard/templates/index.html:295
 msgid "Registration successful"
-msgstr ""
+msgstr "登録に成功しました"
 
 #: baloti_djelectionguard/templates/index.html:305
 msgid "Password successfully changed"
-msgstr ""
+msgstr "パスワードの変更に成功しました"
 
 #: baloti_djelectionguard/templates/index.html:315
 msgid "Logged out successfully"
-msgstr ""
+msgstr "ログアウトに成功しました"
 
 #: baloti_djelectionguard/templates/index.html:325
 msgid "Logged in successfully"
-msgstr ""
-
-#: baloti_djelectionguard/templates/landing-en.html:55
-msgid "the baloti project"
-msgstr ""
-
-#: baloti_djelectionguard/templates/landing-en.html:56
-msgid "an online voting platform for all languages is our vision"
-msgstr ""
+msgstr "ログインに成功しました"
 
 #: baloti_djelectionguard/templates/landing-en.html:58
+msgid "the baloti project"
+msgstr "balotiプロジェクト"
+
+#: baloti_djelectionguard/templates/landing-en.html:59
+msgid "an online voting platform for all languages is our vision"
+msgstr ""
+"すべての言語に対応したオンライン投票プラットフォームが私たちのビジョンです"
+
+#: baloti_djelectionguard/templates/landing-en.html:61
 msgid "go to the baloti portal"
-msgstr ""
+msgstr "balotiポータルサイト"
 
-#: baloti_djelectionguard/templates/landing-en.html:75
+#: baloti_djelectionguard/templates/landing-en.html:78
 msgid "ABOUT THE PROJECT"
-msgstr ""
+msgstr "プロジェクトの概要"
 
-#: baloti_djelectionguard/templates/landing-en.html:76
+#: baloti_djelectionguard/templates/landing-en.html:79
 msgid ""
 "baloti is a technical solution allowing you to cast your vote online in "
 "several languages in a safe and secure way"
 msgstr ""
+"balotiは、安全かつ確実な方法で、複数の言語でオンライン投票ができる技術的なソ"
+"リューションです。"
 
-#: baloti_djelectionguard/templates/landing-en.html:77
+#: baloti_djelectionguard/templates/landing-en.html:80
 msgid "experience Swiss referendum voting online"
-msgstr ""
+msgstr "スイスの国民投票をオンラインで体験"
 
-#: baloti_djelectionguard/templates/landing-en.html:96
+#: baloti_djelectionguard/templates/landing-en.html:99
 msgid ""
 "baloti is fully open source and uses blockchain technology for saving and "
 "verifying votes"
 msgstr ""
+"balotiは完全なオープンソースで、ブロックチェーン技術を使用して票の保存と検証"
+"を行います。"
 
-#: baloti_djelectionguard/templates/landing-en.html:107
+#: baloti_djelectionguard/templates/landing-en.html:110
 msgid "making the voting experience more accessible, vote in your own language"
-msgstr ""
+msgstr "投票体験をより身近に、自分の言語で投票できるようにする。"
 
-#: baloti_djelectionguard/templates/landing-en.html:158
+#: baloti_djelectionguard/templates/landing-en.html:161
 msgid "CONTACT US"
-msgstr ""
+msgstr "お問い合わせ"
 
-#: baloti_djelectionguard/templates/landing-en.html:159
+#: baloti_djelectionguard/templates/landing-en.html:162
 msgid "Feel free to <br> contact us"
-msgstr ""
+msgstr "お気軽に<br>お問合せください"
 
-#: baloti_djelectionguard/templates/landing-en.html:167
+#: baloti_djelectionguard/templates/landing-en.html:170
 msgid "Firstname*"
-msgstr ""
+msgstr "名*"
 
-#: baloti_djelectionguard/templates/landing-en.html:171
+#: baloti_djelectionguard/templates/landing-en.html:174
 msgid "Lastname*"
-msgstr ""
+msgstr "姓*"
 
-#: baloti_djelectionguard/templates/landing-en.html:177
+#: baloti_djelectionguard/templates/landing-en.html:180
 msgid "Email*"
-msgstr ""
+msgstr "メール*"
 
-#: baloti_djelectionguard/templates/landing-en.html:181
+#: baloti_djelectionguard/templates/landing-en.html:184
 msgid "Subject*"
-msgstr ""
+msgstr "内容*"
 
-#: baloti_djelectionguard/templates/landing-en.html:186
+#: baloti_djelectionguard/templates/landing-en.html:189
 msgid "Message*"
-msgstr ""
+msgstr "メッセージ*"
 
-#: baloti_djelectionguard/templates/landing-en.html:228
+#: baloti_djelectionguard/templates/landing-en.html:231
 msgid "Mail sent successfully"
-msgstr ""
+msgstr "メールの送信に成功しました"
 
 #: baloti_djelectionguard/templates/layout/footer.html:16
-#: baloti_djelectionguard/templates/layout/header.html:45
+#: baloti_djelectionguard/templates/layout/header.html:48
 #: baloti_djelectionguard/templates/news.html:11
 msgid "Illustrations"
-msgstr ""
+msgstr "イラストレーション"
 
 #: baloti_djelectionguard/templates/layout/footer.html:22
 msgid "User Manual"
-msgstr ""
+msgstr "ユーザーマニュアル"
 
-#: baloti_djelectionguard/templates/layout/header.html:56
-#: baloti_djelectionguard/templates/layout/header.html:83
+#: baloti_djelectionguard/templates/layout/header.html:59
+#: baloti_djelectionguard/templates/layout/header.html:86
 msgid "Login"
-msgstr ""
+msgstr "ログイン"
 
-#: baloti_djelectionguard/templates/layout/header.html:63
+#: baloti_djelectionguard/templates/layout/header.html:66
 msgid "Profile settings"
-msgstr ""
-
-#: baloti_djelectionguard/templates/layout/header.html:68
-msgid "Change Password?"
-msgstr ""
+msgstr "プロフィールの設定"
 
 #: baloti_djelectionguard/templates/layout/header.html:71
-#: baloti_djelectionguard/templates/layout/header.html:102
-msgid "Delete profile"
-msgstr ""
+msgid "Change Password?"
+msgstr "パスワードを変更しますか？"
 
-#: baloti_djelectionguard/templates/layout/header.html:76
+#: baloti_djelectionguard/templates/layout/header.html:74
 #: baloti_djelectionguard/templates/layout/header.html:105
+msgid "Delete profile"
+msgstr "プロフィールを削除"
+
+#: baloti_djelectionguard/templates/layout/header.html:79
+#: baloti_djelectionguard/templates/layout/header.html:108
 msgid "Logout"
-msgstr ""
+msgstr "ログアウト"
 
-#: baloti_djelectionguard/templates/layout/header.html:99
+#: baloti_djelectionguard/templates/layout/header.html:102
 msgid "Change Password"
-msgstr ""
+msgstr "パスワードを変更"
 
-#: baloti_djelectionguard/templates/layout/header.html:126
+#: baloti_djelectionguard/templates/layout/header.html:129
 msgid "Are you sure you want to delete your baloti account?"
-msgstr ""
+msgstr "本当にbalotiのアカウントを削除しますか？"
 
-#: baloti_djelectionguard/templates/layout/header.html:136
+#: baloti_djelectionguard/templates/layout/header.html:139
 msgid "Enter your password to confirm"
-msgstr ""
+msgstr "確認のため、パスワードを入力してください"
 
-#: baloti_djelectionguard/templates/layout/header.html:140
+#: baloti_djelectionguard/templates/layout/header.html:143
 msgid "Invalid password"
-msgstr ""
+msgstr "無効なパスワードです"

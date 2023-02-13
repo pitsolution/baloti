@@ -10,6 +10,7 @@
       "ru": "E-mail успешно отправлен",
       "id": "Email berhasil dikirim",
       "pl": "Mail został wysłany pomyślnie",
+      "ja": "メールの送信成功",
     }
   ],
   "text_b": [
@@ -23,6 +24,7 @@
       "ru": "Заполните все поля",
       "id": "Isi semua bagian",
       "pl": "Wypełnij wszystkie pola",
+      "ja": "すべての項目を入力してください",
     }
   ],
   "text_c": [
@@ -36,6 +38,7 @@
       "ru": "Услуга недоступна",
       "id": "Layanan tidak tersedia",
       "pl": "Usługa niedostępna",
+      "ja": "サービスを利用できません",
     }
   ],
    "text_d": [
@@ -49,6 +52,7 @@
       "ru": "Неверный адрес электронной почты",
       "id": "Alamat email tidak sah",
       "pl": "Niepoprawny adres email",
+      "ja": "無効なメールアドレスです",
     }
   ]
 }
