@@ -8,8 +8,11 @@ function get_something(){
 
     });
 }
+    if (localStorage.getItem('languageObject') !== null){
+        var language = localStorage.getItem('languageObject').replaceAll('"', '');
+    }
 
-    var language = localStorage.getItem('languageObject').replaceAll('"', '');
+    
     console.log(myJson,'jsonnnnnnn')
     $(".copytoclipboard").click(function (event) {
         event.preventDefault();
