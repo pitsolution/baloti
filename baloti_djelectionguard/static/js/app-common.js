@@ -310,7 +310,9 @@ function get_something(){
         if(!firstname || !lastname || !email || !subject || !message){
             $("#info_mailsent").removeClass("d-none");
             var trans_text = $("html").attr("lang")
-            $("#message_text").text(myJson['text_b'][0][trans_text]);
+            // $("#message_text").text(myJson['text_b'][0][trans_text]);
+            $("#message_text").text("Fill all the fields");
+
 
 
             $("#info_mailsent").addClass("error");
@@ -319,7 +321,8 @@ function get_something(){
         else if(!pattern.test(email)){
             $("#info_mailsent").removeClass("d-none");
             var trans_text = $("html").attr("lang")
-            $("#message_text").text(myJson['text_d'][0][trans_text]);
+            // $("#message_text").text(myJson['text_d'][0][trans_text]);
+            $("#message_text").text("Invalid Email Address");
 
             $("#info_mailsent").addClass("error");
             $(".app-toast__tick").addClass("d-none");
@@ -347,7 +350,8 @@ function get_something(){
                         document.getElementById('id_subject').value = "";
                         document.getElementById('id_message').value = "";
                         var trans_text = $("html").attr("lang")
-                          $("#message_text").text(myJson['text_a'][0][trans_text]);
+                          // $("#message_text").text(myJson['text_a'][0][trans_text]);
+                        $("#message_text").text("Mail sent successfully");
 
 
 
@@ -359,7 +363,8 @@ function get_something(){
                 error:function (xhr, ajaxOptions, thrownError){
                     if(xhr.status==400) {
                         var trans_text = $("html").attr("lang")
-                        $("#message_text").text(myJson['text_c'][0][trans_text]);
+                        // $("#message_text").text(myJson['text_c'][0][trans_text]);
+                        $("#message_text").text("Service not available");
 
                         $("#info_mailsent").removeClass("d-none")
                         $("#info_mailsent").addClass("error");
