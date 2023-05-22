@@ -11,6 +11,9 @@ function get_something(){
     if (localStorage.getItem('languageObject') !== null){
         var language = localStorage.getItem('languageObject').replaceAll('"', '');
     }
+    else {
+        var lanuage = "en"
+    }
 
     
     console.log(myJson,'jsonnnnnnn')
