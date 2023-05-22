@@ -337,7 +337,7 @@ var language = localStorage.getItem('languageObject').replaceAll('"', '');
         else{
             $.ajax({
                 type: "POST",
-                url: '/'+ language + '/info/submit',
+                url: '/'+ "en" + '/info/submit',
                 data: {'firstname': firstname, 'lastname': lastname, 'email': email, 'subject': subject, 'message': message},
                 headers: {'X-CSRFToken': csrftoken},
                 mode: 'same-origin',
