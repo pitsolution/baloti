@@ -8,11 +8,12 @@ function get_something(){
 
     });
 }
-    if (localStorage.getItem('languageObject') !== null){
-        var language = localStorage.getItem('languageObject').replaceAll('"', '');
+    if (localStorage.getItem('languageObject') == null){
+        var lanuage = "en";
+        
     }
     else {
-        var lanuage = "en"
+var language = localStorage.getItem('languageObject').replaceAll('"', '');
     }
 
     
