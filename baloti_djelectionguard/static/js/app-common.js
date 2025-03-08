@@ -368,7 +368,7 @@ $(document).ready(function(){
     $("#howitworksbtn").click(function() {
         $('html, body').animate({
             scrollTop: $("#howItWorksSection").offset().top
-        }, 2000);
+        }, 600);
     });
 
     if($(window).width() < 768){
