@@ -1,14 +1,12 @@
 from django.urls import path
 from .views import *
-from baloti_auth.forms import UserLoginForm
-from django.contrib.auth.views import LogoutView, PasswordChangeView, PasswordChangeDoneView
+from django.contrib.auth import views as auth_views
 
+app_name = "baloti_auth"
 urlpatterns = [
     path('login/', BalotiLoginView.as_view(
-                    template_name="login.html",
-                    authentication_form=UserLoginForm
-                    ), name='login'),
-    path('logout/', LogoutView.as_view(
+        ), name="login"),
+    path('logout/', auth_views.LogoutView.as_view(
                     ), name='logout'),
     path('signup/', BalotiSignupView.as_view(
         ), name="signup"),
@@ -18,13 +16,32 @@ urlpatterns = [
         ), name="modalsignup_mail"),
     path(
         'change-password/',
-        PasswordChangeView.as_view(
+        BalotiPasswordChangeView.as_view(
             template_name='change_password.html',
-            success_url = '/en/baloti/contest/list/'
         ),
         name='change-password'
     ),
-    # path('password_change/done/',
-    #      PasswordChangeDoneView.as_view(template_name="change_password.html"),
-    #      name='password_change_done'),
+    path('password-reset/',
+         BalotiPasswordResetView.as_view(
+             template_name='password_reset.html',
+             email_template_name='password_reset_email.html',
+             html_email_template_name="password_reset_email.html",
+         ),
+         name='password_reset'),
+    path('password-reset/done/',
+         auth_views.PasswordResetDoneView.as_view(
+             template_name='password_reset_done.html'
+         ),
+         name='password_reset_done'),
+    path('password-reset-confirm/<uidb64>/<token>/',
+         BalotiPasswordResetConfirmView.as_view(
+             template_name='password_reset_confirm.html',
+         ),
+         name='password_reset_confirm'),
+    path('password-reset/complete/',
+         auth_views.PasswordResetCompleteView.as_view(
+             template_name='password_reset_complete.html'
+         ),
+         name='password_reset_complete'),
+    path('delete/profile', BalotiDeleteProfileView.as_view(), name='deleteProfile'),
 ]

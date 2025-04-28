@@ -51,7 +51,7 @@ $app-election-logo-border: #171742;
             &__right{
                 width: 390px;
                 .btn-share{
-                    &:hover{
+                    &:hover, &:focus{
                         .app-icon{
                             &::before{
                                 color: $app-white;
@@ -211,6 +211,12 @@ $app-election-logo-border: #171742;
             font-size: 24px;
             color: $app-black;
             position: relative;
+            &:hover{
+                .app-icon{
+                    color: $app-primary;
+                    font-weight: 600;
+                }
+            }
         }
         
         &__closeicon{
@@ -240,6 +246,14 @@ $app-election-logo-border: #171742;
                 }
                 ~ .app-newslist__searchicon{
                     display: none;
+                }
+            }
+            &:hover{
+                ~ .app-icon{
+                    &::before{
+                        color: $app-primary;
+                        font-weight: 600;
+                    }
                 }
             }
         }
@@ -278,12 +292,12 @@ $app-election-logo-border: #171742;
        background-image: url('../images/chart-bg.png');
        background-repeat: no-repeat;
        background-size: contain;
-       padding: 0 30px;
        display: flex;
        align-items: center;
+       justify-content: center;
        canvas{
-           height: 150px;
-           
+           height: 150px !important;
+           width: 150px  !important;
        }
        &__count{
         position: absolute;
@@ -293,6 +307,27 @@ $app-election-logo-border: #171742;
         font-size: 30px;
         font-family: Outfit-SemiBold;
        }
+   }
+   &-nodata{
+       color: $app-black;
+       display: none;
+       text-align: center;
+     img{
+         margin-right: 15px;
+     }
+     svg{
+         width: 300px;
+     }
+     &__title{
+         text-align: center;
+         font-family: Outfit-Bold;
+         letter-spacing: 2px;
+         margin-top: -35px!important;
+         
+     }
+     &__subtitle{
+        letter-spacing: 2px;
+     }
    }
    @media only screen and (max-width: 1200px) {
     &-elections{
@@ -466,7 +501,7 @@ $app-election-logo-border: #171742;
    @media only screen and (max-width: 767px) {
     &-elections{
         &__vote{
-            min-height: 50vh;
+            // min-height: 50vh;
             .app-card--bordered{
                 border-radius: 0 !important;
             }
@@ -488,6 +523,11 @@ $app-election-logo-border: #171742;
             left: calc(100% + 15px);
         }
     }
+    &-nodata{
+      svg{
+          width: 150px;
+      }
+    }
    }
    @media only screen and (min-width: 1200px) {
         &-thirdhalf-col__right{
@@ -505,6 +545,11 @@ $app-election-logo-border: #171742;
                 min-height: 50vh;
             }
         } 
+        &-news{
+            .app-elections__vote{
+                min-height: auto;
+            }
+        }
     }
     @media only screen and (max-width: 400px) {
         &-elections{
@@ -518,4 +563,5 @@ $app-election-logo-border: #171742;
             }
         } 
     }
+    
 }

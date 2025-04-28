@@ -1,0 +1,248 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-21 13:01+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+#: baloti_auth/forms.py:21
+msgid "Your old password was entered incorrectly. Please enter it again."
+msgstr ""
+"Ваш старий пароль введено неправильно. Будь ласка, введіть його ще раз."
+
+#: baloti_auth/templates/change_password.html:64
+msgid "Change Password"
+msgstr "Змінити пароль"
+
+#: baloti_auth/templates/change_password.html:71
+msgid "Old Password"
+msgstr "Старий пароль"
+
+#: baloti_auth/templates/change_password.html:77
+msgid "New Password"
+msgstr "Новий пароль"
+
+#: baloti_auth/templates/change_password.html:83
+msgid "New Password Confirmation"
+msgstr "Підтвердження нового пароля"
+
+#: baloti_auth/templates/change_password.html:97
+#: baloti_auth/templates/login.html:95
+#: baloti_auth/templates/signup_mail.html:235
+msgid "CONTINUE"
+msgstr "ПРОДОВЖИТИ"
+
+#: baloti_auth/templates/change_password.html:101
+#: baloti_auth/templates/login.html:101
+#: baloti_auth/templates/password_reset.html:81
+#: baloti_auth/templates/password_reset_done.html:64
+#: baloti_auth/templates/signup.html:95
+msgid "Back"
+msgstr "Назад"
+
+#: baloti_auth/templates/login.html:64
+msgid "Welcome to baloti!"
+msgstr "Ласкаво просимо до Baloti!"
+
+#: baloti_auth/templates/login.html:66
+msgid "Login to your account"
+msgstr "Увійдіть в свій обліковий запис"
+
+#: baloti_auth/templates/login.html:69 baloti_auth/templates/signup.html:69
+msgid "Continue with Facebook"
+msgstr "Продовжити з Facebook"
+
+#: baloti_auth/templates/login.html:79
+#: baloti_auth/templates/password_reset.html:71
+#: baloti_auth/templates/password_reset_confirm.html:64
+#: baloti_auth/templates/signup.html:83
+msgid "Email address"
+msgstr "Адреса електронної пошти"
+
+#: baloti_auth/templates/login.html:84
+msgid "Password"
+msgstr "Пароль"
+
+#: baloti_auth/templates/login.html:94
+msgid "Forgot password?"
+msgstr "Забули пароль?"
+
+#: baloti_auth/templates/login.html:96
+msgid "Not registered yet?"
+msgstr "Ще не зареєстровані?"
+
+#: baloti_auth/templates/login.html:96
+msgid "Create an account now!"
+msgstr "Створіть обліковий запис зараз!"
+
+#: baloti_auth/templates/password_reset.html:62
+msgid "Forgot Password?"
+msgstr "Забули пароль?"
+
+#: baloti_auth/templates/password_reset.html:64
+#: baloti_auth/templates/signup.html:86
+msgid ""
+"We will send you the registration link to the email address you entered."
+msgstr ""
+"Ми надішлемо вам посилання для реєстрації на введену вами адресу електронної "
+"пошти."
+
+#: baloti_auth/templates/password_reset.html:74
+msgid "Send Recovery Email"
+msgstr "Надіслати електронний лист для відновлення"
+
+#: baloti_auth/templates/password_reset.html:76
+msgid "Just Remembered?"
+msgstr "Щойно згадали?"
+
+#: baloti_auth/templates/password_reset.html:77
+msgid "Signin here!"
+msgstr "Увійдіть тут!"
+
+#: baloti_auth/templates/password_reset_complete.html:55
+msgid "Password changed!"
+msgstr "Пароль змінено!"
+
+#: baloti_auth/templates/password_reset_complete.html:57
+msgid "Your password has changed successfully."
+msgstr "Ваш пароль успішно змінено."
+
+#: baloti_auth/templates/password_reset_complete.html:65
+#: baloti_auth/templates/signup_success.html:71
+msgid "LOGIN NOW"
+msgstr "УВІЙТИ ЗАРАЗ"
+
+#: baloti_auth/templates/password_reset_confirm.html:56
+#: baloti_auth/templates/password_reset_confirm.html:86
+msgid "Reset Password"
+msgstr "Скинути пароль"
+
+#: baloti_auth/templates/password_reset_confirm.html:68
+msgid "New password"
+msgstr "Новий пароль"
+
+#: baloti_auth/templates/password_reset_confirm.html:74
+msgid "Confirm password"
+msgstr "Підтвердьте пароль"
+
+#: baloti_auth/templates/password_reset_done.html:55
+#: baloti_auth/templates/signup_success.html:62
+msgid "Mail sent!"
+msgstr "Лист надіслано!"
+
+#: baloti_auth/templates/password_reset_done.html:57
+msgid ""
+"Please check your inbox to get the link of your recovery email. Thank you."
+msgstr ""
+"Перевірте на пошті папку Вхідні, щоб отримати посилання на електронну адресу "
+"для відновлення. Дякуємо."
+
+#: baloti_auth/templates/password_reset_email.html:202
+msgid "Hello,"
+msgstr "Привіт,"
+
+#: baloti_auth/templates/password_reset_email.html:208
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at baloti."
+msgstr ""
+"Ви отримали цей електронний лист, оскільки подали запит на скидання пароля "
+"для облікового запису користувача на baloti."
+
+#: baloti_auth/templates/password_reset_email.html:214
+msgid "Please go to the following page and choose a new password"
+msgstr "Будь ласка, перейдіть на наступну сторінку та виберіть новий пароль"
+
+#: baloti_auth/templates/password_reset_email.html:215
+msgid "Click here"
+msgstr "Натисніть тут"
+
+#: baloti_auth/templates/password_reset_email.html:221
+msgid "Your username, in case you've forgotten is"
+msgstr "Ваше ім’я користувача, якщо ви забули"
+
+#: baloti_auth/templates/password_reset_email.html:238
+msgid "Thanks for using our platform!"
+msgstr "Дякуємо за використання нашої платформи!"
+
+#: baloti_auth/templates/password_reset_email.html:242
+msgid "The baloti team"
+msgstr "Команда baloti"
+
+#: baloti_auth/templates/signup.html:64
+msgid "Create account!"
+msgstr "Створіть обліковий запис!"
+
+#: baloti_auth/templates/signup.html:67
+msgid "You can register with your social login or email address."
+msgstr ""
+"Ви можете зареєструватися, використовуючи свій логін у соцмережі або адресу "
+"електронної пошти."
+
+#: baloti_auth/templates/signup.html:90
+msgid "SEND"
+msgstr "НАДІСЛАТИ"
+
+#: baloti_auth/templates/signup.html:92
+msgid "Already have an account?"
+msgstr "Вже є аккаунт?"
+
+#: baloti_auth/templates/signup.html:92
+msgid "Login here!"
+msgstr "Увійдіть тут!"
+
+#: baloti_auth/templates/signup_mail.html:209
+msgid "Registration information"
+msgstr "Інформація про реєстрацію"
+
+#: baloti_auth/templates/signup_mail.html:215
+msgid "Thank you for registering at our site."
+msgstr "Дякуємо за реєстрацію на нашому сайті."
+
+#: baloti_auth/templates/signup_mail.html:216
+msgid "You can find your credentials below."
+msgstr "Ви можете знайти свої облікові дані нижче."
+
+#: baloti_auth/templates/signup_mail.html:223
+msgid "Username:"
+msgstr "Ім'я користувача:"
+
+#: baloti_auth/templates/signup_mail.html:229
+msgid "Password:"
+msgstr "Пароль:"
+
+#: baloti_auth/templates/signup_success.html:64
+msgid ""
+"Please check your inbox to get the registration informations. Thank you."
+msgstr ""
+"Будь ласка, перевірте свою скриньку, щоб отримати інформацію про реєстрацію. "
+"Дякую."
+
+#: baloti_auth/views.py:40 baloti_auth/views.py:53
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Ваше ім’я користувача та пароль не збігаються. Будь ласка спробуйте ще раз."
+
+#: baloti_auth/views.py:55
+msgid "Login failed!"
+msgstr "Помилка логіну!"
+
+#: baloti_auth/views.py:76
+msgid "Baloti Registration Information"
+msgstr "Інформація про реєстрацію Baloti"

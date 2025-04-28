@@ -50,6 +50,7 @@ class User(AbstractUser):
         max_length=255,
         unique=True,
     )
+    first_login = models.BooleanField(blank=True, null=True)
 
     def otp_new(self, redirect=None):
         return self.token_set.create(

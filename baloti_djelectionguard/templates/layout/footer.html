@@ -1,23 +1,25 @@
 {% load static %}
+{% load static i18n %}
+
 <footer class="app-footer">
     <div class="container">
       <div class="row">
           <div class="col-sm-3">
               <a href="#" class="app-footer__logo">
-                  <img src="/static/images/logo-footer.svg" alt="">
+                  <img src="/static/images/logo-footer.png" width="120" alt="">
               </a>
           </div> 
           <div class="col-sm-9">
               <ul class="app-footer-link list-unstyled">
-                  <li><a href="/baloti">Home</a></li>
-                  <li><a href="/baloti/contest/list/">Referendum Votes</a></li>
-                  <li><a href="/illustrations">Illustrations</a></li>
+                  <li><a href={% url 'baloti_djelectionguard:Index' %}></li>
+                  <li><a href={% url 'baloti_djelectionguard:ContestList' %}>{% trans "Referendum Votes" %}</a></li>
+                  <li><a href={% url 'balotidjelectionguard:Illustration' %}>{% trans "Illustrations" %}</a></li>
                  <!--  <li><a href="#">Survey</a></li>
                   <li><a href="#">Results</a></li>
                   <li><a href="#">Picture dictionary</a></li> -->
-                  <li><a href="/about-us">About Us</a></li>
-                  <li><a href="/disclaimer">Disclaimer</a></li>
-                  <li><a target = "_blank" href="/static/pdf/baloti_User_Manual.pdf">User Manual</a></li>
+                  <!-- <li><a href="/about-us">About Us</a></li> -->
+                  <li><a href={% url 'balotidjelectionguard:Disclaimer' %}>{% trans "Disclaimer" %}</a></li>
+                  <li><a target = "_blank" href="/static/pdf/baloti_User_Manual.pdf">{% trans "User Manual" %}</a></li>
               </ul>
           </div>
       </div>
@@ -26,7 +28,7 @@
               <div class="col-sm-6">
                   <a class="app-email">copyright@baloti.org</a>
               </div>
-              <div class="col-sm-6">
+            <!--   <div class="col-sm-6">
                   <ul class="app-social-link list-unstyled">
                       <li>
                           <a href=""><span class="app-icon icon-facebook-sm"></span></a>
@@ -35,7 +37,7 @@
                           <a href=""><span class="app-icon icon-twiter"></span></a>
                       </li>
                   </ul>
-              </div>
+              </div> -->
           </div>
       </div>
     </div>

@@ -1,16 +1,21 @@
 import json
+import requests
 from django.shortcuts import render
 from djelectionguard.models import Contest, Candidate, ParentContest
-from django.db.models import ObjectDoesNotExist, Q
+from .models import ParentContesti18n, Contesti18n
 from django.http import *
 from django.views.generic import TemplateView
 from djlang.utils import gettext as _
 from electeez_common.components import *
 import hashlib
-from django.views.decorators.csrf import csrf_exempt,csrf_protect
+from django.utils.translation import get_language
 from electeez_auth.models import User
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
+from deep_translator import GoogleTranslator
+from djlang.models import Language
+from django.http import JsonResponse
+
 
 def getParentDetails(parent):
         """
@@ -22,12 +27,13 @@ def getParentDetails(parent):
         """
         data = {
             'name': parent.name,
-            'id': parent.uid,
-            'date': parent.start.date(),
-            'end_date': parent.end.date(),
-            'month': parent.start.strftime('%B'),
-            'year': parent.start.strftime('%Y'),
-            'status': parent.status,
+            'id': parent.parent_contest_id.uid,
+            'iso':parent.language.iso,
+            'date': parent.parent_contest_id.start.date(),
+            'end_date': parent.parent_contest_id.end.date(),
+            'month': parent.parent_contest_id.start.strftime('%B'),
+            'year': parent.parent_contest_id.start.strftime('%Y'),
+            'status': parent.parent_contest_id.status,
             }
         return data
 
@@ -36,7 +42,7 @@ class BalotiIndexView(TemplateView):
     Index view.
     """
 
-    def get(self, request):
+    def get(self, request, process=None):
         """
         Args:
             request (Request): Http request object
@@ -45,11 +51,23 @@ class BalotiIndexView(TemplateView):
             html : returns index.html html file
         """
         contests = []
-        open_contests = ParentContest.objects.filter(status="open").order_by('-start')
+        current_language = get_language()
+        open_contests = ParentContesti18n.objects.filter(parent_contest_id__status="open", language__iso=current_language).order_by('-parent_contest_id__start')
         contests.append(getParentDetails(open_contests[0])) if open_contests else None
-        closed_contests = ParentContest.objects.filter(status="closed").order_by('-end')
+        closed_contests = ParentContesti18n.objects.filter(parent_contest_id__status="closed", language__iso=current_language).order_by('-parent_contest_id__end')
         contests.append(getParentDetails(closed_contests[0])) if closed_contests else None
+        if process == 'changepassword':
+            return render(request, 'index.html',{"contests": contests, "changepassword":True})
+        elif process == 'logout':
+            return render(request, 'index.html',{"contests": contests, "logout":True})
+        elif process == 'login':
+            return render(request, 'index.html',{"contests": contests, "login":True})
+        elif process == 'registration':
+            return render(request, 'index.html',{"contests": contests, "registration":True})
+        elif process == None:
+            return render(request, 'index.html',{"contests": contests})
         return render(request, 'index.html',{"contests": contests})
+
 
 class BalotiNewsView(TemplateView):
     """
@@ -124,37 +142,48 @@ class BalotiInfoView(TemplateView):
             request (Request): Http request object
 
         Returns:
-            html : returns landing-en.html html file
+            JsonResponse: response with status message
         """
-        firstname = request.POST.get('firstname')
-        lastname = request.POST.get('lastname')
-        email = request.POST.get('email')
-        subject = request.POST.get('subject')
-        message = request.POST.get('message')
-        email_from = settings.DEFAULT_FROM_EMAIL
-        email_to = 'baloti@pitsolutions.ch'
-        if firstname and lastname and email and subject and message:
-            merge_data = {
-                        'firstname': firstname,
-                        'lastname': lastname,
-                        'email': email,
-                        'message': message
-                        }
-            html_body = render_to_string("contactinfo_mail.html", merge_data)
-
-            message = EmailMultiAlternatives(
-               subject=subject,
-               body="mail testing",
-               from_email=email_from,
-               to=[email_to],
+        captcha_token = request.POST.get('recaptcha_token', '')
+        if not captcha_token:
+            return JsonResponse({'error': 'reCAPTCHA token is missing.'}, status=400)
+        try:
+            recaptcha_response = requests.post(
+                'https://www.google.com/recaptcha/api/siteverify',
+                data={
+                    'secret': '6Ldk2Y8qAAAAAOmZYK6JgsWJVMgQkOaAGWc35Lju',
+                    'response': captcha_token
+                }
             )
-            message.attach_alternative(html_body, "text/html")
-            message.send()
-            messages.success(self.request, _('dcfxv sent by email'))
-            responseData = {}
-            return HttpResponse(json.dumps(responseData), content_type="application/json")
-        else:
-            return HttpResponseBadRequest()
+            recaptcha_result = recaptcha_response.json()
+        except requests.exceptions.RequestException as e:
+            return JsonResponse({'error': f"Error during reCAPTCHA validation: {str(e)}"}, status=400)
+        if not recaptcha_result.get('success') or recaptcha_result.get('score') < 0.5:
+            return JsonResponse({'error': 'reCAPTCHA verification failed or score is too low.'}, status=400)
+        if not all([request.POST.get('firstname'), request.POST.get('lastname'), request.POST.get('email'), request.POST.get('subject'), request.POST.get('message')]):
+            return JsonResponse({'error': 'All fields are required.'}, status=400)
+        merge_data = {
+            'firstname': request.POST.get('firstname'),
+            'lastname': request.POST.get('lastname'),
+            'email': request.POST.get('email'),
+            'message': request.POST.get('message'),
+        }
+        html_body = render_to_string("contactinfo_mail.html", merge_data)
+        try:
+            email_message = EmailMultiAlternatives(
+                subject=request.POST.get('subject'),
+                body="This is a contact message from your website.",
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                to=[settings.CONTACT_EMAIL_TO],
+            )
+            email_message.attach_alternative(html_body, "text/html")
+            email_message.send()
+        except Exception as e:
+            return JsonResponse({'error': f"Error sending email: {str(e)}"}, status=400)
+        return JsonResponse({
+        'message': 'Your message has been sent successfully!',
+        'recaptcha_result': recaptcha_result
+    })
 
 
 class BalotiContestListView(TemplateView):
@@ -172,10 +201,11 @@ class BalotiContestListView(TemplateView):
         """
         open_list = []
         closed_list = []
-        open_contests = ParentContest.objects.filter(status="open").order_by('-start')
+        current_language = get_language()
+        open_contests = ParentContesti18n.objects.filter(parent_contest_id__status="open",language__iso=current_language).order_by('-parent_contest_id__start')
         for open_contest in open_contests:
             open_list.append(getParentDetails(open_contest))
-        closed_contests = ParentContest.objects.filter(status="closed").order_by('-end')
+        closed_contests = ParentContesti18n.objects.filter(parent_contest_id__status="closed",language__iso=current_language).order_by('-parent_contest_id__end')
         for closed_contest in closed_contests:
             closed_list.append(getParentDetails(closed_contest))
         return render(request, 'contest_list.html',{"open_contests": open_list, "closed_contests": closed_list})
@@ -195,12 +225,13 @@ class BalotiContestListSortView(TemplateView):
         """
         open_list = []
         closed_list = []
+        current_language = get_language()
         if sort == 'asc':
-            open_contests = ParentContest.objects.filter(status="open").order_by('actual_start')
-            closed_contests = ParentContest.objects.filter(status="closed").order_by('actual_end')
+            open_contests = ParentContesti18n.objects.filter(parent_contest_id__status="open",language__iso=current_language).order_by('parent_contest_id__actual_start')
+            closed_contests = ParentContesti18n.objects.filter(parent_contest_id__status="closed",language__iso=current_language).order_by('parent_contest_id__actual_end')
         else:
-            open_contests = ParentContest.objects.filter(status="open").order_by('-actual_start')
-            closed_contests = ParentContest.objects.filter(status="closed").order_by('-actual_end')
+            open_contests = ParentContesti18n.objects.filter(parent_contest_id__status="open", language__iso=current_language).order_by('-parent_contest_id__actual_start')
+            closed_contests = ParentContesti18n.objects.filter(parent_contest_id__status="closed", language__iso=current_language).order_by('-parent_contest_id__actual_end')
         for open_contest in open_contests:
             open_list.append(getParentDetails(open_contest))
         for closed_contest in closed_contests:
@@ -222,11 +253,13 @@ class BalotiContestDetailView(TemplateView):
         Returns:
             html : returns contest_details.html html file
         """
-        contest = ParentContest.objects.filter(uid=id)
-        child_contests = Contest.objects.filter(
-                parent=contest.first()
+        current_language = get_language()
+        contest = ParentContesti18n.objects.filter(parent_contest_id__uid=id, language__iso=current_language)
+        child_contests = Contesti18n.objects.filter(
+                parent=contest.first().parent_contest_id,
+                language__iso=current_language
                 ).distinct('id')
-        date_string = contest.first().end.strftime("%m/%d/")
+        date_string = contest.first().parent_contest_id.end.strftime("%m/%d/")
         return render(request, 'contest_details.html',{"contest": contest.first(), "date": str(date_string), "child_contests": child_contests})
 
 
@@ -244,7 +277,8 @@ class BalotiContestResultView(TemplateView):
         Returns:
             html : returns contest_results.html html file
         """
-        contest = Contest.objects.filter(pk=id).first()
+        current_language = get_language()
+        contest = Contesti18n.objects.filter(contest_id=id, language__iso=current_language).first()
         return render(request, 'contest_results.html',{"contest": contest})
 
 
@@ -262,14 +296,24 @@ class BalotiContestChoicesView(TemplateView):
         Returns:
             html : returns contest_vote_choices.html html file
         """
-        contest = Contest.objects.get(pk=id)
-        candidates = Candidate.objects.filter(contest=id).order_by('-name')
+        data = []
+        current_language = get_language()
+        language = Language.objects.filter(iso=current_language).first()
+        contest = Contesti18n.objects.filter(contest_id=id, language__iso=current_language)
+        if contest:
+            contest = contest.first()
+            candidates = Candidate.objects.filter(contest=contest.contest_id.id).order_by('-name')
+            for candidate in candidates:
+                data.append({
+                    'name': GoogleTranslator('auto', language.dynamic_iso).translate(candidate.name),
+                    'id': candidate.id
+                    })
         # return render(request, 'contest_vote_choices.html',{"candidates":candidates})
         if request.user.is_anonymous:
-            return render(request, 'choice-no-login.html',{"contest": contest, "candidates":candidates})
+            return render(request, 'choice-no-login.html',{"contest": contest, "candidates":data})
         else:
             choice = request.GET.get('choice')
-            return render(request, 'choice.html',{"contest": contest, "candidates":candidates})
+            return render(request, 'choice.html',{"contest": contest, "candidates":data})
 
     def post(self, request):
         """
@@ -344,10 +388,6 @@ def casteVote(self, request, id):
                 ),
             )
             contest.save()
-            messages.success(
-                    request,
-                    _('You casted your ballot for %(obj)s', obj=contest)
-                )
             return render(request, 'vote_success.html',{"contest": contest, "candidates":candidates, "choice": candidate.first()})
     else:
         return HttpResponseBadRequest()
@@ -416,10 +456,6 @@ class VoteSuccessView(TemplateView):
                     ),
                 )
                 contest.save()
-                messages.success(
-                        request,
-                        _('You casted your ballot for %(obj)s', obj=contest)
-                    )
                 return render(request, 'vote_success.html',{"contest": contest, "candidates":candidates, "choice": candidate.first()})
         else:
             return HttpResponseBadRequest()

@@ -1,6 +1,7 @@
 {% load static %}
 {% load static i18n %}
 {% load sass_tags %}
+{% load base_tags %}
 {% get_current_language as LANGUAGE%}
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +16,7 @@
 
     <div class="app">
          <!-- Header Section -->
-         <header class="app-header app-header-no-bg">
+         <header class="app-header app-header--login">
              <div class="container d-flex align-items-center">
                 <a href="#" class="app-logo app-logo--login">
                     <img src="/static/images/logo.svg" alt="">
@@ -23,7 +24,8 @@
                 <ul class="app-header-nav list-unstyled d-flex align-items-center ml-auto">
                     <li>
                         <div class="dropdown">
-                            <a style="text-transform:uppercase" class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{LANGUAGE}}</a>
+                            {% displayLanguageCode LANGUAGE as code %}
+                            <a style="text-transform:uppercase" class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{code}}</a>
 
                             <ul class="dropdown-menu dropdown-menu--device dropdown-menu-end">
                                 <div class="dropdown-menu__header">
@@ -33,8 +35,9 @@
                                 {% get_available_languages as LANGUAGES %}
                                 {% for lang_code, lang_name in LANGUAGES %}
                                 {% if LANGUAGE != lang_code %}
+                                {% displayLanguageName lang_code lang_name as name %}
                                 <li>
-                                    <a id="{{lang_code}}" style="text-transform:uppercase" class="dropdown-item" href="/{{ lang_code }}{{ request.get_full_path|slice:'3:' }}">{{lang_name}}</a>
+                                    <a id="{{lang_code}}" class="dropdown-item" href="/{{ lang_code }}{{ request.get_full_path|slice:'3:' }}">{{name}}</a>
                                 </li>
                                 {% endif %}
                                 {% endfor %}
@@ -59,16 +62,16 @@
                                 <img src="/static/images/logo.svg" alt="">
                             </div>
                             <h3 class="app-login__heading">
-                                Mail sent!
+                                {%trans "Mail sent!" %}
                             </h3>
-                            <p class="app-login__subhead">Please check your inbox to get the registration informations. Thank you.</p>
+                            <p class="app-login__subhead">{%trans "Please check your inbox to get the registration informations. Thank you." %}</p>
                             
                             <div class="text-center">
                                 <div class="img-block">
                                     <img src="/static/images/login-complete.svg" alt="">
                                 </div>
                                 
-                                <a class="btn btn-primary btn-md--small" href="/baloti/login/">LOGIN NOW</a>
+                                <a class="btn btn-primary btn-md--small" href={% url 'baloti_auth:login' %}>{%trans "LOGIN NOW" %}</a>
                             </div>
                             
                         </div>
@@ -81,5 +84,6 @@
 <script src="/static/js/jquery-3.5.1.min.js"></script>
 <script src="/static/js/bootstrap.bundle.min.js"></script>
 <script src="/static/js/app-main.js"></script>
+<script src="/static/js/app-common.js"></script>
 </body>
 </html>

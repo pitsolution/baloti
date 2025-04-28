@@ -68,6 +68,12 @@ img{
     color: $app-primary;
     font-size: $app-sm-text;
     line-height: 23px;
+    &--forget-password{
+      position: relative;
+      top: -15px;
+      display: block;
+      text-align: center;
+    }
   }
 
   &-subtitle{

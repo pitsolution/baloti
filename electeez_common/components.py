@@ -94,7 +94,7 @@ class TopPanel(html.Div):
         self.user = user = request.user
 
         if user.is_authenticated:
-            text = _('Hello, %(user)s', user=user.email)
+            text =  _("Hello") + ' ' + f"{user.email}" 
             account_btn = MDCButton(_('log out'), tag='a', href=reverse('logout'), style='width:120')
         else:
             text = ''

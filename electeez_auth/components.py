@@ -38,12 +38,12 @@ class RegistrationFormViewComponent(Html):
                 form['email'],
                 form['password1'],
                 H6(_('Your password needs to follow these criteria:')),
-                Ul(
-                    Li(_('Contains at least 8 characters')),
-                    Li(_('Not too similar to your other personal information')),
-                    Li(_('Not entirely numeric')),
-                    Li(_('Not a commonly used password')),
-                    cls='body-2'),
+                # Ul(
+                #     Li(_('Contains at least 8 characters')),
+                #     Li(_('Not too similar to your other personal information')),
+                #     Li(_('Not entirely numeric')),
+                #     Li(_('Not a commonly used password')),
+                #     cls='body-2'),
                 form['password2'],
                 MDCButton(_('Register')),
                 method='POST',
@@ -58,7 +58,7 @@ RegistrationView.form_class = RegistrationForm
 class LoginFormViewComponent(Div):
     def to_html(self, *content, view, form, **kwargs):
         if view.request.user.is_authenticated:
-            self.backlink = BackLink(_('my referendums'), reverse('contest_list'))
+            self.backlink = BackLink(_('my referendums'), reverse('parentcontest_list'))
 
         return super().to_html(
             Form(
@@ -260,9 +260,14 @@ class EmailBody(Text):
             )
         ])
         site = context['site']
-        return _(
-            'ACTIVATION_EMAIL_BODY',
-            allow_unsecure=True,
-            site_name=site.name,
-            activation_url=url
-        )
+        email_body = "Welcome on baloti." + '\n' + '\n' + "You are one step away from joining a safe election." \
+                    + '\n'+ '\n' + "Click below to verify your email." + '\n'+ url + '\n' + "Then login and vote !" \
+                    + '\n'+ '\n'+ "This email as been sended automatically. Please don't respond at this mail." \
+                    + '\n'+'\n'+ "Thanks." + '\n'+ "Team Baloti."
+        # return _(
+        #     'ACTIVATION_EMAIL_BODY',
+        #     allow_unsecure=True,
+        #     site_name=site.name,
+        #     activation_url=url
+        # )
+        return email_body

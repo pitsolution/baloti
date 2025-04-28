@@ -153,6 +153,7 @@ $app-modal-header-bg: #F1F2EE;
                             background: $app-bg;
                             transform: rotate(90deg);
                             margin-left: 20px;
+                            color: $app-black;
                             &:not(.collapsed){
                                 transform: rotate(-90deg);
                                 background: darken($app-bg, 2%);

@@ -28,7 +28,6 @@ class Command(BaseCommand):
 
     def load_languages(self):
         languages = settings.LANGUAGES
-
         connection = connections[self.using]
 
         Site = apps.get_model('electeez_sites', 'Site')
@@ -62,10 +61,15 @@ class Command(BaseCommand):
                 continue
             for m in matches:
                 for language in Language.objects.all():
-                    Text.objects.get_or_create(
+                    text = Text.objects.filter(
                         language=language,
                         key=m.strip()
                     )
+                    if not text:
+                        Text.objects.create(
+                            language=language,
+                            key=m.strip()
+                        )
 
 
     # approximative way of loading existing locales:

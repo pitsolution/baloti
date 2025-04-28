@@ -12,7 +12,15 @@ LANGUAGE_CODE = 'en'
 
 LANGUAGES = (
     ('en', _('English')),
-    ('de', _('Deutsch')),
+    ('de', _('German')),
+    ('fr', _('French')),
+    ('es', _('Spanish')),
+    ('zh', _('Chinese')),
+    ('uk', _('Ukrainian')),
+    ('ja', _('Japanese')),
+    ('ru', _('Russian')),
+    ('id', _('Indonesian')),
+    ('pl', _('Polish')),
 
 )
 
@@ -46,3 +54,9 @@ DATABASES = {
 TEMPLATE_CONTEXT_PROCESSORS = ['django.core.context_processors.request',]
 
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'noreply@electis.app')
+
+RECAPTCHA_PUBLIC_KEY = os.environ.get("RECAPTCHA_PUBLIC_KEY")
+
+RECAPTCHA_PRIVATE_KEY = os.environ.get("RECAPTCHA_PRIVATE_KEY")
+
+CONTACT_EMAIL_TO = os.environ.get("CONTACT_EMAIL_TO")

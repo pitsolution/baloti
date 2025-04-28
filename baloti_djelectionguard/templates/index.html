@@ -1,5 +1,6 @@
 {% extends 'layout/base.html' %}
 {% load static %}
+{% load static i18n %}
 {% load referendum %}
 {% load issues %}
 {% block body %}        
@@ -10,11 +11,11 @@
         <div class="row">
             <div class="col-sm-12 col-md-6 col-lg-7">
                 <div class="app-banner__content">
-                    <h1 class="app-h1">baloti Voting system</h1>
-                    <h3 class="app-h3">On our platform you can <br> practice direct democracy in <br> several languages</h3>
+                    <h1 class="app-h1">{%trans "baloti Voting system" %}</h1>
+                    <h3 class="app-h3">{%trans "On our platform you can <br> practice direct democracy in <br> several languages" %}</h3>
                     <div class="btn-inline-group d-flex align-items-center">
-                        <a class="btn btn-primary btn-md text-uppercase btn-flex" href="/baloti/contest/list/"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span> </a>
-                        <button class="btn btn-default btn-md text-uppercase btn-flex" id="howitworksbtn">HOW IT WORKS</button>
+                        <a class="btn btn-primary btn-md text-uppercase btn-flex" href={% url 'baloti_djelectionguard:ContestList' %}><span>{%trans "VOTE NOW" %}</span> <span class="app-icon icon-arrow"></span> </a>
+                        <button class="btn btn-default btn-md text-uppercase btn-flex howitworks" id="howitworksbtn"> <span>{%trans "HOW IT WORKS" %}</span> <span class="app-icon icon-arrow"></span></button>
                     </div>
                     
                 </div>
@@ -24,11 +25,11 @@
     <div class="app-banner__img">
         <img src="/static/images/banner-img.jpg" alt="">
     </div>
-    <div class="app-social-follow">
+  <!--   <div class="app-social-follow">
         <a href="#" class="app-icon icon-facebook"></a>
         <a href="#" class="app-icon icon-twiter"></a>
         <span class="app-social-follow__txt">FOLLOW US ON</span>
-    </div>
+    </div> -->
 </section>
 
  <!-- Our Platform Section -->
@@ -37,14 +38,14 @@
        <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-8">
             <div class="app-our-platform__content">
-                <h6 class="app-subtitle">ABOUT US</h6>
-                <h2 class="app-title app-h2">On our platform you can practice direct democracy in several languages</h2>
-                <p class="app-p">The baloti.ch. project is carried out by an interdisciplinary team at the Zentrum für Demokratie Aarau in cooperation with the University of Neuchatel. Diversified project partnerships ensure that the project will be made public all over the country.</p>
+                <h6 class="app-subtitle">{%trans "ABOUT US" %}</h6>
+                <h2 class="app-title app-h2">{%trans "On our platform you can practice direct democracy in several languages" %}</h2>
+                <p class="app-p">{%trans "The baloti.ch. project is carried out by an interdisciplinary team at the Zentrum für Demokratie Aarau in cooperation with the University of Neuchatel. Diversified project partnerships ensure that the project will be made public all over the country." %}</p>
                 <img src="/static/images/our-platform.png" alt="">
             </div>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-4">
-            <h6 class="app-subtitle">LATEST REFERENDUMS & VOTE</h6>
+            <h6 class="app-subtitle">{%trans "LATEST REFERENDUMS & VOTE" %}</h6>
             <div class="app-card-group app-elections">
                 <div class="row">
                     {% for u in contests %}
@@ -54,7 +55,7 @@
                                 <h4 class="app-h4 app-card__title">{{u.name}}</h4>
                                 <!-- <h5 class="app-card__monthyear">{{u.month}} {{u.year}}</h5> -->
                                 <p class="app-card__date"><span>{{u.date|date:"d.m.Y"}} -  {{u.end_date|date:"d.m.Y"}}</span></p>
-                                <p class="app-h6 text-medium text-dark">Issues: {{issues}}</p>
+                                <p class="app-h6 text-medium text-dark">{%trans "Issues:" %} {{issues}}</p>
                                 <ul class="app-list list-unstyled app-sm-text">
                                     {% for i in u.id|getContestIssues %}
                                         <li>{{forloop.counter}} - {{i.name}}</li>
@@ -65,19 +66,19 @@
                                         {% checkReferendumVotingStatus u.id user as result %}
                                         {% if result %}
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>VOTE NOW</span> <span class="app-icon icon-arrow"></span></a>
+                                                <a href={% url 'baloti_djelectionguard:ContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>{%trans "VOTE NOW" %}</span> <span class="app-icon icon-arrow"></span></a>
                                             </div>
                                         {% else %}
                                             <div class="d-flex align-items-center justify-content-between">
-                                                <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-primary btn-icon text-uppercase btn-flex"><span>VIEW DETAIL</span> <span class="app-icon icon-arrow"></span></a>
+                                                <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>{%trans "VIEW DETAIL" %}</span> <span class="app-icon icon-arrow"></span></a>
                                             </div>
                                         {% endif %}
                                     {% elif u.status == 'closed' %}
                                         {% checkReferendumResultPublished u.id user as result %}
                                         {% if result %}
-                                            <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>VIEW RESULT</span> <span class="app-icon icon-arrow"></span></a></div>
+                                            <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">{%trans "closed" %}</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>{% trans "VIEW RESULT" %}</span> <span class="app-icon icon-arrow"></span></a></div>
                                         {% else %}
-                                            <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">closed</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>VIEW DETAILS</span> <span class="app-icon icon-arrow"></span></a></div>
+                                            <div class="d-flex align-items-center justify-content-between"><label for="" class="label label-outlined label-sm">{%trans "closed" %}</label> <a href={% url 'baloti_djelectionguard:viewContestDetails' id=u.id %} class="btn btn-link btn-icon btn-link--sm btn-flex"><span>{% trans "VIEW DETAILS" %}</span> <span class="app-icon icon-arrow"></span></a></div>
                                         {% endif %}
                                     {% endif %}
                                 </div>
@@ -86,7 +87,7 @@
                     {% endfor %}
                 </div>
             </div>
-            <a href="/baloti/contest/list/" class="btn btn-link btn-link--primary btn-flex app-viewall"><span>VIEW ALL</span> <span class="app-icon icon-arrow"></span></a>
+            <a href={% url 'baloti_djelectionguard:ContestList' %} class="btn btn-link btn-link--primary btn-flex app-viewall"><span>{%trans "VIEW ALL" %}</span> <span class="app-icon icon-arrow"></span></a>
         </div>
        </div>
     </div>
@@ -95,21 +96,21 @@
 <!-- Our Platform Section -->
 <section class="app-how-it-works" id="howItWorksSection">
     <div class="container">
-        <h6 class="app-subtitle">LETS DIVE IN</h6>
-        <h2 class="app-title app-h2">How it works</h2>
+        <h6 class="app-subtitle">{% trans "LETS DIVE IN" %}</h6>
+        <h2 class="app-title app-h2">{% trans "How it works" %}</h2>
 
         <ul class="app-gridlist list-unstyled">
             <li>
                 <span class="number"><span>1</span></span>
-                <p>Inform yourself about the latest votes in Switzerland and learn new facts about Swiss politics.</p>
+                <p>{% trans "Inform yourself about the latest votes in Switzerland and learn new facts about Swiss politics." %}</p>
             </li>
             <li>
                 <span class="number"><span>2</span></span>
-                <p>Register on the baloti platform and vote, whether you already have Swiss voting rights or not</p>
+                <p>{% trans "Register on the baloti platform and vote, whether you already have Swiss voting rights or not" %}</p>
             </li>
             <li>
                 <span class="number"><span>3</span></span>
-                <p>Stay up to date with notifications and information from baloti.</p>
+                <p>{% trans "Stay up to date with notifications and information from baloti." %}</p>
             </li>
         </ul>
     </div>
@@ -118,23 +119,23 @@
 <!-- Our Impact Section -->
 <section class="app-impact">
     <div class="container">
-        <h6 class="app-subtitle text-center text-outfit-medium">IMPACT</h6>
+        <h6 class="app-subtitle text-center text-outfit-medium">{% trans "IMPACT" %}</h6>
 
         <div class="app-griditem">
             <div class="app-card app-card--impact">
                 <div class="img-box">
                     <img src="/static/images/favourite.png" alt="">
                  </div>
-                <h5 class="app-card__title sm dark">Safe, Secure & Open</h5>
-                <p class="app-txt">Our solution is fully open source and we use blockchain technology for saving and verifying votes</p>
+                <h5 class="app-card__title sm dark">{% trans "safe, secure & open" %}</h5>
+                <p class="app-txt">{% trans "Our solution is fully open source and we use blockchain technology for saving and verifying votes" %}</p>
             </div>
             <div class="app-card app-card--impact">
                 <div class="img-box">
                     <img src="/static/images/favourite.png" alt="">
                     <img src="/static/images/favourite.png" alt="">
                  </div>
-                <h5 class="app-card__title sm dark">Multilingual</h5>
-                <p class="app-txt">making the voting experience more accessible, vote in your own language.</p>
+                <h5 class="app-card__title sm dark">{% trans "multilingual" %}</h5>
+                <p class="app-txt">{% trans "making the voting experience more accessible, vote in your own language." %}</p>
             </div>
             <div class="app-card app-card--impact">
                 <div class="img-box">
@@ -142,8 +143,8 @@
                     <img src="/static/images/favourite.png" alt="">
                     <img src="/static/images/favourite.png" alt="">
                  </div>
-                <h5 class="app-card__title sm dark">Democratic</h5>
-                <p class="app-txt">allow more people to participate in voting independently of time and space</p>
+                <h5 class="app-card__title sm dark">{% trans "democratic" %}</h5>
+                <p class="app-txt">{% trans "allow more people to participate in voting independently of time and space" %}</p>
             </div>
         </div>
     </div>
@@ -203,7 +204,7 @@
 <section class="app-picture-dictionary">
     <div class="container">
         <div class="d-flex align-items-center justify-content-between app-picture-dictionary__heading">
-            <h6 class="app-subtitle">ILLUSTRATIONS</h6>
+            <h6 class="app-subtitle">{% trans "ILLUSTRATIONS" %}</h6>
             <a href="https://uat.baloti.org/de/illustrations" class="btn btn-link"><span class="app-icon icon-arrow m-0"></span></a>
         </div>
         <div class="app-griditem app-griditem--dictionary" id="illustrationSlider">
@@ -212,11 +213,11 @@
                     <img src="/static/images/tv+speech+couleur.jpg" alt="">
                 </div>
                 <div class="app-card__content">
-                    <h5 class="app-card__title sm dark">Sources of Information</h5>
-                    <p class="app-txt">Selectio Helvetica light to safeguard ballot secrecy. The secret ballot protects the voter in a vote or election, so that his or her choice remains confidential. Securing ballot secrecy is a central...</p>
+                    <h5 class="app-card__title sm dark">{% trans "Sources of Information" %}</h5>
+                    <p class="app-txt">{% trans "Selectio Helvetica light to safeguard ballot secrecy. The secret ballot protects the voter in a vote or election, so that his or her choice remains confidential. Securing ballot secrecy is a central..." %}</p>
                     <div class="d-flex align-items-center justify-content-between">
                         <p class="app-card__date">12-05-2021</p>
-                        <button class="btn btn-link"><span>Read</span> <span class="app-icon icon-arrow"></span></button>
+                        <button class="btn btn-link"><span>{% trans "Read" %}</span> <span class="app-icon icon-arrow"></span></button>
                     </div>
                 </div>
             </div>
@@ -225,11 +226,11 @@
                     <img src="/static/images/tv_debate.jpg" alt="">
                 </div>
                 <div class="app-card__content">
-                    <h5 class="app-card__title sm dark">Television debates</h5>
-                    <p class="app-txt">Selectio Helvetica light to safeguard ballot secrecy. The secret ballot protects the voter in a vote or election, so that his or her choice remains confidential. Securing ballot secrecy is a central...</p>
+                    <h5 class="app-card__title sm dark">{% trans "Television debates" %}</h5>
+                    <p class="app-txt">{% trans "Selectio Helvetica light to safeguard ballot secrecy. The secret ballot protects the voter in a vote or election, so that his or her choice remains confidential. Securing ballot secrecy is a central..." %}</p>
                     <div class="d-flex align-items-center justify-content-between">
                         <p class="app-card__date">12-05-2021</p>
-                        <button class="btn btn-link"><span>Read</span> <span class="app-icon icon-arrow"></span></button>
+                        <button class="btn btn-link"><span>{% trans "Read" %}</span> <span class="app-icon icon-arrow"></span></button>
                     </div>
                 </div>
             </div>
@@ -238,11 +239,11 @@
                     <img src="/static/images/supermarkt+couleur.jpg" alt="">
                 </div>
                 <div class="app-card__content">
-                    <h5 class="app-card__title sm dark">Postal voting</h5>
-                    <p class="app-txt">Selectio Helvetica light to safeguard ballot secrecy. The secret ballot protects the voter in a vote or election, so that his or her choice remains confidential. Securing ballot secrecy is a central...</p>
+                    <h5 class="app-card__title sm dark">{% trans "Postal voting" %}</h5>
+                    <p class="app-txt">{% trans "Selectio Helvetica light to safeguard ballot secrecy. The secret ballot protects the voter in a vote or election, so that his or her choice remains confidential. Securing ballot secrecy is a central..." %}</p>
                     <div class="d-flex align-items-center justify-content-between">
                         <p class="app-card__date">12-05-2021</p>
-                        <button class="btn btn-link"><span>Read</span> <span class="app-icon icon-arrow"></span></button>
+                        <button class="btn btn-link"><span>{% trans "Read" %}</span> <span class="app-icon icon-arrow"></span></button>
                     </div>
                 </div>
             </div>
@@ -255,7 +256,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-sm-12 col-md-3">
-                <h6 class="app-subtitle text-outfit-medium">PROJECT PARTNERS</h6>
+                <h6 class="app-subtitle text-outfit-medium">{% trans "PROJECT PARTNERS" %}</h6>
             </div>
             <div class="col-sm-12 col-md-9">
                 <ul class="app-partner-list list-unstyled">
@@ -285,13 +286,244 @@
     </div>
 </section>
 
-<!-- Then put toasts within -->
-<!-- <div class="app-toast">
+<section class="app-contact" id="contact-us">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-5">
+                <h6 class="app-subtitle">{% trans "CONTACT US" %}</h6>
+                <h2 class="app-title app-h2 text-outfit-regular">{% trans "Feel free to <br> contact us" %}</h2>
+            </div>
+            <div class="col-sm-7">
+                <form class="app-contact__form" id="contactForm">
+                    {% csrf_token %}
+                    <div class="row g-0">
+                        <div class="col">
+                            <input id="id_firstname" name="firstname" type="text" class="form-control" required>
+                            <label for="">{% trans "Firstname*" %}</label>
+                        </div>
+                        <div class="col">
+                            <input id="id_lastname" name="lastname" type="text" class="form-control" required>
+                            <label for="">{% trans "Lastname*" %}</label>
+                        </div>
+                    </div>
+                    <div class="row g-0">
+                        <div class="col">
+                            <input id="id_email" name="email" type="text" class="form-control" required>
+                            <label for="">{% trans "Email*" %}</label>
+                        </div>
+                        <div class="col">
+                            <input id="id_subject" name="subject" type="text" class="form-control" required>
+                            <label for="">{% trans "Subject*" %}</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <input id="id_message" name="message" type="text" class="form-control" required>
+                        <label for="">{% trans "Message*" %}</label>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                        </div>
+                        <input type="hidden" name="recaptcha_token" id="recaptcha_token">
+                        <div class="row">
+                            <div class="col-md-6">
+                            </div>
+                            <div class="col-md-12 col-lg-6">
+                                <button type="button" class="btn btn-outline btn-contact" id="infomailSubmit">{% trans "SEND" %}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="app-toast alert alert-dismissible d-none" id="info_mailsent" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="app-toast__msg">
         <span class="app-icon app-toast__tick icon-tick-success"></span>
-        <span>Registration successful</span>
-        <span class="app-icon app-toast__close icon-close-bold m-pointer m-l-15"></span>
+        <span id="message_text">{% trans "Mail sent successfully" %}</span>
+        <span class="app-icon app-toast__close icon-close-bold m-pointer m-l-15" id="closeMailSent"></span>
     </div>
-</div> -->
-    
+</div>
+
+<script src="https://www.google.com/recaptcha/api.js?render=6Ldk2Y8qAAAAABo4thmgdWq4u9gMo4SQAqS1SiM8"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("infomailSubmit").addEventListener("click", function (event) {
+        event.preventDefault();
+        const submitButton = document.getElementById("infomailSubmit");
+        submitButton.disabled = true;
+        if (!validateForm()) {
+            submitButton.disabled = false;
+            return;
+        }
+        grecaptcha.execute('6Ldk2Y8qAAAAABo4thmgdWq4u9gMo4SQAqS1SiM8', { action: 'contact_form' })
+            .then(function (token) {
+                if (!token) {
+                    displayError("reCAPTCHA failed.");
+                    submitButton.disabled = false;
+                    return;
+                }
+                document.getElementById('recaptcha_token').value = token;
+                $.ajax({
+                    type: "POST",
+                    url: '/en/info/submit',
+                    data: {
+                        firstname: document.getElementById('id_firstname').value,
+                        lastname: document.getElementById('id_lastname').value,
+                        email: document.getElementById('id_email').value,
+                        subject: document.getElementById('id_subject').value,
+                        message: document.getElementById('id_message').value,
+                        recaptcha_token: token
+                    },
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    },
+                    success: function (data) {
+                        resetFormFields();
+                        displaySuccess("Mail sent successfully.");
+                        if (data.recaptcha_result) {
+                            console.log('reCAPTCHA validation response:', data.recaptcha_result);
+                        }
+                    },
+                    error: function (xhr) {
+                        if (xhr.responseJSON && xhr.responseJSON.error) {
+                            displayError(xhr.responseJSON.error);
+                        } else {
+                            displayError("Unexpected server error.");
+                        }
+                    },
+                    complete: function () {
+                        submitButton.disabled = false;
+                    }
+                });
+            })
+            .catch(function (error) {
+                displayError("reCAPTCHA encountered an issue.");
+                submitButton.disabled = false;
+            });
+    });
+});
+function validateForm() {
+    const firstname = document.getElementById('id_firstname').value.trim();
+    const lastname = document.getElementById('id_lastname').value.trim();
+    const email = document.getElementById('id_email').value.trim();
+    const subject = document.getElementById('id_subject').value.trim();
+    const message = document.getElementById('id_message').value.trim();
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!firstname || !lastname || !email || !subject || !message) {
+        displayError("Please fill out all fields.");
+        return false;
+    }
+    if (!emailPattern.test(email)) {
+        displayError("Invalid Email Address.");
+        return false;
+    }
+
+    return true;
+}
+function displayError(message) {
+    $("#info_mailsent").removeClass("d-none");
+    $("#info_mailsent").addClass("error");
+    $("#message_text").text(message);
+    $(".app-toast__tick").addClass("d-none");
+    setTimeout(function() {
+        hideMessage();
+    }, 3000);
+}
+function displaySuccess(message) {
+    $("#info_mailsent").removeClass("d-none");
+    $("#info_mailsent").removeClass("error");
+    $("#message_text").text(message);
+    $(".app-toast__tick").removeClass("d-none");
+    setTimeout(function() {
+        hideMessage();
+    }, 3000);
+}
+function hideMessage() {
+    $("#info_mailsent").addClass("d-none");
+    $("#info_mailsent").removeClass("error");
+    $("#message_text").text("");
+    $(".app-toast__tick").addClass("d-none");
+}
+function resetFormFields() {
+    document.getElementById('id_firstname').value = "";
+    document.getElementById('id_lastname').value = "";
+    document.getElementById('id_email').value = "";
+    document.getElementById('id_subject').value = "";
+    document.getElementById('id_message').value = "";
+}
+</script>
+
+
+<!-- Then put toasts within -->
+
+{% if registration == True %}
+<div class="app-toast">
+    <div class="app-toast__msg">
+        <span class="app-icon app-toast__tick icon-tick-success"></span>
+        <span>{% trans "Registration successful" %}</span>
+        <span class="app-icon app-toast__close icon-close-bold m-pointer m-l-15" id="closeMailSent"></span>
+    </div>
+</div>
+{% endif %}
+
+{% if changepassword == True %}
+<div class="app-toast">
+    <div class="app-toast__msg">
+        <span class="app-icon app-toast__tick icon-tick-success"></span>
+        <span>{% trans "Password successfully changed" %}</span>
+        <span class="app-icon app-toast__close icon-close-bold m-pointer m-l-15" id="closeMailSent"></span>
+    </div>
+</div>
+{% endif %}
+
+{% if logout == True %}
+<div class="app-toast">
+    <div class="app-toast__msg">
+        <span class="app-icon app-toast__tick icon-tick-success"></span>
+        <span>{% trans "Logged out successfully" %}</span>
+        <span class="app-icon app-toast__close icon-close-bold m-pointer m-l-15" id="closeMailSent"></span>
+    </div>
+</div>
+{% endif %}
+
+{% if login == True %}
+<div class="app-toast">
+    <div class="app-toast__msg">
+        <span class="app-icon app-toast__tick icon-tick-success"></span>
+        <span>{% trans "Logged in successfully" %}</span>
+        <span class="app-icon app-toast__close icon-close-bold m-pointer m-l-15" id="closeMailSent"></span>
+    </div>
+</div>
+{% endif %}
+
+
+
+<script>
+    $(document).ready(function(){
+       var changepassword = '{{changepassword}}';
+       var login = '{{login}}';
+       var logout = '{{logout}}';
+       var registration = '{{registration}}';
+       var language = localStorage.getItem('languageObject').replaceAll('"', '');
+
+        if (changepassword === 'True' || login === 'True' || logout === 'True' || registration === 'True'){
+            $("div.app-toast").fadeIn("slow", function () {
+                setTimeout(function () {
+                    $("div.app-toast").fadeOut("slow", function () {
+                        $("div.app-toast").remove();
+                    });
+                    window.location.replace(window.location.origin + '/' + language + '/baloti')
+                    changepassword = 'False';
+                    login = 'False';
+                    logout = 'False';
+                    registration = 'False';
+                }, 2000);
+            });
+        }
+    });
+
+</script>
+
 {% endblock body %}

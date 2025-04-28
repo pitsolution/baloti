@@ -176,9 +176,11 @@ class Contest(models.Model):
         null=True
     )
     infavour_arguments = RichTextField(
+        max_length=2048,
         null=True
     )
     against_arguments = RichTextField(
+        max_length=2048,
         null=True
     )
     govt_infavour_percent = models.FloatField(blank=True, null=True, default="0.0")

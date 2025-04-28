@@ -157,5 +157,17 @@
             }
         }
     }
+    @media only screen and (max-width: 767px) {
+        &-form{
+            &__control {
+                input, select, textarea{
+                    padding: 0 14px;
+                }
+            }
+            &__label{
+                padding: 0;
+            }
+        }
+    }
 }
 
